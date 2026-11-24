@@ -58,6 +58,13 @@ Answered 2026-11-24 10:22 (`docs/HISTORY.md`): study 175 runs to its end; the st
 different starts arrive at the same d and mean degree; a lattice that does not change scores lowest; every behaviour
 seen goes into a catalogue, with how to spot it early and how it scores.
 
+Open, from 855 (`docs/build_notes/BUILD855_NOTES.md`), none blocking study 176:
+
+* **How far a map variant moves a coupling**: a tenth in 176; 175's smallest real radius was 0.001. Recommended: a
+  tenth until the first regions are known and say whether a tenth changes a kind.
+* **How many halvings a line gets**: four, a boundary within a sixteenth of its line; a fifth costs one point a line.
+* **Which CPUs the system keeps**: none until named (`main.py workload --system-cpus`).
+
 Open, none waiting:
 
 * **The noise floors** (offered with 805): the installed table's own floors are its cells' median errors, and its
@@ -79,6 +86,33 @@ Open, none waiting:
   growth class, below). Not asked for; theirs to say.
 
 ## Planned builds, in order
+
+**After 855** (the operator, 2026-11-24 17:51 to 18:08, `docs/HISTORY.md`), each its own build, in this order:
+
+1. **856, the dashboard's filter panel**: one panel between the macro landscape and the fleet ladder, the top
+   unknowns beside it; every classified kind ticked on or off (the map's known regions and the catalogue's kinds), one
+   kind chosen from a list, the settled filter moved into it, and each law's group (A blind, B map) and batch; it acts
+   on the fleet ladder, the landscape and the top unknowns, not on the now-researching box. Each render function with
+   its case in `tests/ui/dashboard_smoke.js`.
+2. **857, a study seeded from an earlier bundle**: any bundle whose science hash (`study.json`, `science`) is the
+   folder's: its map's regions and known kinds loaded, so B starts where the last one stopped and A's grid can lean
+   toward the regions least explored (the lean itself drawn and recorded, never chosen by hand).
+3. **858, group D**: one core that takes the study's best law up the ladder past 65,536 until memory admission
+   refuses the next size; the size it stops at is the host's limit, recorded in the bundle.
+4. **859, the consolidation**: every study before the baseline out of the tree into
+   `GSD_readings_archive_859.tar.zst`, sent beside the release (`docs/agent/NEXT_BUILD.md`).
+5. **After the paper**: the atlas shared, peers in a browser or a container contributing runs checked against one
+   science hash and calibration table; a front end to watch it grow; a formal check in Lean of the countability of
+   the phases (`docs/paper/GSD_PAPER.md`, musings); the engine contract (`engine/boundary.py`, the parity suite and
+   the Boltzmann known answers) opened to engines in C or assembly, each admitted only by the same parity and known
+   answers, and its work count read as a benchmark of a device's graph-simulation throughput, logical cores beside
+   physical ones (2026-11-24 18:12); a peer joins by measuring a sample of the calibration table again and matching it
+   within its cells' bands, as `tools/adopt_calibration.py --sample` does for a folder now (18:14), and its CPU model
+   and timings go beside its runs, so a device that reads slower or otherwise than its model's peers is seen (18:19).
+   **A language with directed edges** (18:19): the DSL's edges are undirected and its vertices identical; a second
+   edge kind (directed, standing for charge) would be a new language with its own known answers, judged before any
+   reading of it is offered as physics. Whether such laws grow long strands of a few repeating units (18:20) is a
+   question for that language, not one the present data bear on.
 
 **After study 172** (the operator, 2026-11-21 18:08: "I agree with all recommendations ... go ahead, start rebuilding
 exactly with all your recommendations"; "I will probably just run the study bundle of the current study one last
@@ -137,9 +171,10 @@ why.
    fleet stopped three ways, a page holding an earlier run's link says so and greys its writes, and the 8 laws
    read again: open strings, loops with a few shortcuts, cliques strung into strands, no trees. **854, made** (16:30):
    the baseline of two bundles (16:34), the still criterion judged (it passes), the sampler's trap from empty measured,
-   an outside review's points answered or placed, the paper drafted (`docs/paper/GSD_PAPER.md`). **Next**: 855, study
-   176, 174 and 175 merged into one with four workers mapping the ten best scorers' neighbourhoods (16:33), the still
-   lattice scored 1 and the small-world kind; **then 856**, every study before the baseline out (16:34). **Then 174's reading** (a progress bundle while it runs, its last at the end): its criterion, P1 to P9,
+   an outside review's points answered or placed, the paper drafted (`docs/paper/GSD_PAPER.md`). **855, made**: study
+   176, 174 and 175 merged into one, groups A (blind) and B (the map of the ten best) half the fleet each (16:33,
+   17:37, 17:39), the still lattice scored 1, the small-world kind, the system's CPUs, a science hash and the table in
+   every bundle (18:04). **Next**: 856 to 859, above. **Then 174's reading** (a progress bundle while it runs, its last at the end): its criterion, P1 to P9,
    each batch beside the others, and what study A would take. 174's rules cost about 1.8 times 173's on the same
    laws (the replay carried to 10,000: about 1,270 core-hours against 720), study A about 33 days against 19 on 16
    workers, nearly all of it nothing_read letting laws on at 4,096 and the laws that then reach 65,536; 174 says what

@@ -43,7 +43,7 @@ def _rank(row: dict) -> tuple:
             str(row.get("campaign_id") or ""), str(row.get("candidate_id") or ""))
 
 
-LATTICE_KINDS = ("lattice", "kept", "frozen")
+LATTICE_KINDS = ("lattice", "kept", "frozen", "still")
 
 
 def _scored_at(point: dict, name: str) -> bool:

@@ -133,6 +133,15 @@ as it was in the build that held it. A tool no longer in `tools/` is in a tools 
 * `graph_scale_dynamics/resources/readings/still_lattice_judged_1.json` (854): that criterion judged on study 174's
   bundle of 2026-11-24 14:22Z: it passes (89 of 89 still chains at 1,024 and 39 of 39 at 4,096 still at every deeper
   size; no made or ring law called still early; 64 of 83 scoring laws still), with the frozen call's miss beside it.
+  It put the still lattice at 1 in the score in force at 855 (gsd-law-score-9).
+* `graph_scale_dynamics/resources/readings/small_world_criterion_1.json` (855): whether a law the catalogue calls a
+  small world at one size is never made at a deeper one, and whether H31's region is one kind; its two numbers chosen
+  on the baseline bundles and committed before the next bundle judges it (`tools/catalogue_reading.py`); the random
+  reach it assumes is read by `tools/small_world_reach.py`.
+* `graph_scale_dynamics/resources/readings/study_176_design.json`, `graph_scale_dynamics/resources/readings/study_176_criterion.json`
+  and `graph_scale_dynamics/resources/readings/study_176_first_ten.json` (855): study 176, its two groups, its
+  criterion committed before its first start, and the ten laws its map starts from (`tools/map_first_ten.py` on the
+  baseline bundles).
 
 ## Outside this folder
 

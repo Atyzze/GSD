@@ -98,7 +98,9 @@ def test_criterion_5_was_written_fresh_on_seeds_and_shapes_criterion_4_had_not_r
         "run python3 tools/score_known_answers.py --write")
     measured = json.loads(K.MEASURED_5.read_text(encoding="utf-8"))
     assert sorted({r["seed"] for r in measured["rows"]}) == [61, 62, 63] and measured["criterion"] == five["contract"]
-    assert document["passes"] is False and document["score"] == L.CONTRACT == "gsd-law-score-8"
+    assert document["passes"] is False and document["score"] == K.SCORE_5 == "gsd-law-score-8"
+    assert L.CONTRACT == "gsd-law-score-9", (
+        "the score in force adds the still lattice to 8; no known answer carries accepted moves, so it reads them as 8 did")
     missed = sorted({(m["prediction"], m["structure"]) for m in document["judged"]["misses"]})
     assert missed == [("S2", "uniform random tree, every edge a path of 16"),
                       ("S2", "uniform random tree, every edge a path of 8")]

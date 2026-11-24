@@ -1,15 +1,17 @@
-# Handoff: the state of GSD at build 854
+# Handoff: the state of GSD at build 855
 
 What is true now, for a context that has just opened this archive. Each fact has one home; the last section says
 where. **Think from the data, not from this page**: where the data and a document disagree, the data wins and the
 document is fixed in the same build.
 
-**Where things stand, at 854.** The baseline is two bundles and the calibration table, nothing older (the operator,
+**Where things stand, at 855.** Study 176 is designed and committed, theirs to start in a folder of its own: groups
+A (the blind draw, 174's design on ten new seeds) and B (the map of the ten best laws not yet known), half the work
+slots each (`docs/build_notes/BUILD855_NOTES.md`). The baseline is two bundles and the calibration table, nothing older (the operator,
 2026-11-24 16:34: "these two are now are new baseline together with the unchanged calibration table"): study 174's
 bundle of 2026-11-24 14:22Z (the blind draw, 8,131 laws read, built on 850) and study 175's of 2026-11-24 08:35Z (595
 variants around 174's 35 settled laws). Both run on 850 in folders of their own. The instrument's own checks on known
 answers stay (the calibration table, the dimension test, the score's known answers, the Boltzmann check); every study
-before 174 and every reading of one is out of what the project rests on, and 856 takes their files out of the tree.
+before 174 and every reading of one is out of what the project rests on, and 859 takes their files out of the tree.
 
 **What the baseline says** (`docs/paper/GSD_PAPER.md`, sections 5 and 6, each number with its source):
 * Most blind laws empty the graph, fill it to the cap or melt the lattices; 83 score, and 64 of those are a lattice
@@ -20,15 +22,18 @@ before 174 and every reading of one is out of what the project rests on, and 856
 * de7ab4a85198 is frozen to 4,096 and changes at 16,384: an early frozen call is not safe to stop on.
 * `still_lattice_criterion_1.json` passes (`still_lattice_judged_1.json`): the still call at 1,024 and 4,096 held on
   every chain.
+* **Under the score in force since 855** (gsd-law-score-9, the still lattice at 1): 174, 83 laws score, 54 of them 1;
+  175, 264 score, 230 of them 1. **Small worlds** (gsd-catalogue-2): H31 and fdc563a72c98 at 16,384, their reach 1.3
+  to 1.8 times a random graph's of their degree and their d rising; `small_world_criterion_1.json` waits on the next
+  bundle.
 * **The sampler's trap from empty** (an outside review, 2026-11-24, and 854's own run under the survey's policy): P1,
   whose lowest energy is the square lattice, reaches 68% to 81% of the lattice's energy from empty, worse as N grows;
   so "no law grows a geometry from empty" cannot be tested until a known law does (`docs/ROADMAP.md`, item 4).
 
-**The operator's three asks of 2026-11-24 afternoon, in the order the builds take them** (`docs/agent/NEXT_BUILD.md`):
-855 merges 174 and 175 into one study whose four workers map the ten best scorers' neighbourhoods and boundaries
-(16:33), with the still lattice scored lowest and the small-world kind in the catalogue; 856 takes every study before
-the baseline out of the tree into an archive sent beside it (16:34); the paper (`docs/paper/GSD_PAPER.md`, 16:30) grows with each.
-The review's other points are in `docs/ROADMAP.md` and `docs/LESSONS.md`, each with its answer or its place.
+**What the operator asked this afternoon, and where it went** (`docs/HISTORY.md`, "Studies"): one study in groups A, B
+and C, 50-50, the system's CPUs theirs to name (16:33 to 17:39): 855. A science hash and the table in every bundle
+(18:04): 855. The dashboard's filter panel (17:51): 856. A study seeded from an earlier bundle (18:04): 857. Group D,
+the best law taken as deep as memory allows (18:06): 858. The consolidation: 859. The shared atlas: after the paper.
 
 ## Start here, in a fresh context
 
@@ -47,6 +52,9 @@ context that opens this archive is in the same place, and `docs/agent/NEXT_BUILD
 
 ## What is live
 
+* **Study 176** waits on the operator's start (`main.py run --study 176`): eleven campaigns, ten blind batches of
+  1,000 in group A and the map in group B (`operations/study_map.py`; its state is the flag `study_map`, in the
+  bundle as `map.json`), the split in the flag `work_groups`, the system's CPUs in `system_cores`.
 * **Study 174** on 850 in a folder of its own, 16 workers when 175 is stopped; its bundle of 2026-11-24 14:22Z is the
   baseline. **Study 175** on 850 in a folder of its own, to its end (the operator, 2026-11-24 10:22); its bundle of
   2026-11-24 08:35Z is the baseline. Every older folder (169 to 173, 156, 158) is the operator's to delete.
@@ -136,7 +144,8 @@ again after the paper's three studies, on the final probes, with a criterion wri
 
 ## The tree
 
-* **The score** (783, `observability/law_score.py`, gsd-law-score-5; `docs/ARCHITECTURE.md`): a probe that settles
+* **The score** (783, `observability/law_score.py`, gsd-law-score-9 since 855: a lattice chain still at a size, its
+  own degree within 5% and at most 0.05 accepted moves an edge, scores 1 as a frozen one does; `docs/ARCHITECTURE.md`): a probe that settles
   between two sizes from 4,096 is a point, all four agreeing by the Einstein relation a fifth (the landscape's 5th band,
   `landscape_worker.BAND_EINSTEIN`), times who (the twins 1, a changed lattice start 0.6, a kept one 0.3) and depth; its
   margins are `resources/calibration/score_margins.json`.
@@ -183,9 +192,9 @@ again after the paper's three studies, on the final probes, with a criterion wri
 
 ## What waits on the operator
 
-* **855, the merged study** (`docs/agent/NEXT_BUILD.md`): its design and criterion are offered before it runs; the
-  operator starts it in a folder of its own.
-* **Where the older data's archive goes public** (856): the review asks for a public archive (Zenodo or a tag) so a
+* **Study 176**: theirs to start; and three questions, none blocking it (`docs/ROADMAP.md`, "Questions for the
+  operator"): a map variant's step (a tenth), the halvings of a line (four), the system's CPUs (none).
+* **Where the older data's archive goes public** (859): the review asks for a public archive (Zenodo or a tag) so a
   referee can see nothing was dropped selectively; the operator wants it out of the tree. Both hold if the archive
   goes beside the build and its place is theirs to name.
 * **The sampler** (`docs/ROADMAP.md`, item 4): whether a known law must grow its geometry from empty before more

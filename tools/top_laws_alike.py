@@ -25,7 +25,7 @@ def top_law(score: dict) -> bool:
     if not score or (score.get("score") or 0) <= 0:
         return False
     items = score.get("items") or {}
-    return any(points >= 2 for points in items.values()) and score.get("by") != "frozen"
+    return any(points >= 2 for points in items.values()) and score.get("by") not in ("frozen", "still")
 
 
 def laws_of(root: Path, *, rescore: bool = True) -> list[dict]:
@@ -43,7 +43,7 @@ def laws_of(root: Path, *, rescore: bool = True) -> list[dict]:
             law = str(row.get("candidate_id"))
             entry = chains.get(law) or {}
             if rescore and entry:
-                found_chains, reading = chains_of_report(entry)
+                found_chains, reading = chains_of_report(entry, (body.get("every_chain") or {}).get("value_columns"))
                 score = L.score(found_chains, reading, references={})
             else:
                 score = entry.get("score") or {}

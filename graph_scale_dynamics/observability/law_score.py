@@ -6,10 +6,11 @@ import math
 import statistics
 from pathlib import Path
 
+from graph_scale_dynamics.observability import catalogue as K
 from graph_scale_dynamics.observability import starts_reading as F
 from graph_scale_dynamics.observability import space_score as S
 
-CONTRACT = "gsd-law-score-8"
+CONTRACT = "gsd-law-score-9"
 LADDER = (1024, 4096, 16384, 65536, 262144, 1048576, 4194304)
 RELIED_FROM = 4096
 STEP_AT_LEAST = 3.0
@@ -21,12 +22,14 @@ PER_ITEM = 3
 POINTS = len(ITEMS) * PER_ITEM
 CHANGED, KEPT, FROZEN = 0.6, 0.3, 0.0
 FROZEN_SCORE = 1
-WEIGHTS = (("empty", 1.0), ("random", 1.0), ("lattice", CHANGED), ("kept", KEPT), ("frozen", FROZEN))
+STILL = "still"
+WEIGHTS = (("empty", 1.0), ("random", 1.0), ("lattice", CHANGED), ("kept", KEPT), ("frozen", FROZEN), (STILL, FROZEN))
+LOWEST = ("frozen", STILL)
 PIECE_AT_LEAST = 4096
 CONNECTED_AT_LEAST = 0.5
 ITEM_WORDS = {1: "reads at two sizes", 2: "settles", 3: "settles again"}
 WHO = {"empty": "the chain from empty", "random": "the random start", "lattice": "a lattice start, changed",
-       "kept": "a lattice start, kept", "frozen": "a lattice start, frozen"}
+       "kept": "a lattice start, kept", "frozen": "a lattice start, frozen", STILL: "a lattice start, still"}
 KEEPS = ("holds",)
 FROZEN_FATE = "unmoved"
 MARGINS_FILE = Path(__file__).resolve().parents[1] / "resources" / "calibration" / "score_margins.json"
@@ -247,6 +250,9 @@ def _why(items: dict, total: int, start: str, fate: str | None, scale: dict | No
         said += f"; the lattice start {fate or 'not read'}, so it counts {KEPT}"
     elif start == "frozen":
         said += f"; frozen: no edge changed, so it scores {FROZEN_SCORE}, the lowest score there is"
+    elif start == STILL:
+        said += (f"; still: the lattice kept its own mean degree and the law accepted at most "
+                 f"{K.rule()['still_at_most']:g} moves an edge, so it scores {FROZEN_SCORE}, the lowest score there is")
     elif start == "lattice":
         said += f"; the lattice start {fate}, so it counts {CHANGED}"
     if scale is not None and not scale.get("holds") and pair is not None:
@@ -268,6 +274,36 @@ def _kind(start: str, fate: str | None) -> str:
     if fate == FROZEN_FATE:
         return "frozen"
     return "kept" if fate is None or fate in KEEPS else "lattice"
+
+
+def moved_of(side: dict | None) -> float | None:
+    block = (side or {}).get("moved")
+    return _num(block.get("median")) if isinstance(block, dict) else None
+
+
+def full_of(side: dict | None, share: float) -> bool:
+    ended = (side or {}).get("ended_at_cap") or {}
+    seeds, of = ended.get("seeds"), ended.get("of")
+    return bool(isinstance(seeds, int) and isinstance(of, int) and of > 0 and seeds / of >= share)
+
+
+def lattice_name(chain: dict) -> str | None:
+    degrees = K.rule()["lattice_degrees"]
+    if chain.get("name") in degrees:
+        return str(chain["name"])
+    named = (F.LATTICES.get(str(chain.get("family") or "")) or (None,))[0]
+    return named if named in degrees else None
+
+
+def still_at(chain: dict, rung: dict | None) -> bool:
+    side = (rung or {}).get(chain["key"])
+    name = lattice_name(chain)
+    if not isinstance(side, dict) or name is None:
+        return False
+    rule = K.rule()
+    view = {"mean_degree": _num((side.get("mean_degree") or {}).get("mean")), "moved": moved_of(side),
+            "full": full_of(side, float(rule["full_share"]))}
+    return K.still(name, view, rule)
 
 
 def score(chains: dict, five: dict | None = None, *, starts: list | None = None,
@@ -305,8 +341,10 @@ def score(chains: dict, five: dict | None = None, *, starts: list | None = None,
             scale = scale_kept(sides, a, b, table, next_breaks=next_breaks)
             fate = (fates_at.get(b, {}).get(chain["name"]) or {}).get("fate") if start == "lattice" else None
             kind = _kind(start, fate)
+            if kind in ("kept", "lattice") and still_at(chain, by_n.get(b)):
+                kind = STILL
             weight = dict(WEIGHTS)[kind]
-            value = ((float(FROZEN_SCORE) if total else 0.0) if kind == "frozen"
+            value = ((float(FROZEN_SCORE) if total else 0.0) if kind in LOWEST
                      else round(100.0 * weight * depth(earned) * total / POINTS, 2))
             entry = {"key": chain["key"], "start": start, "kind": kind, "from_n": a,
                      "settled": found["settled"] if scale["holds"] else [], "scale": scale,

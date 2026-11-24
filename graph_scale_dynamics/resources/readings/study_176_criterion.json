@@ -1,0 +1,28 @@
+{
+ "contract": "gsd-study-criterion-1",
+ "study": "176",
+ "committed_utc": "2026-11-24T17:20:00Z",
+ "committed_before": "study 176's first start, in any folder, and before any law it names was run in it",
+ "design": "graph_scale_dynamics/resources/readings/study_176_design.json",
+ "design_sha256": "34abc46c647681273e05a54e629127784c6993072a3d6a6974c9f0275983be6a",
+ "first_ten": "graph_scale_dynamics/resources/readings/study_176_first_ten.json",
+ "first_ten_sha256": "2bb7b541221215552eb7959353b1ec772cb5fb13be1c48b05e43b7c84780bd3e",
+ "question": "The operator's (2026-11-24 16:33, 17:37, 17:39): one study whose blind draw and map of the best share the fleet half and half, the map leaving a region once it is known and taking the next; does the map do what its design says, and what does it find?",
+ "map": {
+  "laws": 125,
+  "laws_sha256": "4f7dddaffa54d2d5e58c7eb0dab2bfefb424f93975a28f9efc923a9ac3d2d4c4",
+  "step": 0.1,
+  "halvings": 4,
+  "top": 10
+ },
+ "predictions": {
+  "P1": "every holder of the first ten, run again in group B, reads at every size and on its scoring chain the values it read in its baseline bundle (`tools/perturb_reading.py`'s run-again line): the same law on the same seeds and the same engine, crate 0.840.0",
+  "P2": "every law the map campaign holds is a point of `map.json` (a holder, a variant or a line point), its first 125 the design's (laws_sha256), and no law of the map campaign was drawn",
+  "P3": "reported: each group's core-hours by day from `tables/` and the campaigns' groups, and while both had work queued the share of simulations each ran",
+  "P4": "reported: every region known, its kind, the size from which that kind was called on its points, and its boundaries",
+  "P5": "reported: group A's ten batches beside 174's ten, each kind's share of laws (`tools/catalogue_reading.py`)"
+ },
+ "not_predicted": "which regions are known first, what kinds they hold and where their boundaries lie are what the map is for and are not predicted; the small-world kind is judged by `small_world_criterion_1.json`",
+ "passes": "when P1 and P2 hold; P3 to P5 are read and reported, never judged",
+ "what_follows": "the regions known and their early calls go to the operator; a region's early call becomes a rule only after a criterion of its own, committed first, passes on a later bundle"
+}

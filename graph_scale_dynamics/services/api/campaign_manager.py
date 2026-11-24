@@ -26,7 +26,7 @@ TOP_RUNGS = 3
 
 ACTIONS = ("pause", "resume", "reopen", "preflight", "clone", "create",
            "workers", "allocate", "fleet_pause", "fleet_resume", "delete", "budget", "auto_extend",
-           "fleet_workers")
+           "fleet_workers", "workload")
 HELD_BY_A_QUIET_REPORT = frozenset({"resume", "reopen", "workers", "allocate", "fleet_resume"})
 
 _LAWS_BY_RUNG = ("SELECT campaign_id,n,COUNT(DISTINCT candidate_id) AS laws,"
@@ -403,6 +403,7 @@ def overview(repo, cache_root=None, *, slow: dict | None = None, campaigns: list
         "reporting_campaign_id": reporting_focus(repo),
         "fleet_paused": repo.get_flag("paused", "0") == "1",
         "fleet_workers": fleet_workers_state(repo),
+        "workload": workload_state(repo),
         "auto_extend": auto_extend_state(repo),
         "worker_pool": worker_pool(),
         "campaigns": rows,
@@ -705,6 +706,27 @@ def fleet_workers(repo, value) -> tuple[dict, int]:
     return {"ok": True} | fleet_workers_state(repo), 200
 
 
+def workload_state(repo) -> dict:
+    from graph_scale_dynamics.scheduling import work_groups
+    return work_groups.reading(repo)
+
+
+def workload(repo, body: dict) -> tuple[dict, int]:
+    from graph_scale_dynamics.scheduling import work_groups
+    try:
+        if body.get("split") is not None:
+            work_groups.set_shares(repo, work_groups.split_of(str(body["split"])))
+        if body.get("system_cpus") is not None:
+            work_groups.set_system(repo, str(body["system_cpus"]))
+    except ValueError as exc:
+        return {"error": str(exc)} | workload_state(repo), 400
+    found = workload_state(repo)
+    repo.emit("workload_asked", {"contract": work_groups.CONTRACT, "shares": found["shares"],
+                                 "system_cpus": found["system_cpus"]})
+    _mark_stale()
+    return {"ok": True} | found, 200
+
+
 def handle(repo, body: dict) -> tuple[dict, int]:
     action = str(body.get("action") or "").strip().lower()
     if action not in ACTIONS:
@@ -727,6 +749,9 @@ def handle(repo, body: dict) -> tuple[dict, int]:
 
     if action == "fleet_workers":
         return fleet_workers(repo, body.get("workers"))
+
+    if action == "workload":
+        return workload(repo, body)
 
     if action in {"fleet_pause", "fleet_resume"}:
         wanted = action == "fleet_pause"

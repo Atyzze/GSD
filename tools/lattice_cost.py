@@ -85,7 +85,7 @@ def scoring(root: Path) -> list[dict]:
             continue
         body = json.loads(Path(path).read_text(encoding="utf-8")).get("body") or {}
         for law, entry in sorted(((body.get("every_chain") or {}).get("laws") or {}).items()):
-            chains, reading = score_list.chains_of_report(entry)
+            chains, reading = score_list.chains_of_report(entry, (body.get("every_chain") or {}).get("value_columns"))
             result = L.score(chains, reading, references={})
             if result["score"] <= 0:
                 continue

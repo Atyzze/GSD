@@ -126,7 +126,7 @@ These are readings of two data sets, not findings. Each is reproducible with the
 | full | 996 | still | 72 |
 | rewired | 475 | frozen | 56 |
 | broken | 33 | grown | 10 |
-| made | 8 | | |
+| made | 6 | small world | 2 |
 
 Most blind laws empty the graph, fill it to the cap, or melt the lattices they are given.
 
@@ -136,7 +136,9 @@ of them no other start reaches the same dimension and degree. Our reading: what 
 remembered, not a dimension the law selects. The score in force does not yet tell these apart; a criterion written
 before the latest bundle (`still_lattice_criterion_1.json`) asked whether a still lattice can be recognised early, and
 on the latest bundle it can: every lattice start called still at 1,024 nodes (89) or at 4,096 (39) stayed still at
-every larger size, and no early still call hid a law that turned out *made* or *ring*.
+every larger size, and no early still call hid a law that turned out *made* or *ring*. Since then (build 855) a still
+lattice scores 1, the lowest score, as the criterion said it would; under that score 54 of the 83 scoring laws of
+study 174, and 230 of the 264 of study 175, score 1.
 
 **5.3 What grows from nothing.** Ten laws settle a probe on a twin start at three sizes in a row, by its value. All are
 one-dimensional by their probes (d_s 0.98 to 1.06 at 65,536 nodes). Five end as open strings with no cycle at all. Four
@@ -154,7 +156,12 @@ distances barely grow: from 1,024 to 16,384 nodes the empty start's half-volume 
 3.5-dimensional space would need it to more than double. Their dimension readings rise with size (fdc563a72c98 on the
 fcc start: d_s 3.5 at 4,096 and 3.6 at 16,384, d_V 4.6 and 5.5). Our reading: these starts agree because each forgets
 where it began, as a random graph does. The other reading, a space of dimension near 3.5 to 4 seen too small, predicts
-a radius that keeps growing like a power of N; the next sizes would tell.
+a radius that keeps growing like a power of N; the next sizes would tell. Since build 855 the catalogue names this a
+kind of its own, a *small world*: starts agree, every agreeing chain's half-volume radius stays within twice a random
+graph's of its mean degree (ln(N/2)/ln(k) plus 0.63 steps, read on random graphs of degree 2 to 32), and its dimension
+readings rise by a tenth or more over four times the nodes. Both laws are small worlds at 16,384 by it (their bcc and
+fcc chains 1.3 to 1.8 times the random radius); its two numbers were chosen on these bundles, so they are judged by a
+criterion committed before the next bundle (`small_world_criterion_1.json`), not by these.
 
 **5.5 A law that changes its behaviour with size.** de7ab4a85198 (squares rewarded, high degrees penalised, zero
 temperature): at 256, 1,024 and 4,096 nodes, no edge changed on any lattice start that kept its degree (the
@@ -217,7 +224,16 @@ them yet; they are here so a reader knows where the instrument is meant to go.
   diagrams from the energies of competing crystal structures. The catalogue (section 2) is a first, coarse legend for
   such a map over graph laws; the map itself (where each kind meets each other kind) is not drawn yet. The cheapest way
   we see to draw a boundary is to run the laws on the straight line between two laws of different kinds and halve the
-  interval where the kind flips.
+  interval where the kind flips. Study 176 is built to do this around the ten best laws, and has not run.
+- **How many phases can there be?** A law here is finitely many terms with real couplings, so there are as many laws
+  as real numbers. If a phase is an open region of coupling space where laws behave alike, there are at most countably
+  many phases: each region holds a point with rational coordinates, disjoint regions hold different ones, and the
+  points with rational coordinates are countable. (Mathlib states it for any separable space; a formal check is
+  planned, not run.) So the map is finite or countably infinite, never as large as the continuum; which of the two is open,
+  and simple local models in physics, the ANNNI model's devil's staircase among them, do have countably many phases.
+  What can vary continuously is a reading within one phase, a dimension that moves smoothly with a coupling. As the
+  fleet draws them, couplings carry six significant figures (twelve in a variant), so the laws it can draw are a
+  finite set.
 - **Planted laws as known answers.** Laws others built to make a space (the curvature action of Kelly, Trugenberger and
   Biancalana; Conrady's; quantum graphity) can be put into the search as known answers: a survey that is working should
   find them again, and find their neighbours. Today one of them (the curvature action, control C1) holds the cubic
@@ -277,5 +293,5 @@ Cited by arXiv id; the tree keeps no copy of any paper.
 | 3, the controls | `tools/positive_control.py check` on study 174's bundle of 2026-11-24 14:22Z |
 | 4, 5.1, 5.2, 5.6 | `tools/catalogue_reading.py` on each bundle; `still_lattice_judged_1.json` |
 | 5.3 | the bundles' `tables/rungs.ndjson.gz` (the chain from empty) and `measurements/estimators.volume_growth` on rings with chords (build 853's notes) |
-| 5.4, 5.5 | `finds.json` and `tables/rungs.ndjson.gz` of the bundles |
+| 5.4, 5.5 | `finds.json` and `tables/rungs.ndjson.gz` of the bundles; the small world, `tools/catalogue_reading.py` and `tools/small_world_reach.py` (build 855's notes) |
 | 6 | `docs/build_notes/BUILD854_NOTES.md`, "The trap from empty", with the script that measured it |

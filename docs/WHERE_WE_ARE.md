@@ -1,4 +1,4 @@
-# Where we are, at build 854
+# Where we are, at build 855
 
 The whole project on one page, in plain words; the detail is in `docs/agent/HANDOFF.md`.
 
@@ -38,43 +38,50 @@ What the instrument reads on known answers (1, 2). **No data from a study before
 Studies 174 and 175 on 850, each in a folder of its own. Since 2026-11-24 16:34 the project rests on two of their
 bundles and the calibration table, nothing older: 174's of 2026-11-24 14:22Z (the blind draw, 8,131 laws read) and
 175's of 08:35Z (595 variants around 174's 35 settled laws). `docs/paper/GSD_PAPER.md` is the working draft that rests
-on them alone.
+on them alone. Study 176 is ready for your start, in a folder of its own.
 
 ## What they show
 
 Most blind laws empty the graph (3,202), fill it to the cap (996) or melt the lattices (2,889). Of the 83 that score,
-64 are a lattice the law barely changed: what settles is mostly a start remembered. Ten laws settle a probe from empty
-or random, all one dimensional: five open strings, four loops with a few shortcuts, one chain of small cliques; none
-scores. Of the eight where starts agree, two (H31 among them) are small worlds: every start forgets itself at the same
-degree, the reach growing from 3 to 4 steps over sixteen times the nodes, so not a space of d 3.5. One law,
-de7ab4a85198, is frozen to 4,096 and changes at 16,384. The still call held on every chain: its criterion passes.
+54 now score 1, their best chain a lattice the law barely changed: what settles is mostly a start remembered. Ten laws
+settle a probe from empty or random, all one dimensional: five open strings, four loops with a few shortcuts, one
+chain of small cliques. Two laws whose starts agree, H31 and fdc563a72c98, are small worlds: their reach stays within
+twice a random graph's of their degree and their d rises with N, so not a space of d 4. One law, de7ab4a85198, is
+frozen to 4,096 and changes at 16,384. The still call held on every chain: its criterion passed, and since 855 a still
+lattice scores 1.
 
 **The trap from empty** (an outside review, and 854's own run): P1, whose lowest energy is the square lattice, gets
 68% to 81% of the way there from empty, worse as N grows. Until a known law grows its geometry from empty, "nothing
 grows from empty" cannot be told from "nothing can get there under these moves".
 
-## What 800 to 854 changed
+## What 800 to 855 changed
 
 The probes are locked (800, 801) and your table installed (805). 806 to 843: no clock decides, the evidence judged
 again on the final code, the studies carried and read, the gates' counters the study's, `--workers 32` holds 32. 844 is
 the stable build with study 174. 845 to 850: Home's ten batches, the worker count while a study runs, study 175, the
 score of 848, the public tree, the catalogue of behaviours. 851 to 853: the README, a stale admin link shown. 854: the
-baseline, the still criterion passed, the trap measured, the paper drafted, this handover.
+baseline, the still criterion passed, the trap measured, the paper drafted. 855: study 176 in groups A (blind) and B
+(the map of the ten best), half the fleet each; the still lattice at 1; the small world a kind; the CPUs the system
+keeps; a science hash and the table in every bundle.
 
 ## What comes next
 
-855 merges 174 and 175 into one study, 176: twelve workers draw blind, four map the ten best scorers' neighbourhoods
-and boundaries, the still lattice scores lowest and the small world is a kind of its own. 856 takes every study
-before the baseline out of the tree, into an archive sent beside it.
+Study 176, on your start: A draws 10,000 laws blind; B maps the ten best laws not yet known (each coupling moved a
+tenth, lines halved toward the nearest law of another kind), marks a region known with how early it can be spotted,
+and takes the next. 856: the dashboard's filter panel. 857: a study seeded from an earlier bundle. 858: group D, the
+best law as deep as memory allows. 859: every study before the baseline out of the tree, into an archive beside it.
 
 ## The decision in front of you
 
-1. **Whether a known law must grow its geometry from empty first** (recommended, before more compute from empty):
+1. **Start study 176** (`uv run python main.py run --study 176`, a new folder), and name the system's CPUs if you
+   want any kept (`uv run python main.py workload --system-cpus 0,1`).
+2. **Whether a known law must grow its geometry from empty first** (recommended, before more compute from empty):
    parallel tempering is the cheapest remedy, an engine change of about a build, its known answers read again after.
-2. **Where the archive of the older data goes public** (856), so a reader can see nothing was dropped selectively.
+3. **Where the archive of the older data goes public** (859), so a reader can see nothing was dropped selectively.
 
 ## Words you will see
 
+**group**: A draws laws blind, B maps the best. **small world**: starts agree on a graph whose reach grows as log N.
 **law**: energy terms and dynamics. **rung**: one graph size (N). **cap**: the mean degree above which a graph is not
 studied. **d_s**: the dimension a random walk feels. **start**: what a law is grown from: empty, random, square,
 triangular, cubic, bcc, fcc, tesseract (4D). **chain**: a law's run from one start, the Markov chain of graphs it grows. **twin starts**: empty and random. **budget**: a seed's work, as the engines count it, the same on any machine.

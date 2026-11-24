@@ -1,5 +1,5 @@
 {
- "baseline_build": 854,
+ "baseline_build": 855,
  "contract": "gsd-science-freeze-1",
  "files": {
   "engine_rs/src/accounting.rs": "7d634e295021c1338b4b3077877218eb6df9484621bde53ea3c89aa08e88d78a",
@@ -55,10 +55,10 @@
   "graph_scale_dynamics/measurements/structure_census.py": "1f9c48e1da551894048aadde71cf775b68bb0f258ddd6d6d5372f5d642100913",
   "graph_scale_dynamics/measurements/version.py": "4843ff8e171fc4ab9e080916c20dc5f66b05f9e0a22ba902b3540b3aeac79a05",
   "graph_scale_dynamics/measurements/walk_dimension.py": "4b5eae8025ea3b14912580f678875c01b1ae174bf625c8169e7be23e8e151856",
-  "graph_scale_dynamics/observability/law_score.py": "9aeb2d87565345467af3adf280a153b7785faa64058cc4b6eecc52bba45107f9",
+  "graph_scale_dynamics/observability/law_score.py": "9c3d194c9045aee6f6397105ce96b5e30019841ebba2a7fac6476d88b2eafab4",
   "graph_scale_dynamics/observability/space_score.py": "f7bc2d5769213b68dbaa2675964d7219d1418f38ae4adc655dbdf2bf6fe39927",
   "graph_scale_dynamics/observability/starts_reading.py": "5405b2d22cba9ca7fecb696d41aebe0111381d8b9197c9247cffa1e3e5c89d92",
-  "graph_scale_dynamics/observability/two_chains.py": "3cbfb2a6fcc07bd5655f41c01bfdc7c8b2440bca4f4a1eb67d16179b1efff903",
+  "graph_scale_dynamics/observability/two_chains.py": "f3e282bc41816192a6da8243a64bcf4d9ee47ed4e76c4fbb32b2540fb20797a2",
   "graph_scale_dynamics/resources/calibration/d_s_margin_bands.json": "3093766c02712066e1b7a85e8f6b14ce8668424c6087372a44b14d5f51952df6",
   "graph_scale_dynamics/resources/calibration/finite_size_tolerance.json": "f99d3c9e39f3c43bc7dee6d7476e7d0cdca910d30c5639372b87b36936926e9e",
   "graph_scale_dynamics/resources/calibration/operator_units.json": "2a1ee6a21c15c8024dc2b5f26bdfc1308f7a55166ce612029272a127adc3e58b",

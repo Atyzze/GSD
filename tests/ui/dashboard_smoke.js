@@ -3527,6 +3527,18 @@ check('a searched code finds its one law: C1-G917, G-917 and G917 alike', () => 
     const codes = [...getElementById('explorerBody').innerHTML.matchAll(/<code[^>]*>(C1-G\d+)<\/code>/g)].map((m) => m[1]);
     if (codes.join(',') !== 'C1-G917') throw new Error(`"${q}" found ${codes.join(', ') || 'nothing'}`);
   }
+  for (const q of ['C1', 'c1', 'B855-C1-G917']) {
+    query.value = q;
+    sandbox.GSD_APP.drawExplorer();
+    const codes = [...getElementById('explorerBody').innerHTML.matchAll(/<code[^>]*>(C1-G\d+)<\/code>/g)].map((m) => m[1]);
+    const wanted = q.endsWith('G917') ? 'C1-G917' : 'C1-G917,C1-G9170,C1-G1917';
+    if (codes.slice().sort().join(',') !== wanted.split(',').sort().join(',')) throw new Error(`"${q}" found ${codes.join(', ') || 'nothing'}`);
+  }
+  query.value = 'C2';
+  sandbox.GSD_APP.drawExplorer();
+  if (!/C2 holds the laws of campaign 2/.test(String(getElementById('explorerFilterSummary').textContent || ''))) {
+    throw new Error('a campaign code of another campaign does not say whose laws they are');
+  }
   query.value = 'C2-G917';
   sandbox.GSD_APP.drawExplorer();
   if (/<code[^>]*>C1-G/.test(getElementById('explorerBody').innerHTML)) throw new Error("another campaign's code matched here");
@@ -3934,6 +3946,38 @@ checkAsync('the System page sets the worker count and hands it back to the ramp'
     sys.postJson = () => Promise.reject(new Error('POST /api/campaigns/manage → HTTP 400: choose between 1 and 16 workers'));
     await app.setWorkerCount(40);
     if (!/choose between 1 and 16 workers/.test(getElementById('workerCount').innerHTML)) throw new Error('a refused count is not said');
+  } finally {
+    sys.postJson = originalPost;
+  }
+});
+
+checkAsync('the System page shows the groups and the system CPUs and sets them behind the admin link', async () => {
+  const app = sandbox.GSD_APP, sys = sandbox.GSD_SYSTEM, originalPost = sys.postJson;
+  const sent = [];
+  try {
+    const before = { shares: { A: 0.5, B: 0.5 }, split: 'A=0.5,B=0.5', system_cpus: [], work_cpus: [0, 1, 2, 3], cpus: 4,
+                     shares_a_core: {} };
+    app.renderWorkload({ workload: before });
+    const drawn = getElementById('workload').innerHTML;
+    if (!/A 50%/.test(drawn) || !/B 50%/.test(drawn) || !/system CPUs: none/.test(drawn)) throw new Error(`the panel reads: ${drawn}`);
+    if (!/id=workloadSplit data-admin-write/.test(drawn) || !/data-admin-write id=workloadSet/.test(drawn)) {
+      throw new Error('the workload control is not behind the admin link');
+    }
+    sys.postJson = (path, body) => { sent.push([path, body]); return Promise.resolve({ ok: true, ...before,
+      system_cpus: [0, 2], work_cpus: [1, 3], shares_a_core: { 0: [1] } }); };
+    await app.setWorkload('A=1,B=1', '0,2');
+    if (JSON.stringify(sent[0]) !== JSON.stringify(['/api/campaigns/manage', { action: 'workload', split: 'A=1,B=1', system_cpus: '0,2' }])) {
+      throw new Error(`the page sent ${JSON.stringify(sent[0])}`);
+    }
+    const after = getElementById('workload').innerHTML;
+    if (!/system CPUs: 0,2/.test(after) || !/simulations on 2 of 4 CPUs/.test(after) || !/CPU 0 shares its core with 1/.test(after)) {
+      throw new Error(`after keeping two CPUs the panel reads: ${after}`);
+    }
+    sys.postJson = () => Promise.reject(new Error('POST /api/campaigns/manage → HTTP 400: the system cannot keep every CPU'));
+    await app.setWorkload('', '0-3');
+    if (!/the system cannot keep every CPU/.test(getElementById('workload').innerHTML)) throw new Error('a refusal is not said');
+    app.renderWorkload({});
+    if (!/arrives with the next poll/.test(getElementById('workload').innerHTML)) throw new Error('no workload is not said');
   } finally {
     sys.postJson = originalPost;
   }

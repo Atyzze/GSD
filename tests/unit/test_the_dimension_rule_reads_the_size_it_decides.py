@@ -11,7 +11,7 @@ COLUMNS = list(VALUE_COLUMNS)
 def row(n, *, degree=6.0, piece=1.0, d=2.9):
     values = {"n": n, "d_s": 3.1, "d_V": d, "d_B": d, "d_w": 2.0, "reach": 1.5 * n ** (1 / 3.0),
               "mean_degree": degree, "giant_fraction": piece, "triangles_per_node": 0.0, "squares_per_node": 1.0,
-              "kappa": 0.0}
+              "kappa": 0.0, "moved": None}
     return [values[c] for c in COLUMNS]
 
 

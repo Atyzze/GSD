@@ -11,7 +11,7 @@ from graph_scale_dynamics.decisions.engine import is_engine_campaign
 from graph_scale_dynamics.domain.model import TERMINAL_CANDIDATE_STATES, utc_now
 from graph_scale_dynamics.measurements.version import ANALYSIS_VERSION
 from graph_scale_dynamics.observability.log import Log
-from graph_scale_dynamics.operations import auto_extend
+from graph_scale_dynamics.operations import auto_extend, study_map
 from graph_scale_dynamics.services.controller.engine_campaign import run_engine_campaign
 
 TERMINAL = TERMINAL_CANDIDATE_STATES
@@ -60,6 +60,10 @@ def finish_pass(repo: Repo, log: Log, active: list[dict]) -> dict | None:
     extended = auto_extend.extend_if_all_finished(repo)
     if extended:
         log.write("study_auto_extended", laws=extended["laws"], campaigns=sorted(extended["campaigns"]))
+    mapped = study_map.step(repo)
+    if mapped and (mapped["added"] or mapped["entered"]):
+        log.write("study_map", added=mapped["added"], entered=mapped["entered"], mapping=mapped["mapping"],
+                  known=mapped["known"])
     return extended
 
 
