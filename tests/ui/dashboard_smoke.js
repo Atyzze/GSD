@@ -1252,10 +1252,10 @@ check('the CPU tile carries temperature and power', () => {
   }
 });
 
-check('the hero row is never shorter than the plot floor plus its chrome', () => {
+check('the landscape is never shorter than the plot floor plus its chrome, the filters below it included', () => {
   for (const viewport of [1720, 1100, 700]) {
     const variables = rootVariables(viewport);
-    const selector = viewport > 1250 ? '.hero' : '.hero>.panel';
+    const selector = viewport > 1250 ? '.hero' : '.herocol>.land-panel';
     const declared = winning(selector, 'height', viewport);
     if (!declared || declared === 'auto') {
       throw new Error(`${selector} has no height at ${viewport}px: its size comes from its content`);
@@ -1266,28 +1266,51 @@ check('the hero row is never shorter than the plot floor plus its chrome', () =>
     if (!Number.isFinite(floor)) {
       throw new Error('the plot floor must resolve to a length');
     }
-    for (const headerHeight of [104, 118, 176]) {
-      const resolved = resolveLength(declared, { ...variables, '--gsd-header-h': `${headerHeight}px` });
-      if (!Number.isFinite(resolved) || resolved <= 0) {
-        throw new Error(`${selector} height "${declared}" does not resolve to a length at ${viewport}px`);
-      }
-      if (resolved - chrome < floor) {
-        throw new Error(
-          `${selector} is ${resolved}px at a ${headerHeight}px header, leaving ${resolved - chrome}px `
-          + `for a plot with a ${floor}px floor: the canvas would overflow onto the next section`,
-        );
-      }
-      if (resolved / headerHeight > 6) {
-        throw new Error(`the hero row is ${resolved}px against a ${headerHeight}px header; that is runaway`);
+    for (const filterHeight of [96, 128, 190]) {
+      for (const headerHeight of [104, 118, 176]) {
+        const measured = { ...variables, '--gsd-header-h': `${headerHeight}px`, '--gsd-filter-h': `${filterHeight}px` };
+        const resolved = resolveLength(declared, measured);
+        if (!Number.isFinite(resolved) || resolved <= 0) {
+          throw new Error(`${selector} height "${declared}" does not resolve to a length at ${viewport}px`);
+        }
+        const beside = viewport > 1250 ? filterHeight + resolveLength(variables['--gsd-hero-gap'], variables) : 0;
+        if (resolved - beside - chrome < floor) {
+          throw new Error(
+            `${selector} is ${resolved}px at a ${headerHeight}px header and ${filterHeight}px of filters, leaving `
+            + `${resolved - beside - chrome}px for a plot with a ${floor}px floor: its bottom rows are cut off`,
+          );
+        }
+        if ((resolved - beside) / headerHeight > 6) {
+          throw new Error(`the landscape is ${resolved - beside}px against a ${headerHeight}px header; that is runaway`);
+        }
       }
     }
+  }
+});
+
+check('the row grows by the height of the filters, so the Top 100 beside it grows the same', () => {
+  const variables = rootVariables(1720);
+  const row = winning('.hero', 'height', 1720);
+  const short = resolveLength(row, { ...variables, '--gsd-filter-h': '100px' });
+  const tall = resolveLength(row, { ...variables, '--gsd-filter-h': '160px' });
+  if (tall - short !== 60) throw new Error(`the row moved ${tall - short}px for 60px more of filters`);
+  if (winning('.heroaside>.panel', 'height', 1720) !== '100%') throw new Error('the Top 100 does not fill the row');
+  const panel = getElementById('filterPanel');
+  panel.getBoundingClientRect = () => ({ width: 1300, height: 141, left: 0, top: 0 });
+  sandbox.GSD_APP.measureFilterHeight(panel);
+  const published = documentStub.documentElement.style.getPropertyValue('--gsd-filter-h');
+  if (published !== '141px') throw new Error(`--gsd-filter-h is "${published || 'unset'}" after measuring 141px`);
+  panel.getBoundingClientRect = () => ({ width: 1300, height: 0, left: 0, top: 0 });
+  sandbox.GSD_APP.measureFilterHeight(panel);
+  if (documentStub.documentElement.style.getPropertyValue('--gsd-filter-h') !== '141px') {
+    throw new Error('a zero measurement clobbered the filters\' height');
   }
 });
 
 check('the hero row still follows the header when the header is the binding term', () => {
   for (const viewport of [1720, 1100, 700]) {
     const variables = rootVariables(viewport);
-    const declared = winning(viewport > 1250 ? '.hero' : '.hero>.panel', 'height', viewport);
+    const declared = winning(viewport > 1250 ? '.hero' : '.herocol>.land-panel', 'height', viewport);
     const small = resolveLength(declared, { ...variables, '--gsd-header-h': '176px' });
     const large = resolveLength(declared, { ...variables, '--gsd-header-h': '196px' });
     if (!(large > small)) {
@@ -3964,6 +3987,7 @@ check('one set of filters picks the laws of the landscape and the Top 100 by kin
   app.clearFilters();
   app.renderFilters(points);
   const drawn = getElementById('homeFilters').innerHTML;
+  if (layoutDump) layoutDump.set('homeFilters', [drawn]);
   for (const want of ['still lattice 1', 'small world 1', 'not read yet 1', 'B, map', 'C11', '5 of 5 laws shown']) {
     if (!drawn.includes(want)) throw new Error(`the panel does not show "${want}": ${drawn}`);
   }

@@ -64,6 +64,10 @@ Open, from 856 (`docs/build_notes/BUILD856_NOTES.md`), none blocking study 176:
   tenth until the first regions are known and say whether a tenth changes a kind.
 * **How many halvings a line gets**: four, a boundary within a sixteenth of its line; a fifth costs one point a line.
 * **Which CPUs the system keeps**: none until named (`main.py workload --system-cpus`).
+* **Home's refresh every 0.5 s instead of 4, and a control for it on the System page behind the admin link** (18:26):
+  held back, since with every hardware thread simulating the API is what waits, and a faster refresh asks more of it
+  (`docs/build_notes/BUILD856_NOTES.md`). Recommended: keep one core's two threads for the system first and read the
+  header's API round trip; if it holds under a second, the refresh and its control are a small build.
 
 Open, none waiting:
 
@@ -87,27 +91,37 @@ Open, none waiting:
 
 ## Planned builds, in order
 
-**After 856** (the operator, 2026-11-24 17:51 to 18:08, `docs/HISTORY.md`), each its own build, in this order:
+**After 856** (the operator, 2026-11-24 17:51 to 18:08, `docs/HISTORY.md`), each its own build, in this order; a planned
+build takes its number when it is made, since 858 and 859, made in between, each moved every number of the plan:
 
 1. **857, made**: Home's filter panel (`docs/build_notes/BUILD857_NOTES.md`); the ladder's live counts by kind, read per
-   law on the server, are left for a later build.
-1. **858, made**: a consolidation of what the context of 855 learned (`docs/build_notes/BUILD858_NOTES.md`): five
+   law on the server, are left for a later build. So is a count of every law in the panel: it counts the landscape's
+   points, so a law that reads nothing from empty is in no kind (C11, the standing controls, reads "1 of 1 laws
+   shown" for its five, 859).
+2. **858, made**: a consolidation of what the context of 855 learned (`docs/build_notes/BUILD858_NOTES.md`): five
    lessons, two papers read, two items under "Unscheduled", the reference engines paused at the operator's word.
-2. **859, a study seeded from an earlier bundle**: any bundle whose science hash (`study.json`, `science`) is the
+3. **859, made**: the handover of the context of 856 and 857 (`docs/build_notes/BUILD859_NOTES.md`), with Home's plot
+   whole above the filters, every law of a small campaign in the Top 100 and every start's point carrying its kind
+   (23:07, 23:09); made on a clone of `main` and brought up from it alone.
+4. **Next, a study seeded from an earlier bundle**: any bundle whose science hash (`study.json`, `science`) is the
    folder's: its map's regions and known kinds loaded, so B starts where the last one stopped and A's grid can lean
    toward the regions least explored (the lean itself drawn and recorded, never chosen by hand).
-3. **860, group D**: one core that takes the study's best law up the ladder past 65,536 until memory admission
+5. **Then group D**: one core that takes the study's best law up the ladder past 65,536 until memory admission
    refuses the next size; the size it stops at is the host's limit, recorded in the bundle.
-4. **861, the consolidation**: every study before the baseline out of the tree into
-   `GSD_readings_archive_861.tar.zst`, sent beside the release (`docs/agent/NEXT_BUILD.md`).
-5. **After the paper**: the atlas shared, peers in a browser or a container contributing runs checked against one
+6. **Then the consolidation**: every study before the baseline out of the tree into
+   `GSD_readings_archive_<N>.tar.zst`, `<N>` its own build's, sent beside the release (`docs/agent/NEXT_BUILD.md`);
+   and the notes of 823 to 845 folded into `docs/HISTORY.md`'s eras, which 858 left for it.
+
+7. **After the paper**: the atlas shared, peers in a browser or a container contributing runs checked against one
    science hash and calibration table; a front end to watch it grow; a formal check in Lean of the countability of
    the phases (`docs/paper/GSD_PAPER.md`, musings); the engine contract (`engine/boundary.py`, the parity suite and
    the Boltzmann known answers) opened to engines in C or assembly, each admitted only by the same parity and known
    answers, and its work count read as a benchmark of a device's graph-simulation throughput, logical cores beside
    physical ones (2026-11-24 18:12); a peer joins by measuring a sample of the calibration table again and matching it
    within its cells' bands, as `tools/adopt_calibration.py --sample` does for a folder now (18:14), and its CPU model
-   and timings go beside its runs, so a device that reads slower or otherwise than its model's peers is seen (18:19).
+   and timings go beside its runs, so a device that reads slower or otherwise than its model's peers is seen (18:19),
+   only when that peer opts in, as a data submission of its own, never by default (18:28); from those, a table of
+   devices by their throughput, a high score among peers (18:32).
    **A language with directed edges** (18:19): the DSL's edges are undirected and its vertices identical; a second
    edge kind (directed, standing for charge) would be a new language with its own known answers, judged before any
    reading of it is offered as physics. Whether such laws grow long strands of a few repeating units (18:20) is a
@@ -173,7 +187,7 @@ why.
    an outside review's points answered or placed, the paper drafted (`docs/paper/GSD_PAPER.md`). **856, made**: study
    176, 174 and 175 merged into one, groups A (blind) and B (the map of the ten best) half the fleet each (16:33,
    17:37, 17:39), the still lattice scored 1, the small-world kind, the system's CPUs, a science hash and the table in
-   every bundle (18:04). **Next**: 859 to 861, above. **Then 174's reading** (a progress bundle while it runs, its last at the end): its criterion, P1 to P9,
+   every bundle (18:04). **857 to 859, made**; **next**, the three planned builds above. **Then 174's reading** (a progress bundle while it runs, its last at the end): its criterion, P1 to P9,
    each batch beside the others, and what study A would take. 174's rules cost about 1.8 times 173's on the same
    laws (the replay carried to 10,000: about 1,270 core-hours against 720), study A about 33 days against 19 on 16
    workers, nearly all of it nothing_read letting laws on at 4,096 and the laws that then reach 65,536; 174 says what
@@ -349,6 +363,9 @@ bundle on any machine. Each build's notes say in their first line whether it may
 
 ## Unscheduled
 
+* **Is the Rust engine as lean as it can be, in memory and in speed?** (the operator, 2026-11-24 18:28): not
+  measured. A profile at 65,536 nodes, the bytes a node and an edge and the moves a second against a plain adjacency
+  list of the same graph, says what is left; it comes before group D, whose depth memory sets.
 * **The square lattice's hysteresis, a phase transition the instrument can report now** (2026-11-24): P1 holds its
   torus and stalls near 80% of its energy from empty (854's table). Run P1 with beta swept up from empty and down
   from the torus at 256 to 4,096, the energy a node and the induced squares at each beta: two branches that meet

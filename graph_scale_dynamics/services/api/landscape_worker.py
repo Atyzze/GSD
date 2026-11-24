@@ -262,9 +262,13 @@ def top_candidates_of(scored: list[dict], refused: list[dict], deepest: dict, li
         found = row.get("law_score") or {}
         return (-int(found.get("score") or 0), -int(found.get("to_n") or 0),
                 -int(deepest.get(row["candidate_id"]) or 0), row["candidate_id"])
-    without_a_reading = [scored_refusal(row) for row in refused
-                         if int((row.get("law_score") or {}).get("score") or 0) > 0]
-    return sorted(list(scored) + without_a_reading, key=_rank)[:limit]
+    def _scores(row: dict) -> bool:
+        return int((row.get("law_score") or {}).get("score") or 0) > 0
+    listed = sorted(list(scored) + [scored_refusal(row) for row in refused if _scores(row)], key=_rank)[:limit]
+    room = limit - len(listed)
+    unscored = sorted((row for row in refused if not _scores(row)),
+                      key=lambda row: (-int(deepest.get(row["candidate_id"]) or 0), row["candidate_id"]))
+    return listed + [scored_refusal(row) for row in unscored[:max(room, 0)]]
 
 
 def scored_refusal(row: dict) -> dict:
@@ -560,7 +564,7 @@ def build_landscape(repo: Repo, campaign_id: str) -> dict:
         candidate_meta, board=board, floors=floors, base_rungs=base_rungs, floors_by_n=floors_by_n,
         connectivity_floor=_spec_conn_floor, control_reference=_control_reference)
     deepest = {cid: max((int(r["n"]) for r in entry.get("rungs") or []), default=0) for cid, entry in by_id.items()}
-    for point in [*points, *refused]:
+    for point in [*points, *refused, *(p for drawn in every_chain["points"].values() for p in drawn)]:
         marked(point, marks)
     top_candidates = top_candidates_of(scored, refused, deepest)
     for row in top_candidates:

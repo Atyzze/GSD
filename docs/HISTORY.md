@@ -176,6 +176,9 @@ made; a time without a Z is the operator's local time.
 
 **Delivery and the way builds are made**
 
+* A context ends in a build the next can start from with nothing but the source (2026-11-24 23:00: "create 1 more
+  hand-over built so the next context can make a fresh start from source alone"): 859, made on a clone of `main` and
+  brought up from it alone (`docs/agent/ENVIRONMENT.md`, section 10).
 * Nothing is pushed until the operator's word, and a context ends in a consolidation of what it learned
   (2026-11-24 19:43: "before pushing any further changes, wait for further signal from [me] before continuing the
   current pipelines"; 19:44: "and work towards a consolidation build, to finish/merge the context/knowledge-bits of
@@ -293,19 +296,29 @@ made; a time without a Z is the operator's local time.
 * **A bundle says which science read it and carries its table** (2026-11-24 18:04: "some sort of science contract on
   top of the build number contained within the study bundle exports, so same-science data-set can be assured from the
   hashes"; "the export bundle needs to contain the calibration table as well"): 856. A study seeded from an earlier
-  bundle of the same science, so that it never starts from nothing (the same message), is 859.
+  bundle of the same science, so that it never starts from nothing (the same message), is the next build
+  (`docs/ROADMAP.md`, "Planned builds").
 * **The dashboard filters by kind, group and batch in one panel** (2026-11-24 17:51: the filters "in the middle ...
   above fleet ladder, under macro landscape", acting on the fleet ladder, the landscape and the top unknowns "but not
   to the now researching box", each point saying "which search group the data point came from"): 857.
+* **The landscape whole above the filters, and every law of a small campaign in the Top 100** (2026-11-24 23:07: "it
+  needs to be made higher, because currently the flow chart rows/bottom isn't fully showing, it's clipped, thus make
+  top100 box larger as well of the same amount"; "there's 2 missing laws in the top100, why arent they showing?"):
+  859, the row the landscape's own height plus the filters', and the Top 100's empty places filled.
 * **Group D, the best law taken as deep as the host allows** (2026-11-24 18:06: "dedicate 1 core to, to select only
-  the top1 current best and push it to higher and higher memory until the system says it has no more space left"): 860.
+  the top1 current best and push it to higher and higher memory until the system says it has no more space left"): the
+  build after the seeded study. The fleet's work in the operator's words (18:32: "split the work in two again, blind
+  search, two kinds of scouts, 1 volume/area search and the other single candidate N-push, and then of course
+  system/OS doing all the core management/adjustment"): A the blind search, B the scout that maps a region, D the scout
+  that pushes one law up in N, and the system's CPUs, which no work may take.
 * **The atlas as a shared object** (2026-11-24 18:04 and 18:08: peers joining the search and sharing their results on
   the same calibration table, "a game-like experience", the bundle "simple the condensed version of the ever growing
   atlas"): after the paper. With it (18:12), the engine contract open to engines in C or assembly, "an inherent
   benchmark of your cpu/device in terms of graph-simulation capabilities", SMT's extra logical cores read beside the
   physical ones; a peer's calibration re-measured against the shared table to join (18:14); each device's CPU model and
-  timings beside its runs (18:19); and, as a direction for a later language, directed edges for charge and whether
-  laws grow long strands of a few repeating units (18:19, 18:20).
+  timings beside its runs (18:19), only with that peer's explicit consent (18:28: "needs explicit opt-in and is not
+  done by default, can be included as a general data-submit operation"); and, as a direction for a later language,
+  directed edges for charge and whether laws grow long strands of a few repeating units (18:19, 18:20).
 * **Study 175 runs to its end, and the study after it looks for laws whose starts agree** (2026-11-24 10:22, after
   849's reading of 175's second bundle: "agree with everything, and I'm not surprised that structure isn't growing";
   "any law that has different starts leading to the same result is infinitely more interesting than anything that is
