@@ -6,20 +6,22 @@ from pathlib import Path
 
 from graph_scale_dynamics.domain.model import content_hash
 from graph_scale_dynamics.observability.score_board import FLAG_PREFIX as SCORES_PREFIX
+from graph_scale_dynamics.operations.study_map import FLAG as MAP_FLAG
 
-CONTRACT = "gsd-landscape-inputs-1"
+CONTRACT = "gsd-landscape-inputs-2"
 TABLES = ("campaign_candidates", "campaigns", "candidate_specs", "engine_decisions", "engine_decisions_latest",
           "four_rung_phenotypes", "jobs", "measurements", "proposal_exposures", "rung_summaries")
 WRITES_SQL = ("SELECT relname,n_tup_ins,n_tup_upd,n_tup_del FROM pg_stat_user_tables "
               "WHERE schemaname=current_schema() AND relname=ANY(?) ORDER BY relname")
 SCORES_SQL = ("SELECT md5(string_agg(key || '=' || md5(value), ',' ORDER BY key)) AS digest FROM control "
-              "WHERE key LIKE ?")
+              "WHERE key LIKE ? OR key=?")
+WATCHED_FLAGS = (SCORES_PREFIX, MAP_FLAG)
 
 
 def stamp(conn) -> str:
     writes = [[str(row["relname"]), int(row["n_tup_ins"]), int(row["n_tup_upd"]), int(row["n_tup_del"])]
               for row in conn.execute(WRITES_SQL, (list(TABLES),)).fetchall()]
-    scores = conn.execute(SCORES_SQL, (SCORES_PREFIX + "%",)).fetchone()
+    scores = conn.execute(SCORES_SQL, (SCORES_PREFIX + "%", MAP_FLAG)).fetchone()
     return content_hash({"contract": CONTRACT, "writes": writes,
                          "scores": dict(scores).get("digest") if scores else None})[:20]
 

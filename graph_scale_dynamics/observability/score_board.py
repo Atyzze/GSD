@@ -6,7 +6,7 @@ import time
 from graph_scale_dynamics.observability import law_score as L
 
 FLAG_PREFIX = "law_scores:"
-CONTRACT = "gsd-score-board-1"
+CONTRACT = "gsd-score-board-2"
 SCAN_INTERVAL_SECONDS = 30.0
 SCAN_LIMIT = 100
 SCAN_SECONDS = 1.0
@@ -24,7 +24,8 @@ def load(repo, campaign_id: str) -> dict:
         state = {}
     if state.get("contract") != CONTRACT or state.get("score_contract") != L.CONTRACT:
         state = {"contract": CONTRACT, "score_contract": L.CONTRACT, "scores": {}, "zeros": [], "after": "",
-                 "complete": False}
+                 "complete": False, "kinds": {}}
+    state.setdefault("kinds", {})
     return state
 
 
@@ -33,6 +34,8 @@ def _save(repo, campaign_id: str, state: dict) -> None:
 
 
 def _put(state: dict, law: str, found: dict) -> None:
+    if found.get("kind") is not None:
+        state.setdefault("kinds", {})[str(law)] = found["kind"]
     if int(found.get("score") or 0) > 0:
         state["scores"][str(law)] = found
         if str(law) in state["zeros"]:
@@ -82,7 +85,8 @@ def scan(repo, campaign_id: str, score_of, *, now: float | None = None, limit: i
 
 def board(repo, campaign_id: str) -> dict:
     state = load(repo, campaign_id)
-    return {"scores": state["scores"], "zeros": state["zeros"], "after": state["after"], "complete": state["complete"]}
+    return {"scores": state["scores"], "zeros": state["zeros"], "after": state["after"], "complete": state["complete"],
+            "kinds": state.get("kinds") or {}}
 
 
 def of(found: dict, law: str) -> dict | None:

@@ -884,10 +884,13 @@ class DecisionStore:
         top = max((int(r["n"]) for r in rows if r.get("n") is not None), default=None)
         if top is None or top < law_score.LADDER[0]:
             return law_score.zero(top)
+        from graph_scale_dynamics.observability import law_kind
         starts = ((self.spec or {}).get("sampling_contract") or {}).get("given_starts")
-        return law_score.compact(law_score.score(two_chains.chains_per_rung(rows, starts), starts=starts,
-                                                 first_given=self._first_given(law),
-                                                 structure=starts_reading.hold_structure(self.spec)))
+        chains = two_chains.chains_per_rung(rows, starts)
+        found = law_score.compact(law_score.score(chains, starts=starts, first_given=self._first_given(law),
+                                                  structure=starts_reading.hold_structure(self.spec)))
+        kinds = law_kind.kinds(chains)
+        return dict(found, kind=law_kind.deepest(kinds), kind_at_4096=law_kind.at(kinds))
 
     def _first_given(self, law: str) -> str | None:
         from graph_scale_dynamics.observability import law_score

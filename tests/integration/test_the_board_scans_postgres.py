@@ -83,7 +83,8 @@ def test_a_decision_store_scores_a_law_from_its_stored_measurements(isolated_pos
         assert store.law_score(CAMPAIGN, "law-low") == L.zero(256), "nothing read from 1,024"
         found = store.law_score(CAMPAIGN, "law-high")
         assert set(found) == {"score", "by", "chain", "to_n", "top_n", "points", "points_of", "items", "einstein",
-                              "parts", "d", "mean_degree"} and found["score"] == 0, (
+                              "parts", "d", "mean_degree", "kind", "kind_at_4096"} and found["score"] == 0, (
             "a law whose measurements read nothing scores 0, and the score is read on PostgreSQL's rows")
+        assert found["kind"] == found["kind_at_4096"] and found["kind"] is not None, "its kind beside its score"
     finally:
         repo.close()

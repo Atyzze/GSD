@@ -3951,6 +3951,80 @@ checkAsync('the System page sets the worker count and hands it back to the ramp'
   }
 });
 
+check('one set of filters picks the laws of the landscape and the Top 100 by kind, map region, group, batch and settling', () => {
+  const app = sandbox.GSD_APP;
+  const point = (id, kind, group, batch, score, region, settled) => ({
+    candidate_id: id.padEnd(64, '0'), campaign_id: batch, kind, group, batch, region,
+    settled_probes: settled ? ['d_s'] : [], law_score: { score, to_n: 16384, top_n: 16384 } });
+  const points = [
+    point('a', 'still', 'A', '1', 1, null, true), point('b', 'made', 'A', '1', 19, null, true),
+    point('c', 'small_world', 'B', '11', 21, { of: 'c'.padEnd(64, '0'), state: 'mapping', kind: null }, true),
+    point('d', 'ring', 'B', '11', 9, { of: 'x'.padEnd(64, '0'), state: 'known', kind: 'ring' }, false),
+    point('e', null, 'A', '2', 0, null, false)];
+  app.clearFilters();
+  app.renderFilters(points);
+  const drawn = getElementById('homeFilters').innerHTML;
+  for (const want of ['still lattice 1', 'small world 1', 'not read yet 1', 'B, map', 'C11', '5 of 5 laws shown']) {
+    if (!drawn.includes(want)) throw new Error(`the panel does not show "${want}": ${drawn}`);
+  }
+  const keep = () => points.filter((p) => app.homeFilterPasses(p)).map((p) => p.candidate_id[0]).join('');
+  app.chooseFilter({ target: { dataset: { filterKind: 'still' }, checked: false } });
+  if (keep() !== 'bcde') throw new Error(`hiding still kept ${keep()}`);
+  app.chooseFilter({ target: { id: 'filterGroup', value: 'B', dataset: {} } });
+  if (keep() !== 'cd') throw new Error(`group B kept ${keep()}`);
+  app.chooseFilter({ target: { id: 'filterRegion', value: 'known', dataset: {} } });
+  if (keep() !== 'd') throw new Error(`a known region kept ${keep()}`);
+  app.clearFilters();
+  app.chooseFilter({ target: { id: 'filterKind', value: 'small_world', dataset: {} } });
+  if (keep() !== 'c') throw new Error(`one kind kept ${keep()}`);
+  app.clearFilters();
+  app.chooseFilter({ target: { id: 'filterSettled', value: 'unsettled', dataset: {} } });
+  app.chooseFilter({ target: { id: 'filterBatch', value: '2', dataset: {} } });
+  if (keep() !== 'e') throw new Error(`batch 2, not settled, kept ${keep()}`);
+  app.renderFilters(points);
+  if (!getElementById('homeFilters').innerHTML.includes('1 of 5 laws shown')) throw new Error('the count does not follow the filters');
+  app.clearFilters();
+  if (app.homeFilter.off.size || app.homeFilter.kind) throw new Error('clear left a filter on');
+});
+
+check('with a filter on, the fleet ladder says how deep the laws it keeps went and leaves its live counts whole', () => {
+  const app = sandbox.GSD_APP;
+  const row = (id, kind, top) => ({ candidate_id: id.padEnd(64, '0'), campaign_id: '1', kind,
+    law_score: { score: 3, to_n: top, top_n: top }, settled_probes: [] });
+  app.campaign = '1';
+  app.landscape = { campaign_id: '1', top_candidates: [],
+                    dimension_points: [row('a', 'still', 16384), row('b', 'made', 65536), row('c', 'made', 16384)] };
+  app.overviewPayload = { active: [], rung_distribution: [{ n: 4096, running: 3, queued: 0, measured: 313, graphs: 939 }] };
+  app.clearFilters();
+  app.rungLadderRow();
+  if (/ladderFiltered/.test(getElementById('rungLadder').innerHTML)) throw new Error('no filter, yet the ladder says one is on');
+  app.chooseFilter({ target: { id: 'filterKind', value: 'made', dataset: {} } });
+  app.rungLadderRow();
+  const html = getElementById('rungLadder').innerHTML;
+  if (!/the laws the filters keep, by their deepest size: N=16,384 1 \u00b7 N=65,536 1/.test(html)) {
+    throw new Error(`the ladder does not say what the filters keep: ${html.slice(0, 400)}`);
+  }
+  if (!/ladder-table/.test(html)) throw new Error('the ladder table left the ladder');
+  app.clearFilters();
+  app.landscape = null;
+});
+
+check('with a filter on, the Top 100 is the best laws the filters keep, from every point of the landscape', () => {
+  const app = sandbox.GSD_APP;
+  const row = (id, kind, score) => ({ candidate_id: id.padEnd(64, '0'), campaign_id: '1', kind,
+    law_score: { score, to_n: 16384 }, settled_probes: [] });
+  app.campaign = '1';
+  app.landscape = { campaign_id: '1', top_candidates: [row('t', 'still', 30)],
+                    dimension_points: [row('t', 'still', 30), row('u', 'ring', 7), row('v', 'made', 12)] };
+  app.clearFilters();
+  if (app.filteredTop().map((r) => r.candidate_id[0]).join('') !== 't') throw new Error('no filter changed the Top 100');
+  app.chooseFilter({ target: { dataset: { filterKind: 'still' }, checked: false } });
+  const kept = app.filteredTop().map((r) => r.candidate_id[0]).join('');
+  if (kept !== 'vu') throw new Error(`with still hidden the Top 100 reads ${kept}`);
+  app.clearFilters();
+  app.landscape = null;
+});
+
 checkAsync('the System page shows the groups and the system CPUs and sets them behind the admin link', async () => {
   const app = sandbox.GSD_APP, sys = sandbox.GSD_SYSTEM, originalPost = sys.postJson;
   const sent = [];

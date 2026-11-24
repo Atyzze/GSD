@@ -1,4 +1,4 @@
-# Handoff: the state of GSD at build 856
+# Handoff: the state of GSD at build 857
 
 What is true now, for a context that has just opened this archive. Each fact has one home; the last section says
 where. **Think from the data, not from this page**: where the data and a document disagree, the data wins and the
@@ -13,7 +13,8 @@ first appended group, measured on the host by `tools/ledger.py measure` and voti
 are committed. The road from here, including the C and assembly engines of the reference set of four:
 `docs/agent/APPEND_ONLY_PLAN.md`.
 
-**Where things stand, at 856.** Study 176 is designed and committed, theirs to start in a folder of its own: groups
+**Where things stand, at 857.** Home has one filter panel for the landscape, the Top 100 and the fleet ladder (857).
+Study 176 is designed and committed, theirs to start in a folder of its own: groups
 A (the blind draw, 174's design on ten new seeds) and B (the map of the ten best laws not yet known), half the work
 slots each (`docs/build_notes/BUILD856_NOTES.md`). The baseline is two bundles and the calibration table, nothing older (the operator,
 2026-11-24 16:34: "these two are now are new baseline together with the unchanged calibration table"): study 174's
@@ -41,7 +42,7 @@ before 174 and every reading of one is out of what the project rests on, and 860
 
 **What the operator asked this afternoon, and where it went** (`docs/HISTORY.md`, "Studies"): one study in groups A, B
 and C, 50-50, the system's CPUs theirs to name (16:33 to 17:39): 856. A science hash and the table in every bundle
-(18:04): 856. The dashboard's filter panel (17:51): 857. A study seeded from an earlier bundle (18:04): 858. Group D,
+(18:04): 856. The dashboard's filter panel (17:51): 857, made. A study seeded from an earlier bundle (18:04): 858. Group D,
 the best law taken as deep as memory allows (18:06): 859. The consolidation: 860. The shared atlas: after the paper.
 
 ## Start here, in a fresh context
