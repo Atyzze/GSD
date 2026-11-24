@@ -127,7 +127,8 @@ def test_the_inputs_name_every_table_the_landscape_reads(isolated_postgres_schem
     assert read <= set(landscape_inputs.TABLES) | {"control"}, (
         f"the landscape reads {sorted(read - set(landscape_inputs.TABLES) - {'control'})}, which its inputs' "
         "stamp does not watch: an idle folder would keep a stale landscape")
-    assert control_keys and all(key.startswith(FLAG_PREFIX) for key in control_keys), control_keys
+    assert control_keys and all(key.startswith(landscape_inputs.WATCHED_FLAGS) for key in control_keys), control_keys
+    assert FLAG_PREFIX in landscape_inputs.WATCHED_FLAGS, "the score boards and the map's state are what the stamp watches"
 
 
 def test_the_stamp_holds_still_without_writes_and_moves_with_one(isolated_postgres_schema, tmp_path):

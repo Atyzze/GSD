@@ -584,7 +584,8 @@ training step, on a grid) and judged on structures the table never measured, rea
 committed before its structures were read): criterion 5 held everywhere but on trees of long paths, which the score
 before it settled alike, and the operator put the rules in force at 848 (2026-11-23 15:45).
 The score is read beside a decision, never in it, kept per campaign in a control flag (`observability/score_board.py`,
-which a new contract rescans) and read by the landscape, `/api/structure` and report 28; `compact` carries each part's
+which a new contract rescans; since 857 it keeps every scanned law's catalogue kind beside it, scored or not, and the
+landscape marks each point with its kind, group, batch and region for Home's filters, `landscape_worker.marked`) and read by the landscape, `/api/structure` and report 28; `compact` carries each part's
 items so the landscape can band a law by its twins alone or by every start.
 
 The landscape's bands (`services/api/landscape_worker.band_of_items`, since 784) are the score's: how many of the four
@@ -628,7 +629,8 @@ the same terms whose kind at 4,096 differs and at least 0.001 away. At the end o
 minute (`step`), a point decided is read for its kinds (`law_kind`), a line is halved on the side where the kind flips
 until its halvings are spent, and a region whose points are all decided and whose lines are done is marked known:
 its kind, the smallest of 1,024 and 4,096 at which every point of that kind already reads it, its boundaries and its
-points' kinds. Free places among the ten go to the best laws of the study by the score boards, above 1 and in no
+points' kinds. Every law's place on the map is read by `regions_of_laws` for the landscape's points (857). Free places
+among the ten go to the best laws of the study by the score boards, above 1 and in no
 region; a law of another campaign is not run again, its points are run in B. The bundle carries the state as
 `map.json`.
 

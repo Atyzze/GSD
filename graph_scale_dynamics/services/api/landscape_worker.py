@@ -246,6 +246,17 @@ NO_READING_FROM_EMPTY = "no_reading_from_empty"
 TOP_LIMIT = 100
 
 
+def marked(point: dict, marks: dict) -> dict:
+    law = str(point.get("candidate_id"))
+    region = (marks.get("regions") or {}).get(law)
+    point["kind"] = (marks.get("kinds") or {}).get(law)
+    point["group"] = marks.get("group")
+    point["batch"] = marks.get("batch")
+    point["region"] = None if region is None else {"of": region["region"], "state": region["state"],
+                                                    "kind": region.get("kind")}
+    return point
+
+
 def top_candidates_of(scored: list[dict], refused: list[dict], deepest: dict, limit: int = TOP_LIMIT) -> list[dict]:
     def _rank(row: dict) -> tuple:
         found = row.get("law_score") or {}
@@ -413,6 +424,10 @@ def build_landscape(repo: Repo, campaign_id: str) -> dict:
     latest_decisions = repo.latest_engine_decisions(str(campaign_id))
     from graph_scale_dynamics.observability import law_score as _law_score, score_board as _score_board
     board = _score_board.board(repo, str(campaign_id))
+    from graph_scale_dynamics.operations import study_map as _study_map
+    marks = {"kinds": board.get("kinds") or {}, "regions": _study_map.regions_of_laws(repo),
+             "group": ((campaign.get("spec") or {}).get("study_design") or {}).get("group"),
+             "batch": str(campaign_id)}
     latest_decision_utc = max((str(d.get("created_utc") or "") for d in latest_decisions.values()), default="")
 
     ordinals: dict[str, dict[int, int]] = {}
@@ -545,6 +560,8 @@ def build_landscape(repo: Repo, campaign_id: str) -> dict:
         candidate_meta, board=board, floors=floors, base_rungs=base_rungs, floors_by_n=floors_by_n,
         connectivity_floor=_spec_conn_floor, control_reference=_control_reference)
     deepest = {cid: max((int(r["n"]) for r in entry.get("rungs") or []), default=0) for cid, entry in by_id.items()}
+    for point in [*points, *refused]:
+        marked(point, marks)
     top_candidates = top_candidates_of(scored, refused, deepest)
     for row in top_candidates:
         row["engine_decision"] = latest_decisions.get(row["candidate_id"])

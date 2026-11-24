@@ -89,11 +89,8 @@ Open, none waiting:
 
 **After 856** (the operator, 2026-11-24 17:51 to 18:08, `docs/HISTORY.md`), each its own build, in this order:
 
-1. **857, the dashboard's filter panel**: one panel between the macro landscape and the fleet ladder, the top
-   unknowns beside it; every classified kind ticked on or off (the map's known regions and the catalogue's kinds), one
-   kind chosen from a list, the settled filter moved into it, and each law's group (A blind, B map) and batch; it acts
-   on the fleet ladder, the landscape and the top unknowns, not on the now-researching box. Each render function with
-   its case in `tests/ui/dashboard_smoke.js`.
+1. **857, made**: Home's filter panel (`docs/build_notes/BUILD857_NOTES.md`); the ladder's live counts by kind, read per
+   law on the server, are left for a later build.
 2. **858, a study seeded from an earlier bundle**: any bundle whose science hash (`study.json`, `science`) is the
    folder's: its map's regions and known kinds loaded, so B starts where the last one stopped and A's grid can lean
    toward the regions least explored (the lean itself drawn and recorded, never chosen by hand).

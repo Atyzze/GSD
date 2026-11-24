@@ -299,6 +299,19 @@ def step(repo, *, now: float | None = None, force: bool = False) -> dict | None:
             "known": sum(1 for region in state["regions"].values() if region["state"] == KNOWN)}
 
 
+def regions_of_laws(repo) -> dict[str, dict]:
+    try:
+        state = load(repo)
+    except Exception:  # noqa: BLE001
+        return {}
+    out: dict[str, dict] = {}
+    for holder, region in ((state or {}).get("regions") or {}).items():
+        mark = {"region": holder, "state": region["state"], "kind": region.get("kind")}
+        for law in [holder, *region["points"]]:
+            out.setdefault(str(law), mark)
+    return out
+
+
 def reading(repo) -> dict | None:
     state = load(repo)
     if state is None:

@@ -709,6 +709,10 @@ Only laws with a summary for every base rung (four). It recomputes extension run
 ## Reading the dashboard
 
 Classify, Bundle and Anchors are in the study bundle. A campaign is picked on Home's **The study now** cards; with two
+
+Home's **Filters** panel (857), under the landscape and beside the Top 100, keeps the laws of a kind, a map region, a
+group, a batch or settled or not in the landscape, the Top 100 and the fleet ladder alike; the Now researching box
+shows every law. **clear** shows everything again.
 or more batches (every campaign with a law budget), Home opens on **All batches**, every batch read together, and the
 Reports page reads the first batch. A click on a box's title folds it, and the browser remembers (792). The fleet
 ladder's stops are `empty`, `dense`, `discon` (the fact gates), `gated` (every gate that reads the probes, the starts

@@ -1,4 +1,4 @@
-# Where we are, at build 856
+# Where we are, at build 857
 
 The whole project on one page, in plain words; the detail is in `docs/agent/HANDOFF.md`.
 
@@ -54,7 +54,7 @@ lattice scores 1.
 68% to 81% of the way there from empty, worse as N grows. Until a known law grows its geometry from empty, "nothing
 grows from empty" cannot be told from "nothing can get there under these moves".
 
-## What 800 to 856 changed
+## What 800 to 857 changed
 
 The probes are locked (800, 801) and your table installed (805). 806 to 843: no clock decides, the evidence judged
 again on the final code, the studies carried and read, the gates' counters the study's, `--workers 32` holds 32. 844 is
@@ -62,16 +62,16 @@ the stable build with study 174. 845 to 850: Home's ten batches, the worker coun
 score of 848, the public tree, the catalogue of behaviours. 851 to 853: the README, a stale admin link shown. 854: the
 baseline, the still criterion passed, the trap measured, the paper drafted. 855: `CLAUDE.md` (each worker on a
 branch, each build a pull request you merge), the calibration ledger and its first new probe, the quantum walk, with
-no vote yet. 856: study 176 in groups A (blind) and B
-(the map of the ten best), half the fleet each; the still lattice at 1; the small world a kind; the CPUs the system
-keeps; a science hash and the table in every bundle.
+no vote yet. 856: study 176 in groups A (blind) and B (the map of the ten best), half the fleet each; the still
+lattice at 1; the small world a kind; the CPUs the system keeps; a science hash and the table in every bundle. 857:
+one set of filters on Home, for the landscape, the Top 100 and the fleet ladder.
 
 ## What comes next
 
 Study 176, on your start: A draws 10,000 laws blind; B maps the ten best laws not yet known (each coupling moved a
 tenth, lines halved toward the nearest law of another kind), marks a region known with how early it can be spotted,
-and takes the next. 857: the dashboard's filter panel. 858: a study seeded from an earlier bundle. 859: group D, the
-best law as deep as memory allows. 860: every study before the baseline out of the tree, into an archive beside it.
+and takes the next. 858: a study seeded from an earlier bundle. 859: group D, the best law as deep as memory
+allows. 860: every study before the baseline out of the tree, into an archive beside it.
 
 ## The decision in front of you
 
