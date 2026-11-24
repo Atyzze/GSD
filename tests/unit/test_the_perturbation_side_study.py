@@ -133,8 +133,16 @@ def test_a_verdict_reads_the_stream_first_then_each_radius_in_turn():
     assert not R.alike(None, held, 0.1)
 
 
-@pytest.fixture
-def a_side_bundle(tmp_path):
+def _reader():
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("perturb_reading", ROOT / "tools" / "perturb_reading.py")
+    R = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(R)
+    return R
+
+
+def _side_bundle(tmp_path, decide=None):
+    import gzip
     SD, design, survey = _design()
     laws = SD.perturb_laws(design, survey, ROOT)
     holder = _json("study_175_holders.json")["holders"][0]
@@ -143,30 +151,85 @@ def a_side_bundle(tmp_path):
     chain, n = own["chain"], int(own["to_n"])
     top = next(row for row in own["values"] if int(row[0]) == n)
     entries = {holder["candidate_id"]: {"values": {chain: own["values"]}, "top_n": n}}
+    decided = [{"candidate_id": holder["candidate_id"], "action": "done", "rule": "ladder_complete", "at_n": n}]
+    seen: dict[float, int] = {}
     for law in laws:
         if law["of"] != holder["candidate_id"] or not law["radius"]:
             continue
+        index = seen.setdefault(law["radius"], 0)
+        seen[law["radius"]] += 1
         far = law["radius"] >= 1e-2
         row = list(top)
         if far:
             row = [value * 1.5 if isinstance(value, float) and index else value for index, value in enumerate(row)]
         entries[law["candidate_id"]] = {"values": {chain: [row]}, "top_n": n}
+        action, rule, at_n = (decide or (lambda radius, i, size: ("done", "ladder_complete", size)))(law["radius"], index, n)
+        if action is not None:
+            decided.append({"candidate_id": law["candidate_id"], "action": action, "rule": rule, "at_n": at_n})
     folder = tmp_path / "study_175_x" / "campaign_1_reports_x"
     folder.mkdir(parents=True)
     (folder / "28-decision-engine.json").write_text(json.dumps({"campaign_id": "1", "body": {
-        "every_chain": {"value_columns": columns, "laws": entries}, "laws": []}}), encoding="utf-8")
+        "every_chain": {"value_columns": columns, "laws": entries}, "laws": decided}}), encoding="utf-8")
+    tables = folder.parent / "tables"
+    tables.mkdir()
+    with gzip.open(tables / "chains.ndjson.gz", "wt", encoding="utf-8") as out:
+        for seed, accepted in enumerate((30, 10, 20)):
+            out.write(json.dumps({"candidate_id": holder["candidate_id"], "chain": chain, "n": n, "seed": seed,
+                                  "accepted_moves": accepted, "final_edges": 1000}) + "\n")
     return folder.parent, holder
 
 
+@pytest.fixture
+def a_side_bundle(tmp_path):
+    return _side_bundle(tmp_path)
+
+
 def test_the_reading_finds_a_region_to_a_thousandth_and_the_run_again_replays(a_side_bundle):
-    import importlib.util
-    spec = importlib.util.spec_from_file_location("perturb_reading", ROOT / "tools" / "perturb_reading.py")
-    R = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(R)
+    R = _reader()
     root, holder = a_side_bundle
     found = R.read(root)
-    assert found["holders"] == 1 and found["replayed"] == 1
+    assert found["holders"] == 1 and found["replayed"] == 1 and found["settled"] == 1
     row = found["rows"][0]
     assert row["holder"] == holder["label"] and row["verdict"] == "region" and row["region_to"] == 1e-3
     assert row["alike"] == {"1e-09": 4, "0.001": 4, "0.01": 0, "0.1": 0}
+    assert row["statuses"]["0.01"] == {"unlike": 4}
+    assert row["kept_or_made"] == {"starts_alike": [], "made": False, "moved_per_edge": 0.02}
     assert "region to 0.001 1" in R.render(found).replace(",", "")
+
+
+def test_a_radius_stays_open_while_its_unread_variants_could_still_decide_it():
+    R = _reader()
+    rule = {"alike_at_least": 3}
+    assert R.standing(["alike", "alike", "alike", "unread"], 3) == "holds"
+    assert R.standing(["alike", "alike", "unread", "unread"], 3) == "open"
+    assert R.standing(["alike", "ended", "unlike", "unread"], 3) == "fails"
+    assert R.verdict_so_far({1e-9: ["alike"] * 4, 1e-3: ["alike"] * 4, 1e-2: ["alike", "unread", "unread", "alike"],
+                             1e-1: ["unread"] * 4}, rule) == ("open", 1e-3, False)
+    assert R.verdict_so_far({1e-9: ["ended", "ended", "unread", "alike"], 1e-3: ["unread"] * 4,
+                             1e-2: ["unread"] * 4, 1e-1: ["unread"] * 4}, rule) == ("stream", None, True)
+    assert R.verdict_so_far({1e-9: ["alike", "unread", "unread", "unread"], 1e-3: ["alike"] * 4,
+                             1e-2: ["alike"] * 4, 1e-1: ["alike"] * 4}, rule) == ("open", None, False)
+    for counts in ({1e-9: 2, 1e-3: 4, 1e-2: 4, 1e-1: 4}, {1e-9: 4, 1e-3: 2, 1e-2: 4, 1e-1: 4},
+                   {1e-9: 3, 1e-3: 3, 1e-2: 1, 1e-1: 4}, {1e-9: 4, 1e-3: 4, 1e-2: 4, 1e-1: 3}):
+        whole = {radius: ["alike"] * k + ["unlike"] * (4 - k) for radius, k in counts.items()}
+        assert R.verdict_so_far(whole, rule)[:2] == R.verdict(counts, rule)
+
+
+def test_an_unread_variant_is_not_unlike_and_one_that_ended_below_the_size_is(tmp_path):
+    R = _reader()
+
+    def decide(radius, index, n):
+        if radius >= 1e-2 and index == 0:
+            return "run_next", "starts_apart", n // 4
+        if radius >= 1e-2 and index == 1:
+            return "run_next", "longer_chain", n
+        if radius == 1e-3 and index == 0:
+            return "stop", "empty", n // 4
+        return "done", "ladder_complete", n
+
+    root, holder = _side_bundle(tmp_path, decide)
+    row = R.read(root)["rows"][0]
+    assert row["statuses"]["0.001"] == {"alike": 3, "ended": 1}
+    assert row["statuses"]["0.01"] == {"unlike": 2, "unread": 2}
+    assert (row["verdict"], row["region_to"], row["settled"]) == ("region", 1e-3, True)
+    assert row["d_read"]["0.01"][:2] == [None, None]

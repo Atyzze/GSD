@@ -1,4 +1,4 @@
-# Handoff: the state of GSD at build 848
+# Handoff: the state of GSD at build 849
 
 What is true now, for a context that has just opened this archive. Each fact has one home; the last section says
 where. **Think from the data, not from this page**: where the data and a document disagree, the data wins and the
@@ -30,7 +30,12 @@ force, because trees of long paths still settle under it (the operator's decisio
 worker count. **847** (`docs/build_notes/BUILD847_NOTES.md`) designed study 175, the perturbation side study:
 174's 35 settled laws each run again and perturbed at four radii, 595 laws, its verdict committed first, and a reader
 of what the top laws share. **848** (`docs/build_notes/BUILD848_NOTES.md`) puts 846's score in force, as the operator
-agreed (2026-11-23 15:45). **Next**: 849 reads what the operator sends (`docs/agent/NEXT_BUILD.md`).
+agreed (2026-11-23 15:45). **849** (`docs/build_notes/BUILD849_NOTES.md`) reads study 175's second bundle with a
+reader that keeps a variant still running apart from one that differs, kept or made beside each holder: 2
+regions to a tenth and a stream settled, 27 open, and 32 of the 35 holders lattices the law leaves alone; the
+tree is public on `github.com/Atyzze/GSD` from 848 on, without the papers by other authors (2026-11-24). Two
+questions are with the operator (`docs/ROADMAP.md`). **Next**: 850 reads what the operator sends
+(`docs/agent/NEXT_BUILD.md`).
 
 **Build 841 carries study 173, the gated pilot** (`docs/build_notes/BUILD841_NOTES.md`,
 `resources/readings/study_173_design.json` and its criterion, committed before any start): 172's design on a seed of
@@ -274,9 +279,11 @@ again after the paper's three studies, on the final probes, with a criterion wri
 ## What waits on the operator
 
 * **Study 174's bundles**, a progress bundle whenever they send one and the last at its end.
-* **848 in the folders of 174 and 175**: theirs to apply; it changes no decision.
-* **Study 175, the perturbation side study** (847, `study_175_design.json`): in a folder of its own on all the
-  workers, 174 stopped meanwhile (the operator, 2026-11-23 15:45); about 600 core-hours, its bundle to read.
+* **848 and 849 in the folders of 174 and 175**: theirs to apply; neither changes a decision.
+* **Study 175, the perturbation side study** (847, `study_175_design.json`): running in a folder of its own on all the
+  workers, 174 stopped meanwhile (the operator, 2026-11-23 15:45); its second bundle read at 849, its last to read.
+* **Two questions asked with 175's second bundle** (2026-11-24): whether 175 runs to its end, and whether the study
+  after it looks for laws whose different starts arrive at the same geometry (`docs/ROADMAP.md`).
 * **Three questions are open and none waits** (`docs/ROADMAP.md`, "Questions for the operator"): the noise floors as
   each law's own measured errors, criterion first (offered at 805); the score's list and whether a geometry needs all
   four probes and the Einstein relation; whether exponential growth is flagged in its own right.

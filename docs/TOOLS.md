@@ -506,12 +506,19 @@ so on a bundle the score reads its floor, its scale and its next step, and count
 
 ## tools/perturb_reading.py
 
-Study 175's verdicts, read on its bundle (847): for each holder of `study_175_holders.json` found in the bundle, what
-its scoring chain reads at its top size in 174 (the median of its probes there, and its mean degree), whether its run
-again reads the same values at every size, and how many of its variants at each radius are alike it (the same chain
-read at that size, its d and mean degree within the criterion's tolerance, a tenth). The verdict is the criterion's
-(`study_175_criterion.json`): a stream when the 1e-9 variants do not hold, a point when 0.001 does not, or a region to
-the largest radius up to which every radius holds. The laws are made again from the design, so a law is told by its id.
+Study 175's verdicts, read on its bundle (847; `gsd-perturb-reading-2` since 849): for each holder of
+`study_175_holders.json` found in the bundle, what its scoring chain read at its top size in 174 (the median of its
+probes there, and its mean degree), whether its run again reads the same values at every size it has decided, and
+each variant's state at each radius. A variant is read when its law was decided at the holder's size, other than by
+buying longer chains there: alike (the same chain at that size, its d and mean degree within the criterion's tenth) or
+unlike. One stopped, parked or done below that size ended there and is not alike, as the criterion has it; one still
+running is unread. A radius holds at three alike, fails when its alike and unread together cannot reach three, and is
+open otherwise. The verdict is the criterion's (`study_175_criterion.json`): a stream when the 1e-9 variants do not
+hold, a point when 0.001 does not, or a region to the largest radius up to which every radius holds; a holder whose
+deciding radii are open is open, with the region it has so far. With every variant read it is 847's verdict. Beside
+it, recorded only and added after the study started: kept or made, which of the holder's other starts read alike its
+chain at its size (made when one does), and its chain's accepted moves per edge there (`tables/chains.ndjson.gz`).
+The laws are made again from the design, so a law is told by its id.
 
     python3 tools/perturb_reading.py <bundle of study 175> --md <page> --json <file>
 

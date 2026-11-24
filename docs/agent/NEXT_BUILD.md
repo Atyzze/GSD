@@ -1,29 +1,26 @@
-# The next build is 849
+# The next build is 850
 
 This file names the next build and says how to make it. `tests/unit/test_next_build_is_named.py` parses its first line,
 which must read exactly `# The next build is <N>`, one above `BUILD_NUMBER`.
 
-## Where to begin: 849 reads what the operator sends
+## Where to begin: 850 reads what the operator sends
 
 **What is running.** Study 175, the perturbation side study (847, `docs/build_notes/BUILD847_NOTES.md`), in a folder of
 its own on all the workers: 595 laws around 174's 35 settled laws, its verdict committed first. Study 174, the stable
 trial (844), stopped meanwhile in its own folder and resumed afterwards by its own command (the operator, 2026-11-23
-15:45). **848** put 846's score in force (`gsd-law-score-8`; `docs/build_notes/BUILD848_NOTES.md`): counted seeds,
-the connectivity floor, a step whose reach grows as the dimension read and whose next step does not break it; trees of
-long paths still settle, a known limit. 846 added the System page's worker count.
+15:45). **849** (`docs/build_notes/BUILD849_NOTES.md`) read 175's second bundle: 2 regions to a tenth and a stream
+settled, 27 holders open, no variant read at its holder's size unlike; 32 of the 35 holders are lattices the law leaves
+alone, and one, H31, has two starts arriving at d 4.0. The tree is public from 848 on, its papers out.
 
-**849 reads what comes.** A bundle of study 175: `tools/perturb_reading.py <bundle>` gives each holder's verdict (a
-stream, a point, or a region to a radius) and P1 (each holder run again reads its 174 values), P2 and P3 from the
-criterion; `tools/top_laws_alike.py <bundle>` beside it, and which term sets the regions and the points hold. A bundle
-of study 174: every reader below, 174's criterion P1 to P9, each batch beside the others, its finds as 848's score
+**850 reads what comes, and what the operator answers.** Two questions are with them (`docs/ROADMAP.md`): whether 175
+runs to its end, and what the study after it looks for. A bundle of study 175: `tools/perturb_reading.py <bundle>`
+gives each holder's verdict, settled or open, and kept or made beside it; P1 (each holder decided at a size of 174
+reads its 174 values there), P2 and P3 from the criterion; `tools/top_laws_alike.py <bundle>` beside it. A bundle of
+study 174: every reader below, 174's criterion P1 to P9, each batch beside the others, its finds as the score in force
 reads them seed by seed in the folder, and what study A would take.
 
-**Already in 849's tree** (2026-11-24, before any bundle): the tree became public, so `docs/references/` (19 papers)
-and the test that kept them are gone, each paper cited instead in `docs/RESEARCH_METHOD.md`, "The papers read"; its
-notes say so, and that applying 849 removes that folder from the operator's copy (the 848 archive keeps it).
-
-**Acceptance** of 849: whatever it reads is read by the committed criterion, every decision of a bundle replays, nothing
-in force changes without the operator's word, `tools/outputs_of_a_law.py --against` 848's record, the full lane green.
+**Acceptance** of 850: whatever it reads is read by the committed criterion, every decision of a bundle replays, nothing
+in force changes without the operator's word, `tools/outputs_of_a_law.py --against` 849's record, the full lane green.
 
 ## Reading a study's bundle
 
@@ -167,8 +164,9 @@ runs it (a file owned by another user fails at `stamp_gate_result`, after the wh
 
 **Then push what the gate passed** to `github.com/Atyzze/GSD`, which is public (the operator, 2026-11-24; `docs/HISTORY.md`,
 "Delivery"): the released commit's files (`git archive`) copied into a clone of that repository, one commit
-`Build <N>` and an annotated tag `build-<N>`. No lane of its own and no copy of anything the release did not ship; the
-repository's history is its own, one commit a build, and starts at 848.
+`Build <N>` on `main`. The session's git refused a tag push (2026-11-24, HTTP 403), so the commit's message names
+the build. No lane of its own and no copy of anything the release did not ship; the repository's history is its
+own, one commit a build, and starts at 848.
 
 The tests that read a build's number (`tests/unit/test_next_build_is_named.py`, `test_build_identity.py`,
 `test_where_we_are_is_current.py`, `test_claim_ledger.py`, `test_build_cadence.py`) accept the documents naming either

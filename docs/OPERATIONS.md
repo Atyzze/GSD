@@ -47,7 +47,8 @@ perturbed at random at four radii, four laws a radius: 1e-9, which only gives th
 no variant is stopped on a judgment its holder passed. About 600 core-hours (400 to 900): about a day and a half on 16
 workers, or beside 174 on part of them (System, Workers, in each folder). Its criterion, `study_175_criterion.json`,
 commits the verdict a holder (a stream, a point, or a region to a radius); `tools/perturb_reading.py <bundle>` reads it,
-and `tools/top_laws_alike.py <bundle>` what the top laws share.
+a holder open while its unread variants could still decide it (849), with each holder kept or made beside it, and
+`tools/top_laws_alike.py <bundle>` what the top laws share.
 
 **Study 174 is the stable trial (844)**, in a folder of its own on 844, run for days (the operator, 2026-11-22 15:50):
 173's design on ten new search seeds, a batch of 1,000 laws each, so that study A is it ten times over. The gates are

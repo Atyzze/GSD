@@ -54,6 +54,17 @@ Open, for after study 174 (the operator, 2026-11-22 15:50):
 * **Put the score's candidate in force?**: answered 2026-11-23 15:45, in force at 848, the trees of long paths a known
   limit of both scores (`docs/HISTORY.md`).
 
+Open, asked 2026-11-24 with study 175's second bundle (849; `docs/build_notes/BUILD849_NOTES.md`):
+
+* **Study 175 to its end, or stopped now?** Recommended: to its end, most of a day more and maybe two (263 core-hours
+  of the 400 to 900 predicted), for every holder's committed verdict, H31's (`3931d03e8edf`) among them. Or stopped
+  now: the compute back, 27 holders left open.
+* **What the study after 175 looks for?** Recommended: laws whose different starts arrive at the same d and mean
+  degree (made, not kept), H31 and the six laws of 174 that did so at 4,096 first; a change to what ranks a law, so a
+  criterion committed first and known answers. Or the score in force, which ranks first the lattices a law leaves
+  alone (`gsd-law-score-8` counts a frozen seed as settled; 32 of the 35 holders accept moves on fewer than 5% of their
+  edges).
+
 Open, none waiting:
 
 * **The noise floors** (offered with 805): the installed table's own floors are its cells' median errors, and its
@@ -118,8 +129,9 @@ why.
    perturbed at random at four radii, from a change that moves only the random stream to a tenth, 595 laws, about 600
    core-hours, its region-or-point verdict committed first (`study_175_criterion.json`); and `tools/top_laws_alike.py`,
    which reads in 174 that the settled laws reward squares and run cold, with no shared recipe. **848, made**
-   (2026-11-23 15:45; `docs/build_notes/BUILD848_NOTES.md`): 846's score in force, `gsd-law-score-8`. **Then 175's reading**
-   when the operator starts it and sends its bundle (`tools/perturb_reading.py`). **Then 174's reading** (a progress bundle while it runs, its last at the end): its criterion, P1 to P9,
+   (2026-11-23 15:45; `docs/build_notes/BUILD848_NOTES.md`): 846's score in force, `gsd-law-score-8`. **849, made** (2026-11-24; `docs/build_notes/BUILD849_NOTES.md`): 175's
+   second bundle read by a reader that keeps unread apart from unlike, kept or made beside each holder; the
+   tree public, its papers out. **Then 175's last reading** at its end (`tools/perturb_reading.py`). **Then 174's reading** (a progress bundle while it runs, its last at the end): its criterion, P1 to P9,
    each batch beside the others, and what study A would take. 174's rules cost about 1.8 times 173's on the same
    laws (the replay carried to 10,000: about 1,270 core-hours against 720), study A about 33 days against 19 on 16
    workers, nearly all of it nothing_read letting laws on at 4,096 and the laws that then reach 65,536; 174 says what
@@ -282,6 +294,9 @@ bundle on any machine. Each build's notes say in their first line whether it may
 
 ## Unscheduled
 
+* **A law stopped `empty` while its other starts are full** (849): when every start but the empty one stops at the
+  mean degree cap of 32, the law's own reading falls to the empty start and the stop is named `empty`, as in three
+  of H15's four 1e-9 twins in study 175. A truer name changes a decision's words, so it is the operator's to agree.
 * **Distribution: every folder its own seed** (the operator, 2026-11-21 23:21: "if 1,000 people run it, that 1,000 different starting seats have been tried out ... for later"): a run without `--study`, or of a design with no `search_seeds`, draws its own seed already; what is left is study A's design for others to run without fixed seeds, each bundle carrying its seeds so the runs pool and any one can be run again.
 
 Each is fixed or closed before study A's trial, in builds held to move no output a running study runs; 814 sorted

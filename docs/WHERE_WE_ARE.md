@@ -1,4 +1,4 @@
-# Where we are, at build 848
+# Where we are, at build 849
 
 The whole project on one page, in plain words; the detail is in `docs/agent/HANDOFF.md`.
 
@@ -39,19 +39,17 @@ Studies 169 (821; 1,000 laws, stopped before 16,384 finished) and 170 (827; 2,50
 of a pilot is a finding: every decision of both replays; the standing controls that should score do (every point
 settled to 65,536 for the two-dimensional one). 10 of 169's drawn laws score, all through a lattice start; 170's gates
 withheld 95% of its laws by 4,096 and one drawn law scores (15, triangular start, stopped by its budget at 16,384).
-The budgets are too tight at 4,096: they cut a third of 170's seeds there and stopped 43 of the 46 laws that passed
-every gate. Since 832 the gates learn from the whole study, every batch at once.
+The budgets were too tight at 4,096, cutting a third of 170's seeds; since 832 the gates learn from the whole study.
 
 ## What is running
 
 Study 174, the stable trial, in its own folder: 10,000 laws in ten batches of 1,000, each on a new seed, the gates
 you chose, on 16 workers, stopped while study 175 has the host. Its first bundle (09:52Z) holds 6,173 laws and replays
 decision for decision; 35 drawn laws settle under the score of 848 and the one before it, every one from a lattice
-start. Study 175, the perturbation side study, around those 35, in a folder of its own on 847, once you start it.
-They share a trait, not a recipe: squares rewarded (one square term in 16 of them, 3.7 times as often as in the laws
-that reached 4,096) and cold dynamics (median beta 12 against 2), across 32 different term sets.
+start: squares rewarded and cold dynamics, across 32 term sets. Study 175, the perturbation side study, around those
+35, runs on all the workers in a folder of its own on 847.
 
-## What 800 to 848 changed
+## What 800 to 849 changed
 
 The probes are locked for the calibration (800, 801); 805 installed your table: it passes. 806: no clock decides
 anything; each size's seed has a budget in the engines' own count of work. 808 to 819 judged every set of the
@@ -62,21 +60,27 @@ cleaned up as you asked, added auto extend (off unless ticked) and put the fact 
 chunk, carried 173 (six gates, a tenth let through, the cut gate recording), and made `--workers 32` hold 32. 844 is
 the stable build: your gates and study 174, nothing else. 845 makes Home show 174's map of ten batches. 846 judges a
 mended score as a candidate beside the score in force, and lets you change the worker count while a study runs
-(System, Workers). 847 designs study 175, the perturbation side study, and reads what the top laws share. 848 puts
-846's score in force, as you agreed (15:45).
+(System, Workers). 847 designs study 175 and reads what the top laws share. 848 puts 846's score in force (15:45).
+849 reads 175 with a reader that keeps a running variant apart from a differing one, and makes the tree public.
+
+## What study 175 reads so far
+
+Its second bundle (2026-11-24, 263 core-hours): every holder replays seed for seed. Settled: two regions to a tenth
+(H04, H09) and a stream (H15); five regions to at least a hundredth; 27 open; no variant read differs. The regions are
+of lattices a law leaves alone: 32 of the 35 holders accept moves on under 5% of their edges, and in 34 no other start
+arrives at the same d and mean degree. H31 moves: its bcc and fcc starts both reach d 4.0. In 174, of 168 laws whose
+starts agree from 4,096, 161 agree on a ring or chain.
 
 ## What comes next
 
-Study 175's bundle when it reads done: the 35 laws, each run again and perturbed at random at four radii (1e-9,
-which only gives a law new random numbers, then 0.001, 0.01 and 0.1), 595 laws, about 600 core-hours, read into a
-stream, a point or a region for each. Then 174 resumes, and its reading when its last bundle comes: whether the ten batches run as one study, what each gate's tenth cost and found,
-and what study A at ten times 174 would take. Then, each agreed with you first: past 65,536, and study A.
+Study 175's last bundle, if you let it run (most of a day more, maybe two). Then 174 resumes, and its reading when
+its last bundle comes: the ten batches as one study, each gate's tenth, and what study A would take.
 
 ## The decision in front of you
 
-Whether to give 848 to the folders of 174 and 175: it changes no decision, only the score read beside them and the
-order a full deep lane serves its waiting laws in; each folder needs one restart of its own command. Study 175 runs as
-designed on 847 without it (`uv run python main.py run --study 175` in a new folder).
+Two (`docs/ROADMAP.md`): whether 175 runs to its end (recommended); and whether the next study looks for laws whose
+different starts arrive at the same geometry (recommended) or keeps the score in force, which ranks first the lattices
+a law leaves alone. 849 changes no decision: give it to a folder when it suits.
 
 ## Words you will see
 
