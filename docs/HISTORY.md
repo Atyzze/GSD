@@ -181,7 +181,9 @@ made; a time without a Z is the operator's local time.
   its own (2026-11-24 09:02, of a private one: "No, not private GitHub. I already have a public GitHub with like 6
   public projects. You can just add this one to the list of existing public projects on my GitHub."; 09:40: "dont
   make a separate build lane for it, we just keep the existing two ones"). Until then nothing was pushed; the
-  repository starts at 848.
+  repository starts at 848. The README's opening is the operator's: they wrote it on GitHub (2026-11-24 14:26 to
+  14:32: a link to the live research, snekpas.nl/research, and five pictures of the pages), so a push takes their
+  edits into the tree first and never overwrites them (852).
 * The tree keeps no copy of another author's paper, and no test keeps one (2026-11-24 09:02: "make sure that we
   don't repost any of the papers"; 09:40: "get rid of tests that check that folder"): each paper is cited by arXiv id
   and the version read (`docs/RESEARCH_METHOD.md`, "The papers read"). It replaces the copies kept in the archive

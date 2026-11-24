@@ -1,30 +1,25 @@
-# The next build is 851
+# The next build is 853
 
 This file names the next build and says how to make it. `tests/unit/test_next_build_is_named.py` parses its first line,
 which must read exactly `# The next build is <N>`, one above `BUILD_NUMBER`.
 
-## Where to begin: 851 reads what the operator sends, and the score's reach rule on a single loop
+## Where to begin: 853 reads what the operator sends
 
-**What is running.** Study 175, the perturbation side study (847), in a folder of its own on all the workers, to its
-end (the operator, 2026-11-24 10:22); study 174 stopped meanwhile and resumed afterwards by its own command. **850**
-(`docs/build_notes/BUILD850_NOTES.md`) made the catalogue of behaviours (`resources/catalogue/catalogue.json`,
-`tools/catalogue_reading.py`): every law of a bundle placed in a kind, how early each kind was known, the still lattice
-scored lowest beside the score in force, `still_lattice_criterion_1.json` committed before the next bundle.
+**What is running.** Study 175, the perturbation side study (847), in a folder of its own, to its end (the operator,
+2026-11-24 10:22), and study 174 in its own. **850** (`docs/build_notes/BUILD850_NOTES.md`) made the catalogue of
+behaviours (`resources/catalogue/catalogue.json`, `tools/catalogue_reading.py`) and committed
+`still_lattice_criterion_1.json` before the next bundle; **851** (`docs/build_notes/BUILD851_NOTES.md`) put the home
+page on the README and found the score right to refuse the 8 laws that settle by value from the twins; **852**
+(`docs/build_notes/BUILD852_NOTES.md`) took the README the operator wrote on GitHub into the tree.
 
-**First, the reach rule on a single loop.** Eight laws of 174 settle a probe by value from the twin starts, all one
-dimensional, two of them one connected loop of mean degree 2.00 holding every node; the score in force settles none,
-its reach rule reading their reach as growing like d 2. A loop is a known answer (d 1): build the loops of the
-calibration sizes, read them with the score, and say whether the rule refuses them; a fix to a frozen source is a
-criterion first and the operator's word.
-
-**Then what comes.** A bundle of study 175 or 174: `tools/catalogue_reading.py <bundle>` judges
+**What comes.** A bundle of study 175 or 174: `tools/catalogue_reading.py <bundle>` judges
 `still_lattice_criterion_1.json` (S1, S2; S3 reported) on the first one sent after 850; if it passes, the still
 lattice scores 1 in the score in force (the operator, 2026-11-24 10:22), and stopping a law early by the still call is
-offered with what it saves and risks. `tools/perturb_reading.py <bundle>` for 175's verdicts, H31's family first. The
-next study's design, the laws whose starts agree (H31 and the six of 174), offered with its criterion.
+offered with what it saves and risks. `tools/perturb_reading.py <bundle>` for 175's verdicts, H31's family first. Then
+the next study's design, the laws whose starts agree (H31 and the six of 174), offered with its criterion.
 
-**Acceptance** of 851: whatever it reads is read by the committed criterion, every decision of a bundle replays, nothing
-in force changes without the operator's word, `tools/outputs_of_a_law.py --against` 850's record, the full lane green.
+**Acceptance** of 853: whatever it reads is read by the committed criterion, every decision of a bundle replays, nothing
+in force changes without the operator's word, `tools/outputs_of_a_law.py --against` 852's record, the full lane green.
 
 ## Reading a study's bundle
 
@@ -166,10 +161,12 @@ setsid nohup python3 tools/package_release.py --output <dir> > release.log 2>&1 
 hand. If the gate will not run, fix what stops it. Before the gate, every file you created is owned by the user that
 runs it (a file owned by another user fails at `stamp_gate_result`, after the whole lane).
 
-**Then push what the gate passed** to `github.com/Atyzze/GSD`, which is public (the operator, 2026-11-24; `docs/HISTORY.md`,
-"Delivery"): the released commit's files (`git archive`) copied into a clone of that repository, one commit
-`Build <N>` on `main`. The session's git refused a tag push (2026-11-24, HTTP 403), so the commit's message names
-the build. No lane of its own and no copy of anything the release did not ship; the repository's history is its
+**Then push what the gate passed** to `github.com/Atyzze/GSD`, which is public (the operator, 2026-11-24;
+`docs/HISTORY.md`, "Delivery"): the released commit's files (`git archive`) copied into a clone of that repository,
+one commit `Build <N>` on `main`. The session's git refused a tag push (2026-11-24, HTTP 403), so the commit's message
+names the build. Fetch `main` first: the operator edits on GitHub too (the README's opening, 2026-11-24), so any
+commit of theirs since the last build is taken into the tree before the gate runs, and the push lands on top of it,
+never forced. No lane of its own and no copy of anything the release did not ship; the repository's history is its
 own, one commit a build, and starts at 848.
 
 The tests that read a build's number (`tests/unit/test_next_build_is_named.py`, `test_build_identity.py`,

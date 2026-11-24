@@ -130,9 +130,11 @@ why.
    first; no consolidation schedule. **Then 175's last reading** at its end (`tools/perturb_reading.py`,
    `tools/catalogue_reading.py`): the criterion judged on it or on 174's next bundle, whichever comes first, and if it
    passes the still lattice scores 1 in the score in force and stopping a law early by the still call is offered with
-   its cost. **First in 851**: whether the score's reach rule wrongly refuses a single loop, a known answer (d 1), as it
-   refuses the 8 laws of 174 that settle by value from the twin starts; and the next study's design, laws whose starts
-   agree (H31 and the six of 174), offered with its criterion. **Then 174's reading** (a progress bundle while it runs, its last at the end): its criterion, P1 to P9,
+   its cost. **851, made** (2026-11-24 14:10): the home page on the
+   README; the reach rule does not refuse a clean loop, which its known answers settle at full points, so the 8 laws
+   that settle by value from the twins are not clean loops. **852, made**: the README the operator wrote on GitHub
+   (14:26 to 14:32), taken into the tree. **Next**: the next study's design, laws whose starts agree
+   (H31 and the six of 174), offered with its criterion. **Then 174's reading** (a progress bundle while it runs, its last at the end): its criterion, P1 to P9,
    each batch beside the others, and what study A would take. 174's rules cost about 1.8 times 173's on the same
    laws (the replay carried to 10,000: about 1,270 core-hours against 720), study A about 33 days against 19 on 16
    workers, nearly all of it nothing_read letting laws on at 4,096 and the laws that then reach 65,536; 174 says what

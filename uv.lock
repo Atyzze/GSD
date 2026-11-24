@@ -13,7 +13,7 @@ wheels = [
 
 [[package]]
 name = "gsd"
-version = "850"
+version = "852"
 source = { editable = "." }
 dependencies = [
     { name = "gsd-engine-rs" },

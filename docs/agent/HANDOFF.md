@@ -1,4 +1,4 @@
-# Handoff: the state of GSD at build 850
+# Handoff: the state of GSD at build 852
 
 What is true now, for a context that has just opened this archive. Each fact has one home; the last section says
 where. **Think from the data, not from this page**: where the data and a document disagree, the data wins and the
@@ -40,7 +40,10 @@ questions were answered at 10:22: 175 to its end, the next study for laws whose 
 twins, made, ring, empty, full, frozen, still, rewired, moved, broken, apart, unread), how early each was known, and
 the still lattice scored lowest as a candidate, `still_lattice_criterion_1.json` committed first; H31 and all 16
 of its variants are made at 4,096; 8 laws of 174 settle by value from the twins, all one dimensional, and the score's
-reach rule refuses them. **Next**: 851 (`docs/agent/NEXT_BUILD.md`).
+reach rule refuses them, rightly (**851**, `docs/build_notes/BUILD851_NOTES.md`: it settles a clean ring at full points,
+so these are loops carrying trees); 851 put the home page on the README, and **852** took in the README the operator
+wrote on GitHub, its live link and five pictures. **Next**: 853
+(`docs/agent/NEXT_BUILD.md`).
 
 **Build 841 carries study 173, the gated pilot** (`docs/build_notes/BUILD841_NOTES.md`,
 `resources/readings/study_173_design.json` and its criterion, committed before any start): 172's design on a seed of
