@@ -84,8 +84,31 @@ def seed_values(metrics: dict, n: int, chain: str, name: str | None = None) -> d
            "giant_fraction": _per_node((census.get("largest_component") or {}).get("size"), n),
            "kappa": _number(curvature.get("mean")) if curvature.get("measured") else None,
            "reach": _number(reach_from.get("half_volume_radius")) if isinstance(reach_from, dict) else None}
+    accepted = accepted_moves_of(metrics).get(descended)
+    out["moved"] = accepted / edges if accepted is not None and edges else None
     for probe in PROBES:
         out[probe] = _probe_value(metrics, chain, probe, name)
+    return out
+
+
+def accepted_moves_of(metrics: dict | None) -> dict[str, int]:
+    kept = (metrics or {}).get("accepted_moves")
+    if isinstance(kept, dict):
+        return {str(name): int(value) for name, value in kept.items()
+                if isinstance(value, int) and not isinstance(value, bool)}
+    out = {}
+    for name, accounting in ((metrics or {}).get("move_accounting") or {}).items():
+        counts = accounting.get("counts") if isinstance(accounting, dict) else None
+        if isinstance(counts, dict):
+            out[str(name)] = sum(int(value) for key, value in counts.items()
+                                 if str(key).endswith(".accepted") and isinstance(value, (int, float)))
+    return out
+
+
+def moved_summary(values: list, total: int) -> dict:
+    out = _summary(values, total)
+    kept = [v for v in values if v is not None]
+    out["median"] = _short(float(np.median(kept))) if kept else None
     return out
 
 
@@ -326,6 +349,7 @@ def chains_per_rung(measurements: list[dict], starts: list | None = None) -> dic
                              else _summary([v[chain][key] for v in values], len(seeds))) for key in QUANTITIES}
             summary["ended_at_cap"] = ended_at_cap([r["metrics"] for r in seeds], "empty" if chain == "empty"
                                                    else "given", None if chain in CHAINS else chain)
+            summary["moved"] = moved_summary([v[chain]["moved"] for v in values], len(seeds))
             stored = STORED_AS[chain] if chain in CHAINS else chain
             summary["counted"] = _counted(values, [chain_stopped(r["metrics"], stored) for r in seeds], chain,
                                           len(seeds))

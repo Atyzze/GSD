@@ -551,6 +551,22 @@ back. The most it offers is one a hardware thread (32 on the research host), or 
 because the folder's PostgreSQL connections are sized by the same rule. Above one a core the second threads share a
 core, so 16 to 32 adds less than it seems. Nothing needs a restart, and the count stays across a pause.
 
+**The work groups and the system's CPUs** (856; the operator, 2026-11-24 17:37 and 17:39): a study that names groups
+(176: A the blind draw, B the map of the best) shares the slots between them, half each by default. `uv run python
+main.py workload` says the split and the CPUs; `--split A=3,B=1` changes the split (any positive numbers, read as
+shares; an empty string treats every campaign alike) and `--system-cpus 0,1,16,17` keeps those CPUs, as btop numbers
+them, for the database, the controller and the dashboard: every simulation and analysis child starts on the others,
+from the next child each worker starts (an empty string gives them back). A group with nothing queued leaves its slots
+to the other until it has work again, so the map of a study that has found nothing yet takes no slot. In btop with 16
+workers and both groups working: about 8 simulations of each, none on the CPUs named. The System page's Workload panel
+does the same behind the admin link, and says which kept CPU shares a core with one that is not: keep both threads of
+a core when the dashboard goes stale under a full fleet (856's notes).
+
+**Starting study 176**: `uv run python main.py run --study 176` in a new folder: ten blind batches and the map, which
+begins with the 125 points of its first ten (`study_176_first_ten.json`). The map's progress is the bundle's `map.json`
+(each region mapping or known, its points, its kind, the size it is spotted at, its boundaries); the controller's
+log writes `study_map` when the map adds points or takes a new law into the ten.
+
 **If `uv run` fails building `gsd-engine-rs`** with `rustc: symbol lookup error: .../librustc_driver-*.so: undefined
 symbol ... version LLVM_...`, the system's `rustc` and its LLVM libraries are from different updates (`which -a
 rustc`, `rustc -V`); an upgrade and a reboot do not mend it. Use rustup: `sudo pacman -S rustup`, then `rustup default

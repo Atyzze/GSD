@@ -1,0 +1,28 @@
+{
+ "contract": "gsd-small-world-criterion-1",
+ "committed_utc": "2026-11-24T16:48:05Z",
+ "committed_before": "any bundle sent after study 174's of 2026-11-24 14:22Z and study 175's of 08:35Z was read; the rule's two numbers were chosen on those two bundles, which are not judged by it",
+ "question": "The operator's (2026-11-24 16:33 and 17:37): the small world is a kind of its own, known early and marked so that the map leaves a region once it is known. Is a law the rule calls a small world at one size never made at a deeper one, and is the region of H31 one kind?",
+ "rule": {
+  "from_n": 4096,
+  "reach_at_most": 2.0,
+  "rise_at_least": 0.1,
+  "degree_at_least": 2.0,
+  "random_reach_offset": 0.63,
+  "words": "two chains or more agree (the catalogue's agree_within), and every agreeing chain read at the size and at a quarter of it reads, at both, a reach at most reach_at_most times ln(N/2)/ln(k) + random_reach_offset at its own mean degree k (at least degree_at_least), and a d that rises by at least rise_at_least, relative; the catalogue (`graph_scale_dynamics/resources/catalogue/catalogue.json`, rule.small_world) holds the same numbers and places the kind before made"
+ },
+ "known_answers": "`tools/small_world_reach.py` on build 856's code: the random start at mean degrees 2 to 32 and 1,024 to 16,384 nodes, three seeds each (90 graphs), reads a reach within 1.05 steps of ln(N/2)/ln(k) + 0.63, the largest 1.08 times it, so every random graph is inside the reach part; the six lattice starts as built read 1.38 to 3.16 times it at 1,024 (the cubic, bcc, fcc and tesseract lattices inside 2.0 there), 1.86 to 5.32 at 4,096 (the tesseract inside), and 2.22 to 9.19 at 16,384 (none inside). The reach part alone cannot tell a three- or four-dimensional lattice at 1,024 from a random graph; the rise and the agreement of two starts are what refuse a lattice left alone",
+ "seen": {
+  "study_174": "H31 (3931d03e8edf) and fdc563a72c98 are small worlds at 16,384, their deepest size: H31's bcc and fcc chains read reach 1.55 and 1.76 times the random reach at 4,096 and 16,384, d 3.48 to 4.02 (rise 0.15) at mean degree 26; fdc563a72c98's fcc chain 1.30 and 1.45, d 4.02 to 4.58 (0.14) at 17. Both were made at 4,096, where 1,024 read nothing to judge. No other law of 8,131 is a small world; 6 stay made",
+  "study_175": "no law is judged: its 17 made laws (H31 and its variants) are read to 4,096 only, with nothing read at 1,024",
+  "chains": "of 3,513 chain sizes from 4,096 read with the size before them, 10 pass the chain rule (degree, reach and rise): the 3 agreeing chains of H31 and fdc563a72c98; 5 rewired lattice chains (a tesseract in study 174, four cubic chains at mean degree 6.2 in study 175), 1 melted lattice and 1 ring at mean degree 5, none of whose starts agree as the kind asks. No frozen or still lattice chain and no chain of a law grown from the twins passes"
+ },
+ "judged_on": "the first bundle of study 174, 175 or 176 sent after this commit, read by `tools/catalogue_reading.py` (gsd-catalogue-reading-2, catalogue gsd-catalogue-2)",
+ "predictions": {
+  "W1": "no law placed small world at a size from 4,096 is made at a deeper size the bundle reads",
+  "W2": "of the laws of study 175 whose holder is H31 (3931d03e8edf) and that two starts agree on at 16,384, at least half are small world there; reported, not judged, if fewer than four such laws are read",
+  "W3": "reported: every law the bundle places small world, made or ring at its deepest size, with its chains' reach ratios and rises"
+ },
+ "passes": "when W1 holds and W2 holds or is only reported",
+ "what_follows": "if it passes, the small world stays a kind of its own and the map of study 176 marks a small-world region known when its early call holds on its points; if it fails, the miss is read first and the map does not mark a region known by this kind until a criterion written fresh passes"
+}

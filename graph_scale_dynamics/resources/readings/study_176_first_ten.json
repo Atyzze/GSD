@@ -1,0 +1,998 @@
+{
+ "contract": "gsd-map-first-ten-1",
+ "score": "gsd-law-score-9",
+ "from": [
+  "study_174_2026-11-24T14-22-52Z",
+  "study_175_2026-11-24T08-35-35Z"
+ ],
+ "rule": "the laws of the bundles together, each read by `tools/catalogue_reading.py` under the score in force; a law in two bundles keeps its higher score; the ten that score above 1 and whose law is rebuilt exactly (by its fingerprint), by score, then depth, then id; each one's partner the nearest law of the same terms and dynamics whose kind at 4,096 differs, by the root mean square of each parameter's relative difference",
+ "laws_read": 8691,
+ "scoring_above_one": 61,
+ "not_rebuilt": [],
+ "holders": [
+  {
+   "label": "M01",
+   "candidate_id": "218bd85aa40be602cd85c9b8aae88cd0571b941618a76070d7f97701e3c39312",
+   "score": 21,
+   "to_n": 65536,
+   "by": "lattice",
+   "chain": "fcc",
+   "kind": "still",
+   "kind_at_4096": "still",
+   "kinds": {
+    "64": "frozen",
+    "256": "ring",
+    "1024": "ring",
+    "4096": "still",
+    "16384": "still",
+    "65536": "still"
+   },
+   "deepest": 65536,
+   "bundle": "study_175_2026-11-24T08-35-35Z",
+   "spec": {
+    "dsl_version": 1,
+    "terms": [
+     {
+      "op": "induced_square_count",
+      "params": {},
+      "coeff": {
+       "c0": 3.49847272506,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "square_count",
+      "params": {},
+      "coeff": {
+       "c0": -0.0929533378736,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "wedge_count",
+      "params": {},
+      "coeff": {
+       "c0": 0.0998453322053,
+       "scale": "one"
+      }
+     }
+    ],
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 23.9129353999,
+     "move_mix": {
+      "add": 0.248762003076,
+      "delete": 0.248762003076,
+      "swap": 0.502475993848
+     },
+     "sweeps": 90,
+     "locality": 0.677924408062
+    },
+    "init": "empty"
+   },
+   "partner": {
+    "candidate_id": "93bc88f7228fb6fb6118a2a943c4ea78b9375ca8d8ece21e95ee55033da1ade0",
+    "kind": "ring",
+    "kind_at_4096": "ring",
+    "deepest": 4096,
+    "bundle": "study_175_2026-11-24T08-35-35Z",
+    "distance": 0.073822,
+    "spec": {
+     "dsl_version": 1,
+     "terms": [
+      {
+       "op": "induced_square_count",
+       "params": {},
+       "coeff": {
+        "c0": 3.5688414637,
+        "scale": "one"
+       }
+      },
+      {
+       "op": "square_count",
+       "params": {},
+       "coeff": {
+        "c0": -0.0935809477466,
+        "scale": "one"
+       }
+      },
+      {
+       "op": "wedge_count",
+       "params": {},
+       "coeff": {
+        "c0": 0.0989259688994,
+        "scale": "one"
+       }
+      }
+     ],
+     "dynamics": {
+      "kind": "equilibrium",
+      "beta": 27.8687233409,
+      "move_mix": {
+       "add": 0.217809225652,
+       "delete": 0.217809225652,
+       "swap": 0.564381548697
+      },
+      "sweeps": 90,
+      "locality": 0.678088183515
+     },
+     "init": "empty"
+    }
+   }
+  },
+  {
+   "label": "M02",
+   "candidate_id": "18856793523dabf4c14806c45ae0317a54be0923def5baab5cf78244a28800d9",
+   "score": 19,
+   "to_n": 65536,
+   "by": "empty",
+   "chain": "empty",
+   "kind": "grown",
+   "kind_at_4096": "ring",
+   "kinds": {
+    "64": "ring",
+    "256": "ring",
+    "1024": "ring",
+    "4096": "ring",
+    "16384": "ring",
+    "65536": "grown"
+   },
+   "deepest": 65536,
+   "bundle": "study_174_2026-11-24T14-22-52Z",
+   "spec": {
+    "dsl_version": 1,
+    "terms": [
+     {
+      "op": "degree_anchor_abs",
+      "params": {
+       "k": 16
+      },
+      "coeff": {
+       "c0": 17.5641,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "degree_cube_sum",
+      "params": {},
+      "coeff": {
+       "c0": 1.01462,
+       "scale": "one"
+      }
+     }
+    ],
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 10.699,
+     "move_mix": {
+      "add": 0.3392135,
+      "delete": 0.3392135,
+      "swap": 0.321573
+     },
+     "sweeps": 98,
+     "locality": 0.554201
+    },
+    "init": "empty"
+   },
+   "partner": {
+    "candidate_id": "d2a3a58b5f9881da4ca6eb2b28fc5bc953bc05333be4a1dd676e80feff7ebdcc",
+    "kind": "empty",
+    "kind_at_4096": "empty",
+    "deepest": 1024,
+    "bundle": "study_174_2026-11-24T14-22-52Z",
+    "distance": 0.647408,
+    "spec": {
+     "dsl_version": 1,
+     "terms": [
+      {
+       "op": "degree_anchor_abs",
+       "params": {
+        "k": 16
+       },
+       "coeff": {
+        "c0": 3.20206,
+        "scale": "one"
+       }
+      },
+      {
+       "op": "degree_cube_sum",
+       "params": {},
+       "coeff": {
+        "c0": 7.91864,
+        "scale": "one"
+       }
+      }
+     ],
+     "dynamics": {
+      "kind": "equilibrium",
+      "beta": 40.5425,
+      "move_mix": {
+       "add": 0.313473,
+       "delete": 0.313473,
+       "swap": 0.373054
+      },
+      "sweeps": 105,
+      "locality": 0.373755
+     },
+     "init": "empty"
+    }
+   }
+  },
+  {
+   "label": "M03",
+   "candidate_id": "3a8569fc609493fbbbdb78db37fd060f68f6e41612c3c61a8db20a7c606e0734",
+   "score": 19,
+   "to_n": 65536,
+   "by": "empty",
+   "chain": "empty",
+   "kind": "grown",
+   "kind_at_4096": "ring",
+   "kinds": {
+    "64": "ring",
+    "256": "ring",
+    "1024": "ring",
+    "4096": "ring",
+    "16384": "ring",
+    "65536": "grown"
+   },
+   "deepest": 65536,
+   "bundle": "study_174_2026-11-24T14-22-52Z",
+   "spec": {
+    "dsl_version": 1,
+    "terms": [
+     {
+      "op": "degree_anchor",
+      "params": {
+       "k": 3
+      },
+      "coeff": {
+       "c0": 4.50552,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "edge_count",
+      "params": {},
+      "coeff": {
+       "c0": -6.36824,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "triangle_count",
+      "params": {},
+      "coeff": {
+       "c0": 0.581087,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "wedge_count",
+      "params": {},
+      "coeff": {
+       "c0": 5.17359,
+       "scale": "one"
+      }
+     }
+    ],
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 0.3059,
+     "move_mix": {
+      "add": 0.24402,
+      "delete": 0.24402,
+      "swap": 0.51196
+     },
+     "sweeps": 30,
+     "locality": 0.295844,
+     "zero_temperature": true
+    },
+    "init": "empty"
+   },
+   "partner": null
+  },
+  {
+   "label": "M04",
+   "candidate_id": "61e41fb7b3cb48df1ce8ce6d5c392c2789189b2bff07b82574fdeac4253f2d83",
+   "score": 19,
+   "to_n": 65536,
+   "by": "empty",
+   "chain": "empty",
+   "kind": "grown",
+   "kind_at_4096": "apart",
+   "kinds": {
+    "64": "moved",
+    "256": "apart",
+    "1024": "apart",
+    "4096": "apart",
+    "16384": "moved",
+    "65536": "grown"
+   },
+   "deepest": 65536,
+   "bundle": "study_174_2026-11-24T14-22-52Z",
+   "spec": {
+    "dsl_version": 1,
+    "terms": [
+     {
+      "op": "degree_anchor_abs",
+      "params": {
+       "k": 14
+      },
+      "coeff": {
+       "c0": 0.164451,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "degree_square_sum",
+      "params": {},
+      "coeff": {
+       "c0": 0.0332965,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "square_edge_overlap",
+      "params": {},
+      "coeff": {
+       "c0": -10.7174,
+       "scale": "one"
+      }
+     }
+    ],
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 91.6645,
+     "move_mix": {
+      "add": 0.45746175,
+      "delete": 0.45746175,
+      "swap": 0.0850765
+     },
+     "sweeps": 30,
+     "locality": 0.197651,
+     "zero_temperature": true
+    },
+    "init": "empty"
+   },
+   "partner": null
+  },
+  {
+   "label": "M05",
+   "candidate_id": "99e25674e37a2d364a37f786b67f1897594bbe6fa80269c6aecb8d9e254e2d45",
+   "score": 19,
+   "to_n": 65536,
+   "by": "random",
+   "chain": "random",
+   "kind": "grown",
+   "kind_at_4096": "ring",
+   "kinds": {
+    "64": "moved",
+    "256": "rewired",
+    "1024": "ring",
+    "4096": "ring",
+    "16384": "ring",
+    "65536": "grown"
+   },
+   "deepest": 65536,
+   "bundle": "study_174_2026-11-24T14-22-52Z",
+   "spec": {
+    "dsl_version": 1,
+    "terms": [
+     {
+      "op": "degree_anchor_abs",
+      "params": {
+       "k": 13
+      },
+      "coeff": {
+       "c0": 0.702736,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "degree_fourth_sum",
+      "params": {},
+      "coeff": {
+       "c0": 0.0146453,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "triangle_edge_overlap",
+      "params": {},
+      "coeff": {
+       "c0": -7.74791,
+       "scale": "one"
+      }
+     }
+    ],
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 5.95272,
+     "move_mix": {
+      "add": 0.308632,
+      "delete": 0.308632,
+      "swap": 0.382736
+     },
+     "sweeps": 30,
+     "locality": 0.410223,
+     "zero_temperature": true
+    },
+    "init": "empty"
+   },
+   "partner": null
+  },
+  {
+   "label": "M06",
+   "candidate_id": "b4d17dcdb34a44a3781df721b5388b64b89d78b6df1e95b2c8aabde8f51a4423",
+   "score": 19,
+   "to_n": 65536,
+   "by": "empty",
+   "chain": "empty",
+   "kind": "grown",
+   "kind_at_4096": "ring",
+   "kinds": {
+    "64": "ring",
+    "256": "ring",
+    "1024": "ring",
+    "4096": "ring",
+    "16384": "ring",
+    "65536": "grown"
+   },
+   "deepest": 65536,
+   "bundle": "study_174_2026-11-24T14-22-52Z",
+   "spec": {
+    "dsl_version": 1,
+    "terms": [
+     {
+      "op": "degree_cube_sum",
+      "params": {},
+      "coeff": {
+       "c0": 0.0184948,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "edge_count",
+      "params": {},
+      "coeff": {
+       "c0": -2.93343,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "wedge_count",
+      "params": {},
+      "coeff": {
+       "c0": 0.677741,
+       "scale": "one"
+      }
+     }
+    ],
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 0.125022,
+     "move_mix": {
+      "add": 0.0601665,
+      "delete": 0.0601665,
+      "swap": 0.879667
+     },
+     "sweeps": 30,
+     "locality": 0.366478,
+     "zero_temperature": true
+    },
+    "init": "empty"
+   },
+   "partner": {
+    "candidate_id": "3b7d8e32c5c263fefbe5cf5139eb748084f731ca8ef4dc59fe22586f40deb905",
+    "kind": "moved",
+    "kind_at_4096": "moved",
+    "deepest": 1024,
+    "bundle": "study_174_2026-11-24T14-22-52Z",
+    "distance": 0.425856,
+    "spec": {
+     "dsl_version": 1,
+     "terms": [
+      {
+       "op": "degree_cube_sum",
+       "params": {},
+       "coeff": {
+        "c0": 0.016827,
+        "scale": "one"
+       }
+      },
+      {
+       "op": "edge_count",
+       "params": {},
+       "coeff": {
+        "c0": -0.537476,
+        "scale": "one"
+       }
+      },
+      {
+       "op": "wedge_count",
+       "params": {},
+       "coeff": {
+        "c0": 0.490392,
+        "scale": "one"
+       }
+      }
+     ],
+     "dynamics": {
+      "kind": "equilibrium",
+      "beta": 10.55,
+      "move_mix": {
+       "add": 0.093286,
+       "delete": 0.093286,
+       "swap": 0.813428
+      },
+      "sweeps": 30,
+      "locality": 0.597413,
+      "zero_temperature": true
+     },
+     "init": "empty"
+    }
+   }
+  },
+  {
+   "label": "M07",
+   "candidate_id": "b27787393b3fc3908adaa6f1cc4cdb35a2831a7edcd916cf64eee18c9fec5279",
+   "score": 15,
+   "to_n": 16384,
+   "by": "lattice",
+   "chain": "triangular",
+   "kind": "rewired",
+   "kind_at_4096": "rewired",
+   "kinds": {
+    "64": "full",
+    "256": "full",
+    "1024": "rewired",
+    "4096": "rewired",
+    "16384": "rewired"
+   },
+   "deepest": 16384,
+   "bundle": "study_175_2026-11-24T08-35-35Z",
+   "spec": {
+    "dsl_version": 1,
+    "terms": [
+     {
+      "op": "degree_cube_sum",
+      "params": {},
+      "coeff": {
+       "c0": 0.0427736814065,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "degree_neighbor_gradient",
+      "params": {},
+      "coeff": {
+       "c0": 13.5761750607,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "edge_count",
+      "params": {},
+      "coeff": {
+       "c0": 0.0188369826883,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "triangle_edge_overlap",
+      "params": {},
+      "coeff": {
+       "c0": -10.0356542506,
+       "scale": "one"
+      }
+     }
+    ],
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 0.29872,
+     "move_mix": {
+      "add": 0.0547214327645,
+      "delete": 0.0547214327645,
+      "swap": 0.890557134471
+     },
+     "sweeps": 30,
+     "locality": 0.872181624227,
+     "zero_temperature": true
+    },
+    "init": "empty"
+   },
+   "partner": {
+    "candidate_id": "d7c5af62115c4ff94e9ef55d21b191285337f7faf8e42807695c5a49e1b16cb9",
+    "kind": "still",
+    "kind_at_4096": "still",
+    "deepest": 65536,
+    "bundle": "study_175_2026-11-24T08-35-35Z",
+    "distance": 0.082621,
+    "spec": {
+     "dsl_version": 1,
+     "terms": [
+      {
+       "op": "degree_cube_sum",
+       "params": {},
+       "coeff": {
+        "c0": 0.0399538541379,
+        "scale": "one"
+       }
+      },
+      {
+       "op": "degree_neighbor_gradient",
+       "params": {},
+       "coeff": {
+        "c0": 15.0380402246,
+        "scale": "one"
+       }
+      },
+      {
+       "op": "edge_count",
+       "params": {},
+       "coeff": {
+        "c0": 0.0173814990907,
+        "scale": "one"
+       }
+      },
+      {
+       "op": "triangle_edge_overlap",
+       "params": {},
+       "coeff": {
+        "c0": -10.5523258729,
+        "scale": "one"
+       }
+      }
+     ],
+     "dynamics": {
+      "kind": "equilibrium",
+      "beta": 0.29872,
+      "move_mix": {
+       "add": 0.0106568278345,
+       "delete": 0.0106568278345,
+       "swap": 0.978686344331
+      },
+      "sweeps": 30,
+      "locality": 0.972732508422,
+      "zero_temperature": true
+     },
+     "init": "empty"
+    }
+   }
+  },
+  {
+   "label": "M08",
+   "candidate_id": "1b42427547af07bf8455a6e9be6fc1e201b400056a561894465ee8d984431f27",
+   "score": 11,
+   "to_n": 65536,
+   "by": "lattice",
+   "chain": "cubic",
+   "kind": "still",
+   "kind_at_4096": "moved",
+   "kinds": {
+    "64": "moved",
+    "256": "full",
+    "1024": "full",
+    "4096": "moved",
+    "16384": "still",
+    "65536": "still"
+   },
+   "deepest": 65536,
+   "bundle": "study_174_2026-11-24T14-22-52Z",
+   "spec": {
+    "dsl_version": 1,
+    "terms": [
+     {
+      "op": "degree_fourth_sum",
+      "params": {},
+      "coeff": {
+       "c0": 0.0062329,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "square_edge_overlap",
+      "params": {},
+      "coeff": {
+       "c0": -16.3622,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "wedge_count",
+      "params": {},
+      "coeff": {
+       "c0": -0.415505,
+       "scale": "one"
+      }
+     }
+    ],
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 31.1645,
+     "move_mix": {
+      "add": 0.0664475,
+      "delete": 0.0664475,
+      "swap": 0.867105
+     },
+     "sweeps": 30,
+     "locality": 0.709042,
+     "zero_temperature": true
+    },
+    "init": "empty"
+   },
+   "partner": {
+    "candidate_id": "5c6446a33bbf54d520dd309171a0bafb1630cddb772f8059ae08b8e52b5f53ec",
+    "kind": "full",
+    "kind_at_4096": "full",
+    "deepest": 4096,
+    "bundle": "study_175_2026-11-24T08-35-35Z",
+    "distance": 0.007061,
+    "spec": {
+     "dsl_version": 1,
+     "terms": [
+      {
+       "op": "degree_fourth_sum",
+       "params": {},
+       "coeff": {
+        "c0": 0.0061754582674,
+        "scale": "one"
+       }
+      },
+      {
+       "op": "square_edge_overlap",
+       "params": {},
+       "coeff": {
+        "c0": -16.4521123949,
+        "scale": "one"
+       }
+      },
+      {
+       "op": "wedge_count",
+       "params": {},
+       "coeff": {
+        "c0": -0.417641020922,
+        "scale": "one"
+       }
+      }
+     ],
+     "dynamics": {
+      "kind": "equilibrium",
+      "beta": 31.1645,
+      "move_mix": {
+       "add": 0.0689704742025,
+       "delete": 0.0689704742025,
+       "swap": 0.862059051595
+      },
+      "sweeps": 30,
+      "locality": 0.702922575228,
+      "zero_temperature": true
+     },
+     "init": "empty"
+    }
+   }
+  },
+  {
+   "label": "M09",
+   "candidate_id": "58d86397120592aa90b566966a87393671ddeb61bc33a261ad633b3573f0aa4d",
+   "score": 9,
+   "to_n": 65536,
+   "by": "lattice",
+   "chain": "tesseract",
+   "kind": "still",
+   "kind_at_4096": "moved",
+   "kinds": {
+    "64": "moved",
+    "256": "full",
+    "1024": "moved",
+    "4096": "moved",
+    "16384": "rewired",
+    "65536": "still"
+   },
+   "deepest": 65536,
+   "bundle": "study_174_2026-11-24T14-22-52Z",
+   "spec": {
+    "dsl_version": 1,
+    "terms": [
+     {
+      "op": "degree_cube_sum",
+      "params": {},
+      "coeff": {
+       "c0": 0.0170609,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "square_count",
+      "params": {},
+      "coeff": {
+       "c0": -3.38876,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "triangle_edge_overlap",
+      "params": {},
+      "coeff": {
+       "c0": 1.91711,
+       "scale": "one"
+      }
+     }
+    ],
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 98.7881,
+     "move_mix": {
+      "add": 0.099404,
+      "delete": 0.099404,
+      "swap": 0.801192
+     },
+     "sweeps": 30,
+     "locality": 0.165679,
+     "zero_temperature": true
+    },
+    "init": "empty"
+   },
+   "partner": {
+    "candidate_id": "251f8e34c1e3e52967764846fc9b0193dab4e01a7e5d50e5e3b7f99a18d42fd9",
+    "kind": "empty",
+    "kind_at_4096": "empty",
+    "deepest": 1024,
+    "bundle": "study_174_2026-11-24T14-22-52Z",
+    "distance": 0.786065,
+    "spec": {
+     "dsl_version": 1,
+     "terms": [
+      {
+       "op": "degree_cube_sum",
+       "params": {},
+       "coeff": {
+        "c0": 0.0294514,
+        "scale": "one"
+       }
+      },
+      {
+       "op": "square_count",
+       "params": {},
+       "coeff": {
+        "c0": 0.333131,
+        "scale": "one"
+       }
+      },
+      {
+       "op": "triangle_edge_overlap",
+       "params": {},
+       "coeff": {
+        "c0": 0.0228111,
+        "scale": "one"
+       }
+      }
+     ],
+     "dynamics": {
+      "kind": "equilibrium",
+      "beta": 10.1229,
+      "move_mix": {
+       "add": 0.2732475,
+       "delete": 0.2732475,
+       "swap": 0.453505
+      },
+      "sweeps": 30,
+      "locality": 0.627344,
+      "zero_temperature": true
+     },
+     "init": "empty"
+    }
+   }
+  },
+  {
+   "label": "M10",
+   "candidate_id": "823f886deb4b34c4000ca633537622010403a00bac68884c0599fcb347997c8f",
+   "score": 9,
+   "to_n": 65536,
+   "by": "lattice",
+   "chain": "cubic",
+   "kind": "ring",
+   "kind_at_4096": "moved",
+   "kinds": {
+    "64": "moved",
+    "256": "broken",
+    "1024": "moved",
+    "4096": "moved",
+    "16384": "moved",
+    "65536": "ring"
+   },
+   "deepest": 65536,
+   "bundle": "study_174_2026-11-24T14-22-52Z",
+   "spec": {
+    "dsl_version": 1,
+    "terms": [
+     {
+      "op": "degree_fourth_sum",
+      "params": {},
+      "coeff": {
+       "c0": 0.0752659,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "degree_neighbor_gradient",
+      "params": {},
+      "coeff": {
+       "c0": 0.462302,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "square_edge_overlap",
+      "params": {},
+      "coeff": {
+       "c0": -6.22098,
+       "scale": "one"
+      }
+     }
+    ],
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 5.18175,
+     "move_mix": {
+      "add": 0.138495,
+      "delete": 0.138495,
+      "swap": 0.72301
+     },
+     "sweeps": 75,
+     "locality": 0.756575
+    },
+    "init": "empty"
+   },
+   "partner": {
+    "candidate_id": "b2ac08df140efddc25957056728556d5b197bcc060829e33eb6b30ad06a2d248",
+    "kind": "rewired",
+    "kind_at_4096": "rewired",
+    "deepest": 4096,
+    "bundle": "study_175_2026-11-24T08-35-35Z",
+    "distance": 0.006924,
+    "spec": {
+     "dsl_version": 1,
+     "terms": [
+      {
+       "op": "degree_fourth_sum",
+       "params": {},
+       "coeff": {
+        "c0": 0.0746472724983,
+        "scale": "one"
+       }
+      },
+      {
+       "op": "degree_neighbor_gradient",
+       "params": {},
+       "coeff": {
+        "c0": 0.459538671165,
+        "scale": "one"
+       }
+      },
+      {
+       "op": "square_edge_overlap",
+       "params": {},
+       "coeff": {
+        "c0": -6.18845692167,
+        "scale": "one"
+       }
+      }
+     ],
+     "dynamics": {
+      "kind": "equilibrium",
+      "beta": 5.21427614135,
+      "move_mix": {
+       "add": 0.140504989259,
+       "delete": 0.140504989259,
+       "swap": 0.718990021483
+      },
+      "sweeps": 75,
+      "locality": 0.763707908639
+     },
+     "init": "empty"
+    }
+   }
+  }
+ ]
+}

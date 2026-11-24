@@ -64,6 +64,14 @@
    "criterion": "graph_scale_dynamics/resources/readings/study_175_criterion.json",
    "laws": 595,
    "status": "designed on 847 from 174's first bundle; starts on 847 in a folder of its own"
+  },
+  {
+   "id": "176",
+   "notes": "Study 176, one study in two groups: group A draws 10,000 laws blind in ten new batches of 1,000 on 174's rules; group B maps the ten best laws not yet known (each coupling moved alone a tenth up and down, lines halved four times toward the nearest law of another kind), starting from the best of 174's and 175's bundles under the score with the still lattice at 1; half the work slots each, on build 856.",
+   "design": "graph_scale_dynamics/resources/readings/study_176_design.json",
+   "criterion": "graph_scale_dynamics/resources/readings/study_176_criterion.json",
+   "laws": 10125,
+   "status": "designed on 856 from the baseline bundles; starts on 856 in a folder of its own"
   }
  ]
 }

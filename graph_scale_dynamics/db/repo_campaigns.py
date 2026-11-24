@@ -444,11 +444,13 @@ class CampaignStore:
     def worker_allocation(self, claimable: bool = False) -> list[dict]:
         ready = " AND COALESCE(j.next_attempt_utc,'')<=?" if claimable else ""
         rows = self.conn.execute(
-            "SELECT c.campaign_id,c.workers_target," 
-            "SUM(CASE WHEN j.status='leased' THEN 1 ELSE 0 END) AS leased," 
+            "SELECT c.campaign_id,c.workers_target,"
+            "(c.spec_json::jsonb #>> '{study_design,group}') AS work_group,"
+            "SUM(CASE WHEN j.status='leased' THEN 1 ELSE 0 END) AS leased,"
             f"SUM(CASE WHEN j.status='queued'{ready} THEN 1 ELSE 0 END) AS queued "
             "FROM campaigns c LEFT JOIN jobs j ON j.campaign_id=c.campaign_id "
-            "WHERE c.status='active' GROUP BY c.campaign_id,c.workers_target,c.created_utc ORDER BY c.created_utc",
+            "WHERE c.status='active' GROUP BY c.campaign_id,c.workers_target,c.created_utc,c.spec_json "
+            "ORDER BY c.created_utc",
             (utc_now(),) if claimable else ()
         ).fetchall()
         return [dict(r) for r in rows]

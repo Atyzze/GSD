@@ -18,15 +18,15 @@ def _reader():
     return module
 
 
-def _chain(d=None, degree=None, moved=None, full=False, giant=1.0):
-    return {"d": d, "mean_degree": degree, "moved": moved, "full": full, "giant": giant}
+def _chain(d=None, degree=None, moved=None, full=False, giant=1.0, reach=None):
+    return {"d": d, "mean_degree": degree, "moved": moved, "full": full, "giant": giant, "reach": reach}
 
 
 def test_the_catalogue_names_each_kind_once_with_what_it_is_how_it_is_read_and_how_it_scores():
     found = K.catalogue()
     assert found["contract"] == K.CONTRACT
     ids = K.kinds()
-    assert len(ids) == len(set(ids)) and ids[:3] == ["grown", "made", "ring"] and ids[-1] == "unread"
+    assert len(ids) == len(set(ids)) and ids[:4] == ["grown", "small_world", "made", "ring"] and ids[-1] == "unread"
     assert ids.index("frozen") == ids.index("still") - 1
     for entry in found["categories"] + found["not_read_here"]:
         assert all(entry.get(field) for field in ("id", "name", "what", "read", "first_seen")), entry
@@ -73,12 +73,12 @@ def test_the_criterion_was_committed_on_the_catalogue_s_numbers():
     assert criterion["committed_utc"].startswith("2026-11-24")
 
 
-def _bundle(tmp_path: Path) -> Path:
+def _bundle(tmp_path: Path, reach=lambda n, d: 1.0) -> Path:
     columns = ["n", "d_s", "d_V", "d_B", "d_w", "reach", "mean_degree", "giant_fraction"]
-    still = {"bcc": [[n, 3.0, 3.0, 3.0, 3.0, 1.0, 8.0, 1.0] for n in (1024, 4096, 16384)],
+    still = {"bcc": [[n, 3.0, 3.0, 3.0, 3.0, reach(n, 3.0), 8.0, 1.0] for n in (1024, 4096, 16384)],
              "empty": [[n, None, None, None, None, None, 0.0, 0.0] for n in (1024, 4096, 16384)]}
-    made = {"bcc": [[n, 3.4, 3.4, 3.5, 3.5, 1.0, 27.0, 1.0] for n in (1024, 4096, 16384)],
-            "fcc": [[n, 3.4, 3.5, 3.4, 3.5, 1.0, 27.1, 1.0] for n in (1024, 4096, 16384)]}
+    made = {"bcc": [[n, 3.4, 3.4, 3.5, 3.5, reach(n, 3.45), 27.0, 1.0] for n in (1024, 4096, 16384)],
+            "fcc": [[n, 3.4, 3.5, 3.4, 3.5, reach(n, 3.45), 27.1, 1.0] for n in (1024, 4096, 16384)]}
     folder = tmp_path / "study_x" / "campaign_1_reports_x"
     folder.mkdir(parents=True)
     (folder / "28-decision-engine.json").write_text(json.dumps({"campaign_id": "1", "body": {
@@ -111,21 +111,17 @@ def test_the_reader_places_every_law_and_says_how_early_each_kind_was_known(tmp_
     assert "still lattice" in R.render(found)
 
 
-def test_the_still_lattice_scores_lowest_beside_the_score_in_force(tmp_path, monkeypatch):
+def test_the_reader_scores_every_law_in_force_its_still_lattice_lowest(tmp_path):
     R = _reader()
-    import score_list
-    root = _bundle(tmp_path)
-    found = R.read(root, scores=False)
-    listed = [{"law": "a" * 64, "chain": "bcc", "to_n": 16384, "score": 21.0, "control": False},
-              {"law": "b" * 64, "chain": "bcc", "to_n": 16384, "score": 9.0, "control": False},
-              {"law": "c" * 64, "chain": "square", "to_n": 16384, "score": 50.0, "control": True}]
-    monkeypatch.setattr(score_list, "read_report_28", lambda _root: {"list": listed})
-    laws = {law: {"kind": row["kind"], "views": {}} for law, row in found["by_law"].items()}
-    laws["a" * 64]["views"] = {16384: {"bcc": _chain(3.0, 8.0, 0.0008)}}
-    laws["b" * 64]["views"] = {16384: {"bcc": _chain(3.45, 27.0, 7.5)}}
-    scored = R.candidate_scores(root, laws, K.rule())
-    assert scored["scored"] == 2 and scored["still"] == 1
-    assert [(r["law"][:1], r["candidate"]) for r in scored["rows"]] == [("b", 9.0), ("a", 1.0)]
+    root = _bundle(tmp_path, reach=lambda n, d: 0.9 * n ** (1.0 / d))
+    found = R.read(root)
+    rows = {row["law"][:1]: row for row in found["score"]["rows"]}
+    assert found["score"]["score"] == "gsd-law-score-9" and found["score"]["still"] == 1
+    assert (rows["a"]["score"], rows["a"]["by"], rows["a"]["chain"], rows["a"]["still"]) == (1, "still", "bcc", True)
+    assert rows["a"]["kept_score"] > 1, "with no accepted moves read the same chain scores as a kept lattice"
+    assert rows["b"]["by"] == "kept" and rows["b"]["score"] == rows["b"]["kept_score"] > 1
+    assert [row["law"][:1] for row in found["score"]["rows"]] == ["b", "a"]
+    assert "no chain still" in R.render(found)
 
 
 def test_a_probe_from_a_twin_start_settles_by_its_value_within_the_score_s_margin():
@@ -136,3 +132,48 @@ def test_a_probe_from_a_twin_start_settles_by_its_value_within_the_score_s_margi
     assert found == {16384: {"empty:d_s": 2}, 65536: {"empty:d_s": 3}}
     wide = {4096: {"d_s": 2.0}, 16384: {"d_s": 1.5}, 65536: {"d_s": 1.45}}
     assert R.value_settles({"given": wide}, ["given"], relative) == {65536: {"given:d_s": 2}}
+
+
+SMALL_WORLD_CRITERION = ROOT / "graph_scale_dynamics" / "resources" / "readings" / "small_world_criterion_1.json"
+
+
+def test_a_small_world_is_where_starts_agree_on_a_random_graph_s_reach_and_a_d_that_rises():
+    import math
+    expected = math.log(4096 / 2) / math.log(26) + 0.63
+    assert abs(K.random_reach(4096, 26.0) - expected) < 1e-12 and K.random_reach(4096, 1.9) is None
+    h31_before = {"bcc": _chain(3.48, 27.1, 2.0, reach=4.58), "fcc": _chain(3.48, 27.0, 2.0, reach=4.56)}
+    h31 = {"bcc": _chain(4.02, 26.0, 2.0, reach=5.98), "fcc": _chain(4.01, 25.9, 2.0, reach=5.97),
+           "empty": _chain(degree=0.0)}
+    assert K.small_world(h31["bcc"], h31_before["bcc"], 16384)
+    assert K.kind(h31, before=h31_before, n=16384) == "small_world"
+    assert K.kind(h31) == "made", "without the size before it a law is not judged a small world"
+    assert K.kind(h31, before=h31_before, n=1024) == "made", "nothing is called a small world below 4,096"
+    steady = {name: dict(chain, d=3.5) for name, chain in h31.items() if name != "empty"}
+    assert K.kind(steady, before=h31_before, n=16384) == "made", "a d that does not rise is a space"
+    far = {name: dict(chain, reach=chain["reach"] * 2) for name, chain in h31.items() if name != "empty"}
+    assert K.kind(far, before=h31_before, n=16384) == "made", "a reach past twice the random graph's is no small world"
+    half = dict(h31_before, fcc=_chain(None, 27.0, 2.0))
+    assert K.kind(h31, before=half, n=16384) == "small_world", "an agreeing chain not read before is not judged"
+    assert not K.small_world(h31["bcc"], None, 16384)
+
+
+def test_the_small_world_criterion_was_committed_on_the_catalogue_s_numbers_before_any_bundle_after_the_baseline():
+    criterion = json.loads(SMALL_WORLD_CRITERION.read_text(encoding="utf-8"))
+    rule = K.rule()["small_world"]
+    assert {k: criterion["rule"][k] for k in rule if k != "words"} == {k: v for k, v in rule.items() if k != "words"}
+    assert set(criterion["predictions"]) == {"W1", "W2", "W3"}
+    assert criterion["committed_utc"] > "2026-11-24T14:22:52Z"
+
+
+def test_the_reader_places_h31_s_shape_a_small_world_at_16384(tmp_path):
+    R = _reader()
+    columns = ["n", "d_s", "d_V", "d_B", "d_w", "reach", "mean_degree", "giant_fraction"]
+    world = {name: [[4096, 3.48, 3.48, 3.48, 3.48, 4.58, 27.0, 1.0], [16384, 4.02, 4.02, 4.02, 4.02, 5.98, 26.0, 1.0]]
+             for name in ("bcc", "fcc")}
+    folder = tmp_path / "study_x" / "campaign_1_reports_x"
+    folder.mkdir(parents=True)
+    (folder / "28-decision-engine.json").write_text(json.dumps({"campaign_id": "1", "body": {
+        "every_chain": {"value_columns": columns, "laws": {"h" * 64: {"values": world}}}}}), encoding="utf-8")
+    found = R.read(folder.parent, scores=False)
+    assert found["by_law"]["h" * 64]["kinds"] == {"4096": "made", "16384": "small_world"}
+    assert found["kinds"] == {"small_world": 1}
