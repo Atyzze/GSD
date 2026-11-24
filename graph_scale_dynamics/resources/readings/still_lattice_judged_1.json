@@ -1,0 +1,41 @@
+{
+ "contract": "gsd-still-lattice-judged-1",
+ "criterion": "gsd-still-lattice-criterion-1",
+ "criterion_committed_utc": "2026-11-24T09:41:48Z",
+ "judged_utc": "2026-11-24T15:20:00Z",
+ "bundle": "study_174_2026-11-24T14-22-52Z (built on build 850), the first bundle of study 174 or 175 sent after the criterion was committed",
+ "read_by": "tools/catalogue_reading.py <the bundle> (gsd-catalogue-reading-1, catalogue gsd-catalogue-1), on build 853's code",
+ "passes": true,
+ "S1": {
+  "at_1024": {
+   "still_with_a_deeper_size": 89,
+   "still_at_every_deeper_size": 89
+  },
+  "at_4096": {
+   "still_with_a_deeper_size": 39,
+   "still_at_every_deeper_size": 39
+  },
+  "holds": true,
+  "words": "at least 98% asked; 100% at both sizes"
+ },
+ "S2": {
+  "laws_called_still_early": {
+   "1024": {
+    "still": 13
+   },
+   "4096": {
+    "still": 21
+   }
+  },
+  "made_or_ring_at_their_deepest_size_called_still_early": 0,
+  "holds": true,
+  "beside_it": "one law made at 16,384 (de7ab4a85198) was called frozen at 256, 1,024 and 4,096: the criterion asks of still, not of frozen; an early stop by the frozen call would have stopped it"
+ },
+ "S3": {
+  "scored": 83,
+  "still_at_the_size_they_score": 64,
+  "share": 0.771,
+  "words": "reported: at least half asked"
+ },
+ "what_follows": "the still lattice scores 1, the lowest, in the score in force, as the criterion says and the operator asked (2026-11-24 10:22); an early stop by the still call is offered with its saving; the frozen call is not safe to stop on (S2's note)"
+}

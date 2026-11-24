@@ -171,6 +171,26 @@ The recipes are `docs/agent/ENVIRONMENT.md`.
   touched 47 test files, most of them through such builders. Build test envelopes through one helper
   (`tests/support/chains.py`) and read them through `domain/chain_list.py`.
 
+* **A structural word is a number first** (853): 851 called the laws that grow from the twins "loops carrying trees"
+  while the same bundle's rungs table said every node of the loops was in the 2-core. Before naming a structure
+  (tree, loop, string, clique, small world), read the number that says it: the 2-core share, the extra edges over a
+  ring, the clustering, the reach against a random graph's of the same degree.
+* **Starts that agree may only have forgotten** (854): H31 was read for two days as starts agreeing on d 3.4 to 3.5;
+  its reach grew from 3 to 4 steps over sixteen times the nodes, a small world's. Read how distances grow with N before
+  calling an agreement a space.
+* **A positive control that starts at its answer says nothing of the search** (854): the controls' criterion expected
+  "from empty no finite dimension", and the roadmap said such a study "cannot tell a search that finds none from one
+  that cannot get there", yet the survey ran on; an outside review measured the trap in a day (P1 at 68% to 81% of its
+  lattice's energy). Run every positive control from the start the survey judges by, and measure how far it gets.
+* **A criterion that fails is reported as failed, even when its rule is adopted** (854): the score of 848, the starts'
+  reading (8 of 11) and the structure rule are each in use by the operator's decision and each failed by its own rule;
+  the paper lists them as fails.
+* **An early call is as safe as its kind** (854): the still call held on every chain in both baseline bundles; the
+  frozen call stopped short of a law that changed at 16,384 (de7ab4a85198). Judge each kind's early call on its own.
+* **A report that does not reproduce is made visible, not argued** (853): a stale admin link said to work was tried on
+  a real fleet stopped three ways and refused every time; the build then made the page say which link it holds, and
+  the gate holds the restart.
+
 ## Documents
 
 * Give each fact one home (`docs/agent/HANDOFF.md` names them); the read-first set has a budget

@@ -257,6 +257,16 @@ made; a time without a Z is the operator's local time.
 
 **Studies**
 
+* **The baseline is two bundles and the calibration table** (2026-11-24 16:34: "all other data references other than
+  the known neighbor papers can go out of the study, as these two are now are new baseline together with the
+  unchanged calibration table of course, the rest stale/old/irrelevant-out-ofDate"): study 174's bundle of
+  2026-11-24 14:22Z and study 175's of 2026-11-24 08:35Z (sent again at 16:33). The papers the project cites and the
+  instrument's own known answers stay; every older study's files leave the tree (856), into an archive beside it.
+* **The two searches are one, and four workers map the best** (2026-11-24 16:33: "both searches will have to merge
+  into 1, the top 10 scores being auto-explored/mapped automatically for every best scorer, we can allocate a worker
+  budget of say 4 to begin with, to probe around them, for stability/local-variants scanning the region and looking
+  for its boundaries and neighbors"): study 176 (855), the blind draw on twelve workers and the ten best scorers'
+  neighbourhoods and boundaries on four.
 * **Study 175 runs to its end, and the study after it looks for laws whose starts agree** (2026-11-24 10:22, after
   849's reading of 175's second bundle: "agree with everything, and I'm not surprised that structure isn't growing";
   "any law that has different starts leading to the same result is infinitely more interesting than anything that is
@@ -1449,6 +1459,12 @@ made; a time without a Z is the operator's local time.
 
 **Reports, pages and papers**
 
+* **The paper claims nothing it has not shown** (2026-11-24 16:30, with an outside review of the code that found the
+  title overclaimed: "write the paper around, in the most grounded way possible with 0 zero overclaims yet explained
+  simply and mused openly on later in the stream, but with zero claims, only interprations offered over the data set
+  and requesting for feedback of others their readings"): `docs/paper/GSD_PAPER.md` (854) rests on the baseline alone,
+  lists the criteria that failed by their own rule as fails, offers each reading with its alternatives, keeps the
+  musings in a section of their own, and asks readers for theirs.
 * Reports run only when asked, never while work is in flight; a bundle covers every campaign of the folder (September
   2026); a report is a page, not a picture (2026-10-03 12:29: "I prefer dynamic html pages for reports").
 * A campaign is never edited; the Campaigns page deletes, guarded, and never archives; a share is a floor, not a fence

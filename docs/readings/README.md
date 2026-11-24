@@ -130,6 +130,9 @@ as it was in the build that held it. A tool no longer in `tools/` is in a tools 
 * `graph_scale_dynamics/resources/readings/still_lattice_criterion_1.json` (850): whether a lattice chain called still at
   1,024 or 4,096 stays still and never hides a made law, committed before the bundle that judges it; the still lattice
   scores lowest in the score in force only if it passes (`tools/catalogue_reading.py`).
+* `graph_scale_dynamics/resources/readings/still_lattice_judged_1.json` (854): that criterion judged on study 174's
+  bundle of 2026-11-24 14:22Z: it passes (89 of 89 still chains at 1,024 and 39 of 39 at 4,096 still at every deeper
+  size; no made or ring law called still early; 64 of 83 scoring laws still), with the frozen call's miss beside it.
 
 ## Outside this folder
 

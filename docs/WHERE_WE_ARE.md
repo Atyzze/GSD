@@ -1,4 +1,4 @@
-# Where we are, at build 853
+# Where we are, at build 854
 
 The whole project on one page, in plain words; the detail is in `docs/agent/HANDOFF.md`.
 
@@ -33,54 +33,45 @@ What the instrument reads on known answers (1, 2). **No data from a study before
    drawn out into long chains reads finite by the rule in 8 of 9 seeds at the threshold the survey runs (6 of 9 at
    the engine's default), and all three readings refuse all 9 (read again on the final probes at 818).
 
-## What the pilots measured
-
-Studies 169 (821; 1,000 laws, stopped before 16,384 finished) and 170 (827; 2,500 laws, every gate on), and no law
-of a pilot is a finding: every decision of both replays; the standing controls that should score do (every point
-settled to 65,536 for the two-dimensional one). 10 of 169's drawn laws score, all through a lattice start; 170's gates
-withheld 95% of its laws by 4,096 and one drawn law scores (15, triangular start, stopped by its budget at 16,384).
-The budgets were too tight at 4,096, cutting a third of 170's seeds; since 832 the gates learn from the whole study.
-
 ## What is running
 
-Study 174, the stable trial, in its own folder: 10,000 laws in ten batches of 1,000, each on a new seed, the gates
-you chose, on 16 workers, stopped while study 175 has the host. Its first bundle (09:52Z) holds 6,173 laws and replays
-decision for decision; 35 drawn laws settle under the score of 848 and the one before it, every one from a lattice
-start: squares rewarded and cold dynamics, across 32 term sets. Study 175, the perturbation side study, around those
-35, runs on all the workers in a folder of its own on 847.
+Studies 174 and 175 on 850, each in a folder of its own. Since 2026-11-24 16:34 the project rests on two of their
+bundles and the calibration table, nothing older: 174's of 2026-11-24 14:22Z (the blind draw, 8,131 laws read) and
+175's of 08:35Z (595 variants around 174's 35 settled laws). `docs/paper/GSD_PAPER.md` is the working draft that rests
+on them alone.
 
-## What 800 to 853 changed
+## What they show
 
-The probes are locked for the calibration (800, 801); 805 installed your table: it passes. 806: no clock decides
-anything; each size's seed has a budget in the engines' own count of work. 808 to 819 judged every set of the
-instrument's evidence again on the final code, each criterion first. 813 to 829 carried and read studies 169 to 171,
-cleaned up as you asked, added auto extend (off unless ticked) and put the fact gates on three sizes in a row. 831 to
-838 made the gates' counters the study's, consolidated, and designed 172 with one die a law a size. 839 to 843 read
-172 and 173, fixed the pages you named, stopped any seed running past its budget and saved a seed inside a long
-chunk, carried 173 (six gates, a tenth let through, the cut gate recording), and made `--workers 32` hold 32. 844 is
-the stable build: your gates and study 174, nothing else. 845 makes Home show 174's map of ten batches. 846 judges a
-mended score as a candidate beside the score in force, and lets you change the worker count while a study runs
-(System, Workers). 847 designs study 175 and reads what the top laws share. 848 puts 846's score in force (15:45).
-849 reads 175 with a reader that keeps a running variant apart from a differing one, and makes the tree public. 850
-makes the catalogue of behaviours you asked for, and scores a lattice left alone lowest as a candidate. 851 to 853: the README, a stale admin link shown.
+Most blind laws empty the graph (3,202), fill it to the cap (996) or melt the lattices (2,889). Of the 83 that score,
+64 are a lattice the law barely changed: what settles is mostly a start remembered. Ten laws settle a probe from empty
+or random, all one dimensional: five open strings, four loops with a few shortcuts, one chain of small cliques; none
+scores. Of the eight where starts agree, two (H31 among them) are small worlds: every start forgets itself at the same
+degree, the reach growing from 3 to 4 steps over sixteen times the nodes, so not a space of d 3.5. One law,
+de7ab4a85198, is frozen to 4,096 and changes at 16,384. The still call held on every chain: its criterion passes.
 
-## What study 175 reads so far
+**The trap from empty** (an outside review, and 854's own run): P1, whose lowest energy is the square lattice, gets
+68% to 81% of the way there from empty, worse as N grows. Until a known law grows its geometry from empty, "nothing
+grows from empty" cannot be told from "nothing can get there under these moves".
 
-Its second bundle (2026-11-24, 263 core-hours): every holder replays seed for seed. Settled: two regions to a tenth
-(H04, H09) and a stream (H15); five regions to at least a hundredth; 27 open; no variant read differs. The regions are
-of lattices a law leaves alone: 32 of the 35 holders accept moves on under 5% of their edges, and in 34 no other start
-arrives at the same d and mean degree. H31 moves, and it and all 16 of its variants are made at 4,096: two starts
-agree on d 3.4 to 3.5. From empty or random, 8 laws of 174 settle a probe at three sizes, all one dimensional, and the
-score rightly settles none: loops with shortcuts, open strings, cliques in strands (853).
+## What 800 to 854 changed
+
+The probes are locked (800, 801) and your table installed (805). 806 to 843: no clock decides, the evidence judged
+again on the final code, the studies carried and read, the gates' counters the study's, `--workers 32` holds 32. 844 is
+the stable build with study 174. 845 to 850: Home's ten batches, the worker count while a study runs, study 175, the
+score of 848, the public tree, the catalogue of behaviours. 851 to 853: the README, a stale admin link shown. 854: the
+baseline, the still criterion passed, the trap measured, the paper drafted, this handover.
 
 ## What comes next
 
-Study 175's last bundle, if you let it run (most of a day more, maybe two). Then 174 resumes, and its reading when
-its last bundle comes: the ten batches as one study, each gate's tenth, and what study A would take.
+855 merges 174 and 175 into one study, 176: twelve workers draw blind, four map the ten best scorers' neighbourhoods
+and boundaries, the still lattice scores lowest and the small world is a kind of its own. 856 takes every study
+before the baseline out of the tree, into an archive sent beside it.
 
 ## The decision in front of you
 
-None now: a lattice left alone scores lowest once its criterion passes, and stopping such laws early comes to you then.
+1. **Whether a known law must grow its geometry from empty first** (recommended, before more compute from empty):
+   parallel tempering is the cheapest remedy, an engine change of about a build, its known answers read again after.
+2. **Where the archive of the older data goes public** (856), so a reader can see nothing was dropped selectively.
 
 ## Words you will see
 

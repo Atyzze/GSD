@@ -1,27 +1,46 @@
-# The next build is 854
+# The next build is 855
 
 This file names the next build and says how to make it. `tests/unit/test_next_build_is_named.py` parses its first line,
 which must read exactly `# The next build is <N>`, one above `BUILD_NUMBER`.
 
-## Where to begin: 854 reads what the operator sends
+## Where to begin: 855 merges the two studies into one
 
-**What is running.** Study 175, the perturbation side study (847), in a folder of its own, to its end (the operator,
-2026-11-24 10:22), and study 174 in its own. **850** (`docs/build_notes/BUILD850_NOTES.md`) made the catalogue of
-behaviours (`resources/catalogue/catalogue.json`, `tools/catalogue_reading.py`) and committed
-`still_lattice_criterion_1.json` before the next bundle; **851** (`docs/build_notes/BUILD851_NOTES.md`) put the home
-page on the README and found the score right to refuse the 8 laws that settle by value from the twins; **852**
-(`docs/build_notes/BUILD852_NOTES.md`) took the README the operator wrote on GitHub into the tree; **853**
-(`docs/build_notes/BUILD853_NOTES.md`) checked every start's admin link on a real fleet, made a page holding an
-earlier run's link say so, and read the 8 laws again (no trees: strings, loops with shortcuts, cliques in strands).
+**The baseline** (the operator, 2026-11-24 16:34): study 174's bundle of 2026-11-24 14:22Z and study 175's of
+2026-11-24 08:35Z, with the calibration table; nothing older. `docs/agent/HANDOFF.md`, "Where things stand, at 854",
+says what they show; `docs/paper/GSD_PAPER.md` is the working draft that rests on them alone; **854**
+(`docs/build_notes/BUILD854_NOTES.md`) judged `still_lattice_criterion_1.json` (it passes), measured the sampler's trap
+from empty, and wrote the paper and this handover.
 
-**What comes.** A bundle of study 175 or 174: `tools/catalogue_reading.py <bundle>` judges
-`still_lattice_criterion_1.json` (S1, S2; S3 reported) on the first one sent after 850; if it passes, the still
-lattice scores 1 in the score in force (the operator, 2026-11-24 10:22), and stopping a law early by the still call is
-offered with what it saves and risks. `tools/perturb_reading.py <bundle>` for 175's verdicts, H31's family first. Then
-the next study's design, the laws whose starts agree (H31 and the six of 174), offered with its criterion.
+**What 855 makes** (the operator, 2026-11-24 16:33: "both searches will have to merge into 1, the top 10 scores being
+auto-explored/mapped automatically for every best scorer, we can allocate a worker budget of say 4 to begin with, to
+probe around them, for stability/local-variants scanning the region and looking for its boundaries and neighbors"):
 
-**Acceptance** of 854: whatever it reads is read by the committed criterion, every decision of a bundle replays, nothing
-in force changes without the operator's word, `tools/outputs_of_a_law.py --against` 853's record, the full lane green.
+1. **The still lattice scores 1 in the score in force**, as the passed criterion says (`still_lattice_judged_1.json`,
+   "what_follows"), so the ten best are not lattices left alone. The frozen call stays a kind, never an early stop.
+2. **The small-world kind** in the catalogue, before `made`: a chain whose half-volume radius at 1,024 and 4,096 is
+   what a random graph of its mean degree gives (about log N over log of the degree) and whose readings rise with N;
+   its rule's numbers chosen on the two baseline bundles, judged on the next bundle by a criterion committed first.
+3. **Study 176, one study on 16 workers**: twelve run the blind draw on as 174 does (new batches, new seeds); four map
+   the ten best scorers of the whole study, read again after every batch. For each of the ten, 175's variants (each
+   coupling moved alone, `perturb`) and lines toward its nearest law of another kind in the same term set, halved
+   where the kind flips; each point to 4,096, deeper where its kind needs it (`made`, `ring`, small world). It starts
+   from the baseline: the first ten are the best of 174's and 175's bundles together under the new score. Its design
+   and criterion are committed before it runs; the operator starts it in a folder of its own.
+4. **What stays open for the operator**, asked in the notes: whether the four workers are a fixed share or follow the
+   queue; how far a variant moves a coupling (175 used one step either way); whether study 176 starts in 174's folder.
+
+**The sampler** (`docs/ROADMAP.md`, item 4) is not in 855 unless the operator asks: the merged study's lattice starts
+and neighbourhoods are read as they are, and its runs from empty are what a quench of its sweeps produces.
+
+**Acceptance** of 855: the still criterion's consequence and nothing else changes the score (`tools/outputs_of_a_law.py
+--against` 854's record shows only the still laws moving), the small-world rule's criterion committed before any
+bundle that judges it, the merged design replayed in the sandbox on the baseline bundles, the full lane green.
+
+**Then 856**, a consolidation (the operator, 2026-11-24 16:34: "all other data references other than the known
+neighbor papers can go out of the study"): every study before the baseline, its designs, criteria and readers
+(`study_169` to `study_173`, `tools/study_172_reading.py`, `tools/study_173_reading.py`, `tools/study_twice.py` and
+the tests that read them) leave the tree into `GSD_readings_archive_856.tar.zst`, sent beside the release; the
+instrument's known answers and the calibration table stay.
 
 ## Reading a study's bundle
 

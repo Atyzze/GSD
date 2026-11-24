@@ -135,8 +135,11 @@ why.
    that settle by value from the twins are not clean loops. **852, made**: the README the operator wrote on GitHub
    (14:26 to 14:32), taken into the tree. **853, made** (15:24): every start's admin link checked on a real
    fleet stopped three ways, a page holding an earlier run's link says so and greys its writes, and the 8 laws
-   read again: open strings, loops with a few shortcuts, cliques strung into strands, no trees. **Next**: the next study's design, laws whose starts agree
-   (H31 and the six of 174), offered with its criterion. **Then 174's reading** (a progress bundle while it runs, its last at the end): its criterion, P1 to P9,
+   read again: open strings, loops with a few shortcuts, cliques strung into strands, no trees. **854, made** (16:30):
+   the baseline of two bundles (16:34), the still criterion judged (it passes), the sampler's trap from empty measured,
+   an outside review's points answered or placed, the paper drafted (`docs/paper/GSD_PAPER.md`). **Next**: 855, study
+   176, 174 and 175 merged into one with four workers mapping the ten best scorers' neighbourhoods (16:33), the still
+   lattice scored 1 and the small-world kind; **then 856**, every study before the baseline out (16:34). **Then 174's reading** (a progress bundle while it runs, its last at the end): its criterion, P1 to P9,
    each batch beside the others, and what study A would take. 174's rules cost about 1.8 times 173's on the same
    laws (the replay carried to 10,000: about 1,270 core-hours against 720), study A about 33 days against 19 on 16
    workers, nearly all of it nothing_read letting laws on at 4,096 and the laws that then reach 65,536; 174 says what
@@ -152,7 +155,13 @@ why.
    starts a chain at its answer; a criterion written fresh before its first run, saying what must show at the paper's
    sizes (the operator recalls the effect fading at larger N); its cost measured in the sandbox first. Until it
    passes, a study in which no law scores from empty or random (172: 0 of 2,500) cannot tell a search that finds none
-   from one that cannot get there. A build of its own, before study A.
+   from one that cannot get there. A build of its own, before study A. **Measured at 854** (an outside review of
+   2026-11-24 and 854's own run under the survey's policy, `docs/build_notes/BUILD854_NOTES.md`): P1, whose lowest
+   energy is the square lattice, reaches 68% to 81% of the lattice's energy from empty, P2 70% to 83%, worse as N
+   grows, where started on the lattice each stays within 0.4%. The review recommends this item before any more compute
+   on laws from empty, and names the remedies cheapest first: parallel tempering, moves of a whole square or triangle,
+   growth node by node; each changes the engine, so the Boltzmann known answers are read again after it. The
+   operator's to order (`docs/agent/HANDOFF.md`, "What waits on the operator").
 5. **A run's scaling with N, at two scalings** (19:52: "I agree, let's test that as well"): an experiment on 173's
    scoring laws and a sample of the rest, its rule said before it runs; 19 of 172's 22 scoring laws are a lattice that
    changed no edge or thinned, the effect of a run that is the same sweeps at every size ("Open questions", from 795).

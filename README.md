@@ -33,6 +33,8 @@ Held under about 30,000 tokens by `tests/unit/test_the_read_first_set_is_small.p
 
 Then as needed:
 
+    docs/paper/GSD_PAPER.md      the paper, a working draft for a reader new to the project: what was built, what the
+                                 two baseline bundles show, what it cannot do yet, and what it asks of readers
     docs/ROADMAP.md              questions for the operator, planned builds, constraints, open questions, cadence
     docs/RESEARCH_METHOD.md      the question, the design, what the data settled, each number with its source
     docs/readings/README.md      every reading in the tree and what it is

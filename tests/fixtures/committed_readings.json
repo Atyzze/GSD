@@ -40,6 +40,7 @@
   "graph_scale_dynamics/resources/readings/starts_known_answers_criterion.json": "f7bf7e9c438ce304ccc25a9400b037c4b7947610608f86d38aa8249141fe0d4f",
   "graph_scale_dynamics/resources/readings/starts_known_answers_judged.json": "44b4255944b899aa208c762afe7b1444324cb61ca6c809ea5c632235536c9ef4",
   "graph_scale_dynamics/resources/readings/still_lattice_criterion_1.json": "beefd0f1e37306efa19849f8929e86f6ded1ddb413c2b7e10329b68091c1c81c",
+  "graph_scale_dynamics/resources/readings/still_lattice_judged_1.json": "a0118cf36df87c945f1a9871df061563e05576f46567189b7c4ed44e697d8d19",
   "graph_scale_dynamics/resources/readings/study_169_criterion.json": "4be49e142d12097051d8425ca8868cfb4090d3d93d805b1ea3a020312c5e70d8",
   "graph_scale_dynamics/resources/readings/study_169_design.json": "c0a14e4e15f6f08eeb42445caa3a74ac54771411075104d60d6b24a02dbd7b97",
   "graph_scale_dynamics/resources/readings/study_170_criterion.json": "5099e964caac6941513e861bd1c40c3b4ba5dc642828565f05c7f3cce9a053b4",
