@@ -55,6 +55,10 @@ The recipes are `docs/agent/ENVIRONMENT.md`.
 
 ## Releases
 
+* The fast lane is not fast for a build that spends a number: `BUILD_NUMBER`, `pyproject.toml` and `uv.lock` count
+  as changed, so it takes nearly every test file (456 at 855, with the PostgreSQL slices). Time it as the full lane.
+* Two contexts on one repository spend the same number: whoever's pull request is merged second renumbers and runs
+  the gate again (`CLAUDE.md`, 855).
 * Only `package_release.py` makes an archive; write the notes for the number it assigns.
 * A killed release is recovered by the next run's journal, never by editing `BUILD_NUMBER`.
 * The first PostgreSQL bootstrap after a sandbox idles fails every lane started together, so the lanes warm it alone
@@ -63,6 +67,8 @@ The recipes are `docs/agent/ENVIRONMENT.md`.
 
 ## Host state
 
+* One key over every probe makes every probe change a full recalibration (the table's 2,584 cells, 7 h 10 min on 31
+  workers): a reading is keyed by the code that made it, by group, and filed once (`calibration/ledger.py`, 855).
 * The clean start is three paths, together, or a folder locks itself out of its database and the next move destroys a
   campaign.
 * The calibration table and the compiler are host state: an orphaned table is an invisible recompute; rustup's
@@ -132,6 +138,16 @@ The recipes are `docs/agent/ENVIRONMENT.md`.
 
 ## Evidence
 
+* A probe that reads the spectrum alone cannot see where the eigenvectors sit (855): `d_s` reads the Sierpinski
+  gasket and a uniform random tree as 1.37 and 1.29, and a quantum walk does not spread on either (its return
+  exponent 0.00 to 0.03), while the two agree on the ring and the square torus. A space that diffuses need not carry
+  a wave.
+* Starts that agree on d and the mean degree are not yet one state (2026-11-24, H31 at 4,096, seed 1, its own 63
+  sweeps): from empty and from the cubic torus the mean degree is 22.4 and 22.7, but the triangles a node 6.5 and
+  12.6 and the squares a node 50 and 142, the cubic start still remembered. Both are within four steps of the whole
+  graph, as a random graph of the same degrees is (balls of 24, 450, 3,701 against 24, 480, 3,800), and a quantum
+  walk reads them as it reads that random graph. Compare a law's state with a degree-matched random graph before
+  reading a dimension in it.
 * Ask for a bundle, never a query: look in `tools/` for a collector; write one, naming its command, only for live
   processes a quiet report cannot see.
 * Find the code that writes a log line's exact text before naming its statement.

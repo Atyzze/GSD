@@ -4,7 +4,9 @@ The operator's direction of 2026-11-24 (19:10 and 19:15): the calibration table 
 allowing for more probes/values/rungs for as long as the reference engine implementations are specified and included
 with full hash in the shared datablob", validated by others against their own tables, "a different kind of
 blockchain, one that isnt transactional"; and "C and ASM included by default as well, next to Python and Rust, to
-complete the base-4 reference set which should also be append-able". This page is the road there, as pull requests in
+complete the base-4 reference set which should also be append-able". **Where it stands**: L1 made at 855; the
+rest paused at the operator's word (2026-11-24 19:43) after the consolidation of 858, until they say go on. This
+page is the road there, as pull requests in
 order; each is one coherent pack, tested, merged by the operator (`CLAUDE.md`, "Several workers, one repository").
 A step is crossed out here by the pull request that makes it, with its build number.
 

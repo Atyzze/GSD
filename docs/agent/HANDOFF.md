@@ -1,4 +1,4 @@
-# Handoff: the state of GSD at build 857
+# Handoff: the state of GSD at build 858
 
 What is true now, for a context that has just opened this archive. Each fact has one home; the last section says
 where. **Think from the data, not from this page**: where the data and a document disagree, the data wins and the
@@ -11,9 +11,11 @@ table that only grows: the calibration ledger (`docs/ARCHITECTURE.md`, "The cali
 files every probe reading once under its own code's hash, and the quantum walk (`graph_scale_dynamics/probes/`) is its
 first appended group, measured on the host by `tools/ledger.py measure` and voting in nothing until its known answers
 are committed. The road from here, including the C and assembly engines of the reference set of four:
-`docs/agent/APPEND_ONLY_PLAN.md`.
+`docs/agent/APPEND_ONLY_PLAN.md`, paused at the operator's word (19:43) after 858, which folded what that context
+measured into `docs/LESSONS.md` ("Evidence", "Releases", "Host state"), `docs/RESEARCH_METHOD.md` (two papers)
+and `docs/ROADMAP.md` ("Unscheduled").
 
-**Where things stand, at 857.** Home has one filter panel for the landscape, the Top 100 and the fleet ladder (857).
+**Where things stand, at 858.** 858 is a consolidation and moved nothing below. Home has one filter panel for the landscape, the Top 100 and the fleet ladder (857).
 Study 176 is designed and committed, theirs to start in a folder of its own: groups
 A (the blind draw, 174's design on ten new seeds) and B (the map of the ten best laws not yet known), half the work
 slots each (`docs/build_notes/BUILD856_NOTES.md`). The baseline is two bundles and the calibration table, nothing older (the operator,
@@ -21,7 +23,7 @@ slots each (`docs/build_notes/BUILD856_NOTES.md`). The baseline is two bundles a
 bundle of 2026-11-24 14:22Z (the blind draw, 8,131 laws read, built on 850) and study 175's of 2026-11-24 08:35Z (595
 variants around 174's 35 settled laws). Both run on 850 in folders of their own. The instrument's own checks on known
 answers stay (the calibration table, the dimension test, the score's known answers, the Boltzmann check); every study
-before 174 and every reading of one is out of what the project rests on, and 860 takes their files out of the tree.
+before 174 and every reading of one is out of what the project rests on, and 861 takes their files out of the tree.
 
 **What the baseline says** (`docs/paper/GSD_PAPER.md`, sections 5 and 6, each number with its source):
 * Most blind laws empty the graph, fill it to the cap or melt the lattices; 83 score, and 64 of those are a lattice
@@ -42,8 +44,8 @@ before 174 and every reading of one is out of what the project rests on, and 860
 
 **What the operator asked this afternoon, and where it went** (`docs/HISTORY.md`, "Studies"): one study in groups A, B
 and C, 50-50, the system's CPUs theirs to name (16:33 to 17:39): 856. A science hash and the table in every bundle
-(18:04): 856. The dashboard's filter panel (17:51): 857, made. A study seeded from an earlier bundle (18:04): 858. Group D,
-the best law taken as deep as memory allows (18:06): 859. The consolidation: 860. The shared atlas: after the paper.
+(18:04): 856. The dashboard's filter panel (17:51): 857, made. A study seeded from an earlier bundle (18:04): 859. Group D,
+the best law taken as deep as memory allows (18:06): 860. The consolidation: 861. The shared atlas: after the paper.
 
 ## Start here, in a fresh context
 
@@ -204,7 +206,7 @@ again after the paper's three studies, on the final probes, with a criterion wri
 
 * **Study 176**: theirs to start; and three questions, none blocking it (`docs/ROADMAP.md`, "Questions for the
   operator"): a map variant's step (a tenth), the halvings of a line (four), the system's CPUs (none).
-* **Where the older data's archive goes public** (860): the review asks for a public archive (Zenodo or a tag) so a
+* **Where the older data's archive goes public** (861): the review asks for a public archive (Zenodo or a tag) so a
   referee can see nothing was dropped selectively; the operator wants it out of the tree. Both hold if the archive
   goes beside the build and its place is theirs to name.
 * **The sampler** (`docs/ROADMAP.md`, item 4): whether a known law must grow its geometry from empty before more
