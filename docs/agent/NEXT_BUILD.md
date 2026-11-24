@@ -1,9 +1,16 @@
-# The next build is 855
+# The next build is 856
 
 This file names the next build and says how to make it. `tests/unit/test_next_build_is_named.py` parses its first line,
 which must read exactly `# The next build is <N>`, one above `BUILD_NUMBER`.
 
-## Where to begin: 855 merges the two studies into one
+## Where to begin: 856 merges the two studies into one
+
+**855 came first** (the operator, 2026-11-24 19:26: "a new handover build on the fast lane, so that the pull request
+can be merged early so that all other workers out there share this new root"): `CLAUDE.md`, the page every worker on
+the repository loads, with the rule that every build now arrives as a pull request the operator merges; and the
+calibration ledger with its first appended probe group, the quantum walk (`docs/build_notes/BUILD855_NOTES.md`,
+`docs/agent/APPEND_ONLY_PLAN.md`). It moved no score, no decision and no frozen source, so the plan for 856 below is
+the plan 854 wrote for 855, its numbers moved up by one.
 
 **The baseline** (the operator, 2026-11-24 16:34): study 174's bundle of 2026-11-24 14:22Z and study 175's of
 2026-11-24 08:35Z, with the calibration table; nothing older. `docs/agent/HANDOFF.md`, "Where things stand, at 854",
@@ -11,7 +18,7 @@ says what they show; `docs/paper/GSD_PAPER.md` is the working draft that rests o
 (`docs/build_notes/BUILD854_NOTES.md`) judged `still_lattice_criterion_1.json` (it passes), measured the sampler's trap
 from empty, and wrote the paper and this handover.
 
-**What 855 makes** (the operator, 2026-11-24 16:33: "both searches will have to merge into 1, the top 10 scores being
+**What 856 makes** (the operator, 2026-11-24 16:33: "both searches will have to merge into 1, the top 10 scores being
 auto-explored/mapped automatically for every best scorer, we can allocate a worker budget of say 4 to begin with, to
 probe around them, for stability/local-variants scanning the region and looking for its boundaries and neighbors"):
 
@@ -29,17 +36,17 @@ probe around them, for stability/local-variants scanning the region and looking 
 4. **What stays open for the operator**, asked in the notes: whether the four workers are a fixed share or follow the
    queue; how far a variant moves a coupling (175 used one step either way); whether study 176 starts in 174's folder.
 
-**The sampler** (`docs/ROADMAP.md`, item 4) is not in 855 unless the operator asks: the merged study's lattice starts
+**The sampler** (`docs/ROADMAP.md`, item 4) is not in 856 unless the operator asks: the merged study's lattice starts
 and neighbourhoods are read as they are, and its runs from empty are what a quench of its sweeps produces.
 
-**Acceptance** of 855: the still criterion's consequence and nothing else changes the score (`tools/outputs_of_a_law.py
---against` 854's record shows only the still laws moving), the small-world rule's criterion committed before any
+**Acceptance** of 856: the still criterion's consequence and nothing else changes the score (`tools/outputs_of_a_law.py
+--against` 855's record shows only the still laws moving), the small-world rule's criterion committed before any
 bundle that judges it, the merged design replayed in the sandbox on the baseline bundles, the full lane green.
 
-**Then 856**, a consolidation (the operator, 2026-11-24 16:34: "all other data references other than the known
+**Then 857**, a consolidation (the operator, 2026-11-24 16:34: "all other data references other than the known
 neighbor papers can go out of the study"): every study before the baseline, its designs, criteria and readers
 (`study_169` to `study_173`, `tools/study_172_reading.py`, `tools/study_173_reading.py`, `tools/study_twice.py` and
-the tests that read them) leave the tree into `GSD_readings_archive_856.tar.zst`, sent beside the release; the
+the tests that read them) leave the tree into `GSD_readings_archive_857.tar.zst`, sent beside the release; the
 instrument's known answers and the calibration table stay.
 
 ## Reading a study's bundle
@@ -182,13 +189,14 @@ setsid nohup python3 tools/package_release.py --output <dir> > release.log 2>&1 
 hand. If the gate will not run, fix what stops it. Before the gate, every file you created is owned by the user that
 runs it (a file owned by another user fails at `stamp_gate_result`, after the whole lane).
 
-**Then push what the gate passed** to `github.com/Atyzze/GSD`, which is public (the operator, 2026-11-24;
-`docs/HISTORY.md`, "Delivery"): the released commit's files (`git archive`) copied into a clone of that repository,
-one commit `Build <N>` on `main`. The session's git refused a tag push (2026-11-24, HTTP 403), so the commit's message
-names the build. Fetch `main` first: the operator edits on GitHub too (the README's opening, 2026-11-24), so any
-commit of theirs since the last build is taken into the tree before the gate runs, and the push lands on top of it,
-never forced. No lane of its own and no copy of anything the release did not ship; the repository's history is its
-own, one commit a build, and starts at 848.
+**Then open a pull request with what the gate passed** against `main` of `github.com/Atyzze/GSD`, which is public
+(the operator, 2026-11-24 19:22: "create a pull request, and test it too, and when all approved, let me click the
+final merge button myself"; `CLAUDE.md`, "Several workers, one repository"): the released commit on a branch of your
+own, one commit `Build <N>`, its description the notes' opening, what moved and what the operator decides. Fetch
+`main` first and rebase onto it: other workers deliver to the same repository and the operator edits on GitHub too
+(the README's opening, 2026-11-24), so anything of theirs since the last build is taken into the tree before the gate
+runs. If `main` has moved past your number before the merge, renumber and run the gate again. Nothing is pushed to
+`main` and nothing is force-pushed; the operator's merge is the release.
 
 The tests that read a build's number (`tests/unit/test_next_build_is_named.py`, `test_build_identity.py`,
 `test_where_we_are_is_current.py`, `test_claim_ledger.py`, `test_build_cadence.py`) accept the documents naming either

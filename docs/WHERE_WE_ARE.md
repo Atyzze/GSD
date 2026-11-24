@@ -1,4 +1,4 @@
-# Where we are, at build 854
+# Where we are, at build 855
 
 The whole project on one page, in plain words; the detail is in `docs/agent/HANDOFF.md`.
 
@@ -63,9 +63,13 @@ baseline, the still criterion passed, the trap measured, the paper drafted, this
 
 ## What comes next
 
-855 merges 174 and 175 into one study, 176: twelve workers draw blind, four map the ten best scorers' neighbourhoods
-and boundaries, the still lattice scores lowest and the small world is a kind of its own. 856 takes every study
-before the baseline out of the tree, into an archive sent beside it.
+855 is a handover: `CLAUDE.md` tells every worker how we share the repository (each works on a branch and sends a
+pull request, you merge it) and that the science table only grows. The calibration ledger files every probe reading
+once, under its own code's hash, and the quantum walk is its first new column, with no vote yet: it reads the ring
+and the square as 1 and 2, like d_s, and stops dead on the Sierpinski gasket and a random tree, where d_s reads 1.37
+and 1.29: a space that diffuses but does not carry a wave. 856 merges 174 and 175 into one study, 176: twelve
+workers draw blind, four map the ten best scorers' neighbourhoods and boundaries, the still lattice scores lowest and
+the small world is a kind of its own. 857 takes every study before the baseline out of the tree.
 
 ## The decision in front of you
 

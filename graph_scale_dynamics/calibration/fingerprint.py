@@ -122,9 +122,13 @@ def _module_file(root: Path, module: str) -> Path | None:
 
 
 def measurement_closure(root: Path | None = None) -> list[str]:
+    return import_closure(MEASUREMENT_ENTRY, root)
+
+
+def import_closure(entry: str, root: Path | None = None) -> list[str]:
     root = Path(root) if root is not None else repository_root()
-    start = root / MEASUREMENT_ENTRY
-    seen: dict[str, Path] = {MEASUREMENT_ENTRY: start}
+    start = root / entry
+    seen: dict[str, Path] = {entry: start}
     frontier = [start]
     while frontier:
         path = frontier.pop()
@@ -141,6 +145,15 @@ def measurement_closure(root: Path | None = None) -> list[str]:
 
 def _short(text: str) -> str:
     return hashlib.sha256(text.encode("utf-8")).hexdigest()[:16]
+
+
+def short_hash(text: str) -> str:
+    return _short(text)
+
+
+def closure_digest(entry: str, root: Path | None = None) -> list[str]:
+    base = Path(root) if root is not None else repository_root()
+    return [f"{rel}:{normalized_digest(base / rel)}" for rel in import_closure(entry, base)]
 
 
 @lru_cache(maxsize=None)

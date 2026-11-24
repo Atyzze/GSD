@@ -176,6 +176,18 @@ made; a time without a Z is the operator's local time.
 
 **Delivery and the way builds are made**
 
+* Every build arrives as a pull request, and the operator merges it (2026-11-24 19:22: "I have another
+  worker/context working/connected to the same github project you share, thus, when delivering your build, do it as
+  one coherent pack of code updates and create a pull request, and test it too, and when all approved, let me click the
+  final merge button myself, so that I remain in charge of the build releases while you internally can work on your
+  own builds/branches to be merged into the main public one"). It replaces the push of each release to `main` of
+  2026-11-24 09:02 below; `CLAUDE.md`, "Several workers, one repository", holds the rule for every worker (855).
+* The science table only grows (2026-11-24 19:10: "so why not be able to append the callibration table with this new
+  probe? its the perfect test so that the science table becomes append-only instead of this bs immutable sales
+  tactics, always/naturally allowing for more probes/values/rungs for as long as long as the reference engine
+  implementations are specified and included with full hash in the shared datablob"; 19:15: "I want C and ASM included
+  by default as well, next to Python and Rust, to complete the base-4 reference set which should also be
+  append-able"): the calibration ledger and appended probe groups (855), the rest by `docs/agent/APPEND_ONLY_PLAN.md`.
 * Every delivery is a full archive from `tools/package_release.py`, never a patch or a hand-made tar (September 2026).
   Each release's tree is also pushed to a public repository, `github.com/Atyzze/GSD`, after its gate, with no lane of
   its own (2026-11-24 09:02, of a private one: "No, not private GitHub. I already have a public GitHub with like 6

@@ -192,6 +192,12 @@ why.
    operator, 2026-11-20 11:48: "we weren't using the budget yet, we also weren't using a modern probes yet"): a sandbox
    measurement to its paper's sizes, and its two dimensions to 1,048,576 on the host; the authors asked with the paper
    near finished (2026-11-08 21:57). Then the paper, and what comes after it (the last item below).
+10. **The table that only grows, and the reference set of four** (the operator, 2026-11-24 19:10 and 19:15; 855
+   made the ledger and the first appended probe group): the quantum walk measured on the host and its known answers
+   committed, the suite filing into the ledger, readings pinning their snapshot, the four probes split into groups of
+   their own, attestations from other hosts; then the engine's conformance vectors, a registry of implementations by
+   their hash, and the C and x86-64 assembly engines beside Python and Rust, each admitted by the vectors it
+   reproduces to the bit. Step by step, with the questions it waits on: `docs/agent/APPEND_ONLY_PLAN.md`.
 
 **What each of those holds**, open:
 

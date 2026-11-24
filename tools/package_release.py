@@ -22,7 +22,7 @@ sys.path.insert(0, str(ROOT))
 from graph_scale_dynamics.operations.process_ownership import owned_env  # noqa: E402
 
 ROOT_FILES = {
-    ".gitignore", ".python-version", "BUILD_NUMBER", "LICENSE", "README.md",
+    ".gitignore", ".python-version", "BUILD_NUMBER", "CLAUDE.md", "LICENSE", "README.md",
     "main.py", "pyproject.toml", "setup.cfg", "uv.lock",
     "setup.py",
 }
