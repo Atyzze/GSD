@@ -812,21 +812,23 @@ energy and the instrument's readings, never its decisions; the papers are cited 
   on SIGTERM and SIGHUP; an archive carries its name only once verified.
 * **A law left running with no work under a stop is decided again** at every start (`operations/stranded_laws.py`),
   for a folder an older build left so; since 786 a buy that makes no work is recorded with "decide again" itself.
-* **An anonymous viewer's cost is bounded** (742). The web process streams files and the API's answers in 1 MiB pieces,
-  with their length, at most two over 4 MiB of each kind (files, API answers) at once; a third is told 503 with
-  `Retry-After` (`services/web/streaming.py`). The API writes a MiB at a time too, waiting as long as the web does (60 s
-  a write), so a large answer goes at its reader's pace. It reads and drops any body a request declares, so a kept-alive
-  connection is never read out of step, and refuses one over 1 MB or without a length, closing the connection. In the
-  API every read that walks the database or the disk waits for a dashboard database slot
+* **An anonymous viewer's cost is bounded** (742). The web process streams files and the API's answers in 1 MiB
+  pieces, with their length, at most two over 4 MiB of each kind (files, API answers) at once; a third is told 503
+  with `Retry-After` (`services/web/streaming.py`). The API writes a MiB at a time too, waiting as long as the web
+  does (60 s a write), so a large answer goes at its reader's pace. It reads and drops any body a request declares, so
+  a kept-alive connection is never read out of step, and refuses one over 1 MB or without a length, closing the
+  connection. In the API every read that walks the database or the disk waits for a dashboard database slot
   (`GSD_DASHBOARD_DB_CONCURRENCY`, 4) or answers 503 after 2 s, as the Campaigns routes do
-  (`services/api/dashboard_limit.py`). A request without the admin token (or the study runner's internal one) sees a
-  fault's where, when and first line, never its traceback or a worker's stderr, and not the services' console
-  (`services/api/admin_view.py`); since 748 its 500 says only "internal server error" and its request id, whatever
-  address it comes from (a proxy on the same host names no client), and a read writes nothing. A law's structure and the
-  gate are computed once for many readers (748, `services/api/answer_cache.py`): an answer is kept by the database, the
-  campaign and the law for 30 s, at most 64 of them, one computation for readers asking at once, and the gate's own
-  writes drop its answers at once; the rows they read are written all the time, so the answer is withdrawn on its own
-  age rather than keyed by them.
+  (`services/api/dashboard_limit.py`). The admin token is the run's (`services/api/admin_link.py`, 853): `GET
+  /api/access` tells a page whether its link is this run's, an earlier run's or none, and refusals are counted and
+  said on the services' console at most once a minute. A request without the admin token (or the study runner's
+  internal one) sees a fault's where, when and first line, never its traceback or a worker's stderr, and not the
+  services' console (`services/api/admin_view.py`); since 748 its 500 says only "internal server error" and its
+  request id, whatever address it comes from (a proxy on the same host names no client), and a read writes nothing. A
+  law's structure and the gate are computed once for many readers (748, `services/api/answer_cache.py`): an answer is
+  kept by the database, the campaign and the law for 30 s, at most 64 of them, one computation for readers asking at
+  once, and the gate's own writes drop its answers at once; the rows they read are written all the time, so the answer
+  is withdrawn on its own age rather than keyed by them.
 * **A landscape is built again only when what it reads was written** (829). Every page asks for the landscape's meta
   every 4 s, and from 16 s old (`DASHBOARD_LANDSCAPE_TTL_SECONDS`) a batch's landscape is due; before it starts
   `services/api/landscape_worker.py`, the API reads the landscape's inputs (`services/api/landscape_inputs.py`): the

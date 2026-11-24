@@ -33,7 +33,7 @@
    "what": "a probe, any one, settles on a twin start, the chain grown from empty or from a random graph: the law makes a structure it was not given, whatever its d",
    "read": "a probe, any one, on the empty or the random start steps within the score's margin at twin_settled_at_least sizes in a row, the highest read (4,096, 16,384 and 65,536), by its value alone; the score in force, whose reach rule may refuse it, is read beside it",
    "score": "as the score in force; the kind the operator wants to know of first (2026-11-24 10:43)",
-   "first_seen": "study 174: 8 laws, every one one-dimensional by its probes (d 1.0 to 1.15); two of them, 18856793523d and 3a8569fc6094, grow from both twin starts one connected piece holding every node at mean degree 2.00. The score in force settles none of the 8: their reach grows as about d 2, so the piece is not a clean loop (a ring settles at full points among the score's known answers, criterion 5) but more likely a loop carrying trees"
+   "first_seen": "study 174: 8 laws, every one one-dimensional by its probes (d 1.0 to 1.15); two of them, 18856793523d and 3a8569fc6094, grow from both twin starts one connected piece holding every node at mean degree 2.00. The score in force settles none of the 8: their reach grows as about d 2, so the piece is not a clean loop (a ring settles at full points among the score's known answers, criterion 5): those two are one loop with about 13 and 35 shortcuts at 65,536, every node on a cycle (853); four are open strings with no cycle, one is a loop with about 284 shortcuts, and 99e25674e37a is small cliques strung into strands"
   },
   {
    "id": "made",

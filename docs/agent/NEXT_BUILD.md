@@ -1,16 +1,18 @@
-# The next build is 853
+# The next build is 854
 
 This file names the next build and says how to make it. `tests/unit/test_next_build_is_named.py` parses its first line,
 which must read exactly `# The next build is <N>`, one above `BUILD_NUMBER`.
 
-## Where to begin: 853 reads what the operator sends
+## Where to begin: 854 reads what the operator sends
 
 **What is running.** Study 175, the perturbation side study (847), in a folder of its own, to its end (the operator,
 2026-11-24 10:22), and study 174 in its own. **850** (`docs/build_notes/BUILD850_NOTES.md`) made the catalogue of
 behaviours (`resources/catalogue/catalogue.json`, `tools/catalogue_reading.py`) and committed
 `still_lattice_criterion_1.json` before the next bundle; **851** (`docs/build_notes/BUILD851_NOTES.md`) put the home
 page on the README and found the score right to refuse the 8 laws that settle by value from the twins; **852**
-(`docs/build_notes/BUILD852_NOTES.md`) took the README the operator wrote on GitHub into the tree.
+(`docs/build_notes/BUILD852_NOTES.md`) took the README the operator wrote on GitHub into the tree; **853**
+(`docs/build_notes/BUILD853_NOTES.md`) checked every start's admin link on a real fleet, made a page holding an
+earlier run's link say so, and read the 8 laws again (no trees: strings, loops with shortcuts, cliques in strands).
 
 **What comes.** A bundle of study 175 or 174: `tools/catalogue_reading.py <bundle>` judges
 `still_lattice_criterion_1.json` (S1, S2; S3 reported) on the first one sent after 850; if it passes, the still
@@ -18,8 +20,8 @@ lattice scores 1 in the score in force (the operator, 2026-11-24 10:22), and sto
 offered with what it saves and risks. `tools/perturb_reading.py <bundle>` for 175's verdicts, H31's family first. Then
 the next study's design, the laws whose starts agree (H31 and the six of 174), offered with its criterion.
 
-**Acceptance** of 853: whatever it reads is read by the committed criterion, every decision of a bundle replays, nothing
-in force changes without the operator's word, `tools/outputs_of_a_law.py --against` 852's record, the full lane green.
+**Acceptance** of 854: whatever it reads is read by the committed criterion, every decision of a bundle replays, nothing
+in force changes without the operator's word, `tools/outputs_of_a_law.py --against` 853's record, the full lane green.
 
 ## Reading a study's bundle
 

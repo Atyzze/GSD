@@ -133,7 +133,9 @@ why.
    its cost. **851, made** (2026-11-24 14:10): the home page on the
    README; the reach rule does not refuse a clean loop, which its known answers settle at full points, so the 8 laws
    that settle by value from the twins are not clean loops. **852, made**: the README the operator wrote on GitHub
-   (14:26 to 14:32), taken into the tree. **Next**: the next study's design, laws whose starts agree
+   (14:26 to 14:32), taken into the tree. **853, made** (15:24): every start's admin link checked on a real
+   fleet stopped three ways, a page holding an earlier run's link says so and greys its writes, and the 8 laws
+   read again: open strings, loops with a few shortcuts, cliques strung into strands, no trees. **Next**: the next study's design, laws whose starts agree
    (H31 and the six of 174), offered with its criterion. **Then 174's reading** (a progress bundle while it runs, its last at the end): its criterion, P1 to P9,
    each batch beside the others, and what study A would take. 174's rules cost about 1.8 times 173's on the same
    laws (the replay carried to 10,000: about 1,270 core-hours against 720), study A about 33 days against 19 on 16

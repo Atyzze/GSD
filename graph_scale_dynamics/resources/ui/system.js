@@ -50,6 +50,7 @@
           ${navLink('Home','home','/')}${navLink('Campaigns','campaigns','/campaigns')}${navLink('Explorer','explorer','/explorer')}${navLink('Reports','reports','/reports')}${navLink('Calibration','calibration','/calibration')}${navLink('System','system','/system')}
         </nav>
         <div class="gsd-header-actions">
+          <span id="gsdAdmin" class="gsd-admin-link" hidden></span>
           <button id="gsdTheme" class="gsd-control" title="Toggle light/dark theme">☼</button>
         </div>
       </div>
@@ -428,6 +429,27 @@
   }
 
   const headerHost = makeHeader();
+  const ADMIN_SAYS = {
+    current: ['admin', 'ok', "This page's admin link is this run's: its changes are accepted."],
+    stale: ['admin link from an earlier run', 'warn', "This page's admin link is not this run's. Every start makes a new one and the old one stops working, so the server refuses this page's changes. Open the link the run made (var/run/dashboard-admin)."],
+  };
+  async function refreshAccess() {
+    let link = admin ? 'stale' : 'none';
+    try {
+      const r = await fetch(api('/api/access'), {cache: 'no-store', headers: headers()});
+      if (r.ok) link = (await r.json()).link || link;
+      else if (!admin) link = 'none';
+      else return;
+    } catch (_) { return; }
+    document.documentElement.dataset.admin = link;
+    const badge = document.getElementById('gsdAdmin');
+    if (!badge) return;
+    const said = ADMIN_SAYS[link];
+    badge.hidden = !said;
+    if (said) { badge.textContent = said[0]; badge.className = 'gsd-admin-link ' + said[1]; badge.title = said[2]; }
+  }
+  refreshAccess();
+  setInterval(refreshAccess, 30000);
   if (headerHost) {
     let theme='dark'; try { theme=localStorage.getItem('gsd-theme')||'dark'; } catch(_) {}
     applyTheme(theme);

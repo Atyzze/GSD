@@ -248,7 +248,10 @@ made; a time without a Z is the operator's local time.
   workers to base exploration and the other half to extension").
 * The dashboard stays reachable from outside, to show it (2026-11-06 23:53: "go to snekpas.nl/research and you'll see
   the latest live data, this works currently and we want to keep it that way"), over HTTPS only; an admin action
-  needs the admin token (2026-11-07 00:02: "no token = no admin actions").
+  needs the admin token (2026-11-07 00:02: "no token = no admin actions"). Every start makes a new admin link and the
+  old one stops working; a page holding an earlier run's link says so and greys its controls (2026-11-24 15:24: "a
+  basic check to test lets me change the worker count with what was supposed to be a stale token ... thats an issue,
+  pls fix"; 853, which found the rotation sound on a real fleet stopped three ways and made it visible and gated).
 * A commit that a file's deletion rests on reaches the disk before the file goes (2026-11-07 00:02, on durable
   commits: "seems like an obvious yes we should"; done at 733).
 

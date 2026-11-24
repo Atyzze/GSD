@@ -40,7 +40,7 @@ from graph_scale_dynamics.research.report_catalog import REPORT_BY_CODE, REPORT_
 from graph_scale_dynamics.scheduling.memory import admission_headroom, recorded_lease_reservations
 from graph_scale_dynamics.scheduling.runtime import observed_analysis_profile, observed_profile, predict_wall
 from graph_scale_dynamics.services.api import (
-    admin_view, campaign_manager, dashboard_limit, landscape_inputs, readings_route, study_scope,
+    admin_link, admin_view, campaign_manager, dashboard_limit, landscape_inputs, readings_route, study_scope,
 )
 from graph_scale_dynamics.services.api.law_dynamics import law_dynamics_of
 from graph_scale_dynamics.services.api.dashboard_workers import DashboardWorkers
@@ -97,6 +97,7 @@ def build_handler(db_path: str, blobs_path: str, admin_token: str, port: int,
                   calibration_root: str | Path | None = None,
                   repository_root: str | Path | None = None):
     base_path = normalize_base_path(base_path)
+    link = admin_link.AdminLink(admin_token)
     _live.RESUME_ROOT = Path(blobs_path)
     readings_route.BLOBS_ROOT = Path(blobs_path)
     from graph_scale_dynamics.calibration import durable_artifact_path as _durable_path
@@ -468,8 +469,11 @@ def build_handler(db_path: str, blobs_path: str, admin_token: str, port: int,
             return secrets.compare_digest(supplied.encode("utf-8", "surrogatepass"),
                                           expected.encode("utf-8", "surrogatepass"))
 
+        def _supplied_admin_token(self) -> str:
+            return self.headers.get("X-GSD-Admin-Token") or ""
+
         def _admin_token_valid(self) -> bool:
-            return self._token_matches(self.headers.get("X-GSD-Admin-Token") or "", admin_token)
+            return link.matches(self._supplied_admin_token())
 
         def _local_admin(self) -> bool:
             return self._client_is_loopback() and self._admin_token_valid()
@@ -505,13 +509,7 @@ def build_handler(db_path: str, blobs_path: str, admin_token: str, port: int,
                 return False
 
         def _access_payload(self) -> dict:
-            admin = self._local_admin()
-            return {
-                "admin": admin,
-                "local_admin": admin,
-                "admin_rule": "the admin token (the admin link's #admin=...), from any device, through the dashboard",
-                "can_pause": admin,
-            }
+            return link.access(self._supplied_admin_token(), loopback=self._client_is_loopback())
 
         def _route_path(self) -> str:
             path = urlparse(self.path).path
@@ -528,10 +526,12 @@ def build_handler(db_path: str, blobs_path: str, admin_token: str, port: int,
 
         def _admin_authorized(self) -> bool:
             if not self._client_is_loopback():
+                link.refused(self._supplied_admin_token(), self._route_path())
                 self._json({"error": "local admin access required"}, 403)
                 return False
             if not self._admin_token_valid():
-                self._json({"error": "admin token required"}, 403)
+                link.refused(self._supplied_admin_token(), self._route_path())
+                self._json(link.refusal(self._supplied_admin_token(), "admin token required"), 403)
                 return False
             return True
 
@@ -554,7 +554,9 @@ def build_handler(db_path: str, blobs_path: str, admin_token: str, port: int,
         def _pause_authorized(self) -> bool:
             if self._local_admin():
                 return True
-            self._json({"error": "pause/resume needs the admin token (the admin link, through the dashboard)"}, 403)
+            link.refused(self._supplied_admin_token(), self._route_path())
+            self._json(link.refusal(self._supplied_admin_token(),
+                                    "pause/resume needs the admin token (the admin link, through the dashboard)"), 403)
             return False
 
         def _answering(self, handle) -> None:
@@ -616,6 +618,7 @@ def build_handler(db_path: str, blobs_path: str, admin_token: str, port: int,
                     self._json({"error": "request body too large"}, 413)
                     return
                 sent = campaign_manager.body_from(self.rfile.read(length))
+                link.accepted("campaigns/manage", str((sent or {}).get("action") or "") if isinstance(sent, dict) else None)
                 try:
                     with Repo(db_path) as manage_repo:
                         payload, code = campaign_manager.handle(manage_repo, sent)
@@ -653,6 +656,8 @@ def build_handler(db_path: str, blobs_path: str, admin_token: str, port: int,
                         }, 503)
                         return
                     raise
+                link.accepted("pause" if is_pause else "reports/trigger",
+                              str(body.get("paused") if is_pause else body.get("action") or "start"))
                 if is_pause:
                     requested = body.get("paused")
                     if not isinstance(requested, bool):
@@ -706,6 +711,8 @@ def build_handler(db_path: str, blobs_path: str, admin_token: str, port: int,
                 return
             path = self._route_path()
             parts = [p for p in path.split("/") if p]
+            if parts == ["api", "access"]:
+                return self._json(self._access_payload())
             if readings_route.handles(parts):
                 return readings_route.get(self, db_path, parts)
             if path in ("/", "/index.html", "/calibration") or path == "/reports" or path.startswith("/reports/"):

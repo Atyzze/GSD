@@ -175,6 +175,16 @@ its own start and at each admin `POST /api/reports/trigger` while a quiet report
 summary (where, when, how often, its first line) but no traceback and no worker's stderr; the admin link shows them
 whole (742). Reports and bundles download two at a time over 4 MiB, a third told to come back in four seconds.
 
+**Every start makes a new link** (853). A stopped fleet's link stops working the moment the next start writes its own,
+however the fleet was stopped (one Ctrl-C, two, or a kill: `tests/integration/test_a_restart_makes_a_new_admin_link.py`
+runs all three on a real fleet). A tab left open from an earlier run keeps its old `#admin=` and is refused; the top
+bar says which link a page holds: **admin** when it is this run's, **admin link from an earlier run** when it is not,
+nothing for a viewer without one (`GET /api/access`, which also counts the refused writes). Without this run's link the
+page greys its write controls (the worker count, pause, a campaign's actions, shares and budgets, the early gate, a
+study's delete, a new campaign's start), and a refused write's note says the link is not this run's. The services'
+console (System) says each accepted admin write and, at most once a minute, how many were refused and with which kind
+of link, never a token (`services/api/admin_link.py`).
+
 ### Starting a campaign
 
 **new campaign** starts from *the shipped defaults*, which draw every axis uniformly over its whole range, or from a
