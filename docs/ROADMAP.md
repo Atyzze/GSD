@@ -91,13 +91,15 @@ Open, none waiting:
 
 1. **857, made**: Home's filter panel (`docs/build_notes/BUILD857_NOTES.md`); the ladder's live counts by kind, read per
    law on the server, are left for a later build.
-2. **858, a study seeded from an earlier bundle**: any bundle whose science hash (`study.json`, `science`) is the
+1. **858, made**: a consolidation of what the context of 855 learned (`docs/build_notes/BUILD858_NOTES.md`): five
+   lessons, two papers read, two items under "Unscheduled", the reference engines paused at the operator's word.
+2. **859, a study seeded from an earlier bundle**: any bundle whose science hash (`study.json`, `science`) is the
    folder's: its map's regions and known kinds loaded, so B starts where the last one stopped and A's grid can lean
    toward the regions least explored (the lean itself drawn and recorded, never chosen by hand).
-3. **859, group D**: one core that takes the study's best law up the ladder past 65,536 until memory admission
+3. **860, group D**: one core that takes the study's best law up the ladder past 65,536 until memory admission
    refuses the next size; the size it stops at is the host's limit, recorded in the bundle.
-4. **860, the consolidation**: every study before the baseline out of the tree into
-   `GSD_readings_archive_860.tar.zst`, sent beside the release (`docs/agent/NEXT_BUILD.md`).
+4. **861, the consolidation**: every study before the baseline out of the tree into
+   `GSD_readings_archive_861.tar.zst`, sent beside the release (`docs/agent/NEXT_BUILD.md`).
 5. **After the paper**: the atlas shared, peers in a browser or a container contributing runs checked against one
    science hash and calibration table; a front end to watch it grow; a formal check in Lean of the countability of
    the phases (`docs/paper/GSD_PAPER.md`, musings); the engine contract (`engine/boundary.py`, the parity suite and
@@ -171,7 +173,7 @@ why.
    an outside review's points answered or placed, the paper drafted (`docs/paper/GSD_PAPER.md`). **856, made**: study
    176, 174 and 175 merged into one, groups A (blind) and B (the map of the ten best) half the fleet each (16:33,
    17:37, 17:39), the still lattice scored 1, the small-world kind, the system's CPUs, a science hash and the table in
-   every bundle (18:04). **Next**: 857 to 860, above. **Then 174's reading** (a progress bundle while it runs, its last at the end): its criterion, P1 to P9,
+   every bundle (18:04). **Next**: 859 to 861, above. **Then 174's reading** (a progress bundle while it runs, its last at the end): its criterion, P1 to P9,
    each batch beside the others, and what study A would take. 174's rules cost about 1.8 times 173's on the same
    laws (the replay carried to 10,000: about 1,270 core-hours against 720), study A about 33 days against 19 on 16
    workers, nearly all of it nothing_read letting laws on at 4,096 and the laws that then reach 65,536; 174 says what
@@ -229,7 +231,8 @@ why.
    committed, the suite filing into the ledger, readings pinning their snapshot, the four probes split into groups of
    their own, attestations from other hosts; then the engine's conformance vectors, a registry of implementations by
    their hash, and the C and x86-64 assembly engines beside Python and Rust, each admitted by the vectors it
-   reproduces to the bit. Step by step, with the questions it waits on: `docs/agent/APPEND_ONLY_PLAN.md`.
+   reproduces to the bit. Step by step, with the questions it waits on: `docs/agent/APPEND_ONLY_PLAN.md`. Paused at the
+   operator's word (2026-11-24 19:43) after 858, until they say go on.
 
 **What each of those holds**, open:
 
@@ -346,6 +349,13 @@ bundle on any machine. Each build's notes say in their first line whether it may
 
 ## Unscheduled
 
+* **The square lattice's hysteresis, a phase transition the instrument can report now** (2026-11-24): P1 holds its
+  torus and stalls near 80% of its energy from empty (854's table). Run P1 with beta swept up from empty and down
+  from the torus at 256 to 4,096, the energy a node and the induced squares at each beta: two branches that meet
+  only at the ends are a first-order crystallisation, measured, and the loop's width at each N says how the trap
+  grows.
+* **The quantum walk beside a law's reading**, once its known answers are committed (`docs/agent/APPEND_ONLY_PLAN.md`,
+  L2): on a chain's final graph, as the four probes are read, so a state that diffuses but holds a wave is named.
 * **A release path for pages and appended files** (the operator, 2026-11-24 19:56: "that fast lane path for docs only
   updates shouldnt take that long"): `package_release.py --fast` taking a build whose only changes are pages, readings
   and files that no frozen source imports, without the PostgreSQL lane; today any change under

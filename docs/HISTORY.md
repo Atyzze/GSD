@@ -176,6 +176,11 @@ made; a time without a Z is the operator's local time.
 
 **Delivery and the way builds are made**
 
+* Nothing is pushed until the operator's word, and a context ends in a consolidation of what it learned
+  (2026-11-24 19:43: "before pushing any further changes, wait for further signal from [me] before continuing the
+  current pipelines"; 19:44: "and work towards a consolidation build, to finish/merge the context/knowledge-bits of
+  this conversation to bring it to its conclusion"): 858. The reference engines in C and assembly wait with it
+  (`docs/agent/APPEND_ONLY_PLAN.md`).
 * Every build arrives as a pull request, and the operator merges it (2026-11-24 19:22: "I have another
   worker/context working/connected to the same github project you share, thus, when delivering your build, do it as
   one coherent pack of code updates and create a pull request, and test it too, and when all approved, let me click the
@@ -288,12 +293,12 @@ made; a time without a Z is the operator's local time.
 * **A bundle says which science read it and carries its table** (2026-11-24 18:04: "some sort of science contract on
   top of the build number contained within the study bundle exports, so same-science data-set can be assured from the
   hashes"; "the export bundle needs to contain the calibration table as well"): 856. A study seeded from an earlier
-  bundle of the same science, so that it never starts from nothing (the same message), is 858.
+  bundle of the same science, so that it never starts from nothing (the same message), is 859.
 * **The dashboard filters by kind, group and batch in one panel** (2026-11-24 17:51: the filters "in the middle ...
   above fleet ladder, under macro landscape", acting on the fleet ladder, the landscape and the top unknowns "but not
   to the now researching box", each point saying "which search group the data point came from"): 857.
 * **Group D, the best law taken as deep as the host allows** (2026-11-24 18:06: "dedicate 1 core to, to select only
-  the top1 current best and push it to higher and higher memory until the system says it has no more space left"): 859.
+  the top1 current best and push it to higher and higher memory until the system says it has no more space left"): 860.
 * **The atlas as a shared object** (2026-11-24 18:04 and 18:08: peers joining the search and sharing their results on
   the same calibration table, "a game-like experience", the bundle "simple the condensed version of the ever growing
   atlas"): after the paper. With it (18:12), the engine contract open to engines in C or assembly, "an inherent

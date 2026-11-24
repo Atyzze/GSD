@@ -1,31 +1,33 @@
-# The next build is 858
+# The next build is 859
 
 This file names the next build and says how to make it. `tests/unit/test_next_build_is_named.py` parses its first line,
 which must read exactly `# The next build is <N>`, one above `BUILD_NUMBER`.
 
-## Where to begin: 858 seeds a study from an earlier bundle
+## Where to begin: 859 seeds a study from an earlier bundle
 
-**What 855 to 857 left** (`docs/build_notes/BUILD855_NOTES.md` to `BUILD857_NOTES.md`): 855, `CLAUDE.md` (every
+**What 855 to 858 left** (`docs/build_notes/BUILD855_NOTES.md` to `BUILD858_NOTES.md`): 855, `CLAUDE.md` (every
 build a pull request the operator merges), the calibration ledger and its first appended probe group, the quantum walk.
 856, study 176 designed and committed (groups A, the blind draw, and B, the map of the ten best, half the work slots
 each), the still lattice at 1 (gsd-law-score-9), the small-world kind (gsd-catalogue-2, `small_world_criterion_1.json`
 waiting on the next bundle), the system's CPUs on the System page, a science hash and the table in every bundle. 857,
-Home's filter panel, every law carrying its kind, group, batch and place on the map. The baseline is still 174's
+Home's filter panel, every law carrying its kind, group, batch and place on the map. 858, a consolidation of what
+855's context learned (`docs/build_notes/BUILD858_NOTES.md`), so the plan below is 857's with its numbers moved up
+by one. The baseline is still 174's
 bundle of 2026-11-24 14:22Z and 175's of 08:35Z.
 
-**What 858 makes** (the operator, 2026-11-24 18:04, `docs/HISTORY.md`): a study started from an earlier bundle whose
+**What 859 makes** (the operator, 2026-11-24 18:04, `docs/HISTORY.md`): a study started from an earlier bundle whose
 science hash (`study.json`, `science`) is the folder's own: the bundle's map (`map.json`) loaded, its known regions
 known from the start and its mapping regions taken up again, so B starts where the last study stopped; and A's grid
 leaning toward the regions least explored, the lean drawn and recorded, never chosen by hand. A bundle of another
 science is refused, saying which part of the hash differs (`science_contract.same`).
 
-**Acceptance** of 858: a folder started from a bundle reads the same map the bundle holds; a bundle of another science
-is refused; no score, kind or decision moves (`tools/outputs_of_a_law.py --against` 857's record); the full lane green.
+**Acceptance** of 859: a folder started from a bundle reads the same map the bundle holds; a bundle of another science
+is refused; no score, kind or decision moves (`tools/outputs_of_a_law.py --against` 858's record); the full lane green.
 
-**Then** 859, group D; 860, the consolidation
+**Then** 860, group D; 861, the consolidation
 (every study before the baseline, its designs, criteria and readers, `study_169` to `study_173`,
 `tools/study_172_reading.py`, `tools/study_173_reading.py`, `tools/study_twice.py` and the tests that read them, out
-of the tree into `GSD_readings_archive_860.tar.zst`, sent beside the release); `docs/ROADMAP.md`, "Planned builds".
+of the tree into `GSD_readings_archive_861.tar.zst`, sent beside the release); `docs/ROADMAP.md`, "Planned builds".
 
 **When study 176 sends its first bundle**: `tools/catalogue_reading.py` judges `small_world_criterion_1.json` (W1,
 W2), and the map's regions are read from `map.json` against `study_176_criterion.json` (P1, P2 judged; P3 to P5
