@@ -1,0 +1,114 @@
+{
+ "contract": "gsd-score-margins-1",
+ "made_by": "python3 tools/score_known_answers.py --write, from the criterion's training rule; never by hand",
+ "criterion": "graph_scale_dynamics/resources/readings/score_known_answers_criterion_3.json",
+ "source": {
+  "table": "calibration/seed_table.json",
+  "estimator_fingerprint": "e639334808716378",
+  "holds": "graph_scale_dynamics/resources/calibration/table_holds.json"
+ },
+ "relied_from": 4096,
+ "levels": [
+  16384,
+  65536,
+  262144,
+  1048576,
+  4194304
+ ],
+ "factor": 2.0,
+ "relative": {
+  "d_s": {
+   "16384": 0.06,
+   "65536": 0.1,
+   "262144": 0.06,
+   "1048576": 0.02,
+   "4194304": 0.02
+  },
+  "d_V": {
+   "16384": 0.15,
+   "65536": 0.03,
+   "262144": 0.05,
+   "1048576": 0.02,
+   "4194304": 0.02
+  },
+  "d_B": {
+   "16384": 0.08,
+   "65536": 0.05,
+   "262144": 0.08,
+   "1048576": 0.03,
+   "4194304": 0.03
+  },
+  "d_w": {
+   "16384": 0.05,
+   "65536": 0.08,
+   "262144": 0.05,
+   "1048576": 0.03,
+   "4194304": 0.03
+  }
+ },
+ "tau": 0.075,
+ "widest_training_step": {
+  "d_s": {
+   "16384": 0.02757,
+   "65536": 0.04988,
+   "262144": 0.02727,
+   "1048576": 0.00496,
+   "4194304": null
+  },
+  "d_V": {
+   "16384": 0.06675,
+   "65536": 0.0124,
+   "262144": 0.02373,
+   "1048576": 0.00043,
+   "4194304": null
+  },
+  "d_B": {
+   "16384": 0.03922,
+   "65536": 0.02291,
+   "262144": 0.0356,
+   "1048576": 0.01498,
+   "4194304": null
+  },
+  "d_w": {
+   "16384": 0.02313,
+   "65536": 0.03232,
+   "262144": 0.02387,
+   "1048576": 0.01353,
+   "4194304": null
+  }
+ },
+ "widest_training_residual": {
+  "family": "periodic_face_centred_cubic_lattice",
+  "triple": 1,
+  "n": 16384,
+  "residual": 0.06098
+ },
+ "training_steps": 249,
+ "training_residuals": 84,
+ "does_not_settle": [],
+ "beyond_tau": [],
+ "reach": {
+  "contract": "gsd-score-reach-1",
+  "criterion": "graph_scale_dynamics/resources/readings/score_known_answers_criterion_4.json",
+  "q": 0.2,
+  "z": 2.0,
+  "half_step": 0.5,
+  "factor": 2.0,
+  "widest_training_excess": {
+   "from_n": 262144,
+   "n": 1048576,
+   "excess": 0.0756,
+   "growth_d": 3.3065,
+   "d": 2.9357,
+   "reach": [
+    48.0,
+    73.0
+   ],
+   "family": "periodic_cubic_quotient",
+   "triple": 0
+  },
+  "training_pairs": 160,
+  "unread_training_pairs": [],
+  "above_grid": []
+ }
+}

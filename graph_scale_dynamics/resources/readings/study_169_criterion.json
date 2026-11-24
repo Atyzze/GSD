@@ -1,0 +1,22 @@
+{
+ "contract": "gsd-study-criterion-1",
+ "study": "169",
+ "committed_utc": "2026-11-19T20:17:05Z",
+ "committed_before": "study 169's first start, on any host",
+ "design": "graph_scale_dynamics/resources/readings/study_169_design.json",
+ "read_for": "the first clean study, read whole from its bundle on the build it reaches (docs/OPERATIONS.md, \"The pilots\"): what the fleet decides, records and replays on the final code, and what it costs",
+ "predicted": [
+  "R1: every decision in the bundle replays (tools/replay_bundle.py, 0 that differ)",
+  "R2: the slice of the design grown in the sandbox on 813 (its first 24 laws, 64 to 4,096 nodes) is the same on the host: every rung row and seed of those laws byte for byte, the spectral gap to its solver's tolerance (806)",
+  "R3: no zero-temperature seed is classed OPERATIONAL_UNRESOLVED after a pass at the cap (807)",
+  "R4: every law that neither failed nor ran over its budget is read at 16,384 (the gates record only below it)"
+ ],
+ "reported": [
+  "the seeds that end at their budget, by size",
+  "the laws stopped over_budget",
+  "the hours and memory a size takes on the host",
+  "each gate's verdicts below 16,384 and its let-through from it",
+  "the finds"
+ ],
+ "not_judged_here": "what the laws are: 169 is read for itself, its finds the first of the clean data; no prediction of a law's kind is committed for it"
+}

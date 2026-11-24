@@ -1,0 +1,7700 @@
+{
+ "contract": "gsd-perturb-holders-1",
+ "study": "175",
+ "from": {
+  "study": "174",
+  "bundle": "study_174_2026-11-23T09-52-09Z",
+  "built_utc": "2026-11-23T09:52:09Z",
+  "build": 845
+ },
+ "score": "gsd-law-score-8",
+ "score_in_force": "gsd-law-score-6",
+ "rule": "every drawn law of study 174's first bundle (no standing control) that the score in force and its candidate both settle, read on the bundle: each scores above zero with at least one probe or the Einstein relation settled, and its scoring start is not frozen; its reading is the candidate's. Its law is rebuilt from the law ledger's row and is the law only when its fingerprint is the law's id.",
+ "holders": [
+  {
+   "label": "H01",
+   "candidate_id": "559f8b6fd2882c71888b604d31d15512d20f4a13c7de34da2bcc258578e271df",
+   "campaign": "8",
+   "spec": {
+    "dsl_version": 1,
+    "init": "empty",
+    "terms": [
+     {
+      "op": "degree_cube_sum",
+      "params": {},
+      "coeff": {
+       "c0": 0.0820979,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "square_edge_overlap",
+      "params": {},
+      "coeff": {
+       "c0": -0.106043,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "triangle_edge_overlap",
+      "params": {},
+      "coeff": {
+       "c0": -0.0177926,
+       "scale": "one"
+      }
+     }
+    ],
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 5.65062,
+     "move_mix": {
+      "add": 0.14973350000000002,
+      "delete": 0.14973350000000002,
+      "swap": 0.700533
+     },
+     "sweeps": 30,
+     "locality": 0.344949
+    }
+   },
+   "compact": {
+    "beta": 5.65062,
+    "local_move": "toggle",
+    "locality": 0.344949,
+    "regime": "equilibrium",
+    "swap_share": 0.700533,
+    "sweeps": 30,
+    "terms": [
+     [
+      "degree_cube_sum",
+      null,
+      0.0820979,
+      "one",
+      null
+     ],
+     [
+      "square_edge_overlap",
+      null,
+      -0.106043,
+      "one",
+      null
+     ],
+     [
+      "triangle_edge_overlap",
+      null,
+      -0.0177926,
+      "one",
+      null
+     ]
+    ],
+    "zero_temperature": false
+   },
+   "kind": "sees cycles",
+   "read_in_174": {
+    "score": 25,
+    "points": 11,
+    "items": {
+     "d_s": 3,
+     "d_V": 2,
+     "d_B": 2,
+     "d_w": 2,
+     "einstein": 2
+    },
+    "by": "lattice",
+    "chain": "bcc",
+    "d": 3.08,
+    "mean_degree": 8.14,
+    "to_n": 65536,
+    "top_n": 65536,
+    "why": "11 of 15: d_s settles again, d_V settles, d_B settles, d_w settles, the Einstein relation settles; the lattice start changed, so it counts 0.6",
+    "decision": [
+     "done",
+     "ladder_complete",
+     65536
+    ],
+    "fates": {
+     "bcc": [
+      "changed",
+      0.891
+     ],
+     "cubic": [
+      "changed",
+      1.529
+     ],
+     "fcc": [
+      "dense",
+      null
+     ],
+     "square": [
+      "partly",
+      0.649
+     ],
+     "tesseract": [
+      "stretched",
+      2.257
+     ],
+     "triangular": [
+      "partly",
+      0.746
+     ]
+    },
+    "value_columns": [
+     "n",
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w",
+     "reach",
+     "mean_degree",
+     "giant_fraction",
+     "triangles_per_node",
+     "squares_per_node",
+     "kappa"
+    ],
+    "values": [
+     [
+      64,
+      null,
+      null,
+      null,
+      null,
+      1.0,
+      32.0,
+      1.0,
+      0.0,
+      3844.0,
+      0.0
+     ],
+     [
+      256,
+      null,
+      null,
+      null,
+      null,
+      null,
+      32.01,
+      1.0,
+      0.0,
+      1089.0,
+      null
+     ],
+     [
+      1024,
+      null,
+      null,
+      null,
+      null,
+      null,
+      32.0,
+      0.9993,
+      0.0,
+      459.4,
+      null
+     ],
+     [
+      4096,
+      3.134,
+      3.649,
+      null,
+      null,
+      6.995,
+      10.18,
+      1.0,
+      0.0,
+      25.01,
+      -0.001708
+     ],
+     [
+      16384,
+      3.06,
+      3.385,
+      3.278,
+      2.28,
+      12.46,
+      8.528,
+      1.0,
+      0.0,
+      14.55,
+      0.0
+     ],
+     [
+      65536,
+      3.008,
+      3.262,
+      3.152,
+      2.168,
+      21.4,
+      8.136,
+      1.0,
+      0.0,
+      12.62,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "label": "H02",
+   "candidate_id": "6ae1668ada575c2135213f5346cf88093ae8b3314741ca2b59c298f68ce23769",
+   "campaign": "7",
+   "spec": {
+    "dsl_version": 1,
+    "init": "empty",
+    "terms": [
+     {
+      "op": "induced_square_count",
+      "params": {},
+      "coeff": {
+       "c0": -0.305282,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "wedge_count",
+      "params": {},
+      "coeff": {
+       "c0": 0.169812,
+       "scale": "one"
+      }
+     }
+    ],
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 19.5881,
+     "move_mix": {
+      "add": 0.316571,
+      "delete": 0.316571,
+      "swap": 0.366858
+     },
+     "sweeps": 30,
+     "locality": 0.367573,
+     "zero_temperature": true
+    }
+   },
+   "compact": {
+    "beta": 19.5881,
+    "local_move": "toggle",
+    "locality": 0.367573,
+    "regime": "zero_temperature",
+    "swap_share": 0.366858,
+    "sweeps": 30,
+    "terms": [
+     [
+      "induced_square_count",
+      null,
+      -0.305282,
+      "one",
+      null
+     ],
+     [
+      "wedge_count",
+      null,
+      0.169812,
+      "one",
+      null
+     ]
+    ],
+    "zero_temperature": true
+   },
+   "kind": "sees cycles",
+   "read_in_174": {
+    "score": 21,
+    "points": 9,
+    "items": {
+     "d_s": 2,
+     "d_V": 1,
+     "d_B": 2,
+     "d_w": 2,
+     "einstein": 2
+    },
+    "by": "lattice",
+    "chain": "bcc",
+    "d": 3.1,
+    "mean_degree": 8.24,
+    "to_n": 65536,
+    "top_n": 65536,
+    "why": "9 of 15: d_s settles, d_V reads at two sizes, d_B settles, d_w settles, the Einstein relation settles; the lattice start changed, so it counts 0.6",
+    "decision": [
+     "done",
+     "ladder_complete",
+     65536
+    ],
+    "fates": {
+     "bcc": [
+      "changed",
+      0.87
+     ],
+     "cubic": [
+      "fell_apart",
+      null
+     ],
+     "fcc": [
+      "fell_apart",
+      null
+     ],
+     "square": [
+      "fell_apart",
+      null
+     ],
+     "tesseract": [
+      "fell_apart",
+      null
+     ],
+     "triangular": [
+      "fell_apart",
+      null
+     ]
+    },
+    "value_columns": [
+     "n",
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w",
+     "reach",
+     "mean_degree",
+     "giant_fraction",
+     "triangles_per_node",
+     "squares_per_node",
+     "kappa"
+    ],
+    "values": [
+     [
+      64,
+      null,
+      null,
+      null,
+      null,
+      1.0,
+      32.0,
+      1.0,
+      0.0,
+      3844.0,
+      0.0
+     ],
+     [
+      256,
+      null,
+      null,
+      null,
+      null,
+      null,
+      32.01,
+      1.0,
+      0.0,
+      1046.0,
+      null
+     ],
+     [
+      1024,
+      null,
+      null,
+      null,
+      null,
+      null,
+      32.0,
+      1.0,
+      0.0,
+      555.7,
+      null
+     ],
+     [
+      4096,
+      3.115,
+      3.666,
+      null,
+      null,
+      6.456,
+      11.36,
+      0.9998,
+      0.0,
+      37.02,
+      -5.033e-05
+     ],
+     [
+      16384,
+      3.078,
+      3.392,
+      3.339,
+      2.264,
+      12.04,
+      8.753,
+      1.0,
+      0.0,
+      15.91,
+      0.0
+     ],
+     [
+      65536,
+      2.995,
+      3.284,
+      3.201,
+      2.233,
+      20.78,
+      8.238,
+      1.0,
+      0.0,
+      13.11,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "label": "H03",
+   "candidate_id": "f00d00a2d0a0373544c257e88c0e14017055cdac2f0815d1421c3b82a4a4b750",
+   "campaign": "9",
+   "spec": {
+    "dsl_version": 1,
+    "init": "empty",
+    "terms": [
+     {
+      "op": "square_count",
+      "params": {},
+      "coeff": {
+       "c0": -6.1797,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "wedge_count",
+      "params": {},
+      "coeff": {
+       "c0": 3.44476,
+       "scale": "one"
+      }
+     }
+    ],
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 7.43569,
+     "move_mix": {
+      "add": 0.16791050000000002,
+      "delete": 0.16791050000000002,
+      "swap": 0.664179
+     },
+     "sweeps": 80,
+     "locality": 0.371384
+    }
+   },
+   "compact": {
+    "beta": 7.43569,
+    "local_move": "toggle",
+    "locality": 0.371384,
+    "regime": "equilibrium",
+    "swap_share": 0.664179,
+    "sweeps": 80,
+    "terms": [
+     [
+      "square_count",
+      null,
+      -6.1797,
+      "one",
+      null
+     ],
+     [
+      "wedge_count",
+      null,
+      3.44476,
+      "one",
+      null
+     ]
+    ],
+    "zero_temperature": false
+   },
+   "kind": "sees cycles",
+   "read_in_174": {
+    "score": 18,
+    "points": 8,
+    "items": {
+     "d_s": 2,
+     "d_V": 1,
+     "d_B": 1,
+     "d_w": 2,
+     "einstein": 2
+    },
+    "by": "lattice",
+    "chain": "bcc",
+    "d": 3.14,
+    "mean_degree": 8.32,
+    "to_n": 65536,
+    "top_n": 65536,
+    "why": "8 of 15: d_s settles, d_V reads at two sizes, d_B reads at two sizes, d_w settles, the Einstein relation settles; the lattice start changed, so it counts 0.6",
+    "decision": [
+     "done",
+     "ladder_complete",
+     65536
+    ],
+    "fates": {
+     "bcc": [
+      "changed",
+      0.844
+     ],
+     "cubic": [
+      "fell_apart",
+      null
+     ],
+     "fcc": [
+      "dense",
+      null
+     ],
+     "square": [
+      "fell_apart",
+      null
+     ],
+     "tesseract": [
+      "fell_apart",
+      null
+     ],
+     "triangular": [
+      "melted",
+      -0.719
+     ]
+    },
+    "value_columns": [
+     "n",
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w",
+     "reach",
+     "mean_degree",
+     "giant_fraction",
+     "triangles_per_node",
+     "squares_per_node",
+     "kappa"
+    ],
+    "values": [
+     [
+      64,
+      null,
+      null,
+      null,
+      null,
+      1.0,
+      32.0,
+      1.0,
+      0.0,
+      3844.0,
+      0.0
+     ],
+     [
+      256,
+      null,
+      null,
+      null,
+      null,
+      null,
+      32.01,
+      1.0,
+      0.0,
+      1080.0,
+      null
+     ],
+     [
+      1024,
+      null,
+      null,
+      null,
+      null,
+      null,
+      32.0,
+      0.9993,
+      0.0,
+      609.9,
+      null
+     ],
+     [
+      4096,
+      3.139,
+      3.864,
+      null,
+      null,
+      5.857,
+      13.73,
+      0.9986,
+      0.0,
+      68.07,
+      -0.0004867
+     ],
+     [
+      16384,
+      3.053,
+      3.43,
+      3.465,
+      2.417,
+      11.86,
+      9.094,
+      1.0,
+      0.0,
+      18.01,
+      0.0
+     ],
+     [
+      65536,
+      3.002,
+      3.288,
+      3.274,
+      2.26,
+      20.0,
+      8.32,
+      1.0,
+      0.0,
+      13.52,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "label": "H04",
+   "candidate_id": "4598617a56e693ab5c7e8f618dae79fe98184b212edb25d9d47bf11fca1954ff",
+   "campaign": "9",
+   "spec": {
+    "dsl_version": 1,
+    "init": "empty",
+    "terms": [
+     {
+      "op": "degree_anchor",
+      "params": {
+       "k": 4
+      },
+      "coeff": {
+       "c0": 0.0133163,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "degree_neighbor_gradient",
+      "params": {},
+      "coeff": {
+       "c0": 11.0461,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "edge_count",
+      "params": {},
+      "coeff": {
+       "c0": 0.988583,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "triangle_count",
+      "params": {},
+      "coeff": {
+       "c0": -1.00127,
+       "scale": "one"
+      }
+     }
+    ],
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 9.09535,
+     "move_mix": {
+      "add": 0.250922,
+      "delete": 0.250922,
+      "swap": 0.498156
+     },
+     "sweeps": 30,
+     "locality": 0.825033,
+     "zero_temperature": true
+    }
+   },
+   "compact": {
+    "beta": 9.09535,
+    "local_move": "toggle",
+    "locality": 0.825033,
+    "regime": "zero_temperature",
+    "swap_share": 0.498156,
+    "sweeps": 30,
+    "terms": [
+     [
+      "degree_anchor",
+      4,
+      0.0133163,
+      "one",
+      null
+     ],
+     [
+      "degree_neighbor_gradient",
+      null,
+      11.0461,
+      "one",
+      null
+     ],
+     [
+      "edge_count",
+      null,
+      0.988583,
+      "one",
+      null
+     ],
+     [
+      "triangle_count",
+      null,
+      -1.00127,
+      "one",
+      null
+     ]
+    ],
+    "zero_temperature": true
+   },
+   "kind": "sees cycles",
+   "read_in_174": {
+    "score": 17,
+    "points": 15,
+    "items": {
+     "d_s": 3,
+     "d_V": 3,
+     "d_B": 3,
+     "d_w": 3,
+     "einstein": 3
+    },
+    "by": "kept",
+    "chain": "triangular",
+    "d": 2.0,
+    "mean_degree": 6.0,
+    "to_n": 65536,
+    "top_n": 65536,
+    "why": "15 of 15: d_s settles again, d_V settles again, d_B settles again, d_w settles again, the Einstein relation settles again; the lattice start holds, so it counts 0.3",
+    "decision": [
+     "done",
+     "ladder_complete",
+     65536
+    ],
+    "fates": {
+     "bcc": [
+      "melted",
+      0.0
+     ],
+     "cubic": [
+      "melted",
+      0.0
+     ],
+     "fcc": [
+      "holds",
+      1.0
+     ],
+     "square": [
+      "melted",
+      0.0
+     ],
+     "tesseract": [
+      "melted",
+      0.0
+     ],
+     "triangular": [
+      "holds",
+      0.996
+     ]
+    },
+    "value_columns": [
+     "n",
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w",
+     "reach",
+     "mean_degree",
+     "giant_fraction",
+     "triangles_per_node",
+     "squares_per_node",
+     "kappa"
+    ],
+    "values": [
+     [
+      64,
+      null,
+      null,
+      null,
+      null,
+      3.349,
+      6.0,
+      1.0,
+      2.734,
+      6.396,
+      0.3675
+     ],
+     [
+      256,
+      2.179,
+      2.479,
+      null,
+      null,
+      5.383,
+      6.0,
+      1.0,
+      2.023,
+      3.285,
+      0.2969
+     ],
+     [
+      1024,
+      2.013,
+      2.054,
+      null,
+      1.997,
+      12.41,
+      6.0,
+      1.0,
+      2.002,
+      3.009,
+      0.3319
+     ],
+     [
+      4096,
+      2.014,
+      2.023,
+      1.933,
+      2.039,
+      25.7,
+      6.0,
+      1.0,
+      2.0,
+      3.001,
+      0.3333
+     ],
+     [
+      16384,
+      1.99,
+      2.01,
+      1.94,
+      2.044,
+      51.92,
+      6.0,
+      1.0,
+      2.0,
+      3.0,
+      0.3333
+     ],
+     [
+      65536,
+      2.033,
+      2.004,
+      1.956,
+      2.002,
+      104.0,
+      6.0,
+      1.0,
+      2.0,
+      3.0,
+      0.3333
+     ]
+    ]
+   }
+  },
+  {
+   "label": "H05",
+   "candidate_id": "36ee37181ff7bf03c5f89ddb78160435481abf4232fc88643948332341ecb4c7",
+   "campaign": "8",
+   "spec": {
+    "dsl_version": 1,
+    "init": "empty",
+    "terms": [
+     {
+      "op": "degree_square_sum",
+      "params": {},
+      "coeff": {
+       "c0": 0.107055,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "induced_square_count",
+      "params": {},
+      "coeff": {
+       "c0": -4.06736,
+       "scale": "one"
+      }
+     }
+    ],
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 13.2604,
+     "move_mix": {
+      "add": 0.313207,
+      "delete": 0.313207,
+      "swap": 0.373586
+     },
+     "sweeps": 82,
+     "locality": 0.980937
+    }
+   },
+   "compact": {
+    "beta": 13.2604,
+    "local_move": "toggle",
+    "locality": 0.980937,
+    "regime": "equilibrium",
+    "swap_share": 0.373586,
+    "sweeps": 82,
+    "terms": [
+     [
+      "degree_square_sum",
+      null,
+      0.107055,
+      "one",
+      null
+     ],
+     [
+      "induced_square_count",
+      null,
+      -4.06736,
+      "one",
+      null
+     ]
+    ],
+    "zero_temperature": false
+   },
+   "kind": "sees cycles",
+   "read_in_174": {
+    "score": 16,
+    "points": 14,
+    "items": {
+     "d_s": 3,
+     "d_V": 3,
+     "d_B": 3,
+     "d_w": 2,
+     "einstein": 3
+    },
+    "by": "kept",
+    "chain": "square",
+    "d": 2.02,
+    "mean_degree": 4.01,
+    "to_n": 65536,
+    "top_n": 65536,
+    "why": "14 of 15: d_s settles again, d_V settles again, d_B settles again, d_w settles, the Einstein relation settles again; the lattice start holds, so it counts 0.3",
+    "decision": [
+     "done",
+     "ladder_complete",
+     65536
+    ],
+    "fates": {
+     "bcc": [
+      "holds",
+      0.904
+     ],
+     "cubic": [
+      "holds",
+      0.922
+     ],
+     "fcc": [
+      "dense",
+      null
+     ],
+     "square": [
+      "holds",
+      0.975
+     ],
+     "tesseract": [
+      "holds",
+      0.827
+     ],
+     "triangular": [
+      "dense",
+      null
+     ]
+    },
+    "value_columns": [
+     "n",
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w",
+     "reach",
+     "mean_degree",
+     "giant_fraction",
+     "triangles_per_node",
+     "squares_per_node",
+     "kappa"
+    ],
+    "values": [
+     [
+      64,
+      null,
+      null,
+      null,
+      null,
+      2.0,
+      24.68,
+      1.0,
+      0.0,
+      1357.0,
+      0.0
+     ],
+     [
+      256,
+      null,
+      null,
+      null,
+      null,
+      2.005,
+      24.51,
+      1.0,
+      0.0,
+      367.5,
+      0.0
+     ],
+     [
+      1024,
+      2.159,
+      2.717,
+      null,
+      null,
+      8.32,
+      5.06,
+      0.9997,
+      0.0,
+      2.492,
+      -0.1789
+     ],
+     [
+      4096,
+      2.019,
+      2.168,
+      2.167,
+      2.225,
+      24.39,
+      4.201,
+      1.0,
+      0.0,
+      1.245,
+      -0.07681
+     ],
+     [
+      16384,
+      2.002,
+      2.077,
+      2.03,
+      2.112,
+      56.28,
+      4.046,
+      1.0,
+      0.0,
+      1.053,
+      -0.02178
+     ],
+     [
+      65536,
+      2.007,
+      2.047,
+      1.993,
+      2.031,
+      120.0,
+      4.011,
+      1.0,
+      0.0,
+      1.013,
+      -0.005361
+     ]
+    ]
+   }
+  },
+  {
+   "label": "H06",
+   "candidate_id": "f1a2c7b4999458530c7e875a16179888dacae8b5046421fc97717696e8dd3bd6",
+   "campaign": "10",
+   "spec": {
+    "dsl_version": 1,
+    "init": "empty",
+    "terms": [
+     {
+      "op": "degree_cube_sum",
+      "params": {},
+      "coeff": {
+       "c0": 0.039748,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "degree_neighbor_gradient",
+      "params": {},
+      "coeff": {
+       "c0": 14.9571,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "edge_count",
+      "params": {},
+      "coeff": {
+       "c0": 0.0172493,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "triangle_edge_overlap",
+      "params": {},
+      "coeff": {
+       "c0": -10.6517,
+       "scale": "one"
+      }
+     }
+    ],
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 0.29872,
+     "move_mix": {
+      "add": 0.006260500000000002,
+      "delete": 0.006260500000000002,
+      "swap": 0.987479
+     },
+     "sweeps": 30,
+     "locality": 0.967611,
+     "zero_temperature": true
+    }
+   },
+   "compact": {
+    "beta": 0.29872,
+    "local_move": "toggle",
+    "locality": 0.967611,
+    "regime": "zero_temperature",
+    "swap_share": 0.987479,
+    "sweeps": 30,
+    "terms": [
+     [
+      "degree_cube_sum",
+      null,
+      0.039748,
+      "one",
+      null
+     ],
+     [
+      "degree_neighbor_gradient",
+      null,
+      14.9571,
+      "one",
+      null
+     ],
+     [
+      "edge_count",
+      null,
+      0.0172493,
+      "one",
+      null
+     ],
+     [
+      "triangle_edge_overlap",
+      null,
+      -10.6517,
+      "one",
+      null
+     ]
+    ],
+    "zero_temperature": true
+   },
+   "kind": "sees cycles",
+   "read_in_174": {
+    "score": 15,
+    "points": 13,
+    "items": {
+     "d_s": 2,
+     "d_V": 3,
+     "d_B": 3,
+     "d_w": 3,
+     "einstein": 2
+    },
+    "by": "kept",
+    "chain": "triangular",
+    "d": 2.0,
+    "mean_degree": 6.0,
+    "to_n": 65536,
+    "top_n": 65536,
+    "why": "13 of 15: d_s settles, d_V settles again, d_B settles again, d_w settles again, the Einstein relation settles; the lattice start holds, so it counts 0.3",
+    "decision": [
+     "done",
+     "ladder_complete",
+     65536
+    ],
+    "fates": {
+     "bcc": [
+      "melted",
+      0.0
+     ],
+     "cubic": [
+      "melted",
+      0.0
+     ],
+     "fcc": [
+      "dense",
+      null
+     ],
+     "square": [
+      "melted",
+      0.0
+     ],
+     "tesseract": [
+      "melted",
+      0.0
+     ],
+     "triangular": [
+      "holds",
+      0.997
+     ]
+    },
+    "value_columns": [
+     "n",
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w",
+     "reach",
+     "mean_degree",
+     "giant_fraction",
+     "triangles_per_node",
+     "squares_per_node",
+     "kappa"
+    ],
+    "values": [
+     [
+      64,
+      null,
+      null,
+      null,
+      null,
+      null,
+      32.03,
+      1.0,
+      93.29,
+      1989.0,
+      null
+     ],
+     [
+      256,
+      null,
+      null,
+      null,
+      null,
+      null,
+      32.01,
+      1.0,
+      71.7,
+      1188.0,
+      null
+     ],
+     [
+      1024,
+      2.009,
+      2.066,
+      null,
+      2.079,
+      12.3,
+      23.33,
+      1.0,
+      49.41,
+      824.5,
+      0.3247
+     ],
+     [
+      4096,
+      2.081,
+      2.013,
+      1.924,
+      2.036,
+      25.89,
+      6.0,
+      1.0,
+      1.999,
+      3.0,
+      0.333
+     ],
+     [
+      16384,
+      1.958,
+      2.007,
+      1.936,
+      2.029,
+      52.0,
+      6.0,
+      1.0,
+      2.0,
+      3.0,
+      0.3333
+     ],
+     [
+      65536,
+      2.038,
+      2.001,
+      1.953,
+      2.0,
+      104.1,
+      6.0,
+      1.0,
+      2.0,
+      3.0,
+      0.3333
+     ]
+    ]
+   }
+  },
+  {
+   "label": "H07",
+   "candidate_id": "0fa748ea2652165f0adbfcd0594127957594232087cde866d168a455471e1097",
+   "campaign": "6",
+   "spec": {
+    "dsl_version": 1,
+    "init": "empty",
+    "terms": [
+     {
+      "op": "degree_cube_sum",
+      "params": {},
+      "coeff": {
+       "c0": -0.156977,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "degree_fourth_sum",
+      "params": {},
+      "coeff": {
+       "c0": 0.0185242,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "edge_count",
+      "params": {},
+      "coeff": {
+       "c0": -0.0244095,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "induced_square_count",
+      "params": {},
+      "coeff": {
+       "c0": -0.0182239,
+       "scale": "one"
+      }
+     }
+    ],
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 1.22063,
+     "move_mix": {
+      "add": 0.48399105,
+      "delete": 0.48399105,
+      "swap": 0.0320179
+     },
+     "sweeps": 30,
+     "locality": 0.780728,
+     "zero_temperature": true
+    }
+   },
+   "compact": {
+    "beta": 1.22063,
+    "local_move": "toggle",
+    "locality": 0.780728,
+    "regime": "zero_temperature",
+    "swap_share": 0.0320179,
+    "sweeps": 30,
+    "terms": [
+     [
+      "degree_cube_sum",
+      null,
+      -0.156977,
+      "one",
+      null
+     ],
+     [
+      "degree_fourth_sum",
+      null,
+      0.0185242,
+      "one",
+      null
+     ],
+     [
+      "edge_count",
+      null,
+      -0.0244095,
+      "one",
+      null
+     ],
+     [
+      "induced_square_count",
+      null,
+      -0.0182239,
+      "one",
+      null
+     ]
+    ],
+    "zero_temperature": true
+   },
+   "kind": "sees cycles",
+   "read_in_174": {
+    "score": 14,
+    "points": 12,
+    "items": {
+     "d_s": 3,
+     "d_V": 3,
+     "d_B": 3,
+     "d_w": 2,
+     "einstein": 1
+    },
+    "by": "kept",
+    "chain": "cubic",
+    "d": 2.93,
+    "mean_degree": 6.0,
+    "to_n": 65536,
+    "top_n": 65536,
+    "why": "12 of 15: d_s settles again, d_V settles again, d_B settles again, d_w settles, the Einstein relation reads at two sizes; the lattice start holds, so it counts 0.3",
+    "decision": [
+     "done",
+     "ladder_complete",
+     65536
+    ],
+    "fates": {
+     "bcc": [
+      "melted",
+      0.363
+     ],
+     "cubic": [
+      "holds",
+      1.0
+     ],
+     "fcc": [
+      "melted",
+      0.303
+     ],
+     "square": [
+      "melted",
+      -0.119
+     ],
+     "tesseract": [
+      "melted",
+      0.321
+     ],
+     "triangular": [
+      "melted",
+      0.0
+     ]
+    },
+    "value_columns": [
+     "n",
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w",
+     "reach",
+     "mean_degree",
+     "giant_fraction",
+     "triangles_per_node",
+     "squares_per_node",
+     "kappa"
+    ],
+    "values": [
+     [
+      64,
+      null,
+      null,
+      null,
+      null,
+      3.0,
+      6.0,
+      1.0,
+      0.0,
+      5.073,
+      -0.07755
+     ],
+     [
+      256,
+      3.144,
+      2.884,
+      null,
+      null,
+      4.049,
+      6.0,
+      1.0,
+      0.0,
+      3.023,
+      -0.07928
+     ],
+     [
+      1024,
+      3.043,
+      2.946,
+      null,
+      null,
+      7.0,
+      6.0,
+      1.0,
+      0.0,
+      3.001,
+      -0.02409
+     ],
+     [
+      4096,
+      2.984,
+      3.005,
+      2.846,
+      null,
+      11.45,
+      6.0,
+      1.0,
+      0.0,
+      3.002,
+      -0.02328
+     ],
+     [
+      16384,
+      3.099,
+      2.992,
+      2.786,
+      1.945,
+      18.0,
+      6.0,
+      1.0,
+      0.0,
+      3.0,
+      -0.001519
+     ],
+     [
+      65536,
+      3.071,
+      3.003,
+      2.848,
+      1.979,
+      29.0,
+      6.0,
+      1.0,
+      0.0,
+      3.0,
+      -0.0003847
+     ]
+    ]
+   }
+  },
+  {
+   "label": "H08",
+   "candidate_id": "133b0aaa4d53c226642dfd63ce00707256c71af4c69b8d0fb32203af30daf73a",
+   "campaign": "9",
+   "spec": {
+    "dsl_version": 1,
+    "init": "empty",
+    "terms": [
+     {
+      "op": "degree_fourth_sum",
+      "params": {},
+      "coeff": {
+       "c0": 0.0174648,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "degree_square_sum",
+      "params": {},
+      "coeff": {
+       "c0": -1.99205,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "edge_count",
+      "params": {},
+      "coeff": {
+       "c0": 1.62223,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "square_count",
+      "params": {},
+      "coeff": {
+       "c0": -0.160243,
+       "scale": "one"
+      }
+     }
+    ],
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 9.11325,
+     "move_mix": {
+      "add": 0.16872949999999998,
+      "delete": 0.16872949999999998,
+      "swap": 0.662541
+     },
+     "sweeps": 68,
+     "locality": 0.194199
+    }
+   },
+   "compact": {
+    "beta": 9.11325,
+    "local_move": "toggle",
+    "locality": 0.194199,
+    "regime": "equilibrium",
+    "swap_share": 0.662541,
+    "sweeps": 68,
+    "terms": [
+     [
+      "degree_fourth_sum",
+      null,
+      0.0174648,
+      "one",
+      null
+     ],
+     [
+      "degree_square_sum",
+      null,
+      -1.99205,
+      "one",
+      null
+     ],
+     [
+      "edge_count",
+      null,
+      1.62223,
+      "one",
+      null
+     ],
+     [
+      "square_count",
+      null,
+      -0.160243,
+      "one",
+      null
+     ]
+    ],
+    "zero_temperature": false
+   },
+   "kind": "sees cycles",
+   "read_in_174": {
+    "score": 14,
+    "points": 12,
+    "items": {
+     "d_s": 3,
+     "d_V": 3,
+     "d_B": 2,
+     "d_w": 2,
+     "einstein": 2
+    },
+    "by": "kept",
+    "chain": "bcc",
+    "d": 2.94,
+    "mean_degree": 8.0,
+    "to_n": 65536,
+    "top_n": 65536,
+    "why": "12 of 15: d_s settles again, d_V settles again, d_B settles, d_w settles, the Einstein relation settles; the lattice start holds, so it counts 0.3",
+    "decision": [
+     "done",
+     "ladder_complete",
+     65536
+    ],
+    "fates": {
+     "bcc": [
+      "holds",
+      1.0
+     ],
+     "cubic": [
+      "melted",
+      -0.108
+     ],
+     "fcc": [
+      "melted",
+      0.129
+     ],
+     "square": [
+      "melted",
+      -0.199
+     ],
+     "tesseract": [
+      "melted",
+      0.0
+     ],
+     "triangular": [
+      "melted",
+      -0.022
+     ]
+    },
+    "value_columns": [
+     "n",
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w",
+     "reach",
+     "mean_degree",
+     "giant_fraction",
+     "triangles_per_node",
+     "squares_per_node",
+     "kappa"
+    ],
+    "values": [
+     [
+      64,
+      null,
+      null,
+      null,
+      null,
+      3.755,
+      7.885,
+      0.9167,
+      0.0,
+      38.41,
+      -0.001945
+     ],
+     [
+      256,
+      null,
+      null,
+      null,
+      null,
+      4.0,
+      7.997,
+      1.0,
+      0.0,
+      11.98,
+      0.0
+     ],
+     [
+      1024,
+      3.052,
+      2.932,
+      null,
+      null,
+      6.0,
+      7.999,
+      1.0,
+      0.0,
+      12.0,
+      0.0
+     ],
+     [
+      4096,
+      3.014,
+      2.939,
+      null,
+      null,
+      10.0,
+      7.999,
+      1.0,
+      0.0,
+      11.99,
+      0.0
+     ],
+     [
+      16384,
+      2.984,
+      2.988,
+      2.859,
+      1.936,
+      16.0,
+      8.0,
+      1.0,
+      0.0,
+      12.0,
+      0.0
+     ],
+     [
+      65536,
+      2.988,
+      2.996,
+      2.889,
+      1.975,
+      25.0,
+      8.0,
+      1.0,
+      0.0,
+      12.0,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "label": "H09",
+   "candidate_id": "4877770006cfe30b946150c0c555d4e38fce06adff43adec7e96b093c945f62a",
+   "campaign": "5",
+   "spec": {
+    "dsl_version": 1,
+    "init": "empty",
+    "terms": [
+     {
+      "op": "degree_anchor",
+      "params": {
+       "k": 7
+      },
+      "coeff": {
+       "c0": -0.0276436,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "square_edge_overlap",
+      "params": {},
+      "coeff": {
+       "c0": -1.73221,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "wedge_count",
+      "params": {},
+      "coeff": {
+       "c0": 0.142959,
+       "scale": "one"
+      }
+     }
+    ],
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 23.8453,
+     "move_mix": {
+      "add": 0.02454400000000001,
+      "delete": 0.02454400000000001,
+      "swap": 0.950912
+     },
+     "sweeps": 30,
+     "locality": 0.874392,
+     "zero_temperature": true
+    }
+   },
+   "compact": {
+    "beta": 23.8453,
+    "local_move": "toggle",
+    "locality": 0.874392,
+    "regime": "zero_temperature",
+    "swap_share": 0.950912,
+    "sweeps": 30,
+    "terms": [
+     [
+      "degree_anchor",
+      7,
+      -0.0276436,
+      "one",
+      null
+     ],
+     [
+      "square_edge_overlap",
+      null,
+      -1.73221,
+      "one",
+      null
+     ],
+     [
+      "wedge_count",
+      null,
+      0.142959,
+      "one",
+      null
+     ]
+    ],
+    "zero_temperature": true
+   },
+   "kind": "sees cycles",
+   "read_in_174": {
+    "score": 14,
+    "points": 12,
+    "items": {
+     "d_s": 3,
+     "d_V": 3,
+     "d_B": 2,
+     "d_w": 2,
+     "einstein": 2
+    },
+    "by": "kept",
+    "chain": "bcc",
+    "d": 2.95,
+    "mean_degree": 8.01,
+    "to_n": 65536,
+    "top_n": 65536,
+    "why": "12 of 15: d_s settles again, d_V settles again, d_B settles, d_w settles, the Einstein relation settles; the lattice start holds, so it counts 0.3",
+    "decision": [
+     "done",
+     "ladder_complete",
+     65536
+    ],
+    "fates": {
+     "bcc": [
+      "holds",
+      0.971
+     ],
+     "cubic": [
+      "holds",
+      0.856
+     ],
+     "fcc": [
+      "dense",
+      null
+     ],
+     "square": [
+      "partly",
+      0.751
+     ],
+     "tesseract": [
+      "holds",
+      0.929
+     ],
+     "triangular": [
+      "dense",
+      null
+     ]
+    },
+    "value_columns": [
+     "n",
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w",
+     "reach",
+     "mean_degree",
+     "giant_fraction",
+     "triangles_per_node",
+     "squares_per_node",
+     "kappa"
+    ],
+    "values": [
+     [
+      64,
+      null,
+      null,
+      null,
+      null,
+      2.005,
+      12.85,
+      1.0,
+      0.0,
+      117.7,
+      -0.0003843
+     ],
+     [
+      256,
+      null,
+      null,
+      null,
+      null,
+      3.0,
+      19.39,
+      1.0,
+      13.36,
+      274.4,
+      -0.06841
+     ],
+     [
+      1024,
+      3.509,
+      3.75,
+      null,
+      null,
+      4.859,
+      8.99,
+      1.0,
+      0.0,
+      14.35,
+      -0.07022
+     ],
+     [
+      4096,
+      3.066,
+      3.379,
+      null,
+      null,
+      8.802,
+      8.174,
+      1.0,
+      0.0,
+      12.46,
+      -0.01208
+     ],
+     [
+      16384,
+      3.007,
+      3.255,
+      2.976,
+      2.095,
+      14.6,
+      8.043,
+      1.0,
+      0.0,
+      12.11,
+      -0.003
+     ],
+     [
+      65536,
+      2.968,
+      3.161,
+      2.936,
+      1.998,
+      23.98,
+      8.01,
+      1.0,
+      0.0,
+      12.03,
+      -0.000724
+     ]
+    ]
+   }
+  },
+  {
+   "label": "H10",
+   "candidate_id": "8dd03436568dc48e864a588846bc00baa083b5e0e673428bfa2f75ba39a67f1d",
+   "campaign": "7",
+   "spec": {
+    "dsl_version": 1,
+    "init": "empty",
+    "terms": [
+     {
+      "op": "degree_anchor",
+      "params": {
+       "k": 23
+      },
+      "coeff": {
+       "c0": 0.0203662,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "degree_cube_sum",
+      "params": {},
+      "coeff": {
+       "c0": 0.0330281,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "square_edge_overlap",
+      "params": {},
+      "coeff": {
+       "c0": -0.0272115,
+       "scale": "one"
+      }
+     }
+    ],
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 3.6853,
+     "move_mix": {
+      "add": 0.05033300000000002,
+      "delete": 0.05033300000000002,
+      "swap": 0.899334
+     },
+     "sweeps": 30,
+     "locality": 0.335064
+    }
+   },
+   "compact": {
+    "beta": 3.6853,
+    "local_move": "toggle",
+    "locality": 0.335064,
+    "regime": "equilibrium",
+    "swap_share": 0.899334,
+    "sweeps": 30,
+    "terms": [
+     [
+      "degree_anchor",
+      23,
+      0.0203662,
+      "one",
+      null
+     ],
+     [
+      "degree_cube_sum",
+      null,
+      0.0330281,
+      "one",
+      null
+     ],
+     [
+      "square_edge_overlap",
+      null,
+      -0.0272115,
+      "one",
+      null
+     ]
+    ],
+    "zero_temperature": false
+   },
+   "kind": "sees cycles",
+   "read_in_174": {
+    "score": 14,
+    "points": 12,
+    "items": {
+     "d_s": 3,
+     "d_V": 3,
+     "d_B": 2,
+     "d_w": 2,
+     "einstein": 2
+    },
+    "by": "kept",
+    "chain": "bcc",
+    "d": 2.95,
+    "mean_degree": 8.0,
+    "to_n": 65536,
+    "top_n": 65536,
+    "why": "12 of 15: d_s settles again, d_V settles again, d_B settles, d_w settles, the Einstein relation settles; the lattice start holds, so it counts 0.3",
+    "decision": [
+     "done",
+     "ladder_complete",
+     65536
+    ],
+    "fates": {
+     "bcc": [
+      "holds",
+      1.0
+     ],
+     "cubic": [
+      "melted",
+      0.131
+     ],
+     "fcc": [
+      "dense",
+      null
+     ],
+     "square": [
+      "melted",
+      -0.063
+     ],
+     "tesseract": [
+      "melted",
+      0.356
+     ],
+     "triangular": [
+      "melted",
+      0.072
+     ]
+    },
+    "value_columns": [
+     "n",
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w",
+     "reach",
+     "mean_degree",
+     "giant_fraction",
+     "triangles_per_node",
+     "squares_per_node",
+     "kappa"
+    ],
+    "values": [
+     [
+      64,
+      null,
+      null,
+      null,
+      null,
+      1.286,
+      30.96,
+      1.0,
+      0.0,
+      3367.0,
+      0.0
+     ],
+     [
+      256,
+      null,
+      null,
+      null,
+      null,
+      4.695,
+      6.411,
+      1.0,
+      0.01172,
+      8.06,
+      -0.1512
+     ],
+     [
+      1024,
+      3.045,
+      2.934,
+      null,
+      null,
+      6.0,
+      8.005,
+      1.0,
+      0.0,
+      12.03,
+      0.0
+     ],
+     [
+      4096,
+      3.014,
+      2.941,
+      null,
+      null,
+      10.0,
+      8.0,
+      1.0,
+      0.0,
+      12.0,
+      0.0
+     ],
+     [
+      16384,
+      3.01,
+      2.994,
+      2.858,
+      1.94,
+      16.0,
+      8.001,
+      1.0,
+      0.0,
+      12.0,
+      0.0
+     ],
+     [
+      65536,
+      3.032,
+      3.011,
+      2.886,
+      1.961,
+      25.0,
+      8.001,
+      1.0,
+      0.0,
+      12.0,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "label": "H11",
+   "candidate_id": "a0405f83be9d5a241a7708d58ee4fe9b151e67ec7547dab30ecbb0dafeace39e",
+   "campaign": "4",
+   "spec": {
+    "dsl_version": 1,
+    "init": "empty",
+    "terms": [
+     {
+      "op": "degree_fourth_sum",
+      "params": {},
+      "coeff": {
+       "c0": 0.056955,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "square_edge_overlap",
+      "params": {},
+      "coeff": {
+       "c0": -7.3802,
+       "scale": "one"
+      }
+     }
+    ],
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 5.50954,
+     "move_mix": {
+      "add": 0.01222200000000001,
+      "delete": 0.01222200000000001,
+      "swap": 0.975556
+     },
+     "sweeps": 30,
+     "locality": 0.66683,
+     "zero_temperature": true
+    }
+   },
+   "compact": {
+    "beta": 5.50954,
+    "local_move": "toggle",
+    "locality": 0.66683,
+    "regime": "zero_temperature",
+    "swap_share": 0.975556,
+    "sweeps": 30,
+    "terms": [
+     [
+      "degree_fourth_sum",
+      null,
+      0.056955,
+      "one",
+      null
+     ],
+     [
+      "square_edge_overlap",
+      null,
+      -7.3802,
+      "one",
+      null
+     ]
+    ],
+    "zero_temperature": true
+   },
+   "kind": "sees cycles",
+   "read_in_174": {
+    "score": 14,
+    "points": 12,
+    "items": {
+     "d_s": 3,
+     "d_V": 3,
+     "d_B": 2,
+     "d_w": 2,
+     "einstein": 2
+    },
+    "by": "kept",
+    "chain": "bcc",
+    "d": 2.99,
+    "mean_degree": 8.01,
+    "to_n": 65536,
+    "top_n": 65536,
+    "why": "12 of 15: d_s settles again, d_V settles again, d_B settles, d_w settles, the Einstein relation settles; the lattice start holds, so it counts 0.3",
+    "decision": [
+     "done",
+     "ladder_complete",
+     65536
+    ],
+    "fates": {
+     "bcc": [
+      "holds",
+      0.97
+     ],
+     "cubic": [
+      "dense",
+      0.696
+     ],
+     "fcc": [
+      "dense",
+      null
+     ],
+     "square": [
+      "dense",
+      0.468
+     ],
+     "tesseract": [
+      "holds",
+      0.91
+     ],
+     "triangular": [
+      "dense",
+      null
+     ]
+    },
+    "value_columns": [
+     "n",
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w",
+     "reach",
+     "mean_degree",
+     "giant_fraction",
+     "triangles_per_node",
+     "squares_per_node",
+     "kappa"
+    ],
+    "values": [
+     [
+      64,
+      null,
+      null,
+      null,
+      null,
+      2.0,
+      14.25,
+      1.0,
+      0.0,
+      190.3,
+      -0.0006107
+     ],
+     [
+      256,
+      null,
+      null,
+      null,
+      null,
+      null,
+      32.01,
+      1.0,
+      42.51,
+      767.1,
+      null
+     ],
+     [
+      1024,
+      3.296,
+      3.515,
+      null,
+      null,
+      4.996,
+      16.56,
+      1.0,
+      11.93,
+      174.6,
+      -0.03504
+     ],
+     [
+      4096,
+      3.049,
+      3.363,
+      null,
+      null,
+      8.831,
+      8.195,
+      1.0,
+      0.0,
+      12.6,
+      -0.009727
+     ],
+     [
+      16384,
+      2.973,
+      3.248,
+      2.952,
+      2.089,
+      14.67,
+      8.047,
+      1.0,
+      0.0,
+      12.14,
+      -0.002433
+     ],
+     [
+      65536,
+      3.029,
+      3.168,
+      2.946,
+      2.044,
+      23.97,
+      8.012,
+      1.0,
+      0.0,
+      12.03,
+      -0.0006417
+     ]
+    ]
+   }
+  },
+  {
+   "label": "H12",
+   "candidate_id": "aba936bffa812bb47b0ee364e87b8ca9e8b8085106bb8d9384ee2dbf74840b8f",
+   "campaign": "3",
+   "spec": {
+    "dsl_version": 1,
+    "init": "empty",
+    "terms": [
+     {
+      "op": "degree_cube_sum",
+      "params": {},
+      "coeff": {
+       "c0": 1.22227,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "degree_neighbor_gradient",
+      "params": {},
+      "coeff": {
+       "c0": -0.0113247,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "square_edge_overlap",
+      "params": {},
+      "coeff": {
+       "c0": -1.76001,
+       "scale": "one"
+      }
+     }
+    ],
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 0.188203,
+     "move_mix": {
+      "add": 0.025633000000000017,
+      "delete": 0.025633000000000017,
+      "swap": 0.948734
+     },
+     "sweeps": 30,
+     "locality": 0.357622
+    }
+   },
+   "compact": {
+    "beta": 0.188203,
+    "local_move": "toggle",
+    "locality": 0.357622,
+    "regime": "equilibrium",
+    "swap_share": 0.948734,
+    "sweeps": 30,
+    "terms": [
+     [
+      "degree_cube_sum",
+      null,
+      1.22227,
+      "one",
+      null
+     ],
+     [
+      "degree_neighbor_gradient",
+      null,
+      -0.0113247,
+      "one",
+      null
+     ],
+     [
+      "square_edge_overlap",
+      null,
+      -1.76001,
+      "one",
+      null
+     ]
+    ],
+    "zero_temperature": false
+   },
+   "kind": "sees cycles",
+   "read_in_174": {
+    "score": 14,
+    "points": 12,
+    "items": {
+     "d_s": 3,
+     "d_V": 3,
+     "d_B": 2,
+     "d_w": 2,
+     "einstein": 2
+    },
+    "by": "kept",
+    "chain": "bcc",
+    "d": 2.97,
+    "mean_degree": 8.02,
+    "to_n": 65536,
+    "top_n": 65536,
+    "why": "12 of 15: d_s settles again, d_V settles again, d_B settles, d_w settles, the Einstein relation settles; the lattice start holds, so it counts 0.3",
+    "decision": [
+     "done",
+     "ladder_complete",
+     65536
+    ],
+    "fates": {
+     "bcc": [
+      "holds",
+      0.965
+     ],
+     "cubic": [
+      "partly",
+      0.651
+     ],
+     "fcc": [
+      "dense",
+      null
+     ],
+     "square": [
+      "melted",
+      0.223
+     ],
+     "tesseract": [
+      "changed",
+      1.107
+     ],
+     "triangular": [
+      "melted",
+      0.343
+     ]
+    },
+    "value_columns": [
+     "n",
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w",
+     "reach",
+     "mean_degree",
+     "giant_fraction",
+     "triangles_per_node",
+     "squares_per_node",
+     "kappa"
+    ],
+    "values": [
+     [
+      64,
+      null,
+      null,
+      null,
+      null,
+      1.979,
+      25.92,
+      1.0,
+      0.0,
+      1654.0,
+      0.0
+     ],
+     [
+      256,
+      null,
+      null,
+      null,
+      null,
+      null,
+      32.01,
+      1.0,
+      61.09,
+      1385.0,
+      null
+     ],
+     [
+      1024,
+      3.186,
+      3.501,
+      null,
+      null,
+      5.0,
+      9.225,
+      0.9997,
+      0.0,
+      19.54,
+      -0.02083
+     ],
+     [
+      4096,
+      3.053,
+      3.349,
+      null,
+      null,
+      8.719,
+      8.357,
+      1.0,
+      0.0,
+      13.68,
+      -3.467e-05
+     ],
+     [
+      16384,
+      3.006,
+      3.262,
+      2.977,
+      2.117,
+      14.14,
+      8.093,
+      1.0,
+      0.0,
+      12.42,
+      0.0
+     ],
+     [
+      65536,
+      2.996,
+      3.18,
+      2.943,
+      2.043,
+      23.79,
+      8.022,
+      1.0,
+      0.0,
+      12.1,
+      -3.333e-07
+     ]
+    ]
+   }
+  },
+  {
+   "label": "H13",
+   "candidate_id": "d1867848c87e50a9cf67372224e90d43adb1647df7ee99498962f07209b94278",
+   "campaign": "2",
+   "spec": {
+    "dsl_version": 1,
+    "init": "empty",
+    "terms": [
+     {
+      "op": "degree_neighbor_gradient",
+      "params": {},
+      "coeff": {
+       "c0": 1.24509,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "edge_count",
+      "params": {},
+      "coeff": {
+       "c0": 0.0374626,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "triangle_count",
+      "params": {},
+      "coeff": {
+       "c0": -7.27516,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "wedge_count",
+      "params": {},
+      "coeff": {
+       "c0": 0.389977,
+       "scale": "one"
+      }
+     }
+    ],
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 75.9443,
+     "move_mix": {
+      "add": 0.398546,
+      "delete": 0.398546,
+      "swap": 0.202908
+     },
+     "sweeps": 112,
+     "locality": 0.124747
+    }
+   },
+   "compact": {
+    "beta": 75.9443,
+    "local_move": "toggle",
+    "locality": 0.124747,
+    "regime": "equilibrium",
+    "swap_share": 0.202908,
+    "sweeps": 112,
+    "terms": [
+     [
+      "degree_neighbor_gradient",
+      null,
+      1.24509,
+      "one",
+      null
+     ],
+     [
+      "edge_count",
+      null,
+      0.0374626,
+      "one",
+      null
+     ],
+     [
+      "triangle_count",
+      null,
+      -7.27516,
+      "one",
+      null
+     ],
+     [
+      "wedge_count",
+      null,
+      0.389977,
+      "one",
+      null
+     ]
+    ],
+    "zero_temperature": false
+   },
+   "kind": "sees cycles",
+   "read_in_174": {
+    "score": 14,
+    "points": 12,
+    "items": {
+     "d_s": 3,
+     "d_V": 3,
+     "d_B": 2,
+     "d_w": 2,
+     "einstein": 2
+    },
+    "by": "kept",
+    "chain": "fcc",
+    "d": 2.95,
+    "mean_degree": 12.0,
+    "to_n": 65536,
+    "top_n": 65536,
+    "why": "12 of 15: d_s settles again, d_V settles again, d_B settles, d_w settles, the Einstein relation settles; the lattice start holds, so it counts 0.3",
+    "decision": [
+     "done",
+     "ladder_complete",
+     65536
+    ],
+    "fates": {
+     "bcc": [
+      "melted",
+      0.0
+     ],
+     "cubic": [
+      "melted",
+      0.047
+     ],
+     "fcc": [
+      "holds",
+      1.0
+     ],
+     "square": [
+      "melted",
+      -0.202
+     ],
+     "tesseract": [
+      "melted",
+      0.0
+     ],
+     "triangular": [
+      "melted",
+      -0.122
+     ]
+    },
+    "value_columns": [
+     "n",
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w",
+     "reach",
+     "mean_degree",
+     "giant_fraction",
+     "triangles_per_node",
+     "squares_per_node",
+     "kappa"
+    ],
+    "values": [
+     [
+      64,
+      null,
+      null,
+      null,
+      null,
+      null,
+      32.03,
+      1.0,
+      87.48,
+      1889.0,
+      null
+     ],
+     [
+      256,
+      null,
+      null,
+      null,
+      null,
+      3.0,
+      12.45,
+      1.0,
+      8.809,
+      38.21,
+      0.3341
+     ],
+     [
+      1024,
+      3.103,
+      3.046,
+      null,
+      null,
+      5.0,
+      12.0,
+      1.0,
+      8.013,
+      32.63,
+      0.3339
+     ],
+     [
+      4096,
+      2.942,
+      3.053,
+      null,
+      null,
+      8.0,
+      12.0,
+      1.0,
+      8.001,
+      32.83,
+      0.3334
+     ],
+     [
+      16384,
+      2.962,
+      3.046,
+      2.869,
+      1.986,
+      13.0,
+      12.0,
+      1.0,
+      8.0,
+      32.95,
+      0.3333
+     ],
+     [
+      65536,
+      3.051,
+      3.026,
+      2.868,
+      1.996,
+      21.0,
+      12.0,
+      1.0,
+      8.0,
+      32.99,
+      0.3333
+     ]
+    ]
+   }
+  },
+  {
+   "label": "H14",
+   "candidate_id": "0e5b5fa7e4ea85f98902d29c7c0676c54037eaa0bba117e731ac9b3242fd91b9",
+   "campaign": "9",
+   "spec": {
+    "dsl_version": 1,
+    "init": "empty",
+    "terms": [
+     {
+      "op": "square_count",
+      "params": {},
+      "coeff": {
+       "c0": -1.29632,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "triangle_count",
+      "params": {},
+      "coeff": {
+       "c0": 0.54098,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "wedge_count",
+      "params": {},
+      "coeff": {
+       "c0": 0.0106954,
+       "scale": "one"
+      }
+     }
+    ],
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 8.80683,
+     "move_mix": {
+      "add": 0.19846399999999997,
+      "delete": 0.19846399999999997,
+      "swap": 0.603072
+     },
+     "sweeps": 30,
+     "locality": 0.909252,
+     "zero_temperature": true
+    }
+   },
+   "compact": {
+    "beta": 8.80683,
+    "local_move": "toggle",
+    "locality": 0.909252,
+    "regime": "zero_temperature",
+    "swap_share": 0.603072,
+    "sweeps": 30,
+    "terms": [
+     [
+      "square_count",
+      null,
+      -1.29632,
+      "one",
+      null
+     ],
+     [
+      "triangle_count",
+      null,
+      0.54098,
+      "one",
+      null
+     ],
+     [
+      "wedge_count",
+      null,
+      0.0106954,
+      "one",
+      null
+     ]
+    ],
+    "zero_temperature": true
+   },
+   "kind": "sees cycles",
+   "read_in_174": {
+    "score": 11,
+    "points": 10,
+    "items": {
+     "d_s": 2,
+     "d_V": 2,
+     "d_B": 2,
+     "d_w": 2,
+     "einstein": 2
+    },
+    "by": "kept",
+    "chain": "square",
+    "d": 2.02,
+    "mean_degree": 4.01,
+    "to_n": 65536,
+    "top_n": 65536,
+    "why": "10 of 15: d_s settles, d_V settles, d_B settles, d_w settles, the Einstein relation settles; the lattice start holds, so it counts 0.3",
+    "decision": [
+     "done",
+     "ladder_complete",
+     65536
+    ],
+    "fates": {
+     "bcc": [
+      "holds",
+      0.897
+     ],
+     "cubic": [
+      "holds",
+      0.915
+     ],
+     "fcc": [
+      "dense",
+      null
+     ],
+     "square": [
+      "holds",
+      0.971
+     ],
+     "tesseract": [
+      "holds",
+      0.805
+     ],
+     "triangular": [
+      "dense",
+      null
+     ]
+    },
+    "value_columns": [
+     "n",
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w",
+     "reach",
+     "mean_degree",
+     "giant_fraction",
+     "triangles_per_node",
+     "squares_per_node",
+     "kappa"
+    ],
+    "values": [
+     [
+      64,
+      null,
+      null,
+      null,
+      null,
+      1.984,
+      25.41,
+      1.0,
+      0.0,
+      1524.0,
+      0.0
+     ],
+     [
+      256,
+      null,
+      null,
+      null,
+      null,
+      2.004,
+      28.12,
+      0.9961,
+      18.04,
+      704.6,
+      0.0
+     ],
+     [
+      1024,
+      2.297,
+      2.883,
+      null,
+      null,
+      7.781,
+      23.0,
+      0.9974,
+      34.9,
+      611.3,
+      -0.1797
+     ],
+     [
+      4096,
+      2.042,
+      2.199,
+      2.19,
+      2.337,
+      23.78,
+      4.205,
+      1.0,
+      0.0,
+      1.281,
+      -0.09688
+     ],
+     [
+      16384,
+      1.995,
+      2.086,
+      2.049,
+      2.106,
+      55.84,
+      4.047,
+      1.0,
+      0.0,
+      1.058,
+      -0.02717
+     ],
+     [
+      65536,
+      2.005,
+      2.054,
+      1.989,
+      2.038,
+      119.0,
+      4.012,
+      1.0,
+      0.0,
+      1.015,
+      -0.007287
+     ]
+    ]
+   }
+  },
+  {
+   "label": "H15",
+   "candidate_id": "1b42427547af07bf8455a6e9be6fc1e201b400056a561894465ee8d984431f27",
+   "campaign": "6",
+   "spec": {
+    "dsl_version": 1,
+    "init": "empty",
+    "terms": [
+     {
+      "op": "degree_fourth_sum",
+      "params": {},
+      "coeff": {
+       "c0": 0.0062329,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "square_edge_overlap",
+      "params": {},
+      "coeff": {
+       "c0": -16.3622,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "wedge_count",
+      "params": {},
+      "coeff": {
+       "c0": -0.415505,
+       "scale": "one"
+      }
+     }
+    ],
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 31.1645,
+     "move_mix": {
+      "add": 0.06644749999999999,
+      "delete": 0.06644749999999999,
+      "swap": 0.867105
+     },
+     "sweeps": 30,
+     "locality": 0.709042,
+     "zero_temperature": true
+    }
+   },
+   "compact": {
+    "beta": 31.1645,
+    "local_move": "toggle",
+    "locality": 0.709042,
+    "regime": "zero_temperature",
+    "swap_share": 0.867105,
+    "sweeps": 30,
+    "terms": [
+     [
+      "degree_fourth_sum",
+      null,
+      0.0062329,
+      "one",
+      null
+     ],
+     [
+      "square_edge_overlap",
+      null,
+      -16.3622,
+      "one",
+      null
+     ],
+     [
+      "wedge_count",
+      null,
+      -0.415505,
+      "one",
+      null
+     ]
+    ],
+    "zero_temperature": true
+   },
+   "kind": "sees cycles",
+   "read_in_174": {
+    "score": 11,
+    "points": 5,
+    "items": {
+     "d_s": 2,
+     "d_V": 1,
+     "d_B": 2,
+     "d_w": 0,
+     "einstein": 0
+    },
+    "by": "lattice",
+    "chain": "cubic",
+    "d": 3.12,
+    "mean_degree": 14.67,
+    "to_n": 65536,
+    "top_n": 65536,
+    "why": "5 of 15: d_s settles, d_V reads at two sizes, d_B settles; the lattice start changed, so it counts 0.6",
+    "decision": [
+     "done",
+     "ladder_complete",
+     65536
+    ],
+    "fates": {
+     "bcc": [
+      "holds",
+      0.891
+     ],
+     "cubic": [
+      "changed",
+      0.877
+     ],
+     "fcc": [
+      "dense",
+      null
+     ],
+     "square": [
+      "dense",
+      null
+     ],
+     "tesseract": [
+      "partly",
+      0.793
+     ],
+     "triangular": [
+      "dense",
+      null
+     ]
+    },
+    "value_columns": [
+     "n",
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w",
+     "reach",
+     "mean_degree",
+     "giant_fraction",
+     "triangles_per_node",
+     "squares_per_node",
+     "kappa"
+    ],
+    "values": [
+     [
+      64,
+      null,
+      null,
+      null,
+      null,
+      1.969,
+      27.14,
+      1.0,
+      0.0,
+      1993.0,
+      0.0
+     ],
+     [
+      256,
+      null,
+      null,
+      null,
+      null,
+      null,
+      32.01,
+      1.0,
+      40.92,
+      788.2,
+      null
+     ],
+     [
+      1024,
+      null,
+      null,
+      null,
+      null,
+      null,
+      32.0,
+      1.0,
+      33.17,
+      434.9,
+      null
+     ],
+     [
+      4096,
+      null,
+      null,
+      null,
+      null,
+      null,
+      32.0,
+      1.0,
+      33.93,
+      437.8,
+      null
+     ],
+     [
+      16384,
+      3.136,
+      3.539,
+      3.266,
+      null,
+      13.73,
+      14.72,
+      1.0,
+      12.14,
+      166.8,
+      -0.1641
+     ],
+     [
+      65536,
+      3.074,
+      3.324,
+      3.172,
+      2.186,
+      24.36,
+      14.67,
+      1.0,
+      12.31,
+      175.6,
+      -0.06627
+     ]
+    ]
+   }
+  },
+  {
+   "label": "H16",
+   "candidate_id": "4307f67160dd0087494c6a7d1f4e739fc9dfe935dc8baa5d4af3b227a3bce86b",
+   "campaign": "5",
+   "spec": {
+    "dsl_version": 1,
+    "init": "empty",
+    "terms": [
+     {
+      "op": "degree_square_sum",
+      "params": {},
+      "coeff": {
+       "c0": 0.0959961,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "square_count",
+      "params": {},
+      "coeff": {
+       "c0": -5.9344,
+       "scale": "one"
+      }
+     }
+    ],
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 1.86449,
+     "move_mix": {
+      "add": 0.01194099999999998,
+      "delete": 0.01194099999999998,
+      "swap": 0.976118
+     },
+     "sweeps": 30,
+     "locality": 0.16294,
+     "zero_temperature": true
+    }
+   },
+   "compact": {
+    "beta": 1.86449,
+    "local_move": "toggle",
+    "locality": 0.16294,
+    "regime": "zero_temperature",
+    "swap_share": 0.976118,
+    "sweeps": 30,
+    "terms": [
+     [
+      "degree_square_sum",
+      null,
+      0.0959961,
+      "one",
+      null
+     ],
+     [
+      "square_count",
+      null,
+      -5.9344,
+      "one",
+      null
+     ]
+    ],
+    "zero_temperature": true
+   },
+   "kind": "sees cycles",
+   "read_in_174": {
+    "score": 11,
+    "points": 10,
+    "items": {
+     "d_s": 3,
+     "d_V": 2,
+     "d_B": 1,
+     "d_w": 2,
+     "einstein": 2
+    },
+    "by": "kept",
+    "chain": "bcc",
+    "d": 3.04,
+    "mean_degree": 8.03,
+    "to_n": 65536,
+    "top_n": 65536,
+    "why": "10 of 15: d_s settles again, d_V settles, d_B reads at two sizes, d_w settles, the Einstein relation settles; the lattice start holds, so it counts 0.3",
+    "decision": [
+     "done",
+     "ladder_complete",
+     65536
+    ],
+    "fates": {
+     "bcc": [
+      "holds",
+      0.926
+     ],
+     "cubic": [
+      "holds",
+      0.896
+     ],
+     "fcc": [
+      "dense",
+      null
+     ],
+     "square": [
+      "changed",
+      0.847
+     ],
+     "tesseract": [
+      "holds",
+      0.836
+     ],
+     "triangular": [
+      "dense",
+      null
+     ]
+    },
+    "value_columns": [
+     "n",
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w",
+     "reach",
+     "mean_degree",
+     "giant_fraction",
+     "triangles_per_node",
+     "squares_per_node",
+     "kappa"
+    ],
+    "values": [
+     [
+      64,
+      null,
+      null,
+      null,
+      null,
+      2.0,
+      20.88,
+      1.0,
+      0.0,
+      726.2,
+      0.0
+     ],
+     [
+      256,
+      null,
+      null,
+      null,
+      null,
+      2.16,
+      27.48,
+      1.0,
+      14.78,
+      797.4,
+      -0.001321
+     ],
+     [
+      1024,
+      null,
+      null,
+      null,
+      null,
+      null,
+      32.0,
+      1.0,
+      32.1,
+      429.6,
+      null
+     ],
+     [
+      4096,
+      3.194,
+      3.805,
+      null,
+      null,
+      7.086,
+      16.43,
+      1.0,
+      11.46,
+      159.0,
+      -0.0382
+     ],
+     [
+      16384,
+      3.06,
+      3.422,
+      3.229,
+      2.223,
+      13.02,
+      8.14,
+      1.0,
+      0.0,
+      12.36,
+      -0.009823
+     ],
+     [
+      65536,
+      3.019,
+      3.247,
+      3.055,
+      2.128,
+      22.5,
+      8.034,
+      1.0,
+      0.0,
+      12.09,
+      -0.002386
+     ]
+    ]
+   }
+  },
+  {
+   "label": "H17",
+   "candidate_id": "54b1a9c3b9b7938a30d3670e18836d83035cd33fc88aa9448c2b2ea4d3a61b1e",
+   "campaign": "6",
+   "spec": {
+    "dsl_version": 1,
+    "init": "empty",
+    "terms": [
+     {
+      "op": "degree_square_sum",
+      "params": {},
+      "coeff": {
+       "c0": 0.13992,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "square_count",
+      "params": {},
+      "coeff": {
+       "c0": -0.929937,
+       "scale": "one"
+      }
+     }
+    ],
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 4.79993,
+     "move_mix": {
+      "add": 0.19629649999999998,
+      "delete": 0.19629649999999998,
+      "swap": 0.607407
+     },
+     "sweeps": 30,
+     "locality": 0.623938,
+     "zero_temperature": true
+    }
+   },
+   "compact": {
+    "beta": 4.79993,
+    "local_move": "toggle",
+    "locality": 0.623938,
+    "regime": "zero_temperature",
+    "swap_share": 0.607407,
+    "sweeps": 30,
+    "terms": [
+     [
+      "degree_square_sum",
+      null,
+      0.13992,
+      "one",
+      null
+     ],
+     [
+      "square_count",
+      null,
+      -0.929937,
+      "one",
+      null
+     ]
+    ],
+    "zero_temperature": true
+   },
+   "kind": "sees cycles",
+   "read_in_174": {
+    "score": 11,
+    "points": 10,
+    "items": {
+     "d_s": 3,
+     "d_V": 2,
+     "d_B": 2,
+     "d_w": 2,
+     "einstein": 1
+    },
+    "by": "kept",
+    "chain": "bcc",
+    "d": 3.06,
+    "mean_degree": 8.1,
+    "to_n": 65536,
+    "top_n": 65536,
+    "why": "10 of 15: d_s settles again, d_V settles, d_B settles, d_w settles, the Einstein relation reads at two sizes; the lattice start holds, so it counts 0.3",
+    "decision": [
+     "done",
+     "ladder_complete",
+     65536
+    ],
+    "fates": {
+     "bcc": [
+      "holds",
+      0.908
+     ],
+     "cubic": [
+      "fell_apart",
+      null
+     ],
+     "fcc": [
+      "dense",
+      null
+     ],
+     "square": [
+      "fell_apart",
+      null
+     ],
+     "tesseract": [
+      "melted",
+      0.181
+     ],
+     "triangular": [
+      "dense",
+      null
+     ]
+    },
+    "value_columns": [
+     "n",
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w",
+     "reach",
+     "mean_degree",
+     "giant_fraction",
+     "triangles_per_node",
+     "squares_per_node",
+     "kappa"
+    ],
+    "values": [
+     [
+      64,
+      null,
+      null,
+      null,
+      null,
+      1.0,
+      32.0,
+      1.0,
+      0.0,
+      3844.0,
+      0.0
+     ],
+     [
+      256,
+      null,
+      null,
+      null,
+      null,
+      null,
+      32.01,
+      1.0,
+      0.0,
+      1058.0,
+      null
+     ],
+     [
+      1024,
+      null,
+      null,
+      null,
+      null,
+      null,
+      32.0,
+      1.0,
+      0.0,
+      405.3,
+      null
+     ],
+     [
+      4096,
+      3.137,
+      3.698,
+      null,
+      null,
+      6.94,
+      9.977,
+      1.0,
+      0.0,
+      22.65,
+      -0.00666
+     ],
+     [
+      16384,
+      3.039,
+      3.397,
+      3.251,
+      2.317,
+      12.8,
+      8.438,
+      1.0,
+      0.0,
+      14.06,
+      -0.000422
+     ],
+     [
+      65536,
+      3.006,
+      3.258,
+      3.115,
+      2.147,
+      21.94,
+      8.104,
+      1.0,
+      0.0,
+      12.47,
+      -1.8e-05
+     ]
+    ]
+   }
+  },
+  {
+   "label": "H18",
+   "candidate_id": "a0e4f5349f993d8cf1968ea626df627cdca4cd3188db2f82882c5f61a5b1868d",
+   "campaign": "5",
+   "spec": {
+    "dsl_version": 1,
+    "init": "empty",
+    "terms": [
+     {
+      "op": "degree_fourth_sum",
+      "params": {},
+      "coeff": {
+       "c0": 0.0711388,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "square_count",
+      "params": {},
+      "coeff": {
+       "c0": 9.24454,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "square_edge_overlap",
+      "params": {},
+      "coeff": {
+       "c0": -1.55728,
+       "scale": "one"
+      }
+     }
+    ],
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 24.5765,
+     "move_mix": {
+      "add": 0.267479,
+      "delete": 0.267479,
+      "swap": 0.465042
+     },
+     "sweeps": 30,
+     "locality": 0.673463,
+     "zero_temperature": true
+    }
+   },
+   "compact": {
+    "beta": 24.5765,
+    "local_move": "toggle",
+    "locality": 0.673463,
+    "regime": "zero_temperature",
+    "swap_share": 0.465042,
+    "sweeps": 30,
+    "terms": [
+     [
+      "degree_fourth_sum",
+      null,
+      0.0711388,
+      "one",
+      null
+     ],
+     [
+      "square_count",
+      null,
+      9.24454,
+      "one",
+      null
+     ],
+     [
+      "square_edge_overlap",
+      null,
+      -1.55728,
+      "one",
+      null
+     ]
+    ],
+    "zero_temperature": true
+   },
+   "kind": "sees cycles",
+   "read_in_174": {
+    "score": 11,
+    "points": 10,
+    "items": {
+     "d_s": 3,
+     "d_V": 2,
+     "d_B": 1,
+     "d_w": 2,
+     "einstein": 2
+    },
+    "by": "kept",
+    "chain": "bcc",
+    "d": 3.06,
+    "mean_degree": 8.12,
+    "to_n": 65536,
+    "top_n": 65536,
+    "why": "10 of 15: d_s settles again, d_V settles, d_B reads at two sizes, d_w settles, the Einstein relation settles; the lattice start holds, so it counts 0.3",
+    "decision": [
+     "done",
+     "ladder_complete",
+     65536
+    ],
+    "fates": {
+     "bcc": [
+      "holds",
+      0.899
+     ],
+     "cubic": [
+      "fell_apart",
+      null
+     ],
+     "fcc": [
+      "dense",
+      null
+     ],
+     "square": [
+      "fell_apart",
+      null
+     ],
+     "tesseract": [
+      "fell_apart",
+      null
+     ],
+     "triangular": [
+      "fell_apart",
+      null
+     ]
+    },
+    "value_columns": [
+     "n",
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w",
+     "reach",
+     "mean_degree",
+     "giant_fraction",
+     "triangles_per_node",
+     "squares_per_node",
+     "kappa"
+    ],
+    "values": [
+     [
+      64,
+      null,
+      null,
+      null,
+      null,
+      1.0,
+      32.0,
+      1.0,
+      0.0,
+      3844.0,
+      0.0
+     ],
+     [
+      256,
+      null,
+      null,
+      null,
+      null,
+      null,
+      32.01,
+      1.0,
+      0.0,
+      1029.0,
+      null
+     ],
+     [
+      1024,
+      null,
+      null,
+      null,
+      null,
+      null,
+      32.0,
+      1.0,
+      0.0,
+      505.5,
+      null
+     ],
+     [
+      4096,
+      3.144,
+      3.623,
+      null,
+      null,
+      6.997,
+      10.09,
+      1.0,
+      0.0,
+      23.93,
+      -0.001634
+     ],
+     [
+      16384,
+      3.038,
+      3.406,
+      3.294,
+      2.277,
+      12.6,
+      8.489,
+      1.0,
+      0.0,
+      14.34,
+      -5.5e-05
+     ],
+     [
+      65536,
+      2.989,
+      3.26,
+      3.13,
+      2.165,
+      21.66,
+      8.121,
+      1.0,
+      0.0,
+      12.55,
+      -3.333e-07
+     ]
+    ]
+   }
+  },
+  {
+   "label": "H19",
+   "candidate_id": "bddedf5479f98af15c9e9ed45f32b3031a2a22f78c7a2e533aac39e7b4baf20a",
+   "campaign": "6",
+   "spec": {
+    "dsl_version": 1,
+    "init": "empty",
+    "terms": [
+     {
+      "op": "degree_anchor",
+      "params": {
+       "k": 8
+      },
+      "coeff": {
+       "c0": -0.0160033,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "square_edge_overlap",
+      "params": {},
+      "coeff": {
+       "c0": -3.60469,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "wedge_count",
+      "params": {},
+      "coeff": {
+       "c0": 3.02394,
+       "scale": "one"
+      }
+     }
+    ],
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 34.1836,
+     "move_mix": {
+      "add": 0.06284800000000001,
+      "delete": 0.06284800000000001,
+      "swap": 0.874304
+     },
+     "sweeps": 93,
+     "locality": 0.920647
+    }
+   },
+   "compact": {
+    "beta": 34.1836,
+    "local_move": "toggle",
+    "locality": 0.920647,
+    "regime": "equilibrium",
+    "swap_share": 0.874304,
+    "sweeps": 93,
+    "terms": [
+     [
+      "degree_anchor",
+      8,
+      -0.0160033,
+      "one",
+      null
+     ],
+     [
+      "square_edge_overlap",
+      null,
+      -3.60469,
+      "one",
+      null
+     ],
+     [
+      "wedge_count",
+      null,
+      3.02394,
+      "one",
+      null
+     ]
+    ],
+    "zero_temperature": false
+   },
+   "kind": "sees cycles",
+   "read_in_174": {
+    "score": 10,
+    "points": 9,
+    "items": {
+     "d_s": 2,
+     "d_V": 1,
+     "d_B": 2,
+     "d_w": 2,
+     "einstein": 2
+    },
+    "by": "kept",
+    "chain": "bcc",
+    "d": 3.08,
+    "mean_degree": 8.05,
+    "to_n": 65536,
+    "top_n": 65536,
+    "why": "9 of 15: d_s settles, d_V reads at two sizes, d_B settles, d_w settles, the Einstein relation settles; the lattice start holds, so it counts 0.3",
+    "decision": [
+     "done",
+     "ladder_complete",
+     65536
+    ],
+    "fates": {
+     "bcc": [
+      "holds",
+      0.907
+     ],
+     "cubic": [
+      "holds",
+      0.894
+     ],
+     "fcc": [
+      "dense",
+      null
+     ],
+     "square": [
+      "dense",
+      null
+     ],
+     "tesseract": [
+      "holds",
+      0.826
+     ],
+     "triangular": [
+      "dense",
+      null
+     ]
+    },
+    "value_columns": [
+     "n",
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w",
+     "reach",
+     "mean_degree",
+     "giant_fraction",
+     "triangles_per_node",
+     "squares_per_node",
+     "kappa"
+    ],
+    "values": [
+     [
+      64,
+      null,
+      null,
+      null,
+      null,
+      1.995,
+      25.71,
+      1.0,
+      0.0,
+      1602.0,
+      0.0
+     ],
+     [
+      256,
+      null,
+      null,
+      null,
+      null,
+      null,
+      32.01,
+      1.0,
+      0.0,
+      1255.0,
+      null
+     ],
+     [
+      1024,
+      null,
+      null,
+      null,
+      null,
+      null,
+      32.0,
+      1.0,
+      26.25,
+      321.0,
+      null
+     ],
+     [
+      4096,
+      3.424,
+      4.272,
+      null,
+      null,
+      6.083,
+      9.247,
+      1.0,
+      0.0,
+      14.96,
+      -0.08943
+     ],
+     [
+      16384,
+      3.052,
+      3.517,
+      3.236,
+      2.241,
+      12.42,
+      8.221,
+      1.0,
+      0.0,
+      12.57,
+      -0.01589
+     ],
+     [
+      65536,
+      3.034,
+      3.3,
+      3.126,
+      2.186,
+      21.91,
+      8.053,
+      1.0,
+      0.0,
+      12.14,
+      -0.003755
+     ]
+    ]
+   }
+  },
+  {
+   "label": "H20",
+   "candidate_id": "20bd3786440a2988c54068d6d1dbdc8a243154396e56c878ffd1f60fbb724994",
+   "campaign": "6",
+   "spec": {
+    "dsl_version": 1,
+    "init": "empty",
+    "terms": [
+     {
+      "op": "degree_square_sum",
+      "params": {},
+      "coeff": {
+       "c0": 0.0888808,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "edge_count",
+      "params": {},
+      "coeff": {
+       "c0": -0.0125261,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "square_count",
+      "params": {},
+      "coeff": {
+       "c0": -0.521702,
+       "scale": "one"
+      }
+     }
+    ],
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 45.8953,
+     "move_mix": {
+      "add": 0.385379,
+      "delete": 0.385379,
+      "swap": 0.229242
+     },
+     "sweeps": 71,
+     "locality": 0.791223
+    }
+   },
+   "compact": {
+    "beta": 45.8953,
+    "local_move": "toggle",
+    "locality": 0.791223,
+    "regime": "equilibrium",
+    "swap_share": 0.229242,
+    "sweeps": 71,
+    "terms": [
+     [
+      "degree_square_sum",
+      null,
+      0.0888808,
+      "one",
+      null
+     ],
+     [
+      "edge_count",
+      null,
+      -0.0125261,
+      "one",
+      null
+     ],
+     [
+      "square_count",
+      null,
+      -0.521702,
+      "one",
+      null
+     ]
+    ],
+    "zero_temperature": false
+   },
+   "kind": "sees cycles",
+   "read_in_174": {
+    "score": 9,
+    "points": 4,
+    "items": {
+     "d_s": 2,
+     "d_V": 1,
+     "d_B": 1,
+     "d_w": 0,
+     "einstein": 0
+    },
+    "by": "lattice",
+    "chain": "bcc",
+    "d": 3.13,
+    "mean_degree": 8.27,
+    "to_n": 65536,
+    "top_n": 65536,
+    "why": "4 of 15: d_s settles, d_V reads at two sizes, d_B reads at two sizes; the lattice start changed, so it counts 0.6",
+    "decision": [
+     "done",
+     "ladder_complete",
+     65536
+    ],
+    "fates": {
+     "bcc": [
+      "changed",
+      0.844
+     ],
+     "cubic": [
+      "fell_apart",
+      null
+     ],
+     "fcc": [
+      "dense",
+      null
+     ],
+     "square": [
+      "fell_apart",
+      null
+     ],
+     "tesseract": [
+      "melted",
+      -0.675
+     ],
+     "triangular": [
+      "dense",
+      null
+     ]
+    },
+    "value_columns": [
+     "n",
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w",
+     "reach",
+     "mean_degree",
+     "giant_fraction",
+     "triangles_per_node",
+     "squares_per_node",
+     "kappa"
+    ],
+    "values": [
+     [
+      64,
+      null,
+      null,
+      null,
+      null,
+      1.0,
+      32.0,
+      1.0,
+      0.0,
+      3844.0,
+      0.0
+     ],
+     [
+      256,
+      null,
+      null,
+      null,
+      null,
+      null,
+      32.01,
+      1.0,
+      0.0,
+      1024.0,
+      null
+     ],
+     [
+      1024,
+      null,
+      null,
+      null,
+      null,
+      null,
+      32.0,
+      1.0,
+      0.0,
+      397.6,
+      null
+     ],
+     [
+      4096,
+      3.509,
+      4.274,
+      null,
+      null,
+      4.992,
+      15.96,
+      1.0,
+      0.0,
+      77.43,
+      -0.01184
+     ],
+     [
+      16384,
+      3.101,
+      3.53,
+      3.585,
+      null,
+      11.02,
+      9.178,
+      1.0,
+      0.0,
+      17.98,
+      -0.002175
+     ],
+     [
+      65536,
+      3.013,
+      3.31,
+      3.253,
+      2.243,
+      20.0,
+      8.272,
+      1.0,
+      0.0,
+      13.26,
+      -0.00015
+     ]
+    ]
+   }
+  },
+  {
+   "label": "H21",
+   "candidate_id": "31110b0b540ca677137a4a5b440af1cccaebc30ed0826740d00244f4e5ff9e76",
+   "campaign": "1",
+   "spec": {
+    "dsl_version": 1,
+    "init": "empty",
+    "terms": [
+     {
+      "op": "degree_fourth_sum",
+      "params": {},
+      "coeff": {
+       "c0": 0.122072,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "degree_neighbor_gradient",
+      "params": {},
+      "coeff": {
+       "c0": -0.00768053,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "edge_count",
+      "params": {},
+      "coeff": {
+       "c0": -0.0819535,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "square_edge_overlap",
+      "params": {},
+      "coeff": {
+       "c0": -7.95353,
+       "scale": "one"
+      }
+     }
+    ],
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 0.492841,
+     "move_mix": {
+      "add": 0.06695600000000002,
+      "delete": 0.06695600000000002,
+      "swap": 0.866088
+     },
+     "sweeps": 30,
+     "locality": 0.48108,
+     "zero_temperature": true
+    }
+   },
+   "compact": {
+    "beta": 0.492841,
+    "local_move": "toggle",
+    "locality": 0.48108,
+    "regime": "zero_temperature",
+    "swap_share": 0.866088,
+    "sweeps": 30,
+    "terms": [
+     [
+      "degree_fourth_sum",
+      null,
+      0.122072,
+      "one",
+      null
+     ],
+     [
+      "degree_neighbor_gradient",
+      null,
+      -0.00768053,
+      "one",
+      null
+     ],
+     [
+      "edge_count",
+      null,
+      -0.0819535,
+      "one",
+      null
+     ],
+     [
+      "square_edge_overlap",
+      null,
+      -7.95353,
+      "one",
+      null
+     ]
+    ],
+    "zero_temperature": true
+   },
+   "kind": "sees cycles",
+   "read_in_174": {
+    "score": 9,
+    "points": 8,
+    "items": {
+     "d_s": 3,
+     "d_V": 2,
+     "d_B": 1,
+     "d_w": 1,
+     "einstein": 1
+    },
+    "by": "kept",
+    "chain": "bcc",
+    "d": 3.08,
+    "mean_degree": 8.1,
+    "to_n": 65536,
+    "top_n": 65536,
+    "why": "8 of 15: d_s settles again, d_V settles, d_B reads at two sizes, d_w reads at two sizes, the Einstein relation reads at two sizes; the lattice start holds, so it counts 0.3",
+    "decision": [
+     "done",
+     "ladder_complete",
+     65536
+    ],
+    "fates": {
+     "bcc": [
+      "holds",
+      0.879
+     ],
+     "cubic": [
+      "holds",
+      0.886
+     ],
+     "fcc": [
+      "dense",
+      null
+     ],
+     "square": [
+      "fell_apart",
+      -0.637
+     ],
+     "tesseract": [
+      "holds",
+      0.864
+     ],
+     "triangular": [
+      "dense",
+      null
+     ]
+    },
+    "value_columns": [
+     "n",
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w",
+     "reach",
+     "mean_degree",
+     "giant_fraction",
+     "triangles_per_node",
+     "squares_per_node",
+     "kappa"
+    ],
+    "values": [
+     [
+      64,
+      null,
+      null,
+      null,
+      null,
+      1.182,
+      31.2,
+      1.0,
+      0.0,
+      3473.0,
+      0.0
+     ],
+     [
+      256,
+      null,
+      null,
+      null,
+      null,
+      null,
+      32.01,
+      1.0,
+      0.0,
+      1232.0,
+      null
+     ],
+     [
+      1024,
+      null,
+      null,
+      null,
+      null,
+      null,
+      32.0,
+      1.0,
+      34.73,
+      559.9,
+      null
+     ],
+     [
+      4096,
+      3.151,
+      3.766,
+      null,
+      null,
+      6.919,
+      9.331,
+      1.0,
+      0.0,
+      17.07,
+      -0.03928
+     ],
+     [
+      16384,
+      3.05,
+      3.506,
+      3.336,
+      2.381,
+      12.03,
+      8.39,
+      1.0,
+      0.0,
+      13.24,
+      -0.01821
+     ],
+     [
+      65536,
+      2.991,
+      3.304,
+      3.169,
+      2.187,
+      21.04,
+      8.099,
+      1.0,
+      0.0,
+      12.3,
+      -0.005326
+     ]
+    ]
+   }
+  },
+  {
+   "label": "H22",
+   "candidate_id": "5029732c5f4b9898e6ac51371787f8951e3f50988c847520c67dddf313efce53",
+   "campaign": "4",
+   "spec": {
+    "dsl_version": 1,
+    "init": "empty",
+    "terms": [
+     {
+      "op": "degree_anchor",
+      "params": {
+       "k": 11
+      },
+      "coeff": {
+       "c0": 0.164354,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "degree_anchor_abs",
+      "params": {
+       "k": 14
+      },
+      "coeff": {
+       "c0": 2.00515,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "degree_neighbor_gradient",
+      "params": {},
+      "coeff": {
+       "c0": 7.85599,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "induced_square_count",
+      "params": {},
+      "coeff": {
+       "c0": -0.0313478,
+       "scale": "one"
+      }
+     }
+    ],
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 0.129785,
+     "move_mix": {
+      "add": 0.372567,
+      "delete": 0.372567,
+      "swap": 0.254866
+     },
+     "sweeps": 30,
+     "locality": 0.703161,
+     "zero_temperature": true
+    }
+   },
+   "compact": {
+    "beta": 0.129785,
+    "local_move": "toggle",
+    "locality": 0.703161,
+    "regime": "zero_temperature",
+    "swap_share": 0.254866,
+    "sweeps": 30,
+    "terms": [
+     [
+      "degree_anchor",
+      11,
+      0.164354,
+      "one",
+      null
+     ],
+     [
+      "degree_anchor_abs",
+      14,
+      2.00515,
+      "one",
+      null
+     ],
+     [
+      "degree_neighbor_gradient",
+      null,
+      7.85599,
+      "one",
+      null
+     ],
+     [
+      "induced_square_count",
+      null,
+      -0.0313478,
+      "one",
+      null
+     ]
+    ],
+    "zero_temperature": true
+   },
+   "kind": "sees cycles",
+   "read_in_174": {
+    "score": 9,
+    "points": 8,
+    "items": {
+     "d_s": 3,
+     "d_V": 3,
+     "d_B": 2,
+     "d_w": 0,
+     "einstein": 0
+    },
+    "by": "kept",
+    "chain": "tesseract",
+    "d": 3.72,
+    "mean_degree": 8.0,
+    "to_n": 65536,
+    "top_n": 65536,
+    "why": "8 of 15: d_s settles again, d_V settles again, d_B settles; the lattice start holds, so it counts 0.3",
+    "decision": [
+     "done",
+     "ladder_complete",
+     65536
+    ],
+    "fates": {
+     "bcc": [
+      "unmoved",
+      1.0
+     ],
+     "cubic": [
+      "holds",
+      0.993
+     ],
+     "fcc": [
+      "melted",
+      0.0
+     ],
+     "square": [
+      "holds",
+      0.994
+     ],
+     "tesseract": [
+      "holds",
+      0.999
+     ],
+     "triangular": [
+      "melted",
+      0.0
+     ]
+    },
+    "value_columns": [
+     "n",
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w",
+     "reach",
+     "mean_degree",
+     "giant_fraction",
+     "triangles_per_node",
+     "squares_per_node",
+     "kappa"
+    ],
+    "values": [
+     [
+      64,
+      null,
+      null,
+      null,
+      null,
+      2.906,
+      8.0,
+      1.0,
+      0.0,
+      22.61,
+      -0.01986
+     ],
+     [
+      256,
+      null,
+      null,
+      null,
+      null,
+      4.0,
+      8.0,
+      1.0,
+      0.0,
+      7.0,
+      0.0
+     ],
+     [
+      1024,
+      4.206,
+      3.557,
+      null,
+      null,
+      5.0,
+      8.0,
+      1.0,
+      0.0,
+      6.051,
+      -0.09131
+     ],
+     [
+      4096,
+      4.154,
+      3.875,
+      null,
+      null,
+      6.997,
+      8.0,
+      1.0,
+      0.0,
+      6.066,
+      -0.09473
+     ],
+     [
+      16384,
+      4.004,
+      3.973,
+      3.619,
+      null,
+      10.09,
+      8.0,
+      1.0,
+      0.0,
+      6.006,
+      -0.03661
+     ],
+     [
+      65536,
+      4.025,
+      3.866,
+      3.577,
+      1.912,
+      15.98,
+      8.0,
+      1.0,
+      0.0,
+      6.0,
+      -0.001747
+     ]
+    ]
+   }
+  },
+  {
+   "label": "H23",
+   "candidate_id": "6bed81506eb66d93d60072684c98e6ffac6af99b0a23a8a327a4742e2be77bc2",
+   "campaign": "9",
+   "spec": {
+    "dsl_version": 1,
+    "init": "empty",
+    "terms": [
+     {
+      "op": "degree_anchor_abs",
+      "params": {
+       "k": 5
+      },
+      "coeff": {
+       "c0": 0.0443469,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "degree_fourth_sum",
+      "params": {},
+      "coeff": {
+       "c0": 0.041053,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "degree_neighbor_gradient",
+      "params": {},
+      "coeff": {
+       "c0": -2.73357,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "square_edge_overlap",
+      "params": {},
+      "coeff": {
+       "c0": -0.851862,
+       "scale": "one"
+      }
+     }
+    ],
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 75.3039,
+     "move_mix": {
+      "add": 0.1618465,
+      "delete": 0.1618465,
+      "swap": 0.676307
+     },
+     "sweeps": 99,
+     "locality": 0.797349
+    }
+   },
+   "compact": {
+    "beta": 75.3039,
+    "local_move": "toggle",
+    "locality": 0.797349,
+    "regime": "equilibrium",
+    "swap_share": 0.676307,
+    "sweeps": 99,
+    "terms": [
+     [
+      "degree_anchor_abs",
+      5,
+      0.0443469,
+      "one",
+      null
+     ],
+     [
+      "degree_fourth_sum",
+      null,
+      0.041053,
+      "one",
+      null
+     ],
+     [
+      "degree_neighbor_gradient",
+      null,
+      -2.73357,
+      "one",
+      null
+     ],
+     [
+      "square_edge_overlap",
+      null,
+      -0.851862,
+      "one",
+      null
+     ]
+    ],
+    "zero_temperature": false
+   },
+   "kind": "sees cycles",
+   "read_in_174": {
+    "score": 9,
+    "points": 8,
+    "items": {
+     "d_s": 3,
+     "d_V": 2,
+     "d_B": 1,
+     "d_w": 1,
+     "einstein": 1
+    },
+    "by": "kept",
+    "chain": "bcc",
+    "d": 2.92,
+    "mean_degree": 8.0,
+    "to_n": 65536,
+    "top_n": 65536,
+    "why": "8 of 15: d_s settles again, d_V settles, d_B reads at two sizes, d_w reads at two sizes, the Einstein relation reads at two sizes; the lattice start holds, so it counts 0.3",
+    "decision": [
+     "run_next",
+     "dimension_shows",
+     16384
+    ],
+    "fates": {
+     "bcc": [
+      "holds",
+      1.0
+     ],
+     "cubic": [
+      "melted",
+      -0.228
+     ],
+     "fcc": [
+      "dense",
+      null
+     ],
+     "square": [
+      "dense",
+      null
+     ],
+     "tesseract": [
+      "melted",
+      -0.136
+     ],
+     "triangular": [
+      "dense",
+      null
+     ]
+    },
+    "value_columns": [
+     "n",
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w",
+     "reach",
+     "mean_degree",
+     "giant_fraction",
+     "triangles_per_node",
+     "squares_per_node",
+     "kappa"
+    ],
+    "values": [
+     [
+      64,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+     ],
+     [
+      256,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+     ],
+     [
+      1024,
+      null,
+      null,
+      null,
+      null,
+      4.109,
+      25.04,
+      1.0,
+      35.85,
+      912.5,
+      -0.01175
+     ],
+     [
+      4096,
+      3.067,
+      3.472,
+      null,
+      null,
+      8.003,
+      8.663,
+      1.0,
+      0.0,
+      15.16,
+      -0.002035
+     ],
+     [
+      16384,
+      3.061,
+      3.314,
+      3.052,
+      2.293,
+      13.98,
+      8.151,
+      1.0,
+      0.0,
+      12.68,
+      -0.0001833
+     ],
+     [
+      65536,
+      2.962,
+      3.046,
+      2.881,
+      2.024,
+      25.0,
+      8.002,
+      1.0,
+      0.0,
+      12.01,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "label": "H24",
+   "candidate_id": "823f886deb4b34c4000ca633537622010403a00bac68884c0599fcb347997c8f",
+   "campaign": "9",
+   "spec": {
+    "dsl_version": 1,
+    "init": "empty",
+    "terms": [
+     {
+      "op": "degree_fourth_sum",
+      "params": {},
+      "coeff": {
+       "c0": 0.0752659,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "degree_neighbor_gradient",
+      "params": {},
+      "coeff": {
+       "c0": 0.462302,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "square_edge_overlap",
+      "params": {},
+      "coeff": {
+       "c0": -6.22098,
+       "scale": "one"
+      }
+     }
+    ],
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 5.18175,
+     "move_mix": {
+      "add": 0.13849499999999998,
+      "delete": 0.13849499999999998,
+      "swap": 0.72301
+     },
+     "sweeps": 75,
+     "locality": 0.756575
+    }
+   },
+   "compact": {
+    "beta": 5.18175,
+    "local_move": "toggle",
+    "locality": 0.756575,
+    "regime": "equilibrium",
+    "swap_share": 0.72301,
+    "sweeps": 75,
+    "terms": [
+     [
+      "degree_fourth_sum",
+      null,
+      0.0752659,
+      "one",
+      null
+     ],
+     [
+      "degree_neighbor_gradient",
+      null,
+      0.462302,
+      "one",
+      null
+     ],
+     [
+      "square_edge_overlap",
+      null,
+      -6.22098,
+      "one",
+      null
+     ]
+    ],
+    "zero_temperature": false
+   },
+   "kind": "sees cycles",
+   "read_in_174": {
+    "score": 9,
+    "points": 4,
+    "items": {
+     "d_s": 2,
+     "d_V": 1,
+     "d_B": 1,
+     "d_w": 0,
+     "einstein": 0
+    },
+    "by": "lattice",
+    "chain": "cubic",
+    "d": 3.12,
+    "mean_degree": 6.06,
+    "to_n": 65536,
+    "top_n": 65536,
+    "why": "4 of 15: d_s settles, d_V reads at two sizes, d_B reads at two sizes; the lattice start changed, so it counts 0.6",
+    "decision": [
+     "done",
+     "ladder_complete",
+     65536
+    ],
+    "fates": {
+     "bcc": [
+      "changed",
+      0.81
+     ],
+     "cubic": [
+      "changed",
+      0.842
+     ],
+     "fcc": [
+      "dense",
+      null
+     ],
+     "square": [
+      "melted",
+      0.155
+     ],
+     "tesseract": [
+      "partly",
+      0.788
+     ],
+     "triangular": [
+      "dense",
+      null
+     ]
+    },
+    "value_columns": [
+     "n",
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w",
+     "reach",
+     "mean_degree",
+     "giant_fraction",
+     "triangles_per_node",
+     "squares_per_node",
+     "kappa"
+    ],
+    "values": [
+     [
+      64,
+      null,
+      null,
+      null,
+      null,
+      1.0,
+      32.0,
+      1.0,
+      0.0,
+      3844.0,
+      0.0
+     ],
+     [
+      256,
+      null,
+      null,
+      null,
+      null,
+      null,
+      32.01,
+      0.9974,
+      45.9,
+      919.8,
+      null
+     ],
+     [
+      1024,
+      null,
+      null,
+      null,
+      null,
+      null,
+      32.0,
+      0.9766,
+      46.24,
+      795.0,
+      null
+     ],
+     [
+      4096,
+      null,
+      null,
+      null,
+      null,
+      null,
+      32.0,
+      0.9839,
+      47.88,
+      834.9,
+      null
+     ],
+     [
+      16384,
+      3.298,
+      3.498,
+      3.413,
+      null,
+      14.11,
+      14.54,
+      0.9915,
+      15.43,
+      296.3,
+      -0.1401
+     ],
+     [
+      65536,
+      3.04,
+      3.304,
+      3.209,
+      2.225,
+      23.18,
+      6.063,
+      0.9998,
+      0.0,
+      3.224,
+      -0.09668
+     ]
+    ]
+   }
+  },
+  {
+   "label": "H25",
+   "candidate_id": "9ab3d75b700f7097f612544930b5e4887b7cc2798790d5c6f66e7f4f4368f3f8",
+   "campaign": "5",
+   "spec": {
+    "dsl_version": 1,
+    "init": "empty",
+    "terms": [
+     {
+      "op": "induced_square_count",
+      "params": {},
+      "coeff": {
+       "c0": 3.88302,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "square_count",
+      "params": {},
+      "coeff": {
+       "c0": -0.100838,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "wedge_count",
+      "params": {},
+      "coeff": {
+       "c0": 0.0916786,
+       "scale": "one"
+      }
+     }
+    ],
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 25.6353,
+     "move_mix": {
+      "add": 0.234126,
+      "delete": 0.234126,
+      "swap": 0.531748
+     },
+     "sweeps": 90,
+     "locality": 0.732515
+    }
+   },
+   "compact": {
+    "beta": 25.6353,
+    "local_move": "toggle",
+    "locality": 0.732515,
+    "regime": "equilibrium",
+    "swap_share": 0.531748,
+    "sweeps": 90,
+    "terms": [
+     [
+      "induced_square_count",
+      null,
+      3.88302,
+      "one",
+      null
+     ],
+     [
+      "square_count",
+      null,
+      -0.100838,
+      "one",
+      null
+     ],
+     [
+      "wedge_count",
+      null,
+      0.0916786,
+      "one",
+      null
+     ]
+    ],
+    "zero_temperature": false
+   },
+   "kind": "sees cycles",
+   "read_in_174": {
+    "score": 9,
+    "points": 10,
+    "items": {
+     "d_s": 2,
+     "d_V": 2,
+     "d_B": 2,
+     "d_w": 2,
+     "einstein": 2
+    },
+    "by": "kept",
+    "chain": "triangular",
+    "d": 1.98,
+    "mean_degree": 6.0,
+    "to_n": 16384,
+    "top_n": 16384,
+    "why": "10 of 15: d_s settles, d_V settles, d_B settles, d_w settles, the Einstein relation settles; the lattice start holds, so it counts 0.3",
+    "decision": [
+     "run_next",
+     "longer_chain",
+     16384
+    ],
+    "fates": {
+     "bcc": [
+      "changed",
+      1.256
+     ],
+     "cubic": [
+      "changed",
+      1.16
+     ],
+     "fcc": [
+      "partly",
+      0.779
+     ],
+     "square": [
+      "melted",
+      0.469
+     ],
+     "tesseract": [
+      "changed",
+      1.823
+     ],
+     "triangular": [
+      "holds",
+      1.0
+     ]
+    },
+    "value_columns": [
+     "n",
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w",
+     "reach",
+     "mean_degree",
+     "giant_fraction",
+     "triangles_per_node",
+     "squares_per_node",
+     "kappa"
+    ],
+    "values": [
+     [
+      64,
+      null,
+      null,
+      null,
+      null,
+      3.0,
+      6.0,
+      1.0,
+      2.0,
+      3.0,
+      0.3323
+     ],
+     [
+      256,
+      2.018,
+      1.994,
+      null,
+      null,
+      6.836,
+      6.0,
+      1.0,
+      2.0,
+      3.0,
+      0.3327
+     ],
+     [
+      1024,
+      2.001,
+      2.001,
+      1.849,
+      1.952,
+      13.0,
+      6.0,
+      1.0,
+      2.0,
+      3.0,
+      0.3329
+     ],
+     [
+      4096,
+      2.051,
+      2.012,
+      1.924,
+      2.02,
+      26.0,
+      6.0,
+      1.0,
+      2.0,
+      3.0,
+      0.3322
+     ],
+     [
+      16384,
+      1.947,
+      2.01,
+      1.948,
+      2.048,
+      51.97,
+      6.0,
+      1.0,
+      2.0,
+      3.0,
+      0.3328
+     ]
+    ]
+   }
+  },
+  {
+   "label": "H26",
+   "candidate_id": "aebf74946abdedf27aea3f987d5c9facb195b574d4ef5cfdfb4444a3b284ec51",
+   "campaign": "10",
+   "spec": {
+    "dsl_version": 1,
+    "init": "empty",
+    "terms": [
+     {
+      "op": "induced_square_count",
+      "params": {},
+      "coeff": {
+       "c0": 0.103346,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "square_edge_overlap",
+      "params": {},
+      "coeff": {
+       "c0": -1.83267,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "wedge_count",
+      "params": {},
+      "coeff": {
+       "c0": 15.4115,
+       "scale": "one"
+      }
+     }
+    ],
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 36.869,
+     "move_mix": {
+      "add": 0.13476349999999998,
+      "delete": 0.13476349999999998,
+      "swap": 0.730473
+     },
+     "sweeps": 30,
+     "locality": 0.323223,
+     "zero_temperature": true
+    }
+   },
+   "compact": {
+    "beta": 36.869,
+    "local_move": "toggle",
+    "locality": 0.323223,
+    "regime": "zero_temperature",
+    "swap_share": 0.730473,
+    "sweeps": 30,
+    "terms": [
+     [
+      "induced_square_count",
+      null,
+      0.103346,
+      "one",
+      null
+     ],
+     [
+      "square_edge_overlap",
+      null,
+      -1.83267,
+      "one",
+      null
+     ],
+     [
+      "wedge_count",
+      null,
+      15.4115,
+      "one",
+      null
+     ]
+    ],
+    "zero_temperature": true
+   },
+   "kind": "sees cycles",
+   "read_in_174": {
+    "score": 9,
+    "points": 4,
+    "items": {
+     "d_s": 2,
+     "d_V": 1,
+     "d_B": 1,
+     "d_w": 0,
+     "einstein": 0
+    },
+    "by": "lattice",
+    "chain": "bcc",
+    "d": 3.09,
+    "mean_degree": 8.14,
+    "to_n": 65536,
+    "top_n": 65536,
+    "why": "4 of 15: d_s settles, d_V reads at two sizes, d_B reads at two sizes; the lattice start changed, so it counts 0.6",
+    "decision": [
+     "done",
+     "ladder_complete",
+     65536
+    ],
+    "fates": {
+     "bcc": [
+      "changed",
+      0.882
+     ],
+     "cubic": [
+      "fell_apart",
+      null
+     ],
+     "fcc": [
+      "dense",
+      null
+     ],
+     "square": [
+      "fell_apart",
+      null
+     ],
+     "tesseract": [
+      "fell_apart",
+      null
+     ],
+     "triangular": [
+      "melted",
+      -0.719
+     ]
+    },
+    "value_columns": [
+     "n",
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w",
+     "reach",
+     "mean_degree",
+     "giant_fraction",
+     "triangles_per_node",
+     "squares_per_node",
+     "kappa"
+    ],
+    "values": [
+     [
+      64,
+      null,
+      null,
+      null,
+      null,
+      1.0,
+      32.0,
+      1.0,
+      0.0,
+      3844.0,
+      0.0
+     ],
+     [
+      256,
+      null,
+      null,
+      null,
+      null,
+      null,
+      32.01,
+      1.0,
+      0.0,
+      1094.0,
+      null
+     ],
+     [
+      1024,
+      null,
+      null,
+      null,
+      null,
+      null,
+      32.0,
+      1.0,
+      0.0,
+      356.5,
+      null
+     ],
+     [
+      4096,
+      3.613,
+      4.438,
+      null,
+      null,
+      5.0,
+      13.03,
+      1.0,
+      0.0,
+      38.16,
+      -0.09012
+     ],
+     [
+      16384,
+      3.064,
+      3.515,
+      3.407,
+      null,
+      11.96,
+      8.655,
+      1.0,
+      0.0,
+      14.85,
+      -0.008423
+     ],
+     [
+      65536,
+      3.024,
+      3.28,
+      3.15,
+      2.162,
+      21.14,
+      8.136,
+      1.0,
+      0.0,
+      12.6,
+      -0.0005947
+     ]
+    ]
+   }
+  },
+  {
+   "label": "H27",
+   "candidate_id": "1743b084133d69bfefb6c599121daa31d7f6ee0bd2e275fc3669e94e284da80a",
+   "campaign": "6",
+   "spec": {
+    "dsl_version": 1,
+    "init": "empty",
+    "terms": [
+     {
+      "op": "degree_square_sum",
+      "params": {},
+      "coeff": {
+       "c0": 0.0593669,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "square_edge_overlap",
+      "params": {},
+      "coeff": {
+       "c0": -0.00546667,
+       "scale": "one"
+      }
+     }
+    ],
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 68.1764,
+     "move_mix": {
+      "add": 0.06322650000000002,
+      "delete": 0.06322650000000002,
+      "swap": 0.873547
+     },
+     "sweeps": 48,
+     "locality": 0.707627
+    }
+   },
+   "compact": {
+    "beta": 68.1764,
+    "local_move": "toggle",
+    "locality": 0.707627,
+    "regime": "equilibrium",
+    "swap_share": 0.873547,
+    "sweeps": 48,
+    "terms": [
+     [
+      "degree_square_sum",
+      null,
+      0.0593669,
+      "one",
+      null
+     ],
+     [
+      "square_edge_overlap",
+      null,
+      -0.00546667,
+      "one",
+      null
+     ]
+    ],
+    "zero_temperature": false
+   },
+   "kind": "sees cycles",
+   "read_in_174": {
+    "score": 8,
+    "points": 7,
+    "items": {
+     "d_s": 2,
+     "d_V": 1,
+     "d_B": 1,
+     "d_w": 2,
+     "einstein": 1
+    },
+    "by": "kept",
+    "chain": "bcc",
+    "d": 3.01,
+    "mean_degree": 8.04,
+    "to_n": 65536,
+    "top_n": 65536,
+    "why": "7 of 15: d_s settles, d_V reads at two sizes, d_B reads at two sizes, d_w settles, the Einstein relation reads at two sizes; the lattice start holds, so it counts 0.3",
+    "decision": [
+     "done",
+     "ladder_complete",
+     65536
+    ],
+    "fates": {
+     "bcc": [
+      "holds",
+      0.942
+     ],
+     "cubic": [
+      "fell_apart",
+      null
+     ],
+     "fcc": [
+      "dense",
+      null
+     ],
+     "square": [
+      "fell_apart",
+      null
+     ],
+     "tesseract": [
+      "fell_apart",
+      null
+     ],
+     "triangular": [
+      "fell_apart",
+      null
+     ]
+    },
+    "value_columns": [
+     "n",
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w",
+     "reach",
+     "mean_degree",
+     "giant_fraction",
+     "triangles_per_node",
+     "squares_per_node",
+     "kappa"
+    ],
+    "values": [
+     [
+      64,
+      null,
+      null,
+      null,
+      null,
+      1.333,
+      30.77,
+      1.0,
+      0.0,
+      3285.0,
+      0.0
+     ],
+     [
+      256,
+      null,
+      null,
+      null,
+      null,
+      null,
+      32.01,
+      1.0,
+      27.05,
+      980.0,
+      null
+     ],
+     [
+      1024,
+      3.28,
+      3.632,
+      null,
+      null,
+      4.469,
+      10.33,
+      0.9902,
+      0.0,
+      29.25,
+      -0.02747
+     ],
+     [
+      4096,
+      2.989,
+      3.406,
+      null,
+      null,
+      6.054,
+      5.734,
+      0.6606,
+      0.0,
+      9.564,
+      -0.001968
+     ],
+     [
+      16384,
+      3.065,
+      3.342,
+      2.839,
+      2.129,
+      13.93,
+      7.659,
+      0.9737,
+      0.0,
+      11.59,
+      -0.00811
+     ],
+     [
+      65536,
+      3.001,
+      3.21,
+      3.022,
+      2.074,
+      23.0,
+      8.042,
+      1.0,
+      0.0,
+      12.19,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "label": "H28",
+   "candidate_id": "0a465955dcb03cda846d9281d2b89bb5f8c60c3004aac673def51e0cd63e3cde",
+   "campaign": "4",
+   "spec": {
+    "dsl_version": 1,
+    "init": "empty",
+    "terms": [
+     {
+      "op": "degree_cube_sum",
+      "params": {},
+      "coeff": {
+       "c0": 0.0640169,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "induced_square_count",
+      "params": {},
+      "coeff": {
+       "c0": 1.34164,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "square_edge_overlap",
+      "params": {},
+      "coeff": {
+       "c0": -0.635683,
+       "scale": "one"
+      }
+     }
+    ],
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 1.87681,
+     "move_mix": {
+      "add": 0.3920375,
+      "delete": 0.3920375,
+      "swap": 0.215925
+     },
+     "sweeps": 30,
+     "locality": 0.944175,
+     "zero_temperature": true
+    }
+   },
+   "compact": {
+    "beta": 1.87681,
+    "local_move": "toggle",
+    "locality": 0.944175,
+    "regime": "zero_temperature",
+    "swap_share": 0.215925,
+    "sweeps": 30,
+    "terms": [
+     [
+      "degree_cube_sum",
+      null,
+      0.0640169,
+      "one",
+      null
+     ],
+     [
+      "induced_square_count",
+      null,
+      1.34164,
+      "one",
+      null
+     ],
+     [
+      "square_edge_overlap",
+      null,
+      -0.635683,
+      "one",
+      null
+     ]
+    ],
+    "zero_temperature": true
+   },
+   "kind": "sees cycles",
+   "read_in_174": {
+    "score": 7,
+    "points": 4,
+    "items": {
+     "d_s": 2,
+     "d_V": 2,
+     "d_B": 0,
+     "d_w": 0,
+     "einstein": 0
+    },
+    "by": "lattice",
+    "chain": "bcc",
+    "d": 3.14,
+    "mean_degree": 8.26,
+    "to_n": 16384,
+    "top_n": 16384,
+    "why": "4 of 15: d_s settles, d_V settles; the lattice start changed, so it counts 0.6",
+    "decision": [
+     "run_next",
+     "dimension_shows",
+     16384
+    ],
+    "fates": {
+     "bcc": [
+      "changed",
+      0.802
+     ],
+     "cubic": [
+      "changed",
+      0.85
+     ],
+     "fcc": [
+      "dense",
+      null
+     ],
+     "square": [
+      "fell_apart",
+      null
+     ],
+     "tesseract": [
+      "partly",
+      0.738
+     ],
+     "triangular": [
+      "dense",
+      null
+     ]
+    },
+    "value_columns": [
+     "n",
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w",
+     "reach",
+     "mean_degree",
+     "giant_fraction",
+     "triangles_per_node",
+     "squares_per_node",
+     "kappa"
+    ],
+    "values": [
+     [
+      64,
+      null,
+      null,
+      null,
+      null,
+      null,
+      32.03,
+      1.0,
+      90.33,
+      2105.0,
+      null
+     ],
+     [
+      256,
+      null,
+      null,
+      null,
+      null,
+      null,
+      32.01,
+      1.0,
+      0.0,
+      1008.0,
+      null
+     ],
+     [
+      1024,
+      null,
+      null,
+      null,
+      null,
+      3.0,
+      24.57,
+      1.0,
+      0.0,
+      117.4,
+      -0.06921
+     ],
+     [
+      4096,
+      3.178,
+      3.863,
+      null,
+      null,
+      6.831,
+      9.204,
+      1.0,
+      0.0,
+      15.76,
+      -0.05729
+     ],
+     [
+      16384,
+      3.029,
+      3.458,
+      3.258,
+      2.299,
+      12.71,
+      8.255,
+      1.0,
+      0.0,
+      12.78,
+      -0.01316
+     ]
+    ]
+   }
+  },
+  {
+   "label": "H29",
+   "candidate_id": "1a3a171db53a00e3e0c024aef4dbb7876a93a7784a3818ce59265a9602c4c813",
+   "campaign": "4",
+   "spec": {
+    "dsl_version": 1,
+    "init": "empty",
+    "terms": [
+     {
+      "op": "induced_square_count",
+      "params": {},
+      "coeff": {
+       "c0": -0.3687,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "wedge_count",
+      "params": {},
+      "coeff": {
+       "c0": 0.0808665,
+       "scale": "one"
+      }
+     }
+    ],
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 17.6373,
+     "move_mix": {
+      "add": 0.05703849999999999,
+      "delete": 0.05703849999999999,
+      "swap": 0.885923
+     },
+     "sweeps": 54,
+     "locality": 0.790386
+    }
+   },
+   "compact": {
+    "beta": 17.6373,
+    "local_move": "toggle",
+    "locality": 0.790386,
+    "regime": "equilibrium",
+    "swap_share": 0.885923,
+    "sweeps": 54,
+    "terms": [
+     [
+      "induced_square_count",
+      null,
+      -0.3687,
+      "one",
+      null
+     ],
+     [
+      "wedge_count",
+      null,
+      0.0808665,
+      "one",
+      null
+     ]
+    ],
+    "zero_temperature": false
+   },
+   "kind": "sees cycles",
+   "read_in_174": {
+    "score": 7,
+    "points": 4,
+    "items": {
+     "d_s": 2,
+     "d_V": 2,
+     "d_B": 0,
+     "d_w": 0,
+     "einstein": 0
+    },
+    "by": "lattice",
+    "chain": "bcc",
+    "d": 3.16,
+    "mean_degree": 8.23,
+    "to_n": 16384,
+    "top_n": 16384,
+    "why": "4 of 15: d_s settles, d_V settles; the lattice start changed, so it counts 0.6",
+    "decision": [
+     "run_next",
+     "dimension_shows",
+     16384
+    ],
+    "fates": {
+     "bcc": [
+      "changed",
+      0.818
+     ],
+     "cubic": [
+      "changed",
+      0.823
+     ],
+     "fcc": [
+      "dense",
+      null
+     ],
+     "square": [
+      "melted",
+      0.196
+     ],
+     "tesseract": [
+      "partly",
+      0.738
+     ],
+     "triangular": [
+      "melted",
+      0.248
+     ]
+    },
+    "value_columns": [
+     "n",
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w",
+     "reach",
+     "mean_degree",
+     "giant_fraction",
+     "triangles_per_node",
+     "squares_per_node",
+     "kappa"
+    ],
+    "values": [
+     [
+      64,
+      null,
+      null,
+      null,
+      null,
+      1.859,
+      28.77,
+      1.0,
+      0.0,
+      2510.0,
+      0.0
+     ],
+     [
+      256,
+      null,
+      null,
+      null,
+      null,
+      null,
+      32.01,
+      1.0,
+      0.0,
+      1239.0,
+      null
+     ],
+     [
+      1024,
+      null,
+      null,
+      null,
+      null,
+      3.995,
+      12.69,
+      1.0,
+      0.0,
+      39.17,
+      -0.06142
+     ],
+     [
+      4096,
+      3.116,
+      3.615,
+      null,
+      null,
+      7.406,
+      8.842,
+      1.0,
+      0.0,
+      15.13,
+      -0.02344
+     ],
+     [
+      16384,
+      3.021,
+      3.435,
+      3.298,
+      2.355,
+      12.95,
+      8.229,
+      1.0,
+      0.0,
+      12.73,
+      -0.01081
+     ]
+    ]
+   }
+  },
+  {
+   "label": "H30",
+   "candidate_id": "76ee17254ca9b32b238143fbdb31807ff2927c32f147ba7d2cf186c8dae62311",
+   "campaign": "1",
+   "spec": {
+    "dsl_version": 1,
+    "init": "empty",
+    "terms": [
+     {
+      "op": "degree_anchor",
+      "params": {
+       "k": 2
+      },
+      "coeff": {
+       "c0": -17.52,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "degree_fourth_sum",
+      "params": {},
+      "coeff": {
+       "c0": 0.363247,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "square_edge_overlap",
+      "params": {},
+      "coeff": {
+       "c0": -6.42359,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "wedge_count",
+      "params": {},
+      "coeff": {
+       "c0": 0.0248001,
+       "scale": "one"
+      }
+     }
+    ],
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 1.56232,
+     "move_mix": {
+      "add": 0.27712349999999997,
+      "delete": 0.27712349999999997,
+      "swap": 0.445753
+     },
+     "sweeps": 30,
+     "locality": 0.63208,
+     "zero_temperature": true
+    }
+   },
+   "compact": {
+    "beta": 1.56232,
+    "local_move": "toggle",
+    "locality": 0.63208,
+    "regime": "zero_temperature",
+    "swap_share": 0.445753,
+    "sweeps": 30,
+    "terms": [
+     [
+      "degree_anchor",
+      2,
+      -17.52,
+      "one",
+      null
+     ],
+     [
+      "degree_fourth_sum",
+      null,
+      0.363247,
+      "one",
+      null
+     ],
+     [
+      "square_edge_overlap",
+      null,
+      -6.42359,
+      "one",
+      null
+     ],
+     [
+      "wedge_count",
+      null,
+      0.0248001,
+      "one",
+      null
+     ]
+    ],
+    "zero_temperature": true
+   },
+   "kind": "sees cycles",
+   "read_in_174": {
+    "score": 7,
+    "points": 4,
+    "items": {
+     "d_s": 2,
+     "d_V": 2,
+     "d_B": 0,
+     "d_w": 0,
+     "einstein": 0
+    },
+    "by": "lattice",
+    "chain": "bcc",
+    "d": 3.18,
+    "mean_degree": 8.59,
+    "to_n": 16384,
+    "top_n": 16384,
+    "why": "4 of 15: d_s settles, d_V settles; the lattice start partly, so it counts 0.6",
+    "decision": [
+     "run_next",
+     "dimension_shows",
+     16384
+    ],
+    "fates": {
+     "bcc": [
+      "partly",
+      0.758
+     ],
+     "cubic": [
+      "fell_apart",
+      null
+     ],
+     "fcc": [
+      "dense",
+      null
+     ],
+     "square": [
+      "fell_apart",
+      -0.554
+     ],
+     "tesseract": [
+      "fell_apart",
+      null
+     ],
+     "triangular": [
+      "dense",
+      null
+     ]
+    },
+    "value_columns": [
+     "n",
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w",
+     "reach",
+     "mean_degree",
+     "giant_fraction",
+     "triangles_per_node",
+     "squares_per_node",
+     "kappa"
+    ],
+    "values": [
+     [
+      64,
+      null,
+      null,
+      null,
+      null,
+      1.0,
+      32.0,
+      1.0,
+      0.0,
+      3844.0,
+      0.0
+     ],
+     [
+      256,
+      null,
+      null,
+      null,
+      null,
+      null,
+      32.01,
+      1.0,
+      0.0,
+      1020.0,
+      null
+     ],
+     [
+      1024,
+      null,
+      null,
+      null,
+      null,
+      null,
+      32.0,
+      1.0,
+      0.0,
+      524.8,
+      null
+     ],
+     [
+      4096,
+      3.122,
+      3.711,
+      null,
+      null,
+      6.648,
+      10.65,
+      1.0,
+      0.0,
+      27.72,
+      -0.003868
+     ],
+     [
+      16384,
+      3.042,
+      3.423,
+      3.312,
+      2.318,
+      12.07,
+      8.591,
+      1.0,
+      0.0,
+      14.84,
+      -0.0004817
+     ]
+    ]
+   }
+  },
+  {
+   "label": "H31",
+   "candidate_id": "3931d03e8edfb663dda870bffc58f44d16d65b936cc0e845809e2abe1492afe2",
+   "campaign": "3",
+   "spec": {
+    "dsl_version": 1,
+    "init": "empty",
+    "terms": [
+     {
+      "op": "degree_fourth_sum",
+      "params": {},
+      "coeff": {
+       "c0": 0.0050832,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "induced_square_count",
+      "params": {},
+      "coeff": {
+       "c0": -2.54721,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "wedge_count",
+      "params": {},
+      "coeff": {
+       "c0": -10.227,
+       "scale": "one"
+      }
+     }
+    ],
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 1.2167,
+     "move_mix": {
+      "add": 0.35367550000000003,
+      "delete": 0.35367550000000003,
+      "swap": 0.292649
+     },
+     "sweeps": 63,
+     "locality": 0.649082
+    }
+   },
+   "compact": {
+    "beta": 1.2167,
+    "local_move": "toggle",
+    "locality": 0.649082,
+    "regime": "equilibrium",
+    "swap_share": 0.292649,
+    "sweeps": 63,
+    "terms": [
+     [
+      "degree_fourth_sum",
+      null,
+      0.0050832,
+      "one",
+      null
+     ],
+     [
+      "induced_square_count",
+      null,
+      -2.54721,
+      "one",
+      null
+     ],
+     [
+      "wedge_count",
+      null,
+      -10.227,
+      "one",
+      null
+     ]
+    ],
+    "zero_temperature": false
+   },
+   "kind": "sees cycles",
+   "read_in_174": {
+    "score": 5,
+    "points": 3,
+    "items": {
+     "d_s": 1,
+     "d_V": 2,
+     "d_B": 0,
+     "d_w": 0,
+     "einstein": 0
+    },
+    "by": "lattice",
+    "chain": "bcc",
+    "d": 4.02,
+    "mean_degree": 25.98,
+    "to_n": 16384,
+    "top_n": 16384,
+    "why": "3 of 15: d_s reads at two sizes, d_V settles; the lattice start melted, so it counts 0.6",
+    "decision": [
+     "run_next",
+     "salted",
+     16384
+    ],
+    "fates": {
+     "bcc": [
+      "melted",
+      0.154
+     ],
+     "cubic": [
+      "melted",
+      -0.174
+     ],
+     "fcc": [
+      "melted",
+      0.34
+     ],
+     "square": [
+      "melted",
+      -0.333
+     ],
+     "tesseract": [
+      "melted",
+      -0.005
+     ],
+     "triangular": [
+      "melted",
+      -0.188
+     ]
+    },
+    "value_columns": [
+     "n",
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w",
+     "reach",
+     "mean_degree",
+     "giant_fraction",
+     "triangles_per_node",
+     "squares_per_node",
+     "kappa"
+    ],
+    "values": [
+     [
+      64,
+      null,
+      null,
+      null,
+      null,
+      1.0,
+      31.98,
+      1.0,
+      0.0,
+      3839.0,
+      0.0
+     ],
+     [
+      256,
+      null,
+      null,
+      null,
+      null,
+      null,
+      27.13,
+      1.0,
+      2.38,
+      462.3,
+      null
+     ],
+     [
+      1024,
+      null,
+      null,
+      null,
+      null,
+      3.091,
+      27.3,
+      1.0,
+      0.2949,
+      864.0,
+      0.0001157
+     ],
+     [
+      4096,
+      2.785,
+      4.173,
+      null,
+      null,
+      4.581,
+      27.09,
+      1.0,
+      0.1762,
+      802.6,
+      0.0006703
+     ],
+     [
+      16384,
+      3.412,
+      4.625,
+      null,
+      null,
+      5.979,
+      25.98,
+      1.0,
+      0.7673,
+      623.8,
+      0.004348
+     ]
+    ]
+   }
+  },
+  {
+   "label": "H32",
+   "candidate_id": "5b8b28ea4c8f93041f49f5148737433541f4e7d64befa82e0eb686a540e24261",
+   "campaign": "7",
+   "spec": {
+    "dsl_version": 1,
+    "init": "empty",
+    "terms": [
+     {
+      "op": "degree_cube_sum",
+      "params": {},
+      "coeff": {
+       "c0": 0.123691,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "edge_count",
+      "params": {},
+      "coeff": {
+       "c0": -0.175393,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "square_edge_overlap",
+      "params": {},
+      "coeff": {
+       "c0": -3.55352,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "wedge_count",
+      "params": {},
+      "coeff": {
+       "c0": 0.0385918,
+       "scale": "one"
+      }
+     }
+    ],
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 16.728,
+     "move_mix": {
+      "add": 0.09275299999999997,
+      "delete": 0.09275299999999997,
+      "swap": 0.814494
+     },
+     "sweeps": 30,
+     "locality": 0.348428,
+     "zero_temperature": true
+    }
+   },
+   "compact": {
+    "beta": 16.728,
+    "local_move": "toggle",
+    "locality": 0.348428,
+    "regime": "zero_temperature",
+    "swap_share": 0.814494,
+    "sweeps": 30,
+    "terms": [
+     [
+      "degree_cube_sum",
+      null,
+      0.123691,
+      "one",
+      null
+     ],
+     [
+      "edge_count",
+      null,
+      -0.175393,
+      "one",
+      null
+     ],
+     [
+      "square_edge_overlap",
+      null,
+      -3.55352,
+      "one",
+      null
+     ],
+     [
+      "wedge_count",
+      null,
+      0.0385918,
+      "one",
+      null
+     ]
+    ],
+    "zero_temperature": true
+   },
+   "kind": "sees cycles",
+   "read_in_174": {
+    "score": 5,
+    "points": 3,
+    "items": {
+     "d_s": 1,
+     "d_V": 2,
+     "d_B": 0,
+     "d_w": 0,
+     "einstein": 0
+    },
+    "by": "lattice",
+    "chain": "bcc",
+    "d": 3.69,
+    "mean_degree": 9.14,
+    "to_n": 16384,
+    "top_n": 16384,
+    "why": "3 of 15: d_s reads at two sizes, d_V settles; the lattice start melted, so it counts 0.6",
+    "decision": [
+     "run_next",
+     "salted",
+     16384
+    ],
+    "fates": {
+     "bcc": [
+      "melted",
+      0.498
+     ],
+     "cubic": [
+      "partly",
+      0.631
+     ],
+     "fcc": [
+      "dense",
+      null
+     ],
+     "square": [
+      "changed",
+      1.223
+     ],
+     "tesseract": [
+      "melted",
+      0.427
+     ],
+     "triangular": [
+      "dense",
+      null
+     ]
+    },
+    "value_columns": [
+     "n",
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w",
+     "reach",
+     "mean_degree",
+     "giant_fraction",
+     "triangles_per_node",
+     "squares_per_node",
+     "kappa"
+    ],
+    "values": [
+     [
+      64,
+      null,
+      null,
+      null,
+      null,
+      1.0,
+      31.94,
+      1.0,
+      0.0,
+      3814.0,
+      0.0
+     ],
+     [
+      256,
+      null,
+      null,
+      null,
+      null,
+      null,
+      32.01,
+      1.0,
+      0.0,
+      1153.0,
+      null
+     ],
+     [
+      1024,
+      null,
+      null,
+      null,
+      null,
+      null,
+      32.0,
+      1.0,
+      18.04,
+      237.7,
+      null
+     ],
+     [
+      4096,
+      3.465,
+      4.097,
+      null,
+      null,
+      6.328,
+      24.37,
+      1.0,
+      17.74,
+      210.7,
+      -0.07696
+     ],
+     [
+      16384,
+      3.199,
+      4.176,
+      null,
+      null,
+      8.927,
+      9.145,
+      1.0,
+      0.0,
+      14.77,
+      -0.08062
+     ]
+    ]
+   }
+  },
+  {
+   "label": "H33",
+   "candidate_id": "170d0fd45dbbfab4bdb9026e0b0e8ffbdee8a82030e0011c6efbfca8d934b921",
+   "campaign": "10",
+   "spec": {
+    "dsl_version": 1,
+    "init": "empty",
+    "terms": [
+     {
+      "op": "degree_anchor",
+      "params": {
+       "k": 6
+      },
+      "coeff": {
+       "c0": 0.973303,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "degree_neighbor_gradient",
+      "params": {},
+      "coeff": {
+       "c0": 0.533845,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "induced_square_count",
+      "params": {},
+      "coeff": {
+       "c0": -1.60977,
+       "scale": "one"
+      }
+     }
+    ],
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 11.917,
+     "move_mix": {
+      "add": 0.4078325,
+      "delete": 0.4078325,
+      "swap": 0.184335
+     },
+     "sweeps": 30,
+     "locality": 0.574197,
+     "zero_temperature": true
+    }
+   },
+   "compact": {
+    "beta": 11.917,
+    "local_move": "toggle",
+    "locality": 0.574197,
+    "regime": "zero_temperature",
+    "swap_share": 0.184335,
+    "sweeps": 30,
+    "terms": [
+     [
+      "degree_anchor",
+      6,
+      0.973303,
+      "one",
+      null
+     ],
+     [
+      "degree_neighbor_gradient",
+      null,
+      0.533845,
+      "one",
+      null
+     ],
+     [
+      "induced_square_count",
+      null,
+      -1.60977,
+      "one",
+      null
+     ]
+    ],
+    "zero_temperature": true
+   },
+   "kind": "sees cycles",
+   "read_in_174": {
+    "score": 3,
+    "points": 3,
+    "items": {
+     "d_s": 1,
+     "d_V": 2,
+     "d_B": 0,
+     "d_w": 0,
+     "einstein": 0
+    },
+    "by": "kept",
+    "chain": "tesseract",
+    "d": 3.87,
+    "mean_degree": 8.0,
+    "to_n": 16384,
+    "top_n": 16384,
+    "why": "3 of 15: d_s reads at two sizes, d_V settles; the lattice start holds, so it counts 0.3",
+    "decision": [
+     "run_next",
+     "longer_chain",
+     16384
+    ],
+    "fates": {
+     "bcc": [
+      "unmoved",
+      1.0
+     ],
+     "cubic": [
+      "melted",
+      0.449
+     ],
+     "fcc": [
+      "melted",
+      0.351
+     ],
+     "square": [
+      "melted",
+      -0.064
+     ],
+     "tesseract": [
+      "holds",
+      0.998
+     ],
+     "triangular": [
+      "melted",
+      0.005
+     ]
+    },
+    "value_columns": [
+     "n",
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w",
+     "reach",
+     "mean_degree",
+     "giant_fraction",
+     "triangles_per_node",
+     "squares_per_node",
+     "kappa"
+    ],
+    "values": [
+     [
+      64,
+      null,
+      null,
+      null,
+      null,
+      1.0,
+      32.0,
+      1.0,
+      0.0,
+      3844.0,
+      0.0
+     ],
+     [
+      256,
+      null,
+      null,
+      null,
+      null,
+      null,
+      8.0,
+      1.0,
+      0.0,
+      7.0,
+      null
+     ],
+     [
+      1024,
+      4.215,
+      3.567,
+      null,
+      null,
+      5.0,
+      8.001,
+      1.0,
+      0.0,
+      6.071,
+      -0.09377
+     ],
+     [
+      4096,
+      4.233,
+      3.894,
+      null,
+      null,
+      6.987,
+      7.999,
+      1.0,
+      0.0004069,
+      6.076,
+      -0.09765
+     ],
+     [
+      16384,
+      3.95,
+      3.866,
+      3.517,
+      null,
+      10.98,
+      8.0,
+      1.0,
+      0.0,
+      6.001,
+      -0.0125
+     ]
+    ]
+   }
+  },
+  {
+   "label": "H34",
+   "candidate_id": "77fdc17462137e317aa18bc100bb52c0d930be8d41bb93fc5589b5a37bb7f065",
+   "campaign": "4",
+   "spec": {
+    "dsl_version": 1,
+    "init": "empty",
+    "terms": [
+     {
+      "op": "degree_neighbor_gradient",
+      "params": {},
+      "coeff": {
+       "c0": 5.07641,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "triangle_count",
+      "params": {},
+      "coeff": {
+       "c0": -16.0989,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "wedge_count",
+      "params": {},
+      "coeff": {
+       "c0": 0.048028,
+       "scale": "one"
+      }
+     }
+    ],
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 2.8968,
+     "move_mix": {
+      "add": 0.4923257,
+      "delete": 0.4923257,
+      "swap": 0.0153486
+     },
+     "sweeps": 30,
+     "locality": 0.245093,
+     "zero_temperature": true
+    }
+   },
+   "compact": {
+    "beta": 2.8968,
+    "local_move": "toggle",
+    "locality": 0.245093,
+    "regime": "zero_temperature",
+    "swap_share": 0.0153486,
+    "sweeps": 30,
+    "terms": [
+     [
+      "degree_neighbor_gradient",
+      null,
+      5.07641,
+      "one",
+      null
+     ],
+     [
+      "triangle_count",
+      null,
+      -16.0989,
+      "one",
+      null
+     ],
+     [
+      "wedge_count",
+      null,
+      0.048028,
+      "one",
+      null
+     ]
+    ],
+    "zero_temperature": true
+   },
+   "kind": "sees cycles",
+   "read_in_174": {
+    "score": 3,
+    "points": 4,
+    "items": {
+     "d_s": 2,
+     "d_V": 2,
+     "d_B": 0,
+     "d_w": 0,
+     "einstein": 0
+    },
+    "by": "kept",
+    "chain": "fcc",
+    "d": 2.92,
+    "mean_degree": 12.0,
+    "to_n": 16384,
+    "top_n": 16384,
+    "why": "4 of 15: d_s settles, d_V settles; the lattice start holds, so it counts 0.3",
+    "decision": [
+     "run_next",
+     "longer_chain",
+     16384
+    ],
+    "fates": {
+     "bcc": [
+      "melted",
+      0.0
+     ],
+     "cubic": [
+      "melted",
+      0.0
+     ],
+     "fcc": [
+      "holds",
+      1.0
+     ],
+     "square": [
+      "melted",
+      -0.222
+     ],
+     "tesseract": [
+      "melted",
+      0.0
+     ],
+     "triangular": [
+      "unmoved",
+      1.0
+     ]
+    },
+    "value_columns": [
+     "n",
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w",
+     "reach",
+     "mean_degree",
+     "giant_fraction",
+     "triangles_per_node",
+     "squares_per_node",
+     "kappa"
+    ],
+    "values": [
+     [
+      64,
+      null,
+      null,
+      null,
+      null,
+      2.0,
+      12.0,
+      1.0,
+      8.005,
+      34.45,
+      0.3336
+     ],
+     [
+      256,
+      null,
+      null,
+      null,
+      null,
+      3.0,
+      12.0,
+      1.0,
+      8.0,
+      32.96,
+      0.3333
+     ],
+     [
+      1024,
+      3.064,
+      2.957,
+      null,
+      null,
+      5.0,
+      12.0,
+      1.0,
+      8.0,
+      32.99,
+      0.3333
+     ],
+     [
+      4096,
+      2.932,
+      2.986,
+      null,
+      null,
+      8.0,
+      12.0,
+      1.0,
+      8.0,
+      32.99,
+      0.3333
+     ],
+     [
+      16384,
+      3.003,
+      2.994,
+      2.847,
+      1.952,
+      13.0,
+      12.0,
+      1.0,
+      8.0,
+      33.0,
+      0.3333
+     ]
+    ]
+   }
+  },
+  {
+   "label": "H35",
+   "candidate_id": "abea7decc912a5e6abf6dc94ef74fc3c73a6742f498f4693eb1e09016b55257a",
+   "campaign": "2",
+   "spec": {
+    "dsl_version": 1,
+    "init": "empty",
+    "terms": [
+     {
+      "op": "degree_cube_sum",
+      "params": {},
+      "coeff": {
+       "c0": 0.226127,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "degree_neighbor_gradient",
+      "params": {},
+      "coeff": {
+       "c0": 13.5928,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "triangle_count",
+      "params": {},
+      "coeff": {
+       "c0": -12.1882,
+       "scale": "one"
+      }
+     }
+    ],
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 10.9309,
+     "move_mix": {
+      "add": 0.29625250000000003,
+      "delete": 0.29625250000000003,
+      "swap": 0.407495
+     },
+     "sweeps": 95,
+     "locality": 0.202489
+    }
+   },
+   "compact": {
+    "beta": 10.9309,
+    "local_move": "toggle",
+    "locality": 0.202489,
+    "regime": "equilibrium",
+    "swap_share": 0.407495,
+    "sweeps": 95,
+    "terms": [
+     [
+      "degree_cube_sum",
+      null,
+      0.226127,
+      "one",
+      null
+     ],
+     [
+      "degree_neighbor_gradient",
+      null,
+      13.5928,
+      "one",
+      null
+     ],
+     [
+      "triangle_count",
+      null,
+      -12.1882,
+      "one",
+      null
+     ]
+    ],
+    "zero_temperature": false
+   },
+   "kind": "sees cycles",
+   "read_in_174": {
+    "score": 3,
+    "points": 4,
+    "items": {
+     "d_s": 2,
+     "d_V": 2,
+     "d_B": 0,
+     "d_w": 0,
+     "einstein": 0
+    },
+    "by": "kept",
+    "chain": "fcc",
+    "d": 2.95,
+    "mean_degree": 12.0,
+    "to_n": 16384,
+    "top_n": 16384,
+    "why": "4 of 15: d_s settles, d_V settles; the lattice start holds, so it counts 0.3",
+    "decision": [
+     "run_next",
+     "longer_chain",
+     16384
+    ],
+    "fates": {
+     "bcc": [
+      "melted",
+      0.155
+     ],
+     "cubic": [
+      "melted",
+      0.14
+     ],
+     "fcc": [
+      "holds",
+      1.0
+     ],
+     "square": [
+      "melted",
+      0.119
+     ],
+     "tesseract": [
+      "melted",
+      0.229
+     ],
+     "triangular": [
+      "holds",
+      0.919
+     ]
+    },
+    "value_columns": [
+     "n",
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w",
+     "reach",
+     "mean_degree",
+     "giant_fraction",
+     "triangles_per_node",
+     "squares_per_node",
+     "kappa"
+    ],
+    "values": [
+     [
+      64,
+      null,
+      null,
+      null,
+      null,
+      3.083,
+      12.0,
+      1.0,
+      18.55,
+      131.3,
+      0.7621
+     ],
+     [
+      256,
+      null,
+      null,
+      null,
+      null,
+      3.003,
+      12.0,
+      1.0,
+      8.551,
+      37.39,
+      0.3441
+     ],
+     [
+      1024,
+      3.09,
+      3.07,
+      null,
+      null,
+      5.0,
+      12.0,
+      1.0,
+      8.022,
+      32.57,
+      0.3342
+     ],
+     [
+      4096,
+      2.961,
+      3.092,
+      null,
+      null,
+      8.0,
+      12.0,
+      1.0,
+      8.009,
+      32.68,
+      0.3337
+     ],
+     [
+      16384,
+      3.023,
+      3.058,
+      2.875,
+      2.027,
+      13.0,
+      12.0,
+      1.0,
+      8.0,
+      32.93,
+      0.3333
+     ]
+    ]
+   }
+  }
+ ]
+}

@@ -1,0 +1,207 @@
+{
+ "contract": "gsd-study-design-1",
+ "study": "172",
+ "name": "study 172, the bigger baseline: 2,500 blind laws free of N on the eight starts in one batch, as 171 but with one die a law a size: only the empty, too dense and disconnected gates, each read on three sizes in a row, and the budget stopping a law, every other gate recording, every law they pass to 65,536",
+ "question": "The operator's question (2026-10-13): can simple local rules make a graph grow a real dimension, like space; which keep one they are given; and can the null map predict a law before it runs? Study 169 is the first study on the final probes, the installed table and the deterministic fleet (800 to 806), run on 813, its data the first clean data (the operator, 2026-11-19 21:11: \"This way, we immediately have clean data from our latest codebase\").",
+ "decided": {
+  "why_now": "designed while 171 runs, so that 172 is ready when 171's final bundle has been read (the operator, 2026-11-21 02:59: \"do we really need to wait for study 171 final bundle? cant we instead already move on to designing study 172 instead? ... perhaps we'll make a few new tweaks to the gates, but no reason to wait with the rest of the work no?\"); a change to the gates that 171's final bundle calls for is made in this file before 172's first start, and the build that makes it says so",
+  "aim": "the bigger baseline: 171's setup at two and a half times the laws, only the empty, too dense and disconnected gates and the budget stopping a law, every other gate recording its verdict (the operator, 2026-11-21 02:59, asked as a choice: \"Bigger baseline\")",
+  "one_die": "one random pick a law a size, read by every gate (`engine.one_die`, 835): a law that two of the three gates would hold back goes on at the testing share, not at that share squared; in 171 each gate drew its own pick, so of the 359 laws both the empty and the disconnected gate would hold back at 1,024, 2 went on, where 24 of the 252 that one gate alone would hold did (171's progress bundle of 2026-11-21 01:32Z, each gate replayed alone); 171's decisions replayed with one die: at 1,024, 45 laws that were stopped go on and 28 that went on stop, a handful each way above (the operator, 2026-11-21 02:59, asked as a choice: \"Yes, one pick\")",
+  "size": "2,500 laws in one batch (the operator, 2026-11-21 02:59, asked as a choice: \"2,500 laws\"): about 880 core-hours (650 to 1,300), two to three days on the host's 16 workers, estimated from 171's progress bundle (161 core-hours at 2026-11-21 01:32Z with 128 laws read at 65,536 at about 0.9 core-hours each; about 345 core-hours for the whole of 171)",
+  "repeats_a_known_result": "the gate named seen_enough until 835 records only and marks no law, its share 1 as in 171 (the operator, 2026-11-21 02:32: a gate to keep, not acting until the other gates are tuned)",
+  "gate_shares": "171's: only the empty, too dense and disconnected gates act, with the learned let-through from 256; every other gate's share is 1",
+  "fact_gates": "171's: the empty, too dense and disconnected gates decide on three sizes in a row, from 1,024 (`engine.fact_sizes_in_a_row`, 828)",
+  "budgets": "171's: four times 169's and 170's at 4,096 and 16,384 (1.6e12 and 8.0e12 units), the rest as theirs",
+  "drawn": "the search seed drawn with Python's secrets.randbits(63) at 2026-11-21T02:17:09Z; the grid, the starts, the ladder and the rest of the engine block are 171's, as the operator's choice of 171's setup asks"
+ },
+ "axes": {
+  "zero_temperature": "drawn",
+  "dense_cap": 32.0
+ },
+ "search_seeds": [
+  4849166326240910463
+ ],
+ "ladder": {
+  "base": [
+   64,
+   256,
+   1024,
+   4096
+  ],
+  "deep": [
+   16384,
+   65536
+  ],
+  "seeds": 3,
+  "budgets": [
+   [
+    64,
+    400000000000
+   ],
+   [
+    256,
+    400000000000
+   ],
+   [
+    1024,
+    400000000000
+   ],
+   [
+    4096,
+    1600000000000
+   ],
+   [
+    16384,
+    8000000000000
+   ],
+   [
+    65536,
+    24000000000000
+   ]
+  ]
+ },
+ "law_budget": 2500,
+ "starts": [
+  {
+   "name": "random",
+   "family": "random_at_drawn_degree"
+  },
+  {
+   "name": "square",
+   "family": "periodic_square_lattice"
+  },
+  {
+   "name": "triangular",
+   "family": "periodic_triangular_lattice"
+  },
+  {
+   "name": "cubic",
+   "family": "periodic_cubic_quotient"
+  },
+  {
+   "name": "bcc",
+   "family": "periodic_body_centred_cubic_lattice"
+  },
+  {
+   "name": "fcc",
+   "family": "periodic_face_centred_cubic_lattice"
+  },
+  {
+   "name": "tesseract",
+   "family": "periodic_tesseract_quotient"
+  }
+ ],
+ "engine": {
+  "every_chain": true,
+  "dimension_extends": true,
+  "let_through_rule": "gsd-let-through-1",
+  "let_through_from": 256,
+  "fact_sizes_in_a_row": 3,
+  "one_die": true,
+  "confirm_after": 100,
+  "known_result_after": 100,
+  "known_result_from": 256,
+  "kept_shape_park": true,
+  "steady_chain_gate": true,
+  "gate_shares": [
+   [
+    "kept_shape",
+    1.0
+   ],
+   [
+    "no_finite_dimension",
+    1.0
+   ],
+   [
+    "no_giant_component",
+    1.0
+   ],
+   [
+    "no_plateau",
+    1.0
+   ],
+   [
+    "no_reading",
+    1.0
+   ],
+   [
+    "no_second_rung",
+    1.0
+   ],
+   [
+    "no_steady_chain",
+    1.0
+   ],
+   [
+    "not_promising",
+    1.0
+   ],
+   [
+    "nothing_read",
+    1.0
+   ],
+   [
+    "reading_lost",
+    1.0
+   ],
+   [
+    "repeats_a_known_result",
+    1.0
+   ],
+   [
+    "starts_alike",
+    1.0
+   ],
+   [
+    "starts_apart_by_history",
+    1.0
+   ],
+   [
+    "starts_apart_twice",
+    1.0
+   ],
+   [
+    "starts_shape_unread",
+    1.0
+   ],
+   [
+    "unsettled",
+    1.0
+   ],
+   [
+    "unsettled_twice",
+    1.0
+   ]
+  ]
+ },
+ "limits": {
+  "mean_degree_cap_armed_from_n": 64
+ },
+ "starts_reading": {
+  "hold_structure": true,
+  "lattice_chains_meet": false
+ },
+ "finds": true,
+ "campaigns": [
+  {
+   "label": "laws free of N, drawn blind, the bigger baseline",
+   "kind": "blind",
+   "grid": {
+    "local_moves": [
+     "toggle"
+    ],
+    "scales": [
+     "one"
+    ],
+    "magnitudes": {
+     "min": 0.005,
+     "max": 20.0,
+     "spacing": "log"
+    }
+   }
+  }
+ ],
+ "terms_left_out": [
+  "ollivier_curvature"
+ ]
+}

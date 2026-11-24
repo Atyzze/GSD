@@ -1,0 +1,184 @@
+{
+ "contract": "gsd-bundle-growth-1",
+ "study_id": "171",
+ "build_number": 834,
+ "built_utc": "2026-11-21T01:32:29Z",
+ "read_utc": {
+  "anchors": "2026-11-21T01:32:29Z",
+  "counts": "2026-11-21T01:32:29Z",
+  "fleet_resumed_utc": "2026-11-21T01:32:25Z",
+  "tables": "2026-11-21T01:32:30Z"
+ },
+ "bytes": 60616027,
+ "laws": 1005,
+ "tables": {
+  "decisions.ndjson.gz": {
+   "bytes": 8927372,
+   "raw_bytes": 134830935,
+   "rows": 4722
+  },
+  "draws.ndjson.gz": {
+   "bytes": 58342,
+   "raw_bytes": 486034,
+   "rows": 2950
+  },
+  "laws.ndjson.gz": {
+   "bytes": 62527,
+   "raw_bytes": 715976,
+   "rows": 1005
+  },
+  "rungs.ndjson.gz": {
+   "bytes": 159494,
+   "raw_bytes": 2892232,
+   "rows": 3707
+  }
+ },
+ "parts": {
+  "campaign_1_reports_2026-11-21T01-32-09Z_bf939514": {
+   "bytes": 41294225,
+   "cycle_seconds": 27.91,
+   "controller": {
+    "pass_seconds": 0.015,
+    "passes_total": 15441,
+    "passes_idle": 13280,
+    "rest_seconds": 8.0
+   }
+  },
+  "campaign_2_reports_2026-11-21T01-31-42Z_43ec8862": {
+   "bytes": 9431848,
+   "cycle_seconds": 0.93,
+   "controller": null
+  }
+ },
+ "readers": {
+  "read_bundle": {
+   "seconds": 0.9,
+   "peak_bytes": 152981504,
+   "exit": 0
+  },
+  "replay_bundle": {
+   "seconds": 6.3,
+   "peak_bytes": 40968192,
+   "exit": 0
+  },
+  "counters_reading": {
+   "seconds": 10.6,
+   "peak_bytes": 470523904,
+   "exit": 0
+  },
+  "study_172_reading": {
+   "seconds": 12.5,
+   "peak_bytes": 470794240,
+   "exit": 1
+  },
+  "cap_reading": {
+   "seconds": 2.3,
+   "peak_bytes": 92004352,
+   "exit": 0
+  },
+  "budget_reading": {
+   "seconds": 1.2,
+   "peak_bytes": 230612992,
+   "exit": 0
+  }
+ },
+ "quantities": {
+  "bytes": 60616027,
+  "decisions_raw_bytes": 134830935,
+  "read_bundle.seconds": 0.9,
+  "read_bundle.peak_bytes": 152981504,
+  "replay_bundle.seconds": 6.3,
+  "replay_bundle.peak_bytes": 40968192,
+  "counters_reading.seconds": 10.6,
+  "counters_reading.peak_bytes": 470523904,
+  "study_172_reading.seconds": 12.5,
+  "study_172_reading.peak_bytes": 470794240,
+  "cap_reading.seconds": 2.3,
+  "cap_reading.peak_bytes": 92004352,
+  "budget_reading.seconds": 1.2,
+  "budget_reading.peak_bytes": 230612992
+ },
+ "against": null,
+ "scaled": {
+  "10000": {
+   "ratio": 9.95,
+   "readers": {
+    "read_bundle": {
+     "seconds": 9.0,
+     "peak_bytes": 1522204019,
+     "fits_the_sandbox": true
+    },
+    "replay_bundle": {
+     "seconds": 62.7,
+     "peak_bytes": 407643701,
+     "fits_the_sandbox": true
+    },
+    "counters_reading": {
+     "seconds": 105.5,
+     "peak_bytes": 4681829890,
+     "fits_the_sandbox": true
+    },
+    "study_172_reading": {
+     "seconds": 124.4,
+     "peak_bytes": 4684519800,
+     "fits_the_sandbox": true
+    },
+    "cap_reading": {
+     "seconds": 22.9,
+     "peak_bytes": 915466189,
+     "fits_the_sandbox": true
+    },
+    "budget_reading": {
+     "seconds": 11.9,
+     "peak_bytes": 2294656636,
+     "fits_the_sandbox": true
+    }
+   },
+   "bytes": 603144547,
+   "decisions_raw_bytes": 1341601343,
+   "how": [
+    "in proportion to the laws, an upper bound"
+   ]
+  },
+  "100000": {
+   "ratio": 99.5,
+   "readers": {
+    "read_bundle": {
+     "seconds": 89.6,
+     "peak_bytes": 15222040199,
+     "fits_the_sandbox": false
+    },
+    "replay_bundle": {
+     "seconds": 626.9,
+     "peak_bytes": 4076437014,
+     "fits_the_sandbox": true
+    },
+    "counters_reading": {
+     "seconds": 1054.7,
+     "peak_bytes": 46818298905,
+     "fits_the_sandbox": false
+    },
+    "study_172_reading": {
+     "seconds": 1243.8,
+     "peak_bytes": 46845198009,
+     "fits_the_sandbox": false
+    },
+    "cap_reading": {
+     "seconds": 228.9,
+     "peak_bytes": 9154661890,
+     "fits_the_sandbox": false
+    },
+    "budget_reading": {
+     "seconds": 119.4,
+     "peak_bytes": 22946566368,
+     "fits_the_sandbox": false
+    }
+   },
+   "bytes": 6031445472,
+   "decisions_raw_bytes": 13416013432,
+   "how": [
+    "in proportion to the laws, an upper bound"
+   ]
+  }
+ }
+}

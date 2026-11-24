@@ -1,0 +1,27 @@
+{
+ "contract": "gsd-study-criterion-1",
+ "study": "171",
+ "committed_utc": "2026-11-20T10:39:56Z",
+ "committed_before": "study 171's first start, on any host; revised on 828 before any start, for the fact gates on three sizes in a row",
+ "design": "graph_scale_dynamics/resources/readings/study_171_design.json",
+ "read_for": "the baseline, read whole from its bundle on the build it reaches (docs/OPERATIONS.md, \"The pilots\"): what a law reads to 65,536 when only the empty, too dense and disconnected gates and the budget stop it, what every other gate would have withheld and what those laws read and score, and what the larger budgets buy against studies 169 and 170",
+ "predicted": [
+  "R1: every decision in the bundle replays (tools/replay_bundle.py, 0 that differ)",
+  "R2: no zero-temperature seed is classed OPERATIONAL_UNRESOLVED after a pass at the cap (807)",
+  "R3: no gate but empty, too dense and disconnected holds a law back (every other gate's held is 0 in gates_ledger.json, its verdicts recorded), none of those three before 1,024 (each reads three sizes in a row), and every law they pass ends at 65,536 or is stopped over_budget or failed",
+  "R4: the three gates stop 55% to 72% of the laws at 1,024 and leave 28% to 45% to run on at 4,096 (169's laws replayed under the rule: 633 of 1,000 stopped at 1,024, 29 at 4,096, 3 at 16,384)",
+  "R5: at most 3% of the laws are stopped over_budget before 65,536 (169 on its budgets: 64 of 1,000), and under 10% of 4,096's seeds end at their budget (169: 14.5%, 170: 33%; tools/budget_reading.py)",
+  "R6: the study takes about 300 core-hours a 1,000 laws on the host (150 to 650), 65,536 most of it; an estimate from 169's 65,536 seeds (4 laws and the controls), 0.3 to 1.5 core-hours a law there, and the three sizes in a row about 7% more work than one",
+  "R7: of the laws a fact gate withholds and lets through (10% from 1,024), at most 1 in 20 has a start later out of every fact zone (mean degree above 0.05 and under the cap, its largest component at least half the graph) on seeds that ended at rest (169's laws replayed under the rule: 3 of 665, none of them scoring)"
+ ],
+ "reported": [
+  "each gate's verdicts as recorded, by size, and what the laws it would have withheld read and score to 65,536, by law id where they score",
+  "the fact gates on three sizes in a row against one: every decision replayed under 827's rule, the laws it would have stopped at 256 or 1,024, what they read and score",
+  "every recorded gate replayed on the whole ladders: at its own size and on a law's last four sizes (the operator, 2026-11-20 10:09)",
+  "the score's list, the standing controls apart",
+  "the seeds that end at their budget and the laws stopped over_budget, by size; the seeds past their budget (tools/budget_reading.py)",
+  "the hours and memory a size takes on the host",
+  "the finds"
+ ],
+ "not_judged_here": "what the laws are: 171 is read for itself and as the baseline for the gates; no prediction of a law's kind is committed for it"
+}

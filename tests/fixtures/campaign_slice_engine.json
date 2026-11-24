@@ -1,0 +1,121 @@
+{
+  "name": "engine_slice",
+  "description": "The vertical slice under the decision engine: base block 64, 256 and 1024, three seeds, generous windows.",
+  "ladder": [
+    64,
+    256,
+    1024
+  ],
+  "stage_seeds": {
+    "0": 2,
+    "1": 2,
+    "2": 2
+  },
+  "default_seeds": 2,
+  "budgets": {
+    "max_n": 1024,
+    "max_concurrent_jobs": 3,
+    "wall_seconds": 900
+  },
+  "policy": {
+    "rule_version": "policy-contract-19",
+    "min_connected_fraction": 0.6,
+    "min_acceptance": 0.005,
+    "stationarity_drift_max": 3.0,
+    "more_seeds_se_threshold": 0.25,
+    "max_seeds_per_rung": 2,
+    "target": {
+      "epsilon_H": 0.5,
+      "epsilon_s": 0.5,
+      "note": "consulted only after free fits exist (>= 4 rungs)"
+    },
+    "min_effective_samples": 2,
+    "equilibration_split_z": 3.0,
+    "max_sweeps_multiplier": 4,
+    "certification_note": "slice-scale floor: the pipeline demo certifies loosely to stay cheap; research campaigns (autosearch) use min_effective_samples 8",
+    "min_largest_component_cycle_rank": 1.0,
+    "max_seed_attempts_per_rung": 2,
+    "convergence": {
+      "max_feasible_dimension": 6,
+      "dimension_cap_sigma": 1.0,
+      "dimension_cap_projection_floor": 0.85,
+      "min_drift_points": 4,
+      "max_drift_decay_slope_t": -1.0,
+      "min_divergence_slope_t": 2.0,
+      "convergence_note": "Build 56: qualification additionally requires (a) a convergent correction family to beat an explicit no-asymptote null on AICc, and (b) drift magnitude to decay across the whole ladder rather than merely at the last two rungs. Drift below the measurement noise floor counts as settled."
+    },
+    "equilibration_connected_delta_max": 0.25,
+    "equilibration_two_core_delta_max": 0.25,
+    "equilibration_cycle_density_delta_max": 0.15,
+    "equilibration_component_count_delta_max": 0.1,
+    "cost_awareness": {
+      "enabled": true,
+      "max_next_action_core_seconds": 10800,
+      "max_candidate_core_seconds": 21600,
+      "min_utility_per_core_hour": 0.05
+    },
+    "half_volume_radius_relative_se_threshold": 0.08
+  },
+  "operator_whitelist": [
+    "edge_count",
+    "degree_anchor",
+    "degree_square_sum",
+    "wedge_count",
+    "triangle_count",
+    "triangle_edge_overlap",
+    "square_count"
+  ],
+  "complexity_budget": 6,
+  "analysis_version": "analysis-5.3.0",
+  "confirmation": {
+    "enabled": false
+  },
+  "search_space_version": "hamiltonian-search-2",
+  "base_block": {
+    "contract": "rung-phenotype-3",
+    "sizes": [
+      64,
+      256,
+      1024
+    ],
+    "measurement_seeds_per_size": 3,
+    "concurrent": false,
+    "no_scientific_selection_until_terminal": true
+  },
+  "limits": {
+    "contract": "gsd-search-limits-1",
+    "mean_degree_window": {
+      "min": 0.0,
+      "max": 16.0
+    },
+    "connectivity_floor": 0.9
+  },
+  "engine": {
+    "contract": "decision-engine-2",
+    "policy": {
+      "base_sizes": [
+        64,
+        256,
+        1024
+      ],
+      "deep_sizes": [],
+      "seeds": 3,
+      "audit_fraction": 0.1,
+      "depth_rules": 631,
+      "work_budgets": [
+        [
+          64,
+          2000000000000
+        ],
+        [
+          256,
+          4000000000000
+        ],
+        [
+          1024,
+          6000000000000
+        ]
+      ]
+    }
+  }
+}

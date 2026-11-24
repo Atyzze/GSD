@@ -1,0 +1,1471 @@
+{
+ "contract": "gsd-table-known-answers-criterion-1",
+ "reader_contract": "gsd-table-known-answers-1",
+ "committed_utc": "2026-11-19T00:02:01Z",
+ "committed_before": "anyone had read a cell of the table the operator's host measures on build 801: its zip had not arrived, and the host was still measuring it (the operator, 2026-11-18 23:47)",
+ "question": "On the calibration table measured whole on build 801 (2,560 cells of 27 families on ten seeds, and 24 cells past the ladder on three), does every family with a dimension read its known answer within the band it is held to, from the size each probe is held from, and is every family without a dimension refused by all four probes on every seed from 4,096 nodes? These are the instrument's readings of the table's known answers on the final probes.",
+ "seen": [
+  "The seed of build 767 (`calibration/seed_table.json`, sha256 558d79855ddf72dd2b29064463a923dc058d23d57a28b7a840569104b5b6a3df): 2,170 cells of the 23 families it holds and 24 past the ladder, measured on the host by the same probes but for d_s's error (build 800) and four contracts' names (build 801). Its values are the values this table is predicted to repeat (prediction 1). It was gated by today's holds when it was installed and passed.",
+  "Five of the seed's cells measured again in the sandbox on 801 just before this criterion: the cubic lattice of side 16 on seed 0, the gasket of level 7 on seed 3, erdos_renyi_mid at 4,096 nodes on seed 1, the uniform random tree at 4,096 on seed 2 and the 4D lattice of side 8 on seed 5. Every value and every refusal was the seed's, bit for bit; d_s's error was the bootstrap.",
+  "The four new families: build 800's sandbox readings at about 20,000 nodes (A4 d_V 3.91 and d_s 3.93, D4 3.95 and 3.80, the hypercubic torus 3.76 and 3.83 at that size; both random graphs refused by d_V and d_s), and its rehearsal of 270 cells on two seeds to 4,096 nodes, the four families among them. The rehearsal's readings are not in the tree and were not read for this criterion.",
+  "The fifth judged set of build 764 (`probes_764_known_answers_judged.json`), on which today's holds rest."
+ ],
+ "not_seen": "Any cell of the four new families on seeds 2 to 9, and any of their cells above 4,096 nodes but the readings near 20,000 named above. Nothing of the host's run.",
+ "rule": "Each cell is read from the table the host sends; a cell counts when its status is ok and it carries the cell fingerprint `measured_by.cell_fingerprints` names for its family, and the table is whole when every cell the plan names counts. A family without a dimension (`without_a_dimension`) must be given no value by any of the four probes on any seed at every size of at least `verdict_held_from_nodes`; under it the cell is shown. A family with a dimension is held probe by probe to `with_a_dimension`: at a size of N nodes the band is the `within` of the last entry of `bands` whose nodes are at most N, around `theory`. Where `held_from` is `the fifth judged set`, the bands are today's holds, unchanged, and the probe is held at every size of at least its first entry's nodes. Where `held_from` is `this table's own cells`, the probe is held from H, the smallest size with a band such that the probe reads on every seed there and at every larger size with a band; if it does not read on every seed at the family's largest size with a band, that is a miss. Where a probe is held at a size, the mean over the seeds that read must lie within the band, at least `availability_floor` of the seeds must read, and a probe that reads on no seed there is a miss: the table's own gate (`calibration/deviation`), with these bands. Every other cell is measured and shown. The spread of a cell's seeds gates nothing (the operator, 2026-11-12 11:14). The reading passes when the table is whole and nothing misses. If it does not pass, the criterion is not patched to pass it: what missed is said, by family, size and probe, and whether study 169 starts is the operator's to decide.",
+ "why_these_bands": "The 23 families the seed holds are held to what the table holds them to today, copied from `table_holds.json` (made by the table rule committed 2026-11-12T14:43:51Z, before the seed was measured), no band and no size changed. A4 and D4 are four-dimensional lattices, and the table rule holds a family to what the fifth judged set held the same structure to: they take the bands the fifth judged set's criterion gave the 4D lattice at every size it held it to one, copied. That set never read them, so the size each probe is held from is taken from this table's own cells by the test the table rule used on that set. The two random graphs are held as every family without a dimension is. Nothing here names a graph to treat it apart: every band is a lattice of the same dimension's, and every refusal is required from the same size.",
+ "verdict_held_from_nodes": 4096,
+ "availability_floor": 0.5,
+ "with_a_dimension": {
+  "periodic_a4_lattice": {
+   "held_from": "this table's own cells",
+   "probes": {
+    "d_B": {
+     "bands": [
+      [
+       1024,
+       0.75
+      ],
+      [
+       4096,
+       0.75
+      ],
+      [
+       16384,
+       0.75
+      ],
+      [
+       65536,
+       0.75
+      ],
+      [
+       262144,
+       0.75
+      ],
+      [
+       1048576,
+       0.75
+      ]
+     ],
+     "theory": 4.0
+    },
+    "d_V": {
+     "bands": [
+      [
+       1024,
+       0.8
+      ],
+      [
+       4096,
+       0.6
+      ],
+      [
+       16384,
+       0.3
+      ],
+      [
+       65536,
+       0.3
+      ],
+      [
+       262144,
+       0.2
+      ],
+      [
+       1048576,
+       0.2
+      ]
+     ],
+     "theory": 4.0
+    },
+    "d_s": {
+     "bands": [
+      [
+       1024,
+       0.4
+      ],
+      [
+       4096,
+       0.4
+      ],
+      [
+       16384,
+       0.4
+      ],
+      [
+       65536,
+       0.4
+      ],
+      [
+       262144,
+       0.4
+      ],
+      [
+       1048576,
+       0.4
+      ]
+     ],
+     "theory": 4.0
+    },
+    "d_w": {
+     "bands": [
+      [
+       262144,
+       0.25
+      ],
+      [
+       1048576,
+       0.25
+      ]
+     ],
+     "theory": 2.0
+    }
+   }
+  },
+  "periodic_body_centred_cubic_lattice": {
+   "held_from": "the fifth judged set",
+   "probes": {
+    "d_B": {
+     "bands": [
+      [
+       16384,
+       0.35
+      ],
+      [
+       65536,
+       0.35
+      ],
+      [
+       262144,
+       0.35
+      ]
+     ],
+     "from_nodes": 16384,
+     "theory": 3.0
+    },
+    "d_V": {
+     "bands": [
+      [
+       1024,
+       0.2
+      ],
+      [
+       4096,
+       0.2
+      ],
+      [
+       16384,
+       0.2
+      ],
+      [
+       65536,
+       0.2
+      ],
+      [
+       262144,
+       0.2
+      ]
+     ],
+     "from_nodes": 1024,
+     "theory": 3.0
+    },
+    "d_s": {
+     "bands": [
+      [
+       1024,
+       0.3
+      ],
+      [
+       4096,
+       0.3
+      ],
+      [
+       16384,
+       0.3
+      ],
+      [
+       65536,
+       0.3
+      ],
+      [
+       262144,
+       0.3
+      ]
+     ],
+     "from_nodes": 1024,
+     "theory": 3.0
+    },
+    "d_w": {
+     "bands": [
+      [
+       16384,
+       0.2
+      ],
+      [
+       65536,
+       0.2
+      ],
+      [
+       262144,
+       0.2
+      ]
+     ],
+     "from_nodes": 16384,
+     "theory": 2.0
+    }
+   }
+  },
+  "periodic_cubic_lattice": {
+   "held_from": "the fifth judged set",
+   "probes": {
+    "d_B": {
+     "bands": [
+      [
+       4096,
+       0.35
+      ],
+      [
+       16384,
+       0.35
+      ],
+      [
+       65536,
+       0.35
+      ],
+      [
+       262144,
+       0.35
+      ]
+     ],
+     "from_nodes": 4096,
+     "theory": 3.0
+    },
+    "d_V": {
+     "bands": [
+      [
+       1024,
+       0.2
+      ],
+      [
+       4096,
+       0.2
+      ],
+      [
+       16384,
+       0.2
+      ],
+      [
+       65536,
+       0.2
+      ],
+      [
+       262144,
+       0.2
+      ]
+     ],
+     "from_nodes": 1024,
+     "theory": 3.0
+    },
+    "d_s": {
+     "bands": [
+      [
+       1024,
+       0.3
+      ],
+      [
+       4096,
+       0.3
+      ],
+      [
+       16384,
+       0.3
+      ],
+      [
+       65536,
+       0.3
+      ],
+      [
+       262144,
+       0.3
+      ]
+     ],
+     "from_nodes": 1024,
+     "theory": 3.0
+    },
+    "d_w": {
+     "bands": [
+      [
+       16384,
+       0.25
+      ],
+      [
+       65536,
+       0.2
+      ],
+      [
+       262144,
+       0.2
+      ]
+     ],
+     "from_nodes": 16384,
+     "theory": 2.0
+    }
+   }
+  },
+  "periodic_cubic_quotient": {
+   "held_from": "the fifth judged set",
+   "probes": {
+    "d_B": {
+     "bands": [
+      [
+       4096,
+       0.35
+      ],
+      [
+       16384,
+       0.35
+      ],
+      [
+       65536,
+       0.35
+      ],
+      [
+       262144,
+       0.35
+      ]
+     ],
+     "from_nodes": 4096,
+     "theory": 3.0
+    },
+    "d_V": {
+     "bands": [
+      [
+       1024,
+       0.2
+      ],
+      [
+       4096,
+       0.2
+      ],
+      [
+       16384,
+       0.2
+      ],
+      [
+       65536,
+       0.2
+      ],
+      [
+       262144,
+       0.2
+      ]
+     ],
+     "from_nodes": 1024,
+     "theory": 3.0
+    },
+    "d_s": {
+     "bands": [
+      [
+       1024,
+       0.3
+      ],
+      [
+       4096,
+       0.3
+      ],
+      [
+       16384,
+       0.3
+      ],
+      [
+       65536,
+       0.3
+      ],
+      [
+       262144,
+       0.3
+      ]
+     ],
+     "from_nodes": 1024,
+     "theory": 3.0
+    },
+    "d_w": {
+     "bands": [
+      [
+       16384,
+       0.25
+      ],
+      [
+       65536,
+       0.2
+      ],
+      [
+       262144,
+       0.2
+      ]
+     ],
+     "from_nodes": 16384,
+     "theory": 2.0
+    }
+   }
+  },
+  "periodic_d4_lattice": {
+   "held_from": "this table's own cells",
+   "probes": {
+    "d_B": {
+     "bands": [
+      [
+       1024,
+       0.75
+      ],
+      [
+       4096,
+       0.75
+      ],
+      [
+       16384,
+       0.75
+      ],
+      [
+       65536,
+       0.75
+      ],
+      [
+       262144,
+       0.75
+      ],
+      [
+       1048576,
+       0.75
+      ]
+     ],
+     "theory": 4.0
+    },
+    "d_V": {
+     "bands": [
+      [
+       1024,
+       0.8
+      ],
+      [
+       4096,
+       0.6
+      ],
+      [
+       16384,
+       0.3
+      ],
+      [
+       65536,
+       0.3
+      ],
+      [
+       262144,
+       0.2
+      ],
+      [
+       1048576,
+       0.2
+      ]
+     ],
+     "theory": 4.0
+    },
+    "d_s": {
+     "bands": [
+      [
+       1024,
+       0.4
+      ],
+      [
+       4096,
+       0.4
+      ],
+      [
+       16384,
+       0.4
+      ],
+      [
+       65536,
+       0.4
+      ],
+      [
+       262144,
+       0.4
+      ],
+      [
+       1048576,
+       0.4
+      ]
+     ],
+     "theory": 4.0
+    },
+    "d_w": {
+     "bands": [
+      [
+       262144,
+       0.25
+      ],
+      [
+       1048576,
+       0.25
+      ]
+     ],
+     "theory": 2.0
+    }
+   }
+  },
+  "periodic_face_centred_cubic_lattice": {
+   "held_from": "the fifth judged set",
+   "probes": {
+    "d_B": {
+     "bands": [
+      [
+       16384,
+       0.35
+      ],
+      [
+       65536,
+       0.35
+      ],
+      [
+       262144,
+       0.35
+      ]
+     ],
+     "from_nodes": 16384,
+     "theory": 3.0
+    },
+    "d_V": {
+     "bands": [
+      [
+       1024,
+       0.2
+      ],
+      [
+       4096,
+       0.2
+      ],
+      [
+       16384,
+       0.2
+      ],
+      [
+       65536,
+       0.2
+      ],
+      [
+       262144,
+       0.2
+      ]
+     ],
+     "from_nodes": 1024,
+     "theory": 3.0
+    },
+    "d_s": {
+     "bands": [
+      [
+       1024,
+       0.3
+      ],
+      [
+       4096,
+       0.3
+      ],
+      [
+       16384,
+       0.3
+      ],
+      [
+       65536,
+       0.3
+      ],
+      [
+       262144,
+       0.3
+      ]
+     ],
+     "from_nodes": 1024,
+     "theory": 3.0
+    },
+    "d_w": {
+     "bands": [
+      [
+       16384,
+       0.2
+      ],
+      [
+       65536,
+       0.2
+      ],
+      [
+       262144,
+       0.2
+      ]
+     ],
+     "from_nodes": 16384,
+     "theory": 2.0
+    }
+   }
+  },
+  "periodic_honeycomb_lattice": {
+   "held_from": "the fifth judged set",
+   "probes": {
+    "d_B": {
+     "bands": [
+      [
+       1024,
+       0.25
+      ],
+      [
+       4096,
+       0.2
+      ],
+      [
+       16384,
+       0.2
+      ],
+      [
+       65536,
+       0.2
+      ]
+     ],
+     "from_nodes": 1024,
+     "theory": 2.0
+    },
+    "d_V": {
+     "bands": [
+      [
+       1024,
+       0.1
+      ],
+      [
+       4096,
+       0.1
+      ],
+      [
+       16384,
+       0.1
+      ],
+      [
+       65536,
+       0.1
+      ]
+     ],
+     "from_nodes": 1024,
+     "theory": 2.0
+    },
+    "d_s": {
+     "bands": [
+      [
+       1024,
+       0.2
+      ],
+      [
+       4096,
+       0.2
+      ],
+      [
+       16384,
+       0.2
+      ],
+      [
+       65536,
+       0.2
+      ]
+     ],
+     "from_nodes": 1024,
+     "theory": 2.0
+    },
+    "d_w": {
+     "bands": [
+      [
+       1024,
+       0.3
+      ],
+      [
+       4096,
+       0.15
+      ],
+      [
+       16384,
+       0.15
+      ],
+      [
+       65536,
+       0.15
+      ]
+     ],
+     "from_nodes": 1024,
+     "theory": 2.0
+    }
+   }
+  },
+  "periodic_hypercubic_lattice_4d": {
+   "held_from": "the fifth judged set",
+   "probes": {
+    "d_B": {
+     "bands": [
+      [
+       16384,
+       0.75
+      ],
+      [
+       65536,
+       0.75
+      ],
+      [
+       262144,
+       0.75
+      ],
+      [
+       1048576,
+       0.75
+      ]
+     ],
+     "from_nodes": 16384,
+     "theory": 4.0
+    },
+    "d_V": {
+     "bands": [
+      [
+       1024,
+       0.8
+      ],
+      [
+       4096,
+       0.6
+      ],
+      [
+       16384,
+       0.3
+      ],
+      [
+       65536,
+       0.3
+      ],
+      [
+       262144,
+       0.2
+      ],
+      [
+       1048576,
+       0.2
+      ]
+     ],
+     "from_nodes": 1024,
+     "theory": 4.0
+    },
+    "d_s": {
+     "bands": [
+      [
+       1024,
+       0.4
+      ],
+      [
+       4096,
+       0.4
+      ],
+      [
+       16384,
+       0.4
+      ],
+      [
+       65536,
+       0.4
+      ],
+      [
+       262144,
+       0.4
+      ],
+      [
+       1048576,
+       0.4
+      ]
+     ],
+     "from_nodes": 1024,
+     "theory": 4.0
+    },
+    "d_w": {
+     "bands": [
+      [
+       262144,
+       0.25
+      ],
+      [
+       1048576,
+       0.25
+      ]
+     ],
+     "from_nodes": 262144,
+     "theory": 2.0
+    }
+   }
+  },
+  "periodic_ring": {
+   "held_from": "the fifth judged set",
+   "probes": {
+    "d_B": {
+     "bands": [
+      [
+       1024,
+       0.1
+      ],
+      [
+       4096,
+       0.1
+      ],
+      [
+       16384,
+       0.1
+      ]
+     ],
+     "from_nodes": 1024,
+     "theory": 1.0
+    },
+    "d_V": {
+     "bands": [
+      [
+       1024,
+       0.05
+      ],
+      [
+       4096,
+       0.05
+      ],
+      [
+       16384,
+       0.05
+      ]
+     ],
+     "from_nodes": 1024,
+     "theory": 1.0
+    },
+    "d_s": {
+     "bands": [
+      [
+       1024,
+       0.1
+      ],
+      [
+       4096,
+       0.1
+      ],
+      [
+       16384,
+       0.1
+      ]
+     ],
+     "from_nodes": 1024,
+     "theory": 1.0
+    },
+    "d_w": {
+     "bands": [
+      [
+       1024,
+       0.15
+      ],
+      [
+       4096,
+       0.15
+      ],
+      [
+       16384,
+       0.15
+      ]
+     ],
+     "from_nodes": 1024,
+     "theory": 2.0
+    }
+   }
+  },
+  "periodic_square_lattice": {
+   "held_from": "the fifth judged set",
+   "probes": {
+    "d_B": {
+     "bands": [
+      [
+       1024,
+       0.25
+      ],
+      [
+       4096,
+       0.2
+      ],
+      [
+       16384,
+       0.2
+      ],
+      [
+       65536,
+       0.2
+      ],
+      [
+       262144,
+       0.2
+      ]
+     ],
+     "from_nodes": 1024,
+     "theory": 2.0
+    },
+    "d_V": {
+     "bands": [
+      [
+       1024,
+       0.1
+      ],
+      [
+       4096,
+       0.1
+      ],
+      [
+       16384,
+       0.1
+      ],
+      [
+       65536,
+       0.1
+      ],
+      [
+       262144,
+       0.1
+      ]
+     ],
+     "from_nodes": 1024,
+     "theory": 2.0
+    },
+    "d_s": {
+     "bands": [
+      [
+       1024,
+       0.2
+      ],
+      [
+       4096,
+       0.2
+      ],
+      [
+       16384,
+       0.2
+      ],
+      [
+       65536,
+       0.2
+      ],
+      [
+       262144,
+       0.2
+      ]
+     ],
+     "from_nodes": 1024,
+     "theory": 2.0
+    },
+    "d_w": {
+     "bands": [
+      [
+       1024,
+       0.3
+      ],
+      [
+       4096,
+       0.15
+      ],
+      [
+       16384,
+       0.15
+      ],
+      [
+       65536,
+       0.15
+      ],
+      [
+       262144,
+       0.15
+      ]
+     ],
+     "from_nodes": 1024,
+     "theory": 2.0
+    }
+   }
+  },
+  "periodic_tesseract_quotient": {
+   "held_from": "the fifth judged set",
+   "probes": {
+    "d_B": {
+     "bands": [
+      [
+       16384,
+       0.75
+      ],
+      [
+       65536,
+       0.75
+      ],
+      [
+       262144,
+       0.75
+      ],
+      [
+       1048576,
+       0.75
+      ]
+     ],
+     "from_nodes": 16384,
+     "theory": 4.0
+    },
+    "d_V": {
+     "bands": [
+      [
+       1024,
+       0.8
+      ],
+      [
+       4096,
+       0.6
+      ],
+      [
+       16384,
+       0.3
+      ],
+      [
+       65536,
+       0.3
+      ],
+      [
+       262144,
+       0.2
+      ],
+      [
+       1048576,
+       0.2
+      ]
+     ],
+     "from_nodes": 1024,
+     "theory": 4.0
+    },
+    "d_s": {
+     "bands": [
+      [
+       1024,
+       0.4
+      ],
+      [
+       4096,
+       0.4
+      ],
+      [
+       16384,
+       0.4
+      ],
+      [
+       65536,
+       0.4
+      ],
+      [
+       262144,
+       0.4
+      ],
+      [
+       1048576,
+       0.4
+      ]
+     ],
+     "from_nodes": 1024,
+     "theory": 4.0
+    },
+    "d_w": {
+     "bands": [
+      [
+       262144,
+       0.25
+      ],
+      [
+       1048576,
+       0.25
+      ]
+     ],
+     "from_nodes": 262144,
+     "theory": 2.0
+    }
+   }
+  },
+  "periodic_triangular_lattice": {
+   "held_from": "the fifth judged set",
+   "probes": {
+    "d_B": {
+     "bands": [
+      [
+       1024,
+       0.25
+      ],
+      [
+       4096,
+       0.2
+      ],
+      [
+       16384,
+       0.2
+      ],
+      [
+       65536,
+       0.2
+      ],
+      [
+       262144,
+       0.2
+      ]
+     ],
+     "from_nodes": 1024,
+     "theory": 2.0
+    },
+    "d_V": {
+     "bands": [
+      [
+       1024,
+       0.1
+      ],
+      [
+       4096,
+       0.1
+      ],
+      [
+       16384,
+       0.1
+      ],
+      [
+       65536,
+       0.1
+      ],
+      [
+       262144,
+       0.1
+      ]
+     ],
+     "from_nodes": 1024,
+     "theory": 2.0
+    },
+    "d_s": {
+     "bands": [
+      [
+       1024,
+       0.2
+      ],
+      [
+       4096,
+       0.2
+      ],
+      [
+       16384,
+       0.2
+      ],
+      [
+       65536,
+       0.2
+      ],
+      [
+       262144,
+       0.2
+      ]
+     ],
+     "from_nodes": 1024,
+     "theory": 2.0
+    },
+    "d_w": {
+     "bands": [
+      [
+       1024,
+       0.3
+      ],
+      [
+       4096,
+       0.15
+      ],
+      [
+       16384,
+       0.15
+      ],
+      [
+       65536,
+       0.15
+      ],
+      [
+       262144,
+       0.15
+      ]
+     ],
+     "from_nodes": 1024,
+     "theory": 2.0
+    }
+   }
+  },
+  "sierpinski_carpet": {
+   "held_from": "the fifth judged set",
+   "probes": {
+    "d_B": {
+     "bands": [
+      [
+       4096,
+       0.25
+      ],
+      [
+       32768,
+       0.25
+      ]
+     ],
+     "from_nodes": 4096,
+     "theory": 1.892789260714372
+    },
+    "d_V": {
+     "bands": [
+      [
+       4096,
+       0.3
+      ],
+      [
+       32768,
+       0.25
+      ]
+     ],
+     "from_nodes": 4096,
+     "theory": 1.892789260714372
+    }
+   }
+  },
+  "sierpinski_gasket": {
+   "held_from": "the fifth judged set",
+   "probes": {
+    "d_B": {
+     "bands": [
+      [
+       1095,
+       0.25
+      ],
+      [
+       3282,
+       0.25
+      ],
+      [
+       9843,
+       0.25
+      ],
+      [
+       29526,
+       0.25
+      ]
+     ],
+     "from_nodes": 1095,
+     "theory": 1.5849625007211563
+    },
+    "d_V": {
+     "bands": [
+      [
+       1095,
+       0.25
+      ],
+      [
+       3282,
+       0.2
+      ],
+      [
+       9843,
+       0.2
+      ],
+      [
+       29526,
+       0.2
+      ]
+     ],
+     "from_nodes": 1095,
+     "theory": 1.5849625007211563
+    },
+    "d_s": {
+     "bands": [
+      [
+       1095,
+       0.15
+      ],
+      [
+       3282,
+       0.15
+      ],
+      [
+       9843,
+       0.15
+      ],
+      [
+       29526,
+       0.15
+      ]
+     ],
+     "from_nodes": 1095,
+     "theory": 1.3652123889719707
+    },
+    "d_w": {
+     "bands": [
+      [
+       1095,
+       0.3
+      ],
+      [
+       3282,
+       0.3
+      ],
+      [
+       9843,
+       0.3
+      ],
+      [
+       29526,
+       0.3
+      ]
+     ],
+     "from_nodes": 1095,
+     "theory": 2.321928094887362
+    }
+   }
+  },
+  "uniform_random_tree": {
+   "held_from": "the fifth judged set",
+   "probes": {
+    "d_s": {
+     "bands": [
+      [
+       4096,
+       0.2
+      ],
+      [
+       16384,
+       0.2
+      ],
+      [
+       65536,
+       0.2
+      ]
+     ],
+     "from_nodes": 4096,
+     "theory": 1.3333333333333333
+    }
+   }
+  }
+ },
+ "without_a_dimension": [
+  "balanced_binary_tree",
+  "erdos_renyi_degree_16",
+  "erdos_renyi_degree_2",
+  "erdos_renyi_degree_32",
+  "erdos_renyi_degree_6",
+  "erdos_renyi_dense",
+  "erdos_renyi_mid",
+  "erdos_renyi_sparse",
+  "hyperbolic_geometric_graph",
+  "hyperbolic_triangle_tiling",
+  "random_3_regular",
+  "random_4_regular"
+ ],
+ "plan": {
+  "extension_cells": 24,
+  "extension_seeds": 3,
+  "gate_cells": 2560,
+  "seeds": 10
+ },
+ "measured_by": {
+  "analysis": "analysis-5.3.0",
+  "build": 801,
+  "cell_fingerprints": {
+   "balanced_binary_tree": "0caf1d568cf4eb9c",
+   "erdos_renyi_degree_16": "44051b0ae97b7cb4",
+   "erdos_renyi_degree_2": "40b423d163d80792",
+   "erdos_renyi_degree_32": "6060b02f0742c79c",
+   "erdos_renyi_degree_6": "8c72c128220e8e7f",
+   "erdos_renyi_dense": "6b609977bc4d1751",
+   "erdos_renyi_mid": "7346136fd078dfac",
+   "erdos_renyi_sparse": "9c2567b0d6e444e5",
+   "hyperbolic_geometric_graph": "c75ca1f29790b611",
+   "hyperbolic_triangle_tiling": "86be5664d9f40479",
+   "periodic_a4_lattice": "d1f6036526e40f4c",
+   "periodic_body_centred_cubic_lattice": "f0258542fbab9abf",
+   "periodic_cubic_lattice": "9fe3ba47e5f21981",
+   "periodic_cubic_quotient": "25423b46de185c8c",
+   "periodic_d4_lattice": "d9c56db72e15da92",
+   "periodic_face_centred_cubic_lattice": "7a99acf8dd98d050",
+   "periodic_honeycomb_lattice": "a0c59d95362b1c4b",
+   "periodic_hypercubic_lattice_4d": "15844394ad8d5e17",
+   "periodic_ring": "145d944d23eb0ac5",
+   "periodic_square_lattice": "70e4d5e6d745a563",
+   "periodic_tesseract_quotient": "3fae4619e114cafd",
+   "periodic_triangular_lattice": "cf3a24d8b040f43b",
+   "random_3_regular": "62bd5f0c69dfe24c",
+   "random_4_regular": "caab9ec1eefd909f",
+   "sierpinski_carpet": "2f88f330e3c3655b",
+   "sierpinski_gasket": "ec5755d2d444893f",
+   "uniform_random_tree": "5213ecc07317fdd8"
+  },
+  "estimator_fingerprint": "e639334808716378",
+  "family_fingerprints": {
+   "balanced_binary_tree": "58b20624ceaa8f54",
+   "erdos_renyi_degree_16": "846c1daf2b2750c8",
+   "erdos_renyi_degree_2": "8ec8aeeb0d87a615",
+   "erdos_renyi_degree_32": "f283f45155d0383c",
+   "erdos_renyi_degree_6": "144248a1c7b70f0f",
+   "erdos_renyi_dense": "568dc9274319b0e6",
+   "erdos_renyi_mid": "6f29eae0c99d4a86",
+   "erdos_renyi_sparse": "99c79758b2a214de",
+   "hyperbolic_geometric_graph": "3d1f7f401724326b",
+   "hyperbolic_triangle_tiling": "b4a855d37665b2bc",
+   "periodic_a4_lattice": "d6fac6d88b5416d0",
+   "periodic_body_centred_cubic_lattice": "fa6405501240b14d",
+   "periodic_cubic_lattice": "b4bc6d1893de81d8",
+   "periodic_cubic_quotient": "2a335ad9929ba274",
+   "periodic_d4_lattice": "f3b7614d9fd78eda",
+   "periodic_face_centred_cubic_lattice": "d2c1151ba77361e8",
+   "periodic_honeycomb_lattice": "6aca245bdd9dd237",
+   "periodic_hypercubic_lattice_4d": "3683cd6d6157ef96",
+   "periodic_ring": "8cdeceac89d0359f",
+   "periodic_square_lattice": "e9fef6ee131f6cf9",
+   "periodic_tesseract_quotient": "4fe084729817eb7a",
+   "periodic_triangular_lattice": "474ecd41bbc7afe5",
+   "random_3_regular": "56a3e41f601a7cd3",
+   "random_4_regular": "5280ec227ace6005",
+   "sierpinski_carpet": "23deb1006a199d70",
+   "sierpinski_gasket": "cee03027f421e2b5",
+   "uniform_random_tree": "24652ec35dde6c00"
+  },
+  "start_reading_fingerprint": "89f4fed82d9adc27"
+ },
+ "copied_from": {
+  "graph_scale_dynamics/resources/calibration/table_holds.json": "dc8b6bcade7c8d8c29db3cc7d0823f1bd5e607c695d2f695709911bd314489eb",
+  "graph_scale_dynamics/resources/readings/probes_764_known_answers_criterion.json": "f904835601ec50c16a2731c9edc32254392f24882c48cb765218b25dffd0abd3"
+ },
+ "predicted": "It passes.",
+ "predictions": [
+  {
+   "id": "the_same_readings",
+   "says": "Every value and every refusal of the 2,194 cells the seed holds is the seed's, bit for bit, on every probe: build 800 changed d_s's error and build 801 four names, and nothing else the probes read. Only d_s's error, the timings, the memory and the fingerprints differ.",
+   "judged_by": "every cell of the seed compared with the same key in the new table, value and refusal, probe by probe (`--against` the seed before it is replaced)"
+  },
+  {
+   "id": "a4_and_d4_read_four",
+   "says": "A4 and D4 read four dimensions and a walk dimension of 2: every held mean inside its band; d_s and d_V held from the first size of the ladder of at least 1,024 nodes (A4 1,296, D4 2,048); d_B held from 65,536 nodes or below; d_w held at both sizes above 262,144.",
+   "judged_by": "the held-from size each probe is given on this table's cells, and the verdict on the two families"
+  },
+  {
+   "id": "the_dense_random_graphs_are_refused",
+   "says": "Every probe refuses erdos_renyi_degree_16 and erdos_renyi_degree_32 on every seed at every size, under 4,096 nodes too.",
+   "judged_by": "every cell of the two families"
+  },
+  {
+   "id": "d_s_error_is_its_seeds_spread",
+   "says": "On the families whose graph is the same on every seed, at every size of at least 1,024 nodes where at least 6 of the 10 seeds read d_s and their readings are not all the same, the median of the reported errors lies between 0.5 and 2 times the standard deviation of the seeds' readings, in at least nine cells of ten.",
+   "judged_by": "every such cell, its ratio shown"
+  },
+  {
+   "id": "no_geometry_refused_for_its_balls",
+   "says": "From 4,096 nodes no family with a dimension is refused as EXPONENTIAL_GROWTH, GROWTH_UNDECIDED or GROWTH_UNEVEN by any probe on any seed, but the uniform random tree on fewer than half its seeds.",
+   "judged_by": "every refusal of every cell of the 15 families with a dimension from 4,096 nodes"
+  }
+ ],
+ "passes_when": "the table is whole and nothing misses. The predictions are judged and shown beside the verdict; a false one is said and does not make the verdict.",
+ "code": "graph_scale_dynamics/research/table_known_answers.py, tools/table_known_answers.py",
+ "page": {
+  "title": "The calibration table's known answers on the final probes",
+  "criterion": "table_known_answers_criterion.json"
+ }
+}

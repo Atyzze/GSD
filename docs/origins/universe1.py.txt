@@ -1,0 +1,925 @@
+"""
+Relational Physics v2 (Toy Model)
+--------------------------------
+A purely relational dynamical system on a graph with:
+- Complex matter field on nodes: psi_i ∈ C
+- U(1) gauge field on edges: U_ij = exp(i * theta_ij)
+- Gauge-invariant action:
+    S = Σ_i (m^2 |psi_i|^2 + λ |psi_i|^4)
+      - κ Σ_(i,j) Re( conj(psi_i) U_ij psi_j )
+      + β Σ_triangles (1 - Re(U_ij U_jk U_ki))
+      + λ_E |E| + μ Σ_i deg(i)^2
+- Local Metropolis updates for:
+    (1) psi updates on nodes
+    (2) theta updates on edges
+    (3) rewiring (add/remove edges) during equilibration
+
+Demonstrations:
+1) Gauge invariance check (triangles + Wilson-line correlators unchanged)
+2) Correlator decay vs hop distance (gauge-invariant two-point)
+3) Finite propagation / "light cone" heatmap after local perturbation (geometry frozen)
+4) Curvature–density coupling diagnostic (Forman-Ricci proxy vs |psi|^2)
+
+Notes:
+- This is a *toy* intended to demonstrate relational emergence of locality, gauge redundancy,
+  and geometry diagnostics — not a full reproduction of the Standard Model/GR.
+"""
+
+import math
+import random
+from collections import defaultdict, deque
+
+import numpy as np
+import networkx as nx
+import matplotlib.pyplot as plt
+
+# -----------------------
+# CONFIG
+# -----------------------
+SEED = 42
+random.seed(SEED)
+np.random.seed(SEED)
+
+# Graph size
+N = 700                       # keep moderate for speed
+INIT_P = 0.006
+
+# Simulation moves
+EQUIL_MOVES = 40000           # equilibration moves (psi/theta/rewire)
+PROP_MOVES = 12000            # propagation moves (psi/theta only, geometry frozen)
+LOG_EVERY = 400               # log cadence (in moves)
+
+# Update mix
+P_PSI = 0.55
+P_THETA = 0.35
+P_REWIRE = 0.10               # only during equilibration
+
+# Matter + gauge couplings
+KAPPA = 2.2                   # hopping strength (matter-gauge coupling)
+BETA = 0.9                    # triangle flux stiffness
+MASS2 = 0.35                  # m^2
+LAMBDA_PSI = 0.08             # λ |psi|^4 stabilization
+
+# Geometry regularizers
+LAMBDA_E = 0.08               # edge cost
+MU_DEG2 = 0.06                # degree^2 congestion
+
+# Metropolis temperature
+TEMP = 0.30
+
+# Proposal scales
+PSI_STEP = 0.25               # complex gaussian step
+THETA_STEP = 0.35             # theta gaussian step (radians)
+
+# Rewiring locality
+HORIZON = 2                   # pick candidates within this hop horizon
+P_LONG_RANGE = 0.02           # occasionally pick truly random target
+
+# Light cone experiment
+PERTURB_EPS = 1.5             # add to psi at source (complex amplitude)
+MAX_DIST_LIGHTCONE = 10       # max hop distance bin for heatmap
+LIGHTCONE_SAMPLE_NODES = 1    # (keep 1 source for clean cone)
+
+# Correlator sampling
+CORR_SAMPLES = 2500           # pairs sampled per correlator estimate
+MAX_DIST_CORR = 12
+
+# Curvature probe (Forman-Ricci proxy)
+CURV_SAMPLE = 600             # nodes sampled for curvature-density scatter
+
+# Quench experiment
+DO_QUENCH = True
+QUENCH_RADIUS = 2          # hop radius of injected region
+QUENCH_STRENGTH = 2.0      # additive amplitude to psi in region (real axis)
+QUENCH_RELAX_MOVES = 5000  # moves to relax after quench (psi/theta only)
+MAX_DIST_QUENCH = 10       # distance bins for ΔR(d), Δrho(d)
+
+LAMBDA_G = 0.02   # stress–geometry coupling (start small)
+
+
+
+
+# -----------------------
+# UTILITIES: GAUGE HANDLING
+# -----------------------
+TWOPI = 2.0 * math.pi
+
+def wrap_angle(theta: float) -> float:
+    """Wrap to (-pi, pi]."""
+    theta = (theta + math.pi) % (2.0 * math.pi) - math.pi
+    return theta
+
+def edge_key(i: int, j: int):
+    return (i, j) if i < j else (j, i)
+
+def oriented_theta(G: nx.Graph, i: int, j: int) -> float:
+    """Return oriented theta for traversal i -> j."""
+    a, b = edge_key(i, j)
+    th = G[a][b]["theta"]
+    return th if (i == a and j == b) else -th
+
+def U_ij(G: nx.Graph, i: int, j: int) -> complex:
+    return np.exp(1j * oriented_theta(G, i, j))
+
+def pearson_r(x, y):
+    x = np.asarray(x, float)
+    y = np.asarray(y, float)
+    if len(x) < 3:
+        return float("nan")
+    x = x - x.mean()
+    y = y - y.mean()
+    denom = (np.linalg.norm(x) * np.linalg.norm(y) + 1e-12)
+    return float(np.dot(x, y) / denom)
+
+def estimate_lightcone_speed(cone_matrix, cone_times, d_max, frac=0.35):
+    """
+    cone_matrix: shape (Tbins, Dbins) with signal vs distance/time
+    cone_times:  list of times corresponding to rows
+    Returns: (c_est, intercept, used_points)
+    """
+    M = np.asarray(cone_matrix, float)
+    times = np.asarray(cone_times, float)
+    if M.size == 0:
+        return float("nan"), float("nan"), 0
+
+    # Use positive-going signal magnitude for robustness
+    A = np.abs(M)
+
+    # Per-time slice threshold relative to that slice peak
+    ds = []
+    ts = []
+    for ti in range(A.shape[0]):
+        row = A[ti]
+        peak = float(np.max(row))
+        if peak <= 1e-12:
+            continue
+        thr = frac * peak
+        # front = farthest distance above threshold
+        idx = np.where(row >= thr)[0]
+        if len(idx) == 0:
+            continue
+        d_star = int(np.max(idx))
+        ds.append(d_star)
+        ts.append(times[ti])
+
+    if len(ts) < 3:
+        return float("nan"), float("nan"), len(ts)
+
+    ts = np.asarray(ts)
+    ds = np.asarray(ds)
+
+    # Linear fit d = c*t + b
+    Afit = np.vstack([ts, np.ones_like(ts)]).T
+    c_est, b_est = np.linalg.lstsq(Afit, ds, rcond=None)[0]
+    return float(c_est), float(b_est), len(ts)
+
+def estimate_corr_length(ds, corr, fit_min=2, fit_max=8):
+    """
+    Fit corr(d) ~ exp(-d/xi) using log(|corr|) linear fit over [fit_min, fit_max].
+    Returns xi (nan if not fit).
+    """
+    ds = np.asarray(ds, float)
+    corr = np.asarray(corr, float)
+
+    mask = (ds >= fit_min) & (ds <= fit_max) & (np.abs(corr) > 1e-6)
+    x = ds[mask]
+    y = np.log(np.abs(corr[mask]))
+
+    if len(x) < 3:
+        return float("nan")
+
+    # y = a + m x, where m ~ -1/xi
+    Afit = np.vstack([x, np.ones_like(x)]).T
+    m, a = np.linalg.lstsq(Afit, y, rcond=None)[0]
+    if m >= -1e-9:
+        return float("nan")
+    xi = -1.0 / m
+    return float(xi)
+
+def nodes_within_radius(G, center, radius):
+    dist = bfs_distances(G, center, radius)
+    return list(dist.keys()), dist  # nodes list, distance map (up to radius)
+
+def curvature_profile_vs_distance(G, source, max_d):
+    dist_map = bfs_distances(G, source, max_d)
+    buckets = [[] for _ in range(max_d + 1)]
+    for v, d in dist_map.items():
+        if d <= max_d:
+            buckets[d].append(node_curvature_proxy(G, v))
+    prof = np.zeros(max_d + 1, dtype=float)
+    for d in range(max_d + 1):
+        prof[d] = float(np.mean(buckets[d])) if buckets[d] else np.nan
+    return prof, dist_map
+
+def density_profile_vs_distance(G, source, max_d):
+    dist_map = bfs_distances(G, source, max_d)
+    buckets = [[] for _ in range(max_d + 1)]
+    for v, d in dist_map.items():
+        if d <= max_d:
+            buckets[d].append(abs(G.nodes[v]["psi"]) ** 2)
+    prof = np.zeros(max_d + 1, dtype=float)
+    for d in range(max_d + 1):
+        prof[d] = float(np.mean(buckets[d])) if buckets[d] else np.nan
+    return prof, dist_map
+
+
+
+
+# -----------------------
+# ACTION TERMS (LOCAL)
+# -----------------------
+def self_energy_node(G: nx.Graph, i: int) -> float:
+    psi = G.nodes[i]["psi"]
+    mag2 = (psi.real * psi.real + psi.imag * psi.imag)
+    return MASS2 * mag2 + LAMBDA_PSI * (mag2 * mag2)
+
+def hop_energy_edge(G: nx.Graph, i: int, j: int) -> float:
+    """S_hop(i,j) = -KAPPA * Re( conj(psi_i) * U_ij * psi_j )."""
+    psi_i = G.nodes[i]["psi"]
+    psi_j = G.nodes[j]["psi"]
+    U = U_ij(G, i, j)
+    val = np.conjugate(psi_i) * U * psi_j
+    return -KAPPA * float(np.real(val))
+
+def triangle_energy(G: nx.Graph, i: int, j: int, k: int) -> float:
+    """
+    For triangle i-j-k-i:
+    S_tri = BETA * (1 - Re(U_ij U_jk U_ki))
+    """
+    Uij = U_ij(G, i, j)
+    Ujk = U_ij(G, j, k)
+    Uki = U_ij(G, k, i)
+    loop = Uij * Ujk * Uki
+    return BETA * (1.0 - float(np.real(loop)))
+
+def deg2_energy_node(G: nx.Graph, i: int) -> float:
+    d = G.degree(i)
+    return MU_DEG2 * float(d * d)
+
+def local_energy_around_node_for_psi(G: nx.Graph, i: int) -> float:
+    """Energy terms that depend on psi_i: self(i) + hops on edges incident to i."""
+    e = self_energy_node(G, i)
+    for j in G.neighbors(i):
+        e += hop_energy_edge(G, i, j)
+    return e
+
+def local_energy_around_edge_for_theta(G: nx.Graph, i: int, j: int) -> float:
+    """
+    Energy terms that depend on theta_(i,j):
+    - hop(i,j)
+    - triangles using edge (i,j)
+    """
+    if not G.has_edge(*edge_key(i, j)):
+        return 0.0
+    e = hop_energy_edge(G, i, j)
+
+    # triangles: common neighbors
+    Ni = set(G.neighbors(i))
+    Nj = set(G.neighbors(j))
+    common = Ni.intersection(Nj)
+    for k in common:
+        e += triangle_energy(G, i, j, k)
+    return e
+
+def local_energy_for_rewire(G: nx.Graph, i: int, j: int) -> float:
+    """
+    Energy pieces affected by edge existence between i and j:
+    - hop(i,j) (if exists)
+    - triangles containing (i,j)
+    - edge count term: LAMBDA_E * |E|
+    - deg2 congestion at endpoints
+    """
+    e = 0.0
+
+    # deg2 at endpoints always relevant
+    e += deg2_energy_node(G, i) + deg2_energy_node(G, j)
+    # edge count term contributes per edge
+    e += LAMBDA_E * float(G.number_of_edges())
+
+    if G.has_edge(*edge_key(i, j)):
+        e += hop_energy_edge(G, i, j)
+        Ni = set(G.neighbors(i))
+        Nj = set(G.neighbors(j))
+        common = Ni.intersection(Nj)
+        for k in common:
+            e += triangle_energy(G, i, j, k)
+    return e
+
+
+# -----------------------
+# REWIRING TARGET SELECTION
+# -----------------------
+def propose_link_target(G: nx.Graph, i: int) -> int | None:
+    """Prefer local targets within HORIZON hops; sometimes long-range."""
+    if random.random() < P_LONG_RANGE:
+        # global
+        candidates = [v for v in G.nodes() if v != i and not G.has_edge(*edge_key(i, v))]
+        return random.choice(candidates) if candidates else None
+
+    # BFS out to HORIZON
+    visited = {i}
+    frontier = {i}
+    for _ in range(HORIZON):
+        new_frontier = set()
+        for u in frontier:
+            for v in G.neighbors(u):
+                if v not in visited:
+                    visited.add(v)
+                    new_frontier.add(v)
+        frontier = new_frontier
+
+    # candidates among visited excluding i, not already connected
+    candidates = [v for v in visited if v != i and not G.has_edge(*edge_key(i, v))]
+    return random.choice(candidates) if candidates else None
+
+
+# -----------------------
+# GAUGE INVARIANCE PROBES
+# -----------------------
+def sample_triangles(G: nx.Graph, max_tri=1200):
+    """Sample triangle triplets (i,j,k) with i<j<k."""
+    triangles = []
+    nodes = list(G.nodes())
+    random.shuffle(nodes)
+    for i in nodes:
+        Ni = set(G.neighbors(i))
+        if len(Ni) < 2:
+            continue
+        nbrs = list(Ni)
+        random.shuffle(nbrs)
+        # find triangles via neighbor pairs
+        for idx_a in range(min(len(nbrs), 12)):
+            a = nbrs[idx_a]
+            Na = set(G.neighbors(a))
+            common = Na.intersection(Ni)
+            for k in list(common)[:6]:
+                if k == i or k == a:
+                    continue
+                tri = tuple(sorted((i, a, k)))
+                triangles.append(tri)
+                if len(triangles) >= max_tri:
+                    return list(set(triangles))
+    return list(set(triangles))
+
+def triangle_flux_real(G: nx.Graph, tri):
+    i, j, k = tri
+    # Triangle must still exist
+    if not (G.has_edge(*edge_key(i, j)) and G.has_edge(*edge_key(j, k)) and G.has_edge(*edge_key(k, i))):
+        return np.nan
+    loop = U_ij(G, i, j) * U_ij(G, j, k) * U_ij(G, k, i)
+    return float(np.real(loop))
+
+
+def wilson_line_transporter(G: nx.Graph, path):
+    """Product of U along a node path [v0,v1,...,vm]."""
+    prod = 1.0 + 0.0j
+    for a, b in zip(path[:-1], path[1:]):
+        prod *= U_ij(G, a, b)
+    return prod
+
+def gauge_invariant_two_point(G: nx.Graph, i: int, j: int) -> complex:
+    """
+    Gauge-invariant correlator using a shortest path transporter:
+    conj(psi_i) * (Π U along path) * psi_j
+    """
+    if i == j:
+        psi = G.nodes[i]["psi"]
+        return np.conjugate(psi) * psi
+
+    try:
+        path = nx.shortest_path(G, i, j)
+    except nx.NetworkXNoPath:
+        return 0.0 + 0.0j
+    Upath = wilson_line_transporter(G, path)
+    psi_i = G.nodes[i]["psi"]
+    psi_j = G.nodes[j]["psi"]
+    norm = (abs(psi_i) * abs(psi_j) + 1e-12)
+    return (np.conjugate(psi_i) * Upath * psi_j) / norm
+
+
+def apply_random_gauge_transform(G: nx.Graph, rng: np.random.Generator):
+    """Apply ψ_i -> e^{iα_i} ψ_i and θ_ij -> θ_ij + α_i - α_j (wrapped)."""
+    alpha = {i: float(rng.uniform(-math.pi, math.pi)) for i in G.nodes()}
+    # nodes
+    for i in G.nodes():
+        G.nodes[i]["psi"] *= np.exp(1j * alpha[i])
+    # edges stored by canonical key (a<b)
+    for a, b in G.edges():
+        th = G[a][b]["theta"]
+        th_new = th + alpha[a] - alpha[b]
+        G[a][b]["theta"] = wrap_angle(th_new)
+
+
+# -----------------------
+# CORRELATOR + LIGHT CONE MEASUREMENTS
+# -----------------------
+def correlator_vs_distance(G: nx.Graph, samples=2000, max_d=10, seed=0):
+    rng = np.random.default_rng(seed)
+    nodes = list(G.nodes())
+    bins = defaultdict(list)
+
+    for _ in range(samples):
+        i, j = rng.choice(nodes, size=2, replace=False)
+        try:
+            d = nx.shortest_path_length(G, i, j)
+        except nx.NetworkXNoPath:
+            continue
+        if d > max_d:
+            continue
+        val = gauge_invariant_two_point(G, i, j)
+        bins[d].append(float(np.real(val)))
+
+    ds = list(range(max_d + 1))
+    means = []
+    counts = []
+    for d in ds:
+        arr = bins.get(d, [])
+        counts.append(len(arr))
+        means.append(float(np.mean(arr)) if arr else 0.0)
+    return np.array(ds), np.array(means), np.array(counts)
+
+def bfs_distances(G: nx.Graph, source: int, max_d: int):
+    """Distances from source up to max_d (unreachable omitted)."""
+    dist = {source: 0}
+    q = deque([source])
+    while q:
+        u = q.popleft()
+        if dist[u] >= max_d:
+            continue
+        for v in G.neighbors(u):
+            if v not in dist:
+                dist[v] = dist[u] + 1
+                if dist[v] <= max_d:
+                    q.append(v)
+    return dist
+
+def lightcone_measurement(dist_map, baseline_abspsi, G: nx.Graph, max_d: int):
+    """
+    Returns vector L[d] = mean(|psi|-baseline) over nodes at distance d.
+    """
+    buckets = [[] for _ in range(max_d + 1)]
+    for v, d in dist_map.items():
+        if d <= max_d:
+            buckets[d].append(abs(G.nodes[v]["psi"]) - baseline_abspsi[v])
+
+    out = np.zeros(max_d + 1, dtype=float)
+    for d in range(max_d + 1):
+        if buckets[d]:
+            out[d] = float(np.mean(buckets[d]))
+    return out
+
+
+# -----------------------
+# CURVATURE PROXY (FORMAN-RICCI STYLE)
+# -----------------------
+def forman_edge_curvature(G: nx.Graph, u: int, v: int) -> float:
+    """
+    Simple unweighted Forman-like proxy on simple graphs:
+    F(u,v) = 4 - deg(u) - deg(v)
+    (Not the full weighted Forman-Ricci, but cheap and indicative.)
+    """
+    return 4.0 - float(G.degree(u)) - float(G.degree(v))
+
+def node_curvature_proxy(G: nx.Graph, node: int) -> float:
+    vals = []
+    for nbr in G.neighbors(node):
+        vals.append(forman_edge_curvature(G, node, nbr))
+    return float(np.mean(vals)) if vals else 0.0
+
+
+# -----------------------
+# INITIALIZE GRAPH + FIELDS
+# -----------------------
+def init_graph():
+    G = nx.erdos_renyi_graph(n=N, p=INIT_P, seed=SEED)
+    # Ensure no isolated-universe weirdness: add a few random edges if extremely sparse
+    if G.number_of_edges() < N:
+        for _ in range(N // 2):
+            i = random.randrange(N)
+            j = random.randrange(N)
+            if i != j:
+                G.add_edge(*edge_key(i, j))
+
+    # Node matter field
+    for i in G.nodes():
+        # small random complex
+        re = np.random.normal(0.0, 0.6)
+        im = np.random.normal(0.0, 0.6)
+        G.nodes[i]["psi"] = re + 1j * im
+
+    # Edge gauge field
+    for a, b in G.edges():
+        G[a][b]["theta"] = float(np.random.uniform(-math.pi, math.pi))
+
+    return G
+
+
+# -----------------------
+# METROPOLIS MOVES
+# -----------------------
+def metropolis_accept(dS: float, temp: float) -> bool:
+    if dS <= 0:
+        return True
+    if temp <= 1e-12:
+        return False
+    return random.random() < math.exp(-dS / temp)
+
+def psi_update(G: nx.Graph):
+    i = random.randrange(N)
+    # local energy before
+    e0 = local_energy_around_node_for_psi(G, i)
+    psi0 = G.nodes[i]["psi"]
+
+    # propose
+    dpsi = (np.random.normal(0.0, PSI_STEP) + 1j * np.random.normal(0.0, PSI_STEP))
+    G.nodes[i]["psi"] = psi0 + dpsi
+
+    # local energy after
+    e1 = local_energy_around_node_for_psi(G, i)
+    dS = e1 - e0
+
+    if metropolis_accept(dS, TEMP):
+        return True
+    # rollback
+    G.nodes[i]["psi"] = psi0
+    return False
+
+def theta_update(G: nx.Graph):
+    if G.number_of_edges() == 0:
+        return False
+    # pick random edge
+    a, b = random.choice(list(G.edges()))
+    i, j = a, b
+
+    e0 = local_energy_around_edge_for_theta(G, i, j)
+    th0 = G[a][b]["theta"]
+
+    # propose
+    dth = float(np.random.normal(0.0, THETA_STEP))
+    G[a][b]["theta"] = wrap_angle(th0 + dth)
+
+    e1 = local_energy_around_edge_for_theta(G, i, j)
+    dS = e1 - e0
+
+    if metropolis_accept(dS, TEMP):
+        return True
+    G[a][b]["theta"] = th0
+    return False
+
+def rewire_move(G: nx.Graph):
+    """Randomly add or remove an edge with local ΔS. Only used in equilibration."""
+    i = random.randrange(N)
+    do_add = (random.random() < 0.55)
+
+    if do_add:
+        j = propose_link_target(G, i)
+        if j is None:
+            return False
+        a, b = edge_key(i, j)
+        if G.has_edge(a, b):
+            return False
+
+        # energy before (edge absent)
+        e0 = local_energy_for_rewire(G, i, j)
+
+        # add edge with random theta
+        G.add_edge(a, b)
+        G[a][b]["theta"] = float(np.random.uniform(-math.pi, math.pi))
+
+        # energy after
+        e1 = local_energy_for_rewire(G, i, j)
+        dS = e1 - e0
+        if metropolis_accept(dS, TEMP):
+            return True
+
+        # rollback remove
+        if G.has_edge(a, b):
+            G.remove_edge(a, b)
+        return False
+
+    # remove
+    if G.degree(i) == 0:
+        return False
+    j = random.choice(list(G.neighbors(i)))
+    a, b = edge_key(i, j)
+    if not G.has_edge(a, b):
+        return False
+
+    # energy before (edge present)
+    e0 = local_energy_for_rewire(G, i, j)
+    th0 = G[a][b]["theta"]
+
+    # remove edge
+    G.remove_edge(a, b)
+
+    # energy after
+    e1 = local_energy_for_rewire(G, i, j)
+    dS = e1 - e0
+
+    if metropolis_accept(dS, TEMP):
+        return True
+
+    # rollback add edge back
+    G.add_edge(a, b)
+    G[a][b]["theta"] = th0
+    return False
+
+
+# -----------------------
+# RUN
+# -----------------------
+def run():
+    G = init_graph()
+    nodes = list(G.nodes())
+    rng = np.random.default_rng(SEED + 123)
+
+    print(f">> Relational Physics v2 | N={N} | init edges={G.number_of_edges()}")
+    print(">> Equilibrating with rewiring...")
+
+    # Logs
+    eq_log = {"moves": [], "mean_deg": [], "tri_flux": [], "corr_d1": []}
+
+    # Pre-sample triangles for a cheap scalar "flux smoothness" monitor
+    tri_samples = sample_triangles(G, max_tri=2500)
+
+    def tri_is_alive(tri):
+        i, j, k = tri
+        return (G.has_edge(*edge_key(i, j)) and
+                G.has_edge(*edge_key(j, k)) and
+                G.has_edge(*edge_key(k, i)))
+
+    tri_check = [tri for tri in tri_samples if tri_is_alive(tri)]
+    tri_check = tri_check[:300]  # cap
+
+    for t in range(1, EQUIL_MOVES + 1):
+        r = random.random()
+        if r < P_PSI:
+            psi_update(G)
+        elif r < P_PSI + P_THETA:
+            theta_update(G)
+        else:
+            rewire_move(G)
+
+        if t % LOG_EVERY == 0 or t == EQUIL_MOVES:
+            md = float(np.mean([G.degree(i) for i in nodes]))
+            # average triangle flux real part
+            if tri_samples:
+                tri_vals = [triangle_flux_real(G, tri) for tri in tri_samples[: min(len(tri_samples), 250)]]
+                tri_flux = float(np.mean(tri_vals))
+            else:
+                tri_flux = 0.0
+
+            # quick correlator check at d=1 (neighbors)
+            # sample some edges and average Re(conj(psi_i) U_ij psi_j)
+            if G.number_of_edges() > 0:
+                es = random.sample(list(G.edges()), k=min(300, G.number_of_edges()))
+                vals = []
+                for a, b in es:
+                    psi_a = G.nodes[a]["psi"]
+                    psi_b = G.nodes[b]["psi"]
+                    denom = (abs(psi_a) * abs(psi_b) + 1e-12)
+                    vals.append(float(np.real(np.conjugate(psi_a) * U_ij(G, a, b) * psi_b) / denom))
+                corr1 = float(np.mean(vals))
+            else:
+                corr1 = 0.0
+
+
+            eq_log["moves"].append(t)
+            eq_log["mean_deg"].append(md)
+            eq_log["tri_flux"].append(tri_flux)
+            eq_log["corr_d1"].append(corr1)
+            print(f"  eq {t:6d}/{EQUIL_MOVES} | mean_deg={md:.2f} | mean Re(loop)={tri_flux:.3f} | d=1 corr={corr1:.3f}")
+
+    print(">> Equilibration done.")
+
+
+    tri_count_est = sum(nx.triangles(G).values()) // 3
+    print(">> triangle count (exact):", tri_count_est)
+
+
+    print(">> Running gauge invariance check...")
+
+
+    # Gauge invariance check (before/after random gauge transform)
+    tri_check = tri_samples[: min(300, len(tri_samples))]
+    pair_check = [tuple(rng.choice(nodes, size=2, replace=False)) for _ in range(250)]
+
+    tri_before = np.array([triangle_flux_real(G, tri) for tri in tri_check], dtype=float)
+    pair_before = np.array([np.real(gauge_invariant_two_point(G, i, j)) for i, j in pair_check], dtype=float)
+
+    apply_random_gauge_transform(G, rng)
+
+    tri_after = np.array([triangle_flux_real(G, tri) for tri in tri_check], dtype=float)
+    pair_after = np.array([np.real(gauge_invariant_two_point(G, i, j)) for i, j in pair_check], dtype=float)
+
+    if len(tri_before) == 0:
+        tri_diff = 0.0
+    else:
+        tri_diff = float(np.nanmax(np.abs(tri_after - tri_before)))
+
+
+
+    pair_diff = float(np.max(np.abs(pair_after - pair_before))) if len(pair_before) else 0.0
+    print(f"  gauge check: max |Δ triangle flux| = {tri_diff:.3e}")
+    print(f"  gauge check: max |Δ line correlator| = {pair_diff:.3e}")
+
+    # -----------------------
+    # QUENCH EXPERIMENT (mass/energy injection -> curvature response)
+    # -----------------------
+    quench_src = None
+    delta_curv_prof = None
+    delta_rho_prof = None
+
+    if DO_QUENCH:
+        print(">> Running local quench (energy injection) and measuring Δcurvature profile...")
+
+        # Choose a source in the largest component
+        comp = max(nx.connected_components(G), key=len)
+        comp_list = list(comp)
+        quench_src = random.choice(comp_list)
+
+        # Baseline profiles before quench
+        curv_before, dist_map_full = curvature_profile_vs_distance(G, quench_src, MAX_DIST_QUENCH)
+        rho_before, _ = density_profile_vs_distance(G, quench_src, MAX_DIST_QUENCH)
+
+        # Identify nodes within quench radius (using same frozen-geometry notion)
+        region_nodes, dist_map_region = nodes_within_radius(G, quench_src, QUENCH_RADIUS)
+
+        # Inject energy: add amplitude to psi in region (gauge-covariant because it's local on psi)
+        for v in region_nodes:
+            G.nodes[v]["psi"] += (QUENCH_STRENGTH + 0.0j)
+
+        # Relax locally with psi/theta updates only (geometry frozen)
+        for t in range(1, QUENCH_RELAX_MOVES + 1):
+            r = random.random()
+            if r < (P_PSI / (P_PSI + P_THETA)):
+                psi_update(G)
+            else:
+                theta_update(G)
+
+        # Profiles after quench
+        curv_after, _ = curvature_profile_vs_distance(G, quench_src, MAX_DIST_QUENCH)
+        rho_after, _ = density_profile_vs_distance(G, quench_src, MAX_DIST_QUENCH)
+
+        # Differences
+        delta_curv_prof = curv_after - curv_before
+        delta_rho_prof = rho_after - rho_before
+
+        # Print a compact summary
+        print("   d : Δrho(d), Δcurv(d)")
+        for d in range(min(MAX_DIST_QUENCH + 1, 8)):
+            print(f"  {d:2d}: {delta_rho_prof[d]: .3f}, {delta_curv_prof[d]: .3f}")
+
+
+
+    # Correlator vs distance
+    print(">> Estimating gauge-invariant correlator vs hop distance...")
+    ds, corr, corr_counts = correlator_vs_distance(
+        G, samples=CORR_SAMPLES, max_d=MAX_DIST_CORR, seed=SEED + 999
+    )
+
+    # Light cone experiment (freeze geometry: no rewiring)
+    print(">> Light cone experiment (geometry frozen)...")
+    # pick a source in the largest connected component to ensure reach
+    comp = max(nx.connected_components(G), key=len)
+    comp_list = list(comp)
+    src = random.choice(comp_list)
+
+    # precompute distances in frozen geometry
+    dist_map = bfs_distances(G, src, MAX_DIST_LIGHTCONE)
+    baseline_abspsi = {i: abs(G.nodes[i]["psi"]) for i in G.nodes()}
+
+    # local perturbation
+    G.nodes[src]["psi"] += (PERTURB_EPS + 0.0j)
+
+    # run propagation
+    cone_times = []
+    cone_matrix = []  # rows = time bins, cols = distance bins
+
+    for t in range(1, PROP_MOVES + 1):
+        r = random.random()
+        if r < (P_PSI / (P_PSI + P_THETA)):
+            psi_update(G)
+        else:
+            theta_update(G)
+
+        if t % LOG_EVERY == 0 or t == PROP_MOVES:
+            cone_times.append(t)
+            cone_matrix.append(lightcone_measurement(dist_map, baseline_abspsi, G, MAX_DIST_LIGHTCONE))
+
+    cone_matrix = np.array(cone_matrix)  # shape (Tbins, Dbins)
+
+    # Curvature–density sample
+    print(">> Curvature–density diagnostic...")
+    sample_nodes = random.sample(list(comp), k=min(CURV_SAMPLE, len(comp)))
+    rho = np.array([abs(G.nodes[i]["psi"]) ** 2 for i in sample_nodes], dtype=float)
+    curv = np.array([node_curvature_proxy(G, i) for i in sample_nodes], dtype=float)
+
+    # ---- Extract effective-theory numbers ----
+    xi_est = estimate_corr_length(ds, corr, fit_min=2, fit_max=min(8, MAX_DIST_CORR))
+    c_est, b_est, npts = estimate_lightcone_speed(cone_matrix, cone_times, MAX_DIST_LIGHTCONE, frac=0.35)
+    r_rho_curv = pearson_r(rho, curv)
+
+    print(f">> Effective numbers:")
+    print(f"   correlation length xi ≈ {xi_est:.3f} (hop units)")
+    print(f"   signal speed c ≈ {c_est:.4f} (hops per move-bin), using {npts} time points")
+    print(f"   curvature-density Pearson r ≈ {r_rho_curv:.3f}")
+
+
+
+
+
+    # -----------------------
+    # DASHBOARD
+    # -----------------------
+    fig, axs = plt.subplots(2, 3, figsize=(18, 10))
+    plt.subplots_adjust(hspace=0.28, wspace=0.22)
+
+    # (1) Equilibration diagnostics
+    axs[0, 0].plot(eq_log["moves"], eq_log["mean_deg"], label="Mean degree")
+    axs[0, 0].plot(eq_log["moves"], eq_log["tri_flux"], label="Mean Re(triangle loop)")
+    axs[0, 0].plot(eq_log["moves"], eq_log["corr_d1"], label="Mean d=1 corr (Re)")
+    axs[0, 0].set_title("Equilibration diagnostics")
+    axs[0, 0].set_xlabel("Moves")
+    axs[0, 0].grid(True, alpha=0.3)
+    axs[0, 0].legend()
+
+    # (2) Correlator vs distance
+    axs[0, 1].plot(ds, corr, marker="o")
+    axs[0, 1].set_title("Gauge-invariant correlator vs hop distance")
+    axs[0, 1].set_xlabel("Hop distance d")
+    axs[0, 1].set_ylabel("Mean Re( conj(psi_i) U_path psi_j )")
+    axs[0, 1].grid(True, alpha=0.3)
+    # annotate counts lightly
+    for d, c in zip(ds, corr_counts):
+        if d in (1, 2, 3, 4, 6, 8, 10, 12) and c > 0:
+            axs[0, 1].annotate(str(int(c)), (d, corr[d]), textcoords="offset points", xytext=(4, 4), fontsize=8)
+
+    # (3) Light cone heatmap
+    im = axs[1, 0].imshow(
+        cone_matrix,
+        aspect="auto",
+        origin="lower",
+        extent=[0, MAX_DIST_LIGHTCONE, cone_times[0], cone_times[-1]],
+    )
+    axs[1, 0].set_title("Light cone probe: Δ|psi| vs distance/time (geometry frozen)")
+    axs[1, 0].set_xlabel("Hop distance from source")
+    axs[1, 0].set_ylabel("Moves (time)")
+    plt.colorbar(im, ax=axs[1, 0], label="Mean Δ|psi|")
+
+    # (4) Curvature vs density scatter
+    axs[1, 1].scatter(rho, curv, s=18, alpha=0.7)
+    axs[1, 1].set_title("Curvature–density diagnostic (Forman proxy vs |psi|^2)")
+    axs[1, 1].set_xlabel("ρ = |psi|^2")
+    axs[1, 1].set_ylabel("Node curvature proxy")
+    axs[1, 1].grid(True, alpha=0.3)
+
+    # (5) Quench response profile
+    axs[0, 2].set_title("Quench response: Δρ(d) and Δcurvature(d)")
+    axs[0, 2].set_xlabel("Hop distance d")
+    axs[0, 2].grid(True, alpha=0.3)
+
+    if DO_QUENCH and (delta_curv_prof is not None) and (delta_rho_prof is not None):
+        dgrid = np.arange(len(delta_curv_prof))
+        axs[0, 2].plot(dgrid, delta_rho_prof, marker="o", label="Δρ(d) = Δ|psi|^2")
+        axs[0, 2].plot(dgrid, delta_curv_prof, marker="o", label="Δcurv(d)")
+        axs[0, 2].legend()
+        axs[0, 2].annotate(f"src={quench_src}, R={QUENCH_RADIUS}", (0.02, 0.95),
+                        xycoords="axes fraction", va="top", fontsize=9)
+    else:
+        axs[0, 2].text(0.5, 0.5, "Quench disabled", ha="center", va="center")
+
+
+    fig.suptitle(
+        f"Relational Physics v2 | N={N} | κ={KAPPA}, β={BETA}, T={TEMP}, λE={LAMBDA_E}, μ={MU_DEG2}\n"
+        f"Gauge check: maxΔloop={tri_diff:.2e}, maxΔcorr={pair_diff:.2e} | xi≈{xi_est:.2f} | c≈{c_est:.3f} | r≈{r_rho_curv:.2f}",
+        fontsize=12,
+    )
+
+    plt.show()
+
+
+if __name__ == "__main__":
+    run()
+
+def run_one(KAPPA_in, BETA_in):
+    global KAPPA, BETA
+    KAPPA0, BETA0 = KAPPA, BETA
+    KAPPA, BETA = KAPPA_in, BETA_in
+    try:
+        # Run but don't show plot (set a flag if you want). Simplest: call run() and read printed values.
+        run()
+        scan()   # uncomment to scan
+    finally:
+        KAPPA, BETA = KAPPA0, BETA0
+
+def scan():
+    grid = [
+        (1.6, 0.5), (1.6, 0.9),
+        (2.2, 0.5), (2.2, 0.9),
+        (2.8, 0.5), (2.8, 0.9),
+    ]
+    for kappa, beta in grid:
+        print("\n" + "="*60)
+        print(f">> SCAN point: κ={kappa}, β={beta}")
+        run_one(kappa, beta)

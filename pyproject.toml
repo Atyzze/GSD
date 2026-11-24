@@ -1,0 +1,152 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gsd"
+version = "848"
+description = "Graph Scale Dynamics: operator-space finite-size flow in stochastic graph ensembles"
+readme = "README.md"
+license = {file = "LICENSE"}
+requires-python = ">=3.12,<3.14"
+dependencies = [
+  "numpy>=2.1,<3",
+  "scipy>=1.14,<2",
+  "psutil>=6,<8",
+  "psycopg[binary]>=3.2,<4",
+  # Build 366: the density audit and the audit of chains that disagree stream 05-phenotypes.json,
+  # which is half a gigabyte on a real campaign. Loading it whole wants several
+  # GiB on a host that is already running a fleet.
+  "ijson>=3.2",
+  # Built from engine_rs/. Declared so `uv sync` installs it rather than
+  # removing it; see [tool.uv.sources].
+  "gsd-engine-rs",
+]
+
+[project.scripts]
+gsd = "main:main"
+
+[project.optional-dependencies]
+dev = [
+    "pyflakes>=3.2",
+  "pytest>=8,<10",
+  # 686 (the build 685 review): a unit test writes a .tar.zst with it, and `tools/setup_host.sh --verify` imports it;
+  # until 686 only the sandbox's bring-up installed it, outside the lock.
+  "zstandard>=0.23,<1",
+]
+
+[tool.setuptools]
+py-modules = ["main"]
+include-package-data = true
+
+[tool.setuptools.package-data]
+"graph_scale_dynamics.resources" = ["schema/*.sql", "ui/*.html", "ui/*.js", "ui/*.css", "gate_trees/*.js",
+                                      "gate_trees/*.css", "configs/*.json", "calibration/*.json",
+                                      "memory/*.json", "explorer/*.js", "explorer/*.css", "readings/*.json"]
+"runtime" = ["bootstrap/linux-amd64/*", "licenses/*", "THIRD_PARTY_NOTICES.md"]
+
+[tool.setuptools.packages.find]
+include = ["graph_scale_dynamics*", "tools*", "runtime*"]
+exclude = ["tests*"]
+
+[tool.uv]
+# The project tree and uv cache are commonly on different filesystems on the
+# research host.  Copy mode avoids uv's noisy hardlink/clone fallback warning;
+# it changes installation mechanics only, not the resolved environment.
+link-mode = "copy"
+
+# Build 367. `uv sync` uninstalls anything not in the lock, and the Rust engine
+# is built from `engine_rs/` into `var/wheels/` by `prepare_environment.sh`
+# rather than resolved from an index -- so a bare `uv sync` removed it, and
+# `main.py run` refuses to start without it (build 336). An operator following
+# the README could take the fleet down with a routine command and only discover
+# it at the next start. Declaring the source makes sync build and install the
+# same extension from the same directory instead of deleting it.
+[tool.uv.sources]
+gsd-engine-rs = { path = "engine_rs" }
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+addopts = "--strict-markers"
+testpaths = ["tests/unit", "tests/contract", "tests/scientific", "tests/integration"]
+norecursedirs = [".git", "var", "instance", "*.egg-info"]
+pythonpath = ["."]
+markers = [
+  "slice: full multi-process vertical-slice integration test",
+  "integration: integration tests",
+  "scientific: numerical and scientific validation tests",
+  "calibration: slow end-to-end re-measurement of the dimension estimators",
+  "postgres: native folder-local PostgreSQL tests over the project Unix socket",
+]
+
+# Build 363. Ruff is in use on this tree -- there is a `.ruff_cache/` in it --
+# with no configuration, so it ran its default rule set and reported 875
+# findings, 310 of them import ordering. A lint that reports that much reports
+# nothing: the six dead repository locals, the `preexec_fn` in a threaded
+# process and the self-assignment left by the 258 sweep were all in there, and
+# all three were found by reading the tree instead.
+#
+# So the set is pinned to the rules that describe defects, and the tree is
+# clean under it. Style rules (import order, quoting, line length) are
+# deliberately absent: this tree is written by hand and by agents, reformatting
+# it would bury the next real finding in the diff, and none of them has ever
+# been a defect here.
+[tool.ruff]
+line-length = 120
+extend-exclude = ["var", "instance", "build", "dist", "wheel", "runtime/bootstrap"]
+
+[tool.ruff.lint]
+select = [
+  "F",        # pyflakes: undefined names, unused imports and bindings
+  "B",        # bugbear: mutable defaults, loop-variable closures, blind raises
+  "PLE",      # pylint errors only
+  "PLW0127", "PLW0602", "PLW1508", "PLW1509",
+  "PLR0124",  # comparison with itself
+  "RUF100",   # a `noqa` that suppresses nothing has drifted from its code
+  "S307", "S324", "S602", "S604", "S605",
+  "T100",     # a forgotten breakpoint()
+]
+ignore = [
+  # `x != x` is the NaN test this tree uses deliberately, in five reporting
+  # modules that read numbers out of JSON where `math.isnan` would first have
+  # to prove the value is a float.
+  "PLR0124",
+  # `zip(..., strict=True)` is a real rule and adopting it is its own build:
+  # it turns forty-nine silent truncations into exceptions, and which of those
+  # forty-nine are truncating today is a question only the fleet can answer.
+  # Left out deliberately rather than left failing, so this config describes a
+  # tree that passes it.
+  "B905",
+]
+
+[tool.ruff.lint.per-file-ignores]
+# The frozen science sources are excluded, for the reason the unused-import
+# hygiene test excludes them: a byte moved in one of these re-anchors the
+# science freeze, and lint is not a scientific change. The list is the one in
+# `tests/fixtures/science_freeze.json`; `test_the_lint_config_excludes_exactly_the_frozen_sources`
+# fails if the two drift apart.
+"graph_scale_dynamics/domain/randomness.py" = ["F", "B"]
+"graph_scale_dynamics/calibration/finite_size.py" = ["F", "B"]
+"graph_scale_dynamics/calibration/start_reading.py" = ["F", "B"]
+"graph_scale_dynamics/observability/starts_reading.py" = ["F", "B"]
+"graph_scale_dynamics/observability/law_score.py" = ["F", "B"]
+"graph_scale_dynamics/observability/space_score.py" = ["F", "B"]
+"graph_scale_dynamics/observability/two_chains.py" = ["F", "B"]
+"graph_scale_dynamics/decisions/*.py" = ["F", "B"]
+"graph_scale_dynamics/dsl/*.py" = ["F", "B"]
+"graph_scale_dynamics/engine/*.py" = ["F", "B"]
+"graph_scale_dynamics/measurements/*.py" = ["F", "B"]
+"graph_scale_dynamics/scaleflow/*.py" = ["F", "B"]
+# `engine.py` is frozen: its numeric env default cannot be quoted without
+# moving the calibration fingerprint, and a quote is not a scientific change.
+"graph_scale_dynamics/engine/engine.py" = ["F", "B", "PLW1508"]
+# The walk-dimension fixture builds a closure per lattice inside the loop that
+# builds the lattice and calls it there; frozen science is the reason not to
+# restructure it, and the call site is three lines below the definition.
+"tests/scientific/test_walk_dimension.py" = ["B023"]
+# The extension probe: importing *is* the test, because `find_spec` reports a
+# module that is present and fails to load, which is the state to answer no for.
+"graph_scale_dynamics/services/worker/engine_registry.py" = ["F401"]
+# Tests assert on exception types, hold intentionally unused fixtures, and
+# reach into private names on purpose.
+"tests/**" = ["B011", "B017"]

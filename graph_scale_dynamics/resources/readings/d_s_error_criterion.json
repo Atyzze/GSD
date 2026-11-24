@@ -1,0 +1,55 @@
+{
+ "contract": "gsd-d-s-error-criterion-1",
+ "committed_utc": "2026-11-18T19:29:14Z",
+ "asks": "Does d_s's reported error say how far its reading would move on another seed, on graphs it was not set on?",
+ "rule_under_test": "measurements/estimators.fit_ds reports as se twice the bootstrap error over its own probes (the spread of the fitted slope when the probes are drawn again), and the analytic bound only where no bootstrap can run; the same rule for every graph, nothing in it names a graph",
+ "set_on": {
+  "why": "the fault was found on these, before this criterion: the analytic se ran 8.9 to 10.1 times the seeds' spread and the bootstrap 0.9 to 1.1 times (build 800, 2026-11-18, 8 seeds each)",
+  "cases": [
+   "periodic_square_lattice side 64",
+   "periodic_cubic_lattice side 16",
+   "periodic_cubic_lattice side 24",
+   "periodic_hypercubic_lattice_4d side 8"
+  ]
+ },
+ "held_out": [
+  {
+   "case": "periodic_triangular_lattice",
+   "parameter": 64,
+   "n": 4096
+  },
+  {
+   "case": "periodic_honeycomb_lattice",
+   "parameter": 64,
+   "n": 4096
+  },
+  {
+   "case": "periodic_cubic_lattice",
+   "parameter": 20,
+   "n": 8000
+  },
+  {
+   "case": "periodic_hypercubic_lattice_4d",
+   "parameter": 10,
+   "n": 10000
+  },
+  {
+   "case": "sierpinski_gasket",
+   "parameter": 7,
+   "n": 3282
+  },
+  {
+   "case": "uniform_random_tree",
+   "parameter": 4096,
+   "n": 4096
+  },
+  {
+   "case": "random_3_regular",
+   "parameter": 4096,
+   "n": 4096
+  }
+ ],
+ "seeds": 8,
+ "passes_when": "on every held-out case where at least 6 of the 8 seeds read d_s, the median reported se lies between 0.5 and 2 times the standard deviation of the 8 seeds' readings; a case where fewer than 6 read is listed and not judged; the criterion passes when every judged case does and at least 5 are judged",
+ "not_judged_here": "d_V, d_B and d_w, whose errors are bootstraps over sources already; their ratios are read beside it"
+}

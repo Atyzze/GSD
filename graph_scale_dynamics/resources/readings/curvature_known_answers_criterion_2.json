@@ -1,0 +1,74 @@
+{
+ "contract": "gsd-curvature-known-answers-criterion-2",
+ "committed_utc": "2026-11-19T21:56:25Z",
+ "committed_before": "it was run, on build 816. It is criterion 1 of 2026-11-10 14:08Z (read at 752) in today's names, its seed, cases, predictions and rule unchanged, read on the probe as 800 named and locked it, so that the reading made on the final code can be held to 752's edge by edge. Criterion 1 and its reading leave the tree with this build (the operator, 2026-11-18 16:43).",
+ "question": "Is the survey's curvature (the term `ollivier_curvature` and the curvature probe, both `engine.scaled_curvature`) Ollivier's curvature of an edge? Its source says so where the short cycles on an edge share no other edge (the hard-core condition) and 'elsewhere it is the same formula'. The review of 2026-11-07: +0.333 on every edge of the triangular torus, whose curvature is 0.",
+ "known_answer": "Ollivier's curvature of an edge uv with no idleness: 1 less the least cost of moving the uniform measure on u's neighbours onto the uniform measure on v's, the cost of a move its graph distance; solved exactly as a linear programme (research/curvature_known_answers.ollivier)",
+ "what_is_read": "measurements/curvature_probe.curvature_per_edge over the product of the two degrees, on up to edges_at_most edges of each graph drawn with the seed",
+ "code": "graph_scale_dynamics/research/curvature_known_answers.py, tools/curvature_known_answers.py",
+ "seed": 752,
+ "edges_at_most": 300,
+ "rule": "A family is exact when the probe and Ollivier's curvature agree within 1e-6 on every edge read. Each case with an expectation is a prediction, right when the family is exact as expected, or not exact as expected and, where `apart` is given, the probe less Ollivier is that number on every edge read. The criterion passes when every prediction is right; the families without an expectation are reported.",
+ "cases": [
+  {
+   "family": "square_torus",
+   "build": "the square torus, 400 nodes",
+   "expected": "exact",
+   "why": "squares on an edge share no other edge"
+  },
+  {
+   "family": "cubic_torus",
+   "build": "the cubic torus, 729 nodes",
+   "expected": "exact"
+  },
+  {
+   "family": "tesseract_torus",
+   "build": "the 4D torus, 1,296 nodes (side 6)",
+   "expected": "exact"
+  },
+  {
+   "family": "ring",
+   "build": "a ring of 200",
+   "expected": "exact"
+  },
+  {
+   "family": "honeycomb_torus",
+   "build": "the honeycomb torus, 1,024 nodes",
+   "expected": "exact",
+   "why": "no cycle shorter than six"
+  },
+  {
+   "family": "complete_6",
+   "build": "the complete graph on 6 nodes",
+   "expected": "exact",
+   "why": "by hand 4/5 both ways"
+  },
+  {
+   "family": "triangular_torus",
+   "build": "the triangular torus, 400 nodes",
+   "expected": "not_exact",
+   "apart": 0.3333333333333333,
+   "why": "the two triangles on an edge share edges with each other's squares: the review's +0.333 against 0"
+  },
+  {
+   "family": "random_geometric_2d",
+   "build": "random_geometric(1000, 2, mean degree 8, seed)",
+   "expected": "not_exact",
+   "why": "many triangles sharing edges"
+  },
+  {
+   "family": "random_regular_3",
+   "build": "random_regular(2000, 3, seed)"
+  },
+  {
+   "family": "erdos_renyi_4",
+   "build": "erdos_renyi(1000, mean degree 4, seed), its largest piece"
+  }
+ ],
+ "what_follows": "Where it is not exact the term and the probe are named for what they are, Kelly, Trugenberger and Biancalana's formula, in the pages and the paper; the exact curvature beside the formula is the small study before the curvature term's study (docs/ROADMAP.md). This reading changes neither.",
+ "what_it_does_not_claim": [
+  "Ollivier's curvature with idleness, or Lin, Lu and Yau's, is another quantity and is not read.",
+  "The energy the engines minimise is the formula as written; nothing here says a law ran wrongly."
+ ],
+ "expected_numbers": "every family's agreement and every number of 752's reading the same: the curvature's formula has not changed since, the probe being only named at 800"
+}

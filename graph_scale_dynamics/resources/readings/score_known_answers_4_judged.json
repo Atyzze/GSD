@@ -1,0 +1,2023 @@
+{
+ "contract": "gsd-score-known-answers-2",
+ "criterion": "gsd-score-known-answers-criterion-4",
+ "committed_utc": "2026-11-23T10:32:00Z",
+ "score": "gsd-law-score-7",
+ "table": {
+  "file": "calibration/seed_table.json",
+  "estimator_fingerprint": "e639334808716378"
+ },
+ "judged_on": "seeds 51 to 53, built and read for it",
+ "measured_seconds": 2367.8,
+ "reach": {
+  "q": 0.2,
+  "z": 2.0,
+  "half_step": 0.5,
+  "factor": 2.0,
+  "widest_training_excess": {
+   "from_n": 262144,
+   "n": 1048576,
+   "excess": 0.0756,
+   "growth_d": 3.3065,
+   "d": 2.9357,
+   "reach": [
+    48.0,
+    73.0
+   ],
+   "family": "periodic_cubic_quotient",
+   "triple": 0
+  },
+  "training_pairs": 160
+ },
+ "judged": {
+  "counts": {
+   "K1": {
+    "held": 56,
+    "of": 56
+   },
+   "K2": {
+    "held": 11,
+    "of": 11
+   },
+   "K3": {
+    "held": 16,
+    "of": 16
+   },
+   "K4": {
+    "held": 15,
+    "of": 15
+   },
+   "S1": {
+    "held": 4,
+    "of": 9
+   },
+   "S2": {
+    "held": 1,
+    "of": 2
+   },
+   "S3": {
+    "held": 2,
+    "of": 2
+   }
+  },
+  "misses": [
+   {
+    "prediction": "S1",
+    "structure": "periodic strip 16 nodes wide",
+    "from_n": 4096,
+    "n": 16384,
+    "points": 2,
+    "scale": {
+     "holds": true,
+     "reach": [
+      68.0,
+      260.0
+     ],
+     "d": 1.1111,
+     "growth_d": 1.0336,
+     "off": 0.0935,
+     "allowed": 0.2588
+    }
+   },
+   {
+    "prediction": "S1",
+    "structure": "periodic strip 16 nodes wide",
+    "from_n": 16384,
+    "n": 65536,
+    "points": 3,
+    "scale": {
+     "holds": true,
+     "reach": [
+      260.0,
+      1028.0
+     ],
+     "d": 1.0959,
+     "growth_d": 1.0084,
+     "off": 0.1097,
+     "allowed": 0.2554
+    }
+   },
+   {
+    "prediction": "S1",
+    "structure": "periodic tube 8 by 8 nodes across",
+    "from_n": 4096,
+    "n": 16384,
+    "points": 0,
+    "scale": {
+     "holds": true,
+     "reach": [
+      20.0,
+      68.0
+     ],
+     "d": 1.0439,
+     "growth_d": 1.1328,
+     "off": 0.1043,
+     "allowed": 0.298
+    }
+   },
+   {
+    "prediction": "S1",
+    "structure": "periodic tube 8 by 8 nodes across",
+    "from_n": 16384,
+    "n": 65536,
+    "points": 2,
+    "scale": {
+     "holds": true,
+     "reach": [
+      68.0,
+      260.0
+     ],
+     "d": 1.0959,
+     "growth_d": 1.0336,
+     "off": 0.0762,
+     "allowed": 0.2623
+    }
+   },
+   {
+    "prediction": "S1",
+    "structure": "periodic tube 16 by 16 nodes across",
+    "from_n": 16384,
+    "n": 65536,
+    "points": 0,
+    "scale": {
+     "holds": true,
+     "reach": [
+      24.0,
+      72.0
+     ],
+     "d": 1.213,
+     "growth_d": 1.2619,
+     "off": 0.0443,
+     "allowed": 0.2564
+    }
+   },
+   {
+    "prediction": "S2",
+    "structure": "uniform random tree, every edge a path of 8",
+    "from_n": 4097,
+    "n": 16385,
+    "d": 1.2976,
+    "settled": [
+     "d_s",
+     "d_V",
+     "d_B"
+    ]
+   }
+  ],
+  "reported": [
+   {
+    "structure": "periodic strip 48 nodes wide",
+    "from_n": 4128,
+    "n": 16416,
+    "why": "a pair from a square or a cube",
+    "points": 0,
+    "scale": {
+     "holds": false,
+     "reach": [
+      33.0,
+      97.0
+     ],
+     "d": 1.9733,
+     "growth_d": 1.2803,
+     "off": 0.3786,
+     "allowed": 0.1602
+    }
+   },
+   {
+    "structure": "periodic strip 64 nodes wide",
+    "from_n": 4096,
+    "n": 16384,
+    "why": "a pair from a square or a cube",
+    "points": 0,
+    "scale": {
+     "holds": false,
+     "reach": [
+      32.0,
+      80.0
+     ],
+     "d": 2.0054,
+     "growth_d": 1.5129,
+     "off": 0.225,
+     "allowed": 0.1601
+    }
+   },
+   {
+    "structure": "periodic tube 16 by 16 nodes across",
+    "from_n": 4096,
+    "n": 16384,
+    "why": "a pair from a square or a cube",
+    "points": 0,
+    "scale": {
+     "holds": false,
+     "reach": [
+      12.0,
+      24.0
+     ],
+     "d": 2.7477,
+     "growth_d": 2.0,
+     "off": 0.1886,
+     "allowed": 0.1634
+    }
+   }
+  ],
+  "pairs": [
+   {
+    "structure": "4D",
+    "from_n": 4096,
+    "n": 16384,
+    "settled": [
+     "d_s",
+     "d_V"
+    ],
+    "einstein": false,
+    "points": 2,
+    "connected": true,
+    "scale": {
+     "holds": true,
+     "reach": [
+      8.0,
+      11.0
+     ],
+     "d": 3.8075,
+     "growth_d": 4.3532,
+     "off": 0.0456,
+     "allowed": 0.1808
+    },
+    "steps": {
+     "d_s": {
+      "step": 0.0419,
+      "margin": 0.06,
+      "from": 4.0358,
+      "to": 3.8702
+     },
+     "d_V": {
+      "step": 0.0668,
+      "margin": 0.15,
+      "from": 3.5615,
+      "to": 3.8075
+     }
+    },
+    "residual": null,
+    "unscaled_points": 2,
+    "unscaled_settled": [
+     "d_s",
+     "d_V"
+    ]
+   },
+   {
+    "structure": "4D",
+    "from_n": 16384,
+    "n": 65536,
+    "settled": [
+     "d_s",
+     "d_V",
+     "d_B"
+    ],
+    "einstein": false,
+    "points": 3,
+    "connected": true,
+    "scale": {
+     "holds": true,
+     "reach": [
+      11.0,
+      16.0
+     ],
+     "d": 3.713,
+     "growth_d": 3.6998,
+     "off": 0.0013,
+     "allowed": 0.1514
+    },
+    "steps": {
+     "d_s": {
+      "step": 0.0138,
+      "margin": 0.1,
+      "from": 3.8702,
+      "to": 3.9241
+     },
+     "d_V": {
+      "step": 0.0124,
+      "margin": 0.03,
+      "from": 3.8075,
+      "to": 3.855
+     },
+     "d_B": {
+      "step": 0.0185,
+      "margin": 0.05,
+      "from": 3.5056,
+      "to": 3.571
+     }
+    },
+    "residual": null,
+    "unscaled_points": 3,
+    "unscaled_settled": [
+     "d_s",
+     "d_V",
+     "d_B"
+    ]
+   },
+   {
+    "structure": "body-centred cubic",
+    "from_n": 4096,
+    "n": 16384,
+    "settled": [
+     "d_s",
+     "d_V"
+    ],
+    "einstein": false,
+    "points": 2,
+    "connected": true,
+    "scale": {
+     "holds": true,
+     "reach": [
+      10.0,
+      16.0
+     ],
+     "d": 2.9068,
+     "growth_d": 2.9495,
+     "off": 0.0069,
+     "allowed": 0.1766
+    },
+    "steps": {
+     "d_s": {
+      "step": 0.0291,
+      "margin": 0.06,
+      "from": 3.0516,
+      "to": 2.9642
+     },
+     "d_V": {
+      "step": 0.0165,
+      "margin": 0.15,
+      "from": 2.9393,
+      "to": 2.9882
+     }
+    },
+    "residual": null,
+    "unscaled_points": 2,
+    "unscaled_settled": [
+     "d_s",
+     "d_V"
+    ]
+   },
+   {
+    "structure": "body-centred cubic",
+    "from_n": 16384,
+    "n": 65536,
+    "settled": [
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w"
+    ],
+    "einstein": true,
+    "points": 5,
+    "connected": true,
+    "scale": {
+     "holds": true,
+     "reach": [
+      16.0,
+      25.0
+     ],
+     "d": 2.9401,
+     "growth_d": 3.1063,
+     "off": 0.0252,
+     "allowed": 0.1456
+    },
+    "steps": {
+     "d_s": {
+      "step": 0.0144,
+      "margin": 0.1,
+      "from": 2.9642,
+      "to": 3.0073
+     },
+     "d_V": {
+      "step": 0.0024,
+      "margin": 0.03,
+      "from": 2.9882,
+      "to": 2.9955
+     },
+     "d_B": {
+      "step": 0.0122,
+      "margin": 0.05,
+      "from": 2.8495,
+      "to": 2.8846
+     },
+     "d_w": {
+      "step": 0.0227,
+      "margin": 0.08,
+      "from": 1.9836,
+      "to": 1.9391
+     }
+    },
+    "residual": 0.0274,
+    "unscaled_points": 5,
+    "unscaled_settled": [
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w"
+    ]
+   },
+   {
+    "structure": "cubic",
+    "from_n": 4096,
+    "n": 16384,
+    "settled": [
+     "d_s",
+     "d_V",
+     "d_B"
+    ],
+    "einstein": false,
+    "points": 3,
+    "connected": true,
+    "scale": {
+     "holds": true,
+     "reach": [
+      12.0,
+      18.0
+     ],
+     "d": 2.8889,
+     "growth_d": 3.419,
+     "off": 0.0744,
+     "allowed": 0.1654
+    },
+    "steps": {
+     "d_s": {
+      "step": 0.0033,
+      "margin": 0.06,
+      "from": 3.0231,
+      "to": 3.0133
+     },
+     "d_V": {
+      "step": 0.0183,
+      "margin": 0.15,
+      "from": 2.9236,
+      "to": 2.9775
+     },
+     "d_B": {
+      "step": 0.0204,
+      "margin": 0.08,
+      "from": 2.7437,
+      "to": 2.8002
+     }
+    },
+    "residual": null,
+    "unscaled_points": 3,
+    "unscaled_settled": [
+     "d_s",
+     "d_V",
+     "d_B"
+    ]
+   },
+   {
+    "structure": "cubic",
+    "from_n": 16384,
+    "n": 65536,
+    "settled": [
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w"
+    ],
+    "einstein": true,
+    "points": 5,
+    "connected": true,
+    "scale": {
+     "holds": true,
+     "reach": [
+      18.0,
+      29.0
+     ],
+     "d": 2.8931,
+     "growth_d": 2.9067,
+     "off": 0.0022,
+     "allowed": 0.1409
+    },
+    "steps": {
+     "d_s": {
+      "step": 0.0184,
+      "margin": 0.1,
+      "from": 3.0133,
+      "to": 2.9582
+     },
+     "d_V": {
+      "step": 0.0057,
+      "margin": 0.03,
+      "from": 2.9775,
+      "to": 2.9944
+     },
+     "d_B": {
+      "step": 0.0099,
+      "margin": 0.05,
+      "from": 2.8002,
+      "to": 2.828
+     },
+     "d_w": {
+      "step": 0.0098,
+      "margin": 0.08,
+      "from": 1.9345,
+      "to": 1.9537
+     }
+    },
+    "residual": 0.0362,
+    "unscaled_points": 5,
+    "unscaled_settled": [
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w"
+    ]
+   },
+   {
+    "structure": "face-centred cubic",
+    "from_n": 4096,
+    "n": 16384,
+    "settled": [
+     "d_s",
+     "d_V"
+    ],
+    "einstein": false,
+    "points": 2,
+    "connected": true,
+    "scale": {
+     "holds": true,
+     "reach": [
+      8.0,
+      13.0
+     ],
+     "d": 2.8594,
+     "growth_d": 2.8553,
+     "off": 0.0007,
+     "allowed": 0.1979
+    },
+    "steps": {
+     "d_s": {
+      "step": 0.048,
+      "margin": 0.06,
+      "from": 3.024,
+      "to": 2.8824
+     },
+     "d_V": {
+      "step": 0.0052,
+      "margin": 0.15,
+      "from": 2.9774,
+      "to": 2.9928
+     }
+    },
+    "residual": null,
+    "unscaled_points": 2,
+    "unscaled_settled": [
+     "d_s",
+     "d_V"
+    ]
+   },
+   {
+    "structure": "face-centred cubic",
+    "from_n": 16384,
+    "n": 65536,
+    "settled": [
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w"
+    ],
+    "einstein": true,
+    "points": 5,
+    "connected": true,
+    "scale": {
+     "holds": true,
+     "reach": [
+      13.0,
+      21.0
+     ],
+     "d": 2.9252,
+     "growth_d": 2.8907,
+     "off": 0.0057,
+     "allowed": 0.1571
+    },
+    "steps": {
+     "d_s": {
+      "step": 0.058,
+      "margin": 0.1,
+      "from": 2.8824,
+      "to": 3.0547
+     },
+     "d_V": {
+      "step": 0.0014,
+      "margin": 0.03,
+      "from": 2.9928,
+      "to": 2.9971
+     },
+     "d_B": {
+      "step": 0.0059,
+      "margin": 0.05,
+      "from": 2.8365,
+      "to": 2.8533
+     },
+     "d_w": {
+      "step": 0.0399,
+      "margin": 0.08,
+      "from": 1.9229,
+      "to": 2.0012
+     }
+    },
+    "residual": 0.0665,
+    "unscaled_points": 5,
+    "unscaled_settled": [
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w"
+    ]
+   },
+   {
+    "structure": "honeycomb",
+    "from_n": 4096,
+    "n": 16384,
+    "settled": [
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w"
+    ],
+    "einstein": true,
+    "points": 5,
+    "connected": true,
+    "scale": {
+     "holds": true,
+     "reach": [
+      37.0,
+      75.0
+     ],
+     "d": 1.9675,
+     "growth_d": 1.962,
+     "off": 0.002,
+     "allowed": 0.1611
+    },
+    "steps": {
+     "d_s": {
+      "step": 0.0341,
+      "margin": 0.06,
+      "from": 2.0184,
+      "to": 1.9508
+     },
+     "d_V": {
+      "step": 0.0012,
+      "margin": 0.15,
+      "from": 1.997,
+      "to": 1.9995
+     },
+     "d_B": {
+      "step": 0.0127,
+      "margin": 0.08,
+      "from": 1.9146,
+      "to": 1.939
+     },
+     "d_w": {
+      "step": 0.0099,
+      "margin": 0.05,
+      "from": 2.0039,
+      "to": 1.9841
+     }
+    },
+    "residual": 0.0332,
+    "unscaled_points": 5,
+    "unscaled_settled": [
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w"
+    ]
+   },
+   {
+    "structure": "honeycomb",
+    "from_n": 16384,
+    "n": 65536,
+    "settled": [
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w"
+    ],
+    "einstein": true,
+    "points": 5,
+    "connected": true,
+    "scale": {
+     "holds": true,
+     "reach": [
+      75.0,
+      150.0
+     ],
+     "d": 1.9956,
+     "growth_d": 2.0,
+     "off": 0.0015,
+     "allowed": 0.1489
+    },
+    "steps": {
+     "d_s": {
+      "step": 0.0221,
+      "margin": 0.1,
+      "from": 1.9508,
+      "to": 1.9943
+     },
+     "d_V": {
+      "step": 0.0001,
+      "margin": 0.03,
+      "from": 1.9995,
+      "to": 1.9996
+     },
+     "d_B": {
+      "step": 0.006,
+      "margin": 0.05,
+      "from": 1.939,
+      "to": 1.9506
+     },
+     "d_w": {
+      "step": 0.0064,
+      "margin": 0.08,
+      "from": 1.9841,
+      "to": 1.9969
+     }
+    },
+    "residual": 0.0204,
+    "unscaled_points": 5,
+    "unscaled_settled": [
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w"
+    ]
+   },
+   {
+    "structure": "preferential attachment, two links a node",
+    "from_n": 4096,
+    "n": 16384,
+    "settled": [],
+    "einstein": false,
+    "points": 0,
+    "connected": true,
+    "scale": {
+     "holds": false,
+     "reach": [
+      4.703125,
+      5.239583333333333
+     ],
+     "d": null,
+     "growth_d": null,
+     "why": "no reach or no d at both sizes"
+    },
+    "steps": {},
+    "residual": null,
+    "unscaled_points": 0,
+    "unscaled_settled": []
+   },
+   {
+    "structure": "random 3-regular graph",
+    "from_n": 4096,
+    "n": 16384,
+    "settled": [],
+    "einstein": false,
+    "points": 0,
+    "connected": true,
+    "scale": {
+     "holds": false,
+     "reach": [
+      10.078125,
+      12.020833333333334
+     ],
+     "d": null,
+     "growth_d": null,
+     "why": "no reach or no d at both sizes"
+    },
+    "steps": {},
+    "residual": null,
+    "unscaled_points": 0,
+    "unscaled_settled": []
+   },
+   {
+    "structure": "random geometric graph in three dimensions, mean degree 10",
+    "from_n": 4096,
+    "n": 16384,
+    "settled": [
+     "d_V"
+    ],
+    "einstein": false,
+    "points": 1,
+    "connected": true,
+    "scale": {
+     "holds": true,
+     "reach": [
+      9.0443,
+      14.0
+     ],
+     "d": 3.0853,
+     "growth_d": 3.1728,
+     "off": 0.0124,
+     "allowed": 0.1859
+    },
+    "steps": {
+     "d_s": {
+      "step": 0.0692,
+      "margin": 0.06,
+      "from": 2.9184,
+      "to": 3.1275
+     },
+     "d_V": {
+      "step": 0.0032,
+      "margin": 0.15,
+      "from": 3.2019,
+      "to": 3.2122
+     }
+    },
+    "residual": null,
+    "unscaled_points": 1,
+    "unscaled_settled": [
+     "d_V"
+    ]
+   },
+   {
+    "structure": "random graph of mean degree 2.5",
+    "from_n": 4096,
+    "n": 16384,
+    "settled": [],
+    "einstein": false,
+    "points": 0,
+    "connected": false,
+    "scale": {
+     "holds": false,
+     "reach": [
+      8.916666666666666,
+      10.476190476190476
+     ],
+     "d": null,
+     "growth_d": null,
+     "why": "no reach or no d at both sizes"
+    },
+    "steps": {},
+    "residual": null,
+    "unscaled_points": 0,
+    "unscaled_settled": []
+   },
+   {
+    "structure": "ring",
+    "from_n": 4096,
+    "n": 16384,
+    "settled": [
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w"
+    ],
+    "einstein": true,
+    "points": 5,
+    "connected": true,
+    "scale": {
+     "holds": true,
+     "reach": [
+      1024.0,
+      4096.0
+     ],
+     "d": 1.0015,
+     "growth_d": 1.0,
+     "off": 0.002,
+     "allowed": 0.2775
+    },
+    "steps": {
+     "d_s": {
+      "step": 0.0045,
+      "margin": 0.06,
+      "from": 1.0075,
+      "to": 1.003
+     },
+     "d_V": {
+      "step": 0.0,
+      "margin": 0.15,
+      "from": 1.0,
+      "to": 1.0
+     },
+     "d_B": {
+      "step": 0.0008,
+      "margin": 0.08,
+      "from": 0.9823,
+      "to": 0.9816
+     },
+     "d_w": {
+      "step": 0.0093,
+      "margin": 0.05,
+      "from": 2.0031,
+      "to": 1.9845
+     }
+    },
+    "residual": 0.0137,
+    "unscaled_points": 5,
+    "unscaled_settled": [
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w"
+    ]
+   },
+   {
+    "structure": "square",
+    "from_n": 4096,
+    "n": 16384,
+    "settled": [
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w"
+    ],
+    "einstein": true,
+    "points": 5,
+    "connected": true,
+    "scale": {
+     "holds": true,
+     "reach": [
+      32.0,
+      64.0
+     ],
+     "d": 1.9871,
+     "growth_d": 2.0,
+     "off": 0.0045,
+     "allowed": 0.163
+    },
+    "steps": {
+     "d_s": {
+      "step": 0.0117,
+      "margin": 0.06,
+      "from": 2.0314,
+      "to": 2.0077
+     },
+     "d_V": {
+      "step": 0.0005,
+      "margin": 0.15,
+      "from": 1.9986,
+      "to": 1.9997
+     },
+     "d_B": {
+      "step": 0.0086,
+      "margin": 0.08,
+      "from": 1.932,
+      "to": 1.9487
+     },
+     "d_w": {
+      "step": 0.0107,
+      "margin": 0.05,
+      "from": 1.9958,
+      "to": 1.9745
+     }
+    },
+    "residual": 0.0168,
+    "unscaled_points": 5,
+    "unscaled_settled": [
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w"
+    ]
+   },
+   {
+    "structure": "square",
+    "from_n": 16384,
+    "n": 65536,
+    "settled": [
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w"
+    ],
+    "einstein": true,
+    "points": 5,
+    "connected": true,
+    "scale": {
+     "holds": true,
+     "reach": [
+      64.0,
+      128.0
+     ],
+     "d": 1.9836,
+     "growth_d": 2.0,
+     "off": 0.0057,
+     "allowed": 0.1515
+    },
+    "steps": {
+     "d_s": {
+      "step": 0.0039,
+      "margin": 0.1,
+      "from": 2.0077,
+      "to": 1.9999
+     },
+     "d_V": {
+      "step": 0.0,
+      "margin": 0.03,
+      "from": 1.9997,
+      "to": 1.9998
+     },
+     "d_B": {
+      "step": 0.0042,
+      "margin": 0.05,
+      "from": 1.9487,
+      "to": 1.957
+     },
+     "d_w": {
+      "step": 0.0035,
+      "margin": 0.08,
+      "from": 1.9745,
+      "to": 1.9675
+     }
+    },
+    "residual": 0.0164,
+    "unscaled_points": 5,
+    "unscaled_settled": [
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w"
+    ]
+   },
+   {
+    "structure": "square lattice with 0.008 shortcuts a node",
+    "from_n": 4096,
+    "n": 16384,
+    "settled": [],
+    "einstein": false,
+    "points": 0,
+    "connected": true,
+    "scale": {
+     "holds": false,
+     "reach": [
+      19.859375,
+      26.59375
+     ],
+     "d": null,
+     "growth_d": null,
+     "why": "no reach or no d at both sizes"
+    },
+    "steps": {},
+    "residual": null,
+    "unscaled_points": 0,
+    "unscaled_settled": []
+   },
+   {
+    "structure": "square lattice with chords within three steps",
+    "from_n": 4096,
+    "n": 16384,
+    "settled": [
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w"
+    ],
+    "einstein": true,
+    "points": 5,
+    "connected": true,
+    "scale": {
+     "holds": true,
+     "reach": [
+      26.3203,
+      50.2396
+     ],
+     "d": 2.1211,
+     "growth_d": 2.1444,
+     "off": 0.0071,
+     "allowed": 0.1692
+    },
+    "steps": {
+     "d_s": {
+      "step": 0.0053,
+      "margin": 0.06,
+      "from": 2.0062,
+      "to": 2.0169
+     },
+     "d_V": {
+      "step": 0.0193,
+      "margin": 0.15,
+      "from": 2.1668,
+      "to": 2.1254
+     },
+     "d_B": {
+      "step": 0.0192,
+      "margin": 0.08,
+      "from": 2.0767,
+      "to": 2.1168
+     },
+     "d_w": {
+      "step": 0.015,
+      "margin": 0.05,
+      "from": 2.1528,
+      "to": 2.1853
+     }
+    },
+    "residual": 0.0395,
+    "unscaled_points": 5,
+    "unscaled_settled": [
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w"
+    ]
+   },
+   {
+    "structure": "triangular",
+    "from_n": 4096,
+    "n": 16384,
+    "settled": [
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w"
+    ],
+    "einstein": true,
+    "points": 5,
+    "connected": true,
+    "scale": {
+     "holds": true,
+     "reach": [
+      26.0,
+      52.0
+     ],
+     "d": 1.9643,
+     "growth_d": 2.0,
+     "off": 0.0126,
+     "allowed": 0.17
+    },
+    "steps": {
+     "d_s": {
+      "step": 0.0308,
+      "margin": 0.06,
+      "from": 2.0238,
+      "to": 1.9625
+     },
+     "d_V": {
+      "step": 0.0002,
+      "margin": 0.15,
+      "from": 1.9995,
+      "to": 1.9999
+     },
+     "d_B": {
+      "step": 0.0248,
+      "margin": 0.08,
+      "from": 1.9064,
+      "to": 1.9542
+     },
+     "d_w": {
+      "step": 0.0067,
+      "margin": 0.05,
+      "from": 1.9794,
+      "to": 1.9661
+     }
+    },
+    "residual": 0.0366,
+    "unscaled_points": 5,
+    "unscaled_settled": [
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w"
+    ]
+   },
+   {
+    "structure": "triangular",
+    "from_n": 16384,
+    "n": 65536,
+    "settled": [
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w"
+    ],
+    "einstein": true,
+    "points": 5,
+    "connected": true,
+    "scale": {
+     "holds": true,
+     "reach": [
+      52.0,
+      105.0
+     ],
+     "d": 1.9953,
+     "growth_d": 1.9728,
+     "off": 0.0079,
+     "allowed": 0.1533
+    },
+    "steps": {
+     "d_s": {
+      "step": 0.0167,
+      "margin": 0.1,
+      "from": 1.9625,
+      "to": 1.9956
+     },
+     "d_V": {
+      "step": 0.0,
+      "margin": 0.03,
+      "from": 1.9999,
+      "to": 1.9999
+     },
+     "d_B": {
+      "step": 0.0043,
+      "margin": 0.05,
+      "from": 1.9542,
+      "to": 1.9626
+     },
+     "d_w": {
+      "step": 0.0145,
+      "margin": 0.08,
+      "from": 1.9661,
+      "to": 1.9949
+     }
+    },
+    "residual": 0.014,
+    "unscaled_points": 5,
+    "unscaled_settled": [
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w"
+    ]
+   },
+   {
+    "structure": "periodic strip 16 nodes wide",
+    "judged": true,
+    "from_n": 4096,
+    "n": 16384,
+    "settled": [
+     "d_s",
+     "d_V"
+    ],
+    "einstein": false,
+    "points": 2,
+    "connected": true,
+    "scale": {
+     "holds": true,
+     "reach": [
+      68.0,
+      260.0
+     ],
+     "d": 1.1111,
+     "growth_d": 1.0336,
+     "off": 0.0935,
+     "allowed": 0.2588
+    },
+    "steps": {
+     "d_s": {
+      "step": 0.0007,
+      "margin": 0.06,
+      "from": 1.0633,
+      "to": 1.064
+     },
+     "d_V": {
+      "step": 0.0186,
+      "margin": 0.15,
+      "from": 1.1319,
+      "to": 1.1111
+     }
+    },
+    "residual": null,
+    "unscaled_points": 2,
+    "unscaled_settled": [
+     "d_s",
+     "d_V"
+    ]
+   },
+   {
+    "structure": "periodic strip 16 nodes wide",
+    "judged": true,
+    "from_n": 16384,
+    "n": 65536,
+    "settled": [
+     "d_s",
+     "d_V",
+     "d_B"
+    ],
+    "einstein": false,
+    "points": 3,
+    "connected": true,
+    "scale": {
+     "holds": true,
+     "reach": [
+      260.0,
+      1028.0
+     ],
+     "d": 1.0959,
+     "growth_d": 1.0084,
+     "off": 0.1097,
+     "allowed": 0.2554
+    },
+    "steps": {
+     "d_s": {
+      "step": 0.0251,
+      "margin": 0.1,
+      "from": 1.064,
+      "to": 1.0377
+     },
+     "d_V": {
+      "step": 0.0137,
+      "margin": 0.03,
+      "from": 1.1111,
+      "to": 1.0959
+     },
+     "d_B": {
+      "step": 0.0031,
+      "margin": 0.05,
+      "from": 1.148,
+      "to": 1.1445
+     }
+    },
+    "residual": null,
+    "unscaled_points": 3,
+    "unscaled_settled": [
+     "d_s",
+     "d_V",
+     "d_B"
+    ]
+   },
+   {
+    "structure": "periodic strip 32 nodes wide",
+    "judged": true,
+    "from_n": 4096,
+    "n": 16384,
+    "settled": [],
+    "einstein": false,
+    "points": 0,
+    "connected": true,
+    "scale": {
+     "holds": false,
+     "reach": [
+      40.0,
+      136.0
+     ],
+     "d": 1.9949,
+     "growth_d": 1.1328,
+     "off": 0.5289,
+     "allowed": 0.1552
+    },
+    "steps": {
+     "d_V": {
+      "step": 0.0,
+      "margin": 0.15,
+      "from": 1.9949,
+      "to": 1.9949
+     },
+     "d_B": {
+      "step": 0.0092,
+      "margin": 0.08,
+      "from": 1.9317,
+      "to": 1.914
+     },
+     "d_w": {
+      "step": 0.0425,
+      "margin": 0.05,
+      "from": 2.1187,
+      "to": 2.2107
+     }
+    },
+    "residual": null,
+    "unscaled_points": 3,
+    "unscaled_settled": [
+     "d_V",
+     "d_B",
+     "d_w"
+    ]
+   },
+   {
+    "structure": "periodic strip 32 nodes wide",
+    "judged": true,
+    "from_n": 16384,
+    "n": 65536,
+    "settled": [],
+    "einstein": false,
+    "points": 0,
+    "connected": true,
+    "scale": {
+     "holds": false,
+     "reach": [
+      136.0,
+      520.0
+     ],
+     "d": 1.9949,
+     "growth_d": 1.0336,
+     "off": 0.6463,
+     "allowed": 0.1436
+    },
+    "steps": {
+     "d_V": {
+      "step": 0.0,
+      "margin": 0.03,
+      "from": 1.9949,
+      "to": 1.9949
+     },
+     "d_B": {
+      "step": 0.042,
+      "margin": 0.05,
+      "from": 1.914,
+      "to": 1.8353
+     },
+     "d_w": {
+      "step": 0.0305,
+      "margin": 0.08,
+      "from": 2.2107,
+      "to": 2.2792
+     }
+    },
+    "residual": null,
+    "unscaled_points": 3,
+    "unscaled_settled": [
+     "d_V",
+     "d_B",
+     "d_w"
+    ]
+   },
+   {
+    "structure": "periodic strip 48 nodes wide",
+    "judged": false,
+    "from_n": 4128,
+    "n": 16416,
+    "settled": [],
+    "einstein": false,
+    "points": 0,
+    "connected": true,
+    "scale": {
+     "holds": false,
+     "reach": [
+      33.0,
+      97.0
+     ],
+     "d": 1.9733,
+     "growth_d": 1.2803,
+     "off": 0.3786,
+     "allowed": 0.1602
+    },
+    "steps": {
+     "d_s": {
+      "step": 0.035,
+      "margin": 0.06,
+      "from": 1.9941,
+      "to": 1.9254
+     },
+     "d_V": {
+      "step": 0.0,
+      "margin": 0.15,
+      "from": 1.9959,
+      "to": 1.9959
+     },
+     "d_B": {
+      "step": 0.0073,
+      "margin": 0.08,
+      "from": 1.9364,
+      "to": 1.9507
+     },
+     "d_w": {
+      "step": 0.0281,
+      "margin": 0.05,
+      "from": 1.9917,
+      "to": 2.0485
+     }
+    },
+    "residual": 0.0121,
+    "unscaled_points": 5,
+    "unscaled_settled": [
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w"
+    ]
+   },
+   {
+    "structure": "periodic strip 48 nodes wide",
+    "judged": true,
+    "from_n": 16416,
+    "n": 65568,
+    "settled": [],
+    "einstein": false,
+    "points": 0,
+    "connected": true,
+    "scale": {
+     "holds": false,
+     "reach": [
+      97.0,
+      353.0
+     ],
+     "d": 1.994,
+     "growth_d": 1.0721,
+     "off": 0.5973,
+     "allowed": 0.1455
+    },
+    "steps": {
+     "d_s": {
+      "step": 0.0341,
+      "margin": 0.1,
+      "from": 1.9254,
+      "to": 1.9922
+     },
+     "d_V": {
+      "step": 0.0,
+      "margin": 0.03,
+      "from": 1.9959,
+      "to": 1.9959
+     },
+     "d_B": {
+      "step": 0.0148,
+      "margin": 0.05,
+      "from": 1.9507,
+      "to": 1.922
+     },
+     "d_w": {
+      "step": 0.0335,
+      "margin": 0.08,
+      "from": 2.0485,
+      "to": 2.1184
+     }
+    },
+    "residual": 0.0892,
+    "unscaled_points": 4,
+    "unscaled_settled": [
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w"
+    ]
+   },
+   {
+    "structure": "periodic strip 64 nodes wide",
+    "judged": false,
+    "from_n": 4096,
+    "n": 16384,
+    "settled": [],
+    "einstein": false,
+    "points": 0,
+    "connected": true,
+    "scale": {
+     "holds": false,
+     "reach": [
+      32.0,
+      80.0
+     ],
+     "d": 2.0054,
+     "growth_d": 1.5129,
+     "off": 0.225,
+     "allowed": 0.1601
+    },
+    "steps": {
+     "d_s": {
+      "step": 0.0079,
+      "margin": 0.06,
+      "from": 2.0559,
+      "to": 2.0397
+     },
+     "d_V": {
+      "step": 0.0003,
+      "margin": 0.15,
+      "from": 1.9986,
+      "to": 1.998
+     },
+     "d_B": {
+      "step": 0.0022,
+      "margin": 0.08,
+      "from": 1.9304,
+      "to": 1.9347
+     },
+     "d_w": {
+      "step": 0.0064,
+      "margin": 0.05,
+      "from": 2.0,
+      "to": 2.0129
+     }
+    },
+    "residual": 0.0576,
+    "unscaled_points": 5,
+    "unscaled_settled": [
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w"
+    ]
+   },
+   {
+    "structure": "periodic strip 64 nodes wide",
+    "judged": true,
+    "from_n": 16384,
+    "n": 65536,
+    "settled": [],
+    "einstein": false,
+    "points": 0,
+    "connected": true,
+    "scale": {
+     "holds": false,
+     "reach": [
+      80.0,
+      272.0
+     ],
+     "d": 1.9985,
+     "growth_d": 1.1328,
+     "off": 0.5301,
+     "allowed": 0.1468
+    },
+    "steps": {
+     "d_s": {
+      "step": 0.0201,
+      "margin": 0.1,
+      "from": 2.0397,
+      "to": 1.9991
+     },
+     "d_V": {
+      "step": 0.0,
+      "margin": 0.03,
+      "from": 1.998,
+      "to": 1.998
+     },
+     "d_B": {
+      "step": 0.0103,
+      "margin": 0.05,
+      "from": 1.9347,
+      "to": 1.9548
+     },
+     "d_w": {
+      "step": 0.0192,
+      "margin": 0.08,
+      "from": 2.0129,
+      "to": 2.052
+     }
+    },
+    "residual": 0.0469,
+    "unscaled_points": 5,
+    "unscaled_settled": [
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w"
+    ]
+   },
+   {
+    "structure": "periodic tube 8 by 8 nodes across",
+    "judged": true,
+    "from_n": 4096,
+    "n": 16384,
+    "settled": [],
+    "einstein": false,
+    "points": 0,
+    "connected": true,
+    "scale": {
+     "holds": true,
+     "reach": [
+      20.0,
+      68.0
+     ],
+     "d": 1.0439,
+     "growth_d": 1.1328,
+     "off": 0.1043,
+     "allowed": 0.298
+    },
+    "steps": {
+     "d_s": {
+      "step": 0.1053,
+      "margin": 0.06,
+      "from": 1.0852,
+      "to": 0.9766
+     },
+     "d_V": {
+      "step": 0.8455,
+      "margin": 0.15,
+      "from": 2.7385,
+      "to": 1.1111
+     }
+    },
+    "residual": null,
+    "unscaled_points": 0,
+    "unscaled_settled": []
+   },
+   {
+    "structure": "periodic tube 8 by 8 nodes across",
+    "judged": true,
+    "from_n": 16384,
+    "n": 65536,
+    "settled": [
+     "d_s",
+     "d_V"
+    ],
+    "einstein": false,
+    "points": 2,
+    "connected": true,
+    "scale": {
+     "holds": true,
+     "reach": [
+      68.0,
+      260.0
+     ],
+     "d": 1.0959,
+     "growth_d": 1.0336,
+     "off": 0.0762,
+     "allowed": 0.2623
+    },
+    "steps": {
+     "d_s": {
+      "step": 0.0092,
+      "margin": 0.1,
+      "from": 0.9766,
+      "to": 0.9677
+     },
+     "d_V": {
+      "step": 0.0137,
+      "margin": 0.03,
+      "from": 1.1111,
+      "to": 1.0959
+     }
+    },
+    "residual": null,
+    "unscaled_points": 2,
+    "unscaled_settled": [
+     "d_s",
+     "d_V"
+    ]
+   },
+   {
+    "structure": "periodic tube 16 by 16 nodes across",
+    "judged": false,
+    "from_n": 4096,
+    "n": 16384,
+    "settled": [],
+    "einstein": false,
+    "points": 0,
+    "connected": true,
+    "scale": {
+     "holds": false,
+     "reach": [
+      12.0,
+      24.0
+     ],
+     "d": 2.7477,
+     "growth_d": 2.0,
+     "off": 0.1886,
+     "allowed": 0.1634
+    },
+    "steps": {
+     "d_s": {
+      "step": 0.1256,
+      "margin": 0.06,
+      "from": 3.083,
+      "to": 2.7186
+     },
+     "d_V": {
+      "step": 0.0032,
+      "margin": 0.15,
+      "from": 2.9236,
+      "to": 2.9329
+     },
+     "d_B": {
+      "step": 0.014,
+      "margin": 0.08,
+      "from": 2.7382,
+      "to": 2.7768
+     }
+    },
+    "residual": null,
+    "unscaled_points": 2,
+    "unscaled_settled": [
+     "d_V",
+     "d_B"
+    ]
+   },
+   {
+    "structure": "periodic tube 16 by 16 nodes across",
+    "judged": true,
+    "from_n": 16384,
+    "n": 65536,
+    "settled": [],
+    "einstein": false,
+    "points": 0,
+    "connected": true,
+    "scale": {
+     "holds": true,
+     "reach": [
+      24.0,
+      72.0
+     ],
+     "d": 1.213,
+     "growth_d": 1.2619,
+     "off": 0.0443,
+     "allowed": 0.2564
+    },
+    "steps": {
+     "d_V": {
+      "step": 0.8297,
+      "margin": 0.03,
+      "from": 2.9329,
+      "to": 1.213
+     }
+    },
+    "residual": null,
+    "unscaled_points": 0,
+    "unscaled_settled": []
+   },
+   {
+    "structure": "uniform random tree, every edge a path of 8",
+    "judged": false,
+    "from_n": 4097,
+    "n": 16385,
+    "settled": [
+     "d_s",
+     "d_V",
+     "d_B"
+    ],
+    "einstein": false,
+    "points": 3,
+    "connected": true,
+    "scale": {
+     "holds": true,
+     "reach": [
+      190.8793,
+      492.3548
+     ],
+     "d": 1.2976,
+     "growth_d": 1.4628,
+     "off": 0.1207,
+     "allowed": 0.2882
+    },
+    "steps": {
+     "d_s": {
+      "step": 0.007,
+      "margin": 0.06,
+      "from": 1.1132,
+      "to": 1.121
+     },
+     "d_V": {
+      "step": 0.0075,
+      "margin": 0.15,
+      "from": 1.4986,
+      "to": 1.4874
+     },
+     "d_B": {
+      "step": 0.0091,
+      "margin": 0.08,
+      "from": 1.2859,
+      "to": 1.2976
+     }
+    },
+    "residual": null,
+    "unscaled_points": 3,
+    "unscaled_settled": [
+     "d_s",
+     "d_V",
+     "d_B"
+    ]
+   },
+   {
+    "structure": "uniform random tree, every edge a path of 8",
+    "judged": false,
+    "from_n": 16385,
+    "n": 65537,
+    "settled": [],
+    "einstein": false,
+    "points": 0,
+    "connected": true,
+    "scale": {
+     "holds": false,
+     "reach": [
+      492.3548,
+      780.0882
+     ],
+     "d": 1.3636,
+     "growth_d": 3.0122,
+     "off": 0.5564,
+     "allowed": 0.368
+    },
+    "steps": {
+     "d_s": {
+      "step": 0.0004,
+      "margin": 0.1,
+      "from": 1.121,
+      "to": 1.1206
+     },
+     "d_V": {
+      "step": 0.0863,
+      "margin": 0.03,
+      "from": 1.4874,
+      "to": 1.6216
+     },
+     "d_B": {
+      "step": 0.0496,
+      "margin": 0.05,
+      "from": 1.2976,
+      "to": 1.3636
+     }
+    },
+    "residual": null,
+    "unscaled_points": 2,
+    "unscaled_settled": [
+     "d_s",
+     "d_B"
+    ]
+   },
+   {
+    "structure": "soup of cycles, the largest 6,144 nodes",
+    "judged": false,
+    "from_n": 4096,
+    "n": 16384,
+    "settled": [],
+    "einstein": false,
+    "points": 0,
+    "connected": false,
+    "scale": {
+     "holds": false,
+     "reach": [
+      1024.0,
+      1536.0
+     ],
+     "d": 0.9982,
+     "growth_d": 3.419,
+     "off": 0.9833,
+     "allowed": 0.2786
+    },
+    "steps": {
+     "d_s": {
+      "step": 0.0037,
+      "margin": 0.06,
+      "from": 1.0001,
+      "to": 0.9964
+     },
+     "d_V": {
+      "step": 0.0,
+      "margin": 0.15,
+      "from": 1.0,
+      "to": 1.0
+     },
+     "d_B": {
+      "step": 0.0019,
+      "margin": 0.08,
+      "from": 0.9812,
+      "to": 0.9794
+     },
+     "d_w": {
+      "step": 0.0172,
+      "margin": 0.05,
+      "from": 2.0044,
+      "to": 2.0391
+     }
+    },
+    "residual": 0.0359,
+    "unscaled_points": 5,
+    "unscaled_settled": [
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w"
+    ]
+   },
+   {
+    "structure": "soup of cycles, the largest 6,144 nodes",
+    "judged": false,
+    "from_n": 16384,
+    "n": 65536,
+    "settled": [],
+    "einstein": false,
+    "points": 0,
+    "connected": false,
+    "scale": {
+     "holds": false,
+     "reach": [
+      1536.0,
+      1536.0
+     ],
+     "d": 1.0002,
+     "growth_d": null,
+     "off": 1.3861,
+     "allowed": 0.2779
+    },
+    "steps": {
+     "d_s": {
+      "step": 0.004,
+      "margin": 0.1,
+      "from": 0.9964,
+      "to": 1.0003
+     },
+     "d_V": {
+      "step": 0.0,
+      "margin": 0.03,
+      "from": 1.0,
+      "to": 1.0
+     },
+     "d_B": {
+      "step": 0.0018,
+      "margin": 0.05,
+      "from": 0.9794,
+      "to": 0.9811
+     },
+     "d_w": {
+      "step": 0.0282,
+      "margin": 0.08,
+      "from": 2.0391,
+      "to": 1.9825
+     }
+    },
+    "residual": 0.0105,
+    "unscaled_points": 5,
+    "unscaled_settled": [
+     "d_s",
+     "d_V",
+     "d_B",
+     "d_w"
+    ]
+   }
+  ],
+  "passes": false
+ },
+ "passes": false
+}

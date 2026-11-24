@@ -1,0 +1,355 @@
+{
+ "contract": "gsd-numbers-and-checks-1",
+ "reading": "each number the paper states, the code it passes through (the science freeze's files) and the checks that hold it: a known answer, two implementations that agree, or a replay. core_hours is a measurement of the host and is stated with it; its check is that one figure is charged once. tests/fixtures/planted_faults.json names, for each fault, the numbers it would corrupt (838)",
+ "kinds": [
+  "known answer",
+  "two implementations",
+  "replay",
+  "measured"
+ ],
+ "numbers": [
+  {
+   "id": "d_s",
+   "number": "each law's spectral dimension d_s at each size",
+   "code": [
+    "graph_scale_dynamics/measurements/estimators.py",
+    "graph_scale_dynamics/measurements/fits.py",
+    "graph_scale_dynamics/measurements/d_s_shape.py",
+    "graph_scale_dynamics/measurements/spectral_whole_range.py"
+   ],
+   "checks": [
+    {
+     "kind": "known answer",
+     "test": "tests/scientific/test_known_objects.py::test_a_real_lattice_reads_its_dimension"
+    },
+    {
+     "kind": "known answer",
+     "test": "tests/scientific/test_known_objects.py::test_the_uniform_random_tree_reads_four_thirds"
+    },
+    {
+     "kind": "known answer",
+     "test": "tests/scientific/test_instrument_reads_known_objects.py::test_d_s_reads_every_analytic_family_within_the_standard"
+    },
+    {
+     "kind": "two implementations",
+     "test": "tests/scientific/test_the_probes_count_what_they_say.py::test_the_return_probability_is_the_trace_of_the_lazy_walk_s_powers"
+    }
+   ]
+  },
+  {
+   "id": "d_s_error",
+   "number": "d_s's measured error (measured_se) beside its pointwise one (se)",
+   "code": [
+    "graph_scale_dynamics/measurements/estimators.py",
+    "graph_scale_dynamics/measurements/analysis.py"
+   ],
+   "checks": [
+    {
+     "kind": "two implementations",
+     "test": "tests/scientific/test_the_one_analysis.py::test_the_d_s_error_matches_the_spread_over_estimator_seeds"
+    }
+   ]
+  },
+  {
+   "id": "d_V",
+   "number": "each law's volume dimension d_V, and the balls' verdict that refuses it",
+   "code": [
+    "graph_scale_dynamics/measurements/estimators.py",
+    "graph_scale_dynamics/measurements/fits.py"
+   ],
+   "checks": [
+    {
+     "kind": "known answer",
+     "test": "tests/scientific/test_the_ball_window_and_its_verdict.py::test_a_power_all_the_way_is_read_to_its_last_radius"
+    },
+    {
+     "kind": "known answer",
+     "test": "tests/scientific/test_the_one_analysis.py::test_d_v_keeps_a_lattice_read_through_four_radii"
+    },
+    {
+     "kind": "known answer",
+     "test": "tests/scientific/test_the_one_analysis.py::test_d_v_refuses_an_expander_read_through_four_radii"
+    },
+    {
+     "kind": "two implementations",
+     "test": "tests/scientific/test_the_probes_count_what_they_say.py::test_the_balls_are_every_node_s_balls"
+    }
+   ]
+  },
+  {
+   "id": "d_B",
+   "number": "each law's box dimension d_B",
+   "code": [
+    "graph_scale_dynamics/measurements/box_covering.py",
+    "graph_scale_dynamics/measurements/fits.py"
+   ],
+   "checks": [
+    {
+     "kind": "known answer",
+     "test": "tests/scientific/test_the_box_and_walk_probes_read_known_structures.py::test_the_boxes_read_a_structure_within_the_band_of_its_known_answer"
+    },
+    {
+     "kind": "two implementations",
+     "test": "tests/scientific/test_the_probes_count_what_they_say.py::test_a_ring_is_covered_by_between_one_and_two_times_the_fewest_boxes"
+    }
+   ]
+  },
+  {
+   "id": "d_w",
+   "number": "each law's walk dimension d_w",
+   "code": [
+    "graph_scale_dynamics/measurements/walk_dimension.py",
+    "graph_scale_dynamics/measurements/fits.py"
+   ],
+   "checks": [
+    {
+     "kind": "known answer",
+     "test": "tests/scientific/test_the_box_and_walk_probes_read_known_structures.py::test_the_walk_reads_a_structure_within_the_band_of_its_known_answer"
+    },
+    {
+     "kind": "known answer",
+     "test": "tests/scientific/test_the_one_analysis.py::test_d_w_on_a_cubic_lattice_is_near_two"
+    },
+    {
+     "kind": "two implementations",
+     "test": "tests/scientific/test_the_probes_count_what_they_say.py::test_the_walk_s_mean_square_distance_is_the_walk_matrix_s"
+    }
+   ]
+  },
+  {
+   "id": "einstein",
+   "number": "the Einstein relation d_s = 2 d_V / d_w, the landscape's fifth band",
+   "code": [
+    "graph_scale_dynamics/measurements/walk_dimension.py",
+    "graph_scale_dynamics/observability/law_score.py"
+   ],
+   "checks": [
+    {
+     "kind": "known answer",
+     "test": "tests/scientific/test_the_box_and_walk_probes_read_known_structures.py::test_the_dimensions_are_ordered_and_the_gasket_keeps_the_einstein_relation"
+    }
+   ]
+  },
+  {
+   "id": "kappa",
+   "number": "the curvature term's reading (the formula the engine uses) beside the exact count",
+   "code": [
+    "graph_scale_dynamics/engine/engine.py",
+    "graph_scale_dynamics/measurements/curvature_probe.py"
+   ],
+   "checks": [
+    {
+     "kind": "known answer",
+     "test": "tests/unit/test_the_curvature_probe.py::test_a_flat_grid_is_flat_on_every_edge"
+    },
+    {
+     "kind": "known answer",
+     "test": "tests/unit/test_the_curvature_probe.py::test_a_regular_graph_with_no_short_cycle_reads_minus_two_d_minus_two_over_d"
+    },
+    {
+     "kind": "two implementations",
+     "test": "tests/unit/test_the_curvature_probe.py::test_the_engine_the_term_and_the_fallback_count_the_same_curvature"
+    },
+    {
+     "kind": "two implementations",
+     "test": "tests/scientific/test_the_curvature_term.py::test_the_ledger_and_the_kept_counts_match_a_recount_after_every_move"
+    }
+   ]
+  },
+  {
+   "id": "giant_fraction",
+   "number": "each chain's largest component, its share of the nodes and its structure",
+   "code": [
+    "graph_scale_dynamics/measurements/structure_census.py"
+   ],
+   "checks": [
+    {
+     "kind": "known answer",
+     "test": "tests/unit/test_the_structure_census.py::test_disjoint_cliques"
+    },
+    {
+     "kind": "known answer",
+     "test": "tests/unit/test_the_structure_census.py::test_a_torus"
+    }
+   ]
+  },
+  {
+   "id": "equilibrium",
+   "number": "every chain samples its law's Boltzmann measure, on either engine",
+   "code": [
+    "graph_scale_dynamics/engine/engine.py",
+    "engine_rs/src/lib.rs"
+   ],
+   "checks": [
+    {
+     "kind": "known answer",
+     "test": "tests/scientific/test_estimators.py::test_detailed_balance_on_tiny_graphs"
+    },
+    {
+     "kind": "known answer",
+     "test": "tests/scientific/test_law_dynamics.py::test_the_local_toggle_samples_the_boltzmann_measure_and_not_the_one_at_twice_its_energy"
+    },
+    {
+     "kind": "two implementations",
+     "test": "tests/scientific/test_engine_parity.py::test_python_and_rust_envelopes_are_identical"
+    },
+    {
+     "kind": "two implementations",
+     "test": "tests/scientific/test_engine_exact_neutral.py::test_python_and_rust_agree"
+    }
+   ]
+  },
+  {
+   "id": "work",
+   "number": "the work a seed took, in the engine's units, and the budget it is held to",
+   "code": [
+    "graph_scale_dynamics/engine/engine.py",
+    "engine_rs/src/accounting.rs"
+   ],
+   "checks": [
+    {
+     "kind": "two implementations",
+     "test": "tests/scientific/test_the_work_count.py::test_both_engines_count_the_same_work_on_every_chain"
+    }
+   ]
+  },
+  {
+   "id": "gates",
+   "number": "how many laws each gate stopped, at which size (empty, disconnected, too dense, over budget)",
+   "code": [
+    "graph_scale_dynamics/decisions/engine.py",
+    "graph_scale_dynamics/decisions/rungs.py",
+    "graph_scale_dynamics/decisions/known_result.py"
+   ],
+   "checks": [
+    {
+     "kind": "known answer",
+     "test": "tests/unit/test_the_fact_gates_read_three_sizes_in_a_row.py::test_a_rising_row_is_not_empty_and_a_growing_one_not_disconnected"
+    },
+    {
+     "kind": "known answer",
+     "test": "tests/unit/test_the_fact_gates_read_three_sizes_in_a_row.py::test_three_sizes_in_a_row_decide_from_1024"
+    },
+    {
+     "kind": "replay",
+     "test": "tests/unit/test_decisions_replay_and_the_depth_audit.py::test_every_decision_is_recorded_with_its_inputs_and_context_and_replays_from_them"
+    }
+   ]
+  },
+  {
+   "id": "let_through",
+   "number": "how many held-back laws were let through, and when a gate was confirmed",
+   "code": [
+    "graph_scale_dynamics/decisions/gates.py",
+    "graph_scale_dynamics/decisions/let_through.py"
+   ],
+   "checks": [
+    {
+     "kind": "known answer",
+     "test": "tests/unit/test_one_let_through_rule.py::test_a_gate_clamps_after_its_run_of_clean_and_a_miss_resets_it"
+    },
+    {
+     "kind": "known answer",
+     "test": "tests/unit/test_one_die_and_the_gate_s_new_name.py::test_one_die_lets_a_law_past_every_gate_at_a_size_together"
+    },
+    {
+     "kind": "replay",
+     "test": "tests/unit/test_one_die_and_the_gate_s_new_name.py::test_the_renamed_gate_draws_the_die_it_drew_as_seen_enough"
+    }
+   ]
+  },
+  {
+   "id": "replay",
+   "number": "every decision a bundle carries, made again from its recorded inputs",
+   "code": [
+    "graph_scale_dynamics/decisions/replay.py",
+    "graph_scale_dynamics/decisions/engine.py"
+   ],
+   "checks": [
+    {
+     "kind": "replay",
+     "test": "tests/unit/test_decisions_replay_and_the_depth_audit.py::test_a_replay_says_when_the_record_and_the_rules_disagree"
+    },
+    {
+     "kind": "replay",
+     "test": "tests/integration/test_a_bundle_replays_every_decision_postgres.py"
+    }
+   ]
+  },
+  {
+   "id": "score",
+   "number": "the law score and the list it orders",
+   "code": [
+    "graph_scale_dynamics/observability/law_score.py"
+   ],
+   "checks": [
+    {
+     "kind": "known answer",
+     "test": "tests/scientific/test_the_score_settles_on_known_answers.py::test_every_exact_lattice_settles_every_probe_it_is_held_to_and_five_points_where_its_ladder_holds_all_four"
+    },
+    {
+     "kind": "known answer",
+     "test": "tests/scientific/test_the_score_settles_on_known_answers.py::test_a_random_graph_and_a_small_world_score_nothing_and_a_lattice_settles_twice"
+    }
+   ]
+  },
+  {
+   "id": "draws",
+   "number": "the laws a study draws and the seeds its chains run on",
+   "code": [
+    "graph_scale_dynamics/domain/randomness.py"
+   ],
+   "checks": [
+    {
+     "kind": "known answer",
+     "test": "tests/unit/test_a_campaign_s_laws_are_its_seed_s.py::test_eight_laws_are_the_same_eight_however_the_top_ups_fall"
+    },
+    {
+     "kind": "known answer",
+     "test": "tests/unit/test_a_campaign_s_laws_are_its_seed_s.py::test_the_seed_is_the_campaign_s_and_nothing_else"
+    },
+    {
+     "kind": "replay",
+     "test": "tools/study_twice.py"
+    }
+   ]
+  },
+  {
+   "id": "starts_fate",
+   "number": "a lattice start's fate under a law (held, or moved)",
+   "code": [
+    "graph_scale_dynamics/observability/starts_reading.py"
+   ],
+   "checks": [
+    {
+     "kind": "known answer",
+     "test": "tests/unit/test_the_starts_are_read.py::test_two_chains_meet_within_their_tolerances_and_part_beyond_them"
+    }
+   ]
+  },
+  {
+   "id": "finite_size",
+   "number": "the finite-size tolerance a probe's step is judged within",
+   "code": [
+    "graph_scale_dynamics/calibration/finite_size.py"
+   ],
+   "checks": [
+    {
+     "kind": "known answer",
+     "test": "tests/scientific/test_calibration_ladder_gate.py::test_every_calibration_family_is_within_declared_tolerance"
+    }
+   ]
+  },
+  {
+   "id": "core_hours",
+   "number": "what a study cost, in core-hours",
+   "code": [],
+   "checks": [
+    {
+     "kind": "measured",
+     "test": "tests/unit/test_one_core_hour_figure_and_finished_graphs.py::test_the_card_s_core_hours_carry_the_analysis_the_engine_does"
+    }
+   ]
+  }
+ ]
+}

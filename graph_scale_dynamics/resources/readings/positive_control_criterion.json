@@ -1,0 +1,221 @@
+{
+  "contract": "gsd-positive-control-criterion-1",
+  "committed_utc": "2026-09-27T13:58:24Z",
+  "build": 538,
+  "question": "Does the pipeline recognise a geometry when a chain sits at one, and refuse it when the geometry is not stable? The empty start cannot reach the lattice law's torus (537, G2), so each law's twin starts at the torus (sampling_contract.control_init) and the committed structure rule reads both chains.",
+  "before_any_fleet_run": "Committed before the campaign ran anywhere. It was informed by 537's G2 runs and 538's sandbox runs of these laws (why the positives are at beta 2 and 4 and the negatives are the anchor alone and beta 1); it is not revised after a run (docs/RESEARCH_METHOD.md, the standing risk).",
+  "given_start": {
+    "family": "periodic_square_lattice"
+  },
+  "rungs": [
+    1024,
+    4096,
+    16384,
+    65536
+  ],
+  "seeds": 3,
+  "read_with": "research/structure_reading.law_structure on each chain: the committed rule (thresholds of 523) over the rungs from 4,096, as report 28's `chains_by_law` records it",
+  "words": {
+    "finite dimension": "the committed rule reads a finite dimension",
+    "not finite": "no finite dimension, or not decidable: anything but a finite dimension"
+  },
+  "laws": [
+    {
+      "label": "P1",
+      "role": "positive",
+      "what": "the lattice law at beta 2, where its torus holds (537, G2, to 65,536)",
+      "spec": {
+        "dsl_version": 1,
+        "init": "empty",
+        "dynamics": {
+          "kind": "equilibrium",
+          "beta": 2.0,
+          "sweeps": 250,
+          "move_mix": {
+            "add": 0.425,
+            "delete": 0.425,
+            "swap": 0.15
+          }
+        },
+        "terms": [
+          {
+            "op": "degree_anchor",
+            "params": {
+              "k": 4
+            },
+            "coeff": {
+              "c0": 5.0,
+              "scale": "one"
+            }
+          },
+          {
+            "op": "induced_square_count",
+            "params": {},
+            "coeff": {
+              "c0": -6.0,
+              "scale": "one"
+            }
+          },
+          {
+            "op": "square_edge_overlap",
+            "params": {},
+            "coeff": {
+              "c0": 1.0,
+              "scale": "one"
+            }
+          }
+        ]
+      },
+      "expect": {
+        "empty": "not finite",
+        "given": "finite dimension",
+        "given_implied_d_s": [
+          1.6,
+          2.4
+        ]
+      }
+    },
+    {
+      "label": "P2",
+      "role": "positive",
+      "what": "the lattice law at beta 4, colder",
+      "spec": {
+        "dsl_version": 1,
+        "init": "empty",
+        "dynamics": {
+          "kind": "equilibrium",
+          "beta": 4.0,
+          "sweeps": 250,
+          "move_mix": {
+            "add": 0.425,
+            "delete": 0.425,
+            "swap": 0.15
+          }
+        },
+        "terms": [
+          {
+            "op": "degree_anchor",
+            "params": {
+              "k": 4
+            },
+            "coeff": {
+              "c0": 5.0,
+              "scale": "one"
+            }
+          },
+          {
+            "op": "induced_square_count",
+            "params": {},
+            "coeff": {
+              "c0": -6.0,
+              "scale": "one"
+            }
+          },
+          {
+            "op": "square_edge_overlap",
+            "params": {},
+            "coeff": {
+              "c0": 1.0,
+              "scale": "one"
+            }
+          }
+        ]
+      },
+      "expect": {
+        "empty": "not finite",
+        "given": "finite dimension",
+        "given_implied_d_s": [
+          1.6,
+          2.4
+        ]
+      }
+    },
+    {
+      "label": "N1",
+      "role": "negative",
+      "what": "the degree anchor alone at beta 2: the same degrees, no energy for squares, so the torus is not its equilibrium",
+      "spec": {
+        "dsl_version": 1,
+        "init": "empty",
+        "dynamics": {
+          "kind": "equilibrium",
+          "beta": 2.0,
+          "sweeps": 250,
+          "move_mix": {
+            "add": 0.425,
+            "delete": 0.425,
+            "swap": 0.15
+          }
+        },
+        "terms": [
+          {
+            "op": "degree_anchor",
+            "params": {
+              "k": 4
+            },
+            "coeff": {
+              "c0": 5.0,
+              "scale": "one"
+            }
+          }
+        ]
+      },
+      "expect": {
+        "empty": "not finite",
+        "given": "not finite"
+      }
+    },
+    {
+      "label": "N2",
+      "role": "negative",
+      "what": "the lattice law at beta 1, above the torus's melting point",
+      "spec": {
+        "dsl_version": 1,
+        "init": "empty",
+        "dynamics": {
+          "kind": "equilibrium",
+          "beta": 1.0,
+          "sweeps": 250,
+          "move_mix": {
+            "add": 0.425,
+            "delete": 0.425,
+            "swap": 0.15
+          }
+        },
+        "terms": [
+          {
+            "op": "degree_anchor",
+            "params": {
+              "k": 4
+            },
+            "coeff": {
+              "c0": 5.0,
+              "scale": "one"
+            }
+          },
+          {
+            "op": "induced_square_count",
+            "params": {},
+            "coeff": {
+              "c0": -6.0,
+              "scale": "one"
+            }
+          },
+          {
+            "op": "square_edge_overlap",
+            "params": {},
+            "coeff": {
+              "c0": 1.0,
+              "scale": "one"
+            }
+          }
+        ]
+      },
+      "expect": {
+        "empty": "not finite",
+        "given": "not finite"
+      }
+    }
+  ],
+  "pass": "Every law meets its expectation in the campaign's bundle. A law with a chain not decidable yet where a finite dimension is expected has not passed; the campaign is read again when it has."
+}

@@ -1,0 +1,65 @@
+{
+ "contract": "gsd-findings-1",
+ "reading": "Every finding the standing documents state, beside the files it rests on and the command that reads it again: the numbered findings of docs/WHERE_WE_ARE.md and the sections of docs/RESEARCH_METHOD.md that state one. Since 784 they are the instrument's on known answers (the 2019 model's readings left at 829, the operator, 2026-11-20 11:48); the findings drawn from studies 159 and 160 are in the 784 readings archive with their readings (the operator, 2026-11-15 14:07). A pilot's numbers are not findings.",
+ "where_we_are": [
+  {
+   "item": 1,
+   "starts": "The instrument reads what it should where the answer is known.",
+   "data": [
+    "calibration/seed_table.json",
+    "graph_scale_dynamics/resources/readings/starts_known_answers_criterion.json",
+    "graph_scale_dynamics/resources/readings/starts_known_answers_judged.json"
+   ],
+   "command": "python3 tools/starts_check.py check --out <file>; python3 tools/collect_calibration.py; python3 tools/dimension_test.py measure --part training --out <file>; python3 tools/dimension_test.py judge --measured <training> <held out>",
+   "status": "in the tree: the seed table and the known answers' run on the current reading (held to this tree's rule and references by tests/unit/test_the_starts_are_read.py); the dimension test judged against a criterion committed before any graph it names was built; the pipeline check judged once against a criterion committed before any graph was measured for it (735)"
+  },
+  {
+   "item": 2,
+   "starts": "The structure rule alone can be fooled, the three readings together were not",
+   "data": [
+    "graph_scale_dynamics/resources/readings/chained_cubic_criterion.json",
+    "graph_scale_dynamics/resources/readings/chained_cubic_judged.json",
+    "graph_scale_dynamics/resources/configs/campaign_engine_survey.json"
+   ],
+   "command": "python3 tools/calibrate_structure.py --read-chained",
+   "status": "in the tree: graphs of known answer, not study data"
+  }
+ ],
+ "research_method": [
+  {
+   "section": "The instrument and its known limits",
+   "data": [
+    "calibration/seed_table.json",
+    "graph_scale_dynamics/resources/readings/starts_known_answers_criterion.json",
+    "graph_scale_dynamics/resources/readings/starts_known_answers_judged.json",
+    "graph_scale_dynamics/resources/readings/noise_floors_analysis-4.0.0.json",
+    "graph_scale_dynamics/resources/readings/chained_cubic_criterion.json",
+    "graph_scale_dynamics/resources/readings/chained_cubic_judged.json",
+    "graph_scale_dynamics/resources/readings/certificate_known_answers_criterion_3.json",
+    "graph_scale_dynamics/resources/readings/certificate_known_answers_3_judged.json",
+    "graph_scale_dynamics/resources/readings/curvature_known_answers_criterion_2.json",
+    "graph_scale_dynamics/resources/readings/curvature_known_answers_2_judged.json",
+    "graph_scale_dynamics/resources/readings/boltzmann_known_answers_criterion_4.json",
+    "graph_scale_dynamics/resources/readings/boltzmann_known_answers_4_judged.json",
+    "docs/readings/boltzmann_known_answers_4_judged.md",
+    "graph_scale_dynamics/resources/readings/start_admission_criterion_2.json",
+    "graph_scale_dynamics/resources/readings/start_admission_2_judged.json",
+    "docs/readings/start_admission_2_judged.md",
+    "graph_scale_dynamics/resources/readings/score_known_answers_criterion_3.json",
+    "graph_scale_dynamics/resources/readings/score_known_answers_3_judged.json",
+    "graph_scale_dynamics/resources/readings/score_known_answers_3_measured.json"
+   ],
+   "command": "python3 tools/starts_check.py check --out <file>; python3 tools/calibrate_structure.py --read-chained; python3 tools/dimension_test.py measure --part training --out <file>; python3 tools/dimension_test.py judge --measured <training> <held out>; python3 tools/start_admission.py run --json <out> --md <out>; python3 tools/lattice_starts_known_answers.py run --criterion <criterion> --workers 2 --json <out> --md <out>; python3 tools/score_known_answers.py measure --workers 2; python3 tools/score_known_answers.py; python3 tools/boltzmann_known_answers.py run --workers 2 --json <out> --md <out>; python3 tools/certificate_known_answers.py run --json <out> --md <out>; python3 tools/curvature_known_answers.py run --json <out> --md <out>",
+   "status": "in the tree: measured on graphs of known answer, each criterion committed first; read again on the final code at 805 to 817 but the starts' eleven known answers and the structure rule's blind spot, read before the lock"
+  }
+ ],
+ "not_findings": [
+  "Question",
+  "The design",
+  "The pilots on the new probes",
+  "What study A tests",
+  "The programme",
+  "What is not claimed",
+  "The papers read"
+ ]
+}

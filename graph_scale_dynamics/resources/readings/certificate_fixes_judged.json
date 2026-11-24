@@ -1,0 +1,69 @@
+{
+ "contract": "gsd-certificate-fixes-judged-1",
+ "criterion": "gsd-certificate-fixes-criterion-1",
+ "criterion_committed_utc": "2026-11-19T02:23:47Z",
+ "judged_utc": "2026-11-19T03:12:05Z",
+ "passes": false,
+ "verdict": "8 of 9 known answers as expected; every held-out prediction true. The one miss: with no drift and a lag time of 20 points in the late window of 72, 34 of 300 chains fail the drift test (11%, over the 5% allowed): the lag-one widening, capped at 0.8 as the structural trend's is, is too narrow for points that correlated. 33 of the 34 hold fewer than the 16 effective samples a study asks and fail the count anyway, so 1 chain in 300 of that kind is held back by the drift test alone. The structural trend shares the rule and its limit. The design was not patched to pass it",
+ "known_answers": {
+  "drift_none": {
+   "lag_1": "0 of 300 fail",
+   "lag_5": "7 of 300 fail",
+   "lag_20": "34 of 300 fail (the miss)"
+  },
+  "drift_some": "at least 285 of 300 fail at every lag time",
+  "drift_offset": "the same verdict with 1e6 added and with every energy times 1e3, on 360 series",
+  "split_rounding": "z 0",
+  "split_real": "z over 3",
+  "rest_wandering": "at rest, 9 neutral changes a node in its late window",
+  "rest_drifting": "not at rest: STRUCTURAL_TREND, and RELAXING_AT_CEILING at the cap",
+  "cap_confirmed": "completed at x4 after a second chunk at x4",
+  "cap_refused": "ceiling after a second chunk at x4"
+ },
+ "held_out": {
+  "sample": "40 laws, search seed 20261120, 256 and 1,024 nodes, two seeds each, 160 seeds, 0 failed, grown on the fixed code",
+  "zero_temperature": {
+   "certified_at_rest_by_today_s_rule": 40,
+   "rest_taken_away": 0,
+   "certified_a_chunk_later": 4,
+   "predicted": "at most 1 in 10",
+   "true": true
+  },
+  "drift": {
+   "certified_by_today_s_rule": 11,
+   "not_certified_by_the_fixed": 2,
+   "which": [
+    "law 11 at 256, seed 0: RELAXING_AT_CEILING",
+    "law 18 at 256, seed 1: INSUFFICIENT_EFFECTIVE_SAMPLES"
+   ],
+   "certified_only_by_the_fixed": 0,
+   "predicted": "at most 1 in 5",
+   "true": true
+  },
+  "split": {
+   "equal_to_rounding_and_disagreeing": 0,
+   "disagreeing_beyond_rounding_today_and_agreeing_now": 0,
+   "rounding_disagreements_today_now_agreeing": 12,
+   "on_laws": [
+    4,
+    16,
+    34,
+    38
+   ],
+   "today_s_z": "5.0 to 1,253 for differences of rounding",
+   "true": true
+  },
+  "cap": {
+   "passes_at_the_cap_left_unconfirmed": 0,
+   "true": true
+  }
+ },
+ "first_sample": {
+  "sample": "40 laws, search seed 20261119, the same sizes and seeds, grown on today's code: where the faults were found",
+  "zero_temperature": "59 seeds at rest; 19 (7 laws) still changing more than 0.05 a node late, all by neutral moves (up to 39 a node); 1 drifting in structure over the rest window (law 12, 256, seed 0)",
+  "drift": "512 chain chunks: 50 fail today's test, 131 drift beyond 3 of their own widened errors, 81 of those pass today; 16 verdicts change when a constant is added to every energy; 2 of 17 certified seeds hold a chain beyond 3 errors",
+  "split": "laws 23 and 26: twins frozen at energies equal to 1e-10, z 160 to 1,341, STARTS_DISAGREED on every chunk to x64",
+  "cap": "no seed first passed at the cap; one passed at x56 and failed its confirmation at x64"
+ },
+ "harness": "drawn by services/proposer/blind.blind_law from tests/fixtures/a_design.json's campaign on the shipped spec, grown by scaleflow/one_shot.run_one_shot with job_creation.one_shot_policy, 240 points a chain; the readings compare today's rule and the fixed one on the same chunks"
+}

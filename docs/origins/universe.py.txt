@@ -1,0 +1,482 @@
+import random
+from collections import Counter, deque
+import networkx as nx
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.manifold import MDS
+import time
+import warnings
+
+warnings.filterwarnings("ignore")  # Suppress generic warnings
+
+# -----------------------
+# NUMBA OPTIMIZATION CHECK
+# -----------------------
+try:
+    from numba import jit, njit
+    HAS_NUMBA = True
+    print(">> Numba detected. Engines online (High Performance Mode).")
+except ImportError:
+    HAS_NUMBA = False
+    print(">> Numba not found. Running in standard Python mode (Slower).")
+    # Fallback decorators
+    def jit(nopython=True, fastmath=True):
+        def decorator(func): return func
+        return decorator
+    def njit(fastmath=True):
+        def decorator(func): return func
+        return decorator
+
+# -----------------------
+# CONFIG: THE BIG BANG OBSERVATORY
+# -----------------------
+SEED = 42
+np.random.seed(SEED)
+random.seed(SEED)
+
+NUM_NODES = 1000           # Scale
+NUM_COLORS = 8
+
+STEPS = 10000               # Duration
+INIT_P = 0.003             # Start Empty
+
+# THE WEAVING PHYSICS (Goldilocks Zone)
+COHERENCE = 2.0            # Income (Magnetism)
+CONNECTION_COST = 0.2      # Base Tax (Energy Cost)
+CONGESTION_K = 0.15        # Degree 4 Enforcer (Pauli Exclusion/Repulsion)
+
+# INSTRUMENTATION
+LOG_EVERY = 1000            # Log frequency
+HISTORY_WINDOW = 200        # Memory for MI calc
+GLOBAL_SAMPLES = 30        # Samples for non-locality probe
+LAG = 3
+DIMS_MAX = 5               # Probe up to 5 dimensions
+FAR_DIST = 3               # Definition of "far" in graph hops
+
+# METROPOLIS CONSTANTS
+TEMPERATURE = 0.35
+FRUSTRATION = 1.8
+P_LONG_RANGE = 0.03
+HORIZON = 2
+LAMBDA_ANTIGLOBAL = 0.55
+LAMBDA_COMPONENTS = 25
+
+# -----------------------
+# PART 1: FAST MATH (NUMBA JIT)
+# -----------------------
+
+@jit(nopython=True)
+def fast_mutual_info_counts(px, py, pxy, n):
+    """Calculates Mutual Information from count arrays."""
+    mi = 0.0
+    eps = 1e-12
+    for x in range(len(px)):
+        if px[x] == 0: continue
+        px_val = px[x] / n
+        for y in range(len(py)):
+            if pxy[x, y] == 0: continue
+            pxy_val = pxy[x, y] / n
+            py_val = py[y] / n
+            mi += pxy_val * np.log((pxy_val + eps) / (px_val * py_val + eps))
+    return max(0.0, mi)
+
+@njit(fastmath=True)
+def sinkhorn_transport(dist_matrix, r, c, lam=20, max_iter=50, stop_thresh=1e-9):
+    """
+    Numba-accelerated Sinkhorn-Knopp algorithm for Optimal Transport (Earth Mover's Distance).
+    Used to calculate Ricci Curvature.
+    """
+    n_r = len(r)
+    n_c = len(c)
+
+    # Kernel matrix K = exp(-lambda * M)
+    K = np.exp(-lam * dist_matrix)
+
+    # Initialize scaling vectors
+    u = np.ones(n_r) / n_r
+    v = np.ones(n_c) / n_c
+
+    # Sinkhorn iterations (matrix scaling)
+    for _ in range(max_iter):
+        u_prev = u.copy()
+
+        # Update u
+        kv = np.dot(K, v)
+        for i in range(n_r):
+            if kv[i] < 1e-15: kv[i] = 1e-15
+        u = r / kv
+
+        # Update v
+        ktu = np.dot(K.T, u)
+        for j in range(n_c):
+            if ktu[j] < 1e-15: ktu[j] = 1e-15
+        v = c / ktu
+
+        # Check convergence
+        err = np.sum(np.abs(u - u_prev))
+        if err < stop_thresh:
+            break
+
+    # Transport cost calculation
+    cost = 0.0
+    for i in range(n_r):
+        for j in range(n_c):
+            weight = u[i] * K[i,j] * v[j]
+            cost += weight * dist_matrix[i, j]
+
+    return cost
+
+def mutual_info_wrapper(xs, ys):
+    """Wrapper to prepare data for the Numba MI function."""
+    n = len(xs)
+    if n == 0: return 0.0
+    max_state = max(np.max(xs), np.max(ys), NUM_COLORS) + 1
+    px = np.zeros(max_state, dtype=np.float64)
+    py = np.zeros(max_state, dtype=np.float64)
+    pxy = np.zeros((max_state, max_state), dtype=np.float64)
+
+    for i in range(n):
+        px[xs[i]] += 1
+        py[ys[i]] += 1
+        pxy[xs[i], ys[i]] += 1
+
+    if HAS_NUMBA:
+        return fast_mutual_info_counts(px, py, pxy, n)
+    else:
+        # Fallback pure python implementation
+        mi = 0.0; eps = 1e-12
+        for x in range(len(px)):
+            if px[x] == 0: continue
+            px_val = px[x] / n
+            for y in range(len(py)):
+                if pxy[x, y] == 0: continue
+                pxy_val = pxy[x, y] / n
+                py_val = py[y] / n
+                mi += pxy_val * np.log((pxy_val + eps) / (px_val * py_val + eps))
+        return max(0.0, mi)
+
+# -----------------------
+# PART 2: PHYSICS & UTILITIES
+# -----------------------
+
+def build_state_series(history, nodes):
+    series = {}
+    for u in nodes:
+        series[u] = np.array([snap[u] for snap in history], dtype=np.int64)
+    return series
+
+def global_far_mi_penalty(G, history, far_dist=3, samples=20, lag=1):
+    if len(history) < lag + 5: return 0.0
+    nodes = list(G.nodes())
+    series = build_state_series(history, nodes)
+    mi_vals = []
+    tries = 0
+    while len(mi_vals) < samples and tries < samples * 5:
+        tries += 1
+        a, b = random.sample(nodes, 2)
+        too_close = False
+        if G.degree(a) > 0:
+            try:
+                l = nx.shortest_path_length(G, a, b)
+                if l < far_dist: too_close = True
+            except nx.NetworkXNoPath: pass
+        if too_close: continue
+
+        mi = 0.5 * (mutual_info_wrapper(series[a][lag:], series[b][:-lag]) +
+                    mutual_info_wrapper(series[b][lag:], series[a][:-lag]))
+        mi_vals.append(mi)
+    return float(np.mean(mi_vals)) if mi_vals else 0.0
+
+def node_utility(graph, node):
+    s = graph.nodes[node]["state"]
+    nbrs = list(graph.neighbors(node))
+    deg = len(nbrs)
+    if deg == 0: return -1.0
+    matches = sum(1 for v in nbrs if graph.nodes[v]["state"] == s)
+    mismatches = deg - matches
+
+    # THE PHYSICS EQUATION: H = E_mag + E_cost + E_congestion
+    u = (matches * COHERENCE) - \
+        (mismatches * FRUSTRATION) - \
+        (deg * CONNECTION_COST) - \
+        (deg * deg * CONGESTION_K)
+    return u
+
+def global_persistence_score(graph, history):
+    avg_u = np.mean([node_utility(graph, n) for n in graph.nodes()])
+    anti_global = global_far_mi_penalty(graph, history, far_dist=FAR_DIST, samples=GLOBAL_SAMPLES, lag=LAG)
+    ncomp = nx.number_connected_components(graph)
+
+    score = float(avg_u)
+    score -= LAMBDA_ANTIGLOBAL * float(anti_global)
+    score -= LAMBDA_COMPONENTS * ((ncomp - 1) ** 1.5)
+    return score
+
+def propose_link_target(graph, node):
+    if random.random() < P_LONG_RANGE:
+        cand = [v for v in graph.nodes() if v != node and not graph.has_edge(node, v)]
+        return random.choice(cand) if cand else None
+    visited = {node}; frontier = {node}; candidates = set()
+    for _ in range(HORIZON):
+        new_frontier = set()
+        for u in frontier:
+            for v in graph.neighbors(u):
+                if v not in visited: visited.add(v); new_frontier.add(v)
+        frontier = new_frontier
+    for v in visited:
+        if v != node and not graph.has_edge(node, v): candidates.add(v)
+    return random.choice(list(candidates)) if candidates else None
+
+def compute_ollivier_ricci(graph):
+    """
+    Computes Ollivier-Ricci Curvature for edges to detect Gravity vs Expansion.
+    Uses Sinkhorn transport for speed.
+    """
+    edge_curvatures = {}
+    node_accum = {node: [] for node in graph.nodes()}
+    edges = list(graph.edges())
+
+    print(f">> Calculating Quantum Gravity (Ricci Curvature) on {len(edges)} connections...")
+
+    for u, v in edges:
+        nbrs_u = list(graph.neighbors(u))
+        nbrs_v = list(graph.neighbors(v))
+        if not nbrs_u or not nbrs_v: continue
+
+        mu_u = np.ones(len(nbrs_u), dtype=np.float64) / len(nbrs_u)
+        mu_v = np.ones(len(nbrs_v), dtype=np.float64) / len(nbrs_v)
+
+        n_rows, n_cols = len(nbrs_u), len(nbrs_v)
+        M = np.zeros((n_rows, n_cols), dtype=np.float64)
+
+        for i, nu in enumerate(nbrs_u):
+            for j, nv in enumerate(nbrs_v):
+                if nu == nv: d = 0.0
+                elif graph.has_edge(nu, nv): d = 1.0
+                elif nu == v or nv == u: d = 1.0
+                else:
+                    commons = set(graph.neighbors(nu)) & set(graph.neighbors(nv))
+                    d = 2.0 if commons else 3.0
+                M[i, j] = d
+
+        W_dist = sinkhorn_transport(M, mu_u, mu_v)
+        kappa = 1.0 - W_dist # Ricci Curvature Formula
+
+        edge_curvatures[(u,v)] = kappa
+        node_accum[u].append(kappa)
+        node_accum[v].append(kappa)
+
+    node_curvatures = {}
+    for node, vals in node_accum.items():
+        node_curvatures[node] = np.mean(vals) if vals else 0.0
+
+    return node_curvatures
+
+# -----------------------
+# PART 3: INSTRUMENTATION
+# -----------------------
+
+def temporal_persistence(history):
+    if len(history) < 2: return 0.0
+    prev, cur = history[-2], history[-1]
+    same = sum(1 for n in cur if cur[n] == prev[n])
+    return same / len(cur)
+
+def description_length_proxy(graph):
+    states = [graph.nodes[n]["state"] for n in graph.nodes()]
+    degs = [graph.degree(n) for n in graph.nodes()]
+    def entropy(vals):
+        if not vals: return 0.0
+        c = Counter(vals); p = np.array(list(c.values()), float); p/=p.sum()
+        return -np.sum(p * np.log2(p + 1e-12))
+    return entropy(states) + entropy(degs)
+
+def mi_distance_matrix_fast(hist, nodes, lag=1):
+    n = len(nodes)
+    series = build_state_series(hist, nodes)
+    D = np.zeros((n, n))
+    for i in range(n):
+        for j in range(i+1, n):
+            u, v = nodes[i], nodes[j]
+            val = 0.5 * (mutual_info_wrapper(series[u][lag:], series[v][:-lag]) +
+                         mutual_info_wrapper(series[v][lag:], series[u][:-lag]))
+            D[i,j] = D[j,i] = val
+    max_val = D.max() if D.max() > 0 else 1.0
+    D_dist = -np.log((D + 1e-9)/(max_val + 1e-9))
+    np.fill_diagonal(D_dist, 0.0)
+    return np.clip(D_dist, 0.0, 15.0)
+
+def metricity_violation_rate(D, samples=1000, seed=None):
+    rng = np.random.default_rng(seed)
+    n = D.shape[0]
+    if n < 3: return 0.0
+    viol = 0
+    for _ in range(samples):
+        i, j, k = rng.integers(0, n, size=3)
+        if i == j or j == k or i == k: continue
+        if D[i, k] > D[i, j] + D[j, k] + 1e-5: viol += 1
+    return viol / max(1, samples)
+
+# -----------------------
+# PART 4: MAIN SIMULATION LOOP
+# -----------------------
+
+G = nx.erdos_renyi_graph(n=NUM_NODES, p=INIT_P, seed=SEED)
+for n in G.nodes(): G.nodes[n]["state"] = np.random.randint(0, NUM_COLORS)
+nodes_list = list(G.nodes())
+
+history = deque(maxlen=HISTORY_WINDOW)
+history.append({n: G.nodes[n]["state"] for n in G.nodes()})
+P_current = global_persistence_score(G, history)
+
+# Timeseries Data
+times = []
+persist_ts, dl_ts, metricity_ts, anti_global_ts = [], [], [], []
+components_ts, mean_degree_ts = [], []
+
+print(f"Starting Universe Observatory ({NUM_NODES} nodes)...")
+start_time = time.time()
+
+for step in range(1, STEPS + 1):
+    history.append({n: G.nodes[n]["state"] for n in G.nodes()})
+
+    # Metropolis Step
+    node = random.choice(nodes_list)
+    action = random.choice(["link", "cut", "flip"])
+    rollback = None; changed = False
+
+    if action == "link":
+        targ = propose_link_target(G, node)
+        if targ: G.add_edge(node, targ); changed = True; rollback = ("rem", node, targ)
+    elif action == "cut":
+        nbrs = list(G.neighbors(node))
+        if nbrs: targ = random.choice(nbrs); G.remove_edge(node, targ); changed = True; rollback = ("add", node, targ)
+    elif action == "flip":
+        old = G.nodes[node]["state"]; new = random.randrange(NUM_COLORS)
+        if new != old: G.nodes[node]["state"] = new; changed = True; rollback = ("flip", node, old)
+
+    if changed:
+        P_new = global_persistence_score(G, history)
+        dP = P_new - P_current
+        # Metropolis Acceptance
+        if dP >= 0 or random.random() < np.exp(dP / max(1e-9, TEMPERATURE)):
+            P_current = P_new
+        else:
+            op = rollback[0]
+            if op == "rem":
+                if G.has_edge(rollback[1], rollback[2]): G.remove_edge(rollback[1], rollback[2])
+            elif op == "add": G.add_edge(rollback[1], rollback[2])
+            elif op == "flip": G.nodes[rollback[1]]["state"] = rollback[2]
+
+    # Logging
+    if step % LOG_EVERY == 0 or step == STEPS:
+        elapsed = time.time() - start_time
+        times.append(step)
+        persist_ts.append(temporal_persistence(history))
+        dl_ts.append(description_length_proxy(G))
+        components_ts.append(nx.number_connected_components(G))
+        deg = np.mean([G.degree(n) for n in G.nodes()])
+        mean_degree_ts.append(deg)
+
+        # Probes
+        anti_global_ts.append(global_far_mi_penalty(G, history, far_dist=FAR_DIST, samples=GLOBAL_SAMPLES*2, lag=LAG))
+        D_curr = mi_distance_matrix_fast(history, nodes_list, lag=LAG)
+        metricity_ts.append(metricity_violation_rate(D_curr, samples=1000, seed=SEED+step))
+
+        print(f"Step {step}/{STEPS} | Deg: {deg:.2f} | Metricity Viol: {metricity_ts[-1]:.3f} | Time: {elapsed:.0f}s")
+
+# -----------------------
+# PART 5: FINAL ANALYSIS & PLOTTING
+# -----------------------
+print(">> Simulation complete. Processing dashboard...")
+
+# 1. Final Geometry (MDS)
+D_final = mi_distance_matrix_fast(history, nodes_list, lag=LAG)
+mds_subset_idx = np.random.choice(NUM_NODES, min(NUM_NODES, 600), replace=False) # Subset for visual clarity
+D_subset = D_final[np.ix_(mds_subset_idx, mds_subset_idx)]
+
+print(">> Running MDS on Information Metric...")
+mds = MDS(n_components=2, dissimilarity="precomputed", random_state=SEED, max_iter=300, n_jobs=-1)
+coords = mds.fit_transform(D_subset)
+final_colors = [G.nodes[nodes_list[i]]["state"] for i in mds_subset_idx]
+
+# 2. Matter Metrics
+final_degrees = np.array([G.degree(nodes_list[i]) for i in mds_subset_idx])
+
+# 3. QUANTUM GRAVITY (Ricci Curvature)
+ricci_map = compute_ollivier_ricci(G)
+ricci_vals = np.array([ricci_map[nodes_list[i]] for i in mds_subset_idx])
+
+# 4. Dimensionality Probe
+dims = list(range(1, DIMS_MAX + 1))
+stress = []
+print(">> Probing Dimensionality...")
+for d in dims:
+    m = MDS(n_components=d, dissimilarity="precomputed", random_state=SEED, n_init=1, max_iter=200, n_jobs=-1)
+    m.fit(D_subset)
+    stress.append(m.stress_)
+
+# 5. Layouts
+print(">> Generating Topological Layouts...")
+pos_topo = nx.spring_layout(G, seed=SEED, k=0.5/np.sqrt(NUM_NODES), iterations=100)
+pos_full = nx.spring_layout(G, seed=SEED + 1, k=0.8/np.sqrt(NUM_NODES), iterations=50)
+
+# -----------------------
+# DASHBOARD ASSEMBLY
+# -----------------------
+fig, axs = plt.subplots(4, 3, figsize=(20, 18), facecolor="#f0f0f0")
+plt.subplots_adjust(hspace=0.35, wspace=0.25)
+rows = [axs[0], axs[1], axs[2], axs[3]]
+
+# Row 1: Structure & Matter
+nx.draw(G, pos_full, node_color=[G.nodes[n]["state"] for n in G.nodes()], cmap=plt.cm.rainbow, node_size=10, edge_color="#999999", alpha=0.2, width=0.3, ax=rows[0][0])
+rows[0][0].set_title("Full Topology (Loose Spring)")
+rows[0][0].axis('off')
+
+nx.draw(G, pos_topo, node_color=[G.nodes[n]["state"] for n in G.nodes()], cmap=plt.cm.rainbow, node_size=10, edge_color="#999999", alpha=0.2, width=0.3, ax=rows[0][1])
+rows[0][1].set_title("Topological Reality (Tighter Spring)")
+rows[0][1].axis('off')
+
+sc1 = rows[0][2].scatter(coords[:, 0], coords[:, 1], c=final_degrees, cmap=plt.cm.plasma, s=30, edgecolors='none')
+rows[0][2].set_title("Matter Density Map (Color=Degree)")
+rows[0][2].axis('equal'); plt.colorbar(sc1, ax=rows[0][2], label="Degree")
+
+# Row 2: Geometry & Gravity
+rows[1][0].scatter(coords[:, 0], coords[:, 1], c=final_colors, cmap=plt.cm.rainbow, s=30, edgecolors='none')
+rows[1][0].set_title("Emergent Spacetime (State Color)")
+rows[1][0].axis('equal')
+
+rows[1][1].plot(dims, stress, "o-", color="#2c3e50")
+rows[1][1].set_title("Dimensionality Probe (Stress Elbow)")
+rows[1][1].set_xlabel("Dimension"); rows[1][1].grid(True, alpha=0.3)
+
+# RICCI MAP
+sc2 = rows[1][2].scatter(coords[:, 0], coords[:, 1], c=ricci_vals, cmap=plt.cm.magma, s=30, edgecolors='none')
+rows[1][2].set_title("Quantum Gravity (Ricci Curvature)")
+rows[1][2].axis('equal'); plt.colorbar(sc2, ax=rows[1][2], label="Ricci Curvature")
+
+# Row 3: Dynamics I
+rows[2][0].plot(times, persist_ts, color="#27ae60"); rows[2][0].set_title("Temporal Persistence")
+rows[2][0].set_ylim(0.98, 1.005); rows[2][0].grid(True, alpha=0.3)
+
+rows[2][1].plot(times, dl_ts, color="#e67e22"); rows[2][1].set_title("Compressibility (Lower=Better)")
+rows[2][1].grid(True, alpha=0.3)
+
+rows[2][2].plot(times, metricity_ts, color="#c0392b"); rows[2][2].set_title("Metricity Violations (Wormholes)")
+rows[2][2].grid(True, alpha=0.3)
+
+# Row 4: Dynamics II
+rows[3][0].plot(times, anti_global_ts, color="#8e44ad"); rows[3][0].set_title("Non-Local Leakage (Far-Pair MI)")
+rows[3][0].grid(True, alpha=0.3)
+
+rows[3][1].plot(times, mean_degree_ts, label="Mean Degree", color="orange")
+rows[3][1].plot(times, components_ts, label="Components", color="blue")
+rows[3][1].set_title("Connectivity Diagnostics"); rows[3][1].legend(); rows[3][1].grid(True, alpha=0.3)
+
+rows[3][2].hist([G.degree(n) for n in G.nodes()], bins=30, color='teal', alpha=0.7)
+rows[3][2].set_title("Final Degree Distribution"); rows[3][2].set_xlabel("Degree")
+
+plt.suptitle(f"Universe Observatory: N={NUM_NODES}, K={CONGESTION_K} (w/ Ricci Curvature)", fontsize=16)
+plt.tight_layout(rect=[0, 0.03, 1, 0.95])
+plt.show()
+

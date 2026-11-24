@@ -1,0 +1,23 @@
+{
+ "contract": "gsd-study-criterion-1",
+ "study": "170",
+ "committed_utc": "2026-11-20T00:31:26Z",
+ "committed_before": "study 170's first start, on any host",
+ "design": "graph_scale_dynamics/resources/readings/study_170_design.json",
+ "read_for": "the second clean study and the first with every gate on, read whole from its bundle on the build it reaches (docs/OPERATIONS.md, \"The pilots\"): what the gates withhold and what their let-through reads a size later, and what that saves against study 169's every law to 16,384",
+ "predicted": [
+  "R1: every decision in the bundle replays (tools/replay_bundle.py, 0 that differ)",
+  "R2: no zero-temperature seed is classed OPERATIONAL_UNRESOLVED after a pass at the cap (807)",
+  "R3: by 4,096 the gates withhold most of the laws drawn, as study 169's ledger of 23:38Z says they would have (837 of its 910 laws by 4,096: 421 at 256, 201 at 1,024, 215 at 4,096), each gate letting a tenth of what it withholds through until 100 in a row are withheld again a size up",
+  "R4: the study takes about 40 to 100 core-hours a 1,000 laws on the host, the base block about half of 169's a law and 16,384 four to six times less; an estimate from 169's snapshot, 65,536 its uncertain part"
+ ],
+ "reported": [
+  "each gate's verdicts, let-through and what the let-through read a size later, by size and batch",
+  "the laws a gate withheld that read something a size later, by law id",
+  "the seeds that end at their budget, by size",
+  "the laws stopped over_budget",
+  "the hours and memory a size takes on the host",
+  "the finds"
+ ],
+ "not_judged_here": "what the laws are: 170 is read for itself and against 169's gates; no prediction of a law's kind is committed for it"
+}

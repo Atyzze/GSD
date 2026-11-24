@@ -1,0 +1,336 @@
+{
+ "contract": "gsd-controls-criterion-3",
+ "committed_utc": "2026-09-30T23:14:48Z",
+ "build": 558,
+ "question": "Does a law hold a finite-dimensional graph at all? Each law's primary grows from the empty graph as every study's does (reported: from empty no way the programme has reaches a finite dimension on its controls, the growth screens of 551 to 557), and its twin starts from a random geometric graph of two or three dimensions at the law's degree (`measurements/shaped_starts`) and moves locally (`engine.LOCAL_WALK`): the positives' twins must keep a finite dimension, the negatives' must melt.",
+ "before_any_fleet_run": "Committed before study 153's controls ran anywhere. It was informed by the growth screens (551 to 557: from a start that already has a dimension, local moves keep P2 and P3 finite-dimensional to 16,384 while N1, N2 and N3 melt, N1 at zero temperature too; docs/readings/growth_screen_2026-09-30T20-35-01Z.json and ..._21-09-22Z.json) and by 558's sandbox on the engine's own path (docs/readings/controls_sandbox_558.json: one seed at 4,096 and 16,384, the committed rule over those two rungs, every law as expected, P2's twin reading d_s 2.15 from its gap and P3's 3.37). The bands are criterion 2's for a twin at a square and a cubic lattice (P2's 1.6 to 2.4, C1's 2.4 to 3.6), not moved after the sandbox. It is not revised after a run (docs/RESEARCH_METHOD.md, the standing risk).",
+ "campaign": "study 153's controls, created with study 153's folder (559), not in study 152's",
+ "campaign_name": "campaign-growth-controls",
+ "campaign_description": "Study 153's controls (558): laws whose answer is known, each primary from the empty graph and each twin from a shaped start moving locally, three seeds, every probe on both chains. The criterion, committed before any run: docs/readings/controls_criterion_3.json; judge it with tools/positive_control.py check <bundle>.",
+ "rungs": [
+  64,
+  256,
+  1024,
+  4096,
+  16384,
+  65536,
+  262144
+ ],
+ "seeds": 3,
+ "read_with": "research/structure_reading.law_structure on each chain: the committed rule (thresholds of 523) over the rungs from 4,096, as report 28's `chains_by_law` records it",
+ "words": {
+  "finite dimension": "the committed rule reads a finite dimension",
+  "not finite": "no finite dimension, or not decidable: anything but a finite dimension",
+  "null": "not judged; reported"
+ },
+ "pass": "Every law meets every expectation in the campaign's bundle. A chain not decidable yet where a finite dimension is expected, or a judged probe read at fewer than two rungs, has not passed; the campaign is read again when it has.",
+ "laws": [
+  {
+   "label": "P2",
+   "role": "positive",
+   "spec": {
+    "dsl_version": 1,
+    "init": "empty",
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 4.0,
+     "sweeps": 250,
+     "move_mix": {
+      "add": 0.425,
+      "delete": 0.425,
+      "swap": 0.15
+     }
+    },
+    "terms": [
+     {
+      "op": "degree_anchor",
+      "params": {
+       "k": 4
+      },
+      "coeff": {
+       "c0": 5.0,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "induced_square_count",
+      "params": {},
+      "coeff": {
+       "c0": -6.0,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "square_edge_overlap",
+      "params": {},
+      "coeff": {
+       "c0": 1.0,
+       "scale": "one"
+      }
+     }
+    ]
+   },
+   "given_start": {
+    "family": "random_geometric_2d_degree_4",
+    "kernel": "local_walk"
+   },
+   "what": "the lattice law at beta 4 (P2 of criterion 2): its twin from a random geometric graph of two dimensions at degree 4, moving locally, must keep a finite dimension near 2",
+   "expect": {
+    "empty": null,
+    "given": "finite dimension",
+    "given_implied_d_s": [
+     1.6,
+     2.4
+    ]
+   }
+  },
+  {
+   "label": "P3",
+   "role": "positive",
+   "spec": {
+    "dsl_version": 1,
+    "init": "empty",
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 2.0,
+     "sweeps": 250,
+     "move_mix": {
+      "add": 0.425,
+      "delete": 0.425,
+      "swap": 0.15
+     }
+    },
+    "terms": [
+     {
+      "op": "degree_anchor",
+      "params": {
+       "k": 6
+      },
+      "coeff": {
+       "c0": 12.0,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "induced_square_count",
+      "params": {},
+      "coeff": {
+       "c0": -14.0,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "square_edge_overlap",
+      "params": {},
+      "coeff": {
+       "c0": 1.0,
+       "scale": "one"
+      }
+     }
+    ]
+   },
+   "given_start": {
+    "family": "random_geometric_3d_degree_6",
+    "kernel": "local_walk"
+   },
+   "what": "P2's recipe at degree 6 (553, `growth_screen.P3_SPEC`), whose lowest graphs are the cubic tori: its twin from a random geometric graph of three dimensions at degree 6 must keep a finite dimension near 3",
+   "expect": {
+    "empty": null,
+    "given": "finite dimension",
+    "given_implied_d_s": [
+     2.4,
+     3.6
+    ]
+   }
+  },
+  {
+   "label": "N1",
+   "role": "negative",
+   "spec": {
+    "dsl_version": 1,
+    "init": "empty",
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 2.0,
+     "sweeps": 250,
+     "move_mix": {
+      "add": 0.425,
+      "delete": 0.425,
+      "swap": 0.15
+     }
+    },
+    "terms": [
+     {
+      "op": "degree_anchor",
+      "params": {
+       "k": 4
+      },
+      "coeff": {
+       "c0": 5.0,
+       "scale": "one"
+      }
+     }
+    ]
+   },
+   "given_start": {
+    "family": "random_geometric_2d_degree_4",
+    "kernel": "local_walk"
+   },
+   "what": "the degree anchor alone at beta 2: no energy for squares, so its twin must melt from the shape",
+   "expect": {
+    "empty": "not finite",
+    "given": "not finite"
+   }
+  },
+  {
+   "label": "N2",
+   "role": "negative",
+   "spec": {
+    "dsl_version": 1,
+    "init": "empty",
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 1.0,
+     "sweeps": 250,
+     "move_mix": {
+      "add": 0.425,
+      "delete": 0.425,
+      "swap": 0.15
+     }
+    },
+    "terms": [
+     {
+      "op": "degree_anchor",
+      "params": {
+       "k": 4
+      },
+      "coeff": {
+       "c0": 5.0,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "induced_square_count",
+      "params": {},
+      "coeff": {
+       "c0": -6.0,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "square_edge_overlap",
+      "params": {},
+      "coeff": {
+       "c0": 1.0,
+       "scale": "one"
+      }
+     }
+    ]
+   },
+   "given_start": {
+    "family": "random_geometric_2d_degree_4",
+    "kernel": "local_walk"
+   },
+   "what": "the lattice law at beta 1, above the torus's melting point: its twin must melt from the shape",
+   "expect": {
+    "empty": "not finite",
+    "given": "not finite"
+   }
+  },
+  {
+   "label": "N3",
+   "role": "negative",
+   "spec": {
+    "dsl_version": 1,
+    "init": "empty",
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 0.4,
+     "sweeps": 250,
+     "move_mix": {
+      "add": 0.425,
+      "delete": 0.425,
+      "swap": 0.15
+     }
+    },
+    "terms": [
+     {
+      "op": "degree_anchor",
+      "params": {
+       "k": 6
+      },
+      "coeff": {
+       "c0": 12.0,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "induced_square_count",
+      "params": {},
+      "coeff": {
+       "c0": -14.0,
+       "scale": "one"
+      }
+     },
+     {
+      "op": "square_edge_overlap",
+      "params": {},
+      "coeff": {
+       "c0": 1.0,
+       "scale": "one"
+      }
+     }
+    ]
+   },
+   "given_start": {
+    "family": "random_geometric_3d_degree_6",
+    "kernel": "local_walk"
+   },
+   "what": "P3's law at beta 0.4, where the count says its lattice cannot be its equilibrium from 1,024 on: its twin must melt from the shape",
+   "expect": {
+    "empty": "not finite",
+    "given": "not finite"
+   }
+  },
+  {
+   "label": "N1z",
+   "role": "negative",
+   "spec": {
+    "dsl_version": 1,
+    "init": "empty",
+    "dynamics": {
+     "kind": "equilibrium",
+     "beta": 2.0,
+     "sweeps": 250,
+     "move_mix": {
+      "add": 0.425,
+      "delete": 0.425,
+      "swap": 0.15
+     },
+     "zero_temperature": true
+    },
+    "terms": [
+     {
+      "op": "degree_anchor",
+      "params": {
+       "k": 4
+      },
+      "coeff": {
+       "c0": 5.0,
+       "scale": "one"
+      }
+     }
+    ]
+   },
+   "given_start": {
+    "family": "random_geometric_2d_degree_4",
+    "kernel": "local_walk"
+   },
+   "what": "N1 at zero temperature (557, `N1@inf`): every law study 153 reads from the survey is zero temperature, where a chain never goes uphill, so a shape could stay only because nothing downhill undoes it; the degree anchor alone has nothing to keep one with, and its twin must melt",
+   "expect": {
+    "empty": "not finite",
+    "given": "not finite"
+   }
+  }
+ ]
+}

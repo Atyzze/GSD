@@ -1,0 +1,20 @@
+{
+ "contract": "gsd-study-criterion-1",
+ "study": "170",
+ "committed_utc": "2026-11-20T14:01:28Z",
+ "committed_before": "any reading of study 170's bundle by tools/counters_reading.py, the tool and the study-wide learning written at 831 and not yet run on it",
+ "design": "graph_scale_dynamics/resources/readings/study_170_design.json",
+ "bundle": "study_170_2026-11-20T09-08-14Z.tar.zst (the operator, 2026-11-20 14:20)",
+ "read_for": "the gates' counters made the study's (the operator, 2026-11-20 10:32: \"They should technically function as 1 study\"): what 170's batches learned, each from its own laws, against what they would have learned from every batch of the study, at the same fixed points",
+ "predicted": [
+  "C1: every decision of the bundle replays from its recorded inputs (0 that differ), as at 827",
+  "C2: the tool's own per-batch learning, every batch fed only its own laws at the fixed points, gives every learned decision of the five batches exactly the shares and seen signatures it recorded (0 that differ): the reading reproduces what the fleet learned before it reads anything else",
+  "C3: in the first fixed-point group (laws 1 to 100 of each batch) the study-wide learning gives every decision what it recorded, since no group comes before it",
+  "C4: the standing controls' campaign, on another policy, is read by neither way"
+ ],
+ "reported": [
+  "study-wide, for every learned decision from the second group on: whether its shares or seen signatures change, and whether its action or rule changes when replayed with them, by gate and size, the laws by id where they change",
+  "the laws each decision learns from either way, by size"
+ ],
+ "not_judged_here": "whether the study-wide counters decide better: that is read on the next gated study; here only what 170's laws would have met"
+}

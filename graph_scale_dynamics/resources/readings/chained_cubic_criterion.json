@@ -1,0 +1,35 @@
+{
+ "contract": "gsd-chained-cubic-criterion-1",
+ "committed_utc": "2026-11-19T22:59:44Z",
+ "committed_before": "any graph it names was built or read on build 818. The structure rule's blind spot was read once, at build 537 (2026-09-27, `calibration_chained_cubic.json`), by the probes of that day, at 4,096 to 262,144 nodes: the rule alone read 6 of 9 chained graphs finite at its threshold then (-0.3752) and 8 of 9 at the survey's (-0.309), and the three readings together refused all 9. This criterion reads it again on the final probes, at the sandbox's sizes (the operator, 2026-11-12 22:01: the sandbox's tests stop at about 65,536 nodes), and that reading and this criterion replace it (the operator, 2026-11-18 16:43: \"ALL old data we want GONE\").",
+ "question": "Can a graph with no dimension fool the structure rule the decision engine's structure gate runs (the spectral gap closing as a power of N, the diameter growing as one), and do the three readings together (the rule, the half-volume radius, local d_s against the d_s the gap implies) refuse it while they accept the graphs of known finite dimension?",
+ "graphs": "a random 3-regular skeleton whose every edge is drawn out into a chain of ell edges (research/chained_family.chained_cubic), ell 100, 300 and 1,000, seeds 1, 2 and 3, built at each size; and the calibration families of finite dimension (tools/calibrate_structure.FINITE: the ring, the square, triangular, honeycomb, cubic and 4D lattices, the Sierpinski gasket and carpet, the uniform random tree) at their ladder's sizes in the rule's windows, seed 0",
+ "sizes": [
+  4096,
+  16384,
+  65536
+ ],
+ "largest": 65536,
+ "chains": [
+  100,
+  300,
+  1000
+ ],
+ "seeds": [
+  1,
+  2,
+  3
+ ],
+ "read_by": "research/chained_family.read_graph and judge: the structure census and its spectral gap, the volume growth and d_s of measurements/estimators (analysis-5.3.0, estimator e639334808716378); the rule and the three readings of research/structure_reading, at the thresholds of the decision engine's policy",
+ "predictions": {
+  "C1": "the three readings together refuse every chained graph: 9 of 9",
+  "C2": "the three readings together accept every finite family read",
+  "C3": "the rule alone reads most chained graphs finite at the survey's gap threshold (-0.309, resources/configs/campaign_engine_survey.json): at least 5 of 9, as 537 read 8 of 9 at four sizes"
+ },
+ "passes_when": "C1 and C2 hold; C3 is the blind spot, reported with its count at both thresholds",
+ "what_follows": "If C1 and C2 hold, the finding stands on the final probes: the structure rule alone can be fooled by a graph with no dimension, and the three readings together were not. If C1 misses, the miss is named by its graph and goes to the operator before the study after 169; the gate in study 169 is not touched.",
+ "what_it_does_not_claim": [
+  "Nine graphs of one construction; another way to fool the rule is not excluded.",
+  "Sizes to 65,536 only; at 262,144 and above the rule's exponents are fitted over more sizes."
+ ]
+}

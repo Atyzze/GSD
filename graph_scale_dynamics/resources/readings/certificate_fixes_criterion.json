@@ -1,0 +1,78 @@
+{
+ "contract": "gsd-certificate-fixes-criterion-1",
+ "committed_utc": "2026-11-19T02:23:47Z",
+ "committed_before": "any code of the four fixes below was written, and before the held-out sample (search seed 20261120) was drawn",
+ "question": "Four faults of the certificate, outside the calibration table's key, found on a sandbox sample of 40 freshly drawn laws (a_design's campaign, search seed 20261119, 256 and 1,024 nodes, two seeds each, 160 seeds): does each fix give the known answer on chains built to have one, and on 40 other laws does it move only what its fault moved?",
+ "decided": "the operator, 2026-11-19 about 03:00 local, asked whether 'every graph must stop changing' is a good rule and said the choice was beyond them; the agent decided, the evidence to be shown: one standard of stationarity at both temperatures (a chain's measurements stop drifting, not its edges), and the late energy's drift in its own errors",
+ "found_on_the_first_sample": {
+  "zero_temperature": "59 seeds certified AT_REST; in 19 of them (7 laws) a deciding chain still made more than 0.05 accepted changes a node in its late window (up to 39), every one a neutral move; read over the same late window as the rest reading (from 85% of the chain's moves), the structural trend drifted beyond 3 errors and its floor in 1 seed (law 12, 256 nodes, seed 0). Today the zero-temperature certificate reads no structure at all, and the trend it computes beside it is read from 40% of the points, a window in which a chain still falling is not at rest, so it flagged chains that accepted nothing late",
+  "drift": "the late energy drift is divided by the mean absolute energy (floor 1) and failed above 0.5: on 512 finite-temperature chain chunks it failed 50; measured in the chain's own errors, widened for lag-one correlation as the structural trend is, 131 drift beyond 3, so 81 pass today that drift; shifting every energy by a constant changed 16 of today's 512 verdicts; of 17 certified seeds, 2 have a chain beyond 3 errors (3.3 and 3.4)",
+  "split": "on two frozen laws (23 and 26) the twins' late energies a node differed by 1e-10 relative, a difference of rounding, and the split divided it by its floor of 1e-12: z of 160 to 1,341, STARTS_DISAGREED on every chunk to the x64 cap",
+  "cap": "no seed of the sample first passed at the cap; one passed at x56 and failed its confirmation at x64. The rule asks two passes in a row, so a seed whose first pass is at the cap can never be certified"
+ },
+ "the_fixes": {
+  "zero_temperature": "a chain at rest is one whose energy stopped falling (as today) and whose structure stopped drifting: the structural trend of every deciding chain, read over the rest reading's own late window (from the move the engine's late accounting starts at), within 3 of its widened errors or under its floor, as at finite temperature",
+  "drift": "a chain's late energy drift (its last 30% of points) is measured in its own standard errors, widened for lag-one correlation exactly as the structural trend's are, and fails beyond equilibration_split_z (3); the energy's size no longer enters, so a constant added to every energy changes nothing",
+  "split": "a difference of means is set to zero when it is within rounding: 1e-9 of the larger of the two means' sizes and 1, so two chains equal to rounding agree whatever their spread",
+  "cap": "a seed whose chunk at the cap passes runs further chunks at the cap until it has the passes in a row the rule asks, or fails one"
+ },
+ "known_answers": [
+  {
+   "id": "drift_none",
+   "case": "an AR(1) late energy (lag time 1, 5 and 20 points, 240 points, 300 replicates each) with no trend",
+   "expected": "fails in at most 5% of replicates for every lag time"
+  },
+  {
+   "id": "drift_some",
+   "case": "the same series plus a linear trend of 10 of its own standard errors over the late window",
+   "expected": "fails in at least 95% of replicates for every lag time"
+  },
+  {
+   "id": "drift_offset",
+   "case": "every replicate of both cases again with 1e6 added to every energy, and again multiplied by 1e3",
+   "expected": "the same verdict on every replicate"
+  },
+  {
+   "id": "split_rounding",
+   "case": "two frozen chains whose energies a node are 7.0 and 7.0 * (1 + 1e-11)",
+   "expected": "agree (z 0)"
+  },
+  {
+   "id": "split_real",
+   "case": "two frozen chains whose energies a node are 7.0 and 7.007",
+   "expected": "disagree"
+  },
+  {
+   "id": "rest_wandering",
+   "case": "a zero-temperature chain at rest by its energy whose late window holds neutral moves and a flat structure",
+   "expected": "at rest"
+  },
+  {
+   "id": "rest_drifting",
+   "case": "the same chain whose largest piece shrinks by a tenth of the graph across its late window",
+   "expected": "not at rest, by the structural trend"
+  },
+  {
+   "id": "cap_confirmed",
+   "case": "a run whose chunks fail until the cap, then pass at the cap twice",
+   "expected": "completed at the cap, two chunks at the cap"
+  },
+  {
+   "id": "cap_refused",
+   "case": "a run that passes once at the cap and then fails",
+   "expected": "ended at the ceiling after two chunks at the cap"
+  }
+ ],
+ "held_out": {
+  "sample": "40 laws drawn with search seed 20261120 by the same harness, 256 and 1,024 nodes, two seeds each, grown on the fixed code and read with today's rule and the fixed one side by side on the same chunks",
+  "predicted": [
+   "zero temperature: of the seeds today's rule certifies at rest, the fix takes the rest away from at most 1 in 10",
+   "drift: of the finite-temperature seeds today's rule certifies, at most 1 in 5 fail the new drift test",
+   "split: no pair whose means are equal to rounding disagrees, and no pair that disagrees today by more than rounding agrees",
+   "cap: every seed that first passes at the cap gets its confirmation chunk"
+  ],
+  "judged_by": "the same harness and reading, written with the build's notes"
+ },
+ "passes_when": "every known answer is as expected; the held-out predictions are judged and shown, and a false one is said",
+ "code": "scaleflow/equilibration.py, measurements/certificate.py, scaleflow/one_shot.py; tests/unit/test_the_certificate_s_fixes_have_known_answers.py"
+}

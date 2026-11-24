@@ -1,0 +1,87 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Graph Scale Dynamics · Build __GSD_BUILD_NUMBER__</title><link rel="stylesheet" href="assets/system.css?v=__GSD_BUILD_NUMBER__"></head><body>
+<div id="gsdSystemHeader"></div>
+<main id="gsdHome" class="gsd-app-page" data-page="home">
+  <section class="panel study-now-panel"><h2 title="every campaign of the study; the marked card is the campaign the panels below read, and a click on another card shows that one">The study now</h2><div id="studyNow" class="study-now"><div class="empty">every campaign of the study, loading…</div></div></section>
+  <div class="hero">
+    <section class="panel"><h2>Macroscopic landscape <span id="landScope" class="campaign-scope"></span></h2><div id="landMeta" class="home-meta"><span>authoritative landscape warming…</span></div><div class="canvaswrap"><canvas id="land"></canvas><div id="landTip" class="canvas-tooltip"></div></div></section>
+    <aside class="heroaside"><section class="panel top100-panel"><h2>Top 100 <span id="topScope" class="campaign-scope"></span></h2><div id="best" class="top100-scroll"><div class="empty">ranking warms with the landscape…</div></div></section></aside>
+  </div>
+  <section class="panel ladder-panel"><h2>Fleet ladder <span id="ladderScope" class="campaign-scope"></span></h2><div id="rungLadder"><div class="empty">waiting for the first poll</div></div></section>
+  <section class="panel gates-panel"><h2>The gates <span class="campaign-scope" title="every gate's counters are read from the decisions of every batch of this study together">this study, every batch</span></h2><div id="gatesBox"><div class="empty">the gates' counters arrive with the landscape</div></div></section>
+  <section class="panel"><h2>Now researching <span id="liveScope" class="campaign-scope"></span></h2><div id="live" class="live-unbounded"><div class="empty">live research warming…</div></div></section>
+</main>
+<main id="gsdExplorer" class="gsd-app-page" data-page="explorer" hidden>
+  <section class="panel explorer-panel">
+    <div class="panel-title-row"><div><h2>Candidate explorer</h2><div class="muted">Exploration map, candidate lineage and Past research are merged into one coherent view of every candidate in this campaign, or in every campaign of the study (Campaigns, below): active, proposed, parked, promoted and rejected. Use the structured filters first; free-text search remains available for exact IDs and unusual details.</div></div><div class="toolbar"><button id="explorerReload" class="gsd-control">refresh data</button><button id="explorerClear" class="gsd-control">clear filters</button></div></div>
+    <div class="explorer-filters">
+      <label class="explorer-search"><span>Search</span><input id="explorerQ" placeholder="candidate ID, law text, state or reason"></label>
+      <label><span>Campaigns</span><select id="explorerScope"><option value="" id="explorerScopeOne">this campaign</option><optgroup id="explorerScopeOthers" label="another campaign"></optgroup><option value="study">every campaign of the study</option></select></label>
+      <label><span>Lifecycle</span><select id="explorerGroup"><option value="">all candidates</option><option value="active">active</option><option value="past">terminal / past</option><option value="proposed">proposed</option></select></label>
+      <label><span>State</span><select id="explorerState"><option value="">all states</option></select></label>
+      <label><span>Estimates</span><select id="explorerEstimate"><option value="">any</option><option value="refused">refused (no estimate on any probe)</option><option value="limit">stopped by a limit</option><option value="measured">has an estimate</option></select></label>
+      <label><span>Sample</span><select id="explorerSample"><option value="">all laws</option><option value="unfiltered">unfiltered only</option><option value="filtered">filtered only</option></select></label>
+      <label><span>Coupling</span><select id="explorerCoupling"><option value="">all coupling strengths</option></select></label>
+      <label><span>Scaling</span><select id="explorerScaling"><option value="">all scaling profiles</option></select></label>
+      <label><span>Coefficient scale</span><select id="explorerCoeffScale"><option value="">all coefficient scales</option></select></label>
+      <label><span>Minimum rung</span><select id="explorerMinN"><option value="">any measured / scheduled N</option></select></label>
+      <label><span>Term match</span><select id="explorerTermMode"><option value="all">contains all selected terms</option><option value="any">contains any selected term</option></select></label>
+    </div>
+    <div class="explorer-term-filter"><div class="filter-heading">Hamiltonian terms</div><div id="explorerTerms" class="filter-pills"><span class="muted">loading campaign term vocabulary…</span></div></div>
+    <div class="explorer-status-row"><span id="explorerStatus" class="state">waiting for campaign…</span><span id="explorerFilterSummary" class="muted"></span></div>
+    <div id="explorerBody" class="list explorer-results"><div class="empty">candidate index loads automatically when this page opens</div></div>
+  </section>
+</main>
+<main id="gsdReports" class="gsd-app-page" data-page="reports" hidden>
+  <section class="panel report-summary-panel">
+    <div class="report-summary-grid">
+      <div><h2>Reporting pipeline diagnostics</h2><div class="muted">Reports run only when you ask, and then for every campaign of the folder, whichever one Home shows: a report cycle for every campaign, side by side as their costs allow, then one <b>study bundle</b> of all of them: its <b>front page</b> says what the study found, what deserves a closer look and what a law costs, beside the explorer and the gate trees. A cycle never shares the host with the chains whose wall-clock it would skew, so running campaigns are paused first with their rungs saved and exactly those are resumed after. Every study bundle is in the table below, newest first; the one being made is its first row, each campaign with its own progress.</div><div class="toolbar"><button id="reportsManual" class="gsd-control">make the study bundle</button><span id="reportsBadge" class="report-badge idle">idle</span></div><div id="reportQuiet" class="muted"></div><div id="reportBundle" class="toolbar"></div><div id="reportFailure"></div><div id="reportResolved"></div></div>
+      <div class="report-summary-cycle"><h2>Latest report cycle <span id="reportScope" class="campaign-scope"></span></h2><div id="reportCycle" class="muted">no completed cycle yet</div></div>
+    </div>
+  </section>
+  <section class="panel study-bundles-panel"><h2>Study bundles</h2><div id="studyBundles" class="bundle-ring"><div class="muted">study bundles appear here: every campaign of the folder in one archive, with its front page, the explorer and the gate trees</div></div></section>
+</main>
+<main id="gsdCalibration" class="gsd-app-page" data-page="calibration" hidden>
+  <section class="panel"><h2>Why this page exists</h2><div class="muted">Every decision this runtime makes flows from four probes (d_s, d_B, d_w, d_V). Before the fleet collects a single sample, the probes are run against graphs whose dimensions are known by construction, every family to the top of its ladder at ten seeds per cell, in the foreground, with no time limit. This page is the interpretation of that table: what was measured, what theory says, how far apart they are, whether the gap is acceptable and why, and where more N buys accuracy and where it demonstrably does not. Nothing is re-derived in the browser; it is the calibration table (<code>calibration/probe_calibration.json</code>), served as written.</div><div id="calibStatus" class="muted">loading…</div></section>
+  <section class="panel"><h2>Each probe on each known geometry</h2><div class="muted">One line a probe first, saying where it is within 0.1 of the known answer and where it never gets there, then each probe’s table by family, open.</div><div id="calibAtlas"><div class="empty">no calibration table yet</div></div></section>
+  <section class="panel"><h2>Deviation per family, rung and probe</h2><div class="muted">Every probe against finite-size ladders of graphs whose dimensions are exact by construction (1D/2D/3D tori, the Sierpinski gasket) plus a refusal anchor (a random 4-regular expander, a different draw per seed, which has no finite dimension of any kind). Each cell shows the mean over seeds, the spread across seeds, the deviation from theory, and the tolerance band drawn with the measured value marked. A confident reading on the expander is a defect, and it misreads the campaign's no-scaling-regime graphs the same way. The structure columns stop where the census does, by design: a rung above the size a part is measured at says "not measured", with the size on hover, rather than leaving a dash that reads as lost data. The rows above a family's frozen ladder (to about 4 M nodes) are measured with the same probes and census and gate nothing: not the startup gate, a verdict, a trend or a fit.</div><div id="calibLadders"><div class="empty">no calibration table yet</div></div></section>
+  <section class="panel"><h2>Refusals, and which gate refused</h2><div class="muted">A probe that declines is reporting something. d_s refuses when AICc prefers spectral-gap decay over a power law; d_w has no comparable model-selection gate, which is why d_w coverage ran four times higher than d_s on the first overnight survey. Shown beside the successes so the asymmetry is visible.</div><div id="calibRefusals"><div class="empty">no calibration table yet</div></div></section>
+  <section class="panel"><h2>Pipeline trial: the recording path carries known answers</h2><div class="muted">A check of the plumbing, not of the probes.</div><div id="calibProbes"><div class="empty">no calibration table yet</div></div></section>
+  <section class="panel"><h2>Einstein relation d_s = 2·d_V / d_w, on every family</h2><div class="muted">The three probes tied into one identity, on every family of the table at every size where all three read.</div><div id="calibEinstein"><div class="empty">no calibration table yet</div></div></section>
+  <section class="panel"><h2>ESS vs sweep budget</h2><div class="muted">The same engine that runs campaigns, on a fixed reference Hamiltonian, across a ramp of sweep budgets at each N, read back by the certification screen's own estimator. Where the median ESS clears the floor is the measured sweep requirement per rung; S0 should come from this table, not from a guess. Cells marked unresolved have an autocorrelation time finer than the recording grid: a chain too short to measure its own correlation reports an ESS that flatters it, and such cells never satisfy the floor.</div><div id="calibSweeps"><div class="empty">no sweep scan yet</div></div></section>
+  <section class="panel"><h2>Provenance</h2><div id="calibProvenance" class="muted">—</div></section>
+</main>
+<main id="gsdCampaigns" class="gsd-app-page" data-page="campaigns" hidden>
+  <section class="panel"><div class="panel-title-row"><div><h2>Campaigns</h2><div class="muted">Every campaign this folder has held, the terms it was run with, and how deep its laws got. A campaign is frozen at creation: to run a different term set, clone one and start the clone. A delete is guarded: the campaign must be paused or closed, nothing may be cloned from it, and its id is typed back.</div></div><div class="toolbar"><button id="campaignsReload" class="gsd-control" type="button">refresh</button><button id="campaignsNew" class="gsd-control" type="button">new campaign</button></div></div></section>
+  <div id="campaignsStale" class="muted" hidden></div>
+  <div id="campaignsBody">loading…</div>
+  <div id="campaignAuthor" hidden></div>
+  <div id="campaignPanel"></div>
+  <section class="panel gate-panel"><h2 title="its switches change what the fleet decides, so they live beside the campaigns they act on (577; they were on the Anchors page, which left for the study bundle's advice)">The structure gate <span id="gateScope" class="campaign-scope"></span></h2><div id="gateBody"><div class="empty">loading the gate…</div></div></section>
+</main>
+<main id="gsdSystem" class="gsd-app-page" data-page="system" hidden>
+  <section class="panel"><h2>Runtime identity</h2><div id="identity" class="muted">loading…</div></section>
+  <section class="panel"><h2>Workers</h2><div class="muted">How many executor slots run at once, changed while the run goes on. A lower count stops the slots above it now, without waiting for their rungs: each slot saves its seed where it is and gives the rung back to the queue, a slot that stays resumes it from the save, and nothing is charged to a law. A higher count starts slots at once. The ramp hands the count back to the run's own rule.</div><div id="workerCount"><div class="empty">warming…</div></div></section>
+  <section class="panel"><h2>Work accounting <span id="workScope" class="campaign-scope"></span></h2><div class="muted">What the fleet created, claimed, ran and finished. Each row counts one thing, because a number that mixes two cannot be checked against anything.</div><div id="workAccounting"><div class="empty">warming…</div></div></section>
+  <section class="panel"><h2>Host memory ledger</h2><div class="muted">Where every gigabyte is. Lines are PSS (shared pages counted once) or kernel counters and sum to MemTotal; the service table above lists supervised roles only, the simulation and analysis children appear here.</div><div id="memoryLedger"><div class="empty">warming…</div></div></section>
+<section class="panel"><h2>Current capacity diagnosis</h2><div class="muted">One concise verdict. Storage attribution and secondary evidence stay available on demand without repeating the live header.</div><div id="bottleneck"><div class="empty">warming…</div></div></section>
+  <section class="panel"><h2>Service stream diagnostics</h2><div class="muted">First place to look when something appears stuck: exact last heartbeat/event time, its payload, process resource use and I/O. “Current” means a recent heartbeat; it is not a scientific state.</div><div id="services"><div class="empty">loading…</div></div></section>
+  <div id="strandedAlert"></div>
+  <section class="panel"><div class="panel-title-row"><h2>Raw operational snapshot</h2><button id="copyRawJson" class="gsd-control" type="button">copy JSON</button></div><div class="muted">Operational only. Scientific selection and classification never read these UI diagnostics.</div><pre id="raw" class="raw-json-viewer">loading…</pre></section>
+</main>
+<script>
+window.GSD_UI_CONFIG={basePath:__GSD_BASE_PATH_JSON__,buildNumber:"__GSD_BUILD_NUMBER__",runtimeFingerprint:"__GSD_RUNTIME_FINGERPRINT__",runtimeShort:"__GSD_RUNTIME_SHORT__",devMode:__GSD_DEV_MODE__,homeHref:"/"};
+(function(){
+  function showClientFailure(message){
+    try{console.error('[GSD dashboard client failure]',message)}catch(_){}
+    let el=document.getElementById('gsdClientFailure');
+    if(!el){el=document.createElement('div');el.id='gsdClientFailure';el.setAttribute('role','alert');el.style.cssText='position:sticky;top:0;z-index:99999;margin:8px 20px;padding:10px 12px;border:1px solid #b85;background:#291b12;color:#ffd8b0;font:12px/1.45 ui-monospace,monospace;white-space:pre-wrap';document.body.prepend(el)}
+    el.textContent='Dashboard client failed to initialize (Build __GSD_BUILD_NUMBER__).\n'+String(message)+'\nThe research runtime may still be healthy; this is a browser/UI failure. Reload the page. If it persists, preserve this message and the browser console.';
+  }
+  window.GSD_CLIENT_DIAG=showClientFailure;
+  addEventListener('error',e=>{if(e&&e.target&&e.target.tagName==='SCRIPT')showClientFailure('failed to load '+(e.target.src||'a dashboard script'));else if(e?.message)showClientFailure(e.message+(e.filename?' @ '+e.filename+(e.lineno?':'+e.lineno:''):''))},true);
+  addEventListener('unhandledrejection',e=>showClientFailure('unhandled promise rejection: '+String(e?.reason||'unknown error')));
+  setTimeout(()=>{if(!window.GSD_APP_READY)showClientFailure('application startup watchdog expired; UI assets may be missing, stale, or incompatible')},5000);
+})();
+</script>
+<script src="assets/system.js?v=__GSD_BUILD_NUMBER__"></script><script src="assets/term_visual.js?v=__GSD_BUILD_NUMBER__"></script><script src="assets/app.js?v=__GSD_BUILD_NUMBER__"></script>
+</body></html>

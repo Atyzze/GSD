@@ -1,0 +1,608 @@
+{
+ "contract": "gsd-gates-map-1",
+ "drawn_by": "tools/gates_map.py",
+ "draw": [
+  {
+   "code": "no_terms",
+   "what": "a law with no terms"
+  },
+  {
+   "code": "over_budget",
+   "what": "over the complexity budget"
+  },
+  {
+   "code": "duplicate_term",
+   "what": "one term twice"
+  },
+  {
+   "code": "no_sparse_phase",
+   "what": "nothing keeps it sparse"
+  },
+  {
+   "code": "unbounded_below",
+   "what": "falls without bound"
+  },
+  {
+   "code": "coefficient_bound",
+   "what": "a coefficient past the DSL's bound"
+  },
+  {
+   "code": "duplicate_law",
+   "what": "a law the campaign holds"
+  },
+  {
+   "code": "duplicate_identity",
+   "what": "the same law, written apart"
+  },
+  {
+   "code": "set_aside",
+   "what": "set aside for another stratum"
+  }
+ ],
+ "gates": [
+  {
+   "name": "failed",
+   "stage": "operational",
+   "reads": "a seed or its analysis failed for good",
+   "salted": false,
+   "why_not": "the rung cannot be completed: nothing is there to let through"
+  },
+  {
+   "name": "over_budget",
+   "stage": "operational",
+   "reads": "the law's first chunk at the next size, predicted from its own seeds a size below, would not fit that size's budget in work (806)",
+   "salted": false,
+   "why_not": "a seed that cannot start is not let through: the budget is the design's, fixed before the study"
+  },
+  {
+   "name": "cut",
+   "stage": "operational",
+   "reads": "a seed of the law ran out of its budget in work before it settled, at the size the law is at: parked there, on a design's cut_gate (841)",
+   "salted": true,
+   "why_not": ""
+  },
+  {
+   "name": "empty",
+   "stage": "final verdict",
+   "reads": "mean degree at most the empty line at every rung, from 256; on a design's fact_sizes_in_a_row, at that many sizes in a row and not rising (828)",
+   "salted": true,
+   "why_not": ""
+  },
+  {
+   "name": "disconnected",
+   "stage": "final verdict",
+   "reads": "the largest component under the floor and not growing, from 1,024; on a design's fact_sizes_in_a_row, under it at that many sizes in a row (828)",
+   "salted": true,
+   "why_not": ""
+  },
+  {
+   "name": "too_dense",
+   "stage": "final verdict",
+   "reads": "mean degree at the campaign's cap, from 256; on a design's fact_sizes_in_a_row, at that many sizes in a row (828)",
+   "salted": true,
+   "why_not": ""
+  },
+  {
+   "name": "nothing_read",
+   "stage": "settling",
+   "reads": "no chain read any probe at any size of the base block, the law parked at its top (782, the first gate on the base block)",
+   "salted": true,
+   "why_not": ""
+  },
+  {
+   "name": "no_steady_chain",
+   "stage": "settling",
+   "reads": "no chain steady and moved by the law from 1,024 to 4,096, the law parked at 4,096 (796)",
+   "salted": true,
+   "why_not": ""
+  },
+  {
+   "name": "reading_lost",
+   "stage": "settling",
+   "reads": "d_s settled and then has no reading at the top rung",
+   "salted": true,
+   "why_not": ""
+  },
+  {
+   "name": "no_reading",
+   "stage": "settling",
+   "reads": "no d_s at either of the top two rungs",
+   "salted": true,
+   "why_not": ""
+  },
+  {
+   "name": "unsettled_twice",
+   "stage": "settling",
+   "reads": "d_s unsettled at two looks in a row",
+   "salted": true,
+   "why_not": ""
+  },
+  {
+   "name": "no_second_rung",
+   "stage": "settling",
+   "reads": "unsettled where the next rung takes a plateau",
+   "salted": true,
+   "why_not": ""
+  },
+  {
+   "name": "unsettled",
+   "stage": "settling",
+   "reads": "a hold on an unsettled step (529's rules, `second_rung: false`)",
+   "salted": true,
+   "why_not": ""
+  },
+  {
+   "name": "no_plateau",
+   "stage": "deep rungs",
+   "reads": "d_s did not settle at the step before a deep rung",
+   "salted": true,
+   "why_not": ""
+  },
+  {
+   "name": "deep_lane_full",
+   "stage": "deep rungs",
+   "reads": "the deep rung's lane is full",
+   "salted": false,
+   "why_not": "a queue, not a verdict: the law runs when the lane frees, best score first"
+  },
+  {
+   "name": "starts_alike",
+   "stage": "settling",
+   "reads": "every start ends alike, no shape held, from the last base rung (602)",
+   "salted": true,
+   "why_not": ""
+  },
+  {
+   "name": "starts_apart_twice",
+   "stage": "settling",
+   "reads": "the starts apart with no shape held at two sizes in a row (602)",
+   "salted": true,
+   "why_not": ""
+  },
+  {
+   "name": "starts_apart_by_history",
+   "stage": "settling",
+   "reads": "the starts apart, and every start alike at the size below or the starts in two groups (629)",
+   "salted": true,
+   "why_not": ""
+  },
+  {
+   "name": "starts_shape_unread",
+   "stage": "settling",
+   "reads": "a shape read below a size its starts were not read at: its one size spent without a reading (631)",
+   "salted": true,
+   "why_not": ""
+  },
+  {
+   "name": "not_promising",
+   "stage": "deep rungs",
+   "reads": "a rung from 262,144 for a law not shaped at its top two rungs, mostly small worlds, unsettled, or with d_V unread (629)",
+   "salted": false,
+   "why_not": "629: no salt buys a rung from 262,144; its other side is the laws that pass it. Under 784's let-through rule it lets 10% through, then 1%, as every gate does"
+  },
+  {
+   "name": "no_finite_dimension",
+   "stage": "structure",
+   "reads": "no finite dimension on either chain, or undecidable twice",
+   "salted": true,
+   "why_not": ""
+  },
+  {
+   "name": "no_giant_component",
+   "stage": "structure",
+   "reads": "the giant component under half the graph where the rule reads",
+   "salted": true,
+   "why_not": ""
+  },
+  {
+   "name": "kept_shape",
+   "stage": "repeats",
+   "reads": "the dimension test reads only lattice starts that kept their shape and their own d (732's tier 3): parked as a class to extend on its own (789)",
+   "salted": false,
+   "why_not": "a gate of 784's let-through rule only, on a design's kept_shape_park: 10% through, then 1%"
+  },
+  {
+   "name": "repeats_a_known_result",
+   "stage": "repeats",
+   "reads": "the law's every chain repeats a result 100 laws already reached and kept one size up (784; named so at 835, seen_enough before)",
+   "salted": false,
+   "why_not": "a gate of 784's let-through rule only: 10% through, then 1%, from 4,096"
+  },
+  {
+   "name": "early_stage",
+   "stage": "structure",
+   "reads": "the clear case at 16,384, in shadow until its switch is on",
+   "salted": false,
+   "why_not": "a label while its switch is off: what it would refuse is recorded beside the full rule's verdict"
+  }
+ ],
+ "salt": {
+  "share": 0.1,
+  "buys": "one rung past where the gate stops a law (537)",
+  "own_share_since_554": {
+   "testing_below_16384": 0.5,
+   "testing_from_16384": 0.1,
+   "confirmed": 0.01
+  }
+ },
+ "streams": [
+  {
+   "action": "run_next",
+   "rule": "start",
+   "means": "the law's first rung: its seeds at the bottom of the ladder",
+   "audit": false,
+   "gate": false
+  },
+  {
+   "action": "run_next",
+   "rule": "complete_rung",
+   "means": "the same rung again, for the seeds it has not measured yet",
+   "audit": false,
+   "gate": false
+  },
+  {
+   "action": "run_next",
+   "rule": "base_block",
+   "means": "the next rung of the base block, which every law is measured through",
+   "audit": false,
+   "gate": false
+  },
+  {
+   "action": "run_next",
+   "rule": "d_s_settled",
+   "means": "d_s settled at the rung: the next rung, to see whether it holds",
+   "audit": false,
+   "gate": false
+  },
+  {
+   "action": "run_next",
+   "rule": "second_rung",
+   "means": "unsettled below the plateau rungs: the next rung once, the look before a park",
+   "audit": false,
+   "gate": false
+  },
+  {
+   "action": "run_next",
+   "rule": "longer_chain",
+   "means": "no d_s at the top two rungs, refused for the sampling: the rung once more with a longer chain",
+   "audit": false,
+   "gate": false
+  },
+  {
+   "action": "run_next",
+   "rule": "starts_shape",
+   "means": "a lattice start holds its shape, or a start without one reaches a held lattice's state: the next size (602, a campaign decided chain by chain)",
+   "audit": false,
+   "gate": false
+  },
+  {
+   "action": "run_next",
+   "rule": "starts_apart",
+   "means": "the starts end apart, no shape held: the next size once, the look before a park (602)",
+   "audit": false,
+   "gate": false
+  },
+  {
+   "action": "run_next",
+   "rule": "dimension_shows",
+   "means": "where the starts' rule or the depth bar would park it, a chain reads dimensional: the next size, in the order of its tier (732)",
+   "audit": false,
+   "gate": false
+  },
+  {
+   "action": "run_next",
+   "rule": "lane_resumed",
+   "means": "its rung's lane has room again: the chains it saved resume where they stopped",
+   "audit": false,
+   "gate": false
+  },
+  {
+   "action": "run_next",
+   "rule": "hold_released",
+   "means": "a held law released when nothing else was waiting",
+   "audit": false,
+   "gate": false
+  },
+  {
+   "action": "run_next",
+   "rule": "salted",
+   "means": "one rung past a gate that would have withheld it: the gate's control arm",
+   "audit": true,
+   "gate": false
+  },
+  {
+   "action": "run_next",
+   "rule": "gate_audit",
+   "means": "near a structure gate's threshold: bought anyway, inside the windows the gate reads",
+   "audit": true,
+   "gate": false
+  },
+  {
+   "action": "run_next",
+   "rule": "plateau_follow",
+   "means": "d_s settled step after step where the structure gate refused: followed",
+   "audit": true,
+   "gate": false
+  },
+  {
+   "action": "stop",
+   "rule": "failed",
+   "means": "a seed or its analysis failed for good",
+   "audit": false,
+   "gate": true
+  },
+  {
+   "action": "stop",
+   "rule": "over_budget",
+   "means": "the law's first chunk at the next size, predicted from its own seeds a size below, would not fit that size's budget in work (806)",
+   "audit": false,
+   "gate": true
+  },
+  {
+   "action": "stop",
+   "rule": "cut",
+   "means": "a seed of the law ran out of its budget in work before it settled, at the size the law is at: parked there, on a design's cut_gate (841)",
+   "audit": false,
+   "gate": true
+  },
+  {
+   "action": "stop",
+   "rule": "empty",
+   "means": "mean degree at most the empty line at every rung, from 256; on a design's fact_sizes_in_a_row, at that many sizes in a row and not rising (828)",
+   "audit": false,
+   "gate": true
+  },
+  {
+   "action": "stop",
+   "rule": "disconnected",
+   "means": "the largest component under the floor and not growing, from 1,024; on a design's fact_sizes_in_a_row, under it at that many sizes in a row (828)",
+   "audit": false,
+   "gate": true
+  },
+  {
+   "action": "stop",
+   "rule": "too_dense",
+   "means": "mean degree at the campaign's cap, from 256; on a design's fact_sizes_in_a_row, at that many sizes in a row (828)",
+   "audit": false,
+   "gate": true
+  },
+  {
+   "action": "stop",
+   "rule": "nothing_read",
+   "means": "no chain read any probe at any size of the base block, the law parked at its top (782, the first gate on the base block)",
+   "audit": false,
+   "gate": true
+  },
+  {
+   "action": "stop",
+   "rule": "no_steady_chain",
+   "means": "no chain steady and moved by the law from 1,024 to 4,096, the law parked at 4,096 (796)",
+   "audit": false,
+   "gate": true
+  },
+  {
+   "action": "stop",
+   "rule": "reading_lost",
+   "means": "d_s settled and then has no reading at the top rung",
+   "audit": false,
+   "gate": true
+  },
+  {
+   "action": "stop",
+   "rule": "no_reading",
+   "means": "no d_s at either of the top two rungs",
+   "audit": false,
+   "gate": true
+  },
+  {
+   "action": "stop",
+   "rule": "unsettled_twice",
+   "means": "d_s unsettled at two looks in a row",
+   "audit": false,
+   "gate": true
+  },
+  {
+   "action": "stop",
+   "rule": "no_second_rung",
+   "means": "unsettled where the next rung takes a plateau",
+   "audit": false,
+   "gate": true
+  },
+  {
+   "action": "hold",
+   "rule": "unsettled",
+   "means": "a hold on an unsettled step (529's rules, `second_rung: false`)",
+   "audit": false,
+   "gate": true
+  },
+  {
+   "action": "hold",
+   "rule": "no_plateau",
+   "means": "d_s did not settle at the step before a deep rung",
+   "audit": false,
+   "gate": true
+  },
+  {
+   "action": "hold",
+   "rule": "deep_lane_full",
+   "means": "the deep rung's lane is full",
+   "audit": false,
+   "gate": true
+  },
+  {
+   "action": "stop",
+   "rule": "starts_alike",
+   "means": "every start ends alike, no shape held, from the last base rung (602)",
+   "audit": false,
+   "gate": true
+  },
+  {
+   "action": "stop",
+   "rule": "starts_apart_twice",
+   "means": "the starts apart with no shape held at two sizes in a row (602)",
+   "audit": false,
+   "gate": true
+  },
+  {
+   "action": "stop",
+   "rule": "starts_apart_by_history",
+   "means": "the starts apart, and every start alike at the size below or the starts in two groups (629)",
+   "audit": false,
+   "gate": true
+  },
+  {
+   "action": "stop",
+   "rule": "starts_shape_unread",
+   "means": "a shape read below a size its starts were not read at: its one size spent without a reading (631)",
+   "audit": false,
+   "gate": true
+  },
+  {
+   "action": "stop",
+   "rule": "not_promising",
+   "means": "a rung from 262,144 for a law not shaped at its top two rungs, mostly small worlds, unsettled, or with d_V unread (629)",
+   "audit": false,
+   "gate": true
+  },
+  {
+   "action": "stop",
+   "rule": "no_finite_dimension",
+   "means": "no finite dimension on either chain, or undecidable twice",
+   "audit": false,
+   "gate": true
+  },
+  {
+   "action": "stop",
+   "rule": "no_giant_component",
+   "means": "the giant component under half the graph where the rule reads",
+   "audit": false,
+   "gate": true
+  },
+  {
+   "action": "stop",
+   "rule": "kept_shape",
+   "means": "the dimension test reads only lattice starts that kept their shape and their own d (732's tier 3): parked as a class to extend on its own (789)",
+   "audit": false,
+   "gate": true
+  },
+  {
+   "action": "stop",
+   "rule": "repeats_a_known_result",
+   "means": "the law's every chain repeats a result 100 laws already reached and kept one size up (784; named so at 835, seen_enough before)",
+   "audit": false,
+   "gate": true
+  },
+  {
+   "action": "done",
+   "rule": "ladder_complete",
+   "means": "the last declared rung is measured",
+   "audit": false,
+   "gate": false
+  }
+ ],
+ "stops_that_are_not_gates": [],
+ "written_but_not_declared": [],
+ "declared_but_not_written": [],
+ "lanes": {
+  "0": "bought on its own reading",
+  "1": "audit traffic",
+  "2": "a calibration family"
+ },
+ "evidence": [
+  {
+   "table": "proposal_draws",
+   "refers_to": "campaigns",
+   "by": "campaign_id"
+  },
+  {
+   "table": "campaign_candidates",
+   "refers_to": "campaigns",
+   "by": "campaign_id"
+  },
+  {
+   "table": "analysis_queue",
+   "refers_to": "campaigns",
+   "by": "campaign_id"
+  },
+  {
+   "table": "jobs",
+   "refers_to": "campaign_candidates",
+   "by": "campaign_id,candidate_id"
+  },
+  {
+   "table": "analysis_queue",
+   "refers_to": "campaign_candidates",
+   "by": "campaign_id,candidate_id"
+  },
+  {
+   "table": "measurements",
+   "refers_to": "campaign_candidates",
+   "by": "campaign_id,candidate_id"
+  },
+  {
+   "table": "rung_summaries",
+   "refers_to": "campaign_candidates",
+   "by": "campaign_id,candidate_id"
+  },
+  {
+   "table": "rung_diagnostics",
+   "refers_to": "campaign_candidates",
+   "by": "campaign_id,candidate_id"
+  },
+  {
+   "table": "rung_operational_terminals",
+   "refers_to": "campaign_candidates",
+   "by": "campaign_id,candidate_id"
+  },
+  {
+   "table": "four_rung_phenotypes",
+   "refers_to": "campaign_candidates",
+   "by": "campaign_id,candidate_id"
+  },
+  {
+   "table": "candidate_state_history",
+   "refers_to": "campaign_candidates",
+   "by": "campaign_id,candidate_id"
+  },
+  {
+   "table": "engine_decisions",
+   "refers_to": "campaign_candidates",
+   "by": "campaign_id,candidate_id (no foreign key)"
+  },
+  {
+   "table": "attempts",
+   "refers_to": "jobs",
+   "by": "job_id"
+  },
+  {
+   "table": "artifacts",
+   "refers_to": "jobs",
+   "by": "producer_job"
+  },
+  {
+   "table": "analysis_queue",
+   "refers_to": "jobs",
+   "by": "producer_job"
+  },
+  {
+   "table": "analysis_queue",
+   "refers_to": "artifacts",
+   "by": "input_artifact"
+  },
+  {
+   "table": "measurements",
+   "refers_to": "artifacts",
+   "by": "curves_artifact"
+  },
+  {
+   "table": "measurements",
+   "refers_to": "artifacts",
+   "by": "input_artifact"
+  },
+  {
+   "table": "analysis_attempts",
+   "refers_to": "analysis_queue",
+   "by": "campaign_id,input_artifact,analysis_version"
+  }
+ ]
+}

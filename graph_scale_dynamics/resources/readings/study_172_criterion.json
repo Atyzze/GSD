@@ -1,0 +1,28 @@
+{
+ "contract": "gsd-study-criterion-1",
+ "study": "172",
+ "committed_utc": "2026-11-21T02:17:42Z",
+ "committed_before": "study 172's first start, on any host; a change 171's final bundle calls for is made before that start and said in its build",
+ "design": "graph_scale_dynamics/resources/readings/study_172_design.json",
+ "read_for": "the bigger baseline, read whole from its bundle on the build it reaches (docs/OPERATIONS.md, \"The pilots\"): 171's reading at two and a half times the laws, so that each gate's verdicts, what it would have withheld and what those laws read and score stand on 2,500 laws; and what one die a law a size changes against 171's separate dice",
+ "predicted": [
+  "R1: every decision in the bundle replays (tools/replay_bundle.py, 0 that differ), and the gates' counters give what was recorded (tools/counters_reading.py, C2)",
+  "R2: no zero-temperature seed is classed OPERATIONAL_UNRESOLVED after a pass at the cap (807)",
+  "R3: no gate but empty, too dense and disconnected holds a law back (every other gate's held is 0 in gates_ledger.json, its verdicts recorded, repeats_a_known_result's included), none of those three before 1,024 (each reads three sizes in a row), and every law they pass ends at 65,536 or is stopped over_budget or failed",
+  "R4: one die: at each size from 1,024, a law that one or more of the three gates would hold back goes on at the share the ledger gives that size, whichever gates and however many; at 1,024, while the three are testing, 8% to 12% of those laws go on, and 5% to 16% of the laws that two or more of them would hold back there (about 900 at 2,500 laws; 171, a pick for each gate: 2 of the 359 laws both the empty and the disconnected gate would hold back at 1,024 went on)",
+  "R5: the three gates stop 53% to 66% of the laws at 1,024 (171's progress bundle: 594 of 995; its decisions replayed with one die, 577)",
+  "R6: at most 4% of the laws are stopped over_budget before 65,536 (171's progress bundle: 21 of 1,000, 8 of them a longer chain at the size a law was at)",
+  "R7: the study takes about 880 core-hours on the host (650 to 1,300), 65,536 most of it, from 171's progress bundle (161 core-hours at 2026-11-21 01:32Z, about 0.9 a law read at 65,536)"
+ ],
+ "reported": [
+  "each gate's verdicts as recorded, by size, and what the laws it would have withheld read and score to 65,536, by law id where they score, beside 171's",
+  "the laws one die let past two or more gates at once, what they read one size up and to 65,536, against the laws 171's separate dice let past one",
+  "whether any of the three gates confirms (100 clean in a row) in 2,500 laws, at which law and size, and the share it then gives",
+  "the laws that reach the same result, grouped by repeats_a_known_result's signature from the tables, though the gate marks none",
+  "the score's list, the standing controls apart",
+  "the seeds that end at their budget and the laws stopped over_budget, by size; the seeds past their budget (tools/budget_reading.py)",
+  "the hours and memory a size takes on the host, and how many laws auto extend added",
+  "the finds"
+ ],
+ "not_judged_here": "what the laws are: 172 is read for itself and as the bigger baseline for the gates; no prediction of a law's kind is committed for it"
+}

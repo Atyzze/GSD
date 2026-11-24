@@ -1,0 +1,362 @@
+{
+ "contract": "gsd-planted-faults-1",
+ "reading": "faults planted one at a time in the code a number passes through (the science freeze's files), each with the number it would corrupt; tools/planted_faults.py plants each in a scratch copy of the tree and runs the tests that read its module; a fault no test fails is let by, and gets a check (838)",
+ "faults": [
+  {
+   "id": "d_V_half_width",
+   "file": "graph_scale_dynamics/measurements/estimators.py",
+   "find": "    return np.asarray(radii, dtype=float) + 0.5\n",
+   "replace": "    return np.asarray(radii, dtype=float) + 1.5\n",
+   "numbers": [
+    "d_V"
+   ],
+   "fault": "a ball's radius read a whole step wider"
+  },
+  {
+   "id": "d_V_upper_half",
+   "file": "graph_scale_dynamics/measurements/estimators.py",
+   "find": "        upper_start = len(local) // 2\n",
+   "replace": "        upper_start = 0\n",
+   "numbers": [
+    "d_V"
+   ],
+   "fault": "the exponent fitted over the whole window, not its upper half"
+  },
+  {
+   "id": "d_V_growth_verdict",
+   "file": "graph_scale_dynamics/measurements/estimators.py",
+   "find": "    verdict = (EXPONENTIAL if delta >= GROWTH_AICC_MARGIN and",
+   "replace": "    verdict = (EXPONENTIAL if delta >= -GROWTH_AICC_MARGIN and",
+   "numbers": [
+    "d_V"
+   ],
+   "fault": "power-law balls called exponential"
+  },
+  {
+   "id": "d_s_factor",
+   "file": "graph_scale_dynamics/measurements/estimators.py",
+   "find": "    out = {\"valid\": True, \"d_s\": -2.0 * slope,",
+   "replace": "    out = {\"valid\": True, \"d_s\": -1.0 * slope,",
+   "numbers": [
+    "d_s"
+   ],
+   "fault": "the spectral dimension read as minus the slope, not twice it"
+  },
+  {
+   "id": "d_s_lazy_walk",
+   "file": "graph_scale_dynamics/measurements/estimators.py",
+   "find": "            vec = 0.5 * vec + 0.5 * (walk @ vec)\n",
+   "replace": "            vec = walk @ vec\n",
+   "numbers": [
+    "d_s"
+   ],
+   "fault": "the walk no longer lazy, so a bipartite graph's returns oscillate"
+  },
+  {
+   "id": "d_s_return_floor",
+   "file": "graph_scale_dynamics/measurements/estimators.py",
+   "find": "q0 > RETURNS_ABOVE_IN_UNITS_OF_1_OVER_N / max(2, n_component)",
+   "replace": "q0 > 0.0",
+   "numbers": [
+    "d_s"
+   ],
+   "fault": "the window reaches into the plateau at 1/N"
+  },
+  {
+   "id": "d_s_settled",
+   "file": "graph_scale_dynamics/measurements/estimators.py",
+   "find": "    if abs(drift) > settled_within:\n",
+   "replace": "    if abs(drift) > 10.0 * settled_within:\n",
+   "numbers": [
+    "d_s"
+   ],
+   "fault": "a running slope that still moves reported as settled"
+  },
+  {
+   "id": "d_s_error",
+   "file": "graph_scale_dynamics/measurements/estimators.py",
+   "find": "\"d_s\": -2.0 * slope, \"se\": 2.0 * (se if measured_se is None else measured_se),",
+   "replace": "\"d_s\": -2.0 * slope, \"se\": 0.2 * (se if measured_se is None else measured_se),",
+   "numbers": [
+    "d_s_error"
+   ],
+   "fault": "the error a tenth of itself"
+  },
+  {
+   "id": "fit_slope",
+   "file": "graph_scale_dynamics/measurements/fits.py",
+   "find": "\"slope\": float(coefficients[1]), \"residuals\": residuals,",
+   "replace": "\"slope\": float(coefficients[0]), \"residuals\": residuals,",
+   "numbers": [
+    "d_V",
+    "d_B",
+    "d_w"
+   ],
+   "fault": "a line's intercept reported as its slope",
+   "through_its_readers": true
+  },
+  {
+   "id": "fit_exponential_margin",
+   "file": "graph_scale_dynamics/measurements/fits.py",
+   "find": "\"exponential\": bool(delta >= EXPONENTIAL_AICC_MARGIN)}",
+   "replace": "\"exponential\": bool(delta >= -EXPONENTIAL_AICC_MARGIN)}",
+   "numbers": [
+    "d_B"
+   ],
+   "fault": "a power law called exponential",
+   "through_its_readers": true
+  },
+  {
+   "id": "d_w_two_over_slope",
+   "file": "graph_scale_dynamics/measurements/walk_dimension.py",
+   "find": "        WALK_DIMENSION: 2.0 / slope,\n",
+   "replace": "        WALK_DIMENSION: 1.0 / slope,\n",
+   "numbers": [
+    "d_w"
+   ],
+   "fault": "the walk dimension half itself"
+  },
+  {
+   "id": "einstein_prediction",
+   "file": "graph_scale_dynamics/measurements/walk_dimension.py",
+   "find": "    predicted = 2.0 * mass / walk\n",
+   "replace": "    predicted = mass / walk\n",
+   "numbers": [
+    "einstein"
+   ],
+   "fault": "2 d_f / d_w read as d_f / d_w"
+  },
+  {
+   "id": "d_B_width",
+   "file": "graph_scale_dynamics/measurements/box_covering.py",
+   "find": "    width = 2.0 * radii + 1.0\n",
+   "replace": "    width = radii + 1.0\n",
+   "numbers": [
+    "d_B"
+   ],
+   "fault": "a box's width read as its radius plus one"
+  },
+  {
+   "id": "d_B_sign",
+   "file": "graph_scale_dynamics/measurements/box_covering.py",
+   "find": "        \"box_covering_exponent\": -fitted[\"slope\"],",
+   "replace": "        \"box_covering_exponent\": fitted[\"slope\"],",
+   "numbers": [
+    "d_B"
+   ],
+   "fault": "the box dimension's sign"
+  },
+  {
+   "id": "kappa_squares",
+   "file": "graph_scale_dynamics/engine/engine.py",
+   "find": "            - max(0, low * high - (1 + t + s) * low - high)",
+   "replace": "            - max(0, low * high - (1 + t) * low - high)",
+   "numbers": [
+    "kappa"
+   ],
+   "fault": "squares left out of the curvature"
+  },
+  {
+   "id": "kappa_pentagons",
+   "file": "graph_scale_dynamics/measurements/curvature_probe.py",
+   "find": "                if y != x and y in nv:\n",
+   "replace": "                if y in nv:\n",
+   "numbers": [
+    "kappa"
+   ],
+   "fault": "a pentagon counted through its own vertex"
+  },
+  {
+   "id": "giant_component",
+   "file": "graph_scale_dynamics/measurements/structure_census.py",
+   "find": "    giant = int(np.argmax(sizes)) if count else 0\n",
+   "replace": "    giant = int(np.argmin(sizes)) if count else 0\n",
+   "numbers": [
+    "giant_fraction"
+   ],
+   "fault": "the smallest component taken for the largest"
+  },
+  {
+   "id": "gate_empty",
+   "file": "graph_scale_dynamics/decisions/engine.py",
+   "find": "any(d > policy.empty_mean_degree for d in degrees)",
+   "replace": "any(d > 10 * policy.empty_mean_degree for d in degrees)",
+   "numbers": [
+    "gates"
+   ],
+   "fault": "a law with ten times the empty degree stopped as empty"
+  },
+  {
+   "id": "gate_empty_rising",
+   "file": "graph_scale_dynamics/decisions/engine.py",
+   "find": "    if degrees[-1] > degrees[0] and degrees[-1] >= max(degrees):\n",
+   "replace": "    if False:\n",
+   "numbers": [
+    "gates"
+   ],
+   "fault": "a law whose degree rises stopped as empty"
+  },
+  {
+   "id": "gate_disconnected",
+   "file": "graph_scale_dynamics/decisions/engine.py",
+   "find": "            or top.connected_fraction >= policy.connectivity_floor):",
+   "replace": "            or top.connected_fraction >= policy.connectivity_floor / 2):",
+   "numbers": [
+    "gates"
+   ],
+   "fault": "the floor halved"
+  },
+  {
+   "id": "gate_too_dense",
+   "file": "graph_scale_dynamics/decisions/engine.py",
+   "find": "any(r.mean_degree is None or r.mean_degree < policy.dense_cap",
+   "replace": "any(r.mean_degree is None or r.mean_degree < 0.5 * policy.dense_cap",
+   "numbers": [
+    "gates"
+   ],
+   "fault": "a law at half the cap stopped as too dense"
+  },
+  {
+   "id": "budget_fits",
+   "file": "graph_scale_dynamics/decisions/engine.py",
+   "find": "\"budget\": budget, \"fits\": predicted <= budget}",
+   "replace": "\"budget\": budget, \"fits\": predicted <= 2 * budget}",
+   "numbers": [
+    "gates"
+   ],
+   "fault": "a first chunk twice the budget let run"
+  },
+  {
+   "id": "share_testing",
+   "file": "graph_scale_dynamics/decisions/gates.py",
+   "find": "RECORD_ONLY, TESTING_SHARE, CONFIRMED_SHARE = 1.0, 0.10, 0.01",
+   "replace": "RECORD_ONLY, TESTING_SHARE, CONFIRMED_SHARE = 1.0, 0.20, 0.01",
+   "numbers": [
+    "let_through"
+   ],
+   "fault": "a fifth let through, not a tenth"
+  },
+  {
+   "id": "confirm_after",
+   "file": "graph_scale_dynamics/decisions/engine.py",
+   "find": "    confirm_after: int = 100\n",
+   "replace": "    confirm_after: int = 10\n",
+   "numbers": [
+    "let_through"
+   ],
+   "fault": "a gate confirmed after 10 clean in a row (the policy's default; gates.CONFIRM_AFTER is read by nothing)"
+  },
+  {
+   "id": "pick_width",
+   "file": "graph_scale_dynamics/decisions/gates.py",
+   "find": "    return int(hashlib.sha256(key.encode(\"utf-8\")).hexdigest()[:8], 16) / 0xFFFFFFFF",
+   "replace": "    return int(hashlib.sha256(key.encode(\"utf-8\")).hexdigest()[:7], 16) / 0xFFFFFFFF",
+   "numbers": [
+    "let_through"
+   ],
+   "fault": "every pick under a sixteenth"
+  },
+  {
+   "id": "one_die_every_size",
+   "file": "graph_scale_dynamics/decisions/gates.py",
+   "find": "key = f\"one-die:{size}:{law}\" if gate is None",
+   "replace": "key = f\"one-die:{law}\" if gate is None",
+   "numbers": [
+    "let_through"
+   ],
+   "fault": "one pick for a law at every size"
+  },
+  {
+   "id": "replay_blind",
+   "file": "graph_scale_dynamics/decisions/replay.py",
+   "find": "        if getattr(again, key) != recorded:\n",
+   "replace": "        if False and getattr(again, key) != recorded:\n",
+   "numbers": [
+    "replay"
+   ],
+   "fault": "replay that finds no decision different"
+  },
+  {
+   "id": "score_step",
+   "file": "graph_scale_dynamics/observability/law_score.py",
+   "find": "    middle = 0.5 * (abs(a) + abs(b))\n",
+   "replace": "    middle = abs(a) + abs(b)\n",
+   "numbers": [
+    "score"
+   ],
+   "fault": "every step read half its size"
+  },
+  {
+   "id": "score_einstein",
+   "file": "graph_scale_dynamics/observability/law_score.py",
+   "find": "    return max(abs(d_s - 2.0 * d_V / d_w), abs(d_s - 2.0 * d_B / d_w)) / d_s\n",
+   "replace": "    return min(abs(d_s - 2.0 * d_V / d_w), abs(d_s - 2.0 * d_B / d_w)) / d_s\n",
+   "numbers": [
+    "score",
+    "einstein"
+   ],
+   "fault": "the Einstein relation met by the closer of two"
+  },
+  {
+   "id": "score_relied_from",
+   "file": "graph_scale_dynamics/observability/law_score.py",
+   "find": "RELIED_FROM = 4096\n",
+   "replace": "RELIED_FROM = 1024\n",
+   "numbers": [
+    "score"
+   ],
+   "fault": "a piece relied on from 1,024"
+  },
+  {
+   "id": "metropolis_hastings",
+   "file": "graph_scale_dynamics/engine/engine.py",
+   "find": "            took = math.log(self.rng.random() + 1e-300) < -self.beta * delta_h + math.log(reverse / forward)\n",
+   "replace": "            took = math.log(self.rng.random() + 1e-300) < -self.beta * delta_h\n",
+   "numbers": [
+    "equilibrium"
+   ],
+   "fault": "the Hastings ratio dropped from a local move"
+  },
+  {
+   "id": "work_units",
+   "file": "graph_scale_dynamics/engine/engine.py",
+   "find": "        self.work += count\n",
+   "replace": "        self.work += 2 * count\n",
+   "numbers": [
+    "work"
+   ],
+   "fault": "a counted unit of work counted twice"
+  },
+  {
+   "id": "derive_seed",
+   "file": "graph_scale_dynamics/domain/randomness.py",
+   "find": "    return int.from_bytes(hashlib.sha256(_canonical_material(namespace, components)).digest(), \"big\")",
+   "replace": "    return int.from_bytes(hashlib.sha256(_canonical_material(namespace, components)).digest(), \"little\")",
+   "numbers": [
+    "draws"
+   ],
+   "fault": "every seed drawn again",
+   "through_its_readers": true
+  },
+  {
+   "id": "starts_degree",
+   "file": "graph_scale_dynamics/observability/starts_reading.py",
+   "find": "DEGREE_WITHIN = 0.10\n",
+   "replace": "DEGREE_WITHIN = 0.50\n",
+   "numbers": [
+    "starts_fate"
+   ],
+   "fault": "a start's degree held within half of itself"
+  },
+  {
+   "id": "finite_size_flow",
+   "file": "graph_scale_dynamics/calibration/finite_size.py",
+   "find": "    return flow + sigmas * fit[\"scatter\"]\n",
+   "replace": "    return flow\n",
+   "numbers": [
+    "finite_size"
+   ],
+   "fault": "the scatter left out of the tolerance"
+  }
+ ]
+}

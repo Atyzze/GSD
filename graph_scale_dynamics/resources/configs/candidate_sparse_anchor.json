@@ -1,0 +1,9 @@
+{
+  "dsl_version": 1,
+  "init": "empty",
+  "terms": [
+    {"op": "edge_count", "params": {}, "coeff": {"c0": 0.25, "scale": "log_N"}},
+    {"op": "degree_anchor", "params": {"k": 8}, "coeff": {"c0": 0.3, "scale": "one"}}
+  ],
+  "dynamics": {"kind": "equilibrium", "beta": 1.0, "move_mix": {"add": 0.5, "delete": 0.5}, "sweeps": 30}
+}

@@ -1,0 +1,1827 @@
+{
+ "contract": "gsd-dimension-test-1",
+ "rule": {
+  "from_n": 1024,
+  "piece_at_least": 0.95,
+  "degree_above": 0.5,
+  "degree_below": 15.5,
+  "sizes_at_least": 2,
+  "sizes_fitted": 3,
+  "reach_exponent_at_least": 0.125,
+  "growth_agrees_within": 0.4,
+  "d_step_within": 0.75
+ },
+ "cases": [
+  {
+   "part": "training",
+   "family": "rgg_2d",
+   "expected": "dimensional",
+   "d_band": [
+    1.5,
+    2.5
+   ],
+   "seeds": [
+    {
+     "seed": 1,
+     "verdict": "dimensional",
+     "d": 2.063096603933862,
+     "why": [],
+     "signals": {
+      "sizes": [
+       1024,
+       4084,
+       16375
+      ],
+      "mass_dimension": 2.063096603933862,
+      "reach_exponent": 0.4726112318454086,
+      "growth_dimension": 2.1159040086611833,
+      "einstein_gap": 0.1942602792260837,
+      "d_s": 2.0115403503734908,
+      "d_w": 2.270532359529205,
+      "growth_gap": 0.025596186153682587,
+      "d_step": 0.001158269196203765
+     },
+     "right": true,
+     "dimensional_early_at": []
+    },
+    {
+     "seed": 2,
+     "verdict": "dimensional",
+     "d": 2.10777041552256,
+     "why": [],
+     "signals": {
+      "sizes": [
+       1024,
+       4093,
+       16362
+      ],
+      "mass_dimension": 2.10777041552256,
+      "reach_exponent": 0.4835924303181601,
+      "growth_dimension": 2.067857016169774,
+      "einstein_gap": 0.004691501580641244,
+      "d_s": 1.99151577292002,
+      "d_w": 2.111775107171479,
+      "growth_gap": 0.018936312540894288,
+      "d_step": 0.10711890088254528
+     },
+     "right": true,
+     "dimensional_early_at": []
+    },
+    {
+     "seed": 3,
+     "verdict": "dimensional",
+     "d": 2.0865581722013054,
+     "why": [],
+     "signals": {
+      "sizes": [
+       1024,
+       4091,
+       16362
+      ],
+      "mass_dimension": 2.0865581722013054,
+      "reach_exponent": 0.4711298249882589,
+      "growth_dimension": 2.1225571954077016,
+      "einstein_gap": 0.04024054630862861,
+      "d_s": 1.9106906086775972,
+      "d_w": 2.231076054025875,
+      "growth_gap": 0.017252825100206776,
+      "d_step": 0.055814117603979696
+     },
+     "right": true,
+     "dimensional_early_at": []
+    }
+   ],
+   "passes": true
+  },
+  {
+   "part": "training",
+   "family": "rgg_3d",
+   "expected": "dimensional",
+   "d_band": [
+    2.5,
+    3.5
+   ],
+   "seeds": [
+    {
+     "seed": 1,
+     "verdict": "dimensional",
+     "d": 3.1657075816585714,
+     "why": [],
+     "signals": {
+      "sizes": [
+       1024,
+       4096,
+       16381
+      ],
+      "mass_dimension": 3.1657075816585714,
+      "reach_exponent": 0.3051486932737907,
+      "growth_dimension": 3.2770908807489567,
+      "einstein_gap": 0.2679296308294572,
+      "d_s": 3.1092104623687353,
+      "d_w": 2.228366549703947,
+      "growth_gap": 0.035184329637935045,
+      "d_step": 0.02163315921302278
+     },
+     "right": true,
+     "dimensional_early_at": []
+    },
+    {
+     "seed": 2,
+     "verdict": "dimensional",
+     "d": 3.1948145165715554,
+     "why": [],
+     "signals": {
+      "sizes": [
+       1024,
+       4096,
+       16382
+      ],
+      "mass_dimension": 3.1948145165715554,
+      "reach_exponent": 0.3042051580938766,
+      "growth_dimension": 3.2872552400686237,
+      "einstein_gap": 0.29695019200998374,
+      "d_s": 3.057806977125247,
+      "d_w": 2.314364536252593,
+      "growth_gap": 0.02893461358009261,
+      "d_step": 0.02421267928572801
+     },
+     "right": true,
+     "dimensional_early_at": []
+    },
+    {
+     "seed": 3,
+     "verdict": "dimensional",
+     "d": 3.133851602234082,
+     "why": [],
+     "signals": {
+      "sizes": [
+       1024,
+       4096,
+       16383
+      ],
+      "mass_dimension": 3.133851602234082,
+      "reach_exponent": 0.3037310522088739,
+      "growth_dimension": 3.2923864475743705,
+      "einstein_gap": 0.2964347764417279,
+      "d_s": 3.0929606730748316,
+      "d_w": 2.2412462591582676,
+      "growth_gap": 0.05058785975292224,
+      "d_step": 0.0394066298891147
+     },
+     "right": true,
+     "dimensional_early_at": []
+    }
+   ],
+   "passes": true
+  },
+  {
+   "part": "training",
+   "family": "rgg_4d",
+   "expected": "dimensional",
+   "d_band": [
+    3.0,
+    5.0
+   ],
+   "seeds": [
+    {
+     "seed": 1,
+     "verdict": "dimensional",
+     "d": 4.294797791595877,
+     "why": [],
+     "signals": {
+      "sizes": [
+       1024,
+       4096,
+       16384
+      ],
+      "mass_dimension": 4.294797791595877,
+      "reach_exponent": 0.23894399993582913,
+      "growth_dimension": 4.185081024292555,
+      "einstein_gap": null,
+      "d_s": 4.170348571259894,
+      "d_w": null,
+      "growth_gap": 0.025546433761798354,
+      "d_step": 0.1554931540769653
+     },
+     "right": true,
+     "dimensional_early_at": []
+    },
+    {
+     "seed": 2,
+     "verdict": "dimensional",
+     "d": 4.361914460971965,
+     "why": [],
+     "signals": {
+      "sizes": [
+       1024,
+       4096,
+       16384
+      ],
+      "mass_dimension": 4.361914460971965,
+      "reach_exponent": 0.24109402256731965,
+      "growth_dimension": 4.1477594066886265,
+      "einstein_gap": null,
+      "d_s": 4.123749478563545,
+      "d_w": null,
+      "growth_gap": 0.04909657358012895,
+      "d_step": 0.22132380225006898
+     },
+     "right": true,
+     "dimensional_early_at": []
+    },
+    {
+     "seed": 3,
+     "verdict": "dimensional",
+     "d": 4.2701310692384595,
+     "why": [],
+     "signals": {
+      "sizes": [
+       1024,
+       4096,
+       16384
+      ],
+      "mass_dimension": 4.2701310692384595,
+      "reach_exponent": 0.24030760745885618,
+      "growth_dimension": 4.161333095421098,
+      "einstein_gap": null,
+      "d_s": 3.9883825231140375,
+      "d_w": null,
+      "growth_gap": 0.02547883707859231,
+      "d_step": 0.1335741431701054
+     },
+     "right": true,
+     "dimensional_early_at": []
+    }
+   ],
+   "passes": true
+  },
+  {
+   "part": "training",
+   "family": "sierpinski",
+   "expected": "dimensional",
+   "d_band": [
+    1.085,
+    2.085
+   ],
+   "seeds": [
+    {
+     "seed": 1,
+     "verdict": "dimensional",
+     "d": 1.5444640572494712,
+     "why": [],
+     "signals": {
+      "sizes": [
+       1095,
+       3282,
+       9843
+      ],
+      "mass_dimension": 1.5444640572494712,
+      "reach_exponent": 0.6305381427796537,
+      "growth_dimension": 1.5859468795838692,
+      "einstein_gap": 0.061015715481083976,
+      "d_s": 1.3798614670654568,
+      "d_w": 2.3421450998254434,
+      "growth_gap": 0.02685904028629484,
+      "d_step": 0.04491689348128447
+     },
+     "right": true,
+     "dimensional_early_at": []
+    },
+    {
+     "seed": 2,
+     "verdict": "dimensional",
+     "d": 1.5470966930664636,
+     "why": [],
+     "signals": {
+      "sizes": [
+       1095,
+       3282,
+       9843
+      ],
+      "mass_dimension": 1.5470966930664636,
+      "reach_exponent": 0.6215779555033235,
+      "growth_dimension": 1.6088086637343,
+      "einstein_gap": 0.05319403392836475,
+      "d_s": 1.3643074190183322,
+      "d_w": 2.3599739132558746,
+      "growth_gap": 0.03988889055506839,
+      "d_step": 0.05454483216752681
+     },
+     "right": true,
+     "dimensional_early_at": []
+    },
+    {
+     "seed": 3,
+     "verdict": "dimensional",
+     "d": 1.5256973729998011,
+     "why": [],
+     "signals": {
+      "sizes": [
+       1095,
+       3282,
+       9843
+      ],
+      "mass_dimension": 1.5256973729998011,
+      "reach_exponent": 0.6258781579096693,
+      "growth_dimension": 1.59775506999611,
+      "einstein_gap": 0.07958051477100625,
+      "d_s": 1.3854092940871034,
+      "d_w": 2.3367494991171136,
+      "growth_gap": 0.04722935116197406,
+      "d_step": 0.03339674265848358
+     },
+     "right": true,
+     "dimensional_early_at": []
+    }
+   ],
+   "passes": true
+  },
+  {
+   "part": "training",
+   "family": "ring",
+   "expected": "dimensional",
+   "d_band": [
+    0.5,
+    1.5
+   ],
+   "seeds": [
+    {
+     "seed": 1,
+     "verdict": "dimensional",
+     "d": 0.9915961539328415,
+     "why": [],
+     "signals": {
+      "sizes": [
+       1024,
+       4096,
+       16384
+      ],
+      "mass_dimension": 0.9915961539328415,
+      "reach_exponent": 0.9999999999999999,
+      "growth_dimension": 1.0000000000000002,
+      "einstein_gap": 0.01549418921919643,
+      "d_s": 0.9901042341581829,
+      "d_w": 1.9721513695347488,
+      "growth_gap": 0.008475069244497986,
+      "d_step": 0.002437053523883681
+     },
+     "right": true,
+     "dimensional_early_at": []
+    },
+    {
+     "seed": 2,
+     "verdict": "dimensional",
+     "d": 0.991004186716254,
+     "why": [],
+     "signals": {
+      "sizes": [
+       1024,
+       4096,
+       16384
+      ],
+      "mass_dimension": 0.991004186716254,
+      "reach_exponent": 0.9999999999999999,
+      "growth_dimension": 1.0000000000000002,
+      "einstein_gap": 0.025141703868576837,
+      "d_s": 1.0008242777429435,
+      "d_w": 2.031406962166079,
+      "growth_gap": 0.009077472531729988,
+      "d_step": 0.00121963659586255
+     },
+     "right": true,
+     "dimensional_early_at": []
+    },
+    {
+     "seed": 3,
+     "verdict": "dimensional",
+     "d": 0.9902563835500047,
+     "why": [],
+     "signals": {
+      "sizes": [
+       1024,
+       4096,
+       16384
+      ],
+      "mass_dimension": 0.9902563835500047,
+      "reach_exponent": 0.9999999999999999,
+      "growth_dimension": 1.0000000000000002,
+      "einstein_gap": 0.03384288351202247,
+      "d_s": 1.0068343877899342,
+      "d_w": 2.035488242592428,
+      "growth_gap": 0.00983948865349933,
+      "d_step": 0.0015349670718247665
+     },
+     "right": true,
+     "dimensional_early_at": []
+    }
+   ],
+   "passes": true
+  },
+  {
+   "part": "training",
+   "family": "cubic",
+   "expected": "dimensional",
+   "d_band": [
+    2.5,
+    3.5
+   ],
+   "seeds": [
+    {
+     "seed": 1,
+     "verdict": "dimensional",
+     "d": 2.883132789815686,
+     "why": [],
+     "signals": {
+      "sizes": [
+       1024,
+       4096,
+       16384
+      ],
+      "mass_dimension": 2.883132789815686,
+      "reach_exponent": 0.34064251984617705,
+      "growth_dimension": 2.935628824174877,
+      "einstein_gap": 0.19911434796688088,
+      "d_s": 3.0745792238927354,
+      "d_w": 2.0053333385874605,
+      "growth_gap": 0.01820798353257504,
+      "d_step": 0.07486435566712135
+     },
+     "right": true,
+     "dimensional_early_at": []
+    },
+    {
+     "seed": 2,
+     "verdict": "dimensional",
+     "d": 2.888999048283208,
+     "why": [],
+     "signals": {
+      "sizes": [
+       1024,
+       4096,
+       16384
+      ],
+      "mass_dimension": 2.888999048283208,
+      "reach_exponent": 0.34064251984617705,
+      "growth_dimension": 2.935628824174877,
+      "einstein_gap": 0.09406041815404276,
+      "d_s": 3.012985089908736,
+      "d_w": 1.9794954465519006,
+      "growth_gap": 0.01614046080055954,
+      "d_step": 0.05360016392704159
+     },
+     "right": true,
+     "dimensional_early_at": []
+    },
+    {
+     "seed": 3,
+     "verdict": "dimensional",
+     "d": 2.887154177996155,
+     "why": [],
+     "signals": {
+      "sizes": [
+       1024,
+       4096,
+       16384
+      ],
+      "mass_dimension": 2.887154177996155,
+      "reach_exponent": 0.34064251984617705,
+      "growth_dimension": 2.935628824174877,
+      "einstein_gap": 0.0601960833509132,
+      "d_s": 3.0143510394431927,
+      "d_w": 1.9546396319137216,
+      "growth_gap": 0.01678976708211901,
+      "d_step": 0.05677780616665018
+     },
+     "right": true,
+     "dimensional_early_at": []
+    }
+   ],
+   "passes": true
+  },
+  {
+   "part": "training",
+   "family": "tesseract",
+   "expected": "dimensional",
+   "d_band": [
+    3.0,
+    5.0
+   ],
+   "seeds": [
+    {
+     "seed": 1,
+     "verdict": "dimensional",
+     "d": 3.650263318090932,
+     "why": [],
+     "signals": {
+      "sizes": [
+       1024,
+       4096,
+       16384
+      ],
+      "mass_dimension": 3.650263318090932,
+      "reach_exponent": 0.28437588093748384,
+      "growth_dimension": 3.516472623147096,
+      "einstein_gap": null,
+      "d_s": 4.063230485893743,
+      "d_w": null,
+      "growth_gap": 0.03665234074505286,
+      "d_step": 0.0887509253144505
+     },
+     "right": true,
+     "dimensional_early_at": []
+    },
+    {
+     "seed": 2,
+     "verdict": "dimensional",
+     "d": 3.630669479910433,
+     "why": [],
+     "signals": {
+      "sizes": [
+       1024,
+       4096,
+       16384
+      ],
+      "mass_dimension": 3.630669479910433,
+      "reach_exponent": 0.28437588093748384,
+      "growth_dimension": 3.516472623147096,
+      "einstein_gap": null,
+      "d_s": 3.9800049624455807,
+      "d_w": null,
+      "growth_gap": 0.031453388251181186,
+      "d_step": 0.0691570871339513
+     },
+     "right": true,
+     "dimensional_early_at": []
+    },
+    {
+     "seed": 3,
+     "verdict": "dimensional",
+     "d": 3.630524002712182,
+     "why": [],
+     "signals": {
+      "sizes": [
+       1024,
+       4096,
+       16384
+      ],
+      "mass_dimension": 3.630524002712182,
+      "reach_exponent": 0.28437588093748384,
+      "growth_dimension": 3.516472623147096,
+      "einstein_gap": null,
+      "d_s": 4.118531697242348,
+      "d_w": null,
+      "growth_gap": 0.03141457802782295,
+      "d_step": 0.06901160993570032
+     },
+     "right": true,
+     "dimensional_early_at": []
+    }
+   ],
+   "passes": true
+  },
+  {
+   "part": "training",
+   "family": "honeycomb",
+   "expected": "dimensional",
+   "d_band": [
+    1.5,
+    2.5
+   ],
+   "seeds": [
+    {
+     "seed": 1,
+     "verdict": "dimensional",
+     "d": 1.9733605278995312,
+     "why": [],
+     "signals": {
+      "sizes": [
+       1024,
+       4096,
+       16384
+      ],
+      "mass_dimension": 1.9733605278995312,
+      "reach_exponent": 0.49522279426307386,
+      "growth_dimension": 2.019293157715145,
+      "einstein_gap": 0.07892725786806065,
+      "d_s": 2.063626763218336,
+      "d_w": 1.9885736078230716,
+      "growth_gap": 0.02327634974259124,
+      "d_step": 0.0013193943977420908
+     },
+     "right": true,
+     "dimensional_early_at": []
+    },
+    {
+     "seed": 2,
+     "verdict": "dimensional",
+     "d": 1.9740124019775103,
+     "why": [],
+     "signals": {
+      "sizes": [
+       1024,
+       4096,
+       16384
+      ],
+      "mass_dimension": 1.9740124019775103,
+      "reach_exponent": 0.49522279426307386,
+      "growth_dimension": 2.019293157715145,
+      "einstein_gap": 0.09459170426687047,
+      "d_s": 2.063470965465506,
+      "d_w": 2.005214276852863,
+      "growth_gap": 0.022938435286563506,
+      "d_step": 0.020314216621706516
+     },
+     "right": true,
+     "dimensional_early_at": []
+    },
+    {
+     "seed": 3,
+     "verdict": "dimensional",
+     "d": 1.9696269339055847,
+     "why": [],
+     "signals": {
+      "sizes": [
+       1024,
+       4096,
+       16384
+      ],
+      "mass_dimension": 1.9696269339055847,
+      "reach_exponent": 0.49522279426307386,
+      "growth_dimension": 2.019293157715145,
+      "einstein_gap": 0.01635301820352275,
+      "d_s": 1.9739393330881538,
+      "d_w": 1.9792337870638148,
+      "growth_gap": 0.025216056378289355,
+      "d_step": 0.013163938200228431
+     },
+     "right": true,
+     "dimensional_early_at": []
+    }
+   ],
+   "passes": true
+  },
+  {
+   "part": "training",
+   "family": "erdos_renyi_4",
+   "expected": "not_dimensional",
+   "d_band": null,
+   "seeds": [
+    {
+     "seed": 1,
+     "verdict": "not_dimensional",
+     "d": null,
+     "why": [
+      "no mass dimension read at the top size",
+      "its reach does not grow as a power of N: a small world"
+     ],
+     "signals": {
+      "sizes": [
+       4010,
+       16058
+      ],
+      "mass_dimension": null,
+      "reach_exponent": 0.1011645859181263,
+      "growth_dimension": 9.884882055557583,
+      "einstein_gap": null,
+      "d_s": null,
+      "d_w": null,
+      "growth_gap": null,
+      "d_step": null
+     },
+     "right": true,
+     "dimensional_early_at": []
+    },
+    {
+     "seed": 2,
+     "verdict": "not_dimensional",
+     "d": null,
+     "why": [
+      "no mass dimension read at the top size",
+      "its reach does not grow as a power of N: a small world"
+     ],
+     "signals": {
+      "sizes": [
+       4002,
+       16084
+      ],
+      "mass_dimension": null,
+      "reach_exponent": 0.11701497075814077,
+      "growth_dimension": 8.545915052757723,
+      "einstein_gap": null,
+      "d_s": null,
+      "d_w": null,
+      "growth_gap": null,
+      "d_step": null
+     },
+     "right": true,
+     "dimensional_early_at": []
+    },
+    {
+     "seed": 3,
+     "verdict": "not_dimensional",
+     "d": null,
+     "why": [
+      "no mass dimension read at the top size",
+      "its reach does not grow as a power of N: a small world"
+     ],
+     "signals": {
+      "sizes": [
+       4027,
+       16038
+      ],
+      "mass_dimension": null,
+      "reach_exponent": 0.10790118925061769,
+      "growth_dimension": 9.267738446119818,
+      "einstein_gap": null,
+      "d_s": null,
+      "d_w": null,
+      "growth_gap": null,
+      "d_step": null
+     },
+     "right": true,
+     "dimensional_early_at": []
+    }
+   ],
+   "passes": true
+  },
+  {
+   "part": "training",
+   "family": "random_regular_6",
+   "expected": "not_dimensional",
+   "d_band": null,
+   "seeds": [
+    {
+     "seed": 1,
+     "verdict": "not_dimensional",
+     "d": null,
+     "why": [
+      "no mass dimension read at the top size"
+     ],
+     "signals": {
+      "sizes": [
+       1024,
+       4096,
+       16384
+      ],
+      "mass_dimension": null,
+      "reach_exponent": 0.14624062518028905,
+      "growth_dimension": 6.838045165405819,
+      "einstein_gap": null,
+      "d_s": null,
+      "d_w": null,
+      "growth_gap": null,
+      "d_step": null
+     },
+     "right": true,
+     "dimensional_early_at": []
+    },
+    {
+     "seed": 2,
+     "verdict": "not_dimensional",
+     "d": null,
+     "why": [
+      "no mass dimension read at the top size"
+     ],
+     "signals": {
+      "sizes": [
+       1024,
+       4096,
+       16384
+      ],
+      "mass_dimension": null,
+      "reach_exponent": 0.14624062518028905,
+      "growth_dimension": 6.838045165405819,
+      "einstein_gap": null,
+      "d_s": null,
+      "d_w": null,
+      "growth_gap": null,
+      "d_step": null
+     },
+     "right": true,
+     "dimensional_early_at": []
+    },
+    {
+     "seed": 3,
+     "verdict": "not_dimensional",
+     "d": null,
+     "why": [
+      "no mass dimension read at the top size"
+     ],
+     "signals": {
+      "sizes": [
+       1024,
+       4096,
+       16384
+      ],
+      "mass_dimension": null,
+      "reach_exponent": 0.14624062518028905,
+      "growth_dimension": 6.838045165405819,
+      "einstein_gap": null,
+      "d_s": null,
+      "d_w": null,
+      "growth_gap": null,
+      "d_step": null
+     },
+     "right": true,
+     "dimensional_early_at": []
+    }
+   ],
+   "passes": true
+  },
+  {
+   "part": "training",
+   "family": "ring_with_chords",
+   "expected": "not_dimensional",
+   "d_band": null,
+   "seeds": [
+    {
+     "seed": 1,
+     "verdict": "not_dimensional",
+     "d": null,
+     "why": [
+      "no mass dimension read at the top size"
+     ],
+     "signals": {
+      "sizes": [
+       1024,
+       4096,
+       16384
+      ],
+      "mass_dimension": null,
+      "reach_exponent": 0.18951780679446428,
+      "growth_dimension": 5.276549032062825,
+      "einstein_gap": null,
+      "d_s": null,
+      "d_w": null,
+      "growth_gap": null,
+      "d_step": null
+     },
+     "right": true,
+     "dimensional_early_at": []
+    },
+    {
+     "seed": 2,
+     "verdict": "not_dimensional",
+     "d": null,
+     "why": [
+      "no mass dimension read at the top size"
+     ],
+     "signals": {
+      "sizes": [
+       1024,
+       4096,
+       16384
+      ],
+      "mass_dimension": null,
+      "reach_exponent": 0.17821766922844154,
+      "growth_dimension": 5.611115914203704,
+      "einstein_gap": null,
+      "d_s": null,
+      "d_w": null,
+      "growth_gap": null,
+      "d_step": null
+     },
+     "right": true,
+     "dimensional_early_at": []
+    },
+    {
+     "seed": 3,
+     "verdict": "not_dimensional",
+     "d": null,
+     "why": [
+      "no mass dimension read at the top size"
+     ],
+     "signals": {
+      "sizes": [
+       1024,
+       4096,
+       16384
+      ],
+      "mass_dimension": null,
+      "reach_exponent": 0.17470761631985854,
+      "growth_dimension": 5.723848914343711,
+      "einstein_gap": null,
+      "d_s": null,
+      "d_w": null,
+      "growth_gap": null,
+      "d_step": null
+     },
+     "right": true,
+     "dimensional_early_at": []
+    }
+   ],
+   "passes": true
+  },
+  {
+   "part": "training",
+   "family": "subdivided_regular",
+   "expected": "not_dimensional",
+   "d_band": null,
+   "seeds": [
+    {
+     "seed": 1,
+     "verdict": "not_dimensional",
+     "d": null,
+     "why": [
+      "no mass dimension read at the top size"
+     ],
+     "signals": {
+      "sizes": [
+       4103,
+       16390
+      ],
+      "mass_dimension": null,
+      "reach_exponent": 0.15780383526928649,
+      "growth_dimension": 6.336981596762439,
+      "einstein_gap": null,
+      "d_s": null,
+      "d_w": null,
+      "growth_gap": null,
+      "d_step": null
+     },
+     "right": true,
+     "dimensional_early_at": []
+    },
+    {
+     "seed": 2,
+     "verdict": "not_dimensional",
+     "d": null,
+     "why": [
+      "no mass dimension read at the top size"
+     ],
+     "signals": {
+      "sizes": [
+       4103,
+       16390
+      ],
+      "mass_dimension": null,
+      "reach_exponent": 0.16370635146844473,
+      "growth_dimension": 6.108498485428376,
+      "einstein_gap": null,
+      "d_s": null,
+      "d_w": null,
+      "growth_gap": null,
+      "d_step": null
+     },
+     "right": true,
+     "dimensional_early_at": []
+    },
+    {
+     "seed": 3,
+     "verdict": "not_dimensional",
+     "d": null,
+     "why": [
+      "no mass dimension read at the top size"
+     ],
+     "signals": {
+      "sizes": [
+       4103,
+       16390
+      ],
+      "mass_dimension": null,
+      "reach_exponent": 0.16348088603069258,
+      "growth_dimension": 6.11692305002712,
+      "einstein_gap": null,
+      "d_s": null,
+      "d_w": null,
+      "growth_gap": null,
+      "d_step": null
+     },
+     "right": true,
+     "dimensional_early_at": []
+    }
+   ],
+   "passes": true
+  },
+  {
+   "part": "training",
+   "family": "preferential_attachment",
+   "expected": "not_dimensional",
+   "d_band": null,
+   "seeds": [
+    {
+     "seed": 1,
+     "verdict": "not_dimensional",
+     "d": null,
+     "why": [
+      "no mass dimension read at the top size",
+      "its reach does not grow as a power of N: a small world"
+     ],
+     "signals": {
+      "sizes": [
+       1024,
+       4096,
+       16384
+      ],
+      "mass_dimension": null,
+      "reach_exponent": 0.0737427319277567,
+      "growth_dimension": 13.56065843857896,
+      "einstein_gap": null,
+      "d_s": null,
+      "d_w": null,
+      "growth_gap": null,
+      "d_step": null
+     },
+     "right": true,
+     "dimensional_early_at": []
+    },
+    {
+     "seed": 2,
+     "verdict": "not_dimensional",
+     "d": null,
+     "why": [
+      "no mass dimension read at the top size",
+      "its reach does not grow as a power of N: a small world"
+     ],
+     "signals": {
+      "sizes": [
+       1024,
+       4096,
+       16384
+      ],
+      "mass_dimension": null,
+      "reach_exponent": 0.09004389106108138,
+      "growth_dimension": 11.105695102865432,
+      "einstein_gap": null,
+      "d_s": null,
+      "d_w": null,
+      "growth_gap": null,
+      "d_step": null
+     },
+     "right": true,
+     "dimensional_early_at": []
+    },
+    {
+     "seed": 3,
+     "verdict": "not_dimensional",
+     "d": null,
+     "why": [
+      "no mass dimension read at the top size",
+      "its reach does not grow as a power of N: a small world"
+     ],
+     "signals": {
+      "sizes": [
+       1024,
+       4096,
+       16384
+      ],
+      "mass_dimension": null,
+      "reach_exponent": 0.08172121709278565,
+      "growth_dimension": 12.236724262985554,
+      "einstein_gap": null,
+      "d_s": null,
+      "d_w": null,
+      "growth_gap": null,
+      "d_step": null
+     },
+     "right": true,
+     "dimensional_early_at": []
+    }
+   ],
+   "passes": true
+  },
+  {
+   "part": "held_out",
+   "family": "rgg_2d_sparse",
+   "expected": "dimensional",
+   "d_band": [
+    1.5,
+    2.5
+   ],
+   "seeds": [
+    {
+     "seed": 21,
+     "verdict": "dimensional",
+     "d": 1.8650673037892862,
+     "why": [],
+     "signals": {
+      "sizes": [
+       3888,
+       15142
+      ],
+      "mass_dimension": 1.8650673037892862,
+      "reach_exponent": 0.43352718925826084,
+      "growth_dimension": 2.306660400495158,
+      "einstein_gap": null,
+      "d_s": 1.3897286841500356,
+      "d_w": null,
+      "growth_gap": 0.23677059578958898,
+      "d_step": 0.13513807862196292
+     },
+     "right": true,
+     "dimensional_early_at": []
+    },
+    {
+     "seed": 22,
+     "verdict": "dimensional",
+     "d": 1.934424146806727,
+     "why": [],
+     "signals": {
+      "sizes": [
+       3911,
+       15093
+      ],
+      "mass_dimension": 1.934424146806727,
+      "reach_exponent": 0.43043290871755935,
+      "growth_dimension": 2.323242437432167,
+      "einstein_gap": null,
+      "d_s": 1.3544546955724044,
+      "d_w": null,
+      "growth_gap": 0.2009995022380621,
+      "d_step": 0.0164762129939644
+     },
+     "right": true,
+     "dimensional_early_at": []
+    },
+    {
+     "seed": 23,
+     "verdict": "dimensional",
+     "d": 1.756812971090135,
+     "why": [],
+     "signals": {
+      "sizes": [
+       3836,
+       14743
+      ],
+      "mass_dimension": 1.756812971090135,
+      "reach_exponent": 0.4239943472813461,
+      "growth_dimension": 2.358522009578677,
+      "einstein_gap": 0.0889297053652931,
+      "d_s": 1.3717166920477402,
+      "d_w": 2.405528092496097,
+      "growth_gap": 0.34250033918816675,
+      "d_step": 0.21966760059333534
+     },
+     "right": true,
+     "dimensional_early_at": []
+    }
+   ],
+   "passes": true
+  },
+  {
+   "part": "held_out",
+   "family": "rgg_3d_dense",
+   "expected": "dimensional",
+   "d_band": [
+    2.5,
+    3.5
+   ],
+   "seeds": [
+    {
+     "seed": 21,
+     "verdict": "dimensional",
+     "d": 3.16456639152862,
+     "why": [],
+     "signals": {
+      "sizes": [
+       1024,
+       4096,
+       16384
+      ],
+      "mass_dimension": 3.16456639152862,
+      "reach_exponent": 0.3157586014584486,
+      "growth_dimension": 3.1669762767542293,
+      "einstein_gap": 0.13711579006023156,
+      "d_s": 3.155112458052416,
+      "d_w": 2.0971304740597647,
+      "growth_gap": 0.00076152146216951,
+      "d_step": 0.05759830231473373
+     },
+     "right": true,
+     "dimensional_early_at": []
+    },
+    {
+     "seed": 22,
+     "verdict": "dimensional",
+     "d": 3.1452901099116266,
+     "why": [],
+     "signals": {
+      "sizes": [
+       1024,
+       4096,
+       16384
+      ],
+      "mass_dimension": 3.1452901099116266,
+      "reach_exponent": 0.3138751832870967,
+      "growth_dimension": 3.185979820154548,
+      "einstein_gap": 0.3810499047193847,
+      "d_s": 3.0880454537452726,
+      "d_w": 2.3238236287780074,
+      "growth_gap": 0.012936711343318535,
+      "d_step": 0.08872633014429931
+     },
+     "right": true,
+     "dimensional_early_at": []
+    },
+    {
+     "seed": 23,
+     "verdict": "dimensional",
+     "d": 3.1460318401734924,
+     "why": [],
+     "signals": {
+      "sizes": [
+       1024,
+       4096,
+       16384
+      ],
+      "mass_dimension": 3.1460318401734924,
+      "reach_exponent": 0.31331207035425207,
+      "growth_dimension": 3.191705952692252,
+      "einstein_gap": 0.16050259428920066,
+      "d_s": 3.0726560550721644,
+      "d_w": 2.1606222903704038,
+      "growth_gap": 0.014518007076572014,
+      "d_step": 0.058727075446312504
+     },
+     "right": true,
+     "dimensional_early_at": []
+    }
+   ],
+   "passes": true
+  },
+  {
+   "part": "held_out",
+   "family": "percolation_2d",
+   "expected": "dimensional",
+   "d_band": [
+    1.396,
+    2.396
+   ],
+   "seeds": [
+    {
+     "seed": 21,
+     "verdict": "dimensional",
+     "d": 1.516177084019158,
+     "why": [],
+     "signals": {
+      "sizes": [
+       6601,
+       17214
+      ],
+      "mass_dimension": 1.516177084019158,
+      "reach_exponent": 0.6574273761549381,
+      "growth_dimension": 1.5210805577471522,
+      "einstein_gap": 0.04056675614646865,
+      "d_s": 1.2491867860786172,
+      "d_w": 2.35111133155478,
+      "growth_gap": 0.003234103575154885,
+      "d_step": 0.041477871073343
+     },
+     "right": true,
+     "dimensional_early_at": []
+    },
+    {
+     "seed": 22,
+     "verdict": "dimensional",
+     "d": 1.545457736276058,
+     "why": [],
+     "signals": {
+      "sizes": [
+       1685,
+       8225,
+       17180
+      ],
+      "mass_dimension": 1.545457736276058,
+      "reach_exponent": 0.6401765414477808,
+      "growth_dimension": 1.5620691094654395,
+      "einstein_gap": 0.05106016400089919,
+      "d_s": 1.2549864144898417,
+      "d_w": 2.3666196316856922,
+      "growth_gap": 0.010748513401219493,
+      "d_step": 0.027131346637807807
+     },
+     "right": true,
+     "dimensional_early_at": []
+    },
+    {
+     "seed": 23,
+     "verdict": "dimensional",
+     "d": 1.5700704593366261,
+     "why": [],
+     "signals": {
+      "sizes": [
+       10201,
+       18948
+      ],
+      "mass_dimension": 1.5700704593366261,
+      "reach_exponent": 0.8468713941279763,
+      "growth_dimension": 1.1808168358664426,
+      "einstein_gap": 0.03790800534170047,
+      "d_s": 1.311394052371345,
+      "d_w": 2.3272334765393667,
+      "growth_gap": 0.24792111790616578,
+      "d_step": 0.06260709490459315
+     },
+     "right": true,
+     "dimensional_early_at": []
+    }
+   ],
+   "passes": true
+  },
+  {
+   "part": "held_out",
+   "family": "random_tree",
+   "expected": "dimensional",
+   "d_band": [
+    1.5,
+    2.5
+   ],
+   "seeds": [
+    {
+     "seed": 21,
+     "verdict": "dimensional",
+     "d": 2.0270510151605228,
+     "why": [],
+     "signals": {
+      "sizes": [
+       1024,
+       4096,
+       16384
+      ],
+      "mass_dimension": 2.0270510151605228,
+      "reach_exponent": 0.6214713864085132,
+      "growth_dimension": 1.6090845401250182,
+      "einstein_gap": null,
+      "d_s": 1.306628260534344,
+      "d_w": null,
+      "growth_gap": 0.20619435421678603,
+      "d_step": 0.36556796488223275
+     },
+     "right": true,
+     "dimensional_early_at": []
+    },
+    {
+     "seed": 22,
+     "verdict": "dimensional",
+     "d": 1.9550580683790972,
+     "why": [],
+     "signals": {
+      "sizes": [
+       1024,
+       4096,
+       16384
+      ],
+      "mass_dimension": 1.9550580683790972,
+      "reach_exponent": 0.4698907410980134,
+      "growth_dimension": 2.1281542974506333,
+      "einstein_gap": null,
+      "d_s": 1.2928549239649978,
+      "d_w": null,
+      "growth_gap": 0.08853764083593027,
+      "d_step": 0.33150317927580586
+     },
+     "right": true,
+     "dimensional_early_at": []
+    },
+    {
+     "seed": 23,
+     "verdict": "dimensional",
+     "d": 1.821114810586653,
+     "why": [],
+     "signals": {
+      "sizes": [
+       1024,
+       4096,
+       16384
+      ],
+      "mass_dimension": 1.821114810586653,
+      "reach_exponent": 0.5328677767577935,
+      "growth_dimension": 1.8766381523094686,
+      "einstein_gap": 0.04297598294518612,
+      "d_s": 1.3009243574081109,
+      "d_w": 2.7101932426148525,
+      "growth_gap": 0.030488655300611896,
+      "d_step": 0.03230951862223996
+     },
+     "right": true,
+     "dimensional_early_at": []
+    }
+   ],
+   "passes": true
+  },
+  {
+   "part": "held_out",
+   "family": "random_regular_3",
+   "expected": "not_dimensional",
+   "d_band": null,
+   "seeds": [
+    {
+     "seed": 21,
+     "verdict": "not_dimensional",
+     "d": null,
+     "why": [
+      "no mass dimension read at the top size"
+     ],
+     "signals": {
+      "sizes": [
+       1024,
+       4096,
+       16384
+      ],
+      "mass_dimension": null,
+      "reach_exponent": 0.1354838042816522,
+      "growth_dimension": 7.380956013909512,
+      "einstein_gap": null,
+      "d_s": null,
+      "d_w": null,
+      "growth_gap": null,
+      "d_step": null
+     },
+     "right": true,
+     "dimensional_early_at": []
+    },
+    {
+     "seed": 22,
+     "verdict": "not_dimensional",
+     "d": null,
+     "why": [
+      "no mass dimension read at the top size"
+     ],
+     "signals": {
+      "sizes": [
+       1024,
+       4096,
+       16384
+      ],
+      "mass_dimension": null,
+      "reach_exponent": 0.13343838995159787,
+      "growth_dimension": 7.494095217746033,
+      "einstein_gap": null,
+      "d_s": null,
+      "d_w": null,
+      "growth_gap": null,
+      "d_step": null
+     },
+     "right": true,
+     "dimensional_early_at": []
+    },
+    {
+     "seed": 23,
+     "verdict": "not_dimensional",
+     "d": null,
+     "why": [
+      "no mass dimension read at the top size"
+     ],
+     "signals": {
+      "sizes": [
+       1024,
+       4096,
+       16384
+      ],
+      "mass_dimension": null,
+      "reach_exponent": 0.13719722204191775,
+      "growth_dimension": 7.288777317185554,
+      "einstein_gap": null,
+      "d_s": null,
+      "d_w": null,
+      "growth_gap": null,
+      "d_step": null
+     },
+     "right": true,
+     "dimensional_early_at": []
+    }
+   ],
+   "passes": true
+  },
+  {
+   "part": "held_out",
+   "family": "erdos_renyi_8",
+   "expected": "not_dimensional",
+   "d_band": null,
+   "seeds": [
+    {
+     "seed": 21,
+     "verdict": "not_dimensional",
+     "d": null,
+     "why": [
+      "no mass dimension read at the top size",
+      "its reach does not grow as a power of N: a small world"
+     ],
+     "signals": {
+      "sizes": [
+       1024,
+       4093,
+       16379
+      ],
+      "mass_dimension": null,
+      "reach_exponent": 0.10302412794134053,
+      "growth_dimension": 9.70646410682919,
+      "einstein_gap": null,
+      "d_s": null,
+      "d_w": null,
+      "growth_gap": null,
+      "d_step": null
+     },
+     "right": true,
+     "dimensional_early_at": []
+    },
+    {
+     "seed": 22,
+     "verdict": "not_dimensional",
+     "d": null,
+     "why": [
+      "no mass dimension read at the top size",
+      "its reach does not grow as a power of N: a small world"
+     ],
+     "signals": {
+      "sizes": [
+       1024,
+       4094,
+       16379
+      ],
+      "mass_dimension": null,
+      "reach_exponent": 0.10602102802538817,
+      "growth_dimension": 9.432091148564758,
+      "einstein_gap": null,
+      "d_s": null,
+      "d_w": null,
+      "growth_gap": null,
+      "d_step": null
+     },
+     "right": true,
+     "dimensional_early_at": []
+    },
+    {
+     "seed": 23,
+     "verdict": "not_dimensional",
+     "d": null,
+     "why": [
+      "no mass dimension read at the top size",
+      "its reach does not grow as a power of N: a small world"
+     ],
+     "signals": {
+      "sizes": [
+       1024,
+       4096,
+       16382
+      ],
+      "mass_dimension": null,
+      "reach_exponent": 0.10301749473604545,
+      "growth_dimension": 9.707089097460877,
+      "einstein_gap": null,
+      "d_s": null,
+      "d_w": null,
+      "growth_gap": null,
+      "d_step": null
+     },
+     "right": true,
+     "dimensional_early_at": []
+    }
+   ],
+   "passes": true
+  },
+  {
+   "part": "held_out",
+   "family": "ring_with_chords_dense",
+   "expected": "not_dimensional",
+   "d_band": null,
+   "seeds": [
+    {
+     "seed": 21,
+     "verdict": "not_dimensional",
+     "d": null,
+     "why": [
+      "no mass dimension read at the top size"
+     ],
+     "signals": {
+      "sizes": [
+       1024,
+       4096,
+       16384
+      ],
+      "mass_dimension": null,
+      "reach_exponent": 0.14328133879621785,
+      "growth_dimension": 6.979275936430576,
+      "einstein_gap": null,
+      "d_s": null,
+      "d_w": null,
+      "growth_gap": null,
+      "d_step": null
+     },
+     "right": true,
+     "dimensional_early_at": []
+    },
+    {
+     "seed": 22,
+     "verdict": "not_dimensional",
+     "d": null,
+     "why": [
+      "no mass dimension read at the top size"
+     ],
+     "signals": {
+      "sizes": [
+       1024,
+       4096,
+       16384
+      ],
+      "mass_dimension": null,
+      "reach_exponent": 0.1492312181674479,
+      "growth_dimension": 6.701010768925909,
+      "einstein_gap": null,
+      "d_s": null,
+      "d_w": null,
+      "growth_gap": null,
+      "d_step": null
+     },
+     "right": true,
+     "dimensional_early_at": []
+    },
+    {
+     "seed": 23,
+     "verdict": "not_dimensional",
+     "d": null,
+     "why": [
+      "no mass dimension read at the top size"
+     ],
+     "signals": {
+      "sizes": [
+       1024,
+       4096,
+       16384
+      ],
+      "mass_dimension": null,
+      "reach_exponent": 0.15430417493144588,
+      "growth_dimension": 6.480706049880239,
+      "einstein_gap": null,
+      "d_s": null,
+      "d_w": null,
+      "growth_gap": null,
+      "d_step": null
+     },
+     "right": true,
+     "dimensional_early_at": []
+    }
+   ],
+   "passes": true
+  },
+  {
+   "part": "held_out",
+   "family": "subdivided_regular_long",
+   "expected": "not_dimensional",
+   "d_band": null,
+   "seeds": [
+    {
+     "seed": 21,
+     "verdict": "not_dimensional",
+     "d": null,
+     "why": [
+      "no mass dimension read at the top size"
+     ],
+     "signals": {
+      "sizes": [
+       4097,
+       16388
+      ],
+      "mass_dimension": null,
+      "reach_exponent": 0.17348614876634644,
+      "growth_dimension": 5.764148937024442,
+      "einstein_gap": null,
+      "d_s": null,
+      "d_w": null,
+      "growth_gap": null,
+      "d_step": null
+     },
+     "right": true,
+     "dimensional_early_at": []
+    },
+    {
+     "seed": 22,
+     "verdict": "not_dimensional",
+     "d": null,
+     "why": [
+      "no mass dimension read at the top size"
+     ],
+     "signals": {
+      "sizes": [
+       4097,
+       16388
+      ],
+      "mass_dimension": null,
+      "reach_exponent": 0.17337282803275866,
+      "growth_dimension": 5.767916526175894,
+      "einstein_gap": null,
+      "d_s": null,
+      "d_w": null,
+      "growth_gap": null,
+      "d_step": null
+     },
+     "right": true,
+     "dimensional_early_at": []
+    },
+    {
+     "seed": 23,
+     "verdict": "not_dimensional",
+     "d": null,
+     "why": [
+      "no mass dimension read at the top size"
+     ],
+     "signals": {
+      "sizes": [
+       4097,
+       16388
+      ],
+      "mass_dimension": null,
+      "reach_exponent": 0.17027321733967316,
+      "growth_dimension": 5.87291422352776,
+      "einstein_gap": null,
+      "d_s": null,
+      "d_w": null,
+      "growth_gap": null,
+      "d_step": null
+     },
+     "right": true,
+     "dimensional_early_at": []
+    }
+   ],
+   "passes": true
+  },
+  {
+   "part": "held_out",
+   "family": "preferential_attachment_3",
+   "expected": "not_dimensional",
+   "d_band": null,
+   "seeds": [
+    {
+     "seed": 21,
+     "verdict": "not_dimensional",
+     "d": null,
+     "why": [
+      "no mass dimension read at the top size",
+      "its reach does not grow as a power of N: a small world"
+     ],
+     "signals": {
+      "sizes": [
+       1024,
+       4096,
+       16384
+      ],
+      "mass_dimension": null,
+      "reach_exponent": 0.07984309749590143,
+      "growth_dimension": 12.524564193558907,
+      "einstein_gap": null,
+      "d_s": null,
+      "d_w": null,
+      "growth_gap": null,
+      "d_step": null
+     },
+     "right": true,
+     "dimensional_early_at": []
+    },
+    {
+     "seed": 22,
+     "verdict": "not_dimensional",
+     "d": null,
+     "why": [
+      "no mass dimension read at the top size",
+      "its reach does not grow as a power of N: a small world"
+     ],
+     "signals": {
+      "sizes": [
+       1024,
+       4096,
+       16384
+      ],
+      "mass_dimension": null,
+      "reach_exponent": 0.07859532145850355,
+      "growth_dimension": 12.723403651042716,
+      "einstein_gap": null,
+      "d_s": null,
+      "d_w": null,
+      "growth_gap": null,
+      "d_step": null
+     },
+     "right": true,
+     "dimensional_early_at": []
+    },
+    {
+     "seed": 23,
+     "verdict": "not_dimensional",
+     "d": null,
+     "why": [
+      "no mass dimension read at the top size",
+      "its reach does not grow as a power of N: a small world"
+     ],
+     "signals": {
+      "sizes": [
+       1024,
+       4096,
+       16384
+      ],
+      "mass_dimension": null,
+      "reach_exponent": 0.09718655036497903,
+      "growth_dimension": 10.289489607816638,
+      "einstein_gap": null,
+      "d_s": null,
+      "d_w": null,
+      "growth_gap": null,
+      "d_step": null
+     },
+     "right": true,
+     "dimensional_early_at": []
+    }
+   ],
+   "passes": true
+  }
+ ],
+ "passes": true
+}

@@ -1,0 +1,30 @@
+{
+ "contract": "gsd-cap-pass-judged-1",
+ "criterion": "gsd-cap-pass-criterion-1",
+ "criterion_committed_utc": "2026-11-19T16:48:52Z",
+ "judged_utc": "2026-11-19T17:32:06Z",
+ "passes": true,
+ "zero_temperature": {
+  "sample": "the descent held-out sample (search seed 807000000000000002)",
+  "operational_unresolved_on_806": 32,
+  "laws": 21,
+  "their_share_of_the_work": 0.0207,
+  "reached_the_cap": 168,
+  "run_again_on_the_fix": 168,
+  "not_as_predicted": [],
+  "predicted": [
+   "Z1: True",
+   "Z2: True"
+  ]
+ },
+ "finite_temperature": {
+  "sample": "the cap at the first chunk, search seed 807000000000000004, 256 nodes, two seeds",
+  "seeds": 56,
+  "confirmed_at_the_cap_by_a_chunk_of_no_moves": 6,
+  "not_as_predicted": [],
+  "predicted": [
+   "F1: True",
+   "F2: True"
+  ]
+ }
+}

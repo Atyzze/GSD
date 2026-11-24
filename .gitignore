@@ -1,0 +1,88 @@
+# Build 356.
+#
+# This file is not about publishing anywhere. It exists because `apply-build`
+# uses git locally to install a reviewed patch, and its deletion rule is stated
+# in its own prompt:
+#
+#     Only the tracked paths above will be deleted by the reviewed Git patch.
+#     Untracked/ignored local files and directories are not deletion candidates.
+#
+# The durable calibration table is host state: written by the suite, per
+# machine, tens of minutes to compute, never the same on two hosts. While it is
+# a tracked path, both possible builds are wrong -- one that contains it
+# overwrites the host's table with the packager's (build 352, 42m47s lost) and
+# one that does not contain it deletes the host's table (build 354, 42m47s lost
+# again). Ignored is the only state with neither failure.
+#
+# `package_release.py` has expected a .gitignore at the root since the project
+# was packaged and there was never one, which is the same defect class as the
+# LICENSE that build 351 found missing after every wheel build had warned about
+# it.
+calibration/probe_calibration.json
+
+# Runtime state. `var/` is documented as safe to delete; `instance/` holds the
+# folder-local PostgreSQL cluster and its socket.
+var/
+instance/
+# The PostgreSQL slice tests' own folders (`tests/integration/test_postgres_native.py`, `test_operator_path.py`),
+# removed when they pass, and tools/study_twice.py's two folders, removed when it ends.
+.pytest_slice_var_*/
+.pytest_operator_var_*/
+.study_twice_*/
+
+# Build products and caches.
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+target/
+*.so
+
+# Build 364, from an applied build that deleted a live host's credentials.
+#
+# The deletion rule quoted above cuts both ways, and only one direction was
+# ever written down. A path that `package_release.py` deliberately keeps out of
+# an archive, and that a host has on disk, is a tracked path that the incoming
+# build does not contain -- so the patch deletes it. Everything the packager
+# excludes must therefore be ignored here as well, or the exclusion becomes a
+# deletion the first time a correctly cut archive is applied.
+#
+# `.env.postgres` was excluded from archives and not ignored. It holds the only
+# copy of the folder-local cluster's password, which README section 5 calls out
+# as the one thing whose loss locks the folder out of its own database. Nothing
+# caught it because no archive had been cut by the release tool in a long time:
+# 362 was tarred by hand and carried the host's own file back to it, so the
+# rule never fired. 363 was the first correctly cut archive and it fired
+# immediately.
+#
+# Recovery, if this happens again and there is no backup: the cluster survives,
+# so `python tools/postgres_instance.py reset-credentials` mints a new password
+# and applies it, keeping the campaign. Do not delete `instance/`.
+#
+# `tests/unit/test_build_364_archive_and_ignore_agree.py` compares this file
+# against the packager's exclusion lists, so the two cannot drift apart again.
+.env.postgres
+
+# Coverage data and the caches and build products the packager excludes. None
+# of these is dangerous to lose; they are here because "excluded from the
+# archive" and "ignored" must be the same set, and an exception nobody can
+# state is how the important one went unnoticed among them.
+.coverage
+.mypy_cache/
+.ruff_cache/
+build/
+dist/
+venv/
+*.dump
+
+# The diagram exporter's npm install (tools/diagrams/export_mermaid.js)
+tools/diagrams/node_modules/
+tools/diagrams/package-lock.json
+
+# 688 (the build 685 review; CLI-10): host state the release now keeps out, ignored as everything it excludes is (build
+# 364's rule above): the diagram tool's installed packages, a calibration table half written, and the copy an adoption
+# keeps of the table it replaced.
+node_modules/
+*.tmp
+*.before-adopt
+*.egg-info/

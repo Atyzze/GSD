@@ -1,0 +1,42 @@
+{
+ "contract": "gsd-study-criterion-1",
+ "study": "175",
+ "committed_utc": "2026-11-23T13:08:00Z",
+ "committed_before": "study 175's first start, in any folder, and before any variant it names was run",
+ "design": "graph_scale_dynamics/resources/readings/study_175_design.json",
+ "design_sha256": "908644f608447b4a33b8070fc8602e06fd01a17ce3c9aa144aa44882fd5728e5",
+ "holders": "graph_scale_dynamics/resources/readings/study_175_holders.json",
+ "holders_sha256": "713c5988719cc0a8c4957328f424348b024410dec17ce73fe36bd4ab59a7da5a",
+ "question": "The operator's (2026-11-23 11:21): is each of the best laws a region of laws that behave alike, or a point where changing a coefficient by 0.001 changes everything; and what in a law's terms leads to what dimensional behaviour. The operator's question (2026-10-13): can simple local rules make a graph grow a real dimension, like space; which keep one they are given; and can the null map predict a law before it runs? Study 169 is the first study on the final probes, the installed table and the deterministic fleet (800 to 806), run on 813, its data the first clean data (the operator, 2026-11-19 21:11: \"This way, we immediately have clean data from our latest codebase\").",
+ "perturb": {
+  "radii": [
+   1e-09,
+   0.001,
+   0.01,
+   0.1
+  ],
+  "per_radius": 4,
+  "laws": 595,
+  "laws_sha256": "769dcd16ee52ad59903d716e4303321aad5ff4a66a4223cbeba72dc86a81e9c1"
+ },
+ "verdict": {
+  "contract": "gsd-perturb-verdict-1",
+  "tolerance": 0.1,
+  "alike_at_least": 3,
+  "words": "A holder's behaviour is what its scoring chain reads at its top pair's larger size in 174: the median of the probes read there (its d) and its mean degree. A variant is alike when its chain from the same start reads at that size, its d within a tenth of the holder's and its mean degree within a tenth of the holder's. Its stream is the 1e-9 radius: with fewer than 3 of 4 alike, the holder's reading was its random numbers', not its law's (a stream verdict). Otherwise a radius holds when at least 3 of its 4 variants are alike, and the holder is a region to the largest radius up to which every radius holds, or a point when 0.001 does not hold.",
+  "verdicts": {
+   "stream": "fewer than 3 of the 4 variants at 1e-9 are alike: the law's own random numbers move its reading",
+   "point": "the stream holds and 0.001 does not: a change of a thousandth changes what it reads",
+   "region": "the stream holds and every radius up to r holds: a region at least r wide"
+  }
+ },
+ "predictions": {
+  "P1": "every holder run again reads, at every size and on its scoring chain, the values it read in study 174 (`tools/perturb_reading.py`, its run-again line): the same law on the same seeds and engine",
+  "P2": "every variant's law is the one the design names (laws_sha256), and every planned law is in the bundle read: a law decided, stopped by a gate or by its budget counts as read",
+  "P3": "the study costs 400 to 900 core-hours"
+ },
+ "not_predicted": "how many holders are a stream, a point or a region is the study's question and is not predicted; nor which terms the regions share, which `tools/top_laws_alike.py` reads beside it",
+ "predicted_from": "the 35 holders' own cost in 174 (engine seconds of every chain of every seed, scaled by 174's core-hours over its engine seconds), times 17 laws each",
+ "passes": "when P1 to P3 hold; the verdicts are read and reported, never judged",
+ "what_follows": "the verdicts go to the operator with the term sets beside them; whether study A changes because of them is theirs to decide"
+}

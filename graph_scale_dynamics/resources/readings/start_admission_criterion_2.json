@@ -1,0 +1,125 @@
+{
+ "contract": "gsd-start-admission-criterion-2",
+ "committed_utc": "2026-11-19T21:56:25Z",
+ "committed_before": "it was run, on build 816. It is criterion 1 of 2026-11-10 23:55Z (read at 757) in today's names, its sizes, seeds, lattices, predictions and rule unchanged, so that the reading made on the final code can be held to 757's number by number. Criterion 1 and its reading leave the tree with this build (the operator, 2026-11-18 16:43: \"ALL old data we want GONE\").",
+ "question": "Which lattices can a law of the fourteen terms tell from a random graph of the same degree? A start a law cannot tell from such a graph can be kept or preferred by no law, so it is no start to grow a law from: study 159 held none of its 15,675 honeycomb chains.",
+ "rule": "A term tells a lattice when its energy a node on the lattice, taken alone with coupling 1 and scale one (an anchored term anchored at the lattice's degree), differs from its mean over random regular graphs of the same size and degree by at least `tells_at_least` at the largest size read, and that difference is at least `keeps_at_least` of the one at the smallest size read: an amount a node that does not shrink with N. A start is admitted when its degree is under the cap, it is built at every size read, and at least one term tells it. A prediction is right when the terms that tell the lattice are exactly the ones expected; the criterion passes when every lattice is admitted or not as expected, and it says beside that which term lists differ.",
+ "what_is_read": "the energy of each term by the Rust engine on the lattice (`measurements/known_answers.edges`, the diamond lattice built in `research/start_admission.py`) and on `research/planted_geometries.random_regular` of the same size and degree, one graph a seed",
+ "code": "graph_scale_dynamics/research/start_admission.py, tools/start_admission.py",
+ "sizes": [
+  1024,
+  4096,
+  16384
+ ],
+ "seeds": [
+  0,
+  1,
+  2
+ ],
+ "tells_at_least": 0.05,
+ "keeps_at_least": 0.5,
+ "mean_degree_cap": 16,
+ "lattices": [
+  {
+   "name": "honeycomb",
+   "family": "periodic_honeycomb_lattice",
+   "dimension": 2,
+   "neighbours": 3,
+   "admitted": false,
+   "told_by": [],
+   "why": "no cycle shorter than six: every term reads it as a random 3-regular graph, but for that graph's handful of short cycles"
+  },
+  {
+   "name": "diamond",
+   "family": "periodic_diamond_lattice",
+   "dimension": 3,
+   "neighbours": 4,
+   "admitted": false,
+   "told_by": [],
+   "why": "no cycle shorter than six, as the honeycomb"
+  },
+  {
+   "name": "square",
+   "family": "periodic_square_lattice",
+   "dimension": 2,
+   "neighbours": 4,
+   "admitted": true,
+   "told_by": [
+    "induced_square_count",
+    "ollivier_curvature",
+    "square_count",
+    "square_edge_overlap"
+   ]
+  },
+  {
+   "name": "triangular",
+   "family": "periodic_triangular_lattice",
+   "dimension": 2,
+   "neighbours": 6,
+   "admitted": true,
+   "told_by": [
+    "induced_square_count",
+    "ollivier_curvature",
+    "square_count",
+    "square_edge_overlap",
+    "triangle_count",
+    "triangle_edge_overlap"
+   ]
+  },
+  {
+   "name": "cubic",
+   "family": "periodic_cubic_quotient",
+   "dimension": 3,
+   "neighbours": 6,
+   "admitted": true,
+   "told_by": [
+    "induced_square_count",
+    "ollivier_curvature",
+    "square_count",
+    "square_edge_overlap"
+   ]
+  },
+  {
+   "name": "body-centred cubic",
+   "family": "periodic_body_centred_cubic_lattice",
+   "dimension": 3,
+   "neighbours": 8,
+   "admitted": true,
+   "told_by": [
+    "induced_square_count",
+    "ollivier_curvature",
+    "square_count",
+    "square_edge_overlap"
+   ]
+  },
+  {
+   "name": "face-centred cubic",
+   "family": "periodic_face_centred_cubic_lattice",
+   "dimension": 3,
+   "neighbours": 12,
+   "admitted": true,
+   "told_by": [
+    "induced_square_count",
+    "ollivier_curvature",
+    "square_count",
+    "square_edge_overlap",
+    "triangle_count",
+    "triangle_edge_overlap"
+   ]
+  },
+  {
+   "name": "4D",
+   "family": "periodic_tesseract_quotient",
+   "dimension": 4,
+   "neighbours": 8,
+   "admitted": true,
+   "told_by": [
+    "induced_square_count",
+    "ollivier_curvature",
+    "square_count",
+    "square_edge_overlap"
+   ]
+  }
+ ],
+ "expected_numbers": "every difference a node the same as 757 read, to the last digit: it reads each term's energy on a fixed graph, and no term's energy has changed since"
+}

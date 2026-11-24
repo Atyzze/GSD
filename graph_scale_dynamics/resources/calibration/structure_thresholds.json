@@ -1,0 +1,1668 @@
+{
+ "census_contract": "structure-census-3",
+ "computed_utc": "2026-10-21T00:49:54Z",
+ "contract": "structure-thresholds-1",
+ "diameter_window": [
+  4096,
+  262144
+ ],
+ "families": {
+  "balanced_binary_tree": {
+   "diameter_exponent": 0.10026636012977282,
+   "diameter_exponent_se": 0.0033306204122928703,
+   "diameter_points": 4,
+   "expected_gap_exponent": null,
+   "finite_dimension": false,
+   "gap_exponent": -1.0014292878190711,
+   "gap_exponent_se": 0.00034151406590500607,
+   "gap_points": 3,
+   "sizes": [
+    8191,
+    16383,
+    65535,
+    262143
+   ]
+  },
+  "erdos_renyi_dense": {
+   "diameter_exponent": 0.09861591898802645,
+   "diameter_exponent_se": 0.007796575522900954,
+   "diameter_points": 15,
+   "expected_gap_exponent": null,
+   "finite_dimension": false,
+   "gap_exponent": -0.07266608894396971,
+   "gap_exponent_se": 0.021451465109953303,
+   "gap_points": 12,
+   "sizes": [
+    4096,
+    8192,
+    16384,
+    65536,
+    262144
+   ]
+  },
+  "erdos_renyi_mid": {
+   "diameter_exponent": 0.09697091156100103,
+   "diameter_exponent_se": 0.009923375636009169,
+   "diameter_points": 15,
+   "expected_gap_exponent": null,
+   "finite_dimension": false,
+   "gap_exponent": -0.13172874799670103,
+   "gap_exponent_se": 0.02260020556031571,
+   "gap_points": 12,
+   "sizes": [
+    4096,
+    8192,
+    16384,
+    65536,
+    262144
+   ]
+  },
+  "erdos_renyi_sparse": {
+   "diameter_exponent": 0.09508378173961,
+   "diameter_exponent_se": 0.008706658720771745,
+   "diameter_points": 15,
+   "expected_gap_exponent": null,
+   "finite_dimension": false,
+   "gap_exponent": -0.095009140979296,
+   "gap_exponent_se": 0.030988473269721328,
+   "gap_points": 12,
+   "sizes": [
+    4096,
+    8192,
+    16384,
+    65536,
+    262144
+   ]
+  },
+  "periodic_cubic_lattice": {
+   "diameter_exponent": 0.33495375430370283,
+   "diameter_exponent_se": 0.00623078139478387,
+   "diameter_points": 5,
+   "expected_gap_exponent": -0.6667,
+   "finite_dimension": true,
+   "gap_exponent": -0.6629009905190306,
+   "gap_exponent_se": 0.0007491106769012319,
+   "gap_points": 4,
+   "sizes": [
+    4096,
+    8000,
+    15625,
+    64000,
+    262144
+   ]
+  },
+  "periodic_honeycomb_lattice": {
+   "diameter_exponent": 0.5000000000000001,
+   "diameter_exponent_se": 9.82491771907134e-16,
+   "diameter_points": 5,
+   "expected_gap_exponent": -1.0,
+   "finite_dimension": true,
+   "gap_exponent": -0.9999147481112632,
+   "gap_exponent_se": 2.6069258111905456e-05,
+   "gap_points": 4,
+   "sizes": [
+    4096,
+    9216,
+    16384,
+    65536,
+    262144
+   ]
+  },
+  "periodic_hypercubic_lattice_4d": {
+   "diameter_exponent": 0.2499999999999999,
+   "diameter_exponent_se": 1.9642129572627299e-16,
+   "diameter_points": 5,
+   "expected_gap_exponent": -0.5,
+   "finite_dimension": true,
+   "gap_exponent": -0.48620478643620646,
+   "gap_exponent_se": 0.0021267483410939785,
+   "gap_points": 4,
+   "sizes": [
+    4096,
+    10000,
+    20736,
+    65536,
+    160000
+   ]
+  },
+  "periodic_ring": {
+   "diameter_exponent": 1.0000000000000002,
+   "diameter_exponent_se": 8.271211666716416e-16,
+   "diameter_points": 5,
+   "expected_gap_exponent": -2.0,
+   "finite_dimension": true,
+   "gap_exponent": -1.9999999130591808,
+   "gap_exponent_se": 2.4077261403118205e-08,
+   "gap_points": 4,
+   "sizes": [
+    4096,
+    8192,
+    16384,
+    65536,
+    262144
+   ]
+  },
+  "periodic_square_lattice": {
+   "diameter_exponent": 0.5000000000000001,
+   "diameter_exponent_se": 9.82491771907134e-16,
+   "diameter_points": 5,
+   "expected_gap_exponent": -1.0,
+   "finite_dimension": true,
+   "gap_exponent": -0.9997442857669907,
+   "gap_exponent_se": 7.818659345710804e-05,
+   "gap_points": 4,
+   "sizes": [
+    4096,
+    9216,
+    16384,
+    65536,
+    262144
+   ]
+  },
+  "periodic_triangular_lattice": {
+   "diameter_exponent": 0.502247254698399,
+   "diameter_exponent_se": 0.001783694264286251,
+   "diameter_points": 5,
+   "expected_gap_exponent": -1.0,
+   "finite_dimension": true,
+   "gap_exponent": -0.9997442857675525,
+   "gap_exponent_se": 7.818659360203844e-05,
+   "gap_points": 4,
+   "sizes": [
+    4096,
+    9216,
+    16384,
+    65536,
+    262144
+   ]
+  },
+  "random_3_regular": {
+   "diameter_exponent": 0.0967573484771273,
+   "diameter_exponent_se": 0.003801418440079553,
+   "diameter_points": 15,
+   "expected_gap_exponent": null,
+   "finite_dimension": false,
+   "gap_exponent": -0.004565557201238594,
+   "gap_exponent_se": 0.0017357972408840673,
+   "gap_points": 12,
+   "sizes": [
+    4096,
+    8192,
+    16384,
+    65536,
+    262144
+   ]
+  },
+  "random_4_regular": {
+   "diameter_exponent": 0.09481333167820065,
+   "diameter_exponent_se": 0.004970134456552518,
+   "diameter_points": 15,
+   "expected_gap_exponent": null,
+   "finite_dimension": false,
+   "gap_exponent": -0.004473277831632368,
+   "gap_exponent_se": 0.001712077376306366,
+   "gap_points": 12,
+   "sizes": [
+    4096,
+    8192,
+    16384,
+    65536,
+    262144
+   ]
+  },
+  "sierpinski_carpet": {
+   "diameter_exponent": 0.5309777575518887,
+   "diameter_exponent_se": 0.0007701601889273965,
+   "diameter_points": 3,
+   "expected_gap_exponent": null,
+   "finite_dimension": true,
+   "gap_exponent": -1.1144107595091521,
+   "gap_exponent_se": null,
+   "gap_points": 2,
+   "sizes": [
+    4096,
+    32768,
+    262144
+   ]
+  },
+  "sierpinski_gasket": {
+   "diameter_exponent": 0.6309686555575162,
+   "diameter_exponent_se": 1.123021564166562e-05,
+   "diameter_points": 3,
+   "expected_gap_exponent": -1.465,
+   "finite_dimension": true,
+   "gap_exponent": -1.465107329667881,
+   "gap_exponent_se": null,
+   "gap_points": 2,
+   "sizes": [
+    9843,
+    29526,
+    88575
+   ]
+  },
+  "uniform_random_tree": {
+   "diameter_exponent": 0.5212472735984327,
+   "diameter_exponent_se": 0.030335030289258273,
+   "diameter_points": 15,
+   "expected_gap_exponent": -1.5,
+   "finite_dimension": true,
+   "gap_exponent": -1.4705466262971665,
+   "gap_exponent_se": 0.09547237407385208,
+   "gap_points": 12,
+   "sizes": [
+    4096,
+    8192,
+    16384,
+    65536,
+    262144
+   ]
+  }
+ },
+ "gap_window": [
+  4096,
+  65536
+ ],
+ "rows": [
+  {
+   "diameter": 24,
+   "family": "balanced_binary_tree",
+   "gap": 6.126938904715828e-05,
+   "gap_method": "lanczos_deflated",
+   "giant": 8191,
+   "n": 8191,
+   "parameter": 12,
+   "seed": 0
+  },
+  {
+   "diameter": 26,
+   "family": "balanced_binary_tree",
+   "gap": 3.0581582827315934e-05,
+   "gap_method": "lanczos_deflated",
+   "giant": 16383,
+   "n": 16383,
+   "parameter": 13,
+   "seed": 0
+  },
+  {
+   "diameter": 30,
+   "family": "balanced_binary_tree",
+   "gap": 7.634084738916691e-06,
+   "gap_method": "lanczos_deflated",
+   "giant": 65535,
+   "n": 65535,
+   "parameter": 15,
+   "seed": 0
+  },
+  {
+   "diameter": 34,
+   "family": "balanced_binary_tree",
+   "gap": null,
+   "gap_method": null,
+   "giant": 262143,
+   "n": 262143,
+   "parameter": 17,
+   "seed": 0
+  },
+  {
+   "diameter": 13,
+   "family": "erdos_renyi_dense",
+   "gap": 0.12901042368179816,
+   "gap_method": "lanczos_deflated",
+   "giant": 3992,
+   "n": 4096,
+   "parameter": 4096,
+   "seed": 0
+  },
+  {
+   "diameter": 13,
+   "family": "erdos_renyi_dense",
+   "gap": 0.12508431320464908,
+   "gap_method": "lanczos_deflated",
+   "giant": 4025,
+   "n": 4096,
+   "parameter": 4096,
+   "seed": 1
+  },
+  {
+   "diameter": 13,
+   "family": "erdos_renyi_dense",
+   "gap": 0.1488758233904519,
+   "gap_method": "lanczos_deflated",
+   "giant": 4015,
+   "n": 4096,
+   "parameter": 4096,
+   "seed": 2
+  },
+  {
+   "diameter": 13,
+   "family": "erdos_renyi_dense",
+   "gap": 0.12263006989530556,
+   "gap_method": "lanczos_deflated",
+   "giant": 8036,
+   "n": 8192,
+   "parameter": 8192,
+   "seed": 0
+  },
+  {
+   "diameter": 13,
+   "family": "erdos_renyi_dense",
+   "gap": 0.1418166795592174,
+   "gap_method": "lanczos_deflated",
+   "giant": 8022,
+   "n": 8192,
+   "parameter": 8192,
+   "seed": 1
+  },
+  {
+   "diameter": 13,
+   "family": "erdos_renyi_dense",
+   "gap": 0.14156234293182757,
+   "gap_method": "lanczos_deflated",
+   "giant": 8047,
+   "n": 8192,
+   "parameter": 8192,
+   "seed": 2
+  },
+  {
+   "diameter": 14,
+   "family": "erdos_renyi_dense",
+   "gap": 0.12604887225109584,
+   "gap_method": "lanczos_deflated",
+   "giant": 16034,
+   "n": 16384,
+   "parameter": 16384,
+   "seed": 0
+  },
+  {
+   "diameter": 15,
+   "family": "erdos_renyi_dense",
+   "gap": 0.11737118746406439,
+   "gap_method": "lanczos_deflated",
+   "giant": 16069,
+   "n": 16384,
+   "parameter": 16384,
+   "seed": 1
+  },
+  {
+   "diameter": 15,
+   "family": "erdos_renyi_dense",
+   "gap": 0.13256946930674263,
+   "gap_method": "lanczos_deflated",
+   "giant": 16064,
+   "n": 16384,
+   "parameter": 16384,
+   "seed": 2
+  },
+  {
+   "diameter": 18,
+   "family": "erdos_renyi_dense",
+   "gap": 0.10133035700040616,
+   "gap_method": "lanczos_deflated",
+   "giant": 64234,
+   "n": 65536,
+   "parameter": 65536,
+   "seed": 0
+  },
+  {
+   "diameter": 17,
+   "family": "erdos_renyi_dense",
+   "gap": 0.11869038803346776,
+   "gap_method": "lanczos_deflated",
+   "giant": 64328,
+   "n": 65536,
+   "parameter": 65536,
+   "seed": 1
+  },
+  {
+   "diameter": 18,
+   "family": "erdos_renyi_dense",
+   "gap": 0.11445164015795461,
+   "gap_method": "lanczos_deflated",
+   "giant": 64308,
+   "n": 65536,
+   "parameter": 65536,
+   "seed": 2
+  },
+  {
+   "diameter": 18,
+   "family": "erdos_renyi_dense",
+   "gap": null,
+   "gap_method": null,
+   "giant": 256909,
+   "n": 262144,
+   "parameter": 262144,
+   "seed": 0
+  },
+  {
+   "diameter": 19,
+   "family": "erdos_renyi_dense",
+   "gap": null,
+   "gap_method": null,
+   "giant": 256872,
+   "n": 262144,
+   "parameter": 262144,
+   "seed": 1
+  },
+  {
+   "diameter": 19,
+   "family": "erdos_renyi_dense",
+   "gap": null,
+   "gap_method": null,
+   "giant": 256909,
+   "n": 262144,
+   "parameter": 262144,
+   "seed": 2
+  },
+  {
+   "diameter": 16,
+   "family": "erdos_renyi_mid",
+   "gap": 0.08691642875941863,
+   "gap_method": "lanczos_deflated",
+   "giant": 3840,
+   "n": 4096,
+   "parameter": 4096,
+   "seed": 0
+  },
+  {
+   "diameter": 17,
+   "family": "erdos_renyi_mid",
+   "gap": 0.08587681338842357,
+   "gap_method": "lanczos_deflated",
+   "giant": 3856,
+   "n": 4096,
+   "parameter": 4096,
+   "seed": 1
+  },
+  {
+   "diameter": 17,
+   "family": "erdos_renyi_mid",
+   "gap": 0.07592279579810735,
+   "gap_method": "lanczos_deflated",
+   "giant": 3825,
+   "n": 4096,
+   "parameter": 4096,
+   "seed": 2
+  },
+  {
+   "diameter": 18,
+   "family": "erdos_renyi_mid",
+   "gap": 0.07462857663816169,
+   "gap_method": "lanczos_deflated",
+   "giant": 7712,
+   "n": 8192,
+   "parameter": 8192,
+   "seed": 0
+  },
+  {
+   "diameter": 17,
+   "family": "erdos_renyi_mid",
+   "gap": 0.08085574871587142,
+   "gap_method": "lanczos_deflated",
+   "giant": 7704,
+   "n": 8192,
+   "parameter": 8192,
+   "seed": 1
+  },
+  {
+   "diameter": 18,
+   "family": "erdos_renyi_mid",
+   "gap": 0.07631807752709086,
+   "gap_method": "lanczos_deflated",
+   "giant": 7706,
+   "n": 8192,
+   "parameter": 8192,
+   "seed": 2
+  },
+  {
+   "diameter": 18,
+   "family": "erdos_renyi_mid",
+   "gap": 0.061312040696540615,
+   "gap_method": "lanczos_deflated",
+   "giant": 15406,
+   "n": 16384,
+   "parameter": 16384,
+   "seed": 0
+  },
+  {
+   "diameter": 21,
+   "family": "erdos_renyi_mid",
+   "gap": 0.06581205897249642,
+   "gap_method": "lanczos_deflated",
+   "giant": 15458,
+   "n": 16384,
+   "parameter": 16384,
+   "seed": 1
+  },
+  {
+   "diameter": 21,
+   "family": "erdos_renyi_mid",
+   "gap": 0.06937772911998707,
+   "gap_method": "lanczos_deflated",
+   "giant": 15405,
+   "n": 16384,
+   "parameter": 16384,
+   "seed": 2
+  },
+  {
+   "diameter": 23,
+   "family": "erdos_renyi_mid",
+   "gap": 0.051759839691905785,
+   "gap_method": "lanczos_deflated",
+   "giant": 61644,
+   "n": 65536,
+   "parameter": 65536,
+   "seed": 0
+  },
+  {
+   "diameter": 24,
+   "family": "erdos_renyi_mid",
+   "gap": 0.05721230146899692,
+   "gap_method": "lanczos_deflated",
+   "giant": 61782,
+   "n": 65536,
+   "parameter": 65536,
+   "seed": 1
+  },
+  {
+   "diameter": 21,
+   "family": "erdos_renyi_mid",
+   "gap": 0.06656248920679597,
+   "gap_method": "lanczos_deflated",
+   "giant": 61609,
+   "n": 65536,
+   "parameter": 65536,
+   "seed": 2
+  },
+  {
+   "diameter": 24,
+   "family": "erdos_renyi_mid",
+   "gap": null,
+   "gap_method": null,
+   "giant": 246447,
+   "n": 262144,
+   "parameter": 262144,
+   "seed": 0
+  },
+  {
+   "diameter": 24,
+   "family": "erdos_renyi_mid",
+   "gap": null,
+   "gap_method": null,
+   "giant": 246494,
+   "n": 262144,
+   "parameter": 262144,
+   "seed": 1
+  },
+  {
+   "diameter": 26,
+   "family": "erdos_renyi_mid",
+   "gap": null,
+   "gap_method": null,
+   "giant": 246455,
+   "n": 262144,
+   "parameter": 262144,
+   "seed": 2
+  },
+  {
+   "diameter": 21,
+   "family": "erdos_renyi_sparse",
+   "gap": 0.048296555824693166,
+   "gap_method": "lanczos_deflated",
+   "giant": 3682,
+   "n": 4096,
+   "parameter": 4096,
+   "seed": 0
+  },
+  {
+   "diameter": 20,
+   "family": "erdos_renyi_sparse",
+   "gap": 0.05275019956160443,
+   "gap_method": "lanczos_deflated",
+   "giant": 3665,
+   "n": 4096,
+   "parameter": 4096,
+   "seed": 1
+  },
+  {
+   "diameter": 19,
+   "family": "erdos_renyi_sparse",
+   "gap": 0.06078022247248516,
+   "gap_method": "lanczos_deflated",
+   "giant": 3636,
+   "n": 4096,
+   "parameter": 4096,
+   "seed": 2
+  },
+  {
+   "diameter": 23,
+   "family": "erdos_renyi_sparse",
+   "gap": 0.05104711433847542,
+   "gap_method": "lanczos_deflated",
+   "giant": 7347,
+   "n": 8192,
+   "parameter": 8192,
+   "seed": 0
+  },
+  {
+   "diameter": 23,
+   "family": "erdos_renyi_sparse",
+   "gap": 0.05054374149186747,
+   "gap_method": "lanczos_deflated",
+   "giant": 7308,
+   "n": 8192,
+   "parameter": 8192,
+   "seed": 1
+  },
+  {
+   "diameter": 22,
+   "family": "erdos_renyi_sparse",
+   "gap": 0.04054416645533898,
+   "gap_method": "lanczos_deflated",
+   "giant": 7294,
+   "n": 8192,
+   "parameter": 8192,
+   "seed": 2
+  },
+  {
+   "diameter": 25,
+   "family": "erdos_renyi_sparse",
+   "gap": 0.048642912951602835,
+   "gap_method": "lanczos_deflated",
+   "giant": 14618,
+   "n": 16384,
+   "parameter": 16384,
+   "seed": 0
+  },
+  {
+   "diameter": 21,
+   "family": "erdos_renyi_sparse",
+   "gap": 0.0463594595887985,
+   "gap_method": "lanczos_deflated",
+   "giant": 14602,
+   "n": 16384,
+   "parameter": 16384,
+   "seed": 1
+  },
+  {
+   "diameter": 24,
+   "family": "erdos_renyi_sparse",
+   "gap": 0.04465681634875007,
+   "gap_method": "lanczos_deflated",
+   "giant": 14616,
+   "n": 16384,
+   "parameter": 16384,
+   "seed": 2
+  },
+  {
+   "diameter": 26,
+   "family": "erdos_renyi_sparse",
+   "gap": 0.034962636353413346,
+   "gap_method": "lanczos_deflated",
+   "giant": 58508,
+   "n": 65536,
+   "parameter": 65536,
+   "seed": 0
+  },
+  {
+   "diameter": 26,
+   "family": "erdos_renyi_sparse",
+   "gap": 0.04776770261439678,
+   "gap_method": "lanczos_deflated",
+   "giant": 58536,
+   "n": 65536,
+   "parameter": 65536,
+   "seed": 1
+  },
+  {
+   "diameter": 28,
+   "family": "erdos_renyi_sparse",
+   "gap": 0.03957980824810803,
+   "gap_method": "lanczos_deflated",
+   "giant": 58494,
+   "n": 65536,
+   "parameter": 65536,
+   "seed": 2
+  },
+  {
+   "diameter": 30,
+   "family": "erdos_renyi_sparse",
+   "gap": null,
+   "gap_method": null,
+   "giant": 233982,
+   "n": 262144,
+   "parameter": 262144,
+   "seed": 0
+  },
+  {
+   "diameter": 30,
+   "family": "erdos_renyi_sparse",
+   "gap": null,
+   "gap_method": null,
+   "giant": 233969,
+   "n": 262144,
+   "parameter": 262144,
+   "seed": 1
+  },
+  {
+   "diameter": 31,
+   "family": "erdos_renyi_sparse",
+   "gap": null,
+   "gap_method": null,
+   "giant": 233973,
+   "n": 262144,
+   "parameter": 262144,
+   "seed": 2
+  },
+  {
+   "diameter": 24,
+   "family": "periodic_cubic_lattice",
+   "gap": 0.025373489162904717,
+   "gap_method": "lanczos_deflated",
+   "giant": 4096,
+   "n": 4096,
+   "parameter": 16,
+   "seed": 0
+  },
+  {
+   "diameter": 30,
+   "family": "periodic_cubic_lattice",
+   "gap": 0.016314494568281934,
+   "gap_method": "lanczos_deflated",
+   "giant": 8000,
+   "n": 8000,
+   "parameter": 20,
+   "seed": 0
+  },
+  {
+   "diameter": 36,
+   "family": "periodic_cubic_lattice",
+   "gap": 0.010472279623789271,
+   "gap_method": "lanczos_deflated",
+   "giant": 15625,
+   "n": 15625,
+   "parameter": 25,
+   "seed": 0
+  },
+  {
+   "diameter": 60,
+   "family": "periodic_cubic_lattice",
+   "gap": 0.004103886468287188,
+   "gap_method": "lanczos_deflated",
+   "giant": 64000,
+   "n": 64000,
+   "parameter": 40,
+   "seed": 0
+  },
+  {
+   "diameter": 96,
+   "family": "periodic_cubic_lattice",
+   "gap": null,
+   "gap_method": null,
+   "giant": 262144,
+   "n": 262144,
+   "parameter": 64,
+   "seed": 0
+  },
+  {
+   "diameter": 64,
+   "family": "periodic_honeycomb_lattice",
+   "gap": 0.001070633867951214,
+   "gap_method": "shift_invert",
+   "giant": 4096,
+   "n": 4096,
+   "parameter": 64,
+   "seed": 0
+  },
+  {
+   "diameter": 96,
+   "family": "periodic_honeycomb_lattice",
+   "gap": 0.000475908080116047,
+   "gap_method": "shift_invert",
+   "giant": 9216,
+   "n": 9216,
+   "parameter": 96,
+   "seed": 0
+  },
+  {
+   "diameter": 128,
+   "family": "periodic_honeycomb_lattice",
+   "gap": 0.00026771223377044666,
+   "gap_method": "shift_invert",
+   "giant": 16384,
+   "n": 16384,
+   "parameter": 128,
+   "seed": 0
+  },
+  {
+   "diameter": 256,
+   "family": "periodic_honeycomb_lattice",
+   "gap": 6.693141852848601e-05,
+   "gap_method": "shift_invert",
+   "giant": 65536,
+   "n": 65536,
+   "parameter": 256,
+   "seed": 0
+  },
+  {
+   "diameter": 512,
+   "family": "periodic_honeycomb_lattice",
+   "gap": null,
+   "gap_method": null,
+   "giant": 262144,
+   "n": 262144,
+   "parameter": 512,
+   "seed": 0
+  },
+  {
+   "diameter": 16,
+   "family": "periodic_hypercubic_lattice_4d",
+   "gap": 0.07322330470336302,
+   "gap_method": "lanczos_deflated",
+   "giant": 4096,
+   "n": 4096,
+   "parameter": 8,
+   "seed": 0
+  },
+  {
+   "diameter": 20,
+   "family": "periodic_hypercubic_lattice_4d",
+   "gap": 0.04774575140626314,
+   "gap_method": "lanczos_deflated",
+   "giant": 10000,
+   "n": 10000,
+   "parameter": 10,
+   "seed": 0
+  },
+  {
+   "diameter": 24,
+   "family": "periodic_hypercubic_lattice_4d",
+   "gap": 0.033493649053890295,
+   "gap_method": "lanczos_deflated",
+   "giant": 20736,
+   "n": 20736,
+   "parameter": 12,
+   "seed": 0
+  },
+  {
+   "diameter": 32,
+   "family": "periodic_hypercubic_lattice_4d",
+   "gap": 0.019030116872178815,
+   "gap_method": "lanczos_deflated",
+   "giant": 65536,
+   "n": 65536,
+   "parameter": 16,
+   "seed": 0
+  },
+  {
+   "diameter": 40,
+   "family": "periodic_hypercubic_lattice_4d",
+   "gap": null,
+   "gap_method": null,
+   "giant": 160000,
+   "n": 160000,
+   "parameter": 20,
+   "seed": 0
+  },
+  {
+   "diameter": 2048,
+   "family": "periodic_ring",
+   "gap": 1.1765482984005534e-06,
+   "gap_method": "shift_invert",
+   "giant": 4096,
+   "n": 4096,
+   "parameter": 4096,
+   "seed": 0
+  },
+  {
+   "diameter": 4096,
+   "family": "periodic_ring",
+   "gap": 2.9413711809105296e-07,
+   "gap_method": "shift_invert",
+   "giant": 8192,
+   "n": 8192,
+   "parameter": 8192,
+   "seed": 0
+  },
+  {
+   "diameter": 8192,
+   "family": "periodic_ring",
+   "gap": 7.353428245934609e-08,
+   "gap_method": "shift_invert",
+   "giant": 16384,
+   "n": 16384,
+   "parameter": 16384,
+   "seed": 0
+  },
+  {
+   "diameter": 32768,
+   "family": "periodic_ring",
+   "gap": 4.595892998315938e-09,
+   "gap_method": "shift_invert",
+   "giant": 65536,
+   "n": 65536,
+   "parameter": 65536,
+   "seed": 0
+  },
+  {
+   "diameter": 131072,
+   "family": "periodic_ring",
+   "gap": null,
+   "gap_method": null,
+   "giant": 262144,
+   "n": 262144,
+   "parameter": 262144,
+   "seed": 0
+  },
+  {
+   "diameter": 64,
+   "family": "periodic_square_lattice",
+   "gap": 0.002407636663901659,
+   "gap_method": "shift_invert",
+   "giant": 4096,
+   "n": 4096,
+   "parameter": 64,
+   "seed": 0
+  },
+  {
+   "diameter": 96,
+   "family": "periodic_square_lattice",
+   "gap": 0.0010705383806983515,
+   "gap_method": "shift_invert",
+   "giant": 9216,
+   "n": 9216,
+   "parameter": 96,
+   "seed": 0
+  },
+  {
+   "diameter": 128,
+   "family": "periodic_square_lattice",
+   "gap": 0.0006022718974139094,
+   "gap_method": "shift_invert",
+   "giant": 16384,
+   "n": 16384,
+   "parameter": 128,
+   "seed": 0
+  },
+  {
+   "diameter": 256,
+   "family": "periodic_square_lattice",
+   "gap": 0.00015059065189799588,
+   "gap_method": "shift_invert",
+   "giant": 65536,
+   "n": 65536,
+   "parameter": 256,
+   "seed": 0
+  },
+  {
+   "diameter": 512,
+   "family": "periodic_square_lattice",
+   "gap": null,
+   "gap_method": null,
+   "giant": 262144,
+   "n": 262144,
+   "parameter": 512,
+   "seed": 0
+  },
+  {
+   "diameter": 42,
+   "family": "periodic_triangular_lattice",
+   "gap": 0.003210182218535085,
+   "gap_method": "lanczos_deflated",
+   "giant": 4096,
+   "n": 4096,
+   "parameter": 64,
+   "seed": 0
+  },
+  {
+   "diameter": 64,
+   "family": "periodic_triangular_lattice",
+   "gap": 0.0014273845075974748,
+   "gap_method": "shift_invert",
+   "giant": 9216,
+   "n": 9216,
+   "parameter": 96,
+   "seed": 0
+  },
+  {
+   "diameter": 85,
+   "family": "periodic_triangular_lattice",
+   "gap": 0.000803029196551548,
+   "gap_method": "shift_invert",
+   "giant": 16384,
+   "n": 16384,
+   "parameter": 128,
+   "seed": 0
+  },
+  {
+   "diameter": 170,
+   "family": "periodic_triangular_lattice",
+   "gap": 0.00020078753586366492,
+   "gap_method": "shift_invert",
+   "giant": 65536,
+   "n": 65536,
+   "parameter": 256,
+   "seed": 0
+  },
+  {
+   "diameter": 341,
+   "family": "periodic_triangular_lattice",
+   "gap": null,
+   "gap_method": null,
+   "giant": 262144,
+   "n": 262144,
+   "parameter": 512,
+   "seed": 0
+  },
+  {
+   "diameter": 14,
+   "family": "random_3_regular",
+   "gap": 0.057296677895680936,
+   "gap_method": "lanczos_deflated",
+   "giant": 4096,
+   "n": 4096,
+   "parameter": 4096,
+   "seed": 0
+  },
+  {
+   "diameter": 14,
+   "family": "random_3_regular",
+   "gap": 0.058651471949210054,
+   "gap_method": "lanczos_deflated",
+   "giant": 4096,
+   "n": 4096,
+   "parameter": 4096,
+   "seed": 1
+  },
+  {
+   "diameter": 14,
+   "family": "random_3_regular",
+   "gap": 0.058469688537860276,
+   "gap_method": "lanczos_deflated",
+   "giant": 4096,
+   "n": 4096,
+   "parameter": 4096,
+   "seed": 2
+  },
+  {
+   "diameter": 16,
+   "family": "random_3_regular",
+   "gap": 0.05798214103880028,
+   "gap_method": "lanczos_deflated",
+   "giant": 8192,
+   "n": 8192,
+   "parameter": 8192,
+   "seed": 0
+  },
+  {
+   "diameter": 15,
+   "family": "random_3_regular",
+   "gap": 0.05761863120835009,
+   "gap_method": "lanczos_deflated",
+   "giant": 8192,
+   "n": 8192,
+   "parameter": 8192,
+   "seed": 1
+  },
+  {
+   "diameter": 15,
+   "family": "random_3_regular",
+   "gap": 0.05771217728657052,
+   "gap_method": "lanczos_deflated",
+   "giant": 8192,
+   "n": 8192,
+   "parameter": 8192,
+   "seed": 2
+  },
+  {
+   "diameter": 16,
+   "family": "random_3_regular",
+   "gap": 0.05771187742905304,
+   "gap_method": "lanczos_deflated",
+   "giant": 16384,
+   "n": 16384,
+   "parameter": 16384,
+   "seed": 0
+  },
+  {
+   "diameter": 16,
+   "family": "random_3_regular",
+   "gap": 0.05762473820979297,
+   "gap_method": "lanczos_deflated",
+   "giant": 16384,
+   "n": 16384,
+   "parameter": 16384,
+   "seed": 1
+  },
+  {
+   "diameter": 16,
+   "family": "random_3_regular",
+   "gap": 0.05776834347199511,
+   "gap_method": "lanczos_deflated",
+   "giant": 16384,
+   "n": 16384,
+   "parameter": 16384,
+   "seed": 2
+  },
+  {
+   "diameter": 18,
+   "family": "random_3_regular",
+   "gap": 0.05732884332348953,
+   "gap_method": "lanczos_deflated",
+   "giant": 65536,
+   "n": 65536,
+   "parameter": 65536,
+   "seed": 0
+  },
+  {
+   "diameter": 19,
+   "family": "random_3_regular",
+   "gap": 0.05753346647910773,
+   "gap_method": "lanczos_deflated",
+   "giant": 65536,
+   "n": 65536,
+   "parameter": 65536,
+   "seed": 1
+  },
+  {
+   "diameter": 19,
+   "family": "random_3_regular",
+   "gap": 0.057195130721191534,
+   "gap_method": "lanczos_deflated",
+   "giant": 65536,
+   "n": 65536,
+   "parameter": 65536,
+   "seed": 2
+  },
+  {
+   "diameter": 21,
+   "family": "random_3_regular",
+   "gap": null,
+   "gap_method": null,
+   "giant": 262144,
+   "n": 262144,
+   "parameter": 262144,
+   "seed": 0
+  },
+  {
+   "diameter": 21,
+   "family": "random_3_regular",
+   "gap": null,
+   "gap_method": null,
+   "giant": 262144,
+   "n": 262144,
+   "parameter": 262144,
+   "seed": 1
+  },
+  {
+   "diameter": 21,
+   "family": "random_3_regular",
+   "gap": null,
+   "gap_method": null,
+   "giant": 262144,
+   "n": 262144,
+   "parameter": 262144,
+   "seed": 2
+  },
+  {
+   "diameter": 10,
+   "family": "random_4_regular",
+   "gap": 0.13575181670840453,
+   "gap_method": "lanczos_deflated",
+   "giant": 4096,
+   "n": 4096,
+   "parameter": 4096,
+   "seed": 0
+  },
+  {
+   "diameter": 9,
+   "family": "random_4_regular",
+   "gap": 0.13696489447834415,
+   "gap_method": "lanczos_deflated",
+   "giant": 4096,
+   "n": 4096,
+   "parameter": 4096,
+   "seed": 1
+  },
+  {
+   "diameter": 9,
+   "family": "random_4_regular",
+   "gap": 0.13400420180860917,
+   "gap_method": "lanczos_deflated",
+   "giant": 4096,
+   "n": 4096,
+   "parameter": 4096,
+   "seed": 2
+  },
+  {
+   "diameter": 10,
+   "family": "random_4_regular",
+   "gap": 0.13480908224569832,
+   "gap_method": "lanczos_deflated",
+   "giant": 8192,
+   "n": 8192,
+   "parameter": 8192,
+   "seed": 0
+  },
+  {
+   "diameter": 10,
+   "family": "random_4_regular",
+   "gap": 0.13615218806926266,
+   "gap_method": "lanczos_deflated",
+   "giant": 8192,
+   "n": 8192,
+   "parameter": 8192,
+   "seed": 1
+  },
+  {
+   "diameter": 10,
+   "family": "random_4_regular",
+   "gap": 0.13499154016852954,
+   "gap_method": "lanczos_deflated",
+   "giant": 8192,
+   "n": 8192,
+   "parameter": 8192,
+   "seed": 2
+  },
+  {
+   "diameter": 11,
+   "family": "random_4_regular",
+   "gap": 0.13402897673560876,
+   "gap_method": "lanczos_deflated",
+   "giant": 16384,
+   "n": 16384,
+   "parameter": 16384,
+   "seed": 0
+  },
+  {
+   "diameter": 11,
+   "family": "random_4_regular",
+   "gap": 0.1342439774369808,
+   "gap_method": "lanczos_deflated",
+   "giant": 16384,
+   "n": 16384,
+   "parameter": 16384,
+   "seed": 1
+  },
+  {
+   "diameter": 11,
+   "family": "random_4_regular",
+   "gap": 0.1351639426023462,
+   "gap_method": "lanczos_deflated",
+   "giant": 16384,
+   "n": 16384,
+   "parameter": 16384,
+   "seed": 2
+  },
+  {
+   "diameter": 12,
+   "family": "random_4_regular",
+   "gap": 0.13358057448347338,
+   "gap_method": "lanczos_deflated",
+   "giant": 65536,
+   "n": 65536,
+   "parameter": 65536,
+   "seed": 0
+  },
+  {
+   "diameter": 12,
+   "family": "random_4_regular",
+   "gap": 0.13425060000434885,
+   "gap_method": "lanczos_deflated",
+   "giant": 65536,
+   "n": 65536,
+   "parameter": 65536,
+   "seed": 1
+  },
+  {
+   "diameter": 12,
+   "family": "random_4_regular",
+   "gap": 0.13411108366974367,
+   "gap_method": "lanczos_deflated",
+   "giant": 65536,
+   "n": 65536,
+   "parameter": 65536,
+   "seed": 2
+  },
+  {
+   "diameter": 14,
+   "family": "random_4_regular",
+   "gap": null,
+   "gap_method": null,
+   "giant": 262144,
+   "n": 262144,
+   "parameter": 262144,
+   "seed": 0
+  },
+  {
+   "diameter": 14,
+   "family": "random_4_regular",
+   "gap": null,
+   "gap_method": null,
+   "giant": 262144,
+   "n": 262144,
+   "parameter": 262144,
+   "seed": 1
+  },
+  {
+   "diameter": 14,
+   "family": "random_4_regular",
+   "gap": null,
+   "gap_method": null,
+   "giant": 262144,
+   "n": 262144,
+   "parameter": 262144,
+   "seed": 2
+  },
+  {
+   "diameter": 160,
+   "family": "sierpinski_carpet",
+   "gap": 0.000213163937612126,
+   "gap_method": "shift_invert",
+   "giant": 4096,
+   "n": 4096,
+   "parameter": 4,
+   "seed": 0
+  },
+  {
+   "diameter": 484,
+   "family": "sierpinski_carpet",
+   "gap": 2.1003928717372732e-05,
+   "gap_method": "shift_invert",
+   "giant": 32768,
+   "n": 32768,
+   "parameter": 5,
+   "seed": 0
+  },
+  {
+   "diameter": 1456,
+   "family": "sierpinski_carpet",
+   "gap": null,
+   "gap_method": null,
+   "giant": 262144,
+   "n": 262144,
+   "parameter": 6,
+   "seed": 0
+  },
+  {
+   "diameter": 256,
+   "family": "sierpinski_gasket",
+   "gap": 1.1568794736231267e-05,
+   "gap_method": "shift_invert",
+   "giant": 9843,
+   "n": 9843,
+   "parameter": 8,
+   "seed": 0
+  },
+  {
+   "diameter": 512,
+   "family": "sierpinski_gasket",
+   "gap": 2.3137632301239446e-06,
+   "gap_method": "shift_invert",
+   "giant": 29526,
+   "n": 29526,
+   "parameter": 9,
+   "seed": 0
+  },
+  {
+   "diameter": 1024,
+   "family": "sierpinski_gasket",
+   "gap": null,
+   "gap_method": null,
+   "giant": 88575,
+   "n": 88575,
+   "parameter": 10,
+   "seed": 0
+  },
+  {
+   "diameter": 290,
+   "family": "uniform_random_tree",
+   "gap": 5.082153656690207e-06,
+   "gap_method": "shift_invert",
+   "giant": 4096,
+   "n": 4096,
+   "parameter": 4096,
+   "seed": 0
+  },
+  {
+   "diameter": 145,
+   "family": "uniform_random_tree",
+   "gap": 1.54318849826242e-05,
+   "gap_method": "shift_invert",
+   "giant": 4096,
+   "n": 4096,
+   "parameter": 4096,
+   "seed": 1
+  },
+  {
+   "diameter": 229,
+   "family": "uniform_random_tree",
+   "gap": 7.647150836898149e-06,
+   "gap_method": "shift_invert",
+   "giant": 4096,
+   "n": 4096,
+   "parameter": 4096,
+   "seed": 2
+  },
+  {
+   "diameter": 326,
+   "family": "uniform_random_tree",
+   "gap": 2.2822593176359293e-06,
+   "gap_method": "shift_invert",
+   "giant": 8192,
+   "n": 8192,
+   "parameter": 8192,
+   "seed": 0
+  },
+  {
+   "diameter": 354,
+   "family": "uniform_random_tree",
+   "gap": 2.38449914866925e-06,
+   "gap_method": "shift_invert",
+   "giant": 8192,
+   "n": 8192,
+   "parameter": 8192,
+   "seed": 1
+  },
+  {
+   "diameter": 324,
+   "family": "uniform_random_tree",
+   "gap": 2.1809788111029063e-06,
+   "gap_method": "shift_invert",
+   "giant": 8192,
+   "n": 8192,
+   "parameter": 8192,
+   "seed": 2
+  },
+  {
+   "diameter": 572,
+   "family": "uniform_random_tree",
+   "gap": 6.724329396245912e-07,
+   "gap_method": "shift_invert",
+   "giant": 16384,
+   "n": 16384,
+   "parameter": 16384,
+   "seed": 0
+  },
+  {
+   "diameter": 402,
+   "family": "uniform_random_tree",
+   "gap": 1.2966583188150378e-06,
+   "gap_method": "shift_invert",
+   "giant": 16384,
+   "n": 16384,
+   "parameter": 16384,
+   "seed": 1
+  },
+  {
+   "diameter": 486,
+   "family": "uniform_random_tree",
+   "gap": 7.927073916898522e-07,
+   "gap_method": "shift_invert",
+   "giant": 16384,
+   "n": 16384,
+   "parameter": 16384,
+   "seed": 2
+  },
+  {
+   "diameter": 886,
+   "family": "uniform_random_tree",
+   "gap": 1.7106931927393048e-07,
+   "gap_method": "shift_invert",
+   "giant": 65536,
+   "n": 65536,
+   "parameter": 65536,
+   "seed": 0
+  },
+  {
+   "diameter": 980,
+   "family": "uniform_random_tree",
+   "gap": 1.0377604558267905e-07,
+   "gap_method": "shift_invert",
+   "giant": 65536,
+   "n": 65536,
+   "parameter": 65536,
+   "seed": 1
+  },
+  {
+   "diameter": 770,
+   "family": "uniform_random_tree",
+   "gap": 1.3266263194567738e-07,
+   "gap_method": "shift_invert",
+   "giant": 65536,
+   "n": 65536,
+   "parameter": 65536,
+   "seed": 2
+  },
+  {
+   "diameter": 1877,
+   "family": "uniform_random_tree",
+   "gap": null,
+   "gap_method": null,
+   "giant": 262144,
+   "n": 262144,
+   "parameter": 262144,
+   "seed": 0
+  },
+  {
+   "diameter": 2210,
+   "family": "uniform_random_tree",
+   "gap": null,
+   "gap_method": null,
+   "giant": 262144,
+   "n": 262144,
+   "parameter": 262144,
+   "seed": 1
+  },
+  {
+   "diameter": 1926,
+   "family": "uniform_random_tree",
+   "gap": null,
+   "gap_method": null,
+   "giant": 262144,
+   "n": 262144,
+   "parameter": 262144,
+   "seed": 2
+  }
+ ],
+ "seconds": 227.8,
+ "thresholds": {
+  "all_classified_right": true,
+  "classified": {
+   "balanced_binary_tree": {
+    "finite_dimension": false,
+    "gate_says_finite": false
+   },
+   "erdos_renyi_dense": {
+    "finite_dimension": false,
+    "gate_says_finite": false
+   },
+   "erdos_renyi_mid": {
+    "finite_dimension": false,
+    "gate_says_finite": false
+   },
+   "erdos_renyi_sparse": {
+    "finite_dimension": false,
+    "gate_says_finite": false
+   },
+   "periodic_cubic_lattice": {
+    "finite_dimension": true,
+    "gate_says_finite": true
+   },
+   "periodic_honeycomb_lattice": {
+    "finite_dimension": true,
+    "gate_says_finite": true
+   },
+   "periodic_hypercubic_lattice_4d": {
+    "finite_dimension": true,
+    "gate_says_finite": true
+   },
+   "periodic_ring": {
+    "finite_dimension": true,
+    "gate_says_finite": true
+   },
+   "periodic_square_lattice": {
+    "finite_dimension": true,
+    "gate_says_finite": true
+   },
+   "periodic_triangular_lattice": {
+    "finite_dimension": true,
+    "gate_says_finite": true
+   },
+   "random_3_regular": {
+    "finite_dimension": false,
+    "gate_says_finite": false
+   },
+   "random_4_regular": {
+    "finite_dimension": false,
+    "gate_says_finite": false
+   },
+   "sierpinski_carpet": {
+    "finite_dimension": true,
+    "gate_says_finite": true
+   },
+   "sierpinski_gasket": {
+    "finite_dimension": true,
+    "gate_says_finite": true
+   },
+   "uniform_random_tree": {
+    "finite_dimension": true,
+    "gate_says_finite": true
+   }
+  },
+  "diameter_exponent_at_least": 0.1751,
+  "diameter_margins": [
+   {
+    "distance": 0.0749,
+    "exact": true,
+    "exponent": 0.25,
+    "family": "periodic_hypercubic_lattice_4d",
+    "in_standard_errors": null
+   },
+   {
+    "distance": 0.0749,
+    "exact": false,
+    "exponent": 0.1003,
+    "family": "balanced_binary_tree",
+    "in_standard_errors": 22.5
+   }
+  ],
+  "gap_exponent_at_most": -0.309,
+  "gap_margins": [
+   {
+    "distance": 0.1772,
+    "exact": false,
+    "exponent": -0.4862,
+    "family": "periodic_hypercubic_lattice_4d",
+    "in_standard_errors": 83.3
+   },
+   {
+    "distance": 0.1772,
+    "exact": false,
+    "exponent": -0.1317,
+    "family": "erdos_renyi_mid",
+    "in_standard_errors": 7.8
+   }
+  ],
+  "rule": "a law has a finite dimension when its gap exponent over N = 4,096 to 65,536 is at most gap_exponent_at_most AND its diameter exponent over N = 4,096 to 262,144 is at least diameter_exponent_at_least; each is the midpoint between the nearest families of the two classes"
+ }
+}

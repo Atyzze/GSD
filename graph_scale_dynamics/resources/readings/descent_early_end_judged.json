@@ -1,0 +1,92 @@
+{
+ "contract": "gsd-descent-early-end-judged-1",
+ "criterion": "gsd-descent-early-end-criterion-1",
+ "criterion_committed_utc": "2026-11-19T16:48:52Z",
+ "judged_utc": "2026-11-19T17:32:06Z",
+ "passes": true,
+ "held_out": {
+  "sample": "search seed 807000000000000002, the first 200 zero-temperature laws, 256 and 1,024 nodes, two seeds each, grown on 806's code with no budget, each to its own end",
+  "seeds": 800,
+  "laws": 200,
+  "by_size": {
+   "256": 400,
+   "1024": 400
+  },
+  "classes_with_the_cap_read_as_its_pass": {
+   "REFUSED_MEAN_DEGREE_ABOVE_WINDOW": 120,
+   "AT_REST": 643,
+   "RELAXING_AT_CEILING": 37
+  },
+  "relaxing_laws": 14,
+  "relaxing_share_of_the_work": 0.067,
+  "relaxing_last_chunk_share_of_the_work": 0.0492,
+  "late_descent_share": {
+   "highest_of_a_seed_that_came_to_rest_or_crossed_the_cap": 0.4116,
+   "relaxing_seeds_read_before_the_cap": 37,
+   "relaxing_seeds_above_it": 0,
+   "highest_of_a_relaxing_seed": 0.3878
+  },
+  "decreases_a_node": {
+   "highest_of_a_seed_that_came_to_rest_or_crossed_the_cap": 4.582,
+   "relaxing_seeds_read_before_the_cap": 37,
+   "relaxing_seeds_above_it": 0,
+   "highest_of_a_relaxing_seed": 1.9785
+  },
+  "persistence": {
+   "share above 0.01 on 2 chunks in a row": {
+    "relaxing_ended": 20,
+    "others_ended": 32
+   },
+   "share above 0.01 on 3 chunks in a row": {
+    "relaxing_ended": 5,
+    "others_ended": 8
+   },
+   "share above 0.02 on 2 chunks in a row": {
+    "relaxing_ended": 20,
+    "others_ended": 30
+   },
+   "share above 0.02 on 3 chunks in a row": {
+    "relaxing_ended": 5,
+    "others_ended": 3
+   },
+   "share above 0.03 on 2 chunks in a row": {
+    "relaxing_ended": 17,
+    "others_ended": 23
+   },
+   "share above 0.03 on 3 chunks in a row": {
+    "relaxing_ended": 5,
+    "others_ended": 3
+   },
+   "share above 0.05 on 2 chunks in a row": {
+    "relaxing_ended": 15,
+    "others_ended": 13
+   },
+   "share above 0.05 on 3 chunks in a row": {
+    "relaxing_ended": 5,
+    "others_ended": 1
+   },
+   "share above 0.08 on 2 chunks in a row": {
+    "relaxing_ended": 11,
+    "others_ended": 4
+   },
+   "share above 0.08 on 3 chunks in a row": {
+    "relaxing_ended": 4,
+    "others_ended": 1
+   },
+   "share above 0.1 on 2 chunks in a row": {
+    "relaxing_ended": 10,
+    "others_ended": 3
+   },
+   "share above 0.1 on 3 chunks in a row": {
+    "relaxing_ended": 4,
+    "others_ended": 1
+   }
+  },
+  "predicted": [
+   "P1: True",
+   "P2: True",
+   "P3: True"
+  ]
+ },
+ "made": "no early end by a chain's late descent: zero temperature is read at the cap as before"
+}

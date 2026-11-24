@@ -1,0 +1,91 @@
+{
+ "contract": "gsd-descent-early-end-criterion-1",
+ "committed_utc": "2026-11-19T16:48:52Z",
+ "committed_before": "the held-out sample (search seed 807000000000000002) was drawn; no code of an early end was written",
+ "question": "At zero temperature, does a chunk's own record of each deciding chain's late descent (the energy it fell over the chunk's last quarter of moves, as a share of its whole descent, and the improving moves it accepted there a node) tell, before the multiplier's cap, that the seed will reach the cap still falling (RELAXING_AT_CEILING), so that it could end there with that class, while never ending a seed that would come to rest (AT_REST) or whose chain from empty would cross the mean-degree cap?",
+ "decided": "the operator, 2026-11-19 04:12: 'we want to detect & park as efficiently as possible', deterministically, from the chain's own dynamics; docs/agent/NEXT_BUILD.md at 806: 'If the measurement finds no early end that keeps every chain's class, say so and make none'",
+ "calibration": {
+  "sample": "a_design's first campaign on the shipped spec, search seed 807000000000000001, the first 400 zero-temperature laws of 1,000 drawn; 256 nodes (all 400 laws) and 1,024 (the first 200), two seeds each; 1,200 seeds grown on 806's code with no budget, each to its own end; frozen as grown when this file was written",
+  "classes": "975 at rest (80 of them classed OPERATIONAL_UNRESOLVED by 806 after a pass at the cap: cap_pass_criterion.json), 175 at the mean-degree cap, 50 relaxing at the cap (22 laws)",
+  "relaxing_share_of_the_work": 0.2652,
+  "relaxing_last_chunk_share_of_the_work": 0.1406,
+  "one_chunk": {
+   "late_descent_share": {
+    "highest_of_a_seed_that_came_to_rest_or_crossed_the_cap": 0.9182,
+    "relaxing_seeds_read_before_the_cap": 50,
+    "relaxing_seeds_above_it": 0,
+    "highest_of_a_relaxing_seed": 0.5
+   },
+   "decreases_a_node": {
+    "highest_of_a_seed_that_came_to_rest_or_crossed_the_cap": 3.8281,
+    "relaxing_seeds_read_before_the_cap": 50,
+    "relaxing_seeds_above_it": 0,
+    "highest_of_a_relaxing_seed": 2.1758
+   },
+   "reading": "on the chunk before the cap, a seed that went on to rest (or to cross the mean-degree cap) had a falling chain with a share of 0.918 and one with 3.83 improving moves a node; no relaxing seed read above either (its highest 0.50 and 2.18), so a threshold on either that ends any relaxing seed ends a seed of another class"
+  },
+  "persistence": {
+   "share above 0.01 on 2 chunks in a row": {
+    "relaxing_ended": 41,
+    "others_ended": 84
+   },
+   "share above 0.01 on 3 chunks in a row": {
+    "relaxing_ended": 17,
+    "others_ended": 22
+   },
+   "share above 0.02 on 2 chunks in a row": {
+    "relaxing_ended": 40,
+    "others_ended": 68
+   },
+   "share above 0.02 on 3 chunks in a row": {
+    "relaxing_ended": 17,
+    "others_ended": 18
+   },
+   "share above 0.03 on 2 chunks in a row": {
+    "relaxing_ended": 36,
+    "others_ended": 54
+   },
+   "share above 0.03 on 3 chunks in a row": {
+    "relaxing_ended": 15,
+    "others_ended": 15
+   },
+   "share above 0.05 on 2 chunks in a row": {
+    "relaxing_ended": 32,
+    "others_ended": 33
+   },
+   "share above 0.05 on 3 chunks in a row": {
+    "relaxing_ended": 11,
+    "others_ended": 12
+   },
+   "share above 0.08 on 2 chunks in a row": {
+    "relaxing_ended": 26,
+    "others_ended": 20
+   },
+   "share above 0.08 on 3 chunks in a row": {
+    "relaxing_ended": 11,
+    "others_ended": 6
+   },
+   "share above 0.1 on 2 chunks in a row": {
+    "relaxing_ended": 23,
+    "others_ended": 17
+   },
+   "share above 0.1 on 3 chunks in a row": {
+    "relaxing_ended": 9,
+    "others_ended": 5
+   }
+  },
+  "persistence_reading": "a chain falling with a share above a threshold on 2 or 3 chunks in a row, thresholds 0.01 to 0.1: every such rule ends at least 5 seeds that did not end relaxing",
+  "why": "zero-temperature descent comes in bursts: a chain at rest for three chunks falls again, and one whose last quarter fell 18% of its whole descent at x32 rests over the last eighth of x64; whether a chain is at rest at the cap is decided by its last improving moves, which its earlier chunks do not foretell"
+ },
+ "finding": "no early end read from a chunk's own late descent keeps every chain's class; none is made, and zero temperature is read at the cap as before",
+ "held_out": {
+  "sample": "search seed 807000000000000002, its first 200 zero-temperature laws, 256 and 1,024 nodes, two seeds each, grown on 806's code with no budget, each to its own end",
+  "predicted": [
+   "P1: on the chunk before the cap, no relaxing seed has a falling chain whose late descent share is above that of every seed that comes to rest or crosses the mean-degree cap",
+   "P2: the same for the improving moves a node in the late window",
+   "P3: each persistence rule above (thresholds 0.01, 0.02, 0.03, 0.05, 0.08 and 0.1, on 2 and on 3 chunks in a row, the same chain) ends at least one seed that does not end relaxing"
+  ],
+  "shown": "the relaxing seeds' share of the zero-temperature work, and that of their last chunk: what any early end could at most have saved"
+ },
+ "passes_when": "P1, P2 and P3 hold: the measurement then confirms that no such early end keeps every class, and none is made"
+}

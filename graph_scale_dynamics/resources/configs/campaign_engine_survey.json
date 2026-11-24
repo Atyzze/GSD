@@ -1,0 +1,369 @@
+{
+  "analysis_version": "analysis-5.3.0",
+  "base_block": {
+    "concurrent": false,
+    "contract": "rung-phenotype-3",
+    "measurement_seeds_per_size": 3,
+    "no_scientific_selection_until_terminal": true,
+    "sizes": [
+      64,
+      256,
+      1024,
+      4096
+    ]
+  },
+  "budgets": {
+    "max_n": 1048576,
+    "wall_seconds": null
+  },
+  "complexity_budget": 7,
+  "default_seeds": 3,
+  "description": "A blind survey decided by the decision engine (docs/DECISIONS.md): base block 64 to 4096, three seeds, budgets in work per size, a 10% audit sample, rungs above 4096 bought one at a time.",
+  "extension_ladder": [
+    16384,
+    65536,
+    262144,
+    1048576
+  ],
+  "ladder": [
+    64,
+    256,
+    1024,
+    4096,
+    16384,
+    65536,
+    262144,
+    1048576
+  ],
+  "limits": {
+    "connectivity_floor": 0.5,
+    "contract": "gsd-search-limits-1",
+    "mean_degree_cap_armed_from_n": 64,
+    "mean_degree_window": {
+      "max": 16.0,
+      "min": 0.0
+    }
+  },
+  "max_active_candidates": 48,
+  "mode": "continuous",
+  "name": "engine_survey",
+  "operator_whitelist": [
+    "edge_count",
+    "degree_anchor",
+    "degree_square_sum",
+    "wedge_count",
+    "triangle_count",
+    "triangle_edge_overlap",
+    "square_count",
+    "square_edge_overlap",
+    "induced_square_count",
+    "degree_neighbor_gradient",
+    "degree_anchor_abs",
+    "degree_cube_sum",
+    "degree_fourth_sum",
+    "ollivier_curvature"
+  ],
+  "policy": {
+    "convergence": {
+      "agreement_epsilon": 0.75,
+      "macroscopic_fraction": 0.5,
+      "max_drift_decay_slope_t": -1.0,
+      "max_final_drift": 0.25,
+      "min_component_theta": 0.75,
+      "min_drift_points": 4,
+      "min_rungs_for_fits": 5,
+      "promotion_max_recent_connected_drop": 0.25,
+      "promotion_min_component_theta": 0.95,
+      "promotion_min_latest_connected_fraction": 0.65
+    },
+    "equilibration_component_count_delta_max": 0.1,
+    "equilibration_connected_delta_max": 0.25,
+    "equilibration_cycle_density_delta_max": 0.15,
+    "equilibration_split_z": 3.0,
+    "equilibration_two_core_delta_max": 0.25,
+    "half_volume_radius_relative_se_threshold": 0.08,
+    "initial_sweeps_multiplier": {
+      "1024": 16,
+      "16384": 16,
+      "256": 4,
+      "4096": 16,
+      "64": 4
+    },
+    "max_sweeps_multiplier": 128,
+    "min_acceptance": 0.005,
+    "min_connected_fraction": 0.5,
+    "min_effective_samples": 16,
+    "min_largest_component_cycle_rank": 1.0,
+    "probe_connected_fraction_delta": 0.075,
+    "probe_cycle_density_delta": 0.05,
+    "probe_mean_degree_relative_delta": 0.025,
+    "probe_two_core_fraction_delta": 0.1,
+    "rule_version": "policy-contract-19",
+    "stationarity_drift_max": 3.0
+  },
+  "proposer": {
+    "pool_min": 32
+  },
+  "resource_governor": {
+    "contract": "resource-governor-2",
+    "enabled": true,
+    "headroom_fraction": 0.1,
+    "interpretation": "operational concurrency calibration only; multi-signal capacity votes; never scientific selection",
+    "max_temperature_celsius": 90.0,
+    "runtime_adjust_seconds": 5.0,
+    "step_hold_seconds": 6.0,
+    "step_wait_seconds": 45.0
+  },
+  "resource_limits": {
+    "contract": "gsd-deep-memory-lane-1",
+    "deep_from_n": 262144,
+    "deep_single_job_fraction_total": 0.55,
+    "hard_single_job_fraction_total": 0.08,
+    "interpretation": "one rung at or above deep_from_n may hold up to this fraction of host memory as a single job. The aggregate target and every host guard are unchanged, so the rest of the fleet is squeezed through the reservation arithmetic already in force rather than by a second mechanism. hard_single_job_fraction_total (build 429) is the survey rungs' own boundary: one process above this fraction of host memory is stopped by the supervisor with a recorded reason, where before it ran to the deep lane's 0.25 and the kernel's OOM killer decided."
+  },
+  "rung_extension": {
+    "analysis_base_bytes": 402653184,
+    "analysis_fallback_bytes_per_node": 2048,
+    "continue_confirmed_stress": true,
+    "contract": "factor-four-memory-4",
+    "enabled": false,
+    "factor": 4,
+    "hard_single_job_fraction_total": 0.25,
+    "headroom_fraction_total": 0.2,
+    "minimum_headroom_bytes": 2147483648,
+    "prediction_safety_multiplier": 1.35,
+    "process_intercept_floor_bytes": 939524096,
+    "simulation_base_bytes": 939524096,
+    "simulation_fallback_bytes_per_node": 3750
+  },
+  "sampling_contract": {
+    "max_sweeps_multiplier": 64,
+    "one_shot": true,
+    "required_consecutive_passes": 2,
+    "version": "one-shot-sampling-1"
+  },
+  "search_policy": {
+    "contract": "gsd-blind-grid-1",
+    "grid": {
+      "anchor_k": {
+        "min": 2,
+        "max": 32,
+        "spacing": "linear"
+      },
+      "base_sweeps": 30,
+      "betas": {
+        "min": 0.1,
+        "max": 100.0,
+        "spacing": "log"
+      },
+      "magnitudes": {
+        "min": 0.05,
+        "max": 2.0,
+        "spacing": "log"
+      },
+      "move_mix": {
+        "add": 0.425,
+        "delete": 0.425,
+        "swap": 0.15
+      },
+      "power_exponents": {
+        "min": -2.0,
+        "max": 2.0,
+        "spacing": "linear"
+      },
+      "scales": [
+        "one",
+        "power",
+        "log_N",
+        "inv_log_N"
+      ],
+      "signs": [
+        -1,
+        1
+      ],
+      "term_counts": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "localities": {
+        "min": 0.0,
+        "max": 0.99,
+        "spacing": "linear"
+      },
+      "local_moves": [
+        "toggle"
+      ],
+      "zero_temperature": [
+        false,
+        true
+      ],
+      "swap_shares": {
+        "min": 0.0,
+        "max": 0.99,
+        "spacing": "linear"
+      },
+      "sampler": "blind-sampler-2"
+    },
+    "kind": "blind"
+  },
+  "search_space_version": "hamiltonian-search-2",
+  "stage_seeds": {
+    "0": 3,
+    "1": 3,
+    "2": 3,
+    "3": 3,
+    "4": 3
+  },
+  "engine": {
+    "contract": "decision-engine-2",
+    "policy": {
+      "base_sizes": [
+        64,
+        256,
+        1024,
+        4096
+      ],
+      "deep_sizes": [
+        16384,
+        65536,
+        262144,
+        1048576
+      ],
+      "seeds": 3,
+      "audit_fraction": 0.1,
+      "plateau_from_n": 262144,
+      "deep_lane_laws": 4,
+      "connectivity_floor": 0.5,
+      "deep_lane_widths": [
+        [
+          1048576,
+          4
+        ]
+      ],
+      "depth_rules": 631,
+      "finite_size_fits": [
+        [
+          "periodic_cubic_lattice",
+          2.991867,
+          57.532926,
+          1.0,
+          0.016553,
+          512
+        ],
+        [
+          "periodic_honeycomb_lattice",
+          2.000154,
+          0.757829,
+          0.6,
+          0.008656,
+          144
+        ],
+        [
+          "periodic_hypercubic_lattice_4d",
+          3.997312,
+          989.863183,
+          1.2,
+          0.035436,
+          1296
+        ],
+        [
+          "periodic_ring",
+          1.001136,
+          -0.161654,
+          0.75,
+          0.001645,
+          128
+        ],
+        [
+          "periodic_square_lattice",
+          1.997623,
+          4.081658,
+          0.95,
+          0.010891,
+          144
+        ],
+        [
+          "periodic_triangular_lattice",
+          1.998442,
+          0.99204,
+          0.65,
+          0.012363,
+          144
+        ],
+        [
+          "sierpinski_gasket",
+          1.373061,
+          -2.848139,
+          0.6,
+          0.00542,
+          123
+        ]
+      ],
+      "finite_size_scatter_sigmas": 2.0,
+      "gap_exponent_at_most": -0.309,
+      "work_unit": [
+        [
+          "moves",
+          241
+        ],
+        [
+          "evaluations",
+          1889
+        ],
+        [
+          "changes",
+          0
+        ],
+        [
+          "lists",
+          10
+        ],
+        [
+          "entries",
+          19
+        ],
+        [
+          "tests",
+          39
+        ]
+      ],
+      "seconds_a_unit": 1.5e-10,
+      "work_budgets": [
+        [
+          64,
+          400000000000
+        ],
+        [
+          256,
+          400000000000
+        ],
+        [
+          1024,
+          400000000000
+        ],
+        [
+          4096,
+          400000000000
+        ],
+        [
+          16384,
+          2000000000000
+        ],
+        [
+          65536,
+          24000000000000
+        ],
+        [
+          262144,
+          96000000000000
+        ],
+        [
+          1048576,
+          290000000000000
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,202 @@
+{
+ "contract": "gsd-study-design-1",
+ "study": "171",
+ "name": "study 171, the baseline: 1,000 blind laws free of N on the eight starts, only the empty, too dense and disconnected gates, each read on three sizes in a row, and the budget stopping a law, every other gate recording, every law they pass to 65,536",
+ "question": "The operator's question (2026-10-13): can simple local rules make a graph grow a real dimension, like space; which keep one they are given; and can the null map predict a law before it runs? Study 169 is the first study on the final probes, the installed table and the deterministic fleet (800 to 806), run on 813, its data the first clean data (the operator, 2026-11-19 21:11: \"This way, we immediately have clean data from our latest codebase\").",
+ "decided": {
+  "size": "1,000 laws in one batch, as 169: about 280 core-hours (150 to 630), about 18 hours on the host's 16 workers (the operator, 2026-11-20, asked as choices with study 170's bundle)",
+  "gate_shares": "only the empty, too dense and disconnected gates act, with the learned let-through from 256; every other gate records its verdict and holds no law back (its share 1); a law the three pass runs to 65,536 unless its budget stops it (the operator, 2026-11-20 10:09: \"a bigger study with no gates at all just to gather data on the absolute baseline ... with only the 4 absolute basic gates left on that is empty/dense/disconnect and out of budget\")",
+  "fact_gates": "the empty, too dense and disconnected gates decide on three sizes in a row, from 1,024: a chain is empty when its mean degree is at most 0.05 at three sizes in a row and not rising, too dense at the cap at three sizes in a row, disconnected with its largest component under half the graph at three sizes in a row and not growing at the last (`engine.fact_sizes_in_a_row`, 828; the operator, 2026-11-20 11:27: \"what happens if we reconsider that choice to instead always require a trend of 3 rungs in a row looking the same, or at least showing the same trend?\", and 11:39, asked as a choice with study 169's laws replayed: today's rule would have stopped 4 of its 10 scoring laws at 256 or 1,024, three in a row none, for about 7% more work); revised before 171's first start",
+  "budgets": "four times 169's and 170's at 4,096 and 16,384 (1.6e12 and 8.0e12 units), the rest as theirs (the operator, 2026-11-20, asked as choices with study 170's bundle, where 43 of the 46 laws that passed every gate at 4,096 were stopped over_budget)",
+  "drawn": "the search seed drawn with Python's secrets.randbits(63) at 2026-11-20T09:35:55Z; the grid, the starts and the rest of the engine block are 170's, the operator having fixed none of them"
+ },
+ "axes": {
+  "zero_temperature": "drawn",
+  "dense_cap": 32.0
+ },
+ "search_seeds": [
+  1455932840332106939
+ ],
+ "ladder": {
+  "base": [
+   64,
+   256,
+   1024,
+   4096
+  ],
+  "deep": [
+   16384,
+   65536
+  ],
+  "seeds": 3,
+  "budgets": [
+   [
+    64,
+    400000000000
+   ],
+   [
+    256,
+    400000000000
+   ],
+   [
+    1024,
+    400000000000
+   ],
+   [
+    4096,
+    1600000000000
+   ],
+   [
+    16384,
+    8000000000000
+   ],
+   [
+    65536,
+    24000000000000
+   ]
+  ]
+ },
+ "law_budget": 1000,
+ "starts": [
+  {
+   "name": "random",
+   "family": "random_at_drawn_degree"
+  },
+  {
+   "name": "square",
+   "family": "periodic_square_lattice"
+  },
+  {
+   "name": "triangular",
+   "family": "periodic_triangular_lattice"
+  },
+  {
+   "name": "cubic",
+   "family": "periodic_cubic_quotient"
+  },
+  {
+   "name": "bcc",
+   "family": "periodic_body_centred_cubic_lattice"
+  },
+  {
+   "name": "fcc",
+   "family": "periodic_face_centred_cubic_lattice"
+  },
+  {
+   "name": "tesseract",
+   "family": "periodic_tesseract_quotient"
+  }
+ ],
+ "engine": {
+  "every_chain": true,
+  "dimension_extends": true,
+  "let_through_rule": "gsd-let-through-1",
+  "let_through_from": 256,
+  "fact_sizes_in_a_row": 3,
+  "confirm_after": 100,
+  "seen_enough_after": 100,
+  "seen_enough_from": 256,
+  "kept_shape_park": true,
+  "steady_chain_gate": true,
+  "gate_shares": [
+   [
+    "kept_shape",
+    1.0
+   ],
+   [
+    "no_finite_dimension",
+    1.0
+   ],
+   [
+    "no_giant_component",
+    1.0
+   ],
+   [
+    "no_plateau",
+    1.0
+   ],
+   [
+    "no_reading",
+    1.0
+   ],
+   [
+    "no_second_rung",
+    1.0
+   ],
+   [
+    "no_steady_chain",
+    1.0
+   ],
+   [
+    "not_promising",
+    1.0
+   ],
+   [
+    "nothing_read",
+    1.0
+   ],
+   [
+    "reading_lost",
+    1.0
+   ],
+   [
+    "seen_enough",
+    1.0
+   ],
+   [
+    "starts_alike",
+    1.0
+   ],
+   [
+    "starts_apart_by_history",
+    1.0
+   ],
+   [
+    "starts_apart_twice",
+    1.0
+   ],
+   [
+    "starts_shape_unread",
+    1.0
+   ],
+   [
+    "unsettled",
+    1.0
+   ],
+   [
+    "unsettled_twice",
+    1.0
+   ]
+  ]
+ },
+ "limits": {
+  "mean_degree_cap_armed_from_n": 64
+ },
+ "starts_reading": {
+  "hold_structure": true,
+  "lattice_chains_meet": false
+ },
+ "finds": true,
+ "campaigns": [
+  {
+   "label": "laws free of N, drawn blind, the baseline",
+   "kind": "blind",
+   "grid": {
+    "local_moves": [
+     "toggle"
+    ],
+    "scales": [
+     "one"
+    ],
+    "magnitudes": {
+     "min": 0.005,
+     "max": 20.0,
+     "spacing": "log"
+    }
+   }
+  }
+ ],
+ "terms_left_out": [
+  "ollivier_curvature"
+ ]
+}

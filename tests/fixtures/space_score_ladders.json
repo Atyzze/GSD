@@ -1,0 +1,6221 @@
+{
+ "what": "The five standing controls' ladders (64 to 4,096 nodes, seeds 0 to 2), grown on build 826's code in the sandbox on the job's own path (the campaign spec `operations/standing_controls.campaign_spec` makes, the Rust engine) and reduced to what `observability/space_score.py` reads: each chain's means per size and how each seed's run ended. `tests/unit/test_space_score.py` scores them.",
+ "laws": [
+  {
+   "law": "6f364db7b7",
+   "role": "P1, a standing control (`controls_criterion_2.json`): positive",
+   "chains": {
+    "given_start": "the declared answer, periodic_square_lattice",
+    "zero_temperature": false,
+    "given_probes_read": true,
+    "rungs": [
+     {
+      "n": 64,
+      "seeds": 3,
+      "ends": {
+       "ceiling": 3
+      },
+      "empty": {
+       "mean_degree": {
+        "mean": 4.01042,
+        "se": 0.01042,
+        "seed_sd": 0.01804,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         4.0,
+         4.0312,
+         4.0
+        ]
+       },
+       "energy_per_node": {
+        "mean": -3.51042,
+        "se": 0.04068,
+        "seed_sd": 0.07046,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -3.5156,
+         -3.4375,
+         -3.5781
+        ]
+       },
+       "triangles_per_node": {
+        "mean": 0.0208333,
+        "se": 0.02083,
+        "seed_sd": 0.03608,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.0625,
+         0.0,
+         0.0
+        ]
+       },
+       "squares_per_node": {
+        "mean": 0.854167,
+        "se": 0.0227,
+        "seed_sd": 0.03932,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.85938,
+         0.8125,
+         0.89062
+        ]
+       },
+       "giant_fraction": {
+        "mean": 1.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "kappa": {
+        "mean": -0.141726,
+        "se": 0.01778,
+        "seed_sd": 0.0308,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -0.12109,
+         -0.17713,
+         -0.12695
+        ]
+       },
+       "reach": {
+        "mean": 3.91667,
+        "se": 0.06007,
+        "seed_sd": 0.104,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         3.9844,
+         3.7969,
+         3.9688
+        ]
+       },
+       "d_s": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "NO_SCALING_WINDOW": 3
+        },
+        "read": true
+       },
+       "d_V": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "NO_SCALING_WINDOW": 3
+        },
+        "read": true
+       },
+       "d_B": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "NO_SCALING_WINDOW": 3
+        },
+        "read": true
+       },
+       "d_w": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "NO_SCALING_WINDOW": 3
+        },
+        "read": true
+       },
+       "ended_at_cap": {
+        "seeds": 0,
+        "of": 3
+       },
+       "log_diameter": {
+        "raised": 0,
+        "false": 0,
+        "unknown": 3,
+        "not_measured": 0
+       }
+      },
+      "given": {
+       "mean_degree": {
+        "mean": 4.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         4.0,
+         4.0,
+         4.0
+        ]
+       },
+       "energy_per_node": {
+        "mean": -3.97917,
+        "se": 0.02083,
+        "seed_sd": 0.03608,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -4.0,
+         -3.9375,
+         -4.0
+        ]
+       },
+       "triangles_per_node": {
+        "mean": 0.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.0,
+         0.0,
+         0.0
+        ]
+       },
+       "squares_per_node": {
+        "mean": 0.989583,
+        "se": 0.01042,
+        "seed_sd": 0.01804,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.0,
+         0.96875,
+         1.0
+        ]
+       },
+       "giant_fraction": {
+        "mean": 1.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "kappa": {
+        "mean": -0.0104167,
+        "se": 0.01042,
+        "seed_sd": 0.01804,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.0,
+         -0.03125,
+         0.0
+        ]
+       },
+       "reach": {
+        "mean": 4.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         4.0,
+         4.0,
+         4.0
+        ]
+       },
+       "d_s": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "NO_SCALING_WINDOW": 3
+        },
+        "read": true
+       },
+       "d_V": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "NO_SCALING_WINDOW": 3
+        },
+        "read": true
+       },
+       "d_B": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "NO_SCALING_WINDOW": 3
+        },
+        "read": true
+       },
+       "d_w": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "NO_SCALING_WINDOW": 3
+        },
+        "read": true
+       },
+       "ended_at_cap": {
+        "seeds": 0,
+        "of": 3
+       },
+       "log_diameter": {
+        "raised": 0,
+        "false": 0,
+        "unknown": 3,
+        "not_measured": 0
+       }
+      }
+     },
+     {
+      "n": 256,
+      "seeds": 3,
+      "ends": {
+       "ceiling": 3
+      },
+      "empty": {
+       "mean_degree": {
+        "mean": 4.02083,
+        "se": 0.005208,
+        "seed_sd": 0.009021,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         4.0156,
+         4.0312,
+         4.0156
+        ]
+       },
+       "energy_per_node": {
+        "mean": -3.21615,
+        "se": 0.02709,
+        "seed_sd": 0.04693,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -3.2188,
+         -3.168,
+         -3.2617
+        ]
+       },
+       "triangles_per_node": {
+        "mean": 0.00260417,
+        "se": 0.001302,
+        "seed_sd": 0.002255,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.0039062,
+         0.0,
+         0.0039062
+        ]
+       },
+       "squares_per_node": {
+        "mean": 0.75,
+        "se": 0.005967,
+        "seed_sd": 0.01033,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.73828,
+         0.75391,
+         0.75781
+        ]
+       },
+       "giant_fraction": {
+        "mean": 1.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "kappa": {
+        "mean": -0.279101,
+        "se": 0.007383,
+        "seed_sd": 0.01279,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -0.28453,
+         -0.28828,
+         -0.26449
+        ]
+       },
+       "reach": {
+        "mean": 5.35417,
+        "se": 0.09508,
+        "seed_sd": 0.1647,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         5.4531,
+         5.1641,
+         5.4453
+        ]
+       },
+       "d_s": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "withheld": {
+         "mean": 2.74339,
+         "seeds": 3,
+         "values": [
+          2.7845,
+          2.7893,
+          2.6563
+         ],
+         "reasons": {
+          "GROWTH_UNDECIDED": 3
+         }
+        },
+        "refused": {
+         "GROWTH_UNDECIDED": 3
+        },
+        "read": true
+       },
+       "d_V": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "withheld": {
+         "mean": 3.03806,
+         "seeds": 3,
+         "values": [
+          3.0,
+          3.1108,
+          3.0034
+         ],
+         "reasons": {
+          "GROWTH_UNDECIDED": 3
+         }
+        },
+        "refused": {
+         "GROWTH_UNDECIDED": 3
+        },
+        "read": true
+       },
+       "d_B": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "GROWTH_UNDECIDED": 3
+        },
+        "read": true
+       },
+       "d_w": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "GROWTH_UNDECIDED": 3
+        },
+        "read": true
+       },
+       "ended_at_cap": {
+        "seeds": 0,
+        "of": 3
+       },
+       "log_diameter": {
+        "raised": 0,
+        "false": 0,
+        "unknown": 3,
+        "not_measured": 0
+       }
+      },
+      "given": {
+       "mean_degree": {
+        "mean": 4.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         4.0,
+         4.0,
+         4.0
+        ]
+       },
+       "energy_per_node": {
+        "mean": -3.98958,
+        "se": 0.005208,
+        "seed_sd": 0.009021,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -3.9844,
+         -4.0,
+         -3.9844
+        ]
+       },
+       "triangles_per_node": {
+        "mean": 0.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.0,
+         0.0,
+         0.0
+        ]
+       },
+       "squares_per_node": {
+        "mean": 0.994792,
+        "se": 0.002604,
+        "seed_sd": 0.004511,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.99219,
+         1.0,
+         0.99219
+        ]
+       },
+       "giant_fraction": {
+        "mean": 1.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "kappa": {
+        "mean": -0.002604,
+        "se": 0.001302,
+        "seed_sd": 0.002255,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -0.003906,
+         0.0,
+         -0.003906
+        ]
+       },
+       "reach": {
+        "mean": 8.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         8.0,
+         8.0,
+         8.0
+        ]
+       },
+       "d_s": {
+        "mean": 1.94813,
+        "se": 0.01195,
+        "seed_sd": 0.02069,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.9507,
+         1.9263,
+         1.9674
+        ],
+        "read": true
+       },
+       "d_V": {
+        "mean": 1.99118,
+        "se": 0.003427,
+        "seed_sd": 0.005935,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.9962,
+         1.9846,
+         1.9927
+        ],
+        "read": true
+       },
+       "d_B": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "WINDOW_TOO_SHORT": 3
+        },
+        "read": true
+       },
+       "d_w": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "WALK_SATURATED": 3
+        },
+        "read": true
+       },
+       "ended_at_cap": {
+        "seeds": 0,
+        "of": 3
+       },
+       "log_diameter": {
+        "raised": 0,
+        "false": 3,
+        "unknown": 0,
+        "not_measured": 0
+       }
+      }
+     },
+     {
+      "n": 1024,
+      "seeds": 3,
+      "ends": {
+       "ceiling": 3
+      },
+      "empty": {
+       "mean_degree": {
+        "mean": 4.01302,
+        "se": 0.002838,
+        "seed_sd": 0.004915,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         4.0176,
+         4.0078,
+         4.0137
+        ]
+       },
+       "energy_per_node": {
+        "mean": -3.05143,
+        "se": 0.01218,
+        "seed_sd": 0.02109,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -3.0293,
+         -3.0713,
+         -3.0537
+        ]
+       },
+       "triangles_per_node": {
+        "mean": 0.000325521,
+        "se": 0.0003255,
+        "seed_sd": 0.0005638,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.00097656,
+         0.0,
+         0.0
+        ]
+       },
+       "squares_per_node": {
+        "mean": 0.686849,
+        "se": 0.003304,
+        "seed_sd": 0.005722,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.68457,
+         0.68262,
+         0.69336
+        ]
+       },
+       "giant_fraction": {
+        "mean": 1.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "kappa": {
+        "mean": -0.341579,
+        "se": 0.0025,
+        "seed_sd": 0.00433,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -0.34521,
+         -0.34274,
+         -0.33679
+        ]
+       },
+       "reach": {
+        "mean": 7.00521,
+        "se": 0.002604,
+        "seed_sd": 0.004511,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         7.0078,
+         7.0078,
+         7.0
+        ]
+       },
+       "d_s": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "withheld": {
+         "mean": 3.90308,
+         "seeds": 3,
+         "values": [
+          3.8901,
+          3.8868,
+          3.9323
+         ],
+         "reasons": {
+          "EXPONENTIAL_GROWTH": 3
+         }
+        },
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "d_V": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "withheld": {
+         "mean": 3.77915,
+         "seeds": 3,
+         "values": [
+          3.7789,
+          3.7627,
+          3.7958
+         ],
+         "reasons": {
+          "EXPONENTIAL_GROWTH": 3
+         }
+        },
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "d_B": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "d_w": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "ended_at_cap": {
+        "seeds": 0,
+        "of": 3
+       },
+       "log_diameter": {
+        "raised": 0,
+        "false": 0,
+        "unknown": 3,
+        "not_measured": 0
+       }
+      },
+      "given": {
+       "mean_degree": {
+        "mean": 4.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         4.0,
+         4.0,
+         4.0
+        ]
+       },
+       "energy_per_node": {
+        "mean": -4.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -4.0,
+         -4.0,
+         -4.0
+        ]
+       },
+       "triangles_per_node": {
+        "mean": 0.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.0,
+         0.0,
+         0.0
+        ]
+       },
+       "squares_per_node": {
+        "mean": 1.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "giant_fraction": {
+        "mean": 1.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "kappa": {
+        "mean": 0.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.0,
+         0.0,
+         0.0
+        ]
+       },
+       "reach": {
+        "mean": 16.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         16.0,
+         16.0,
+         16.0
+        ]
+       },
+       "d_s": {
+        "mean": 1.99872,
+        "se": 0.0178,
+        "seed_sd": 0.03084,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         2.0339,
+         1.9762,
+         1.9861
+        ],
+        "read": true
+       },
+       "d_V": {
+        "mean": 1.99358,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.9936,
+         1.9936,
+         1.9936
+        ],
+        "read": true
+       },
+       "d_B": {
+        "mean": 1.91275,
+        "se": 0.01968,
+        "seed_sd": 0.03409,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.8767,
+         1.9172,
+         1.9444
+        ],
+        "read": true
+       },
+       "d_w": {
+        "mean": 1.97871,
+        "se": 0.01716,
+        "seed_sd": 0.02972,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.9571,
+         1.9664,
+         2.0126
+        ],
+        "read": true
+       },
+       "ended_at_cap": {
+        "seeds": 0,
+        "of": 3
+       },
+       "log_diameter": {
+        "raised": 0,
+        "false": 3,
+        "unknown": 0,
+        "not_measured": 0
+       }
+      }
+     },
+     {
+      "n": 4096,
+      "seeds": 3,
+      "ends": {
+       "ceiling": 3
+      },
+      "empty": {
+       "mean_degree": {
+        "mean": 4.00863,
+        "se": 0.0001628,
+        "seed_sd": 0.0002819,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         4.0088,
+         4.0083,
+         4.0088
+        ]
+       },
+       "energy_per_node": {
+        "mean": -2.72314,
+        "se": 0.00733,
+        "seed_sd": 0.0127,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -2.7358,
+         -2.7231,
+         -2.7104
+        ]
+       },
+       "triangles_per_node": {
+        "mean": 0.000325521,
+        "se": 0.0002153,
+        "seed_sd": 0.0003729,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.00073242,
+         0.0,
+         0.00024414
+        ]
+       },
+       "squares_per_node": {
+        "mean": 0.578451,
+        "se": 0.001412,
+        "seed_sd": 0.002445,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.58081,
+         0.57861,
+         0.57593
+        ]
+       },
+       "giant_fraction": {
+        "mean": 1.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "kappa": {
+        "mean": -0.438012,
+        "se": 0.001578,
+        "seed_sd": 0.002733,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -0.43552,
+         -0.43757,
+         -0.44094
+        ]
+       },
+       "reach": {
+        "mean": 8.13802,
+        "se": 0.02315,
+        "seed_sd": 0.04009,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         8.1719,
+         8.1484,
+         8.0938
+        ]
+       },
+       "d_s": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "withheld": {
+         "mean": 5.31554,
+         "seeds": 3,
+         "values": [
+          5.2931,
+          5.2588,
+          5.3947
+         ],
+         "reasons": {
+          "EXPONENTIAL_GROWTH": 3
+         }
+        },
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "d_V": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "withheld": {
+         "mean": 4.98413,
+         "seeds": 3,
+         "values": [
+          5.0325,
+          5.0124,
+          4.9075
+         ],
+         "reasons": {
+          "EXPONENTIAL_GROWTH": 3
+         }
+        },
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "d_B": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "d_w": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "ended_at_cap": {
+        "seeds": 0,
+        "of": 3
+       },
+       "log_diameter": {
+        "raised": 0,
+        "false": 0,
+        "unknown": 3,
+        "not_measured": 0
+       }
+      },
+      "given": {
+       "mean_degree": {
+        "mean": 4.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         4.0,
+         4.0,
+         4.0
+        ]
+       },
+       "energy_per_node": {
+        "mean": -3.99967,
+        "se": 0.0003255,
+        "seed_sd": 0.0005638,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -4.0,
+         -4.0,
+         -3.999
+        ]
+       },
+       "triangles_per_node": {
+        "mean": 0.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.0,
+         0.0,
+         0.0
+        ]
+       },
+       "squares_per_node": {
+        "mean": 0.999837,
+        "se": 0.0001628,
+        "seed_sd": 0.0002819,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.0,
+         1.0,
+         0.99951
+        ]
+       },
+       "giant_fraction": {
+        "mean": 1.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "kappa": {
+        "mean": -0.000162667,
+        "se": 0.0001627,
+        "seed_sd": 0.0002817,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.0,
+         0.0,
+         -0.000488
+        ]
+       },
+       "reach": {
+        "mean": 32.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         32.0,
+         32.0,
+         32.0
+        ]
+       },
+       "d_s": {
+        "mean": 1.95643,
+        "se": 0.04221,
+        "seed_sd": 0.07312,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         2.0039,
+         1.8722,
+         1.9932
+        ],
+        "read": true
+       },
+       "d_V": {
+        "mean": 1.99943,
+        "se": 0.0007906,
+        "seed_sd": 0.001369,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.9986,
+         1.9986,
+         2.001
+        ],
+        "read": true
+       },
+       "d_B": {
+        "mean": 1.93748,
+        "se": 0.006105,
+        "seed_sd": 0.01057,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.9481,
+         1.9374,
+         1.9269
+        ],
+        "read": true
+       },
+       "d_w": {
+        "mean": 1.97755,
+        "se": 0.00728,
+        "seed_sd": 0.01261,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.9648,
+         1.9779,
+         1.99
+        ],
+        "read": true
+       },
+       "ended_at_cap": {
+        "seeds": 0,
+        "of": 3
+       },
+       "log_diameter": {
+        "raised": 0,
+        "false": 3,
+        "unknown": 0,
+        "not_measured": 0
+       }
+      }
+     }
+    ]
+   }
+  },
+  {
+   "law": "a283415b10",
+   "role": "P2, a standing control (`controls_criterion_2.json`): positive",
+   "chains": {
+    "given_start": "the declared answer, periodic_square_lattice",
+    "zero_temperature": false,
+    "given_probes_read": true,
+    "rungs": [
+     {
+      "n": 64,
+      "seeds": 3,
+      "ends": {
+       "ceiling": 3
+      },
+      "empty": {
+       "mean_degree": {
+        "mean": 4.05208,
+        "se": 0.01042,
+        "seed_sd": 0.01804,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         4.0312,
+         4.0625,
+         4.0625
+        ]
+       },
+       "energy_per_node": {
+        "mean": -3.43229,
+        "se": 0.05729,
+        "seed_sd": 0.09923,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -3.5469,
+         -3.375,
+         -3.375
+        ]
+       },
+       "triangles_per_node": {
+        "mean": 0.0104167,
+        "se": 0.01042,
+        "seed_sd": 0.01804,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.0,
+         0.03125,
+         0.0
+        ]
+       },
+       "squares_per_node": {
+        "mean": 0.885417,
+        "se": 0.01042,
+        "seed_sd": 0.01804,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.875,
+         0.875,
+         0.90625
+        ]
+       },
+       "giant_fraction": {
+        "mean": 1.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "kappa": {
+        "mean": -0.157309,
+        "se": 0.007904,
+        "seed_sd": 0.01369,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -0.15039,
+         -0.14846,
+         -0.17308
+        ]
+       },
+       "reach": {
+        "mean": 3.85417,
+        "se": 0.0445,
+        "seed_sd": 0.07708,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         3.8906,
+         3.9062,
+         3.7656
+        ]
+       },
+       "d_s": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "NO_SCALING_WINDOW": 3
+        },
+        "read": true
+       },
+       "d_V": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "NO_SCALING_WINDOW": 3
+        },
+        "read": true
+       },
+       "d_B": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "NO_SCALING_WINDOW": 3
+        },
+        "read": true
+       },
+       "d_w": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "NO_SCALING_WINDOW": 3
+        },
+        "read": true
+       },
+       "ended_at_cap": {
+        "seeds": 0,
+        "of": 3
+       },
+       "log_diameter": {
+        "raised": 0,
+        "false": 0,
+        "unknown": 3,
+        "not_measured": 0
+       }
+      },
+      "given": {
+       "mean_degree": {
+        "mean": 4.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         4.0,
+         4.0,
+         4.0
+        ]
+       },
+       "energy_per_node": {
+        "mean": -4.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -4.0,
+         -4.0,
+         -4.0
+        ]
+       },
+       "triangles_per_node": {
+        "mean": 0.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.0,
+         0.0,
+         0.0
+        ]
+       },
+       "squares_per_node": {
+        "mean": 1.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "giant_fraction": {
+        "mean": 1.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "kappa": {
+        "mean": 0.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.0,
+         0.0,
+         0.0
+        ]
+       },
+       "reach": {
+        "mean": 4.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         4.0,
+         4.0,
+         4.0
+        ]
+       },
+       "d_s": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "NO_SCALING_WINDOW": 3
+        },
+        "read": true
+       },
+       "d_V": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "NO_SCALING_WINDOW": 3
+        },
+        "read": true
+       },
+       "d_B": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "NO_SCALING_WINDOW": 3
+        },
+        "read": true
+       },
+       "d_w": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "NO_SCALING_WINDOW": 3
+        },
+        "read": true
+       },
+       "ended_at_cap": {
+        "seeds": 0,
+        "of": 3
+       },
+       "log_diameter": {
+        "raised": 0,
+        "false": 0,
+        "unknown": 3,
+        "not_measured": 0
+       }
+      }
+     },
+     {
+      "n": 256,
+      "seeds": 3,
+      "ends": {
+       "ceiling": 3
+      },
+      "empty": {
+       "mean_degree": {
+        "mean": 4.02344,
+        "se": 0.004511,
+        "seed_sd": 0.007812,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         4.0156,
+         4.0234,
+         4.0312
+        ]
+       },
+       "energy_per_node": {
+        "mean": -3.29818,
+        "se": 0.009115,
+        "seed_sd": 0.01579,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -3.3125,
+         -3.2812,
+         -3.3008
+        ]
+       },
+       "triangles_per_node": {
+        "mean": 0.00651042,
+        "se": 0.001302,
+        "seed_sd": 0.002255,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.0078125,
+         0.0078125,
+         0.0039062
+        ]
+       },
+       "squares_per_node": {
+        "mean": 0.807292,
+        "se": 0.002604,
+        "seed_sd": 0.004511,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.8125,
+         0.80469,
+         0.80469
+        ]
+       },
+       "giant_fraction": {
+        "mean": 1.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "kappa": {
+        "mean": -0.232221,
+        "se": 0.006092,
+        "seed_sd": 0.01055,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -0.22004,
+         -0.23816,
+         -0.23847
+        ]
+       },
+       "reach": {
+        "mean": 5.61198,
+        "se": 0.03445,
+        "seed_sd": 0.05967,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         5.625,
+         5.5469,
+         5.6641
+        ]
+       },
+       "d_s": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "withheld": {
+         "mean": 2.62264,
+         "seeds": 3,
+         "values": [
+          2.634,
+          2.5794,
+          2.6545
+         ],
+         "reasons": {
+          "GROWTH_UNDECIDED": 3
+         }
+        },
+        "refused": {
+         "GROWTH_UNDECIDED": 3
+        },
+        "read": true
+       },
+       "d_V": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "withheld": {
+         "mean": 2.96299,
+         "seeds": 3,
+         "values": [
+          2.9697,
+          2.9729,
+          2.9464
+         ],
+         "reasons": {
+          "GROWTH_UNDECIDED": 3
+         }
+        },
+        "refused": {
+         "GROWTH_UNDECIDED": 3
+        },
+        "read": true
+       },
+       "d_B": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "GROWTH_UNDECIDED": 3
+        },
+        "read": true
+       },
+       "d_w": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "GROWTH_UNDECIDED": 3
+        },
+        "read": true
+       },
+       "ended_at_cap": {
+        "seeds": 0,
+        "of": 3
+       },
+       "log_diameter": {
+        "raised": 0,
+        "false": 0,
+        "unknown": 3,
+        "not_measured": 0
+       }
+      },
+      "given": {
+       "mean_degree": {
+        "mean": 4.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         4.0,
+         4.0,
+         4.0
+        ]
+       },
+       "energy_per_node": {
+        "mean": -4.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -4.0,
+         -4.0,
+         -4.0
+        ]
+       },
+       "triangles_per_node": {
+        "mean": 0.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.0,
+         0.0,
+         0.0
+        ]
+       },
+       "squares_per_node": {
+        "mean": 1.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "giant_fraction": {
+        "mean": 1.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "kappa": {
+        "mean": 0.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.0,
+         0.0,
+         0.0
+        ]
+       },
+       "reach": {
+        "mean": 8.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         8.0,
+         8.0,
+         8.0
+        ]
+       },
+       "d_s": {
+        "mean": 1.94417,
+        "se": 0.01039,
+        "seed_sd": 0.018,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.944,
+         1.9263,
+         1.9623
+        ],
+        "read": true
+       },
+       "d_V": {
+        "mean": 1.98463,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.9846,
+         1.9846,
+         1.9846
+        ],
+        "read": true
+       },
+       "d_B": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "WINDOW_TOO_SHORT": 3
+        },
+        "read": true
+       },
+       "d_w": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "WALK_SATURATED": 3
+        },
+        "read": true
+       },
+       "ended_at_cap": {
+        "seeds": 0,
+        "of": 3
+       },
+       "log_diameter": {
+        "raised": 0,
+        "false": 3,
+        "unknown": 0,
+        "not_measured": 0
+       }
+      }
+     },
+     {
+      "n": 1024,
+      "seeds": 3,
+      "ends": {
+       "ceiling": 3
+      },
+      "empty": {
+       "mean_degree": {
+        "mean": 4.01042,
+        "se": 0.001302,
+        "seed_sd": 0.002255,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         4.0078,
+         4.0117,
+         4.0117
+        ]
+       },
+       "energy_per_node": {
+        "mean": -3.12858,
+        "se": 0.01489,
+        "seed_sd": 0.02579,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -3.1514,
+         -3.1006,
+         -3.1338
+        ]
+       },
+       "triangles_per_node": {
+        "mean": 0.0016276,
+        "se": 0.0003255,
+        "seed_sd": 0.0005638,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.00097656,
+         0.0019531,
+         0.0019531
+        ]
+       },
+       "squares_per_node": {
+        "mean": 0.708984,
+        "se": 0.008306,
+        "seed_sd": 0.01439,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.71777,
+         0.69238,
+         0.7168
+        ]
+       },
+       "giant_fraction": {
+        "mean": 1.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "kappa": {
+        "mean": -0.318221,
+        "se": 0.007428,
+        "seed_sd": 0.01287,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -0.31294,
+         -0.33289,
+         -0.30884
+        ]
+       },
+       "reach": {
+        "mean": 7.04688,
+        "se": 0.02387,
+        "seed_sd": 0.04134,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         7.0781,
+         7.0,
+         7.0625
+        ]
+       },
+       "d_s": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "withheld": {
+         "mean": 3.81733,
+         "seeds": 3,
+         "values": [
+          3.8234,
+          3.8734,
+          3.7551
+         ],
+         "reasons": {
+          "EXPONENTIAL_GROWTH": 3
+         }
+        },
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "d_V": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "withheld": {
+         "mean": 3.69687,
+         "seeds": 3,
+         "values": [
+          3.6726,
+          3.741,
+          3.677
+         ],
+         "reasons": {
+          "EXPONENTIAL_GROWTH": 3
+         }
+        },
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "d_B": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "d_w": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "ended_at_cap": {
+        "seeds": 0,
+        "of": 3
+       },
+       "log_diameter": {
+        "raised": 0,
+        "false": 0,
+        "unknown": 3,
+        "not_measured": 0
+       }
+      },
+      "given": {
+       "mean_degree": {
+        "mean": 4.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         4.0,
+         4.0,
+         4.0
+        ]
+       },
+       "energy_per_node": {
+        "mean": -4.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -4.0,
+         -4.0,
+         -4.0
+        ]
+       },
+       "triangles_per_node": {
+        "mean": 0.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.0,
+         0.0,
+         0.0
+        ]
+       },
+       "squares_per_node": {
+        "mean": 1.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "giant_fraction": {
+        "mean": 1.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "kappa": {
+        "mean": 0.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.0,
+         0.0,
+         0.0
+        ]
+       },
+       "reach": {
+        "mean": 16.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         16.0,
+         16.0,
+         16.0
+        ]
+       },
+       "d_s": {
+        "mean": 1.99872,
+        "se": 0.0178,
+        "seed_sd": 0.03084,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         2.0339,
+         1.9762,
+         1.9861
+        ],
+        "read": true
+       },
+       "d_V": {
+        "mean": 1.99358,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.9936,
+         1.9936,
+         1.9936
+        ],
+        "read": true
+       },
+       "d_B": {
+        "mean": 1.91275,
+        "se": 0.01968,
+        "seed_sd": 0.03409,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.8767,
+         1.9172,
+         1.9444
+        ],
+        "read": true
+       },
+       "d_w": {
+        "mean": 1.97871,
+        "se": 0.01716,
+        "seed_sd": 0.02972,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.9571,
+         1.9664,
+         2.0126
+        ],
+        "read": true
+       },
+       "ended_at_cap": {
+        "seeds": 0,
+        "of": 3
+       },
+       "log_diameter": {
+        "raised": 0,
+        "false": 3,
+        "unknown": 0,
+        "not_measured": 0
+       }
+      }
+     },
+     {
+      "n": 4096,
+      "seeds": 3,
+      "ends": {
+       "ceiling": 3
+      },
+      "empty": {
+       "mean_degree": {
+        "mean": 4.00537,
+        "se": 0.0005638,
+        "seed_sd": 0.0009766,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         4.0044,
+         4.0063,
+         4.0054
+        ]
+       },
+       "energy_per_node": {
+        "mean": -2.80322,
+        "se": 0.002445,
+        "seed_sd": 0.004236,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -2.8005,
+         -2.8081,
+         -2.801
+        ]
+       },
+       "triangles_per_node": {
+        "mean": 0.000488281,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.00048828,
+         0.00048828,
+         0.00048828
+        ]
+       },
+       "squares_per_node": {
+        "mean": 0.598226,
+        "se": 0.002078,
+        "seed_sd": 0.003599,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.59692,
+         0.60229,
+         0.59546
+        ]
+       },
+       "giant_fraction": {
+        "mean": 1.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "kappa": {
+        "mean": -0.417482,
+        "se": 0.001585,
+        "seed_sd": 0.002746,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -0.41865,
+         -0.41435,
+         -0.41945
+        ]
+       },
+       "reach": {
+        "mean": 8.32031,
+        "se": 0.01562,
+        "seed_sd": 0.02706,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         8.2891,
+         8.3359,
+         8.3359
+        ]
+       },
+       "d_s": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "withheld": {
+         "mean": 5.26395,
+         "seeds": 3,
+         "values": [
+          5.271,
+          5.2437,
+          5.2772
+         ],
+         "reasons": {
+          "EXPONENTIAL_GROWTH": 3
+         }
+        },
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "d_V": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "withheld": {
+         "mean": 4.96975,
+         "seeds": 3,
+         "values": [
+          4.9585,
+          4.9775,
+          4.9732
+         ],
+         "reasons": {
+          "EXPONENTIAL_GROWTH": 3
+         }
+        },
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "d_B": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "withheld": {
+         "mean": 3.19786,
+         "seeds": 3,
+         "values": [
+          3.2184,
+          3.1248,
+          3.2504
+         ],
+         "reasons": {
+          "EXPONENTIAL_GROWTH": 3
+         }
+        },
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "d_w": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "ended_at_cap": {
+        "seeds": 0,
+        "of": 3
+       },
+       "log_diameter": {
+        "raised": 0,
+        "false": 0,
+        "unknown": 3,
+        "not_measured": 0
+       }
+      },
+      "given": {
+       "mean_degree": {
+        "mean": 4.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         4.0,
+         4.0,
+         4.0
+        ]
+       },
+       "energy_per_node": {
+        "mean": -4.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -4.0,
+         -4.0,
+         -4.0
+        ]
+       },
+       "triangles_per_node": {
+        "mean": 0.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.0,
+         0.0,
+         0.0
+        ]
+       },
+       "squares_per_node": {
+        "mean": 1.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "giant_fraction": {
+        "mean": 1.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "kappa": {
+        "mean": 0.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.0,
+         0.0,
+         0.0
+        ]
+       },
+       "reach": {
+        "mean": 32.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         32.0,
+         32.0,
+         32.0
+        ]
+       },
+       "d_s": {
+        "mean": 1.98145,
+        "se": 0.05768,
+        "seed_sd": 0.09991,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         2.0039,
+         1.8722,
+         2.0682
+        ],
+        "read": true
+       },
+       "d_V": {
+        "mean": 1.99864,
+        "se": 1.57e-16,
+        "seed_sd": 2.719e-16,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.9986,
+         1.9986,
+         1.9986
+        ],
+        "read": true
+       },
+       "d_B": {
+        "mean": 1.9433,
+        "se": 0.003134,
+        "seed_sd": 0.005427,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.9481,
+         1.9374,
+         1.9444
+        ],
+        "read": true
+       },
+       "d_w": {
+        "mean": 1.99123,
+        "se": 0.02025,
+        "seed_sd": 0.03507,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.9648,
+         1.9779,
+         2.031
+        ],
+        "read": true
+       },
+       "ended_at_cap": {
+        "seeds": 0,
+        "of": 3
+       },
+       "log_diameter": {
+        "raised": 0,
+        "false": 3,
+        "unknown": 0,
+        "not_measured": 0
+       }
+      }
+     }
+    ]
+   }
+  },
+  {
+   "law": "e4ed71e5bc",
+   "role": "N1, a standing control (`controls_criterion_2.json`): negative",
+   "chains": {
+    "given_start": "the declared answer, periodic_square_lattice",
+    "zero_temperature": false,
+    "given_probes_read": true,
+    "rungs": [
+     {
+      "n": 64,
+      "seeds": 3,
+      "ends": {
+       "ceiling": 3
+      },
+      "empty": {
+       "mean_degree": {
+        "mean": 4.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         4.0,
+         4.0,
+         4.0
+        ]
+       },
+       "energy_per_node": {
+        "mean": 0.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.0,
+         0.0,
+         0.0
+        ]
+       },
+       "triangles_per_node": {
+        "mean": 0.0833333,
+        "se": 0.01378,
+        "seed_sd": 0.02387,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.0625,
+         0.078125,
+         0.10938
+        ]
+       },
+       "squares_per_node": {
+        "mean": 0.145833,
+        "se": 0.03168,
+        "seed_sd": 0.05487,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.09375,
+         0.14062,
+         0.20312
+        ]
+       },
+       "giant_fraction": {
+        "mean": 1.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "kappa": {
+        "mean": -0.556641,
+        "se": 0.04404,
+        "seed_sd": 0.07627,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -0.60547,
+         -0.5957,
+         -0.46875
+        ]
+       },
+       "reach": {
+        "mean": 3.01562,
+        "se": 0.01562,
+        "seed_sd": 0.02706,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         3.0,
+         3.0,
+         3.0469
+        ]
+       },
+       "d_s": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "NO_SCALING_WINDOW": 3
+        },
+        "read": true
+       },
+       "d_V": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "NO_SCALING_WINDOW": 3
+        },
+        "read": true
+       },
+       "d_B": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "NO_SCALING_WINDOW": 3
+        },
+        "read": true
+       },
+       "d_w": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "NO_SCALING_WINDOW": 3
+        },
+        "read": true
+       },
+       "ended_at_cap": {
+        "seeds": 0,
+        "of": 3
+       },
+       "log_diameter": {
+        "raised": 3,
+        "false": 0,
+        "unknown": 0,
+        "not_measured": 0
+       }
+      },
+      "given": {
+       "mean_degree": {
+        "mean": 4.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         4.0,
+         4.0,
+         4.0
+        ]
+       },
+       "energy_per_node": {
+        "mean": 0.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.0,
+         0.0,
+         0.0
+        ]
+       },
+       "triangles_per_node": {
+        "mean": 0.09375,
+        "se": 0.009021,
+        "seed_sd": 0.01562,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.09375,
+         0.10938,
+         0.078125
+        ]
+       },
+       "squares_per_node": {
+        "mean": 0.171875,
+        "se": 0.01804,
+        "seed_sd": 0.03125,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.17188,
+         0.14062,
+         0.20312
+        ]
+       },
+       "giant_fraction": {
+        "mean": 1.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "kappa": {
+        "mean": -0.554037,
+        "se": 0.01556,
+        "seed_sd": 0.02695,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -0.52344,
+         -0.57422,
+         -0.56445
+        ]
+       },
+       "reach": {
+        "mean": 3.05729,
+        "se": 0.03168,
+        "seed_sd": 0.05487,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         3.0625,
+         3.1094,
+         3.0
+        ]
+       },
+       "d_s": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "NO_SCALING_WINDOW": 3
+        },
+        "read": true
+       },
+       "d_V": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "NO_SCALING_WINDOW": 3
+        },
+        "read": true
+       },
+       "d_B": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "NO_SCALING_WINDOW": 3
+        },
+        "read": true
+       },
+       "d_w": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "NO_SCALING_WINDOW": 3
+        },
+        "read": true
+       },
+       "ended_at_cap": {
+        "seeds": 0,
+        "of": 3
+       },
+       "log_diameter": {
+        "raised": 3,
+        "false": 0,
+        "unknown": 0,
+        "not_measured": 0
+       }
+      }
+     },
+     {
+      "n": 256,
+      "seeds": 3,
+      "ends": {
+       "ceiling": 3
+      },
+      "empty": {
+       "mean_degree": {
+        "mean": 4.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         4.0,
+         4.0,
+         4.0
+        ]
+       },
+       "energy_per_node": {
+        "mean": 0.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.0,
+         0.0,
+         0.0
+        ]
+       },
+       "triangles_per_node": {
+        "mean": 0.0221354,
+        "se": 0.001302,
+        "seed_sd": 0.002255,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.023438,
+         0.019531,
+         0.023438
+        ]
+       },
+       "squares_per_node": {
+        "mean": 0.0364583,
+        "se": 0.00689,
+        "seed_sd": 0.01193,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.023438,
+         0.039062,
+         0.046875
+        ]
+       },
+       "giant_fraction": {
+        "mean": 1.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "kappa": {
+        "mean": -0.867025,
+        "se": 0.01243,
+        "seed_sd": 0.02154,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -0.87256,
+         -0.88525,
+         -0.84326
+        ]
+       },
+       "reach": {
+        "mean": 4.70573,
+        "se": 0.06007,
+        "seed_sd": 0.104,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         4.6797,
+         4.6172,
+         4.8203
+        ]
+       },
+       "d_s": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "withheld": {
+         "mean": 3.19929,
+         "seeds": 3,
+         "values": [
+          3.2063,
+          3.2191,
+          3.1725
+         ],
+         "reasons": {
+          "GROWTH_UNDECIDED": 2,
+          "EXPONENTIAL_GROWTH": 1
+         }
+        },
+        "refused": {
+         "GROWTH_UNDECIDED": 2,
+         "EXPONENTIAL_GROWTH": 1
+        },
+        "read": true
+       },
+       "d_V": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "withheld": {
+         "mean": 3.37288,
+         "seeds": 3,
+         "values": [
+          3.3649,
+          3.4102,
+          3.3435
+         ],
+         "reasons": {
+          "GROWTH_UNDECIDED": 2,
+          "EXPONENTIAL_GROWTH": 1
+         }
+        },
+        "refused": {
+         "GROWTH_UNDECIDED": 2,
+         "EXPONENTIAL_GROWTH": 1
+        },
+        "read": true
+       },
+       "d_B": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "GROWTH_UNDECIDED": 2,
+         "EXPONENTIAL_GROWTH": 1
+        },
+        "read": true
+       },
+       "d_w": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "GROWTH_UNDECIDED": 2,
+         "EXPONENTIAL_GROWTH": 1
+        },
+        "read": true
+       },
+       "ended_at_cap": {
+        "seeds": 0,
+        "of": 3
+       },
+       "log_diameter": {
+        "raised": 3,
+        "false": 0,
+        "unknown": 0,
+        "not_measured": 0
+       }
+      },
+      "given": {
+       "mean_degree": {
+        "mean": 4.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         4.0,
+         4.0,
+         4.0
+        ]
+       },
+       "energy_per_node": {
+        "mean": 0.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.0,
+         0.0,
+         0.0
+        ]
+       },
+       "triangles_per_node": {
+        "mean": 0.0208333,
+        "se": 0.002604,
+        "seed_sd": 0.004511,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.023438,
+         0.015625,
+         0.023438
+        ]
+       },
+       "squares_per_node": {
+        "mean": 0.0442708,
+        "se": 0.004695,
+        "seed_sd": 0.008132,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.050781,
+         0.046875,
+         0.035156
+        ]
+       },
+       "giant_fraction": {
+        "mean": 1.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "kappa": {
+        "mean": -0.873698,
+        "se": 0.004669,
+        "seed_sd": 0.008088,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -0.88135,
+         -0.87451,
+         -0.86523
+        ]
+       },
+       "reach": {
+        "mean": 4.78385,
+        "se": 0.04738,
+        "seed_sd": 0.08206,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         4.7031,
+         4.7812,
+         4.8672
+        ]
+       },
+       "d_s": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "GROWTH_UNDECIDED": 3
+        },
+        "read": true
+       },
+       "d_V": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "GROWTH_UNDECIDED": 3
+        },
+        "read": true
+       },
+       "d_B": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "GROWTH_UNDECIDED": 3
+        },
+        "read": true
+       },
+       "d_w": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "GROWTH_UNDECIDED": 3
+        },
+        "read": true
+       },
+       "ended_at_cap": {
+        "seeds": 0,
+        "of": 3
+       },
+       "log_diameter": {
+        "raised": 3,
+        "false": 0,
+        "unknown": 0,
+        "not_measured": 0
+       }
+      }
+     },
+     {
+      "n": 1024,
+      "seeds": 3,
+      "ends": {
+       "ceiling": 3
+      },
+      "empty": {
+       "mean_degree": {
+        "mean": 4.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         4.0,
+         4.0,
+         4.0
+        ]
+       },
+       "energy_per_node": {
+        "mean": 0.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.0,
+         0.0,
+         0.0
+        ]
+       },
+       "triangles_per_node": {
+        "mean": 0.00423177,
+        "se": 0.001722,
+        "seed_sd": 0.002983,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.00097656,
+         0.0048828,
+         0.0068359
+        ]
+       },
+       "squares_per_node": {
+        "mean": 0.0107422,
+        "se": 0.002584,
+        "seed_sd": 0.004475,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.015625,
+         0.0097656,
+         0.0068359
+        ]
+       },
+       "giant_fraction": {
+        "mean": 1.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "kappa": {
+        "mean": -0.970052,
+        "se": 0.001958,
+        "seed_sd": 0.003392,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -0.96619,
+         -0.97253,
+         -0.97144
+        ]
+       },
+       "reach": {
+        "mean": 6.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         6.0,
+         6.0,
+         6.0
+        ]
+       },
+       "d_s": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "withheld": {
+         "mean": 3.59309,
+         "seeds": 3,
+         "values": [
+          3.5365,
+          3.5491,
+          3.6936
+         ],
+         "reasons": {
+          "EXPONENTIAL_GROWTH": 3
+         }
+        },
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "d_V": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "withheld": {
+         "mean": 4.45793,
+         "seeds": 3,
+         "values": [
+          4.4727,
+          4.4501,
+          4.451
+         ],
+         "reasons": {
+          "EXPONENTIAL_GROWTH": 3
+         }
+        },
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "d_B": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "d_w": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "ended_at_cap": {
+        "seeds": 0,
+        "of": 3
+       },
+       "log_diameter": {
+        "raised": 3,
+        "false": 0,
+        "unknown": 0,
+        "not_measured": 0
+       }
+      },
+      "given": {
+       "mean_degree": {
+        "mean": 4.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         4.0,
+         4.0,
+         4.0
+        ]
+       },
+       "energy_per_node": {
+        "mean": 0.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.0,
+         0.0,
+         0.0
+        ]
+       },
+       "triangles_per_node": {
+        "mean": 0.00423177,
+        "se": 0.0008612,
+        "seed_sd": 0.001492,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.0029297,
+         0.0058594,
+         0.0039062
+        ]
+       },
+       "squares_per_node": {
+        "mean": 0.0094401,
+        "se": 0.001302,
+        "seed_sd": 0.002255,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.010742,
+         0.010742,
+         0.0068359
+        ]
+       },
+       "giant_fraction": {
+        "mean": 1.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "kappa": {
+        "mean": -0.972575,
+        "se": 0.003333,
+        "seed_sd": 0.005772,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -0.97742,
+         -0.96619,
+         -0.97412
+        ]
+       },
+       "reach": {
+        "mean": 6.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         6.0,
+         6.0,
+         6.0
+        ]
+       },
+       "d_s": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "d_V": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "d_B": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "d_w": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "ended_at_cap": {
+        "seeds": 0,
+        "of": 3
+       },
+       "log_diameter": {
+        "raised": 3,
+        "false": 0,
+        "unknown": 0,
+        "not_measured": 0
+       }
+      }
+     },
+     {
+      "n": 4096,
+      "seeds": 3,
+      "ends": {
+       "ceiling": 3
+      },
+      "empty": {
+       "mean_degree": {
+        "mean": 4.00179,
+        "se": 0.0001628,
+        "seed_sd": 0.0002819,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         4.0015,
+         4.002,
+         4.002
+        ]
+       },
+       "energy_per_node": {
+        "mean": 0.00895182,
+        "se": 0.0008138,
+        "seed_sd": 0.00141,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.0073242,
+         0.0097656,
+         0.0097656
+        ]
+       },
+       "triangles_per_node": {
+        "mean": 0.0012207,
+        "se": 0.0004229,
+        "seed_sd": 0.0007324,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.0012207,
+         0.00048828,
+         0.0019531
+        ]
+       },
+       "squares_per_node": {
+        "mean": 0.00219727,
+        "se": 0.0006459,
+        "seed_sd": 0.001119,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.0019531,
+         0.003418,
+         0.0012207
+        ]
+       },
+       "giant_fraction": {
+        "mean": 1.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "kappa": {
+        "mean": -0.993633,
+        "se": 0.0003321,
+        "seed_sd": 0.0005752,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -0.9943,
+         -0.99334,
+         -0.99326
+        ]
+       },
+       "reach": {
+        "mean": 7.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         7.0,
+         7.0,
+         7.0
+        ]
+       },
+       "d_s": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "withheld": {
+         "mean": 3.07621,
+         "seeds": 3,
+         "values": [
+          3.0862,
+          3.071,
+          3.0714
+         ],
+         "reasons": {
+          "EXPONENTIAL_GROWTH": 3
+         }
+        },
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "d_V": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "withheld": {
+         "mean": 5.07981,
+         "seeds": 3,
+         "values": [
+          5.079,
+          5.0834,
+          5.077
+         ],
+         "reasons": {
+          "EXPONENTIAL_GROWTH": 3
+         }
+        },
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "d_B": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "d_w": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "ended_at_cap": {
+        "seeds": 0,
+        "of": 3
+       },
+       "log_diameter": {
+        "raised": 3,
+        "false": 0,
+        "unknown": 0,
+        "not_measured": 0
+       }
+      },
+      "given": {
+       "mean_degree": {
+        "mean": 4.00114,
+        "se": 0.0001628,
+        "seed_sd": 0.0002819,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         4.001,
+         4.0015,
+         4.001
+        ]
+       },
+       "energy_per_node": {
+        "mean": 0.00569661,
+        "se": 0.0008138,
+        "seed_sd": 0.00141,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.0048828,
+         0.0073242,
+         0.0048828
+        ]
+       },
+       "triangles_per_node": {
+        "mean": 0.00138346,
+        "se": 0.0005336,
+        "seed_sd": 0.0009243,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.0024414,
+         0.00073242,
+         0.00097656
+        ]
+       },
+       "squares_per_node": {
+        "mean": 0.00170898,
+        "se": 0.0003729,
+        "seed_sd": 0.0006459,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.0012207,
+         0.0024414,
+         0.0014648
+        ]
+       },
+       "giant_fraction": {
+        "mean": 1.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "kappa": {
+        "mean": -0.993308,
+        "se": 0.0006845,
+        "seed_sd": 0.001186,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -0.99201,
+         -0.99359,
+         -0.99433
+        ]
+       },
+       "reach": {
+        "mean": 7.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         7.0,
+         7.0,
+         7.0
+        ]
+       },
+       "d_s": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "d_V": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "d_B": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "d_w": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "ended_at_cap": {
+        "seeds": 0,
+        "of": 3
+       },
+       "log_diameter": {
+        "raised": 3,
+        "false": 0,
+        "unknown": 0,
+        "not_measured": 0
+       }
+      }
+     }
+    ]
+   }
+  },
+  {
+   "law": "e06a125bf0",
+   "role": "N2, a standing control (`controls_criterion_2.json`): negative",
+   "chains": {
+    "given_start": "the declared answer, periodic_square_lattice",
+    "zero_temperature": false,
+    "given_probes_read": true,
+    "rungs": [
+     {
+      "n": 64,
+      "seeds": 3,
+      "ends": {
+       "ceiling": 3
+      },
+      "empty": {
+       "mean_degree": {
+        "mean": 4.07292,
+        "se": 0.01042,
+        "seed_sd": 0.01804,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         4.0625,
+         4.0625,
+         4.0938
+        ]
+       },
+       "energy_per_node": {
+        "mean": -2.89583,
+        "se": 0.04968,
+        "seed_sd": 0.08606,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -2.9375,
+         -2.7969,
+         -2.9531
+        ]
+       },
+       "triangles_per_node": {
+        "mean": 0.015625,
+        "se": 0.009021,
+        "seed_sd": 0.01562,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.0,
+         0.03125,
+         0.015625
+        ]
+       },
+       "squares_per_node": {
+        "mean": 0.739583,
+        "se": 0.03168,
+        "seed_sd": 0.05487,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.73438,
+         0.6875,
+         0.79688
+        ]
+       },
+       "giant_fraction": {
+        "mean": 1.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "kappa": {
+        "mean": -0.252904,
+        "se": 0.0178,
+        "seed_sd": 0.03083,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -0.27423,
+         -0.26692,
+         -0.21756
+        ]
+       },
+       "reach": {
+        "mean": 3.4375,
+        "se": 0.04511,
+        "seed_sd": 0.07812,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         3.5156,
+         3.3594,
+         3.4375
+        ]
+       },
+       "d_s": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "NO_SCALING_WINDOW": 3
+        },
+        "read": true
+       },
+       "d_V": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "NO_SCALING_WINDOW": 3
+        },
+        "read": true
+       },
+       "d_B": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "NO_SCALING_WINDOW": 3
+        },
+        "read": true
+       },
+       "d_w": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "NO_SCALING_WINDOW": 3
+        },
+        "read": true
+       },
+       "ended_at_cap": {
+        "seeds": 0,
+        "of": 3
+       },
+       "log_diameter": {
+        "raised": 0,
+        "false": 0,
+        "unknown": 3,
+        "not_measured": 0
+       }
+      },
+      "given": {
+       "mean_degree": {
+        "mean": 4.07292,
+        "se": 0.01042,
+        "seed_sd": 0.01804,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         4.0938,
+         4.0625,
+         4.0625
+        ]
+       },
+       "energy_per_node": {
+        "mean": -2.89583,
+        "se": 0.03756,
+        "seed_sd": 0.06505,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -2.9688,
+         -2.875,
+         -2.8438
+        ]
+       },
+       "triangles_per_node": {
+        "mean": 0.015625,
+        "se": 0.009021,
+        "seed_sd": 0.01562,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.03125,
+         0.0,
+         0.015625
+        ]
+       },
+       "squares_per_node": {
+        "mean": 0.760417,
+        "se": 0.02604,
+        "seed_sd": 0.04511,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.8125,
+         0.73438,
+         0.73438
+        ]
+       },
+       "giant_fraction": {
+        "mean": 1.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "kappa": {
+        "mean": -0.246747,
+        "se": 0.01735,
+        "seed_sd": 0.03005,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -0.2187,
+         -0.27846,
+         -0.24308
+        ]
+       },
+       "reach": {
+        "mean": 3.54688,
+        "se": 0.05413,
+        "seed_sd": 0.09375,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         3.6406,
+         3.4531,
+         3.5469
+        ]
+       },
+       "d_s": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "NO_SCALING_WINDOW": 3
+        },
+        "read": true
+       },
+       "d_V": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "NO_SCALING_WINDOW": 3
+        },
+        "read": true
+       },
+       "d_B": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "NO_SCALING_WINDOW": 3
+        },
+        "read": true
+       },
+       "d_w": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "NO_SCALING_WINDOW": 3
+        },
+        "read": true
+       },
+       "ended_at_cap": {
+        "seeds": 0,
+        "of": 3
+       },
+       "log_diameter": {
+        "raised": 0,
+        "false": 0,
+        "unknown": 3,
+        "not_measured": 0
+       }
+      }
+     },
+     {
+      "n": 256,
+      "seeds": 3,
+      "ends": {
+       "ceiling": 3
+      },
+      "empty": {
+       "mean_degree": {
+        "mean": 4.09115,
+        "se": 0.002604,
+        "seed_sd": 0.004511,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         4.0938,
+         4.0859,
+         4.0938
+        ]
+       },
+       "energy_per_node": {
+        "mean": -2.38021,
+        "se": 0.03385,
+        "seed_sd": 0.05864,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -2.3828,
+         -2.4375,
+         -2.3203
+        ]
+       },
+       "triangles_per_node": {
+        "mean": 0.00651042,
+        "se": 0.002604,
+        "seed_sd": 0.004511,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.0039062,
+         0.0039062,
+         0.011719
+        ]
+       },
+       "squares_per_node": {
+        "mean": 0.608073,
+        "se": 0.01321,
+        "seed_sd": 0.02289,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.625,
+         0.61719,
+         0.58203
+        ]
+       },
+       "giant_fraction": {
+        "mean": 1.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "kappa": {
+        "mean": -0.430364,
+        "se": 0.003687,
+        "seed_sd": 0.006387,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -0.42328,
+         -0.43212,
+         -0.43569
+        ]
+       },
+       "reach": {
+        "mean": 5.01562,
+        "se": 0.004511,
+        "seed_sd": 0.007812,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         5.0078,
+         5.0234,
+         5.0156
+        ]
+       },
+       "d_s": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "withheld": {
+         "mean": 2.96144,
+         "seeds": 3,
+         "values": [
+          3.0048,
+          2.9232,
+          2.9564
+         ],
+         "reasons": {
+          "GROWTH_UNDECIDED": 3
+         }
+        },
+        "refused": {
+         "GROWTH_UNDECIDED": 3
+        },
+        "read": true
+       },
+       "d_V": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "withheld": {
+         "mean": 2.96263,
+         "seeds": 3,
+         "values": [
+          2.9732,
+          2.9674,
+          2.9474
+         ],
+         "reasons": {
+          "GROWTH_UNDECIDED": 3
+         }
+        },
+        "refused": {
+         "GROWTH_UNDECIDED": 3
+        },
+        "read": true
+       },
+       "d_B": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "GROWTH_UNDECIDED": 3
+        },
+        "read": true
+       },
+       "d_w": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "GROWTH_UNDECIDED": 3
+        },
+        "read": true
+       },
+       "ended_at_cap": {
+        "seeds": 0,
+        "of": 3
+       },
+       "log_diameter": {
+        "raised": 1,
+        "false": 0,
+        "unknown": 2,
+        "not_measured": 0
+       }
+      },
+      "given": {
+       "mean_degree": {
+        "mean": 4.10938,
+        "se": 0.01193,
+        "seed_sd": 0.02067,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         4.1172,
+         4.125,
+         4.0859
+        ]
+       },
+       "energy_per_node": {
+        "mean": -2.26042,
+        "se": 0.06194,
+        "seed_sd": 0.1073,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -2.1367,
+         -2.3281,
+         -2.3164
+        ]
+       },
+       "triangles_per_node": {
+        "mean": 0.0104167,
+        "se": 0.004695,
+        "seed_sd": 0.008132,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.019531,
+         0.0078125,
+         0.0039062
+        ]
+       },
+       "squares_per_node": {
+        "mean": 0.595052,
+        "se": 0.02096,
+        "seed_sd": 0.0363,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.57031,
+         0.63672,
+         0.57812
+        ]
+       },
+       "giant_fraction": {
+        "mean": 1.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "kappa": {
+        "mean": -0.44963,
+        "se": 0.01274,
+        "seed_sd": 0.02206,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -0.4649,
+         -0.42434,
+         -0.45966
+        ]
+       },
+       "reach": {
+        "mean": 4.9974,
+        "se": 0.01135,
+        "seed_sd": 0.01966,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         4.9766,
+         5.0156,
+         5.0
+        ]
+       },
+       "d_s": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "GROWTH_UNDECIDED": 3
+        },
+        "read": true
+       },
+       "d_V": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "GROWTH_UNDECIDED": 3
+        },
+        "read": true
+       },
+       "d_B": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "GROWTH_UNDECIDED": 3
+        },
+        "read": true
+       },
+       "d_w": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "GROWTH_UNDECIDED": 3
+        },
+        "read": true
+       },
+       "ended_at_cap": {
+        "seeds": 0,
+        "of": 3
+       },
+       "log_diameter": {
+        "raised": 2,
+        "false": 0,
+        "unknown": 1,
+        "not_measured": 0
+       }
+      }
+     },
+     {
+      "n": 1024,
+      "seeds": 3,
+      "ends": {
+       "ceiling": 3
+      },
+      "empty": {
+       "mean_degree": {
+        "mean": 4.15234,
+        "se": 0.004511,
+        "seed_sd": 0.007812,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         4.1602,
+         4.1523,
+         4.1445
+        ]
+       },
+       "energy_per_node": {
+        "mean": -1.59245,
+        "se": 0.02686,
+        "seed_sd": 0.04653,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -1.6084,
+         -1.54,
+         -1.6289
+        ]
+       },
+       "triangles_per_node": {
+        "mean": 0.00227865,
+        "se": 0.000651,
+        "seed_sd": 0.001128,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.0029297,
+         0.00097656,
+         0.0029297
+        ]
+       },
+       "squares_per_node": {
+        "mean": 0.473958,
+        "se": 0.00705,
+        "seed_sd": 0.01221,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.47949,
+         0.45996,
+         0.48242
+        ]
+       },
+       "giant_fraction": {
+        "mean": 1.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "kappa": {
+        "mean": -0.601998,
+        "se": 0.008147,
+        "seed_sd": 0.01411,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -0.60181,
+         -0.6162,
+         -0.58798
+        ]
+       },
+       "reach": {
+        "mean": 6.02344,
+        "se": 0.007812,
+        "seed_sd": 0.01353,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         6.0156,
+         6.0156,
+         6.0391
+        ]
+       },
+       "d_s": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "withheld": {
+         "mean": 4.31764,
+         "seeds": 3,
+         "values": [
+          4.3228,
+          4.3414,
+          4.2887
+         ],
+         "reasons": {
+          "EXPONENTIAL_GROWTH": 3
+         }
+        },
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "d_V": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "withheld": {
+         "mean": 4.13681,
+         "seeds": 3,
+         "values": [
+          4.1191,
+          4.1684,
+          4.123
+         ],
+         "reasons": {
+          "EXPONENTIAL_GROWTH": 3
+         }
+        },
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "d_B": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "d_w": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "ended_at_cap": {
+        "seeds": 0,
+        "of": 3
+       },
+       "log_diameter": {
+        "raised": 3,
+        "false": 0,
+        "unknown": 0,
+        "not_measured": 0
+       }
+      },
+      "given": {
+       "mean_degree": {
+        "mean": 4.15885,
+        "se": 0.005085,
+        "seed_sd": 0.008807,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         4.168,
+         4.1504,
+         4.1582
+        ]
+       },
+       "energy_per_node": {
+        "mean": -1.58757,
+        "se": 0.03384,
+        "seed_sd": 0.0586,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -1.5283,
+         -1.6455,
+         -1.5889
+        ]
+       },
+       "triangles_per_node": {
+        "mean": 0.000976562,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.00097656,
+         0.00097656,
+         0.00097656
+        ]
+       },
+       "squares_per_node": {
+        "mean": 0.473307,
+        "se": 0.0003255,
+        "seed_sd": 0.0005638,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.47363,
+         0.47363,
+         0.47266
+        ]
+       },
+       "giant_fraction": {
+        "mean": 1.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "kappa": {
+        "mean": -0.607253,
+        "se": 0.004473,
+        "seed_sd": 0.007747,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -0.61582,
+         -0.60073,
+         -0.60521
+        ]
+       },
+       "reach": {
+        "mean": 6.03906,
+        "se": 0.009021,
+        "seed_sd": 0.01562,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         6.0234,
+         6.0547,
+         6.0391
+        ]
+       },
+       "d_s": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "d_V": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "d_B": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "d_w": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "ended_at_cap": {
+        "seeds": 0,
+        "of": 3
+       },
+       "log_diameter": {
+        "raised": 3,
+        "false": 0,
+        "unknown": 0,
+        "not_measured": 0
+       }
+      }
+     },
+     {
+      "n": 4096,
+      "seeds": 3,
+      "ends": {
+       "completed": 2,
+       "ceiling": 1
+      },
+      "empty": {
+       "mean_degree": {
+        "mean": 4.2124,
+        "se": 0.002128,
+        "seed_sd": 0.003686,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         4.2085,
+         4.2129,
+         4.2158
+        ]
+       },
+       "energy_per_node": {
+        "mean": -0.662354,
+        "se": 0.01372,
+        "seed_sd": 0.02377,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -0.65869,
+         -0.64062,
+         -0.68774
+        ]
+       },
+       "triangles_per_node": {
+        "mean": 0.000569661,
+        "se": 0.0002153,
+        "seed_sd": 0.0003729,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.00097656,
+         0.00024414,
+         0.00048828
+        ]
+       },
+       "squares_per_node": {
+        "mean": 0.325277,
+        "se": 0.004688,
+        "seed_sd": 0.008121,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.32227,
+         0.31909,
+         0.33447
+        ]
+       },
+       "giant_fraction": {
+        "mean": 1.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "kappa": {
+        "mean": -0.766976,
+        "se": 0.003421,
+        "seed_sd": 0.005925,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -0.7686,
+         -0.77192,
+         -0.76041
+        ]
+       },
+       "reach": {
+        "mean": 7.00781,
+        "se": 0.004511,
+        "seed_sd": 0.007812,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         7.0078,
+         7.0,
+         7.0156
+        ]
+       },
+       "d_s": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "withheld": {
+         "mean": 5.88982,
+         "seeds": 3,
+         "values": [
+          5.8899,
+          5.8565,
+          5.9231
+         ],
+         "reasons": {
+          "EXPONENTIAL_GROWTH": 3
+         }
+        },
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "d_V": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "withheld": {
+         "mean": 4.98853,
+         "seeds": 3,
+         "values": [
+          4.9783,
+          4.9964,
+          4.9909
+         ],
+         "reasons": {
+          "EXPONENTIAL_GROWTH": 3
+         }
+        },
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "d_B": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "d_w": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "ended_at_cap": {
+        "seeds": 0,
+        "of": 3
+       },
+       "log_diameter": {
+        "raised": 3,
+        "false": 0,
+        "unknown": 0,
+        "not_measured": 0
+       }
+      },
+      "given": {
+       "mean_degree": {
+        "mean": 4.21419,
+        "se": 0.005956,
+        "seed_sd": 0.01032,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         4.2075,
+         4.209,
+         4.2261
+        ]
+       },
+       "energy_per_node": {
+        "mean": -0.68335,
+        "se": 0.006888,
+        "seed_sd": 0.01193,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -0.69165,
+         -0.68872,
+         -0.66968
+        ]
+       },
+       "triangles_per_node": {
+        "mean": 0.000488281,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.00048828,
+         0.00048828,
+         0.00048828
+        ]
+       },
+       "squares_per_node": {
+        "mean": 0.330404,
+        "se": 0.005649,
+        "seed_sd": 0.009785,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.32324,
+         0.32642,
+         0.34155
+        ]
+       },
+       "giant_fraction": {
+        "mean": 1.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "kappa": {
+        "mean": -0.765078,
+        "se": 0.002818,
+        "seed_sd": 0.004881,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -0.76902,
+         -0.7666,
+         -0.75962
+        ]
+       },
+       "reach": {
+        "mean": 7.00781,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         7.0078,
+         7.0078,
+         7.0078
+        ]
+       },
+       "d_s": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "d_V": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "d_B": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "d_w": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "ended_at_cap": {
+        "seeds": 0,
+        "of": 3
+       },
+       "log_diameter": {
+        "raised": 3,
+        "false": 0,
+        "unknown": 0,
+        "not_measured": 0
+       }
+      }
+     }
+    ]
+   }
+  },
+  {
+   "law": "c9b022c38d",
+   "role": "C1, a standing control (`controls_criterion_2.json`): positive",
+   "chains": {
+    "given_start": "the declared answer, periodic_cubic_quotient",
+    "zero_temperature": false,
+    "given_probes_read": true,
+    "rungs": [
+     {
+      "n": 64,
+      "seeds": 3,
+      "ends": {
+       "ceiling": 3
+      },
+      "empty": {
+       "mean_degree": {
+        "mean": 6.02083,
+        "se": 0.01042,
+        "seed_sd": 0.01804,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         6.0312,
+         6.0,
+         6.0312
+        ]
+       },
+       "energy_per_node": {
+        "mean": 0.263129,
+        "se": 0.02005,
+        "seed_sd": 0.03473,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.24642,
+         0.30306,
+         0.23991
+        ]
+       },
+       "triangles_per_node": {
+        "mean": 0.0208333,
+        "se": 0.005208,
+        "seed_sd": 0.009021,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.015625,
+         0.015625,
+         0.03125
+        ]
+       },
+       "squares_per_node": {
+        "mean": 3.14062,
+        "se": 0.104,
+        "seed_sd": 0.1802,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         3.2812,
+         2.9375,
+         3.2031
+        ]
+       },
+       "giant_fraction": {
+        "mean": 1.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "kappa": {
+        "mean": -0.0921797,
+        "se": 0.01149,
+        "seed_sd": 0.01991,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -0.084999,
+         -0.11468,
+         -0.076857
+        ]
+       },
+       "reach": {
+        "mean": 2.98958,
+        "se": 0.01042,
+        "seed_sd": 0.01804,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         2.9688,
+         3.0,
+         3.0
+        ]
+       },
+       "d_s": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "NO_SCALING_WINDOW": 3
+        },
+        "read": true
+       },
+       "d_V": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "NO_SCALING_WINDOW": 3
+        },
+        "read": true
+       },
+       "d_B": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "NO_SCALING_WINDOW": 3
+        },
+        "read": true
+       },
+       "d_w": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "NO_SCALING_WINDOW": 3
+        },
+        "read": true
+       },
+       "ended_at_cap": {
+        "seeds": 0,
+        "of": 3
+       },
+       "log_diameter": {
+        "raised": 3,
+        "false": 0,
+        "unknown": 0,
+        "not_measured": 0
+       }
+      },
+      "given": {
+       "mean_degree": {
+        "mean": 6.03125,
+        "se": 0.01804,
+        "seed_sd": 0.03125,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         6.0,
+         6.0625,
+         6.0312
+        ]
+       },
+       "energy_per_node": {
+        "mean": 0.232747,
+        "se": 0.02934,
+        "seed_sd": 0.05082,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.17578,
+         0.24902,
+         0.27344
+        ]
+       },
+       "triangles_per_node": {
+        "mean": 0.015625,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.015625,
+         0.015625,
+         0.015625
+        ]
+       },
+       "squares_per_node": {
+        "mean": 3.35417,
+        "se": 0.04629,
+        "seed_sd": 0.08018,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         3.375,
+         3.4219,
+         3.2656
+        ]
+       },
+       "giant_fraction": {
+        "mean": 1.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "kappa": {
+        "mean": -0.0813353,
+        "se": 0.009071,
+        "seed_sd": 0.01571,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -0.071181,
+         -0.073392,
+         -0.099433
+        ]
+       },
+       "reach": {
+        "mean": 2.97917,
+        "se": 0.01378,
+        "seed_sd": 0.02387,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         3.0,
+         2.9844,
+         2.9531
+        ]
+       },
+       "d_s": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "NO_SCALING_WINDOW": 3
+        },
+        "read": true
+       },
+       "d_V": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "NO_SCALING_WINDOW": 3
+        },
+        "read": true
+       },
+       "d_B": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "NO_SCALING_WINDOW": 3
+        },
+        "read": true
+       },
+       "d_w": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "NO_SCALING_WINDOW": 3
+        },
+        "read": true
+       },
+       "ended_at_cap": {
+        "seeds": 0,
+        "of": 3
+       },
+       "log_diameter": {
+        "raised": 3,
+        "false": 0,
+        "unknown": 0,
+        "not_measured": 0
+       }
+      }
+     },
+     {
+      "n": 256,
+      "seeds": 3,
+      "ends": {
+       "ceiling": 3
+      },
+      "empty": {
+       "mean_degree": {
+        "mean": 6.02083,
+        "se": 0.002604,
+        "seed_sd": 0.004511,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         6.0234,
+         6.0234,
+         6.0156
+        ]
+       },
+       "energy_per_node": {
+        "mean": 0.415636,
+        "se": 0.01649,
+        "seed_sd": 0.02855,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.44702,
+         0.40869,
+         0.39119
+        ]
+       },
+       "triangles_per_node": {
+        "mean": 0.0104167,
+        "se": 0.001302,
+        "seed_sd": 0.002255,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.0078125,
+         0.011719,
+         0.011719
+        ]
+       },
+       "squares_per_node": {
+        "mean": 2.79818,
+        "se": 0.05848,
+        "seed_sd": 0.1013,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         2.7266,
+         2.7539,
+         2.9141
+        ]
+       },
+       "giant_fraction": {
+        "mean": 1.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "kappa": {
+        "mean": -0.165801,
+        "se": 0.007423,
+        "seed_sd": 0.01286,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -0.17933,
+         -0.16432,
+         -0.15375
+        ]
+       },
+       "reach": {
+        "mean": 4.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         4.0,
+         4.0,
+         4.0
+        ]
+       },
+       "d_s": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "withheld": {
+         "mean": 3.24137,
+         "seeds": 3,
+         "values": [
+          3.2956,
+          3.2438,
+          3.1847
+         ],
+         "reasons": {
+          "NO_SCALING_WINDOW": 3
+         }
+        },
+        "refused": {
+         "NO_SCALING_WINDOW": 3
+        },
+        "read": true
+       },
+       "d_V": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "NO_SCALING_WINDOW": 3
+        },
+        "read": true
+       },
+       "d_B": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "NO_SCALING_WINDOW": 3
+        },
+        "read": true
+       },
+       "d_w": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "NO_SCALING_WINDOW": 3
+        },
+        "read": true
+       },
+       "ended_at_cap": {
+        "seeds": 0,
+        "of": 3
+       },
+       "log_diameter": {
+        "raised": 3,
+        "false": 0,
+        "unknown": 0,
+        "not_measured": 0
+       }
+      },
+      "given": {
+       "mean_degree": {
+        "mean": 6.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         6.0,
+         6.0,
+         6.0
+        ]
+       },
+       "energy_per_node": {
+        "mean": -6.78034e-14,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -6.7803e-14,
+         -6.7803e-14,
+         -6.7803e-14
+        ]
+       },
+       "triangles_per_node": {
+        "mean": 0.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.0,
+         0.0,
+         0.0
+        ]
+       },
+       "squares_per_node": {
+        "mean": 3.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         3.0,
+         3.0,
+         3.0
+        ]
+       },
+       "giant_fraction": {
+        "mean": 1.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "kappa": {
+        "mean": 0.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.0,
+         0.0,
+         0.0
+        ]
+       },
+       "reach": {
+        "mean": 5.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         5.0,
+         5.0,
+         5.0
+        ]
+       },
+       "d_s": {
+        "mean": 3.11936,
+        "se": 0.02442,
+        "seed_sd": 0.0423,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         3.0981,
+         3.0919,
+         3.1681
+        ],
+        "read": true
+       },
+       "d_V": {
+        "mean": 2.75143,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         2.7514,
+         2.7514,
+         2.7514
+        ],
+        "read": true
+       },
+       "d_B": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "WINDOW_TOO_SHORT": 3
+        },
+        "read": true
+       },
+       "d_w": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "WALK_SATURATED": 3
+        },
+        "read": true
+       },
+       "ended_at_cap": {
+        "seeds": 0,
+        "of": 3
+       },
+       "log_diameter": {
+        "raised": 3,
+        "false": 0,
+        "unknown": 0,
+        "not_measured": 0
+       }
+      }
+     },
+     {
+      "n": 1024,
+      "seeds": 3,
+      "ends": {
+       "ceiling": 3
+      },
+      "empty": {
+       "mean_degree": {
+        "mean": 6.00911,
+        "se": 0.00396,
+        "seed_sd": 0.006859,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         6.002,
+         6.0156,
+         6.0098
+        ]
+       },
+       "energy_per_node": {
+        "mean": 0.589206,
+        "se": 0.009953,
+        "seed_sd": 0.01724,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.57225,
+         0.58866,
+         0.60671
+        ]
+       },
+       "triangles_per_node": {
+        "mean": 0.0224609,
+        "se": 0.001492,
+        "seed_sd": 0.002584,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.020508,
+         0.021484,
+         0.025391
+        ]
+       },
+       "squares_per_node": {
+        "mean": 2.50618,
+        "se": 0.01195,
+        "seed_sd": 0.0207,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         2.5283,
+         2.5029,
+         2.4873
+        ]
+       },
+       "giant_fraction": {
+        "mean": 1.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "kappa": {
+        "mean": -0.239066,
+        "se": 0.003183,
+        "seed_sd": 0.005514,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -0.23581,
+         -0.23595,
+         -0.24543
+        ]
+       },
+       "reach": {
+        "mean": 5.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         5.0,
+         5.0,
+         5.0
+        ]
+       },
+       "d_s": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "withheld": {
+         "mean": 4.28199,
+         "seeds": 3,
+         "values": [
+          4.2319,
+          4.2845,
+          4.3296
+         ],
+         "reasons": {
+          "EXPONENTIAL_GROWTH": 3
+         }
+        },
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "d_V": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "withheld": {
+         "mean": 4.02374,
+         "seeds": 3,
+         "values": [
+          4.019,
+          4.0003,
+          4.0519
+         ],
+         "reasons": {
+          "EXPONENTIAL_GROWTH": 3
+         }
+        },
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "d_B": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "d_w": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "ended_at_cap": {
+        "seeds": 0,
+        "of": 3
+       },
+       "log_diameter": {
+        "raised": 3,
+        "false": 0,
+        "unknown": 0,
+        "not_measured": 0
+       }
+      },
+      "given": {
+       "mean_degree": {
+        "mean": 6.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         6.0,
+         6.0,
+         6.0
+        ]
+       },
+       "energy_per_node": {
+        "mean": 1.31805e-13,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.3181e-13,
+         1.3181e-13,
+         1.3181e-13
+        ]
+       },
+       "triangles_per_node": {
+        "mean": 0.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.0,
+         0.0,
+         0.0
+        ]
+       },
+       "squares_per_node": {
+        "mean": 3.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         3.0,
+         3.0,
+         3.0
+        ]
+       },
+       "giant_fraction": {
+        "mean": 1.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "kappa": {
+        "mean": 0.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.0,
+         0.0,
+         0.0
+        ]
+       },
+       "reach": {
+        "mean": 7.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         7.0,
+         7.0,
+         7.0
+        ]
+       },
+       "d_s": {
+        "mean": 3.06444,
+        "se": 0.02443,
+        "seed_sd": 0.04231,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         3.1014,
+         3.0736,
+         3.0183
+        ],
+        "read": true
+       },
+       "d_V": {
+        "mean": 2.88974,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         2.8897,
+         2.8897,
+         2.8897
+        ],
+        "read": true
+       },
+       "d_B": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "WINDOW_TOO_SHORT": 3
+        },
+        "read": true
+       },
+       "d_w": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "WALK_SATURATED": 3
+        },
+        "read": true
+       },
+       "ended_at_cap": {
+        "seeds": 0,
+        "of": 3
+       },
+       "log_diameter": {
+        "raised": 0,
+        "false": 0,
+        "unknown": 3,
+        "not_measured": 0
+       }
+      }
+     },
+     {
+      "n": 4096,
+      "seeds": 3,
+      "ends": {
+       "ceiling": 3
+      },
+      "empty": {
+       "mean_degree": {
+        "mean": 5.99854,
+        "se": 0.001973,
+        "seed_sd": 0.003418,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         5.9961,
+         5.9971,
+         6.0024
+        ]
+       },
+       "energy_per_node": {
+        "mean": 0.974464,
+        "se": 0.004391,
+        "seed_sd": 0.007605,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.98272,
+         0.97292,
+         0.96775
+        ]
+       },
+       "triangles_per_node": {
+        "mean": 0.0381673,
+        "se": 0.001447,
+        "seed_sd": 0.002506,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.0354,
+         0.038818,
+         0.040283
+        ]
+       },
+       "squares_per_node": {
+        "mean": 1.88721,
+        "se": 0.003801,
+        "seed_sd": 0.006583,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.8796,
+         1.8904,
+         1.8916
+        ]
+       },
+       "giant_fraction": {
+        "mean": 1.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "kappa": {
+        "mean": -0.406414,
+        "se": 0.002473,
+        "seed_sd": 0.004283,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         -0.41115,
+         -0.40527,
+         -0.40282
+        ]
+       },
+       "reach": {
+        "mean": 6.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         6.0,
+         6.0,
+         6.0
+        ]
+       },
+       "d_s": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "withheld": {
+         "mean": 5.84449,
+         "seeds": 3,
+         "values": [
+          5.8225,
+          5.7716,
+          5.9394
+         ],
+         "reasons": {
+          "EXPONENTIAL_GROWTH": 3
+         }
+        },
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "d_V": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "withheld": {
+         "mean": 5.50603,
+         "seeds": 3,
+         "values": [
+          5.5065,
+          5.5118,
+          5.4998
+         ],
+         "reasons": {
+          "EXPONENTIAL_GROWTH": 3
+         }
+        },
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "d_B": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "d_w": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "EXPONENTIAL_GROWTH": 3
+        },
+        "read": true
+       },
+       "ended_at_cap": {
+        "seeds": 0,
+        "of": 3
+       },
+       "log_diameter": {
+        "raised": 3,
+        "false": 0,
+        "unknown": 0,
+        "not_measured": 0
+       }
+      },
+      "given": {
+       "mean_degree": {
+        "mean": 6.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         6.0,
+         6.0,
+         6.0
+        ]
+       },
+       "energy_per_node": {
+        "mean": 4.7193e-13,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         4.7193e-13,
+         4.7193e-13,
+         4.7193e-13
+        ]
+       },
+       "triangles_per_node": {
+        "mean": 0.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.0,
+         0.0,
+         0.0
+        ]
+       },
+       "squares_per_node": {
+        "mean": 3.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         3.0,
+         3.0,
+         3.0
+        ]
+       },
+       "giant_fraction": {
+        "mean": 1.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "kappa": {
+        "mean": 0.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         0.0,
+         0.0,
+         0.0
+        ]
+       },
+       "reach": {
+        "mean": 12.0,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         12.0,
+         12.0,
+         12.0
+        ]
+       },
+       "d_s": {
+        "mean": 2.99154,
+        "se": 0.06407,
+        "seed_sd": 0.111,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         3.0422,
+         2.8643,
+         3.0681
+        ],
+        "read": true
+       },
+       "d_V": {
+        "mean": 2.92355,
+        "se": 0.0,
+        "seed_sd": 0.0,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         2.9236,
+         2.9236,
+         2.9236
+        ],
+        "read": true
+       },
+       "d_B": {
+        "mean": 2.77385,
+        "se": 0.02078,
+        "seed_sd": 0.03599,
+        "seeds": 3,
+        "of": 3,
+        "values": [
+         2.7337,
+         2.7846,
+         2.8033
+        ],
+        "read": true
+       },
+       "d_w": {
+        "mean": null,
+        "se": null,
+        "seeds": 0,
+        "of": 3,
+        "values": [],
+        "refused": {
+         "WALK_SATURATED": 3
+        },
+        "read": true
+       },
+       "ended_at_cap": {
+        "seeds": 0,
+        "of": 3
+       },
+       "log_diameter": {
+        "raised": 0,
+        "false": 3,
+        "unknown": 0,
+        "not_measured": 0
+       }
+      }
+     }
+    ]
+   }
+  }
+ ]
+}

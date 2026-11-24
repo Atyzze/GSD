@@ -1,0 +1,338 @@
+{
+  "analysis_version": "analysis-5.3.0",
+  "auto_continuation": {
+    "min_tier": 1,
+    "probation_min_withheld": 1
+  },
+  "base_block": {
+    "concurrent": true,
+    "stage_gate": {
+      "contract": "base-block-stage-gate-1",
+      "withhold_from_n": 4096,
+      "until_verdict_at_n": 1024
+    },
+    "contract": "rung-phenotype-3",
+    "measurement_seeds_per_size": 3,
+    "no_scientific_selection_until_terminal": true,
+    "sizes": [
+      64,
+      256,
+      1024,
+      4096,
+      16384
+    ]
+  },
+  "beta_zero_control": {
+    "cache_by": [
+      "n",
+      "sampler_contract"
+    ],
+    "candidate_search_value": false,
+    "dedicated_control_path": true,
+    "enabled": true,
+    "name": "infinite_temperature_null"
+  },
+  "budgets": {
+    "max_n": 1048576,
+    "wall_seconds": null
+  },
+  "complexity_budget": 7,
+  "default_seeds": 3,
+  "description": "Build 415 default: the open-window survey. Rust engine, mean-degree window [0, 16] with the cap armed from N=1024, so rungs 64 and 256 run with no cap of any kind and the base block carries an unclamped prefix (how fast a law's density runs away) before any boundary applies. Campaign 1 of build 414 measured what the old [1.5, 8] window cost: 142 of 461 laws (30.8%) were pinned at the cap reading 8.03/8.01/8.00, only 8 of them ever produced a d_s value, and 199 more sat below the floor producing none, so 74% of the population was unreadable by construction. Filters armed from N=256, unfiltered fraction 0.25, extension ladder 65536 and 262144, three seeds on every rung, gsd-stability-score-8: two blocks of 50 (d_s and mean degree) with the branching-line, metric-class and control-family gates unchanged. Blind and uniform below the anchor; nothing is selected on the way up.",
+  "extension_ladder": [
+    65536,
+    262144,
+    1048576
+  ],
+  "filters": {
+    "armed_from_n": 256,
+    "connectivity_floor_armed_from_n": 1024,
+    "contract": "gsd-ladder-filters-3",
+    "on_below_connectivity_floor": true,
+    "on_ceiling": true,
+    "on_ceiling_classifications": [
+      "RELAXING_AT_CEILING",
+      "FROZEN_OR_ABSORBING",
+      "INSUFFICIENT_EFFECTIVE_SAMPLES",
+      "NUMERICAL_FAILURE"
+    ],
+    "on_empty": true,
+    "empty_mean_degree_max": 0.05,
+    "empty_armed_from_n": 256,
+    "on_limit": true,
+    "unfiltered_fraction": 0.25
+  },
+  "ladder": [
+    64,
+    256,
+    1024,
+    4096,
+    16384,
+    65536,
+    262144,
+    1048576
+  ],
+  "limits": {
+    "connectivity_floor": 0.9,
+    "contract": "gsd-search-limits-1",
+    "mean_degree_cap_armed_from_n": 256,
+    "mean_degree_window": {
+      "max": 16.0,
+      "min": 0.0
+    }
+  },
+  "max_active_candidates": 48,
+  "mode": "continuous",
+  "name": "campaign-5rung-open-window-survey",
+  "operator_whitelist": [
+    "edge_count",
+    "degree_anchor",
+    "degree_square_sum",
+    "wedge_count",
+    "triangle_count",
+    "triangle_edge_overlap",
+    "square_count",
+    "square_edge_overlap",
+    "induced_square_count",
+    "degree_neighbor_gradient",
+    "degree_anchor_abs",
+    "degree_cube_sum",
+    "degree_fourth_sum"
+  ],
+  "policy": {
+    "adaptive_seed_screening": {
+      "enabled": false,
+      "refinement_seeds": 1,
+      "screen_rungs": 1
+    },
+    "continuation_policy": {
+      "contract": "continuation-policy-2",
+      "effective_utc": "2026-08-28T13:25:00Z",
+      "epoch_id": "build203-information-allocation-1",
+      "exploratory": true
+    },
+    "convergence": {
+      "agreement_epsilon": 0.75,
+      "macroscopic_fraction": 0.5,
+      "max_drift_decay_slope_t": -1.0,
+      "max_final_drift": 0.25,
+      "min_component_theta": 0.75,
+      "min_drift_points": 4,
+      "min_rungs_for_fits": 5,
+      "promotion_max_recent_connected_drop": 0.25,
+      "promotion_min_component_theta": 0.95,
+      "promotion_min_latest_connected_fraction": 0.65
+    },
+    "cost_awareness": {
+      "enabled": true,
+      "max_candidate_core_seconds": 21600,
+      "max_next_action_core_seconds": 10800,
+      "min_utility_per_core_hour": 0.05
+    },
+    "degeneracy_confirmation": {
+      "confirmation_seeds": 1,
+      "enabled": true,
+      "exact_tolerance": 1e-12
+    },
+    "equilibration_component_count_delta_max": 0.1,
+    "equilibration_connected_delta_max": 0.25,
+    "equilibration_cycle_density_delta_max": 0.15,
+    "equilibration_rejection_min_rungs": 5,
+    "equilibration_split_z": 3.0,
+    "equilibration_two_core_delta_max": 0.25,
+    "half_volume_radius_relative_se_threshold": 0.08,
+    "initial_sweeps_multiplier": {
+      "1024": 16,
+      "16384": 16,
+      "256": 4,
+      "4096": 16,
+      "64": 4
+    },
+    "max_seeds_per_rung": 4,
+    "max_sweeps_multiplier": 128,
+    "min_acceptance": 0.005,
+    "min_connected_fraction": 0.5,
+    "min_effective_samples": 8,
+    "min_largest_component_cycle_rank": 1.0,
+    "more_seeds_se_threshold": 0.25,
+    "next_rung_probe": {
+      "contract": "next-rung-probe-1",
+      "enabled": true,
+      "max_current_rung_ds_se": 0.25,
+      "min_current_rung_ds_seeds": 2
+    },
+    "probe_connected_fraction_delta": 0.075,
+    "probe_cycle_density_delta": 0.05,
+    "probe_mean_degree_relative_delta": 0.025,
+    "probe_two_core_fraction_delta": 0.1,
+    "rule_version": "policy-contract-19",
+    "stationarity_drift_max": 3.0
+  },
+  "prescreen": {
+    "admission_enabled": false,
+    "early_pilot_short_circuit": false,
+    "parallel_candidates": 1
+  },
+  "proposer": {
+    "pool_min": 32
+  },
+  "resource_governor": {
+    "contract": "resource-governor-2",
+    "enabled": true,
+    "headroom_fraction": 0.1,
+    "interpretation": "operational concurrency calibration only; multi-signal capacity votes; never scientific selection",
+    "max_temperature_celsius": 90.0,
+    "runtime_adjust_seconds": 5.0,
+    "step_hold_seconds": 6.0,
+    "step_wait_seconds": 45.0
+  },
+  "resource_limits": {
+    "contract": "gsd-deep-memory-lane-1",
+    "deep_from_n": 262144,
+    "deep_single_job_fraction_total": 0.55,
+    "hard_single_job_fraction_total": 0.08,
+    "interpretation": "one rung at or above deep_from_n may hold up to this fraction of host memory as a single job. The aggregate target and every host guard are unchanged, so the rest of the fleet is squeezed through the reservation arithmetic already in force rather than by a second mechanism. hard_single_job_fraction_total (build 429) is the survey rungs' own boundary: one process above this fraction of host memory is stopped by the supervisor with a recorded reason, where before it ran to the deep lane's 0.25 and the kernel's OOM killer decided."
+  },
+  "rung_extension": {
+    "analysis_base_bytes": 402653184,
+    "analysis_fallback_bytes_per_node": 2048,
+    "continue_confirmed_stress": true,
+    "contract": "factor-four-memory-4",
+    "enabled": false,
+    "factor": 4,
+    "hard_single_job_fraction_total": 0.25,
+    "headroom_fraction_total": 0.2,
+    "minimum_headroom_bytes": 2147483648,
+    "prediction_safety_multiplier": 1.35,
+    "process_intercept_floor_bytes": 939524096,
+    "simulation_base_bytes": 939524096,
+    "simulation_fallback_bytes_per_node": 3750
+  },
+  "runtime_budget": {
+    "enforcement_contract": "actual-spend-1",
+    "rung_compute": {
+      "contract": "rung-simulation-core-1",
+      "enabled": true,
+      "interpretation": "cumulative simulation core-seconds per law per rung, across all seeds. Every rung allows at least one seed's full wall-clock budget, so the compute cap never contradicts the seed budget, and the ladder never decreases with N. Density is clamped by limits.mean_degree_cap_armed_from_n, not by this table: build 423 used this as a clamp in disguise at the rungs the campaign had declared unclamped, and build 425 gives each job back to the boundary that is named after it.",
+      "max_extension_core_seconds": 777600.0,
+      "simulation_core_seconds_by_n": {
+        "1024": 3600.0,
+        "1048576": 777600.0,
+        "16384": 14400.0,
+        "256": 3600.0,
+        "262144": 777600.0,
+        "4096": 3600.0,
+        "64": 3600.0,
+        "65536": 28800.0
+      }
+    }
+  },
+  "sampling_contract": {
+    "checkpoint_same_chain": true,
+    "continuation_rule": "max(2S,1.3*S*N_eff_target/N_eff_measured)",
+    "initial_sweeps_source": "coupling_heuristic",
+    "max_sweeps_multiplier": 64,
+    "one_shot": true,
+    "required_consecutive_passes": 2,
+    "chains_disagreement_min_growth": 2.0,
+    "version": "one-shot-sampling-1"
+  },
+  "search_policy": {
+    "contract": "gsd-blind-grid-1",
+    "grid": {
+      "anchor_k": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32
+      ],
+      "base_sweeps": 30,
+      "betas": [
+        0.1,
+        0.2,
+        0.5,
+        1.0,
+        2.0,
+        5.0,
+        10.0,
+        20.0,
+        50.0,
+        100.0
+      ],
+      "magnitudes": [
+        0.05,
+        0.1,
+        0.2,
+        0.5,
+        1.0,
+        2.0
+      ],
+      "move_mix": {
+        "add": 0.425,
+        "delete": 0.425,
+        "swap": 0.15
+      },
+      "power_exponents": [
+        -2.0,
+        -1.5,
+        -1.0,
+        -0.5,
+        -0.25,
+        0.25,
+        0.5,
+        1.0,
+        1.5,
+        2.0
+      ],
+      "scales": [
+        "one"
+      ],
+      "signs": [
+        -1,
+        1
+      ],
+      "term_counts": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    "kind": "blind"
+  },
+  "search_space_version": "hamiltonian-search-2",
+  "stage_seeds": {
+    "0": 3,
+    "1": 3,
+    "2": 3,
+    "3": 3,
+    "4": 3
+  }
+}

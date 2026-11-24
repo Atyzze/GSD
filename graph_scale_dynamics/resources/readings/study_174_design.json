@@ -1,0 +1,397 @@
+{
+ "contract": "gsd-study-design-1",
+ "study": "174",
+ "name": "study 174, the stable trial: 10,000 blind laws free of N on the eight starts in ten batches of 1,000, each batch a search seed of its own, as 173 with nothing_read acting only from 16,384 and starts_apart_by_history recording",
+ "question": "The operator's question (2026-10-13): can simple local rules make a graph grow a real dimension, like space; which keep one they are given; and can the null map predict a law before it runs? Study 169 is the first study on the final probes, the installed table and the deterministic fleet (800 to 806), run on 813, its data the first clean data (the operator, 2026-11-19 21:11: \"This way, we immediately have clean data from our latest codebase\").",
+ "decided": {
+  "why_now": "173 ran three times to the same decisions (on 841 with 16 and 23 slots, on 843 with 32) and was read; 844 is the stable build, its changes kept to the gates the operator chose, so that this study shows on a longer run whether anything new shows up and whether the batches still work before study A (the operator, 2026-11-22 15:50 and 15:51)",
+  "aim": "the stable trial: 173's design on ten new search seeds, a batch of 1,000 laws each, so that study A differs from it only in being ten times as large; it measures on laws the gates were not chosen on what they cost and what they lose, and what a law costs, for study A's length",
+  "gates": "five gates stop a law: empty, too dense and disconnected (on three sizes in a row from 1,024), starts_alike from 256, and nothing_read from 16,384 only (`engine.gate_from`), its verdict below 16,384 recorded and the law let on; starts_apart_by_history now records only. In 173 nothing_read stopped 115 laws at 4,096 and the 18 it let on held 3 scoring laws, about 20 scoring laws lost in 2,500; of the six scoring laws that went on only by a tenth, one went on past starts_apart_by_history (the operator, 2026-11-22 15:38: \"Agree with the recommendation\")",
+  "let_through": "a tenth of the laws a gate would hold back go one size on, one pick a law a size as in 172, and it stays a tenth after a gate has been right 100 times in a row: each gate that acts carries its own share of 0.1 in `engine.gate_shares`, so the pilot counts every gate on the same tenth at every size (decided 2026-11-21 between 19:26 and 20:02; `docs/HISTORY.md`)",
+  "cut": "the cut gate records only, as in 173",
+  "nothing_read": "the gate reads a probe on a piece of 0.9 of the graph at 4,096, and of 4,096 nodes above (`engine.nothing_read_piece_share`): as built it would withhold two of 172's scoring laws whose largest piece at 4,096 is 3,993 and 4,071 nodes",
+  "longer_chain": "a longer chain at the size a law is at is priced against, and run on, twice that size's budget (`engine.longer_chain_budget_scale`): most of 172's laws stopped over_budget at 4,096 were a longer chain refused by under a third",
+  "ledger": "the gates' ledger counts a law stopped over_budget as held by a gate that stood against it only where that gate acts (843)",
+  "score": "the score is 172's but for one case: a lattice start that the starts' reading calls unmoved, no edge changed, scores 1, the lowest score (score contract 6; the operator, 2026-11-21 20:02: \"And yes, agree with scoring those frozen ones with 1\")",
+  "size": "10,000 laws in ten batches of 1,000, each batch its own search seed, 173's ladder to 65,536, starts, seeds and budgets; the gates learn nothing here, every acting gate carrying its own share, so a law's decisions do not wait on another batch; on the host's 16 workers, one a physical core (the operator, 2026-11-22 15:38: SMT tested and decided against), about three days",
+  "drawn": "the ten search seeds drawn with Python's secrets.randbits(63) at 2026-11-22T14:52:29Z; the grid, the starts, the ladder, the budgets and the rest of the engine block are 173's"
+ },
+ "axes": {
+  "zero_temperature": "drawn",
+  "dense_cap": 32.0
+ },
+ "search_seeds": [
+  8472214318204445775,
+  6482104889102092288,
+  1136548796644047520,
+  5854554281733825685,
+  8202099555198795939,
+  6506518418564823871,
+  538292911524933973,
+  1159936881878362558,
+  670452903724384579,
+  5483741569627552563
+ ],
+ "ladder": {
+  "base": [
+   64,
+   256,
+   1024,
+   4096
+  ],
+  "deep": [
+   16384,
+   65536
+  ],
+  "seeds": 3,
+  "budgets": [
+   [
+    64,
+    400000000000
+   ],
+   [
+    256,
+    400000000000
+   ],
+   [
+    1024,
+    400000000000
+   ],
+   [
+    4096,
+    1600000000000
+   ],
+   [
+    16384,
+    8000000000000
+   ],
+   [
+    65536,
+    24000000000000
+   ]
+  ]
+ },
+ "law_budget": 1000,
+ "starts": [
+  {
+   "name": "random",
+   "family": "random_at_drawn_degree"
+  },
+  {
+   "name": "square",
+   "family": "periodic_square_lattice"
+  },
+  {
+   "name": "triangular",
+   "family": "periodic_triangular_lattice"
+  },
+  {
+   "name": "cubic",
+   "family": "periodic_cubic_quotient"
+  },
+  {
+   "name": "bcc",
+   "family": "periodic_body_centred_cubic_lattice"
+  },
+  {
+   "name": "fcc",
+   "family": "periodic_face_centred_cubic_lattice"
+  },
+  {
+   "name": "tesseract",
+   "family": "periodic_tesseract_quotient"
+  }
+ ],
+ "engine": {
+  "every_chain": true,
+  "dimension_extends": true,
+  "let_through_rule": "gsd-let-through-1",
+  "let_through_from": 256,
+  "fact_sizes_in_a_row": 3,
+  "one_die": true,
+  "confirm_after": 100,
+  "known_result_after": 100,
+  "known_result_from": 256,
+  "kept_shape_park": true,
+  "steady_chain_gate": true,
+  "gate_shares": [
+   [
+    "cut",
+    1.0
+   ],
+   [
+    "disconnected",
+    0.1
+   ],
+   [
+    "empty",
+    0.1
+   ],
+   [
+    "kept_shape",
+    1.0
+   ],
+   [
+    "no_finite_dimension",
+    1.0
+   ],
+   [
+    "no_giant_component",
+    1.0
+   ],
+   [
+    "no_plateau",
+    1.0
+   ],
+   [
+    "no_reading",
+    1.0
+   ],
+   [
+    "no_second_rung",
+    1.0
+   ],
+   [
+    "no_steady_chain",
+    1.0
+   ],
+   [
+    "not_promising",
+    1.0
+   ],
+   [
+    "nothing_read",
+    0.1
+   ],
+   [
+    "reading_lost",
+    1.0
+   ],
+   [
+    "repeats_a_known_result",
+    1.0
+   ],
+   [
+    "starts_alike",
+    0.1
+   ],
+   [
+    "starts_apart_by_history",
+    1.0
+   ],
+   [
+    "starts_apart_twice",
+    1.0
+   ],
+   [
+    "starts_shape_unread",
+    1.0
+   ],
+   [
+    "too_dense",
+    0.1
+   ],
+   [
+    "unsettled",
+    1.0
+   ],
+   [
+    "unsettled_twice",
+    1.0
+   ]
+  ],
+  "cut_gate": true,
+  "nothing_read_piece_share": 0.9,
+  "longer_chain_budget_scale": 2.0,
+  "ledger_counts_priced": true,
+  "gate_from": [
+   [
+    "nothing_read",
+    16384
+   ]
+  ]
+ },
+ "limits": {
+  "mean_degree_cap_armed_from_n": 64
+ },
+ "starts_reading": {
+  "hold_structure": true,
+  "lattice_chains_meet": false
+ },
+ "finds": true,
+ "campaigns": [
+  {
+   "label": "laws free of N, drawn blind, batch 1 of 10",
+   "kind": "blind",
+   "grid": {
+    "local_moves": [
+     "toggle"
+    ],
+    "scales": [
+     "one"
+    ],
+    "magnitudes": {
+     "min": 0.005,
+     "max": 20.0,
+     "spacing": "log"
+    }
+   }
+  },
+  {
+   "label": "laws free of N, drawn blind, batch 2 of 10",
+   "kind": "blind",
+   "grid": {
+    "local_moves": [
+     "toggle"
+    ],
+    "scales": [
+     "one"
+    ],
+    "magnitudes": {
+     "min": 0.005,
+     "max": 20.0,
+     "spacing": "log"
+    }
+   }
+  },
+  {
+   "label": "laws free of N, drawn blind, batch 3 of 10",
+   "kind": "blind",
+   "grid": {
+    "local_moves": [
+     "toggle"
+    ],
+    "scales": [
+     "one"
+    ],
+    "magnitudes": {
+     "min": 0.005,
+     "max": 20.0,
+     "spacing": "log"
+    }
+   }
+  },
+  {
+   "label": "laws free of N, drawn blind, batch 4 of 10",
+   "kind": "blind",
+   "grid": {
+    "local_moves": [
+     "toggle"
+    ],
+    "scales": [
+     "one"
+    ],
+    "magnitudes": {
+     "min": 0.005,
+     "max": 20.0,
+     "spacing": "log"
+    }
+   }
+  },
+  {
+   "label": "laws free of N, drawn blind, batch 5 of 10",
+   "kind": "blind",
+   "grid": {
+    "local_moves": [
+     "toggle"
+    ],
+    "scales": [
+     "one"
+    ],
+    "magnitudes": {
+     "min": 0.005,
+     "max": 20.0,
+     "spacing": "log"
+    }
+   }
+  },
+  {
+   "label": "laws free of N, drawn blind, batch 6 of 10",
+   "kind": "blind",
+   "grid": {
+    "local_moves": [
+     "toggle"
+    ],
+    "scales": [
+     "one"
+    ],
+    "magnitudes": {
+     "min": 0.005,
+     "max": 20.0,
+     "spacing": "log"
+    }
+   }
+  },
+  {
+   "label": "laws free of N, drawn blind, batch 7 of 10",
+   "kind": "blind",
+   "grid": {
+    "local_moves": [
+     "toggle"
+    ],
+    "scales": [
+     "one"
+    ],
+    "magnitudes": {
+     "min": 0.005,
+     "max": 20.0,
+     "spacing": "log"
+    }
+   }
+  },
+  {
+   "label": "laws free of N, drawn blind, batch 8 of 10",
+   "kind": "blind",
+   "grid": {
+    "local_moves": [
+     "toggle"
+    ],
+    "scales": [
+     "one"
+    ],
+    "magnitudes": {
+     "min": 0.005,
+     "max": 20.0,
+     "spacing": "log"
+    }
+   }
+  },
+  {
+   "label": "laws free of N, drawn blind, batch 9 of 10",
+   "kind": "blind",
+   "grid": {
+    "local_moves": [
+     "toggle"
+    ],
+    "scales": [
+     "one"
+    ],
+    "magnitudes": {
+     "min": 0.005,
+     "max": 20.0,
+     "spacing": "log"
+    }
+   }
+  },
+  {
+   "label": "laws free of N, drawn blind, batch 10 of 10",
+   "kind": "blind",
+   "grid": {
+    "local_moves": [
+     "toggle"
+    ],
+    "scales": [
+     "one"
+    ],
+    "magnitudes": {
+     "min": 0.005,
+     "max": 20.0,
+     "spacing": "log"
+    }
+   }
+  }
+ ],
+ "terms_left_out": [
+  "ollivier_curvature"
+ ]
+}

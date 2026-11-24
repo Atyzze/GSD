@@ -1,0 +1,96 @@
+{
+ "contract": "gsd-study-design-1",
+ "study": "four-starts",
+ "name": "a design for the tests and for tools/outputs_of_a_law.py: one law grown from four of the eight starts",
+ "question": "None: no folder starts it. It gives the tests of a law's chains, and the tool that holds one law's outputs still from build to build, a campaign on four of the eight starts, so its runs stay short: the empty graph, a random graph at a mean degree drawn for the law, the square lattice, the cubic lattice and the 4D lattice",
+ "axes": {
+  "zero_temperature": "drawn",
+  "dense_cap": 16.0
+ },
+ "ladder": {
+  "base": [
+   64,
+   256,
+   1024,
+   4096
+  ],
+  "deep": [
+   16384,
+   65536,
+   262144,
+   1048576
+  ],
+  "seeds": 3,
+  "budgets": [
+   [
+    64,
+    1000000000000
+   ],
+   [
+    256,
+    1000000000000
+   ],
+   [
+    1024,
+    1000000000000
+   ],
+   [
+    4096,
+    4000000000000
+   ],
+   [
+    16384,
+    5000000000000
+   ],
+   [
+    65536,
+    60000000000000
+   ],
+   [
+    262144,
+    240000000000000
+   ],
+   [
+    1048576,
+    720000000000000
+   ]
+  ]
+ },
+ "law_budget": 10,
+ "starts": [
+  {
+   "name": "random",
+   "family": "random_at_drawn_degree"
+  },
+  {
+   "name": "square",
+   "family": "periodic_square_lattice"
+  },
+  {
+   "name": "cubic",
+   "family": "periodic_cubic_quotient"
+  },
+  {
+   "name": "tesseract",
+   "family": "periodic_tesseract_quotient"
+  }
+ ],
+ "engine": {
+  "every_chain": true,
+  "dimension_extends": true,
+  "deep_salt_at_most": 0.02
+ },
+ "limits": {
+  "mean_degree_cap_armed_from_n": 64
+ },
+ "starts_reading": {
+  "hold_structure": true,
+  "lattice_chains_meet": false
+ },
+ "campaigns": [
+  {
+   "label": "four of the eight starts, drawn blind",
+   "kind": "blind"
+  }
+ ]
+}

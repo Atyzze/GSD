@@ -1,0 +1,3882 @@
+{
+ "contract": "gsd-score-known-answers-measured-1",
+ "criterion": "gsd-score-known-answers-criterion-3",
+ "seeds": [
+  51,
+  52,
+  53
+ ],
+ "seconds": 722.5,
+ "rows": [
+  {
+   "structure": "square",
+   "size": 4096,
+   "seed": 51,
+   "built": true,
+   "n": 4096,
+   "component": 4096,
+   "probes": {
+    "d_s": {
+     "value": 2.0157381691027254,
+     "se": 0.057492730649074175,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 1.9986397453272926,
+     "se": 0.0,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 1.9488681356210853,
+     "se": 0.016855579032267365,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 2.026621940084406,
+     "se": 0.046335626801455004,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "square",
+   "size": 4096,
+   "seed": 52,
+   "built": true,
+   "n": 4096,
+   "component": 4096,
+   "probes": {
+    "d_s": {
+     "value": 2.0319433137073237,
+     "se": 0.06578155852012552,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 1.9986397453272926,
+     "se": 0.0,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 1.910112329635954,
+     "se": 0.014275405674686341,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 1.984613219495193,
+     "se": 0.03383019741467949,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "square",
+   "size": 4096,
+   "seed": 53,
+   "built": true,
+   "n": 4096,
+   "component": 4096,
+   "probes": {
+    "d_s": {
+     "value": 2.0463831921381104,
+     "se": 0.04689910616728483,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 1.9986397453272926,
+     "se": 0.0,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 1.9370489860294888,
+     "se": 0.021621986539359723,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 1.9762104031260814,
+     "se": 0.031347533938854096,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "square",
+   "size": 16384,
+   "seed": 51,
+   "built": true,
+   "n": 16384,
+   "component": 16384,
+   "probes": {
+    "d_s": {
+     "value": 2.0444983749905896,
+     "se": 0.0518264252359011,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 1.9996816484338535,
+     "se": 2.2316322462394835e-16,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 1.965951586271829,
+     "se": 0.010046040082752622,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 1.967828408365192,
+     "se": 0.021909251847194496,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "square",
+   "size": 16384,
+   "seed": 52,
+   "built": true,
+   "n": 16384,
+   "component": 16384,
+   "probes": {
+    "d_s": {
+     "value": 1.9511934547782452,
+     "se": 0.034201204566248956,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 1.9996816484338535,
+     "se": 2.2316322462394835e-16,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 1.9356971527489093,
+     "se": 0.009880456897364453,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 1.9924032199945558,
+     "se": 0.020182841717052206,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "square",
+   "size": 16384,
+   "seed": 53,
+   "built": true,
+   "n": 16384,
+   "component": 16384,
+   "probes": {
+    "d_s": {
+     "value": 2.0273291003291583,
+     "se": 0.04984562349255218,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 1.9996816484338535,
+     "se": 2.2316322462394835e-16,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 1.944576152435934,
+     "se": 0.009773472949952707,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 1.9632683497257584,
+     "se": 0.02189360729810941,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "square",
+   "size": 65536,
+   "seed": 51,
+   "built": true,
+   "n": 65536,
+   "component": 65536,
+   "probes": {
+    "d_s": {
+     "value": 1.9956156227040187,
+     "se": 0.024575492485561953,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 1.999755713038864,
+     "se": 6.694896738718451e-16,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 1.9535721796904455,
+     "se": 0.006350058371042845,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 1.991370081356347,
+     "se": 0.020232177743106587,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "square",
+   "size": 65536,
+   "seed": 52,
+   "built": true,
+   "n": 65536,
+   "component": 65536,
+   "probes": {
+    "d_s": {
+     "value": 1.9696952029510817,
+     "se": 0.023784646194595964,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 1.999755713038864,
+     "se": 6.694896738718451e-16,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 1.9533316018760913,
+     "se": 0.007785170056089495,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 1.9568060057355872,
+     "se": 0.014730445901336686,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "square",
+   "size": 65536,
+   "seed": 53,
+   "built": true,
+   "n": 65536,
+   "component": 65536,
+   "probes": {
+    "d_s": {
+     "value": 2.0345078027963845,
+     "se": 0.023687764291698568,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 1.999755713038864,
+     "se": 6.694896738718451e-16,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 1.9641408092680008,
+     "se": 0.008244874801002331,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 1.9544462003058813,
+     "se": 0.023081804206889572,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "triangular",
+   "size": 4096,
+   "seed": 51,
+   "built": true,
+   "n": 4096,
+   "component": 4096,
+   "probes": {
+    "d_s": {
+     "value": 1.9849705116681344,
+     "se": 0.0464193204415472,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 1.9995179265276446,
+     "se": 6.694896738718451e-16,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 1.9044214573015674,
+     "se": 0.018965192801868657,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 1.9794291214334734,
+     "se": 0.03460064893237326,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "triangular",
+   "size": 4096,
+   "seed": 52,
+   "built": true,
+   "n": 4096,
+   "component": 4096,
+   "probes": {
+    "d_s": {
+     "value": 2.093556180877302,
+     "se": 0.04822484308570223,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 1.9995179265276446,
+     "se": 6.694896738718451e-16,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 1.9005370081556179,
+     "se": 0.01863371837596951,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 2.006055144364756,
+     "se": 0.043482669948628955,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "triangular",
+   "size": 4096,
+   "seed": 53,
+   "built": true,
+   "n": 4096,
+   "component": 4096,
+   "probes": {
+    "d_s": {
+     "value": 1.9928663696920073,
+     "se": 0.07763234976611338,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 1.9995179265276446,
+     "se": 6.694896738718451e-16,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 1.9141033258989877,
+     "se": 0.02184811767404467,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 1.9526878204979459,
+     "se": 0.03773954065926463,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "triangular",
+   "size": 16384,
+   "seed": 51,
+   "built": true,
+   "n": 16384,
+   "component": 16384,
+   "probes": {
+    "d_s": {
+     "value": 2.009283086015362,
+     "se": 0.05691127232142795,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 1.9998859387619319,
+     "se": 2.2316322462394835e-16,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 1.9513269816308978,
+     "se": 0.009811198846571376,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 1.956158067221627,
+     "se": 0.026315410350140685,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "triangular",
+   "size": 16384,
+   "seed": 52,
+   "built": true,
+   "n": 16384,
+   "component": 16384,
+   "probes": {
+    "d_s": {
+     "value": 1.8698771495221471,
+     "se": 0.05153713225621812,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 1.9998859387619319,
+     "se": 2.2316322462394835e-16,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 1.957789364775144,
+     "se": 0.008892874712753232,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 1.9856726713088606,
+     "se": 0.01833618340938569,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "triangular",
+   "size": 16384,
+   "seed": 53,
+   "built": true,
+   "n": 16384,
+   "component": 16384,
+   "probes": {
+    "d_s": {
+     "value": 2.008347574689914,
+     "se": 0.0432511091139833,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 1.9998859387619319,
+     "se": 2.2316322462394835e-16,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 1.9535164067191157,
+     "se": 0.014860389385045735,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 1.956597528921913,
+     "se": 0.02284637317616436,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "triangular",
+   "size": 65536,
+   "seed": 51,
+   "built": true,
+   "n": 65536,
+   "component": 65536,
+   "probes": {
+    "d_s": {
+     "value": 1.9591247425383407,
+     "se": 0.028066799400269557,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 1.9999185637014365,
+     "se": 2.2316322462394835e-16,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 1.9663145899094283,
+     "se": 0.007992850905759196,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 2.016168749198595,
+     "se": 0.017326715425308812,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "triangular",
+   "size": 65536,
+   "seed": 52,
+   "built": true,
+   "n": 65536,
+   "component": 65536,
+   "probes": {
+    "d_s": {
+     "value": 2.030985480929401,
+     "se": 0.032244893706268735,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 1.9999185637014365,
+     "se": 2.2316322462394835e-16,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 1.957382056633668,
+     "se": 0.006796648257753975,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 1.9643260411085999,
+     "se": 0.017943242284705105,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "triangular",
+   "size": 65536,
+   "seed": 53,
+   "built": true,
+   "n": 65536,
+   "component": 65536,
+   "probes": {
+    "d_s": {
+     "value": 1.996703136715649,
+     "se": 0.02314679605551302,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 1.9999185637014365,
+     "se": 2.2316322462394835e-16,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 1.9640745570721636,
+     "se": 0.007895630521767817,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 2.00433165302527,
+     "se": 0.026373251969034974,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "honeycomb",
+   "size": 4096,
+   "seed": 51,
+   "built": true,
+   "n": 4096,
+   "component": 4096,
+   "probes": {
+    "d_s": {
+     "value": 2.0778426356405433,
+     "se": 0.05325475497114327,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 1.996977307001755,
+     "se": 0.0,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 1.928931932566198,
+     "se": 0.015072591922308254,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 1.9851118403366146,
+     "se": 0.031135160644456747,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "honeycomb",
+   "size": 4096,
+   "seed": 52,
+   "built": true,
+   "n": 4096,
+   "component": 4096,
+   "probes": {
+    "d_s": {
+     "value": 2.030519278514497,
+     "se": 0.050609388850455336,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 1.996977307001755,
+     "se": 0.0,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 1.9054101618940638,
+     "se": 0.015153256461024656,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 2.016331957878019,
+     "se": 0.029945449598466574,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "honeycomb",
+   "size": 4096,
+   "seed": 53,
+   "built": true,
+   "n": 4096,
+   "component": 4096,
+   "probes": {
+    "d_s": {
+     "value": 1.9468214586104111,
+     "se": 0.05602746894628767,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 1.996977307001755,
+     "se": 0.0,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 1.909337966250536,
+     "se": 0.008284841497507559,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 2.010238471669057,
+     "se": 0.028964410896915684,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "honeycomb",
+   "size": 16384,
+   "seed": 51,
+   "built": true,
+   "n": 16384,
+   "component": 16384,
+   "probes": {
+    "d_s": {
+     "value": 1.9642159090346827,
+     "se": 0.03527714119118112,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 1.9994694761584988,
+     "se": 4.463264492478967e-16,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 1.9323529953923582,
+     "se": 0.007873060392548245,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 1.9890959943661481,
+     "se": 0.02450959481224869,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "honeycomb",
+   "size": 16384,
+   "seed": 52,
+   "built": true,
+   "n": 16384,
+   "component": 16384,
+   "probes": {
+    "d_s": {
+     "value": 1.9568120367112078,
+     "se": 0.040590165959931646,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 1.9994694761584988,
+     "se": 4.463264492478967e-16,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 1.9436592377346713,
+     "se": 0.009439403937265242,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 1.9800853083943035,
+     "se": 0.02499707314110566,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "honeycomb",
+   "size": 16384,
+   "seed": 53,
+   "built": true,
+   "n": 16384,
+   "component": 16384,
+   "probes": {
+    "d_s": {
+     "value": 1.9313007891650118,
+     "se": 0.03982805112035535,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 1.9994694761584988,
+     "se": 4.463264492478967e-16,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 1.9409006793614865,
+     "se": 0.007281441117112506,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 1.983231805242714,
+     "se": 0.021343674607577356,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "honeycomb",
+   "size": 65536,
+   "seed": 51,
+   "built": true,
+   "n": 65536,
+   "component": 65536,
+   "probes": {
+    "d_s": {
+     "value": 1.982178334263985,
+     "se": 0.022704727919378952,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 1.9995928916152006,
+     "se": 4.463264492478967e-16,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 1.947766121531198,
+     "se": 0.006121063310630987,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 1.9649121257953572,
+     "se": 0.021623128249628944,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "honeycomb",
+   "size": 65536,
+   "seed": 52,
+   "built": true,
+   "n": 65536,
+   "component": 65536,
+   "probes": {
+    "d_s": {
+     "value": 2.0135764614256346,
+     "se": 0.020542957081571882,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 1.9995928916152006,
+     "se": 4.463264492478967e-16,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 1.9509427146179033,
+     "se": 0.00712409360818156,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 2.02806604327484,
+     "se": 0.021443872712105946,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "honeycomb",
+   "size": 65536,
+   "seed": 53,
+   "built": true,
+   "n": 65536,
+   "component": 65536,
+   "probes": {
+    "d_s": {
+     "value": 1.9870643743824759,
+     "se": 0.024349294617370242,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 1.9995928916152006,
+     "se": 4.463264492478967e-16,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 1.9531514868209587,
+     "se": 0.009392368415281335,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 1.997856097659504,
+     "se": 0.01774565304492007,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "cubic",
+   "size": 4096,
+   "seed": 51,
+   "built": true,
+   "n": 4096,
+   "component": 4096,
+   "probes": {
+    "d_s": {
+     "value": 3.0582281285044934,
+     "se": 0.06408561997970981,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.9235514094405306,
+     "se": 1.3389793477436902e-15,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 2.7233914033976747,
+     "se": 0.07481952180146202,
+     "refusal": null
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "WALK_SATURATED"
+    }
+   }
+  },
+  {
+   "structure": "cubic",
+   "size": 4096,
+   "seed": 52,
+   "built": true,
+   "n": 4096,
+   "component": 4096,
+   "probes": {
+    "d_s": {
+     "value": 2.925596940727358,
+     "se": 0.0975845725772484,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.9235514094405306,
+     "se": 1.3389793477436902e-15,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 2.7483138436935803,
+     "se": 0.06933633126768605,
+     "refusal": null
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "WALK_SATURATED"
+    }
+   }
+  },
+  {
+   "structure": "cubic",
+   "size": 4096,
+   "seed": 53,
+   "built": true,
+   "n": 4096,
+   "component": 4096,
+   "probes": {
+    "d_s": {
+     "value": 3.0855388148913487,
+     "se": 0.0830732952357984,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.9235514094405306,
+     "se": 1.3389793477436902e-15,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 2.759529206243269,
+     "se": 0.08733663917539713,
+     "refusal": null
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "WALK_SATURATED"
+    }
+   }
+  },
+  {
+   "structure": "cubic",
+   "size": 16384,
+   "seed": 51,
+   "built": true,
+   "n": 16384,
+   "component": 16384,
+   "probes": {
+    "d_s": {
+     "value": 3.002314247594161,
+     "se": 0.07067716883557829,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.977509011264983,
+     "se": 1.3389793477436902e-15,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 2.79513393962979,
+     "se": 0.01840702177252108,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 1.8940792694997628,
+     "se": 0.03984164184142656,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "cubic",
+   "size": 16384,
+   "seed": 52,
+   "built": true,
+   "n": 16384,
+   "component": 16384,
+   "probes": {
+    "d_s": {
+     "value": 3.0683089408591537,
+     "se": 0.07308574120186062,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.977509011264983,
+     "se": 1.3389793477436902e-15,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 2.8082971086876274,
+     "se": 0.026078060690992683,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 1.9186897577073965,
+     "se": 0.045403977685985655,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "cubic",
+   "size": 16384,
+   "seed": 53,
+   "built": true,
+   "n": 16384,
+   "component": 16384,
+   "probes": {
+    "d_s": {
+     "value": 2.9692709360371645,
+     "se": 0.06697116062853387,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.977509011264983,
+     "se": 1.3389793477436902e-15,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 2.797167057112513,
+     "se": 0.027007037792034654,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 1.990804055240378,
+     "se": 0.045720185930545616,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "cubic",
+   "size": 65536,
+   "seed": 51,
+   "built": true,
+   "n": 65536,
+   "component": 65536,
+   "probes": {
+    "d_s": {
+     "value": 2.9785903302528407,
+     "se": 0.08400899124003793,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.994382624153445,
+     "se": 0.0,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 2.8136836226406072,
+     "se": 0.01210296847575964,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 1.9375725514653896,
+     "se": 0.03395152073060924,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "cubic",
+   "size": 65536,
+   "seed": 52,
+   "built": true,
+   "n": 65536,
+   "component": 65536,
+   "probes": {
+    "d_s": {
+     "value": 2.9238648578182027,
+     "se": 0.17657068081689709,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.994382624153445,
+     "se": 0.0,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 2.8317329383792216,
+     "se": 0.012114747557144383,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 1.9843692562736706,
+     "se": 0.033120172105694325,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "cubic",
+   "size": 65536,
+   "seed": 53,
+   "built": true,
+   "n": 65536,
+   "component": 65536,
+   "probes": {
+    "d_s": {
+     "value": 2.9721951245419787,
+     "se": 0.07514196489859945,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.994382624153445,
+     "se": 0.0,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 2.8386093811576893,
+     "se": 0.011489933882724977,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 1.9390664689166361,
+     "se": 0.03714473549498176,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "body-centred cubic",
+   "size": 4096,
+   "seed": 51,
+   "built": true,
+   "n": 4096,
+   "component": 4096,
+   "probes": {
+    "d_s": {
+     "value": 2.932081195546633,
+     "se": 0.08636036366025703,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.9392501276135548,
+     "se": 4.463264492478967e-16,
+     "refusal": null
+    },
+    "d_B": {
+     "value": null,
+     "se": null,
+     "refusal": "WINDOW_TOO_SHORT"
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "WALK_SATURATED"
+    }
+   }
+  },
+  {
+   "structure": "body-centred cubic",
+   "size": 4096,
+   "seed": 52,
+   "built": true,
+   "n": 4096,
+   "component": 4096,
+   "probes": {
+    "d_s": {
+     "value": 3.0908070089937376,
+     "se": 0.06260306947382047,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.9392501276135548,
+     "se": 4.463264492478967e-16,
+     "refusal": null
+    },
+    "d_B": {
+     "value": null,
+     "se": null,
+     "refusal": "WINDOW_TOO_SHORT"
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "WALK_SATURATED"
+    }
+   }
+  },
+  {
+   "structure": "body-centred cubic",
+   "size": 4096,
+   "seed": 53,
+   "built": true,
+   "n": 4096,
+   "component": 4096,
+   "probes": {
+    "d_s": {
+     "value": 3.131948070594975,
+     "se": 0.07058786400743824,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.9392501276135548,
+     "se": 4.463264492478967e-16,
+     "refusal": null
+    },
+    "d_B": {
+     "value": null,
+     "se": null,
+     "refusal": "WINDOW_TOO_SHORT"
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "WALK_SATURATED"
+    }
+   }
+  },
+  {
+   "structure": "body-centred cubic",
+   "size": 16384,
+   "seed": 51,
+   "built": true,
+   "n": 16384,
+   "component": 16384,
+   "probes": {
+    "d_s": {
+     "value": 2.951726761585671,
+     "se": 0.10093150212573945,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.98824209275084,
+     "se": 4.463264492478967e-16,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 2.8686477290780177,
+     "se": 0.03403547722209169,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 1.9709653526930664,
+     "se": 0.06802048269034305,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "body-centred cubic",
+   "size": 16384,
+   "seed": 52,
+   "built": true,
+   "n": 16384,
+   "component": 16384,
+   "probes": {
+    "d_s": {
+     "value": 2.961570653225185,
+     "se": 0.1037246399099237,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.98824209275084,
+     "se": 4.463264492478967e-16,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 2.8463891481292243,
+     "se": 0.040557933681687745,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 1.951532073301586,
+     "se": 0.04720685863543664,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "body-centred cubic",
+   "size": 16384,
+   "seed": 53,
+   "built": true,
+   "n": 16384,
+   "component": 16384,
+   "probes": {
+    "d_s": {
+     "value": 2.979311710431541,
+     "se": 0.14230645127375,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.98824209275084,
+     "se": 4.463264492478967e-16,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 2.8334419796295895,
+     "se": 0.035640611457581586,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 2.028197497540105,
+     "se": 0.0595006596531246,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "body-centred cubic",
+   "size": 65536,
+   "seed": 51,
+   "built": true,
+   "n": 65536,
+   "component": 65536,
+   "probes": {
+    "d_s": {
+     "value": 2.973287997443223,
+     "se": 0.09661559204637214,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.9955125548477017,
+     "se": 0.0,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 2.886549005450826,
+     "se": 0.018271883886461383,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 1.9306281526509954,
+     "se": 0.03445455035754164,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "body-centred cubic",
+   "size": 65536,
+   "seed": 52,
+   "built": true,
+   "n": 65536,
+   "component": 65536,
+   "probes": {
+    "d_s": {
+     "value": 3.0105865247888466,
+     "se": 0.06410133429074687,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.9955125548477017,
+     "se": 0.0,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 2.8790098627050638,
+     "se": 0.027057143398638076,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 1.9754525529217146,
+     "se": 0.042977095355497125,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "body-centred cubic",
+   "size": 65536,
+   "seed": 53,
+   "built": true,
+   "n": 65536,
+   "component": 65536,
+   "probes": {
+    "d_s": {
+     "value": 3.038082031057038,
+     "se": 0.11622457322051773,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.9955125548477017,
+     "se": 0.0,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 2.8882519939359224,
+     "se": 0.018588399852630725,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 1.9111241683792963,
+     "se": 0.029523586979629042,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "face-centred cubic",
+   "size": 4096,
+   "seed": 51,
+   "built": true,
+   "n": 4096,
+   "component": 4096,
+   "probes": {
+    "d_s": {
+     "value": 3.01941440586585,
+     "se": 0.0649149602906788,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.9773807742555536,
+     "se": 4.463264492478967e-16,
+     "refusal": null
+    },
+    "d_B": {
+     "value": null,
+     "se": null,
+     "refusal": "WINDOW_TOO_SHORT"
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "WALK_SATURATED"
+    }
+   }
+  },
+  {
+   "structure": "face-centred cubic",
+   "size": 4096,
+   "seed": 52,
+   "built": true,
+   "n": 4096,
+   "component": 4096,
+   "probes": {
+    "d_s": {
+     "value": 3.0329744319321343,
+     "se": 0.07349226525268046,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.9773807742555536,
+     "se": 4.463264492478967e-16,
+     "refusal": null
+    },
+    "d_B": {
+     "value": null,
+     "se": null,
+     "refusal": "WINDOW_TOO_SHORT"
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "WALK_SATURATED"
+    }
+   }
+  },
+  {
+   "structure": "face-centred cubic",
+   "size": 4096,
+   "seed": 53,
+   "built": true,
+   "n": 4096,
+   "component": 4096,
+   "probes": {
+    "d_s": {
+     "value": 3.019672738679529,
+     "se": 0.07853348269945071,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.9773807742555536,
+     "se": 4.463264492478967e-16,
+     "refusal": null
+    },
+    "d_B": {
+     "value": null,
+     "se": null,
+     "refusal": "WINDOW_TOO_SHORT"
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "WALK_SATURATED"
+    }
+   }
+  },
+  {
+   "structure": "face-centred cubic",
+   "size": 16384,
+   "seed": 51,
+   "built": true,
+   "n": 16384,
+   "component": 16384,
+   "probes": {
+    "d_s": {
+     "value": 2.9428504951546923,
+     "se": 0.10079330759363263,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.9928284620469916,
+     "se": 4.463264492478967e-16,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 2.8739186308846567,
+     "se": 0.04240916393699251,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 1.8608233441489332,
+     "se": 0.0595922764505821,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "face-centred cubic",
+   "size": 16384,
+   "seed": 52,
+   "built": true,
+   "n": 16384,
+   "component": 16384,
+   "probes": {
+    "d_s": {
+     "value": 2.899899284742876,
+     "se": 0.10489640101850814,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.9928284620469916,
+     "se": 4.463264492478967e-16,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 2.820949592649339,
+     "se": 0.047155627071755586,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 1.9438971299873222,
+     "se": 0.06406252322141587,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "face-centred cubic",
+   "size": 16384,
+   "seed": 53,
+   "built": true,
+   "n": 16384,
+   "component": 16384,
+   "probes": {
+    "d_s": {
+     "value": 2.804372484450495,
+     "se": 0.19234334052572874,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.9928284620469916,
+     "se": 4.463264492478967e-16,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 2.8145369253353345,
+     "se": 0.04426481634316396,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 1.9641213375038296,
+     "se": 0.05015658266194079,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "face-centred cubic",
+   "size": 65536,
+   "seed": 51,
+   "built": true,
+   "n": 65536,
+   "component": 65536,
+   "probes": {
+    "d_s": {
+     "value": 3.0317113602426287,
+     "se": 0.06988735995616195,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.9970753064803133,
+     "se": 0.0,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 2.850843435842576,
+     "se": 0.015205765653841906,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 2.01197077956737,
+     "se": 0.03776794179196123,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "face-centred cubic",
+   "size": 65536,
+   "seed": 52,
+   "built": true,
+   "n": 65536,
+   "component": 65536,
+   "probes": {
+    "d_s": {
+     "value": 3.0360596978906726,
+     "se": 0.07571114985445038,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.9970753064803133,
+     "se": 0.0,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 2.8613081491676486,
+     "se": 0.020256507804023355,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 1.9640365793307806,
+     "se": 0.032664672150345006,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "face-centred cubic",
+   "size": 65536,
+   "seed": 53,
+   "built": true,
+   "n": 65536,
+   "component": 65536,
+   "probes": {
+    "d_s": {
+     "value": 3.0962053395401528,
+     "se": 0.07599954194275016,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.9970753064803133,
+     "se": 0.0,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 2.8478438858805397,
+     "se": 0.012156913157283835,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 2.0276601467657596,
+     "se": 0.0439853666154794,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "4D",
+   "size": 4096,
+   "seed": 51,
+   "built": true,
+   "n": 4096,
+   "component": 4096,
+   "probes": {
+    "d_s": {
+     "value": 4.139465681672085,
+     "se": 0.14426274201018563,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 3.5615123927764816,
+     "se": 8.926528984957934e-16,
+     "refusal": null
+    },
+    "d_B": {
+     "value": null,
+     "se": null,
+     "refusal": "WINDOW_TOO_SHORT"
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "WALK_SATURATED"
+    }
+   }
+  },
+  {
+   "structure": "4D",
+   "size": 4096,
+   "seed": 52,
+   "built": true,
+   "n": 4096,
+   "component": 4096,
+   "probes": {
+    "d_s": {
+     "value": 3.8964366229485576,
+     "se": 0.12632695636275373,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 3.5615123927764816,
+     "se": 8.926528984957934e-16,
+     "refusal": null
+    },
+    "d_B": {
+     "value": null,
+     "se": null,
+     "refusal": "WINDOW_TOO_SHORT"
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "WALK_SATURATED"
+    }
+   }
+  },
+  {
+   "structure": "4D",
+   "size": 4096,
+   "seed": 53,
+   "built": true,
+   "n": 4096,
+   "component": 4096,
+   "probes": {
+    "d_s": {
+     "value": 4.071585189827217,
+     "se": 0.10818314054482847,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 3.5615123927764816,
+     "se": 8.926528984957934e-16,
+     "refusal": null
+    },
+    "d_B": {
+     "value": null,
+     "se": null,
+     "refusal": "WINDOW_TOO_SHORT"
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "WALK_SATURATED"
+    }
+   }
+  },
+  {
+   "structure": "4D",
+   "size": 16384,
+   "seed": 51,
+   "built": true,
+   "n": 16384,
+   "component": 16384,
+   "probes": {
+    "d_s": {
+     "value": 3.868105015105452,
+     "se": 0.16393939648371342,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 3.8074637792123625,
+     "se": 4.463264492478967e-16,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 3.4772442378503094,
+     "se": 0.09332211930105291,
+     "refusal": null
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "WALK_SATURATED"
+    }
+   }
+  },
+  {
+   "structure": "4D",
+   "size": 16384,
+   "seed": 52,
+   "built": true,
+   "n": 16384,
+   "component": 16384,
+   "probes": {
+    "d_s": {
+     "value": 3.710164837293796,
+     "se": 0.2940775391448522,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 3.8074637792123625,
+     "se": 4.463264492478967e-16,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 3.5107665869050355,
+     "se": 0.07871268341763342,
+     "refusal": null
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "WALK_SATURATED"
+    }
+   }
+  },
+  {
+   "structure": "4D",
+   "size": 16384,
+   "seed": 53,
+   "built": true,
+   "n": 16384,
+   "component": 16384,
+   "probes": {
+    "d_s": {
+     "value": 4.032286679623164,
+     "se": 0.21134399681212032,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 3.8074637792123625,
+     "se": 4.463264492478967e-16,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 3.5288839157221816,
+     "se": 0.06459624728189692,
+     "refusal": null
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "WALK_SATURATED"
+    }
+   }
+  },
+  {
+   "structure": "4D",
+   "size": 65536,
+   "seed": 51,
+   "built": true,
+   "n": 65536,
+   "component": 65536,
+   "probes": {
+    "d_s": {
+     "value": 3.8547968990244286,
+     "se": 0.12982066988643415,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 3.8549697130330127,
+     "se": 1.785305796991587e-15,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 3.579142687880387,
+     "se": 0.032203055160016834,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 1.9177244960121471,
+     "se": 0.06582972740611859,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "4D",
+   "size": 65536,
+   "seed": 52,
+   "built": true,
+   "n": 65536,
+   "component": 65536,
+   "probes": {
+    "d_s": {
+     "value": 3.9115485042651406,
+     "se": 0.10104672328441233,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 3.8549697130330127,
+     "se": 1.785305796991587e-15,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 3.573283992689942,
+     "se": 0.040772991131459956,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 1.8991373233480062,
+     "se": 0.05614456268571817,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "4D",
+   "size": 65536,
+   "seed": 53,
+   "built": true,
+   "n": 65536,
+   "component": 65536,
+   "probes": {
+    "d_s": {
+     "value": 4.0060269560148445,
+     "se": 0.11486328284004987,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 3.8549697130330127,
+     "se": 1.785305796991587e-15,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 3.5605229344038536,
+     "se": 0.0284869363329739,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 1.9583757309217726,
+     "se": 0.05490725078531419,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "ring",
+   "size": 4096,
+   "seed": 51,
+   "built": true,
+   "n": 4096,
+   "component": 4096,
+   "probes": {
+    "d_s": {
+     "value": 1.0269319669386803,
+     "se": 0.011907169951216205,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 1.0000000000000013,
+     "se": 2.2316322462394835e-16,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 0.9845886078199289,
+     "se": 0.004746275918226378,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 2.0333725460498746,
+     "se": 0.04077823846486613,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "ring",
+   "size": 4096,
+   "seed": 52,
+   "built": true,
+   "n": 4096,
+   "component": 4096,
+   "probes": {
+    "d_s": {
+     "value": 1.0044882967398472,
+     "se": 0.009527366622685498,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 1.0000000000000013,
+     "se": 2.2316322462394835e-16,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 0.9793724156491015,
+     "se": 0.004218156297560805,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 1.9966710236487577,
+     "se": 0.03513434685450033,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "ring",
+   "size": 4096,
+   "seed": 53,
+   "built": true,
+   "n": 4096,
+   "component": 4096,
+   "probes": {
+    "d_s": {
+     "value": 0.9909495667774919,
+     "se": 0.010007509216353317,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 1.0000000000000013,
+     "se": 2.2316322462394835e-16,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 0.9830124683442227,
+     "se": 0.003742809469004297,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 1.9791903420667436,
+     "se": 0.04535408053247553,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "ring",
+   "size": 16384,
+   "seed": 51,
+   "built": true,
+   "n": 16384,
+   "component": 16384,
+   "probes": {
+    "d_s": {
+     "value": 0.9880206788725892,
+     "se": 0.008759193509012327,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 1.0000000000000016,
+     "se": 0.0,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 0.9818729892411685,
+     "se": 0.0022555749834900526,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 1.9902082501509324,
+     "se": 0.03550594515352249,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "ring",
+   "size": 16384,
+   "seed": 52,
+   "built": true,
+   "n": 16384,
+   "component": 16384,
+   "probes": {
+    "d_s": {
+     "value": 1.0074908105575555,
+     "se": 0.006780204621594966,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 1.0000000000000016,
+     "se": 0.0,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 0.9817548590241246,
+     "se": 0.0020852311947232114,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 2.011487329001877,
+     "se": 0.028467659008136328,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "ring",
+   "size": 16384,
+   "seed": 53,
+   "built": true,
+   "n": 16384,
+   "component": 16384,
+   "probes": {
+    "d_s": {
+     "value": 1.0133735288770844,
+     "se": 0.006241008401823158,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 1.0000000000000016,
+     "se": 0.0,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 0.981066760122753,
+     "se": 0.0018991863936790884,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 1.9517773000744727,
+     "se": 0.03910074165755426,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "random geometric graph in the plane, mean degree 8",
+   "size": 4096,
+   "seed": 51,
+   "built": true,
+   "n": 4091,
+   "component": 4091,
+   "probes": {
+    "d_s": {
+     "value": 1.9778677991559697,
+     "se": 0.04656019898578774,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.122706214728309,
+     "se": 0.01027266835477724,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 2.0587846071321345,
+     "se": 0.04259187945401794,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 2.3315732465156342,
+     "se": 0.06398541480644988,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "random geometric graph in the plane, mean degree 8",
+   "size": 4096,
+   "seed": 52,
+   "built": true,
+   "n": 4095,
+   "component": 4095,
+   "probes": {
+    "d_s": {
+     "value": 2.011409424589337,
+     "se": 0.05917985766931,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.105317891381571,
+     "se": 0.012408896669337836,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 2.1184344265305923,
+     "se": 0.04887703291014781,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 2.176677597836007,
+     "se": 0.08862802207272308,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "random geometric graph in the plane, mean degree 8",
+   "size": 4096,
+   "seed": 53,
+   "built": true,
+   "n": 4094,
+   "component": 4094,
+   "probes": {
+    "d_s": {
+     "value": 1.97544849665779,
+     "se": 0.0557530362474898,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.107012612273278,
+     "se": 0.008530791548060563,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 1.9956005704975512,
+     "se": 0.031855718490247396,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 2.146391219609102,
+     "se": 0.06055306412893219,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "random geometric graph in the plane, mean degree 8",
+   "size": 16384,
+   "seed": 51,
+   "built": true,
+   "n": 16377,
+   "component": 16377,
+   "probes": {
+    "d_s": {
+     "value": 1.953796789075564,
+     "se": 0.03350204533613451,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.076413247476169,
+     "se": 0.016313467815211,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 2.0450975540546463,
+     "se": 0.02574272707228437,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 2.21730832691064,
+     "se": 0.032730858267543815,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "random geometric graph in the plane, mean degree 8",
+   "size": 16384,
+   "seed": 52,
+   "built": true,
+   "n": 16375,
+   "component": 16375,
+   "probes": {
+    "d_s": {
+     "value": 1.9641519656820634,
+     "se": 0.03541906585088362,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.0738289625035247,
+     "se": 0.02473756682900108,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 2.0318295290679744,
+     "se": 0.02117716202422579,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 2.182439066668455,
+     "se": 0.03903730601160484,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "random geometric graph in the plane, mean degree 8",
+   "size": 16384,
+   "seed": 53,
+   "built": true,
+   "n": 16370,
+   "component": 16370,
+   "probes": {
+    "d_s": {
+     "value": 1.9245919341615476,
+     "se": 0.033738260374881646,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.0871483850833594,
+     "se": 0.02443252808990932,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 2.065933862172323,
+     "se": 0.015798820082587355,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 2.1337547903476155,
+     "se": 0.040665572510850234,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "random geometric graph in the plane, mean degree 8",
+   "size": 65536,
+   "seed": 51,
+   "built": true,
+   "n": 65474,
+   "component": 65474,
+   "probes": {
+    "d_s": {
+     "value": 1.980121210466366,
+     "se": 0.019438772517195384,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.050883864488065,
+     "se": 0.009113321282719886,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 2.07441270159069,
+     "se": 0.01811496989922826,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 2.293109915765098,
+     "se": 0.03006780328874582,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "random geometric graph in the plane, mean degree 8",
+   "size": 65536,
+   "seed": 52,
+   "built": true,
+   "n": 65472,
+   "component": 65472,
+   "probes": {
+    "d_s": {
+     "value": 1.995313891185413,
+     "se": 0.026051563069171075,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.090844172855482,
+     "se": 0.02252152516032147,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 2.069410011941124,
+     "se": 0.015835104695879152,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 2.1954747755007777,
+     "se": 0.0335618210812896,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "random geometric graph in the plane, mean degree 8",
+   "size": 65536,
+   "seed": 53,
+   "built": true,
+   "n": 65482,
+   "component": 65482,
+   "probes": {
+    "d_s": {
+     "value": 1.9619187465607644,
+     "se": 0.024173342813468692,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.0703621191030024,
+     "se": 0.0074470921750745865,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 2.074645648432437,
+     "se": 0.017086322070735616,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 2.2491679332692813,
+     "se": 0.031656899752382825,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "random geometric graph in three dimensions, mean degree 10",
+   "size": 4096,
+   "seed": 51,
+   "built": true,
+   "n": 4096,
+   "component": 4096,
+   "probes": {
+    "d_s": {
+     "value": 2.933980915411345,
+     "se": 0.05369675544417548,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 3.21712510995321,
+     "se": 0.01909260814685524,
+     "refusal": null
+    },
+    "d_B": {
+     "value": null,
+     "se": null,
+     "refusal": "WINDOW_TOO_SHORT"
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "WALK_SATURATED"
+    }
+   }
+  },
+  {
+   "structure": "random geometric graph in three dimensions, mean degree 10",
+   "size": 4096,
+   "seed": 52,
+   "built": true,
+   "n": 4096,
+   "component": 4096,
+   "probes": {
+    "d_s": {
+     "value": 2.867736889990506,
+     "se": 0.06238280974493838,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 3.197178391594108,
+     "se": 0.012794048452342863,
+     "refusal": null
+    },
+    "d_B": {
+     "value": null,
+     "se": null,
+     "refusal": "WINDOW_TOO_SHORT"
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "WALK_SATURATED"
+    }
+   }
+  },
+  {
+   "structure": "random geometric graph in three dimensions, mean degree 10",
+   "size": 4096,
+   "seed": 53,
+   "built": true,
+   "n": 4096,
+   "component": 4096,
+   "probes": {
+    "d_s": {
+     "value": 2.9534670745080924,
+     "se": 0.06492470559482255,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 3.191434666695419,
+     "se": 0.012419450723521274,
+     "refusal": null
+    },
+    "d_B": {
+     "value": null,
+     "se": null,
+     "refusal": "WINDOW_TOO_SHORT"
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "WALK_SATURATED"
+    }
+   }
+  },
+  {
+   "structure": "random geometric graph in three dimensions, mean degree 10",
+   "size": 16384,
+   "seed": 51,
+   "built": true,
+   "n": 16384,
+   "component": 16384,
+   "probes": {
+    "d_s": {
+     "value": 3.1224497724733395,
+     "se": 0.08423108246302873,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 3.2066058097173435,
+     "se": 0.010476375552716497,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 3.0377101736335272,
+     "se": 0.07001343019911681,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 2.171189584044849,
+     "se": 0.06223047716273489,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "random geometric graph in three dimensions, mean degree 10",
+   "size": 16384,
+   "seed": 52,
+   "built": true,
+   "n": 16384,
+   "component": 16384,
+   "probes": {
+    "d_s": {
+     "value": 3.123568235190637,
+     "se": 0.08662254139821463,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 3.219680690103291,
+     "se": 0.015954185894174043,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 3.0594402820753883,
+     "se": 0.053435318545749004,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 2.1375491979356105,
+     "se": 0.03750029151328047,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "random geometric graph in three dimensions, mean degree 10",
+   "size": 16384,
+   "seed": 53,
+   "built": true,
+   "n": 16384,
+   "component": 16384,
+   "probes": {
+    "d_s": {
+     "value": 3.136576295723341,
+     "se": 0.07579261157075849,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 3.210212404840154,
+     "se": 0.016983971039694498,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 3.03212028473232,
+     "se": 0.04174218921713172,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 2.217818577361901,
+     "se": 0.06694256698627725,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "random geometric graph in three dimensions, mean degree 10",
+   "size": 65536,
+   "seed": 51,
+   "built": true,
+   "n": 65532,
+   "component": 65532,
+   "probes": {
+    "d_s": {
+     "value": 2.9654754172542788,
+     "se": 0.10322559300463453,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 3.1752768151018587,
+     "se": 0.008083312271322658,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 3.1453021875154614,
+     "se": 0.032519817510403115,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 2.1649810086159382,
+     "se": 0.040564758138446955,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "random geometric graph in three dimensions, mean degree 10",
+   "size": 65536,
+   "seed": 52,
+   "built": true,
+   "n": 65534,
+   "component": 65534,
+   "probes": {
+    "d_s": {
+     "value": 3.1545791578590805,
+     "se": 0.0594504344036515,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 3.181778174208143,
+     "se": 0.009455654863521701,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 3.132787320119854,
+     "se": 0.026361485543855492,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 2.1658276002878205,
+     "se": 0.03420542466744907,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "random geometric graph in three dimensions, mean degree 10",
+   "size": 65536,
+   "seed": 53,
+   "built": true,
+   "n": 65531,
+   "component": 65531,
+   "probes": {
+    "d_s": {
+     "value": 3.070207249237386,
+     "se": 0.0794666121928184,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 3.1939840210714876,
+     "se": 0.013676636636639037,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 3.1650585136433236,
+     "se": 0.029499725239159003,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 2.1623313997529503,
+     "se": 0.033644156688484125,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "square lattice with chords within three steps",
+   "size": 4096,
+   "seed": 51,
+   "built": true,
+   "n": 4096,
+   "component": 4096,
+   "probes": {
+    "d_s": {
+     "value": 2.032849359910484,
+     "se": 0.05262578959336848,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.158106824251088,
+     "se": 0.009107537483371054,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 2.0725390336049263,
+     "se": 0.020357131643249714,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 2.1675732883394896,
+     "se": 0.04254954554446061,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "square lattice with chords within three steps",
+   "size": 4096,
+   "seed": 52,
+   "built": true,
+   "n": 4096,
+   "component": 4096,
+   "probes": {
+    "d_s": {
+     "value": 2.030667444898379,
+     "se": 0.05940136083016365,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.1717195232699504,
+     "se": 0.007286002560966164,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 2.07858930577319,
+     "se": 0.029704095908485138,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 2.1931336123993814,
+     "se": 0.04521617777565335,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "square lattice with chords within three steps",
+   "size": 4096,
+   "seed": 53,
+   "built": true,
+   "n": 4096,
+   "component": 4096,
+   "probes": {
+    "d_s": {
+     "value": 1.9550390095500576,
+     "se": 0.07793400717734864,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.170548948514179,
+     "se": 0.006344330631330285,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 2.0788511015415803,
+     "se": 0.025855671599081635,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 2.0975685678494522,
+     "se": 0.0439337488285312,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "square lattice with chords within three steps",
+   "size": 16384,
+   "seed": 51,
+   "built": true,
+   "n": 16384,
+   "component": 16384,
+   "probes": {
+    "d_s": {
+     "value": 2.0003602437415178,
+     "se": 0.036886760983228094,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.120345589133269,
+     "se": 0.021016228618254473,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 2.1227561827375614,
+     "se": 0.013574150201139475,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 2.1464535305635377,
+     "se": 0.032737557127473456,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "square lattice with chords within three steps",
+   "size": 16384,
+   "seed": 52,
+   "built": true,
+   "n": 16384,
+   "component": 16384,
+   "probes": {
+    "d_s": {
+     "value": 2.0633440769999316,
+     "se": 0.058569974695061616,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.1305318105673416,
+     "se": 0.014555414090904101,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 2.1162058572176026,
+     "se": 0.013401237665690444,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 2.149647397241698,
+     "se": 0.023477766094336844,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "square lattice with chords within three steps",
+   "size": 16384,
+   "seed": 53,
+   "built": true,
+   "n": 16384,
+   "component": 16384,
+   "probes": {
+    "d_s": {
+     "value": 1.987026020111522,
+     "se": 0.05928579295707581,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.1254473025537552,
+     "se": 0.016445157811624995,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 2.111477817094356,
+     "se": 0.012389411621350292,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 2.2597700483745533,
+     "se": 0.029265745222271444,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "square lattice with a fifth of its sites removed",
+   "size": 4096,
+   "seed": 51,
+   "built": true,
+   "n": 4145,
+   "component": 4145,
+   "probes": {
+    "d_s": {
+     "value": 2.0324630394534577,
+     "se": 0.052894708824071754,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.056029608575355,
+     "se": 0.0071441519647503435,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 1.949306085971054,
+     "se": 0.028932902377707688,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 2.1066503752061747,
+     "se": 0.04645523298145353,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "square lattice with a fifth of its sites removed",
+   "size": 4096,
+   "seed": 52,
+   "built": true,
+   "n": 4139,
+   "component": 4139,
+   "probes": {
+    "d_s": {
+     "value": 2.0730148359804272,
+     "se": 0.05943436840518468,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.0494150671695435,
+     "se": 0.0048081040754120626,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 1.9720334602113707,
+     "se": 0.02751989776360718,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 1.9905555346317607,
+     "se": 0.04375511745331931,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "square lattice with a fifth of its sites removed",
+   "size": 4096,
+   "seed": 53,
+   "built": true,
+   "n": 4147,
+   "component": 4147,
+   "probes": {
+    "d_s": {
+     "value": 1.9866408475138326,
+     "se": 0.05094639103761981,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.0600083868666124,
+     "se": 0.006498108884030815,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 1.959907539482228,
+     "se": 0.02632355720760297,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 2.071483587357852,
+     "se": 0.042514899805679664,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "square lattice with a fifth of its sites removed",
+   "size": 16384,
+   "seed": 51,
+   "built": true,
+   "n": 16305,
+   "component": 16305,
+   "probes": {
+    "d_s": {
+     "value": 2.051447490912035,
+     "se": 0.03694856363830021,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.0559177666494395,
+     "se": 0.02293565405582407,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 2.004477450570172,
+     "se": 0.017880288493028966,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 2.081713396413307,
+     "se": 0.025116237480745766,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "square lattice with a fifth of its sites removed",
+   "size": 16384,
+   "seed": 52,
+   "built": true,
+   "n": 16383,
+   "component": 16383,
+   "probes": {
+    "d_s": {
+     "value": 1.9566960657431107,
+     "se": 0.037339566701290024,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.054634844683512,
+     "se": 0.009311409021941998,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 2.0334428099566835,
+     "se": 0.014875109600124847,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 2.0884516549609944,
+     "se": 0.04815465689889699,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "square lattice with a fifth of its sites removed",
+   "size": 16384,
+   "seed": 53,
+   "built": true,
+   "n": 16379,
+   "component": 16379,
+   "probes": {
+    "d_s": {
+     "value": 1.9656923749031219,
+     "se": 0.0289953850331983,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.04403480641461,
+     "se": 0.011293835552139687,
+     "refusal": null
+    },
+    "d_B": {
+     "value": 2.035507012800768,
+     "se": 0.019871241314084024,
+     "refusal": null
+    },
+    "d_w": {
+     "value": 2.061553238871838,
+     "se": 0.03888936711915974,
+     "refusal": null
+    }
+   }
+  },
+  {
+   "structure": "random 3-regular graph",
+   "size": 4096,
+   "seed": 51,
+   "built": true,
+   "n": 4096,
+   "component": 4096,
+   "probes": {
+    "d_s": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    },
+    "d_V": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    },
+    "d_B": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    }
+   }
+  },
+  {
+   "structure": "random 3-regular graph",
+   "size": 4096,
+   "seed": 52,
+   "built": true,
+   "n": 4096,
+   "component": 4096,
+   "probes": {
+    "d_s": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    },
+    "d_V": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    },
+    "d_B": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    }
+   }
+  },
+  {
+   "structure": "random 3-regular graph",
+   "size": 4096,
+   "seed": 53,
+   "built": true,
+   "n": 4096,
+   "component": 4096,
+   "probes": {
+    "d_s": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    },
+    "d_V": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    },
+    "d_B": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    }
+   }
+  },
+  {
+   "structure": "random 3-regular graph",
+   "size": 16384,
+   "seed": 51,
+   "built": true,
+   "n": 16384,
+   "component": 16384,
+   "probes": {
+    "d_s": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    },
+    "d_V": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    },
+    "d_B": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    }
+   }
+  },
+  {
+   "structure": "random 3-regular graph",
+   "size": 16384,
+   "seed": 52,
+   "built": true,
+   "n": 16384,
+   "component": 16384,
+   "probes": {
+    "d_s": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    },
+    "d_V": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    },
+    "d_B": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    }
+   }
+  },
+  {
+   "structure": "random 3-regular graph",
+   "size": 16384,
+   "seed": 53,
+   "built": true,
+   "n": 16384,
+   "component": 16384,
+   "probes": {
+    "d_s": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    },
+    "d_V": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    },
+    "d_B": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    }
+   }
+  },
+  {
+   "structure": "random graph of mean degree 2.5",
+   "size": 4096,
+   "seed": 51,
+   "built": true,
+   "n": 4096,
+   "component": 3694,
+   "probes": {
+    "d_s": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    },
+    "d_V": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    },
+    "d_B": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    }
+   }
+  },
+  {
+   "structure": "random graph of mean degree 2.5",
+   "size": 4096,
+   "seed": 52,
+   "built": true,
+   "n": 4096,
+   "component": 3660,
+   "probes": {
+    "d_s": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    },
+    "d_V": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    },
+    "d_B": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    }
+   }
+  },
+  {
+   "structure": "random graph of mean degree 2.5",
+   "size": 4096,
+   "seed": 53,
+   "built": true,
+   "n": 4096,
+   "component": 3614,
+   "probes": {
+    "d_s": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    },
+    "d_V": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    },
+    "d_B": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    }
+   }
+  },
+  {
+   "structure": "random graph of mean degree 2.5",
+   "size": 16384,
+   "seed": 51,
+   "built": true,
+   "n": 16384,
+   "component": 14661,
+   "probes": {
+    "d_s": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    },
+    "d_V": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    },
+    "d_B": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    }
+   }
+  },
+  {
+   "structure": "random graph of mean degree 2.5",
+   "size": 16384,
+   "seed": 52,
+   "built": true,
+   "n": 16384,
+   "component": 14635,
+   "probes": {
+    "d_s": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    },
+    "d_V": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    },
+    "d_B": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    }
+   }
+  },
+  {
+   "structure": "random graph of mean degree 2.5",
+   "size": 16384,
+   "seed": 53,
+   "built": true,
+   "n": 16384,
+   "component": 14660,
+   "probes": {
+    "d_s": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    },
+    "d_V": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    },
+    "d_B": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    }
+   }
+  },
+  {
+   "structure": "square lattice with 0.008 shortcuts a node",
+   "size": 4096,
+   "seed": 51,
+   "built": true,
+   "n": 4096,
+   "component": 4096,
+   "probes": {
+    "d_s": {
+     "value": 2.212604474498204,
+     "se": 0.05616117439202331,
+     "refusal": null
+    },
+    "d_V": {
+     "value": 2.929708579740581,
+     "se": 0.018555500323049312,
+     "refusal": null
+    },
+    "d_B": {
+     "value": null,
+     "se": null,
+     "refusal": "WINDOW_TOO_SHORT"
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "WALK_SATURATED"
+    }
+   }
+  },
+  {
+   "structure": "square lattice with 0.008 shortcuts a node",
+   "size": 4096,
+   "seed": 52,
+   "built": true,
+   "n": 4096,
+   "component": 4096,
+   "probes": {
+    "d_s": {
+     "value": null,
+     "se": null,
+     "refusal": "GROWTH_UNDECIDED"
+    },
+    "d_V": {
+     "value": null,
+     "se": null,
+     "refusal": "GROWTH_UNDECIDED"
+    },
+    "d_B": {
+     "value": null,
+     "se": null,
+     "refusal": "GROWTH_UNDECIDED"
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "GROWTH_UNDECIDED"
+    }
+   }
+  },
+  {
+   "structure": "square lattice with 0.008 shortcuts a node",
+   "size": 4096,
+   "seed": 53,
+   "built": true,
+   "n": 4096,
+   "component": 4096,
+   "probes": {
+    "d_s": {
+     "value": null,
+     "se": null,
+     "refusal": "GROWTH_UNDECIDED"
+    },
+    "d_V": {
+     "value": null,
+     "se": null,
+     "refusal": "GROWTH_UNDECIDED"
+    },
+    "d_B": {
+     "value": null,
+     "se": null,
+     "refusal": "GROWTH_UNDECIDED"
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "GROWTH_UNDECIDED"
+    }
+   }
+  },
+  {
+   "structure": "square lattice with 0.008 shortcuts a node",
+   "size": 16384,
+   "seed": 51,
+   "built": true,
+   "n": 16384,
+   "component": 16384,
+   "probes": {
+    "d_s": {
+     "value": null,
+     "se": null,
+     "refusal": "GROWTH_UNDECIDED"
+    },
+    "d_V": {
+     "value": null,
+     "se": null,
+     "refusal": "GROWTH_UNDECIDED"
+    },
+    "d_B": {
+     "value": null,
+     "se": null,
+     "refusal": "GROWTH_UNDECIDED"
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "GROWTH_UNDECIDED"
+    }
+   }
+  },
+  {
+   "structure": "square lattice with 0.008 shortcuts a node",
+   "size": 16384,
+   "seed": 52,
+   "built": true,
+   "n": 16384,
+   "component": 16384,
+   "probes": {
+    "d_s": {
+     "value": null,
+     "se": null,
+     "refusal": "GROWTH_UNDECIDED"
+    },
+    "d_V": {
+     "value": null,
+     "se": null,
+     "refusal": "GROWTH_UNDECIDED"
+    },
+    "d_B": {
+     "value": null,
+     "se": null,
+     "refusal": "GROWTH_UNDECIDED"
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "GROWTH_UNDECIDED"
+    }
+   }
+  },
+  {
+   "structure": "square lattice with 0.008 shortcuts a node",
+   "size": 16384,
+   "seed": 53,
+   "built": true,
+   "n": 16384,
+   "component": 16384,
+   "probes": {
+    "d_s": {
+     "value": null,
+     "se": null,
+     "refusal": "GROWTH_UNDECIDED"
+    },
+    "d_V": {
+     "value": null,
+     "se": null,
+     "refusal": "GROWTH_UNDECIDED"
+    },
+    "d_B": {
+     "value": null,
+     "se": null,
+     "refusal": "GROWTH_UNDECIDED"
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "GROWTH_UNDECIDED"
+    }
+   }
+  },
+  {
+   "structure": "preferential attachment, two links a node",
+   "size": 4096,
+   "seed": 51,
+   "built": true,
+   "n": 4096,
+   "component": 4096,
+   "probes": {
+    "d_s": {
+     "value": null,
+     "se": null,
+     "refusal": "NO_SCALING_WINDOW"
+    },
+    "d_V": {
+     "value": null,
+     "se": null,
+     "refusal": "NO_SCALING_WINDOW"
+    },
+    "d_B": {
+     "value": null,
+     "se": null,
+     "refusal": "NO_SCALING_WINDOW"
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "NO_SCALING_WINDOW"
+    }
+   }
+  },
+  {
+   "structure": "preferential attachment, two links a node",
+   "size": 4096,
+   "seed": 52,
+   "built": true,
+   "n": 4096,
+   "component": 4096,
+   "probes": {
+    "d_s": {
+     "value": null,
+     "se": null,
+     "refusal": "NO_SCALING_WINDOW"
+    },
+    "d_V": {
+     "value": null,
+     "se": null,
+     "refusal": "NO_SCALING_WINDOW"
+    },
+    "d_B": {
+     "value": null,
+     "se": null,
+     "refusal": "NO_SCALING_WINDOW"
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "NO_SCALING_WINDOW"
+    }
+   }
+  },
+  {
+   "structure": "preferential attachment, two links a node",
+   "size": 4096,
+   "seed": 53,
+   "built": true,
+   "n": 4096,
+   "component": 4096,
+   "probes": {
+    "d_s": {
+     "value": null,
+     "se": null,
+     "refusal": "NO_SCALING_WINDOW"
+    },
+    "d_V": {
+     "value": null,
+     "se": null,
+     "refusal": "NO_SCALING_WINDOW"
+    },
+    "d_B": {
+     "value": null,
+     "se": null,
+     "refusal": "NO_SCALING_WINDOW"
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "NO_SCALING_WINDOW"
+    }
+   }
+  },
+  {
+   "structure": "preferential attachment, two links a node",
+   "size": 16384,
+   "seed": 51,
+   "built": true,
+   "n": 16384,
+   "component": 16384,
+   "probes": {
+    "d_s": {
+     "value": null,
+     "se": null,
+     "refusal": "GROWTH_UNDECIDED"
+    },
+    "d_V": {
+     "value": null,
+     "se": null,
+     "refusal": "GROWTH_UNDECIDED"
+    },
+    "d_B": {
+     "value": null,
+     "se": null,
+     "refusal": "GROWTH_UNDECIDED"
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "GROWTH_UNDECIDED"
+    }
+   }
+  },
+  {
+   "structure": "preferential attachment, two links a node",
+   "size": 16384,
+   "seed": 52,
+   "built": true,
+   "n": 16384,
+   "component": 16384,
+   "probes": {
+    "d_s": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    },
+    "d_V": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    },
+    "d_B": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    }
+   }
+  },
+  {
+   "structure": "preferential attachment, two links a node",
+   "size": 16384,
+   "seed": 53,
+   "built": true,
+   "n": 16384,
+   "component": 16384,
+   "probes": {
+    "d_s": {
+     "value": null,
+     "se": null,
+     "refusal": "GROWTH_UNDECIDED"
+    },
+    "d_V": {
+     "value": null,
+     "se": null,
+     "refusal": "GROWTH_UNDECIDED"
+    },
+    "d_B": {
+     "value": null,
+     "se": null,
+     "refusal": "GROWTH_UNDECIDED"
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "GROWTH_UNDECIDED"
+    }
+   }
+  },
+  {
+   "structure": "hyperbolic geometric graph, mean degree 12",
+   "size": 4096,
+   "seed": 51,
+   "built": true,
+   "n": 4086,
+   "component": 4086,
+   "probes": {
+    "d_s": {
+     "value": null,
+     "se": null,
+     "refusal": "GROWTH_UNDECIDED"
+    },
+    "d_V": {
+     "value": null,
+     "se": null,
+     "refusal": "GROWTH_UNDECIDED"
+    },
+    "d_B": {
+     "value": null,
+     "se": null,
+     "refusal": "GROWTH_UNDECIDED"
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "GROWTH_UNDECIDED"
+    }
+   }
+  },
+  {
+   "structure": "hyperbolic geometric graph, mean degree 12",
+   "size": 4096,
+   "seed": 52,
+   "built": true,
+   "n": 4084,
+   "component": 4084,
+   "probes": {
+    "d_s": {
+     "value": null,
+     "se": null,
+     "refusal": "GROWTH_UNDECIDED"
+    },
+    "d_V": {
+     "value": null,
+     "se": null,
+     "refusal": "GROWTH_UNDECIDED"
+    },
+    "d_B": {
+     "value": null,
+     "se": null,
+     "refusal": "GROWTH_UNDECIDED"
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "GROWTH_UNDECIDED"
+    }
+   }
+  },
+  {
+   "structure": "hyperbolic geometric graph, mean degree 12",
+   "size": 4096,
+   "seed": 53,
+   "built": true,
+   "n": 4083,
+   "component": 4083,
+   "probes": {
+    "d_s": {
+     "value": null,
+     "se": null,
+     "refusal": "GROWTH_UNDECIDED"
+    },
+    "d_V": {
+     "value": null,
+     "se": null,
+     "refusal": "GROWTH_UNDECIDED"
+    },
+    "d_B": {
+     "value": null,
+     "se": null,
+     "refusal": "GROWTH_UNDECIDED"
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "GROWTH_UNDECIDED"
+    }
+   }
+  },
+  {
+   "structure": "hyperbolic geometric graph, mean degree 12",
+   "size": 16384,
+   "seed": 51,
+   "built": true,
+   "n": 16331,
+   "component": 16331,
+   "probes": {
+    "d_s": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    },
+    "d_V": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    },
+    "d_B": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    }
+   }
+  },
+  {
+   "structure": "hyperbolic geometric graph, mean degree 12",
+   "size": 16384,
+   "seed": 52,
+   "built": true,
+   "n": 16317,
+   "component": 16317,
+   "probes": {
+    "d_s": {
+     "value": null,
+     "se": null,
+     "refusal": "GROWTH_UNDECIDED"
+    },
+    "d_V": {
+     "value": null,
+     "se": null,
+     "refusal": "GROWTH_UNDECIDED"
+    },
+    "d_B": {
+     "value": null,
+     "se": null,
+     "refusal": "GROWTH_UNDECIDED"
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "GROWTH_UNDECIDED"
+    }
+   }
+  },
+  {
+   "structure": "hyperbolic geometric graph, mean degree 12",
+   "size": 16384,
+   "seed": 53,
+   "built": true,
+   "n": 16332,
+   "component": 16332,
+   "probes": {
+    "d_s": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    },
+    "d_V": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    },
+    "d_B": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    },
+    "d_w": {
+     "value": null,
+     "se": null,
+     "refusal": "EXPONENTIAL_GROWTH"
+    }
+   }
+  }
+ ]
+}

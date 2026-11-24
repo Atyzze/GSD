@@ -1,0 +1,92 @@
+{
+  "contract": "gsd-predictor-l2-criterion-1",
+  "predictor": "gsd-degree-prediction-l2-1",
+  "committed_utc": "2026-09-29T12:38:08Z",
+  "build": 542,
+  "question": "How far does arithmetic on a law's terms reach? 538's degree arithmetic predicts laws that see only degrees; this extends it to degree correlations and then cycles, before any chain runs.",
+  "written_on": {
+    "study": "152",
+    "bundle_built_utc": "2026-09-29T11:37:28Z",
+    "note": "the laws of this bundle were read while the arithmetic was written; they are never its test"
+  },
+  "blind_after": "2026-09-29T11:37:28Z",
+  "blind_set": "every law of a survey campaign admitted after blind_after (report 28's law ledger, `admitted_utc`), measured at N = 4,096 over its seeds, with the `l2` the fleet recorded",
+  "compared_at": 4096,
+  "sources": {
+    "graph_scale_dynamics/research/degree_prediction_extended.py": "1efb1c5d2210b6f6c3c97347eb6ec132babf629f4f2a15f3bdc907e430c01ddf",
+    "graph_scale_dynamics/research/degree_prediction.py": "bff2a113ffbca7a36e92ba7f020e84b61e12a1eab3faa28ecba45379cd13cfef"
+  },
+  "accuracy_where_written": {
+    "correlations / finite temperature": {
+      "compared": 330,
+      "r2": 0.3294,
+      "within_a_quarter": 0.6182,
+      "within_one": 0.6788,
+      "median_miss": 0.0229
+    },
+    "correlations / zero temperature": {
+      "compared": 298,
+      "r2": 0.2765,
+      "within_a_quarter": 0.6242,
+      "within_one": 0.6644,
+      "median_miss": 0.0131
+    },
+    "cycles, no cycle reward / finite temperature": {
+      "compared": 1219,
+      "r2": 0.8507,
+      "within_a_quarter": 0.8368,
+      "within_one": 0.8876,
+      "median_miss": 0.0053
+    },
+    "cycles, no cycle reward / zero temperature": {
+      "compared": 1129,
+      "r2": 0.8868,
+      "within_a_quarter": 0.899,
+      "within_one": 0.9247,
+      "median_miss": 0.0017
+    },
+    "cycles, rewards cycles / finite temperature": {
+      "compared": 1058,
+      "r2": 0.7439,
+      "within_a_quarter": 0.8242,
+      "within_one": 0.8677,
+      "median_miss": 0.0055
+    },
+    "cycles, rewards cycles / zero temperature": {
+      "compared": 943,
+      "r2": 0.3916,
+      "within_a_quarter": 0.8144,
+      "within_one": 0.8547,
+      "median_miss": 0.0114
+    },
+    "degrees / finite temperature": {
+      "compared": 1679,
+      "r2": 0.9817,
+      "within_a_quarter": 0.95,
+      "within_one": 0.9881,
+      "median_miss": 0.004
+    },
+    "degrees / zero temperature": {
+      "compared": 1748,
+      "r2": 0.9612,
+      "within_a_quarter": 0.9628,
+      "within_one": 0.9874,
+      "median_miss": 0.0013
+    },
+    "every law that sees more than degrees": {
+      "compared": 4977,
+      "r2": 0.6885,
+      "within_a_quarter": 0.8168,
+      "within_one": 0.8583,
+      "median_miss": 0.0059
+    }
+  },
+  "rule": {
+    "measure": "the share of laws within a quarter degree of the prediction",
+    "held": "a stratum's blind share is at least its share where written less 0.1",
+    "not_yet": "fewer than 30 blind laws in the stratum",
+    "min_laws": 30,
+    "tolerance": 0.1
+  },
+  "expected_to_fail": "a law that rewards cycles at finite temperature (the cycle-blind step has no condensation), a law that rewards the degree gradient, and a zero-temperature chain that stops before its rest"
+}

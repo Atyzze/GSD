@@ -1,0 +1,210 @@
+{
+ "contract": "gsd-dimension-test-criterion-4",
+ "committed_utc": "2026-11-19T17:53:00Z",
+ "committed_before": "any graph it names was built or read on today's probes, and before any code read the files it asks for",
+ "question": "The dimension test of 729, its rule frozen there (research/dimension_test.RULE), read again on the final probes: does every known answer still read as committed at 729? The dimension rule's calibration (research/dimension_rule.calibration), an input of the decisions' dimension_shows stream, is read from this test's training readings, which 729 measured with analysis 5.1.0; the operator's cutoff (2026-11-18 16:43) asks that every reading made on older probes be judged again on the final ones before study 169.",
+ "builders": "graph_scale_dynamics/research/planted_geometries.py",
+ "instrument": "graph_scale_dynamics/measurements/estimators._measure_graph with measure_geometry, analysis-5.3.0, the probes locked at 800 and the table installed at 805 (analysis-5.3.0 e639334808716378 89f4fed82d9adc27)",
+ "rule": "research/dimension_test.RULE as frozen at 729 (from_n 1024, piece_at_least 0.95, degree_above 0.5, degree_below 15.5, sizes_at_least 2, sizes_fitted 3, reach_exponent_at_least 0.125, growth_agrees_within 0.4, d_step_within 0.75); it is not refitted in this build",
+ "verdicts": {
+  "dimensional": "the test reads dimensional behaviour and reports a d; d is judged only where the case names a band",
+  "not_dimensional": "the test reads no dimension: a small world, an expander, a graph in pieces, or probes it cannot read"
+ },
+ "d_bands": "a dimensional case with a band passes only if the d the test reports lies inside it: the true d plus or minus 0.5 up to three dimensions, plus or minus 1.0 at four, as committed at 729",
+ "training": {
+  "sizes": [
+   1024,
+   4096,
+   16384
+  ],
+  "seeds": [
+   1,
+   2,
+   3
+  ],
+  "cases": [
+   {
+    "family": "rgg_2d",
+    "build": "random_geometric(n, 2, mean degree 8, seed)",
+    "verdict": "dimensional",
+    "d": [
+     1.5,
+     2.5
+    ]
+   },
+   {
+    "family": "rgg_3d",
+    "build": "random_geometric(n, 3, mean degree 10, seed)",
+    "verdict": "dimensional",
+    "d": [
+     2.5,
+     3.5
+    ]
+   },
+   {
+    "family": "rgg_4d",
+    "build": "random_geometric(n, 4, mean degree 12, seed)",
+    "verdict": "dimensional",
+    "d": [
+     3.0,
+     5.0
+    ]
+   },
+   {
+    "family": "sierpinski",
+    "build": "sierpinski_gasket(level), the level whose size is nearest n",
+    "verdict": "dimensional",
+    "d": [
+     1.085,
+     2.085
+    ],
+    "note": "Hausdorff dimension log 3 / log 2 = 1.585, spectral 2 log 3 / log 5 = 1.365, walk log 5 / log 2 = 2.32"
+   },
+   {
+    "family": "ring",
+    "build": "ring(n)",
+    "verdict": "dimensional",
+    "d": [
+     0.5,
+     1.5
+    ]
+   },
+   {
+    "family": "cubic",
+    "build": "the exact cubic quotient lattice",
+    "verdict": "dimensional",
+    "d": [
+     2.5,
+     3.5
+    ]
+   },
+   {
+    "family": "tesseract",
+    "build": "the exact 4D quotient lattice",
+    "verdict": "dimensional",
+    "d": [
+     3.0,
+     5.0
+    ]
+   },
+   {
+    "family": "honeycomb",
+    "build": "the exact honeycomb torus",
+    "verdict": "dimensional",
+    "d": [
+     1.5,
+     2.5
+    ]
+   },
+   {
+    "family": "erdos_renyi_4",
+    "build": "erdos_renyi(n, mean degree 4, seed), its largest piece",
+    "verdict": "not_dimensional"
+   },
+   {
+    "family": "random_regular_6",
+    "build": "random_regular(n, 6, seed)",
+    "verdict": "not_dimensional"
+   },
+   {
+    "family": "ring_with_chords",
+    "build": "ring_with_chords(n, 0.02 chords a node, seed)",
+    "verdict": "not_dimensional",
+    "note": "one-dimensional up close, a small world across"
+   },
+   {
+    "family": "subdivided_regular",
+    "build": "subdivided_regular(n, paths of 4, seed)",
+    "verdict": "not_dimensional",
+    "note": "159's sparse path graphs that read like a branched polymer"
+   },
+   {
+    "family": "preferential_attachment",
+    "build": "preferential_attachment(n, 2 links a node, seed)",
+    "verdict": "not_dimensional",
+    "note": "hubs"
+   }
+  ]
+ },
+ "held_out": {
+  "sizes": [
+   1024,
+   4096,
+   16384
+  ],
+  "seeds": [
+   21,
+   22,
+   23
+  ],
+  "cases": [
+   {
+    "family": "rgg_2d_sparse",
+    "build": "random_geometric(n, 2, mean degree 5, seed)",
+    "verdict": "dimensional",
+    "d": [
+     1.5,
+     2.5
+    ]
+   },
+   {
+    "family": "rgg_3d_dense",
+    "build": "random_geometric(n, 3, mean degree 14, seed)",
+    "verdict": "dimensional",
+    "d": [
+     2.5,
+     3.5
+    ]
+   },
+   {
+    "family": "percolation_2d",
+    "build": "critical_percolation_cluster(side, seed), its largest piece, side chosen for about n nodes",
+    "verdict": "dimensional",
+    "d": [
+     1.396,
+     2.396
+    ],
+    "note": "Hausdorff dimension 91/48 = 1.896"
+   },
+   {
+    "family": "random_tree",
+    "build": "random_tree(n, seed)",
+    "verdict": "dimensional",
+    "d": [
+     1.5,
+     2.5
+    ],
+    "note": "a branched polymer: Hausdorff dimension 2, spectral 4/3"
+   },
+   {
+    "family": "random_regular_3",
+    "build": "random_regular(n, 3, seed)",
+    "verdict": "not_dimensional",
+    "note": "reads d_s 2.00 on the tree line"
+   },
+   {
+    "family": "erdos_renyi_8",
+    "build": "erdos_renyi(n, mean degree 8, seed)",
+    "verdict": "not_dimensional"
+   },
+   {
+    "family": "ring_with_chords_dense",
+    "build": "ring_with_chords(n, 0.1 chords a node, seed)",
+    "verdict": "not_dimensional"
+   },
+   {
+    "family": "subdivided_regular_long",
+    "build": "subdivided_regular(n, paths of 6, seed)",
+    "verdict": "not_dimensional"
+   },
+   {
+    "family": "preferential_attachment_3",
+    "build": "preferential_attachment(n, 3 links a node, seed)",
+    "verdict": "not_dimensional"
+   }
+  ]
+ },
+ "passes_when": "every training case reads its verdict at its largest size on every seed, every held-out case on at least 2 of its 3 seeds, and no case committed not_dimensional reads dimensional at any size from 4,096 (729's condition, research/dimension_test.judge_against)",
+ "then": "if it passes, the dimension rule's calibration is read from this criterion's training readings and judged set (the lattices' own d by size, their bands, and the ranges the rule was checked on); if it does not pass, the failure is reported, the calibration is not moved, and a refit of the rule is a build of its own with its own criterion",
+ "held_out_seeds": "21 to 23, never read before; the training seeds are 729's (1 to 3), whose graphs are the same graphs read by today's probes"
+}

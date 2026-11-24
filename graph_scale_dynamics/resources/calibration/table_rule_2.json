@@ -1,0 +1,13 @@
+{
+ "contract": "gsd-table-rule-2",
+ "committed_utc": "2026-11-19T09:31:39Z",
+ "committed_before": "nothing it holds a family to: written after the table measured on 801 was judged, it adds no band and no size of its own; every band, every size a probe is held from and the size a refusal is required from are the criterion's, committed 2026-11-19T00:02:01Z, before the table's zip was seen",
+ "replaces": "the rule of 2026-11-12, which held a family to what build 764's fifth judged set held its structure to; its bands for the 23 families it held are the criterion's, unchanged",
+ "question": "What is each cell of the calibration table held to: for every family and probe, from which size, and within what of which value?",
+ "rests_on": {
+  "criterion": "graph_scale_dynamics/resources/readings/table_known_answers_criterion.json",
+  "judged": "graph_scale_dynamics/resources/readings/table_known_answers_judged.json"
+ },
+ "rule": "The table holds every family to what the table's known-answers criterion holds it to, as its passing judged reading on the table measured whole on build 801 found it (`holds`): the 23 families the old seed held to the bands and sizes they were held to since 2026-11-12, A4 and D4 to the 4D lattice's bands from the size their own cells read on every seed through the largest. At a ladder size N of at least a probe's `from_nodes`, the mean over the cell's seeds must lie within the `within` of the last band at most N, of `theory`, and the probe must read on the share of seeds the table has always asked (`calibration/deviation.AVAILABILITY_FLOOR`); under it the cell is measured and shown and gates nothing. A family without a dimension must be given no value by any of the four probes on any seed from 4,096 nodes. The spread of a cell's seeds gates nothing (the operator, 2026-11-12 11:14). No tolerance and no size is typed by hand: `tools/table_rule.py --write` makes `table_holds.json`, and it refuses a judged reading that does not pass.",
+ "code": "graph_scale_dynamics/calibration/rule.py, tools/table_rule.py"
+}

@@ -1,0 +1,85 @@
+{
+ "contract": "gsd-certificate-known-answers-criterion-3",
+ "committed_utc": "2026-11-19T22:18:53Z",
+ "committed_before": "it was run, on build 816. It is criterion 2 of 2026-11-14 15:02Z (read at 780) in today's names, its series, rungs, true samples, thresholds, cases and rule unchanged, read on the certificate as 803 to 807 left it. 803 changed the drift, the split, the zero-temperature rest and the cap, not the count a chain runs (certificate.own_count, the smaller of the windowed sum and the 8-batch means), so every row is expected to read what 780 read. Criteria 1 and 2 and their readings leave the tree with this build (the operator, 2026-11-18 16:43: \"ALL old data we want GONE\"); criterion 1's candidate counts were the choice 755 made, and this reading holds the count that was chosen.",
+ "question": "Each chain of a rung gets its own certificate (build 780, the operator's decision of 2026-11-14 15:49 for the late graph). Does a rung certified by every chain's own count refuse a rung one of whose chains has too few independent samples, which the count on the chain from empty alone cannot see, and does it still keep a rung whose every chain has plenty? And does the late change a chain records from 85% of its moves give the late overlap a copy of its graph gave, exactly?",
+ "decided": "the operator, 2026-11-14 15:49: 'every chain gets its own frozen test, at every size, with no 131,072 limit. Don't keep a copy of the graph: from 85% of its moves, each chain records the edges it removed and added since then (an edge that comes back cancels out), which gives the same overlap exactly. No stored copy at any size.' The rest of what a chain counts and what the chains compare is the build's, set here before its code",
+ "what_each_chain_counts": "every chain that ran to the chunk's end records 240 points (the chain from empty did, the given chains 80) and counts, on its own record: its effective samples (the late 60% of the chunk's points, the windowed autocorrelation sum and the 8-batch means count, the smaller, as the chain from empty's count was), its late energy drift (its last 30%), its structural trend (as every chain's was), its late activity (accepted changes a node over its last 30%) and its late edge overlap (the share of its edges kept from 85% of the chunk's moves to its end, from its late change), and at zero temperature whether it is at rest (as every chain's was)",
+ "what_it_compares": "every pair of the chains that must meet, alike: the split of their late means of energy a node and mean degree, each from its last third, in their correlated errors, and the structural split of their final graphs, held to a threshold from that pair's own spread. A chain that must meet and ended at the mean-degree cap alone disagrees with the rest. No chain is the reference the others are held to",
+ "which_chains_decide": "the chains the design requires to meet: the chain from empty and the first given start's always, the further starts' too unless the design says lattice chains are measured only (lattice_chains_meet false, as every design in the tree has it). A chunk passes when every chain that decides passes its own certificate and every pair of them meets; the rung's count is the smallest of theirs, its split the largest. A chain measured only carries its own certificate beside them, recorded and read by nothing that decides, until the operator says whether it should decide (docs/ROADMAP.md, 'Questions for the operator')",
+ "frozen": "a rung that ends at its ceiling is classed frozen when every chain that decides made at most 0.05 accepted changes a node over its last 30% and kept at least 99.9% of its edges from 85% of the chunk's moves to its end, by its own late change, at every size",
+ "known_answers": {
+  "count": "as criterion 1 (751): a stationary AR(1) series x[t] = phi x[t-1] + noise from its stationary law, its integrated autocorrelation time (1 + phi) / (1 - phi) points, so a series of 240 points has 144 over that true effective samples in its late 60%. A rung is k such series, one a chain, each drawn on its own, read by the count each chain runs (the smaller of the windowed sum and the 8-batch means)",
+  "overlap": "a chain's late change is a bookkeeping identity: with A the edges added and R the edges removed, net, from the copy's move, the overlap |copy and end| / |copy or end| is (|end| - |A|) / (|end| + |R|). Read on chains run by both engines, where the copy is also taken, so the two can be compared on every draw"
+ },
+ "series": {
+  "points": 240,
+  "seed": 780000
+ },
+ "rungs": [
+  {
+   "chains": 2,
+   "replicates": 4000
+  },
+  {
+   "chains": 8,
+   "replicates": 2000
+  }
+ ],
+ "true_samples": [
+  0.25,
+  0.5,
+  1,
+  2,
+  4,
+  8,
+  16,
+  32,
+  64,
+  128
+ ],
+ "thresholds": [
+  8,
+  16
+ ],
+ "thresholds_are": "8 is the policy's default (min_effective_samples), 16 what the survey's campaigns and every design in the tree ask (resources/configs/campaign_engine_survey.json)",
+ "cases": {
+  "every_chain": "every chain of the rung at the same true samples",
+  "one_starved": "the last chain of the rung at a true count of samples, every other chain at four times the threshold; read by the count on every chain and, beside it, by the count on the chain from empty alone (the first chain), which is what the fleet ran before 780"
+ },
+ "rule": {
+  "too_few_at_most": 0.125,
+  "plenty_from": 4,
+  "false_pass_at_most": 0.05,
+  "kept_at_least": 0.95
+ },
+ "rule_in_words": "For a threshold T and a rung of k chains: K1, a rung whose every chain has at most T/8 true samples is certified in at most 5% of chunks, at every such count; K2, a rung whose every chain has at least 4T is certified in at least 95%, at every such count; K3, a rung one of whose chains has at most T/8 true samples and every other 4T is certified in at most 5% of chunks, at every such count. K4, the overlap from the late change equals the overlap from the copy, to the last bit, on every chain of every draw, both engines. What lies between is reported. The count on every chain is fit at T when K1, K2 and K3 hold for both rungs.",
+ "overlap_draws": {
+  "sizes": [
+   16,
+   64,
+   256
+  ],
+  "laws": "the shipped law and the sparse anchor law, a local law and a zero-temperature law, every chain of the fixture design's starts",
+  "seeds": 25,
+  "engines": [
+   "python",
+   "rust"
+  ]
+ },
+ "expected": {
+  "at_16": "K1, K2 and K3 held on 2 and on 8 chains (from 751's single-chain rates: a chain of 2 true samples passes 4.5%, one of 64 99.8%, so a starved chain passes a rung about 4.5% and 8 chains of plenty about 98%)",
+  "at_8": "K3 missed on both rungs, a starved chain passing about 53% to 77% as one chain did at 751; K1 missed on 2 chains and held on 8",
+  "the_count_on_the_chain_from_empty_alone": "K3 missed at both thresholds: it certifies a rung whose other chain is starved as often as a rung of plenty",
+  "K4": "held on every draw",
+  "every row": "the same counts as 780 read, in every row of both rungs: the count a chain runs has not changed since, and the series are drawn from the same seed"
+ },
+ "what_follows": "If K1 to K3 hold at 16 and K4 holds, every chain's own count stays the instrument's known answer for when a chain has enough samples, at the survey's threshold of 16. A row that differs from 780's is named, and its cause found, before the build is released.",
+ "code": "graph_scale_dynamics/research/certificate_known_answers.py, tools/certificate_known_answers.py; the overlap by tests/scientific/test_the_late_change_gives_the_overlap.py",
+ "what_it_does_not_claim": [
+  "A chain's energy is not an AR(1) series; a chain still relaxing, or one with two time scales, is not among these known answers.",
+  "The chains of a rung are drawn independent here; chains of one law are, each its own random stream, but they share the law, and a law that holds one start's lattice is not a known answer of the count.",
+  "The split between chains and the structural split change only in which chains they compare and on how many points; their method is 755's and is not judged here.",
+  "The chains measured only decide nothing here; how often they would hold a rung back is read from the next wide pilot's bundle."
+ ]
+}

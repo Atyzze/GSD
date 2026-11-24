@@ -1,0 +1,979 @@
+{
+ "contract": "gsd-score-known-answers-criterion-5",
+ "committed_utc": "2026-11-23T11:20:00Z",
+ "committed_before": "any structure or crossover it names was built or read on seeds 61, 62 and 63, on build 846, and before the score it judges (gsd-law-score-8) read any of them. It is written after criterion 4's reading (seeds 51 to 53, 2026-11-23), which missed S1 on five pairs and S2 on one, and it is written fresh because of it: criterion 4 stays as it was judged, its reading committed beside it. Its strips, tubes, trees and soups differ from criterion 4's (widths 24, 40 and 56, tubes 6 by 6 and 12 by 12, trees of paths of 4 and 16 beside the paths of 8, a soup whose largest cycle is 12,288 nodes) or are read on new seeds; criterion 3's seventeen structures are read again on seeds 61 to 63.",
+ "question": "Does a settled reading describe the graph's own scale, on a graph that stopped changing and is one piece? Study 174's bundle of 2026-11-23 09:52Z showed both failing: none of its five finds from empty or random grows with N as the ring its probes read (reach x 0.68 to x 2.02 from 16,384 to 65,536, where a ring grows x 4), one of them a soup of cycles whose largest piece was 14% of the graph, and 53 of the 61 finds report 23 classes scoring only on rungs the decisions call never equilibrated (the operator, 2026-11-23 11:21: \"if you say the current scoring is off, and reduces the existing list from 62 to 4-14 then that is of course the thing we need to do first\"). Criterion 4 answered it in part: every exact structure still settles, and a piece under half the graph earns nothing; but a tree of long paths settled one pair at d 1.30 whose reach then grew as d 3.0 at the next size, so a pair can look like a dimension in the middle of a crossover, and a strip or a tube that is a line at the size read settles as the line it is, which criterion 4's S1 forbade.",
+ "relied_on_from_nodes": 4096,
+ "probes": [
+  "d_s",
+  "d_V",
+  "d_B",
+  "d_w"
+ ],
+ "a_reading": "criterion 3's rule (more than half of a rung's seeds read; the mean of those that read), and a seed counts only where its chain stopped changing: its rung's terminal class is EQUILIBRATED_ACTIVE, EQUILIBRATED_LOW_ACTIVITY, AT_REST or FROZEN_OR_ABSORBING, or that chain's own last chunk reads frozen. A seed that does not count still counts against the reading: more than half of all the rung's seeds must read and count. A built structure is a graph that does not change, so every seed of it counts.",
+ "connected": "a chain is read at a size only where its largest piece holds at least 4,096 nodes (as before) and at least half of the graph: the decisions' connectivity floor (policy connectivity_floor 0.5 from 1,024).",
+ "the_sizes": "from the smallest size at or above 4,096, the next size is the smallest at least three times the last: the fleet's ladder steps by four, and a table family or a judged structure built at other sizes is read at the sizes nearest that step. A pair is two such sizes one after the other.",
+ "settles": "a probe settles at a pair when it reads at both sizes and |x_b - x_a| <= r(p, b) * (x_a + x_b) / 2, r the probe's relative margin at the pair's larger size",
+ "scale": "a pair (a, b) holds its scale when the reach r (the half-volume radius, the mean over the seeds that count) grows as the d the score reads at b: |ln(r_b / r_a) - ln(b / a) / d_b| <= q ln(b / a) / d_b + 1 / (2 r_a) + 1 / (2 r_b) + z sqrt((se_a / r_a)^2 + (se_b / r_b)^2), d_b the median of the probes read at b, se the standard error of the counted seeds' reach (0 where one seed counts), z = 2. A probe settles at a pair, and the Einstein relation holds there, only where the pair holds its scale; a probe that reads at both sizes of a pair that does not hold its scale keeps its one point for reading. A pair without a reach at either size does not hold its scale. New in this criterion: a pair (a, b) whose chain also reads at the next size c of the score's steps keeps its scale only if (b, c) does not break it, a step breaking when both its reaches and d are read and it does not hold its scale: a dimension that the next size's reach does not grow by was a crossover on its way, and the probes settled on it settled nothing. A pair whose next size is not read, or is read without a reach, keeps its own verdict.",
+ "einstein": "all four probes agree at a pair when all four settle there and, at the larger size, both |d_s - 2 d_V / d_w| and |d_s - 2 d_B / d_w| are at most tau * d_s: d_V and d_B are each the mass dimension d_f of the relation, at a pair that holds its scale",
+ "points": "at a pair, the probes that settle (0 to 4) and one more where all four agree: 0 to 5; the fifth is the landscape's 5th band",
+ "training": {
+  "file": "calibration/seed_table.json",
+  "file_sha256": "d09b4255e8f18284f0aeadeb7dade01ed7dabed6ef426268176a792ff10d480e",
+  "held_by": "graph_scale_dynamics/resources/calibration/table_holds.json",
+  "held_by_sha256": "2f03dad7b9939aa435d4b3fc8d60e6b13fb6d366321a288f84dc6534304dbeb7",
+  "families": "every family of table_holds' with_a_dimension, the lattices of one to four dimensions, both quotients, the Sierpinski gasket and carpet and the uniform random tree, each probe at the sizes table_holds holds it at (from its from_nodes)",
+  "triples": "seeds 0, 1, 2; 3, 4, 5; 6, 7, 8 of a size the table holds ten seeds at, and 0, 1, 2 alone where it holds three: a fleet rung's three seeds",
+  "margins": "criterion 3's margins and tau, unchanged (graph_scale_dynamics/resources/calibration/score_margins.json)",
+  "reach_rule": "q is the smallest value of its grid at least twice the widest training excess, max(0, |ln(r_b / r_a) - ln(b / a) / d_b| - (1 / (2 r_a) + 1 / (2 r_b) + z sqrt((se_a / r_a)^2 + (se_b / r_b)^2))) / (ln(b / a) / d_b), over every pair from 4,096 of every training family's triples, d_b the median of the probes the triple reads at b. A pair whose excess would set q above the grid's largest value sets q to it and is listed.",
+  "reach_grid": [
+   0.05,
+   0.1,
+   0.15,
+   0.2,
+   0.25,
+   0.3
+  ],
+  "z": 2.0,
+  "half_step": 0.5,
+  "factor": 2.0,
+  "form_chosen_in_view_of_training": "the allowance's form (half a step of the reach at each size, two standard errors of the seeds' reach) was chosen with the training set in view: an exact lattice's reach is a whole number of steps and moves in whole steps (the A4 lattice reads 8 and 10 at 20,736 and 65,536), and the uniform random tree's reach spreads by about a fifth between seeds. No held-out structure was read when it was chosen.",
+  "written_to": "the reach block of graph_scale_dynamics/resources/calibration/score_margins.json, by tools/score_known_answers.py --write, never by hand",
+  "next_step": "the rule has no parameter of its own: it reads the same q, z and half step at the next step as at the pair, trained as criterion 4 trained them; a training family whose next step breaks would be listed"
+ },
+ "held": "a probe is held where the table holds that family at that size (table_holds' bands) for a family of the table, where 764's criterion gave it a band for any other structure, and from 16,384 for the random geometric graph in three dimensions; a probe held at a size that does not read there is reported, not a miss: the score judges settling, the probes' own judged sets judge reading",
+ "seeds": [
+  61,
+  62,
+  63
+ ],
+ "structures": [
+  {
+   "name": "square",
+   "build": "start",
+   "family": "periodic_square_lattice",
+   "sizes": [
+    4096,
+    16384,
+    65536
+   ],
+   "expected": {
+    "d_s": {
+     "theory": 2.0,
+     "within": 0.2
+    },
+    "d_V": {
+     "theory": 2.0,
+     "within": 0.1
+    },
+    "d_B": {
+     "theory": 2.0,
+     "within": {
+      "1024": 0.25,
+      "4096": 0.2,
+      "16384": 0.2,
+      "65536": 0.2,
+      "262144": 0.2
+     }
+    },
+    "d_w": {
+     "theory": 2.0,
+     "within": {
+      "1024": 0.3,
+      "4096": 0.15,
+      "16384": 0.15,
+      "65536": 0.15,
+      "262144": 0.15
+     }
+    }
+   },
+   "held": {
+    "d_s": [
+     4096,
+     16384,
+     65536
+    ],
+    "d_V": [
+     4096,
+     16384,
+     65536
+    ],
+    "d_B": [
+     4096,
+     16384,
+     65536
+    ],
+    "d_w": [
+     4096,
+     16384,
+     65536
+    ]
+   }
+  },
+  {
+   "name": "triangular",
+   "build": "start",
+   "family": "periodic_triangular_lattice",
+   "sizes": [
+    4096,
+    16384,
+    65536
+   ],
+   "expected": {
+    "d_s": {
+     "theory": 2.0,
+     "within": 0.2
+    },
+    "d_V": {
+     "theory": 2.0,
+     "within": 0.1
+    },
+    "d_B": {
+     "theory": 2.0,
+     "within": {
+      "1024": 0.25,
+      "4096": 0.2,
+      "16384": 0.2,
+      "65536": 0.2,
+      "262144": 0.2
+     }
+    },
+    "d_w": {
+     "theory": 2.0,
+     "within": {
+      "1024": 0.3,
+      "4096": 0.15,
+      "16384": 0.15,
+      "65536": 0.15,
+      "262144": 0.15
+     }
+    }
+   },
+   "held": {
+    "d_s": [
+     4096,
+     16384,
+     65536
+    ],
+    "d_V": [
+     4096,
+     16384,
+     65536
+    ],
+    "d_B": [
+     4096,
+     16384,
+     65536
+    ],
+    "d_w": [
+     4096,
+     16384,
+     65536
+    ]
+   }
+  },
+  {
+   "name": "honeycomb",
+   "build": "start",
+   "family": "periodic_honeycomb_lattice",
+   "sizes": [
+    4096,
+    16384,
+    65536
+   ],
+   "expected": {
+    "d_s": {
+     "theory": 2.0,
+     "within": 0.2
+    },
+    "d_V": {
+     "theory": 2.0,
+     "within": 0.1
+    },
+    "d_B": {
+     "theory": 2.0,
+     "within": {
+      "1024": 0.25,
+      "4096": 0.2,
+      "16384": 0.2,
+      "65536": 0.2
+     }
+    },
+    "d_w": {
+     "theory": 2.0,
+     "within": {
+      "1024": 0.3,
+      "4096": 0.15,
+      "16384": 0.15,
+      "65536": 0.15
+     }
+    }
+   },
+   "held": {
+    "d_s": [
+     4096,
+     16384,
+     65536
+    ],
+    "d_V": [
+     4096,
+     16384,
+     65536
+    ],
+    "d_B": [
+     4096,
+     16384,
+     65536
+    ],
+    "d_w": [
+     4096,
+     16384,
+     65536
+    ]
+   }
+  },
+  {
+   "name": "cubic",
+   "build": "start",
+   "family": "periodic_cubic_quotient",
+   "sizes": [
+    4096,
+    16384,
+    65536
+   ],
+   "expected": {
+    "d_s": {
+     "theory": 3.0,
+     "within": 0.3
+    },
+    "d_V": {
+     "theory": 3.0,
+     "within": 0.2
+    },
+    "d_B": {
+     "theory": 3.0,
+     "within": 0.35
+    },
+    "d_w": {
+     "theory": 2.0,
+     "within": {
+      "16384": 0.25,
+      "65536": 0.2,
+      "262144": 0.2
+     },
+     "reported_at": [
+      "1024",
+      "4096"
+     ]
+    }
+   },
+   "held": {
+    "d_s": [
+     4096,
+     16384,
+     65536
+    ],
+    "d_V": [
+     4096,
+     16384,
+     65536
+    ],
+    "d_B": [
+     4096,
+     16384,
+     65536
+    ],
+    "d_w": [
+     16384,
+     65536
+    ]
+   }
+  },
+  {
+   "name": "body-centred cubic",
+   "build": "start",
+   "family": "periodic_body_centred_cubic_lattice",
+   "sizes": [
+    4096,
+    16384,
+    65536
+   ],
+   "expected": {
+    "d_s": {
+     "theory": 3.0,
+     "within": 0.3
+    },
+    "d_V": {
+     "theory": 3.0,
+     "within": 0.2
+    },
+    "d_B": {
+     "theory": 3.0,
+     "within": 0.35
+    },
+    "d_w": {
+     "theory": 2.0,
+     "within": {
+      "16384": 0.2,
+      "65536": 0.2,
+      "262144": 0.2
+     },
+     "reported_at": [
+      "1024",
+      "4096"
+     ]
+    }
+   },
+   "held": {
+    "d_s": [
+     4096,
+     16384,
+     65536
+    ],
+    "d_V": [
+     4096,
+     16384,
+     65536
+    ],
+    "d_B": [
+     16384,
+     65536
+    ],
+    "d_w": [
+     16384,
+     65536
+    ]
+   }
+  },
+  {
+   "name": "face-centred cubic",
+   "build": "start",
+   "family": "periodic_face_centred_cubic_lattice",
+   "sizes": [
+    4096,
+    16384,
+    65536
+   ],
+   "expected": {
+    "d_s": {
+     "theory": 3.0,
+     "within": 0.3
+    },
+    "d_V": {
+     "theory": 3.0,
+     "within": 0.2
+    },
+    "d_B": {
+     "theory": 3.0,
+     "within": 0.35
+    },
+    "d_w": {
+     "theory": 2.0,
+     "within": {
+      "16384": 0.2,
+      "65536": 0.2,
+      "262144": 0.2
+     },
+     "reported_at": [
+      "1024",
+      "4096"
+     ]
+    }
+   },
+   "held": {
+    "d_s": [
+     4096,
+     16384,
+     65536
+    ],
+    "d_V": [
+     4096,
+     16384,
+     65536
+    ],
+    "d_B": [
+     16384,
+     65536
+    ],
+    "d_w": [
+     16384,
+     65536
+    ]
+   }
+  },
+  {
+   "name": "4D",
+   "build": "start",
+   "family": "periodic_tesseract_quotient",
+   "sizes": [
+    4096,
+    16384,
+    65536
+   ],
+   "expected": {
+    "d_s": {
+     "theory": 4.0,
+     "within": 0.4
+    },
+    "d_V": {
+     "theory": 4.0,
+     "within": {
+      "1024": 0.8,
+      "4096": 0.6,
+      "16384": 0.3,
+      "65536": 0.3,
+      "262144": 0.2
+     }
+    },
+    "d_B": {
+     "theory": 4.0,
+     "within": 0.75
+    },
+    "d_w": {
+     "theory": 2.0,
+     "within": {
+      "262144": 0.25
+     },
+     "reported_at": [
+      "1024",
+      "4096",
+      "16384",
+      "65536"
+     ]
+    }
+   },
+   "held": {
+    "d_s": [
+     4096,
+     16384,
+     65536
+    ],
+    "d_V": [
+     4096,
+     16384,
+     65536
+    ],
+    "d_B": [
+     16384,
+     65536
+    ],
+    "d_w": []
+   }
+  },
+  {
+   "name": "ring",
+   "build": "ring",
+   "sizes": [
+    4096,
+    16384
+   ],
+   "expected": {
+    "d_s": {
+     "theory": 1.0,
+     "within": 0.1
+    },
+    "d_V": {
+     "theory": 1.0,
+     "within": 0.05
+    },
+    "d_B": {
+     "theory": 1.0,
+     "within": 0.1
+    },
+    "d_w": {
+     "theory": 2.0,
+     "within": {
+      "1024": 0.15,
+      "4096": 0.15,
+      "16384": 0.15
+     }
+    }
+   },
+   "held": {
+    "d_s": [
+     4096,
+     16384
+    ],
+    "d_V": [
+     4096,
+     16384
+    ],
+    "d_B": [
+     4096,
+     16384
+    ],
+    "d_w": [
+     4096,
+     16384
+    ]
+   }
+  },
+  {
+   "name": "random geometric graph in the plane, mean degree 8",
+   "build": "random_geometric",
+   "dimension": 2,
+   "mean_degree": 8.0,
+   "sizes": [
+    4096,
+    16384,
+    65536
+   ],
+   "same_on_every_seed": false,
+   "expected": {
+    "d_s": {
+     "theory": 2.0,
+     "within": 0.3
+    },
+    "d_V": {
+     "theory": 2.0,
+     "within": 0.3
+    },
+    "d_B": {
+     "theory": 2.0,
+     "within": 0.3
+    },
+    "d_w": {
+     "theory": 2.0,
+     "within": 0.35
+    }
+   },
+   "held": {
+    "d_s": [
+     4096,
+     16384,
+     65536
+    ],
+    "d_V": [
+     4096,
+     16384,
+     65536
+    ],
+    "d_B": [
+     4096,
+     16384,
+     65536
+    ],
+    "d_w": [
+     4096,
+     16384,
+     65536
+    ]
+   }
+  },
+  {
+   "name": "random geometric graph in three dimensions, mean degree 10",
+   "build": "random_geometric",
+   "dimension": 3,
+   "mean_degree": 10.0,
+   "sizes": [
+    4096,
+    16384,
+    65536
+   ],
+   "same_on_every_seed": false,
+   "expected": {
+    "d_s": {
+     "theory": 3.0,
+     "within": 0.5
+    },
+    "d_V": {
+     "theory": 3.0,
+     "within": 0.5
+    },
+    "d_B": {
+     "theory": 3.0,
+     "within": 0.5
+    },
+    "d_w": {
+     "theory": 2.0,
+     "within": {
+      "65536": 0.35
+     },
+     "reported_at": [
+      "4096",
+      "16384"
+     ]
+    }
+   },
+   "held": {
+    "d_s": [
+     16384,
+     65536
+    ],
+    "d_V": [
+     16384,
+     65536
+    ],
+    "d_B": [
+     16384,
+     65536
+    ],
+    "d_w": [
+     16384,
+     65536
+    ]
+   }
+  },
+  {
+   "name": "square lattice with chords within three steps",
+   "build": "square_with_local_chords",
+   "chords_a_node": 0.05,
+   "within": 3,
+   "sizes": [
+    4096,
+    16384
+   ],
+   "same_on_every_seed": false,
+   "expected": {
+    "d_s": {
+     "theory": 2.0,
+     "within": 0.3
+    },
+    "d_V": {
+     "theory": 2.0,
+     "within": 0.3
+    },
+    "d_B": {
+     "theory": 2.0,
+     "within": 0.3
+    },
+    "d_w": {
+     "theory": 2.0,
+     "within": 0.35
+    }
+   },
+   "held": {
+    "d_s": [
+     4096,
+     16384
+    ],
+    "d_V": [
+     4096,
+     16384
+    ],
+    "d_B": [
+     4096,
+     16384
+    ],
+    "d_w": [
+     4096,
+     16384
+    ]
+   }
+  },
+  {
+   "name": "square lattice with a fifth of its sites removed",
+   "build": "diluted_square",
+   "kept": 0.8,
+   "sizes": [
+    4096,
+    16384
+   ],
+   "same_on_every_seed": false,
+   "expected": {
+    "d_s": {
+     "theory": 2.0,
+     "within": 0.3
+    },
+    "d_V": {
+     "theory": 2.0,
+     "within": 0.3
+    },
+    "d_B": {
+     "theory": 2.0,
+     "within": 0.3
+    },
+    "d_w": {
+     "theory": 2.0,
+     "within": 0.3
+    }
+   },
+   "held": {
+    "d_s": [
+     4096,
+     16384
+    ],
+    "d_V": [
+     4096,
+     16384
+    ],
+    "d_B": [
+     4096,
+     16384
+    ],
+    "d_w": [
+     4096,
+     16384
+    ]
+   }
+  },
+  {
+   "name": "random 3-regular graph",
+   "build": "table_family",
+   "family": "random_3_regular",
+   "sizes": [
+    4096,
+    16384
+   ],
+   "same_on_every_seed": false,
+   "expected": {
+    "d_s": "refuse",
+    "d_V": "refuse",
+    "d_B": "refuse",
+    "d_w": "refuse"
+   },
+   "held": {
+    "d_s": "refuse",
+    "d_V": "refuse",
+    "d_B": "refuse",
+    "d_w": "refuse"
+   }
+  },
+  {
+   "name": "random graph of mean degree 2.5",
+   "build": "table_family",
+   "family": "erdos_renyi_sparse",
+   "sizes": [
+    4096,
+    16384
+   ],
+   "same_on_every_seed": false,
+   "expected": {
+    "d_s": "refuse",
+    "d_V": "refuse",
+    "d_B": "refuse",
+    "d_w": "refuse"
+   },
+   "held": {
+    "d_s": "refuse",
+    "d_V": "refuse",
+    "d_B": "refuse",
+    "d_w": "refuse"
+   }
+  },
+  {
+   "name": "square lattice with 0.008 shortcuts a node",
+   "build": "torus_with_shortcuts",
+   "dimension": 2,
+   "shortcuts_a_node": 0.008,
+   "sizes": [
+    4096,
+    16384
+   ],
+   "same_on_every_seed": false,
+   "expected": {
+    "d_s": "refuse",
+    "d_V": "refuse",
+    "d_B": "refuse",
+    "d_w": "refuse"
+   },
+   "held": {
+    "d_s": "refuse",
+    "d_V": "refuse",
+    "d_B": "refuse",
+    "d_w": "refuse"
+   }
+  },
+  {
+   "name": "preferential attachment, two links a node",
+   "build": "preferential_attachment",
+   "links": 2,
+   "sizes": [
+    4096,
+    16384
+   ],
+   "same_on_every_seed": false,
+   "expected": {
+    "d_s": "refuse",
+    "d_V": "refuse",
+    "d_B": "refuse",
+    "d_w": "refuse"
+   },
+   "held": {
+    "d_s": "refuse",
+    "d_V": "refuse",
+    "d_B": "refuse",
+    "d_w": "refuse"
+   }
+  },
+  {
+   "name": "hyperbolic geometric graph, mean degree 12",
+   "build": "hyperbolic_geometric",
+   "mean_degree": 12.0,
+   "within": 1.0,
+   "sizes": [
+    4096,
+    16384
+   ],
+   "same_on_every_seed": false,
+   "expected": {
+    "d_s": "refuse",
+    "d_V": "refuse",
+    "d_B": "refuse",
+    "d_w": "refuse"
+   },
+   "held": {
+    "d_s": "refuse",
+    "d_V": "refuse",
+    "d_B": "refuse",
+    "d_w": "refuse"
+   }
+  }
+ ],
+ "crossovers": [
+  {
+   "name": "periodic strip 24 nodes wide",
+   "build": "box",
+   "sides": [
+    24,
+    "n"
+   ],
+   "sizes": [
+    171,
+    683,
+    2731
+   ],
+   "width": 24,
+   "same_on_every_seed": true,
+   "judged_from_n": 4104
+  },
+  {
+   "name": "periodic strip 40 nodes wide",
+   "build": "box",
+   "sides": [
+    40,
+    "n"
+   ],
+   "sizes": [
+    103,
+    410,
+    1639
+   ],
+   "width": 40,
+   "same_on_every_seed": true,
+   "judged_from_n": 4120
+  },
+  {
+   "name": "periodic strip 56 nodes wide",
+   "build": "box",
+   "sides": [
+    56,
+    "n"
+   ],
+   "sizes": [
+    74,
+    293,
+    1171
+   ],
+   "width": 56,
+   "same_on_every_seed": true,
+   "judged_from_n": 16408
+  },
+  {
+   "name": "periodic tube 6 by 6 nodes across",
+   "build": "box",
+   "sides": [
+    6,
+    6,
+    "n"
+   ],
+   "sizes": [
+    114,
+    456,
+    1821
+   ],
+   "width": 6,
+   "same_on_every_seed": true,
+   "judged_from_n": 4104
+  },
+  {
+   "name": "periodic tube 12 by 12 nodes across",
+   "build": "box",
+   "sides": [
+    12,
+    12,
+    "n"
+   ],
+   "sizes": [
+    29,
+    114,
+    456
+   ],
+   "width": 12,
+   "same_on_every_seed": true,
+   "judged_from_n": 4176
+  },
+  {
+   "name": "uniform random tree, every edge a path of 4",
+   "build": "subdivided_random_tree",
+   "pieces": 4,
+   "sizes": [
+    1025,
+    4097,
+    16385
+   ],
+   "same_on_every_seed": false
+  },
+  {
+   "name": "uniform random tree, every edge a path of 8",
+   "build": "subdivided_random_tree",
+   "pieces": 8,
+   "sizes": [
+    513,
+    2049,
+    8193
+   ],
+   "same_on_every_seed": false
+  },
+  {
+   "name": "uniform random tree, every edge a path of 16",
+   "build": "subdivided_random_tree",
+   "pieces": 16,
+   "sizes": [
+    257,
+    1025,
+    4097
+   ],
+   "same_on_every_seed": false
+  },
+  {
+   "name": "soup of cycles, the largest 6,144 nodes",
+   "build": "cycle_soup",
+   "largest": 6144,
+   "small": 64,
+   "sizes": [
+    4096,
+    16384,
+    65536
+   ],
+   "same_on_every_seed": true
+  },
+  {
+   "name": "soup of cycles, the largest 12,288 nodes",
+   "build": "cycle_soup",
+   "largest": 12288,
+   "small": 64,
+   "sizes": [
+    4096,
+    16384,
+    65536
+   ],
+   "same_on_every_seed": true
+  }
+ ],
+ "crossover_rule": "a strip or a tube is judged at every pair whose smaller size is at least twice as long as the strip or tube is wide (judged_from_n names that size); a pair from a square or a cube is reported, not judged.",
+ "predictions": {
+  "K1": "criterion 3's K1 under the score with its scale, its next step and its floor: every probe held at both sizes of a pair and reading at both settles at that pair",
+  "K2": "criterion 3's K2 likewise: every structure held on all four probes at both sizes of a pair and reading all four at both is in the fifth band there",
+  "K3": "criterion 3's K3 likewise: no probe that must refuse settles at any pair",
+  "K4": "criterion 3's K4 likewise: the law score of a chain from empty given a structure's readings is 0 for every structure of K3, and its points at its top pair are 5 for every structure of K2",
+  "S1": "at every judged pair of a strip or a tube, a probe settles or the Einstein relation holds only where the d read at the larger size is below 1.5: a strip or a tube is read only as the line it is at that size, never as the plane or the volume its width shows its probes",
+  "S2": "no subdivided random tree (paths of 4, 8 and 16) is read as a ring: at no pair where a probe settles or the Einstein relation holds is the d read at its larger size below 1.5",
+  "S3": "neither soup of cycles earns a point at a pair whose larger size has its largest piece under half the graph",
+  "reach_rule": "q, trained by the reach rule on the installed table, is the one in force"
+ },
+ "passes": "when K1 to K4 and S1 to S3 hold on every case; every miss is listed. A sandbox set, to 65,664 nodes.",
+ "measured_by": "graph_scale_dynamics/research/probes_known_answers.measure, the probes of this tree (analysis-5.3.0, estimator e639334808716378), each structure built by 764's builder; each crossover built by research/probes_known_answers.build",
+ "reported_beside": "every judged pair's reach, the d its growth implies and the d read, and whether its next step broke it; what the score gave each pair without the next step (gsd-law-score-7) and without scale or floor (gsd-law-score-6); the pairs from a square or a cube.",
+ "what_follows": "If K1 to K4 and S1 to S3 hold, the score reads only counted seeds, a connected piece and pairs that hold their scale and whose next step does not break it (gsd-law-score-8), and study 174's finds are read again with it, first from its bundle and then from the bundle its folder writes on 846. It decides nothing: no gate, rung or let-through reads the score. If one misses, the miss is named with its structure and pair, and the score in force stays gsd-law-score-6 in 846."
+}

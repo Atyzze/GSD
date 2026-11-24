@@ -1,0 +1,2966 @@
+{
+ "build": 818,
+ "cases": [
+  {
+   "id": "K1",
+   "law": {
+    "at_n": 4096,
+    "class": "forgets",
+    "failures": [],
+    "top_dense": false
+   },
+   "name": "every start ends alike, no shape",
+   "passed": false,
+   "sizes": {
+    "1024": {
+     "class": "forgets",
+     "distances": {
+      "bcc|cubic": 0.314,
+      "bcc|empty": 0.176,
+      "bcc|fcc": 0.292,
+      "bcc|random": 0.27,
+      "bcc|square": 0.0777,
+      "bcc|tesseract": 0.298,
+      "bcc|triangular": 0.196,
+      "cubic|empty": 0.299,
+      "cubic|fcc": 0.305,
+      "cubic|random": 0.183,
+      "cubic|square": 0.228,
+      "cubic|tesseract": 0.494,
+      "cubic|triangular": 0.294,
+      "empty|fcc": 0.115,
+      "empty|random": 0.222,
+      "empty|square": 0.157,
+      "empty|tesseract": 0.224,
+      "empty|triangular": 0.0417,
+      "fcc|random": 0.181,
+      "fcc|square": 0.209,
+      "fcc|tesseract": 0.282,
+      "fcc|triangular": 0.0961,
+      "random|square": 0.195,
+      "random|tesseract": 0.362,
+      "random|triangular": 0.246,
+      "square|tesseract": 0.33,
+      "square|triangular": 0.141,
+      "tesseract|triangular": 0.232
+     },
+     "failures": [
+      "fcc partly, expected melted"
+     ],
+     "fates": {
+      "bcc": [
+       "melted",
+       0.063,
+       0.25
+      ],
+      "cubic": [
+       "melted",
+       0.039,
+       0.0
+      ],
+      "fcc": [
+       "partly",
+       0.626,
+       0.5
+      ],
+      "square": [
+       "melted",
+       -0.386,
+       0.5
+      ],
+      "tesseract": [
+       "melted",
+       0.141,
+       0.25
+      ],
+      "triangular": [
+       "melted",
+       0.028,
+       0.0
+      ]
+     },
+     "groups": [
+      [
+       "empty",
+       "random",
+       "square",
+       "triangular",
+       "cubic",
+       "bcc",
+       "fcc",
+       "tesseract"
+      ]
+     ],
+     "spread": 0.494,
+     "worst": {
+      "bcc|cubic": "kappa",
+      "bcc|empty": "triangles_per_node",
+      "bcc|fcc": "triangles_per_node",
+      "bcc|random": "triangles_per_node",
+      "bcc|square": "triangles_per_node",
+      "bcc|tesseract": "squares_per_node",
+      "bcc|triangular": "triangles_per_node",
+      "cubic|empty": "squares_per_node",
+      "cubic|fcc": "squares_per_node",
+      "cubic|random": "squares_per_node",
+      "cubic|square": "kappa",
+      "cubic|tesseract": "squares_per_node",
+      "cubic|triangular": "kappa",
+      "empty|fcc": "triangles_per_node",
+      "empty|random": "reach",
+      "empty|square": "squares_per_node",
+      "empty|tesseract": "kappa",
+      "empty|triangular": "kappa",
+      "fcc|random": "reach",
+      "fcc|square": "triangles_per_node",
+      "fcc|tesseract": "kappa",
+      "fcc|triangular": "triangles_per_node",
+      "random|square": "triangles_per_node",
+      "random|tesseract": "kappa",
+      "random|triangular": "reach",
+      "square|tesseract": "squares_per_node",
+      "square|triangular": "squares_per_node",
+      "tesseract|triangular": "kappa"
+     }
+    },
+    "4096": {
+     "class": "forgets",
+     "distances": {
+      "bcc|cubic": 0.178,
+      "bcc|empty": 0.16,
+      "bcc|fcc": 0.158,
+      "bcc|random": 0.184,
+      "bcc|square": 0.0881,
+      "bcc|tesseract": 0.116,
+      "bcc|triangular": 0.169,
+      "cubic|empty": 0.166,
+      "cubic|fcc": 0.0956,
+      "cubic|random": 0.106,
+      "cubic|square": 0.127,
+      "cubic|tesseract": 0.148,
+      "cubic|triangular": 0.158,
+      "empty|fcc": 0.166,
+      "empty|random": 0.153,
+      "empty|square": 0.0958,
+      "empty|tesseract": 0.122,
+      "empty|triangular": 0.131,
+      "fcc|random": 0.0563,
+      "fcc|square": 0.0873,
+      "fcc|tesseract": 0.127,
+      "fcc|triangular": 0.0625,
+      "random|square": 0.145,
+      "random|tesseract": 0.188,
+      "random|triangular": 0.0521,
+      "square|tesseract": 0.0385,
+      "square|triangular": 0.131,
+      "tesseract|triangular": 0.176
+     },
+     "failures": [],
+     "fates": {
+      "bcc": [
+       "melted",
+       0.25,
+       0.25
+      ],
+      "cubic": [
+       "melted",
+       -0.003,
+       0.0
+      ],
+      "fcc": [
+       "melted",
+       0.319,
+       0.5
+      ],
+      "square": [
+       "melted",
+       -0.22,
+       0.5
+      ],
+      "tesseract": [
+       "melted",
+       0.322,
+       0.25
+      ],
+      "triangular": [
+       "melted",
+       0.0,
+       0.0
+      ]
+     },
+     "groups": [
+      [
+       "empty",
+       "random",
+       "square",
+       "triangular",
+       "cubic",
+       "bcc",
+       "fcc",
+       "tesseract"
+      ]
+     ],
+     "spread": 0.188,
+     "worst": {
+      "bcc|cubic": "squares_per_node",
+      "bcc|empty": "squares_per_node",
+      "bcc|fcc": "reach",
+      "bcc|random": "squares_per_node",
+      "bcc|square": "reach",
+      "bcc|tesseract": "squares_per_node",
+      "bcc|triangular": "squares_per_node",
+      "cubic|empty": "reach",
+      "cubic|fcc": "triangles_per_node",
+      "cubic|random": "triangles_per_node",
+      "cubic|square": "triangles_per_node",
+      "cubic|tesseract": "triangles_per_node",
+      "cubic|triangular": "triangles_per_node",
+      "empty|fcc": "reach",
+      "empty|random": "reach",
+      "empty|square": "reach",
+      "empty|tesseract": "kappa",
+      "empty|triangular": "reach",
+      "fcc|random": "kappa",
+      "fcc|square": "kappa",
+      "fcc|tesseract": "kappa",
+      "fcc|triangular": "triangles_per_node",
+      "random|square": "kappa",
+      "random|tesseract": "kappa",
+      "random|triangular": "triangles_per_node",
+      "square|tesseract": "squares_per_node",
+      "square|triangular": "kappa",
+      "tesseract|triangular": "kappa"
+     }
+    }
+   }
+  },
+  {
+   "id": "K2",
+   "law": {
+    "at_n": 4096,
+    "class": "remembers",
+    "failures": [],
+    "top_dense": false
+   },
+   "name": "the starts end apart, no shape held",
+   "passed": true,
+   "sizes": {
+    "1024": {
+     "class": "remembers",
+     "distances": {
+      "bcc|cubic": 11.0,
+      "bcc|empty": 22.8,
+      "bcc|fcc": 15.9,
+      "bcc|random": 16.5,
+      "bcc|square": 22.3,
+      "bcc|tesseract": 0.241,
+      "bcc|triangular": 11.2,
+      "cubic|empty": 14.8,
+      "cubic|fcc": 22.8,
+      "cubic|random": 23.6,
+      "cubic|square": 14.4,
+      "cubic|tesseract": 11.0,
+      "cubic|triangular": 0.13,
+      "empty|fcc": 31.2,
+      "empty|random": 33.3,
+      "empty|square": 2.31,
+      "empty|tesseract": 22.7,
+      "empty|triangular": 15.4,
+      "fcc|random": 4.71,
+      "fcc|square": 30.8,
+      "fcc|tesseract": 15.2,
+      "fcc|triangular": 23.2,
+      "random|square": 31.8,
+      "random|tesseract": 15.8,
+      "random|triangular": 24.2,
+      "square|tesseract": 22.3,
+      "square|triangular": 14.9,
+      "tesseract|triangular": 11.2
+     },
+     "failures": [],
+     "fates": {
+      "bcc": [
+       "melted",
+       0.0,
+       0.00415
+      ],
+      "cubic": [
+       "melted",
+       -0.002,
+       0.00228
+      ],
+      "fcc": [
+       "melted",
+       0.0,
+       0.00651
+      ],
+      "square": [
+       "melted",
+       -0.0,
+       0.00342
+      ],
+      "tesseract": [
+       "melted",
+       0.0,
+       0.00334
+      ],
+      "triangular": [
+       "melted",
+       -0.001,
+       0.00293
+      ]
+     },
+     "groups": [
+      [
+       "empty"
+      ],
+      [
+       "random"
+      ],
+      [
+       "square"
+      ],
+      [
+       "triangular",
+       "cubic"
+      ],
+      [
+       "bcc",
+       "tesseract"
+      ],
+      [
+       "fcc"
+      ]
+     ],
+     "spread": 33.3,
+     "worst": {
+      "bcc|cubic": "mean_degree",
+      "bcc|empty": "mean_degree",
+      "bcc|fcc": "kappa",
+      "bcc|random": "kappa",
+      "bcc|square": "mean_degree",
+      "bcc|tesseract": "kappa",
+      "bcc|triangular": "mean_degree",
+      "cubic|empty": "mean_degree",
+      "cubic|fcc": "mean_degree",
+      "cubic|random": "mean_degree",
+      "cubic|square": "mean_degree",
+      "cubic|tesseract": "mean_degree",
+      "cubic|triangular": "squares_per_node",
+      "empty|fcc": "mean_degree",
+      "empty|random": "mean_degree",
+      "empty|square": "reach",
+      "empty|tesseract": "mean_degree",
+      "empty|triangular": "mean_degree",
+      "fcc|random": "squares_per_node",
+      "fcc|square": "mean_degree",
+      "fcc|tesseract": "mean_degree",
+      "fcc|triangular": "mean_degree",
+      "random|square": "mean_degree",
+      "random|tesseract": "mean_degree",
+      "random|triangular": "mean_degree",
+      "square|tesseract": "mean_degree",
+      "square|triangular": "mean_degree",
+      "tesseract|triangular": "mean_degree"
+     }
+    },
+    "4096": {
+     "class": "remembers",
+     "distances": {
+      "bcc|cubic": 12.3,
+      "bcc|empty": 24.8,
+      "bcc|fcc": 16.5,
+      "bcc|random": 16.6,
+      "bcc|square": 24.8,
+      "bcc|tesseract": 0.154,
+      "bcc|triangular": 12.3,
+      "cubic|empty": 16.4,
+      "cubic|fcc": 24.8,
+      "cubic|random": 24.8,
+      "cubic|square": 16.4,
+      "cubic|tesseract": 12.3,
+      "cubic|triangular": 0.144,
+      "empty|fcc": 33.2,
+      "empty|random": 33.3,
+      "empty|square": 1.94,
+      "empty|tesseract": 24.6,
+      "empty|triangular": 16.3,
+      "fcc|random": 3.78,
+      "fcc|square": 33.2,
+      "fcc|tesseract": 16.5,
+      "fcc|triangular": 24.7,
+      "random|square": 33.3,
+      "random|tesseract": 16.5,
+      "random|triangular": 24.8,
+      "square|tesseract": 24.6,
+      "square|triangular": 16.4,
+      "tesseract|triangular": 12.3
+     },
+     "failures": [],
+     "fates": {
+      "bcc": [
+       "melted",
+       -0.001,
+       0.000772
+      ],
+      "cubic": [
+       "melted",
+       0.0,
+       0.000787
+      ],
+      "fcc": [
+       "melted",
+       0.0,
+       0.00163
+      ],
+      "square": [
+       "melted",
+       0.0,
+       0.00053
+      ],
+      "tesseract": [
+       "melted",
+       -0.002,
+       0.000794
+      ],
+      "triangular": [
+       "melted",
+       0.0,
+       0.000652
+      ]
+     },
+     "groups": [
+      [
+       "empty"
+      ],
+      [
+       "random"
+      ],
+      [
+       "square"
+      ],
+      [
+       "triangular",
+       "cubic"
+      ],
+      [
+       "bcc",
+       "tesseract"
+      ],
+      [
+       "fcc"
+      ]
+     ],
+     "spread": 33.3,
+     "worst": {
+      "bcc|cubic": "mean_degree",
+      "bcc|empty": "mean_degree",
+      "bcc|fcc": "mean_degree",
+      "bcc|random": "mean_degree",
+      "bcc|square": "mean_degree",
+      "bcc|tesseract": "squares_per_node",
+      "bcc|triangular": "mean_degree",
+      "cubic|empty": "mean_degree",
+      "cubic|fcc": "mean_degree",
+      "cubic|random": "mean_degree",
+      "cubic|square": "mean_degree",
+      "cubic|tesseract": "mean_degree",
+      "cubic|triangular": "squares_per_node",
+      "empty|fcc": "mean_degree",
+      "empty|random": "mean_degree",
+      "empty|square": "reach",
+      "empty|tesseract": "mean_degree",
+      "empty|triangular": "mean_degree",
+      "fcc|random": "squares_per_node",
+      "fcc|square": "mean_degree",
+      "fcc|tesseract": "mean_degree",
+      "fcc|triangular": "mean_degree",
+      "random|square": "mean_degree",
+      "random|tesseract": "mean_degree",
+      "random|triangular": "mean_degree",
+      "square|tesseract": "mean_degree",
+      "square|triangular": "mean_degree",
+      "tesseract|triangular": "mean_degree"
+     }
+    }
+   }
+  },
+  {
+   "id": "K3",
+   "law": {
+    "at_n": 4096,
+    "class": "holds",
+    "failures": [],
+    "top_dense": false
+   },
+   "name": "the lattices hold their shapes",
+   "passed": true,
+   "sizes": {
+    "1024": {
+     "class": "holds",
+     "distances": {
+      "bcc|cubic": 19.8,
+      "bcc|empty": 32.5,
+      "bcc|fcc": 25.3,
+      "bcc|random": 38.5,
+      "bcc|square": 25.1,
+      "bcc|tesseract": 12.7,
+      "bcc|triangular": 19.6,
+      "cubic|empty": 31.9,
+      "cubic|fcc": 30.4,
+      "cubic|random": 38.0,
+      "cubic|square": 16.7,
+      "cubic|tesseract": 12.5,
+      "cubic|triangular": 16.8,
+      "empty|fcc": 43.6,
+      "empty|random": 16.7,
+      "empty|square": 31.3,
+      "empty|tesseract": 31.8,
+      "empty|triangular": 43.5,
+      "fcc|random": 49.8,
+      "fcc|square": 33.3,
+      "fcc|tesseract": 27.1,
+      "fcc|triangular": 30.3,
+      "random|square": 37.2,
+      "random|tesseract": 37.8,
+      "random|triangular": 49.7,
+      "square|tesseract": 25.0,
+      "square|triangular": 16.9,
+      "tesseract|triangular": 16.7
+     },
+     "failures": [],
+     "fates": {
+      "bcc": [
+       "holds",
+       1.0,
+       0.0
+      ],
+      "cubic": [
+       "holds",
+       0.997,
+       0.0
+      ],
+      "fcc": [
+       "holds",
+       1.0,
+       0.0
+      ],
+      "square": [
+       "holds",
+       0.967,
+       0.0
+      ],
+      "tesseract": [
+       "holds",
+       1.0,
+       0.0
+      ],
+      "triangular": [
+       "holds",
+       0.982,
+       0.0
+      ]
+     },
+     "groups": [
+      [
+       "empty"
+      ],
+      [
+       "random"
+      ],
+      [
+       "square"
+      ],
+      [
+       "triangular"
+      ],
+      [
+       "cubic"
+      ],
+      [
+       "bcc"
+      ],
+      [
+       "fcc"
+      ],
+      [
+       "tesseract"
+      ]
+     ],
+     "spread": 49.8,
+     "worst": {
+      "bcc|cubic": "squares_per_node",
+      "bcc|empty": "kappa",
+      "bcc|fcc": "triangles_per_node",
+      "bcc|random": "kappa",
+      "bcc|square": "squares_per_node",
+      "bcc|tesseract": "squares_per_node",
+      "bcc|triangular": "squares_per_node",
+      "cubic|empty": "kappa",
+      "cubic|fcc": "squares_per_node",
+      "cubic|random": "kappa",
+      "cubic|square": "mean_degree",
+      "cubic|tesseract": "mean_degree",
+      "cubic|triangular": "triangles_per_node",
+      "empty|fcc": "kappa",
+      "empty|random": "mean_degree",
+      "empty|square": "kappa",
+      "empty|tesseract": "kappa",
+      "empty|triangular": "kappa",
+      "fcc|random": "kappa",
+      "fcc|square": "mean_degree",
+      "fcc|tesseract": "squares_per_node",
+      "fcc|triangular": "squares_per_node",
+      "random|square": "kappa",
+      "random|tesseract": "kappa",
+      "random|triangular": "kappa",
+      "square|tesseract": "mean_degree",
+      "square|triangular": "triangles_per_node",
+      "tesseract|triangular": "triangles_per_node"
+     }
+    },
+    "4096": {
+     "class": "holds",
+     "distances": {
+      "bcc|cubic": 25.9,
+      "bcc|empty": 43.2,
+      "bcc|fcc": 33.5,
+      "bcc|random": 57.7,
+      "bcc|square": 32.4,
+      "bcc|tesseract": 16.8,
+      "bcc|triangular": 25.6,
+      "cubic|empty": 41.8,
+      "cubic|fcc": 36.5,
+      "cubic|random": 55.7,
+      "cubic|square": 17.4,
+      "cubic|tesseract": 14.8,
+      "cubic|triangular": 25.1,
+      "empty|fcc": 57.1,
+      "empty|random": 16.7,
+      "empty|square": 41.6,
+      "empty|tesseract": 42.1,
+      "empty|triangular": 57.2,
+      "fcc|random": 72.4,
+      "fcc|square": 39.1,
+      "fcc|tesseract": 33.5,
+      "fcc|triangular": 36.4,
+      "random|square": 55.0,
+      "random|tesseract": 56.5,
+      "random|triangular": 72.6,
+      "square|tesseract": 25.9,
+      "square|triangular": 25.2,
+      "tesseract|triangular": 24.9
+     },
+     "failures": [],
+     "fates": {
+      "bcc": [
+       "holds",
+       0.929,
+       0.0
+      ],
+      "cubic": [
+       "holds",
+       0.909,
+       0.0
+      ],
+      "fcc": [
+       "holds",
+       0.998,
+       0.0
+      ],
+      "square": [
+       "holds",
+       0.964,
+       0.0
+      ],
+      "tesseract": [
+       "holds",
+       0.901,
+       0.0
+      ],
+      "triangular": [
+       "holds",
+       0.971,
+       0.0
+      ]
+     },
+     "groups": [
+      [
+       "empty"
+      ],
+      [
+       "random"
+      ],
+      [
+       "square"
+      ],
+      [
+       "triangular"
+      ],
+      [
+       "cubic"
+      ],
+      [
+       "bcc"
+      ],
+      [
+       "fcc"
+      ],
+      [
+       "tesseract"
+      ]
+     ],
+     "spread": 72.6,
+     "worst": {
+      "bcc|cubic": "squares_per_node",
+      "bcc|empty": "kappa",
+      "bcc|fcc": "triangles_per_node",
+      "bcc|random": "kappa",
+      "bcc|square": "squares_per_node",
+      "bcc|tesseract": "squares_per_node",
+      "bcc|triangular": "squares_per_node",
+      "cubic|empty": "kappa",
+      "cubic|fcc": "squares_per_node",
+      "cubic|random": "kappa",
+      "cubic|square": "squares_per_node",
+      "cubic|tesseract": "squares_per_node",
+      "cubic|triangular": "triangles_per_node",
+      "empty|fcc": "kappa",
+      "empty|random": "mean_degree",
+      "empty|square": "kappa",
+      "empty|tesseract": "kappa",
+      "empty|triangular": "kappa",
+      "fcc|random": "kappa",
+      "fcc|square": "squares_per_node",
+      "fcc|tesseract": "triangles_per_node",
+      "fcc|triangular": "squares_per_node",
+      "random|square": "kappa",
+      "random|tesseract": "kappa",
+      "random|triangular": "kappa",
+      "square|tesseract": "squares_per_node",
+      "square|triangular": "triangles_per_node",
+      "tesseract|triangular": "triangles_per_node"
+     }
+    }
+   }
+  },
+  {
+   "id": "K4",
+   "law": {
+    "at_n": 4096,
+    "class": "selects",
+    "failures": [],
+    "top_dense": false
+   },
+   "name": "one lattice holds, the others do not",
+   "passed": true,
+   "sizes": {
+    "1024": {
+     "class": "selects",
+     "distances": {
+      "bcc|cubic": 44.3,
+      "bcc|empty": 22.8,
+      "bcc|fcc": 15.9,
+      "bcc|random": 11.3,
+      "bcc|square": 22.3,
+      "bcc|tesseract": 0.241,
+      "bcc|triangular": 11.2,
+      "cubic|empty": 31.9,
+      "cubic|fcc": 30.8,
+      "cubic|random": 38.0,
+      "cubic|square": 38.0,
+      "cubic|tesseract": 30.0,
+      "cubic|triangular": 49.0,
+      "empty|fcc": 31.2,
+      "empty|random": 16.7,
+      "empty|square": 2.31,
+      "empty|tesseract": 22.7,
+      "empty|triangular": 15.4,
+      "fcc|random": 23.3,
+      "fcc|square": 30.8,
+      "fcc|tesseract": 15.2,
+      "fcc|triangular": 23.2,
+      "random|square": 15.3,
+      "random|tesseract": 11.3,
+      "random|triangular": 2.22,
+      "square|tesseract": 22.3,
+      "square|triangular": 14.9,
+      "tesseract|triangular": 11.2
+     },
+     "failures": [],
+     "fates": {
+      "bcc": [
+       "melted",
+       0.0,
+       0.00415
+      ],
+      "cubic": [
+       "holds",
+       0.997,
+       0.0
+      ],
+      "fcc": [
+       "melted",
+       0.0,
+       0.00651
+      ],
+      "square": [
+       "melted",
+       -0.0,
+       0.00342
+      ],
+      "tesseract": [
+       "melted",
+       0.0,
+       0.00334
+      ],
+      "triangular": [
+       "melted",
+       -0.001,
+       0.00293
+      ]
+     },
+     "groups": [
+      [
+       "empty"
+      ],
+      [
+       "random"
+      ],
+      [
+       "square"
+      ],
+      [
+       "triangular"
+      ],
+      [
+       "cubic"
+      ],
+      [
+       "bcc",
+       "tesseract"
+      ],
+      [
+       "fcc"
+      ]
+     ],
+     "spread": 49.0,
+     "worst": {
+      "bcc|cubic": "kappa",
+      "bcc|empty": "mean_degree",
+      "bcc|fcc": "kappa",
+      "bcc|random": "mean_degree",
+      "bcc|square": "mean_degree",
+      "bcc|tesseract": "kappa",
+      "bcc|triangular": "mean_degree",
+      "cubic|empty": "kappa",
+      "cubic|fcc": "kappa",
+      "cubic|random": "kappa",
+      "cubic|square": "kappa",
+      "cubic|tesseract": "kappa",
+      "cubic|triangular": "kappa",
+      "empty|fcc": "mean_degree",
+      "empty|random": "mean_degree",
+      "empty|square": "reach",
+      "empty|tesseract": "mean_degree",
+      "empty|triangular": "mean_degree",
+      "fcc|random": "mean_degree",
+      "fcc|square": "mean_degree",
+      "fcc|tesseract": "mean_degree",
+      "fcc|triangular": "mean_degree",
+      "random|square": "mean_degree",
+      "random|tesseract": "mean_degree",
+      "random|triangular": "kappa",
+      "square|tesseract": "mean_degree",
+      "square|triangular": "mean_degree",
+      "tesseract|triangular": "mean_degree"
+     }
+    },
+    "4096": {
+     "class": "selects",
+     "distances": {
+      "bcc|cubic": 63.4,
+      "bcc|empty": 24.8,
+      "bcc|fcc": 16.5,
+      "bcc|random": 12.4,
+      "bcc|square": 24.8,
+      "bcc|tesseract": 0.154,
+      "bcc|triangular": 12.3,
+      "cubic|empty": 41.8,
+      "cubic|fcc": 57.4,
+      "cubic|random": 55.7,
+      "cubic|square": 43.4,
+      "cubic|tesseract": 53.8,
+      "cubic|triangular": 52.5,
+      "empty|fcc": 33.2,
+      "empty|random": 16.7,
+      "empty|square": 1.94,
+      "empty|tesseract": 24.6,
+      "empty|triangular": 16.3,
+      "fcc|random": 24.9,
+      "fcc|square": 33.2,
+      "fcc|tesseract": 16.5,
+      "fcc|triangular": 24.7,
+      "random|square": 16.6,
+      "random|tesseract": 12.3,
+      "random|triangular": 0.709,
+      "square|tesseract": 24.6,
+      "square|triangular": 16.4,
+      "tesseract|triangular": 12.3
+     },
+     "failures": [],
+     "fates": {
+      "bcc": [
+       "melted",
+       -0.001,
+       0.000772
+      ],
+      "cubic": [
+       "holds",
+       0.909,
+       0.0
+      ],
+      "fcc": [
+       "melted",
+       0.0,
+       0.00163
+      ],
+      "square": [
+       "melted",
+       0.0,
+       0.00053
+      ],
+      "tesseract": [
+       "melted",
+       -0.002,
+       0.000794
+      ],
+      "triangular": [
+       "melted",
+       0.0,
+       0.000652
+      ]
+     },
+     "groups": [
+      [
+       "empty"
+      ],
+      [
+       "random",
+       "triangular"
+      ],
+      [
+       "square"
+      ],
+      [
+       "cubic"
+      ],
+      [
+       "bcc",
+       "tesseract"
+      ],
+      [
+       "fcc"
+      ]
+     ],
+     "spread": 63.4,
+     "worst": {
+      "bcc|cubic": "kappa",
+      "bcc|empty": "mean_degree",
+      "bcc|fcc": "mean_degree",
+      "bcc|random": "mean_degree",
+      "bcc|square": "mean_degree",
+      "bcc|tesseract": "squares_per_node",
+      "bcc|triangular": "mean_degree",
+      "cubic|empty": "kappa",
+      "cubic|fcc": "kappa",
+      "cubic|random": "kappa",
+      "cubic|square": "kappa",
+      "cubic|tesseract": "kappa",
+      "cubic|triangular": "kappa",
+      "empty|fcc": "mean_degree",
+      "empty|random": "mean_degree",
+      "empty|square": "reach",
+      "empty|tesseract": "mean_degree",
+      "empty|triangular": "mean_degree",
+      "fcc|random": "mean_degree",
+      "fcc|square": "mean_degree",
+      "fcc|tesseract": "mean_degree",
+      "fcc|triangular": "mean_degree",
+      "random|square": "mean_degree",
+      "random|tesseract": "mean_degree",
+      "random|triangular": "squares_per_node",
+      "square|tesseract": "mean_degree",
+      "square|triangular": "mean_degree",
+      "tesseract|triangular": "mean_degree"
+     }
+    }
+   }
+  },
+  {
+   "id": "K5",
+   "law": {
+    "at_n": 4096,
+    "class": "grows",
+    "failures": [],
+    "top_dense": false
+   },
+   "name": "a start without a shape reaches one",
+   "passed": true,
+   "sizes": {
+    "1024": {
+     "class": "grows",
+     "distances": {
+      "bcc|cubic": 44.3,
+      "bcc|empty": 43.5,
+      "bcc|fcc": 15.9,
+      "bcc|random": 11.3,
+      "bcc|square": 22.3,
+      "bcc|tesseract": 0.241,
+      "bcc|triangular": 11.2,
+      "cubic|empty": 0.0994,
+      "cubic|fcc": 30.8,
+      "cubic|random": 38.0,
+      "cubic|square": 38.0,
+      "cubic|tesseract": 30.0,
+      "cubic|triangular": 49.0,
+      "empty|fcc": 29.8,
+      "empty|random": 37.6,
+      "empty|square": 37.3,
+      "empty|tesseract": 29.9,
+      "empty|triangular": 47.8,
+      "fcc|random": 23.3,
+      "fcc|square": 30.8,
+      "fcc|tesseract": 15.2,
+      "fcc|triangular": 23.2,
+      "random|square": 15.3,
+      "random|tesseract": 11.3,
+      "random|triangular": 2.22,
+      "square|tesseract": 22.3,
+      "square|triangular": 14.9,
+      "tesseract|triangular": 11.2
+     },
+     "failures": [],
+     "fates": {
+      "bcc": [
+       "melted",
+       0.0,
+       0.00415
+      ],
+      "cubic": [
+       "holds",
+       0.997,
+       0.0
+      ],
+      "fcc": [
+       "melted",
+       0.0,
+       0.00651
+      ],
+      "square": [
+       "melted",
+       -0.0,
+       0.00342
+      ],
+      "tesseract": [
+       "melted",
+       0.0,
+       0.00334
+      ],
+      "triangular": [
+       "melted",
+       -0.001,
+       0.00293
+      ]
+     },
+     "groups": [
+      [
+       "empty",
+       "cubic"
+      ],
+      [
+       "random"
+      ],
+      [
+       "square"
+      ],
+      [
+       "triangular"
+      ],
+      [
+       "bcc",
+       "tesseract"
+      ],
+      [
+       "fcc"
+      ]
+     ],
+     "spread": 49.0,
+     "worst": {
+      "bcc|cubic": "kappa",
+      "bcc|empty": "kappa",
+      "bcc|fcc": "kappa",
+      "bcc|random": "mean_degree",
+      "bcc|square": "mean_degree",
+      "bcc|tesseract": "kappa",
+      "bcc|triangular": "mean_degree",
+      "cubic|empty": "d_s",
+      "cubic|fcc": "kappa",
+      "cubic|random": "kappa",
+      "cubic|square": "kappa",
+      "cubic|tesseract": "kappa",
+      "cubic|triangular": "kappa",
+      "empty|fcc": "kappa",
+      "empty|random": "kappa",
+      "empty|square": "kappa",
+      "empty|tesseract": "kappa",
+      "empty|triangular": "kappa",
+      "fcc|random": "mean_degree",
+      "fcc|square": "mean_degree",
+      "fcc|tesseract": "mean_degree",
+      "fcc|triangular": "mean_degree",
+      "random|square": "mean_degree",
+      "random|tesseract": "mean_degree",
+      "random|triangular": "kappa",
+      "square|tesseract": "mean_degree",
+      "square|triangular": "mean_degree",
+      "tesseract|triangular": "mean_degree"
+     }
+    },
+    "4096": {
+     "class": "grows",
+     "distances": {
+      "bcc|cubic": 63.4,
+      "bcc|empty": 62.2,
+      "bcc|fcc": 16.5,
+      "bcc|random": 12.4,
+      "bcc|square": 24.8,
+      "bcc|tesseract": 0.154,
+      "bcc|triangular": 12.3,
+      "cubic|empty": 0.22,
+      "cubic|fcc": 57.4,
+      "cubic|random": 55.7,
+      "cubic|square": 43.4,
+      "cubic|tesseract": 53.8,
+      "cubic|triangular": 52.5,
+      "empty|fcc": 56.6,
+      "empty|random": 54.9,
+      "empty|square": 42.7,
+      "empty|tesseract": 53.5,
+      "empty|triangular": 52.0,
+      "fcc|random": 24.9,
+      "fcc|square": 33.2,
+      "fcc|tesseract": 16.5,
+      "fcc|triangular": 24.7,
+      "random|square": 16.6,
+      "random|tesseract": 12.3,
+      "random|triangular": 0.709,
+      "square|tesseract": 24.6,
+      "square|triangular": 16.4,
+      "tesseract|triangular": 12.3
+     },
+     "failures": [],
+     "fates": {
+      "bcc": [
+       "melted",
+       -0.001,
+       0.000772
+      ],
+      "cubic": [
+       "holds",
+       0.909,
+       0.0
+      ],
+      "fcc": [
+       "melted",
+       0.0,
+       0.00163
+      ],
+      "square": [
+       "melted",
+       0.0,
+       0.00053
+      ],
+      "tesseract": [
+       "melted",
+       -0.002,
+       0.000794
+      ],
+      "triangular": [
+       "melted",
+       0.0,
+       0.000652
+      ]
+     },
+     "groups": [
+      [
+       "empty",
+       "cubic"
+      ],
+      [
+       "random",
+       "triangular"
+      ],
+      [
+       "square"
+      ],
+      [
+       "bcc",
+       "tesseract"
+      ],
+      [
+       "fcc"
+      ]
+     ],
+     "spread": 63.4,
+     "worst": {
+      "bcc|cubic": "kappa",
+      "bcc|empty": "kappa",
+      "bcc|fcc": "mean_degree",
+      "bcc|random": "mean_degree",
+      "bcc|square": "mean_degree",
+      "bcc|tesseract": "squares_per_node",
+      "bcc|triangular": "mean_degree",
+      "cubic|empty": "d_s",
+      "cubic|fcc": "kappa",
+      "cubic|random": "kappa",
+      "cubic|square": "kappa",
+      "cubic|tesseract": "kappa",
+      "cubic|triangular": "kappa",
+      "empty|fcc": "kappa",
+      "empty|random": "kappa",
+      "empty|square": "kappa",
+      "empty|tesseract": "kappa",
+      "empty|triangular": "kappa",
+      "fcc|random": "mean_degree",
+      "fcc|square": "mean_degree",
+      "fcc|tesseract": "mean_degree",
+      "fcc|triangular": "mean_degree",
+      "random|square": "mean_degree",
+      "random|tesseract": "mean_degree",
+      "random|triangular": "squares_per_node",
+      "square|tesseract": "mean_degree",
+      "square|triangular": "mean_degree",
+      "tesseract|triangular": "mean_degree"
+     }
+    }
+   }
+  },
+  {
+   "id": "K6",
+   "law": {
+    "at_n": 4096,
+    "class": "converts",
+    "failures": [],
+    "top_dense": false
+   },
+   "name": "a lattice falls into another's shape",
+   "passed": true,
+   "sizes": {
+    "1024": {
+     "class": "converts",
+     "distances": {
+      "bcc|cubic": 44.3,
+      "bcc|empty": 22.8,
+      "bcc|fcc": 15.9,
+      "bcc|random": 11.3,
+      "bcc|square": 22.3,
+      "bcc|tesseract": 42.9,
+      "bcc|triangular": 11.2,
+      "cubic|empty": 31.9,
+      "cubic|fcc": 30.8,
+      "cubic|random": 38.0,
+      "cubic|square": 38.0,
+      "cubic|tesseract": 0.0867,
+      "cubic|triangular": 49.0,
+      "empty|fcc": 31.2,
+      "empty|random": 16.7,
+      "empty|square": 2.31,
+      "empty|tesseract": 31.4,
+      "empty|triangular": 15.4,
+      "fcc|random": 23.3,
+      "fcc|square": 30.8,
+      "fcc|tesseract": 29.2,
+      "fcc|triangular": 23.2,
+      "random|square": 15.3,
+      "random|tesseract": 37.4,
+      "random|triangular": 2.22,
+      "square|tesseract": 36.7,
+      "square|triangular": 14.9,
+      "tesseract|triangular": 47.0
+     },
+     "failures": [],
+     "fates": {
+      "bcc": [
+       "melted",
+       0.0,
+       0.00415
+      ],
+      "cubic": [
+       "holds",
+       0.997,
+       0.0
+      ],
+      "fcc": [
+       "melted",
+       0.0,
+       0.00651
+      ],
+      "square": [
+       "melted",
+       -0.0,
+       0.00342
+      ],
+      "tesseract": [
+       "stretched",
+       2.506,
+       0.25
+      ],
+      "triangular": [
+       "melted",
+       -0.001,
+       0.00293
+      ]
+     },
+     "groups": [
+      [
+       "empty"
+      ],
+      [
+       "random"
+      ],
+      [
+       "square"
+      ],
+      [
+       "triangular"
+      ],
+      [
+       "cubic",
+       "tesseract"
+      ],
+      [
+       "bcc"
+      ],
+      [
+       "fcc"
+      ]
+     ],
+     "spread": 49.0,
+     "worst": {
+      "bcc|cubic": "kappa",
+      "bcc|empty": "mean_degree",
+      "bcc|fcc": "kappa",
+      "bcc|random": "mean_degree",
+      "bcc|square": "mean_degree",
+      "bcc|tesseract": "kappa",
+      "bcc|triangular": "mean_degree",
+      "cubic|empty": "kappa",
+      "cubic|fcc": "kappa",
+      "cubic|random": "kappa",
+      "cubic|square": "kappa",
+      "cubic|tesseract": "d_s",
+      "cubic|triangular": "kappa",
+      "empty|fcc": "mean_degree",
+      "empty|random": "mean_degree",
+      "empty|square": "reach",
+      "empty|tesseract": "kappa",
+      "empty|triangular": "mean_degree",
+      "fcc|random": "mean_degree",
+      "fcc|square": "mean_degree",
+      "fcc|tesseract": "kappa",
+      "fcc|triangular": "mean_degree",
+      "random|square": "mean_degree",
+      "random|tesseract": "kappa",
+      "random|triangular": "kappa",
+      "square|tesseract": "kappa",
+      "square|triangular": "mean_degree",
+      "tesseract|triangular": "kappa"
+     }
+    },
+    "4096": {
+     "class": "converts",
+     "distances": {
+      "bcc|cubic": 63.4,
+      "bcc|empty": 24.8,
+      "bcc|fcc": 16.5,
+      "bcc|random": 12.4,
+      "bcc|square": 24.8,
+      "bcc|tesseract": 64.2,
+      "bcc|triangular": 12.3,
+      "cubic|empty": 41.8,
+      "cubic|fcc": 57.4,
+      "cubic|random": 55.7,
+      "cubic|square": 43.4,
+      "cubic|tesseract": 0.111,
+      "cubic|triangular": 52.5,
+      "empty|fcc": 33.2,
+      "empty|random": 16.7,
+      "empty|square": 1.94,
+      "empty|tesseract": 42.0,
+      "empty|triangular": 16.3,
+      "fcc|random": 24.9,
+      "fcc|square": 33.2,
+      "fcc|tesseract": 57.8,
+      "fcc|triangular": 24.7,
+      "random|square": 16.6,
+      "random|tesseract": 56.1,
+      "random|triangular": 0.709,
+      "square|tesseract": 43.9,
+      "square|triangular": 16.4,
+      "tesseract|triangular": 52.7
+     },
+     "failures": [],
+     "fates": {
+      "bcc": [
+       "melted",
+       -0.001,
+       0.000772
+      ],
+      "cubic": [
+       "holds",
+       0.909,
+       0.0
+      ],
+      "fcc": [
+       "melted",
+       0.0,
+       0.00163
+      ],
+      "square": [
+       "melted",
+       0.0,
+       0.00053
+      ],
+      "tesseract": [
+       "changed",
+       1.467,
+       0.25
+      ],
+      "triangular": [
+       "melted",
+       0.0,
+       0.000652
+      ]
+     },
+     "groups": [
+      [
+       "empty"
+      ],
+      [
+       "random",
+       "triangular"
+      ],
+      [
+       "square"
+      ],
+      [
+       "cubic",
+       "tesseract"
+      ],
+      [
+       "bcc"
+      ],
+      [
+       "fcc"
+      ]
+     ],
+     "spread": 64.2,
+     "worst": {
+      "bcc|cubic": "kappa",
+      "bcc|empty": "mean_degree",
+      "bcc|fcc": "mean_degree",
+      "bcc|random": "mean_degree",
+      "bcc|square": "mean_degree",
+      "bcc|tesseract": "kappa",
+      "bcc|triangular": "mean_degree",
+      "cubic|empty": "kappa",
+      "cubic|fcc": "kappa",
+      "cubic|random": "kappa",
+      "cubic|square": "kappa",
+      "cubic|tesseract": "d_B",
+      "cubic|triangular": "kappa",
+      "empty|fcc": "mean_degree",
+      "empty|random": "mean_degree",
+      "empty|square": "reach",
+      "empty|tesseract": "kappa",
+      "empty|triangular": "mean_degree",
+      "fcc|random": "mean_degree",
+      "fcc|square": "mean_degree",
+      "fcc|tesseract": "kappa",
+      "fcc|triangular": "mean_degree",
+      "random|square": "mean_degree",
+      "random|tesseract": "kappa",
+      "random|triangular": "squares_per_node",
+      "square|tesseract": "kappa",
+      "square|triangular": "mean_degree",
+      "tesseract|triangular": "kappa"
+     }
+    }
+   }
+  },
+  {
+   "id": "K7",
+   "law": {
+    "at_n": 4096,
+    "class": "one_space",
+    "failures": [],
+    "top_dense": false
+   },
+   "name": "every start ends in one shape",
+   "passed": true,
+   "sizes": {
+    "1024": {
+     "class": "one_space",
+     "distances": {
+      "bcc|cubic": 0.0892,
+      "bcc|empty": 0.0911,
+      "bcc|fcc": 0.0896,
+      "bcc|random": 0.146,
+      "bcc|square": 0.13,
+      "bcc|tesseract": 0.0723,
+      "bcc|triangular": 0.0839,
+      "cubic|empty": 0.0994,
+      "cubic|fcc": 0.173,
+      "cubic|random": 0.156,
+      "cubic|square": 0.093,
+      "cubic|tesseract": 0.0867,
+      "cubic|triangular": 0.0721,
+      "empty|fcc": 0.0911,
+      "empty|random": 0.237,
+      "empty|square": 0.174,
+      "empty|tesseract": 0.163,
+      "empty|triangular": 0.153,
+      "fcc|random": 0.146,
+      "fcc|square": 0.168,
+      "fcc|tesseract": 0.109,
+      "fcc|triangular": 0.0928,
+      "random|square": 0.0761,
+      "random|tesseract": 0.0737,
+      "random|triangular": 0.0841,
+      "square|tesseract": 0.0984,
+      "square|triangular": 0.0854,
+      "tesseract|triangular": 0.0232
+     },
+     "failures": [],
+     "fates": {
+      "bcc": [
+       "changed",
+       1.379,
+       0.25
+      ],
+      "cubic": [
+       "holds",
+       0.997,
+       0.0
+      ],
+      "fcc": [
+       "changed",
+       1.659,
+       0.5
+      ],
+      "square": [
+       "melted",
+       0.156,
+       0.5
+      ],
+      "tesseract": [
+       "stretched",
+       2.506,
+       0.25
+      ],
+      "triangular": [
+       "melted",
+       0.474,
+       0.0
+      ]
+     },
+     "groups": [
+      [
+       "empty",
+       "random",
+       "square",
+       "triangular",
+       "cubic",
+       "bcc",
+       "fcc",
+       "tesseract"
+      ]
+     ],
+     "spread": 0.237,
+     "worst": {
+      "bcc|cubic": "d_s",
+      "bcc|empty": "triangles_per_node",
+      "bcc|fcc": "d_s",
+      "bcc|random": "triangles_per_node",
+      "bcc|square": "d_V",
+      "bcc|tesseract": "triangles_per_node",
+      "bcc|triangular": "kappa",
+      "cubic|empty": "d_s",
+      "cubic|fcc": "d_s",
+      "cubic|random": "triangles_per_node",
+      "cubic|square": "triangles_per_node",
+      "cubic|tesseract": "d_s",
+      "cubic|triangular": "triangles_per_node",
+      "empty|fcc": "triangles_per_node",
+      "empty|random": "triangles_per_node",
+      "empty|square": "triangles_per_node",
+      "empty|tesseract": "triangles_per_node",
+      "empty|triangular": "triangles_per_node",
+      "fcc|random": "triangles_per_node",
+      "fcc|square": "d_s",
+      "fcc|tesseract": "d_s",
+      "fcc|triangular": "d_s",
+      "random|square": "d_V",
+      "random|tesseract": "triangles_per_node",
+      "random|triangular": "triangles_per_node",
+      "square|tesseract": "d_V",
+      "square|triangular": "d_V",
+      "tesseract|triangular": "kappa"
+     }
+    },
+    "4096": {
+     "class": "one_space",
+     "distances": {
+      "bcc|cubic": 0.114,
+      "bcc|empty": 0.237,
+      "bcc|fcc": 0.248,
+      "bcc|random": 0.203,
+      "bcc|square": 0.453,
+      "bcc|tesseract": 0.123,
+      "bcc|triangular": 0.38,
+      "cubic|empty": 0.22,
+      "cubic|fcc": 0.222,
+      "cubic|random": 0.181,
+      "cubic|square": 0.237,
+      "cubic|tesseract": 0.111,
+      "cubic|triangular": 0.219,
+      "empty|fcc": 0.121,
+      "empty|random": 0.0667,
+      "empty|square": 0.19,
+      "empty|tesseract": 0.27,
+      "empty|triangular": 0.349,
+      "fcc|random": 0.128,
+      "fcc|square": 0.164,
+      "fcc|tesseract": 0.285,
+      "fcc|triangular": 0.394,
+      "random|square": 0.259,
+      "random|tesseract": 0.232,
+      "random|triangular": 0.312,
+      "square|tesseract": 0.421,
+      "square|triangular": 0.203,
+      "tesseract|triangular": 0.362
+     },
+     "failures": [],
+     "fates": {
+      "bcc": [
+       "changed",
+       1.11,
+       0.25
+      ],
+      "cubic": [
+       "holds",
+       0.909,
+       0.0
+      ],
+      "fcc": [
+       "changed",
+       1.475,
+       0.5
+      ],
+      "square": [
+       "melted",
+       0.301,
+       0.5
+      ],
+      "tesseract": [
+       "changed",
+       1.467,
+       0.25
+      ],
+      "triangular": [
+       "melted",
+       0.481,
+       0.0
+      ]
+     },
+     "groups": [
+      [
+       "empty",
+       "random",
+       "square",
+       "triangular",
+       "cubic",
+       "bcc",
+       "fcc",
+       "tesseract"
+      ]
+     ],
+     "spread": 0.453,
+     "worst": {
+      "bcc|cubic": "d_B",
+      "bcc|empty": "d_s",
+      "bcc|fcc": "d_B",
+      "bcc|random": "d_s",
+      "bcc|square": "d_B",
+      "bcc|tesseract": "d_V",
+      "bcc|triangular": "d_B",
+      "cubic|empty": "d_s",
+      "cubic|fcc": "d_s",
+      "cubic|random": "d_s",
+      "cubic|square": "d_B",
+      "cubic|tesseract": "d_B",
+      "cubic|triangular": "d_s",
+      "empty|fcc": "reach",
+      "empty|random": "d_B",
+      "empty|square": "d_s",
+      "empty|tesseract": "d_s",
+      "empty|triangular": "d_s",
+      "fcc|random": "reach",
+      "fcc|square": "d_s",
+      "fcc|tesseract": "d_s",
+      "fcc|triangular": "d_s",
+      "random|square": "d_B",
+      "random|tesseract": "d_s",
+      "random|triangular": "d_s",
+      "square|tesseract": "d_B",
+      "square|triangular": "d_s",
+      "tesseract|triangular": "d_B"
+     }
+    }
+   }
+  },
+  {
+   "id": "K8",
+   "law": {
+    "at_n": 4096,
+    "class": "remembers",
+    "failures": [],
+    "top_dense": false
+   },
+   "name": "half-melted lattices are not held",
+   "passed": true,
+   "sizes": {
+    "1024": {
+     "class": "remembers",
+     "distances": {
+      "bcc|cubic": 19.1,
+      "bcc|empty": 30.1,
+      "bcc|fcc": 24.6,
+      "bcc|random": 36.1,
+      "bcc|square": 25.0,
+      "bcc|tesseract": 13.3,
+      "bcc|triangular": 19.1,
+      "cubic|empty": 22.8,
+      "cubic|fcc": 29.5,
+      "cubic|random": 28.2,
+      "cubic|square": 16.7,
+      "cubic|tesseract": 12.5,
+      "cubic|triangular": 16.3,
+      "empty|fcc": 40.2,
+      "empty|random": 16.7,
+      "empty|square": 26.5,
+      "empty|tesseract": 25.0,
+      "empty|triangular": 39.4,
+      "fcc|random": 46.4,
+      "fcc|square": 33.3,
+      "fcc|tesseract": 26.8,
+      "fcc|triangular": 29.5,
+      "random|square": 32.4,
+      "random|tesseract": 24.3,
+      "random|triangular": 45.5,
+      "square|tesseract": 25.0,
+      "square|triangular": 16.7,
+      "tesseract|triangular": 18.5
+     },
+     "failures": [],
+     "fates": {
+      "bcc": [
+       "partly",
+       0.545,
+       0.0
+      ],
+      "cubic": [
+       "partly",
+       0.648,
+       0.0
+      ],
+      "fcc": [
+       "partly",
+       0.571,
+       0.0
+      ],
+      "square": [
+       "melted",
+       0.416,
+       0.0
+      ],
+      "tesseract": [
+       "melted",
+       0.294,
+       0.0
+      ],
+      "triangular": [
+       "melted",
+       0.477,
+       0.0
+      ]
+     },
+     "groups": [
+      [
+       "empty"
+      ],
+      [
+       "random"
+      ],
+      [
+       "square"
+      ],
+      [
+       "triangular"
+      ],
+      [
+       "cubic"
+      ],
+      [
+       "bcc"
+      ],
+      [
+       "fcc"
+      ],
+      [
+       "tesseract"
+      ]
+     ],
+     "spread": 46.4,
+     "worst": {
+      "bcc|cubic": "squares_per_node",
+      "bcc|empty": "kappa",
+      "bcc|fcc": "triangles_per_node",
+      "bcc|random": "kappa",
+      "bcc|square": "mean_degree",
+      "bcc|tesseract": "squares_per_node",
+      "bcc|triangular": "squares_per_node",
+      "cubic|empty": "kappa",
+      "cubic|fcc": "squares_per_node",
+      "cubic|random": "kappa",
+      "cubic|square": "mean_degree",
+      "cubic|tesseract": "mean_degree",
+      "cubic|triangular": "triangles_per_node",
+      "empty|fcc": "kappa",
+      "empty|random": "mean_degree",
+      "empty|square": "kappa",
+      "empty|tesseract": "mean_degree",
+      "empty|triangular": "kappa",
+      "fcc|random": "kappa",
+      "fcc|square": "mean_degree",
+      "fcc|tesseract": "squares_per_node",
+      "fcc|triangular": "squares_per_node",
+      "random|square": "kappa",
+      "random|tesseract": "kappa",
+      "random|triangular": "kappa",
+      "square|tesseract": "mean_degree",
+      "square|triangular": "mean_degree",
+      "tesseract|triangular": "kappa"
+     }
+    },
+    "4096": {
+     "class": "remembers",
+     "distances": {
+      "bcc|cubic": 25.3,
+      "bcc|empty": 40.2,
+      "bcc|fcc": 33.0,
+      "bcc|random": 54.6,
+      "bcc|square": 31.6,
+      "bcc|tesseract": 18.0,
+      "bcc|triangular": 25.3,
+      "cubic|empty": 31.9,
+      "cubic|fcc": 35.8,
+      "cubic|random": 44.4,
+      "cubic|square": 16.7,
+      "cubic|tesseract": 12.5,
+      "cubic|triangular": 24.6,
+      "empty|fcc": 51.7,
+      "empty|random": 16.7,
+      "empty|square": 33.8,
+      "empty|tesseract": 30.4,
+      "empty|triangular": 52.3,
+      "fcc|random": 66.2,
+      "fcc|square": 38.4,
+      "fcc|tesseract": 33.0,
+      "fcc|triangular": 35.8,
+      "random|square": 46.1,
+      "random|tesseract": 32.6,
+      "random|triangular": 67.4,
+      "square|tesseract": 25.0,
+      "square|triangular": 24.6,
+      "tesseract|triangular": 24.6
+     },
+     "failures": [],
+     "fates": {
+      "bcc": [
+       "melted",
+       0.464,
+       0.0
+      ],
+      "cubic": [
+       "melted",
+       0.412,
+       0.0
+      ],
+      "fcc": [
+       "melted",
+       0.33,
+       0.0
+      ],
+      "square": [
+       "melted",
+       0.344,
+       0.0
+      ],
+      "tesseract": [
+       "melted",
+       0.441,
+       0.0
+      ],
+      "triangular": [
+       "melted",
+       0.346,
+       0.0
+      ]
+     },
+     "groups": [
+      [
+       "empty"
+      ],
+      [
+       "random"
+      ],
+      [
+       "square"
+      ],
+      [
+       "triangular"
+      ],
+      [
+       "cubic"
+      ],
+      [
+       "bcc"
+      ],
+      [
+       "fcc"
+      ],
+      [
+       "tesseract"
+      ]
+     ],
+     "spread": 67.4,
+     "worst": {
+      "bcc|cubic": "squares_per_node",
+      "bcc|empty": "kappa",
+      "bcc|fcc": "triangles_per_node",
+      "bcc|random": "kappa",
+      "bcc|square": "squares_per_node",
+      "bcc|tesseract": "squares_per_node",
+      "bcc|triangular": "squares_per_node",
+      "cubic|empty": "kappa",
+      "cubic|fcc": "squares_per_node",
+      "cubic|random": "kappa",
+      "cubic|square": "squares_per_node",
+      "cubic|tesseract": "mean_degree",
+      "cubic|triangular": "triangles_per_node",
+      "empty|fcc": "kappa",
+      "empty|random": "mean_degree",
+      "empty|square": "kappa",
+      "empty|tesseract": "squares_per_node",
+      "empty|triangular": "kappa",
+      "fcc|random": "kappa",
+      "fcc|square": "squares_per_node",
+      "fcc|tesseract": "triangles_per_node",
+      "fcc|triangular": "squares_per_node",
+      "random|square": "kappa",
+      "random|tesseract": "kappa",
+      "random|triangular": "kappa",
+      "square|tesseract": "mean_degree",
+      "square|triangular": "triangles_per_node",
+      "tesseract|triangular": "triangles_per_node"
+     }
+    }
+   }
+  },
+  {
+   "id": "K9",
+   "law": {
+    "at_n": 4096,
+    "class": "remembers",
+    "failures": [],
+    "top_dense": false
+   },
+   "name": "a lattice nothing moved is unmoved, not held",
+   "passed": true,
+   "sizes": {
+    "1024": {
+     "class": "remembers",
+     "distances": {
+      "bcc|cubic": 20.0,
+      "bcc|empty": 32.7,
+      "bcc|fcc": 25.6,
+      "bcc|random": 38.8,
+      "bcc|square": 25.3,
+      "bcc|tesseract": 12.8,
+      "bcc|triangular": 20.0,
+      "cubic|empty": 32.7,
+      "cubic|fcc": 30.5,
+      "cubic|random": 38.8,
+      "cubic|square": 16.7,
+      "cubic|tesseract": 12.5,
+      "cubic|triangular": 17.2,
+      "empty|fcc": 44.0,
+      "empty|random": 16.7,
+      "empty|square": 32.7,
+      "empty|tesseract": 32.7,
+      "empty|triangular": 44.0,
+      "fcc|random": 50.2,
+      "fcc|square": 33.3,
+      "fcc|tesseract": 27.1,
+      "fcc|triangular": 30.5,
+      "random|square": 38.8,
+      "random|tesseract": 38.8,
+      "random|triangular": 50.2,
+      "square|tesseract": 25.0,
+      "square|triangular": 17.2,
+      "tesseract|triangular": 17.2
+     },
+     "failures": [],
+     "fates": {
+      "bcc": [
+       "unmoved",
+       1.0,
+       0.0
+      ],
+      "cubic": [
+       "unmoved",
+       1.0,
+       0.0
+      ],
+      "fcc": [
+       "unmoved",
+       1.0,
+       0.0
+      ],
+      "square": [
+       "unmoved",
+       1.0,
+       0.0
+      ],
+      "tesseract": [
+       "unmoved",
+       1.0,
+       0.0
+      ],
+      "triangular": [
+       "unmoved",
+       1.0,
+       0.0
+      ]
+     },
+     "groups": [
+      [
+       "empty"
+      ],
+      [
+       "random"
+      ],
+      [
+       "square"
+      ],
+      [
+       "triangular"
+      ],
+      [
+       "cubic"
+      ],
+      [
+       "bcc"
+      ],
+      [
+       "fcc"
+      ],
+      [
+       "tesseract"
+      ]
+     ],
+     "spread": 50.2,
+     "worst": {
+      "bcc|cubic": "squares_per_node",
+      "bcc|empty": "kappa",
+      "bcc|fcc": "triangles_per_node",
+      "bcc|random": "kappa",
+      "bcc|square": "squares_per_node",
+      "bcc|tesseract": "squares_per_node",
+      "bcc|triangular": "squares_per_node",
+      "cubic|empty": "kappa",
+      "cubic|fcc": "squares_per_node",
+      "cubic|random": "kappa",
+      "cubic|square": "mean_degree",
+      "cubic|tesseract": "mean_degree",
+      "cubic|triangular": "triangles_per_node",
+      "empty|fcc": "kappa",
+      "empty|random": "mean_degree",
+      "empty|square": "kappa",
+      "empty|tesseract": "kappa",
+      "empty|triangular": "kappa",
+      "fcc|random": "kappa",
+      "fcc|square": "mean_degree",
+      "fcc|tesseract": "squares_per_node",
+      "fcc|triangular": "squares_per_node",
+      "random|square": "kappa",
+      "random|tesseract": "kappa",
+      "random|triangular": "kappa",
+      "square|tesseract": "mean_degree",
+      "square|triangular": "triangles_per_node",
+      "tesseract|triangular": "triangles_per_node"
+     }
+    },
+    "4096": {
+     "class": "remembers",
+     "distances": {
+      "bcc|cubic": 26.1,
+      "bcc|empty": 43.4,
+      "bcc|fcc": 33.8,
+      "bcc|random": 58.0,
+      "bcc|square": 32.6,
+      "bcc|tesseract": 16.9,
+      "bcc|triangular": 26.1,
+      "cubic|empty": 43.4,
+      "cubic|fcc": 36.5,
+      "cubic|random": 58.0,
+      "cubic|square": 17.5,
+      "cubic|tesseract": 14.9,
+      "cubic|triangular": 25.6,
+      "empty|fcc": 57.6,
+      "empty|random": 16.7,
+      "empty|square": 43.4,
+      "empty|tesseract": 43.4,
+      "empty|triangular": 57.6,
+      "fcc|random": 73.1,
+      "fcc|square": 39.1,
+      "fcc|tesseract": 33.8,
+      "fcc|triangular": 36.5,
+      "random|square": 58.0,
+      "random|tesseract": 58.0,
+      "random|triangular": 73.1,
+      "square|tesseract": 26.1,
+      "square|triangular": 25.6,
+      "tesseract|triangular": 25.6
+     },
+     "failures": [],
+     "fates": {
+      "bcc": [
+       "unmoved",
+       1.0,
+       0.0
+      ],
+      "cubic": [
+       "unmoved",
+       1.0,
+       0.0
+      ],
+      "fcc": [
+       "unmoved",
+       1.0,
+       0.0
+      ],
+      "square": [
+       "unmoved",
+       1.0,
+       0.0
+      ],
+      "tesseract": [
+       "unmoved",
+       1.0,
+       0.0
+      ],
+      "triangular": [
+       "unmoved",
+       1.0,
+       0.0
+      ]
+     },
+     "groups": [
+      [
+       "empty"
+      ],
+      [
+       "random"
+      ],
+      [
+       "square"
+      ],
+      [
+       "triangular"
+      ],
+      [
+       "cubic"
+      ],
+      [
+       "bcc"
+      ],
+      [
+       "fcc"
+      ],
+      [
+       "tesseract"
+      ]
+     ],
+     "spread": 73.1,
+     "worst": {
+      "bcc|cubic": "squares_per_node",
+      "bcc|empty": "kappa",
+      "bcc|fcc": "triangles_per_node",
+      "bcc|random": "kappa",
+      "bcc|square": "squares_per_node",
+      "bcc|tesseract": "squares_per_node",
+      "bcc|triangular": "squares_per_node",
+      "cubic|empty": "kappa",
+      "cubic|fcc": "squares_per_node",
+      "cubic|random": "kappa",
+      "cubic|square": "squares_per_node",
+      "cubic|tesseract": "squares_per_node",
+      "cubic|triangular": "triangles_per_node",
+      "empty|fcc": "kappa",
+      "empty|random": "mean_degree",
+      "empty|square": "kappa",
+      "empty|tesseract": "kappa",
+      "empty|triangular": "kappa",
+      "fcc|random": "kappa",
+      "fcc|square": "squares_per_node",
+      "fcc|tesseract": "triangles_per_node",
+      "fcc|triangular": "squares_per_node",
+      "random|square": "kappa",
+      "random|tesseract": "kappa",
+      "random|triangular": "kappa",
+      "square|tesseract": "squares_per_node",
+      "square|triangular": "triangles_per_node",
+      "tesseract|triangular": "triangles_per_node"
+     }
+    }
+   }
+  },
+  {
+   "id": "K10",
+   "law": {
+    "at_n": 4096,
+    "class": "remembers",
+    "failures": [],
+    "top_dense": false
+   },
+   "name": "a lattice that fell apart, and one that went to the cap",
+   "passed": false,
+   "sizes": {
+    "1024": {
+     "class": "remembers",
+     "distances": {
+      "bcc|cubic": 32.4,
+      "bcc|empty": 0.176,
+      "bcc|fcc": 0.292,
+      "bcc|random": 0.27,
+      "bcc|square": 50.0,
+      "bcc|tesseract": 0.298,
+      "bcc|triangular": 0.196,
+      "cubic|empty": 32.4,
+      "cubic|fcc": 32.4,
+      "cubic|random": 32.4,
+      "cubic|square": 50.0,
+      "cubic|tesseract": 32.4,
+      "cubic|triangular": 32.4,
+      "empty|fcc": 0.115,
+      "empty|random": 0.222,
+      "empty|square": 50.0,
+      "empty|tesseract": 0.224,
+      "empty|triangular": 0.0417,
+      "fcc|random": 0.181,
+      "fcc|square": 50.0,
+      "fcc|tesseract": 0.282,
+      "fcc|triangular": 0.0961,
+      "random|square": 50.0,
+      "random|tesseract": 0.362,
+      "random|triangular": 0.246,
+      "square|tesseract": 50.0,
+      "square|triangular": 50.0,
+      "tesseract|triangular": 0.232
+     },
+     "failures": [
+      "fcc partly, expected melted"
+     ],
+     "fates": {
+      "bcc": [
+       "melted",
+       0.063,
+       0.25
+      ],
+      "cubic": [
+       "dense",
+       null,
+       1.83
+      ],
+      "fcc": [
+       "partly",
+       0.626,
+       0.5
+      ],
+      "square": [
+       "fell_apart",
+       null,
+       1.0
+      ],
+      "tesseract": [
+       "melted",
+       0.141,
+       0.25
+      ],
+      "triangular": [
+       "melted",
+       0.028,
+       0.0
+      ]
+     },
+     "groups": [
+      [
+       "empty",
+       "random",
+       "triangular",
+       "bcc",
+       "fcc",
+       "tesseract"
+      ],
+      [
+       "square"
+      ],
+      [
+       "cubic"
+      ]
+     ],
+     "spread": 50.0,
+     "worst": {
+      "bcc|cubic": "mean_degree",
+      "bcc|empty": "triangles_per_node",
+      "bcc|fcc": "triangles_per_node",
+      "bcc|random": "triangles_per_node",
+      "bcc|square": "mean_degree",
+      "bcc|tesseract": "squares_per_node",
+      "bcc|triangular": "triangles_per_node",
+      "cubic|empty": "mean_degree",
+      "cubic|fcc": "mean_degree",
+      "cubic|random": "mean_degree",
+      "cubic|square": "mean_degree",
+      "cubic|tesseract": "mean_degree",
+      "cubic|triangular": "mean_degree",
+      "empty|fcc": "triangles_per_node",
+      "empty|random": "reach",
+      "empty|square": "mean_degree",
+      "empty|tesseract": "kappa",
+      "empty|triangular": "kappa",
+      "fcc|random": "reach",
+      "fcc|square": "mean_degree",
+      "fcc|tesseract": "kappa",
+      "fcc|triangular": "triangles_per_node",
+      "random|square": "mean_degree",
+      "random|tesseract": "kappa",
+      "random|triangular": "reach",
+      "square|tesseract": "mean_degree",
+      "square|triangular": "mean_degree",
+      "tesseract|triangular": "kappa"
+     }
+    },
+    "4096": {
+     "class": "remembers",
+     "distances": {
+      "bcc|cubic": 32.4,
+      "bcc|empty": 0.16,
+      "bcc|fcc": 0.158,
+      "bcc|random": 0.184,
+      "bcc|square": 50.0,
+      "bcc|tesseract": 0.116,
+      "bcc|triangular": 0.169,
+      "cubic|empty": 32.4,
+      "cubic|fcc": 32.4,
+      "cubic|random": 32.4,
+      "cubic|square": 50.0,
+      "cubic|tesseract": 32.4,
+      "cubic|triangular": 32.4,
+      "empty|fcc": 0.166,
+      "empty|random": 0.153,
+      "empty|square": 50.0,
+      "empty|tesseract": 0.122,
+      "empty|triangular": 0.131,
+      "fcc|random": 0.0563,
+      "fcc|square": 50.0,
+      "fcc|tesseract": 0.127,
+      "fcc|triangular": 0.0625,
+      "random|square": 50.0,
+      "random|tesseract": 0.188,
+      "random|triangular": 0.0521,
+      "square|tesseract": 50.0,
+      "square|triangular": 50.0,
+      "tesseract|triangular": 0.176
+     },
+     "failures": [],
+     "fates": {
+      "bcc": [
+       "melted",
+       0.25,
+       0.25
+      ],
+      "cubic": [
+       "dense",
+       null,
+       1.83
+      ],
+      "fcc": [
+       "melted",
+       0.319,
+       0.5
+      ],
+      "square": [
+       "fell_apart",
+       null,
+       1.0
+      ],
+      "tesseract": [
+       "melted",
+       0.322,
+       0.25
+      ],
+      "triangular": [
+       "melted",
+       0.0,
+       0.0
+      ]
+     },
+     "groups": [
+      [
+       "empty",
+       "random",
+       "triangular",
+       "bcc",
+       "fcc",
+       "tesseract"
+      ],
+      [
+       "square"
+      ],
+      [
+       "cubic"
+      ]
+     ],
+     "spread": 50.0,
+     "worst": {
+      "bcc|cubic": "mean_degree",
+      "bcc|empty": "squares_per_node",
+      "bcc|fcc": "reach",
+      "bcc|random": "squares_per_node",
+      "bcc|square": "mean_degree",
+      "bcc|tesseract": "squares_per_node",
+      "bcc|triangular": "squares_per_node",
+      "cubic|empty": "mean_degree",
+      "cubic|fcc": "mean_degree",
+      "cubic|random": "mean_degree",
+      "cubic|square": "mean_degree",
+      "cubic|tesseract": "mean_degree",
+      "cubic|triangular": "mean_degree",
+      "empty|fcc": "reach",
+      "empty|random": "reach",
+      "empty|square": "mean_degree",
+      "empty|tesseract": "kappa",
+      "empty|triangular": "reach",
+      "fcc|random": "kappa",
+      "fcc|square": "mean_degree",
+      "fcc|tesseract": "kappa",
+      "fcc|triangular": "triangles_per_node",
+      "random|square": "mean_degree",
+      "random|tesseract": "kappa",
+      "random|triangular": "triangles_per_node",
+      "square|tesseract": "mean_degree",
+      "square|triangular": "mean_degree",
+      "tesseract|triangular": "kappa"
+     }
+    }
+   }
+  },
+  {
+   "id": "K11",
+   "law": {
+    "at_n": 1024,
+    "class": "forgets",
+    "failures": [],
+    "top_dense": true
+   },
+   "name": "a law whose largest size crossed the cap before its twins ran is read at the size below",
+   "passed": false,
+   "sizes": {
+    "1024": {
+     "class": "forgets",
+     "distances": {
+      "bcc|cubic": 0.314,
+      "bcc|empty": 0.176,
+      "bcc|fcc": 0.292,
+      "bcc|random": 0.27,
+      "bcc|square": 0.0777,
+      "bcc|tesseract": 0.298,
+      "bcc|triangular": 0.196,
+      "cubic|empty": 0.299,
+      "cubic|fcc": 0.305,
+      "cubic|random": 0.183,
+      "cubic|square": 0.228,
+      "cubic|tesseract": 0.494,
+      "cubic|triangular": 0.294,
+      "empty|fcc": 0.115,
+      "empty|random": 0.222,
+      "empty|square": 0.157,
+      "empty|tesseract": 0.224,
+      "empty|triangular": 0.0417,
+      "fcc|random": 0.181,
+      "fcc|square": 0.209,
+      "fcc|tesseract": 0.282,
+      "fcc|triangular": 0.0961,
+      "random|square": 0.195,
+      "random|tesseract": 0.362,
+      "random|triangular": 0.246,
+      "square|tesseract": 0.33,
+      "square|triangular": 0.141,
+      "tesseract|triangular": 0.232
+     },
+     "failures": [
+      "fcc partly, expected melted"
+     ],
+     "fates": {
+      "bcc": [
+       "melted",
+       0.063,
+       0.25
+      ],
+      "cubic": [
+       "melted",
+       0.039,
+       0.0
+      ],
+      "fcc": [
+       "partly",
+       0.626,
+       0.5
+      ],
+      "square": [
+       "melted",
+       -0.386,
+       0.5
+      ],
+      "tesseract": [
+       "melted",
+       0.141,
+       0.25
+      ],
+      "triangular": [
+       "melted",
+       0.028,
+       0.0
+      ]
+     },
+     "groups": [
+      [
+       "empty",
+       "random",
+       "square",
+       "triangular",
+       "cubic",
+       "bcc",
+       "fcc",
+       "tesseract"
+      ]
+     ],
+     "spread": 0.494,
+     "worst": {
+      "bcc|cubic": "kappa",
+      "bcc|empty": "triangles_per_node",
+      "bcc|fcc": "triangles_per_node",
+      "bcc|random": "triangles_per_node",
+      "bcc|square": "triangles_per_node",
+      "bcc|tesseract": "squares_per_node",
+      "bcc|triangular": "triangles_per_node",
+      "cubic|empty": "squares_per_node",
+      "cubic|fcc": "squares_per_node",
+      "cubic|random": "squares_per_node",
+      "cubic|square": "kappa",
+      "cubic|tesseract": "squares_per_node",
+      "cubic|triangular": "kappa",
+      "empty|fcc": "triangles_per_node",
+      "empty|random": "reach",
+      "empty|square": "squares_per_node",
+      "empty|tesseract": "kappa",
+      "empty|triangular": "kappa",
+      "fcc|random": "reach",
+      "fcc|square": "triangles_per_node",
+      "fcc|tesseract": "kappa",
+      "fcc|triangular": "triangles_per_node",
+      "random|square": "triangles_per_node",
+      "random|tesseract": "kappa",
+      "random|triangular": "reach",
+      "square|tesseract": "squares_per_node",
+      "square|triangular": "squares_per_node",
+      "tesseract|triangular": "kappa"
+     }
+    },
+    "4096": {
+     "class": "not_read",
+     "distances": {},
+     "failures": [],
+     "fates": {},
+     "groups": [
+      [
+       "empty"
+      ]
+     ],
+     "spread": null,
+     "worst": {}
+    }
+   }
+  }
+ ],
+ "contract": "gsd-starts-check-1",
+ "criterion": {
+  "path": "graph_scale_dynamics/resources/readings/starts_known_answers_criterion.json",
+  "sha256": "f7bf7e9c438ce304ccc25a9400b037c4b7947610608f86d38aa8249141fe0d4f"
+ },
+ "first_seed": 0,
+ "held_out": false,
+ "passed": false,
+ "reading_contract": "gsd-starts-reading-2",
+ "references_from": "the calibration table's cells of the lattice starts",
+ "references_sha256": "541d218e67932a6cbb5226120ec9192f24672e0491d464441a87290c9458aaa7",
+ "rule": {
+  "apart_when": "gap > tolerance + noise_sigmas * combined standard error",
+  "classes": [
+   "one_space",
+   "grows",
+   "converts",
+   "selects",
+   "holds",
+   "forgets",
+   "remembers",
+   "not_read"
+  ],
+  "compared": [
+   "d_s",
+   "d_V",
+   "d_B",
+   "mean_degree",
+   "triangles_per_node",
+   "squares_per_node",
+   "kappa",
+   "reach",
+   "giant_fraction"
+  ],
+  "counting_noise": "Poisson, sqrt(x n / seeds + y n / seeds) / n",
+  "counts": [
+   "triangles_per_node",
+   "squares_per_node"
+  ],
+  "degree_within": 0.1,
+  "dense_share": 0.5,
+  "fates": [
+   "holds",
+   "unmoved",
+   "changed",
+   "partly",
+   "stretched",
+   "melted",
+   "fell_apart",
+   "dense"
+  ],
+  "from_n": 1024,
+  "kept_at_least": 0.5,
+  "kept_at_most": 2.0,
+  "kept_holds": 0.8,
+  "law_class": "at its largest size read by two chains or more",
+  "measurable": 16,
+  "met": 1.0,
+  "min_seeds": 2,
+  "noise_sigmas": 3.0,
+  "reach_share": 0.05,
+  "tolerances": {
+   "curvature": 0.02,
+   "dimension": 0.15,
+   "per_node": 0.02,
+   "piece": 0.02
+  },
+  "unmoved_on": [
+   "mean_degree",
+   "triangles_per_node",
+   "squares_per_node",
+   "giant_fraction",
+   "kappa",
+   "reach"
+  ],
+  "unmoved_within": 1e-06
+ },
+ "sizes": [
+  1024,
+  4096
+ ],
+ "space_score_on_the_starts": {
+  "periodic_body_centred_cubic_lattice": {
+   "d": 3,
+   "rungs": [
+    [
+     1024,
+     0.452,
+     "agree"
+    ],
+    [
+     4096,
+     2.11,
+     "reach"
+    ],
+    [
+     16384,
+     0.473,
+     "agree"
+    ],
+    [
+     65536,
+     0.684,
+     "reach"
+    ],
+    [
+     262144,
+     1.41,
+     "reach"
+    ],
+    [
+     1048576,
+     0.727,
+     "reach"
+    ]
+   ],
+   "space": false
+  },
+  "periodic_cubic_quotient": {
+   "d": 3,
+   "rungs": [
+    [
+     1024,
+     0.566,
+     "agree"
+    ],
+    [
+     4096,
+     3.33,
+     "reach"
+    ],
+    [
+     16384,
+     2.45,
+     "reach"
+    ],
+    [
+     65536,
+     0.642,
+     "reach"
+    ],
+    [
+     262144,
+     1.81,
+     "reach"
+    ],
+    [
+     1048576,
+     1.85,
+     "reach"
+    ]
+   ],
+   "space": false
+  },
+  "periodic_face_centred_cubic_lattice": {
+   "d": 3,
+   "rungs": [
+    [
+     1024,
+     0.365,
+     "agree"
+    ],
+    [
+     4096,
+     0.342,
+     "reach"
+    ],
+    [
+     16384,
+     1.01,
+     "reach"
+    ],
+    [
+     65536,
+     0.756,
+     "reach"
+    ],
+    [
+     262144,
+     0.854,
+     "reach"
+    ],
+    [
+     1048576,
+     0.299,
+     "agree"
+    ]
+   ],
+   "space": false
+  },
+  "periodic_honeycomb_lattice": {
+   "d": 2,
+   "rungs": [
+    [
+     1024,
+     0.474,
+     "agree"
+    ],
+    [
+     4096,
+     0.513,
+     "reach"
+    ],
+    [
+     16384,
+     0.258,
+     "reach"
+    ],
+    [
+     65536,
+     0.168,
+     "agree"
+    ],
+    [
+     262144,
+     0.164,
+     "agree"
+    ],
+    [
+     1048576,
+     0.167,
+     "agree"
+    ]
+   ],
+   "space": true
+  },
+  "periodic_square_lattice": {
+   "d": 2,
+   "rungs": [
+    [
+     1024,
+     0.354,
+     "agree"
+    ],
+    [
+     4096,
+     0.237,
+     "agree"
+    ],
+    [
+     16384,
+     0.165,
+     "agree"
+    ],
+    [
+     65536,
+     0.175,
+     "agree"
+    ],
+    [
+     262144,
+     0.141,
+     "agree"
+    ],
+    [
+     1048576,
+     0.13,
+     "agree"
+    ]
+   ],
+   "space": true
+  },
+  "periodic_tesseract_quotient": {
+   "d": 4,
+   "rungs": [
+    [
+     1024,
+     2.77,
+     "agree"
+    ],
+    [
+     4096,
+     9.5,
+     "reach"
+    ],
+    [
+     16384,
+     2.16,
+     "reach"
+    ],
+    [
+     65536,
+     2.16,
+     "reach"
+    ],
+    [
+     262144,
+     2.16,
+     "reach"
+    ],
+    [
+     1048576,
+     2.16,
+     "reach"
+    ]
+   ],
+   "space": false
+  },
+  "periodic_triangular_lattice": {
+   "d": 2,
+   "rungs": [
+    [
+     1024,
+     0.476,
+     "agree"
+    ],
+    [
+     4096,
+     0.252,
+     "agree"
+    ],
+    [
+     16384,
+     0.182,
+     "agree"
+    ],
+    [
+     65536,
+     0.184,
+     "reach"
+    ],
+    [
+     262144,
+     0.15,
+     "agree"
+    ],
+    [
+     1048576,
+     0.133,
+     "agree"
+    ]
+   ],
+   "space": true
+  }
+ },
+ "written_utc": "2026-11-19T23:43:48Z"
+}

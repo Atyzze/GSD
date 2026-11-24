@@ -1,0 +1,131 @@
+{
+ "contract": "gsd-boltzmann-known-answers-criterion-4",
+ "committed_utc": "2026-11-19T21:50:01Z",
+ "committed_before": "it was run, on build 816, whose engines are 806's (the Rust crate 0.806.0, engine-3.3.0): 806 cut a run only between chunks and gave each seed a budget in the engines' count of work, and the rule since 753 is that this known answer is read again whenever an engine changes. It is criterion 3 in today's names, its seed, laws, runs, controls and rule unchanged, so that every cell can be held to the numbers criterion 3 read on build 775. Criteria 1 to 3 and their readings leave the tree with this build (the operator, 2026-11-18 16:43: \"ALL old data we want GONE\"), this one being the engines' known answer from here on.",
+ "question": "Do the engines as 806 left them keep, and reach, the Boltzmann measure of every term's energy at a finite temperature on every graph of 4 and 5 nodes, and does the count still refuse a chain that keeps another measure?",
+ "known_answer": "There are 64 graphs on 4 labelled nodes and 1,024 on 5. The engine's own energy of each (the Python engine's configuration_energy; the Rust engine's init_declared) gives the law's exact measure at its temperature, the weight of a graph exp(-E). A chain whose moves are in balance with that measure keeps it: started at a graph drawn from the measure, it ends on a graph distributed by the measure, however long or short it ran and whether or not it mixed. And a chain that reaches every graph ends on the measure from the empty graph, given long enough.",
+ "what_is_read": "Each run is one call of the engine's run_simulation as the fleet makes it: the chain from the empty graph, and the given chain from a declared start, here a graph drawn from the exact measure. The graph each chain ends on is counted over the cell's runs, and the counts are read against the exact measure by a chi-square on the labelled graphs, the rarest pooled until every pooled cell expects 5. Beside it: whether the energy the chain carried at its end is the energy of the graph it ended on; whether the two engines, and the two orders of a graph's edges, give every graph the same energy; how many moves of each kind were accepted; and the same counts read against wrong measures (the energies multiplied by 1.25, 1.5 and 2), which says what the count can tell apart.",
+ "code": "graph_scale_dynamics/research/boltzmann_known_answers.py, tools/boltzmann_known_answers.py",
+ "seed": 7532,
+ "sizes": [
+  4,
+  5
+ ],
+ "terms": [
+  "edge_count",
+  "degree_anchor",
+  "degree_square_sum",
+  "wedge_count",
+  "triangle_count",
+  "triangle_edge_overlap",
+  "square_count",
+  "square_edge_overlap",
+  "induced_square_count",
+  "degree_neighbor_gradient",
+  "degree_anchor_abs",
+  "degree_cube_sum",
+  "degree_fourth_sum",
+  "ollivier_curvature"
+ ],
+ "terms_are": "every operator of dsl.OPERATORS, all fourteen",
+ "engines": {
+  "rust": {
+   "runs": 2000,
+   "seed_offset": 0
+  },
+  "python": {
+   "runs": 1000,
+   "seed_offset": 500000
+  }
+ },
+ "engines_are": "Rust is what the fleet runs and what ran 159; the Python engine is a tenth as fast here and is held to it bit for bit by the parity lane, so it gets half the runs, on seeds of its own so that it is a second sample and not the first again",
+ "drawn": {
+  "alone_per_term": 2,
+  "mixed": 8,
+  "mixed_term_counts": [
+   2,
+   3,
+   4
+  ],
+  "complexity_budget": 7,
+  "strength": {
+   "min": 2.0,
+   "max": 6.0,
+   "of": "span"
+  },
+  "locality_below": 0.99,
+  "swap_below": 0.99,
+  "sweeps": 100
+ },
+ "drawn_is": "Two laws of each term alone and eight of two to four terms within the survey's complexity budget, drawn with the seed. A term's coupling is drawn, not chosen: its sign at random and its strength log-uniform from 2 to 6, the strength being the span its energy is given (the largest less the smallest over all graphs of that size, in units of the temperature), divided among the terms of a mixed law; so the likeliest graph outweighs the least likely by at most e^6, every law weighs graphs unequally and no measure sits on one graph. Criterion 1 set the strength as one standard deviation over all graphs, which does not bound the span of a term that is zero on most graphs. A degree anchor's k is drawn from 1 to N-1. The locality (the share of moves that toggle the edge between two neighbours of a node) and the swap share are drawn uniformly from the survey's whole ranges, 0 to 0.99; add and delete share the rest equally; beta is 1, the strength carrying the temperature; the local move is the toggle.",
+ "reach": {
+  "localities": [
+   0.0,
+   0.5
+  ],
+  "swap": 0.15,
+  "sweeps": 400
+ },
+ "reach_is": "Each term's first drawn coupling, alone, at locality 0 and 0.5 with the survey's default swap share, 400 sweeps: where the chain from the empty graph is held to the measure as well, so a kind of move that is never taken, or a measure that is kept but cannot be reached, is seen.",
+ "controls": [
+  {
+   "name": "the_tree_s_law_toggle",
+   "expected": "kept",
+   "terms": [
+    {
+     "op": "edge_count",
+     "c0": 0.3
+    },
+    {
+     "op": "triangle_count",
+     "c0": -0.8
+    }
+   ],
+   "locality": 0.7,
+   "swap": 0.1,
+   "sweeps": 100
+  },
+  {
+   "name": "the_tree_s_law_at_twice_its_energy",
+   "expected": "refused",
+   "terms": [
+    {
+     "op": "edge_count",
+     "c0": 0.3
+    },
+    {
+     "op": "triangle_count",
+     "c0": -0.8
+    }
+   ],
+   "locality": 0.7,
+   "swap": 0.1,
+   "beta": 2.0,
+   "sweeps": 100
+  }
+ ],
+ "controls_are": "the law of tests/scientific/test_law_dynamics.py (edge_count 0.3, triangle_count -0.8, locality 0.7, move mix 0.45, 0.45, 0.10) with the local toggle at beta 1, which keeps the measure it is judged against, and the same law run at beta 2, whose chain is in balance with the measure of the energies doubled and is judged against the law's measure at beta 1: a chain that keeps a measure, but not the one it is read against. It replaces criterion 2's driven law, whose move left the engines. On criterion 2 the toggle control's own counts refused the energies doubled at p below 1e-100 in all four of its cells, so the count can tell these two measures apart at both sizes.",
+ "wrong_measures": [
+  1.25,
+  1.5,
+  2.0
+ ],
+ "rule": {
+  "family_wise": 0.01,
+  "pooled_cells_expect_at_least": 5.0
+ },
+ "rule_in_words": "A count agrees with the measure when its chi-square's p is at least 0.01 divided by the number of counts judged (so that, were every chain exact, all would agree 99 times in 100). K1, the measure is kept: the given chain's count agrees in every cell of the drawn laws, the reach laws and the control expected kept, on both sizes and both engines. K2, the measure is reached: the count of the chain from empty agrees in every cell of the reach laws. K3, the energies agree: the two engines give every graph of every law the same energy, as do the two orders of its edges (within 1e-9 of the largest energy), and no chain ends carrying an energy that is not its graph's (within 1e-6 of the largest). K4, every kind of move is taken: over the drawn laws each engine accepted local toggles, other toggles and swaps. The criterion passes when all four hold. The control expected refused is a prediction, right when its given chain's count disagrees on both sizes and both engines. A law one of whose terms is the same on every graph of a size is not built at that size and is named.",
+ "expected": {
+  "K1 to K4": "held, every cell read: on criterion 3 every cell was read and agreed",
+  "the_tree_s_law_at_twice_its_energy": "refused, in all four cells; and its count agrees with the measure of the energies doubled (the table's factor 2), the measure its chain keeps, in all four",
+  "every cell": "the same numbers as criterion 3 read on build 775, in all 264 cells (its chi-squares, p-values, runs that moved and moves accepted): a run here is a fixed count of sweeps on a graph of 4 or 5 nodes, which 806's budget in work and its cut between chunks do not reach, and no move or energy of either engine changed since"
+ },
+ "what_follows": "A term or a kind of move that misses is a defect of an engine, named with its cells and fixed before the build is released, with this reading run again on the fix; a cell whose numbers differ from 775's while every rule holds is named and its cause found before the build is released. If all hold, the engines' exactness at a finite temperature is a known answer of the instrument as it stands, read again whenever an engine changes.",
+ "what_it_does_not_claim": [
+  "Zero temperature is not a Boltzmann measure and is not read here; nor is a cooling schedule.",
+  "Graphs of 4 and 5 nodes hold every triangle, square and pentagon a term can count, but not two far-apart parts of one graph; an error that needs more nodes to show is not excluded.",
+  "The given chain's count tests balance, not speed: it says nothing of how long a chain takes to reach its measure at the sizes the survey runs.",
+  "The count tells a measure from a wrong one only as far as the table of wrong measures shows.",
+  "The second control is a chain of a balanced kernel at another temperature, not an unbalanced kernel: no move left in either engine is out of balance, so none can be the control."
+ ]
+}

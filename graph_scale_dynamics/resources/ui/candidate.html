@@ -1,0 +1,1611 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Candidate · Build __GSD_BUILD_NUMBER__</title>
+<link rel="stylesheet" href="assets/system.css?v=__GSD_BUILD_NUMBER__"><style>body{padding:0}.candidate-content{max-width:1720px;margin:auto;padding:8px 14px 48px}.candidate-content .hdr{margin-top:2px}.hdr{display:flex;gap:14px;align-items:baseline;flex-wrap:wrap}.hdr-hash{margin-left:8px;font-size:11px;opacity:.75}.hdr-score{display:inline-block;min-width:1.6em;text-align:center;padding:1px 7px;border:1px solid var(--line2);border-radius:4px;font:650 15px/1.4 system-ui,sans-serif;font-variant-numeric:tabular-nums;color:var(--muted);vertical-align:middle}.hdr-score.strong{color:var(--green);border-color:color-mix(in srgb,var(--green) 45%,var(--line2))}.hdr-score.partial{color:var(--amber);border-color:color-mix(in srgb,var(--amber) 45%,var(--line2))}.hdr-score.zero{color:var(--muted)}.hdr-score.provisional{border-style:dashed}.flow-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px 10px;margin:4px 0 8px}@media (max-width:1400px){.flow-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}@media (max-width:900px){.flow-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media (max-width:560px){.flow-grid{grid-template-columns:minmax(0,1fr)}}.flow-start-title{font:600 12px/1.4 system-ui,sans-serif;margin:0 0 2px}.flow-key{display:flex;gap:14px;flex-wrap:wrap;margin:2px 0 6px;font-size:12px}.flow-key-geometry{display:inline-block;width:14px;height:10px;background:var(--green);opacity:.3;vertical-align:middle}.ls-head{margin:4px 0 2px}.ls-value{font:700 28px/1.2 system-ui,sans-serif;font-variant-numeric:tabular-nums}.ls-words{font-weight:600}.ls-rule{max-width:160ch}.ls-parts,.ls-sizes{width:auto}.ls-caption{margin:12px 0 2px}.ls-parts td,.ls-parts th,.ls-sizes td,.ls-sizes th{font-variant-numeric:tabular-nums;padding-right:14px}.ls-parts tr.ls-best td{font-weight:650}.ls-parts tr.ls-none td{color:var(--muted)}.ls-sizes td.ls-geometry{color:var(--green)}.ls-sizes td.ls-not{color:var(--muted)}.header-controls{display:inline-flex;align-items:center;gap:6px}.law-identity{margin:2px 0 6px;font-size:11px;overflow-wrap:anywhere}.law-identity code{font-size:11px}.law-dynamics{width:auto;margin:6px 0 10px;font-size:12px}.law-dynamics th{text-align:left;font-weight:600;padding:1px 14px 1px 0;white-space:nowrap;color:var(--muted)}.law-dynamics td{padding:1px 0}:root{--start-empty:#CBD2D9;--start-random:#DC5D5F;--start-triangular:#51C947;--start-square:#F2D935;--start-cubic:#3979B2;--start-bcc:#7746E0;--start-fcc:#D36BF1;--start-tesseract:#41B2B2;--start-honeycomb:#E69F00;--start-other-a:#B08D57;--start-other-b:#CC79A7;--start-other-c:#A0764A}:root[data-theme="light"]{--start-empty:#53595F;--start-random:#DB2D23;--start-triangular:#367B24;--start-square:#B29722;--start-cubic:#2A76E2;--start-bcc:#432088;--start-fcc:#9853AD;--start-tesseract:#25AABE;--start-honeycomb:#B85F00;--start-other-a:#7A6A3A;--start-other-b:#A8578A;--start-other-c:#6B4F1D}.two-chains{margin:6px 0 22px}.tc-intro{margin:2px 0 6px;max-width:160ch}.tc-kernel{margin:4px 0 0}.tc-key{display:flex;gap:16px;flex-wrap:wrap;margin:2px 0 8px}.tc-key-item{cursor:help}.tc-explain{margin:14px 0 4px;border:1px solid var(--line);border-radius:6px;background:var(--panel);padding:6px 10px}.tc-explain summary{cursor:pointer}.tc-explain p{max-width:160ch}.tc-key-item{white-space:nowrap}.tc-swatch{display:inline-block;width:22px;height:0;vertical-align:middle;margin-right:6px;border-top:2px solid var(--start-empty)}.tc-grid.cv-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.cv-refused{margin:6px 10px}.cv-sizes{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 10px}.cv-size{font:inherit;font-size:12px;padding:2px 9px;border:1px solid var(--line);border-radius:5px;background:transparent;color:var(--muted);cursor:pointer}.cv-size.cv-on{color:var(--fg,inherit);border-color:var(--start-empty)}td.ec-chain{font-weight:600;white-space:nowrap;vertical-align:top}tr.ec-first>td{border-top:1px solid var(--line)}.ec-verdicts p{margin:3px 0}.tc-swatch-given{border-top:2px dashed var(--start-random)}.tc-more-readings{white-space:normal}.tc-strip{display:flex;gap:4px;overflow-x:auto;padding:2px 0 6px}.tc-cell{flex:1 0 96px;max-width:170px;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;text-align:left;font:11px/1.35 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--text);background:var(--panel2);border:1px solid var(--line2);border-radius:5px;padding:4px 6px}.tc-cell>span{display:block}.tc-word{font-weight:650}.tc-met .tc-word,td.tc-met{color:var(--green)}.tc-closing .tc-word,td.tc-closing{color:var(--amber)}.tc-apart .tc-word,td.tc-apart{color:var(--bad)}.tc-frozen .tc-word,td.tc-frozen{color:var(--blue)}.tc-unread .tc-word,td.tc-unread{color:var(--muted)}.tc-rule,.tc-note{max-width:160ch}.tc-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px 10px;margin:2px 0 8px}@media (max-width:1180px){.tc-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}@media (max-width:760px){.tc-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media (max-width:520px){.tc-grid{grid-template-columns:minmax(0,1fr)}}.tc-row-title{font:600 12px/1.2 system-ui,sans-serif;margin:10px 0 3px;color:var(--muted)}.tc-grid.tc-grid-run{grid-template-columns:repeat(3,minmax(0,1fr))}@media (max-width:1180px){.tc-grid.tc-grid-run{grid-template-columns:repeat(2,minmax(0,1fr))}}@media (max-width:760px){.tc-grid.tc-grid-run{grid-template-columns:minmax(0,1fr)}}.tc-detail{margin:14px 0 4px;border:1px solid var(--line);border-radius:6px;background:var(--panel);padding:6px 10px}.tc-detail>summary{cursor:pointer;font:600 12px/1.6 system-ui,sans-serif;color:var(--text)}.tc-sizes{display:flex;gap:4px;flex-wrap:wrap;margin:8px 0 2px}.tc-size{font:11px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;padding:2px 9px;border:1px solid var(--line2);border-radius:4px;background:var(--panel2);color:var(--text);cursor:pointer}.tc-size.selected{outline:2px solid var(--blue);outline-offset:-1px}.tc-chart{border:1px solid var(--line);border-radius:5px;background:var(--panel);padding:2px}.tc-chart svg{display:block;width:100%;height:auto}.tc-chart-title{font-weight:600;padding:4px 6px 0}.tc-none{padding:0 6px 6px}.tc-table-wrap{overflow-x:auto}.tc-table th,.tc-checks th{position:static}.tc-table th.tc-pair{text-align:center;border-left:1px solid var(--line2)}.tc-table th.tc-sub{font-weight:600}.tc-table th.tc-sub.tc-empty{color:var(--start-empty)}.tc-table th.tc-sub.tc-given{color:var(--start-random)}.tc-table td.tc-first,.tc-table th.tc-sub.tc-empty{border-left:1px solid var(--line2)}.tc-table td.tc-diff{background:color-mix(in srgb,var(--amber) 15%,transparent)}.tc-run{margin-top:10px}.tc-run-title{font:600 12px/1.2 system-ui,sans-serif;margin:10px 0 2px;color:var(--text)}.tc-runs{display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:8px 12px;margin:6px 0}.tc-stop{margin:2px 0}.tc-checks td.tc-result-fail{color:var(--bad)}.tc-checks td.tc-result-pass{color:var(--green)}.ss{margin:2px 0 14px}.ss-stages{display:flex;gap:6px;flex-wrap:wrap;margin:4px 0 6px}.ss-stage{flex:0 1 330px;font:11px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;border:1px solid var(--line2);border-radius:5px;padding:4px 7px;background:var(--panel2);color:var(--text)}.ss-stage>span{display:block}.ss-stage .ss-name{font-weight:650}.ss-stage.ss-passed{border-color:color-mix(in srgb,var(--green) 45%,var(--line2))}.ss-stage.ss-passed .ss-mark{color:var(--green)}.ss-stage.ss-failed{border-color:color-mix(in srgb,var(--bad) 45%,var(--line2))}.ss-stage.ss-failed .ss-mark{color:var(--bad)}.ss-stage.ss-ahead{opacity:.55}.ss-facts{max-width:160ch;margin:2px 0 6px}.ss-table{width:auto}.ss-table td,.ss-table th{font-variant-numeric:tabular-nums;padding-right:16px}.ss-table tr.ss-apart td.ss-first{text-align:center}.ss-table td.ss-within{color:var(--green)}.ss-table td.ss-beyond{color:var(--bad)}.ss-table td.ss-none{color:var(--muted)}.ss-table tr.ss-total td{font-weight:650}.ss-table th.ss-n{text-align:center;border-left:1px solid var(--line2)}.ss-table td.ss-first{border-left:1px solid var(--line2)}.fs{margin:2px 0 14px}.fs-facts{max-width:160ch;margin:2px 0 6px}.fs-table,.fs-distances{width:auto}.fs-table td,.fs-table th,.fs-distances td,.fs-distances th{font-variant-numeric:tabular-nums;padding-right:14px}.fs-group{display:inline-block;border:1px solid var(--line2);border-radius:4px;padding:0 6px;margin:1px 6px 1px 0;white-space:nowrap}.fs-chain{font-weight:600}.fs-class{font-weight:650}.fs-fate.fs-holds{color:var(--green)}.fs-fate.fs-changed,.fs-fate.fs-stretched,.fs-fate.fs-partly{color:var(--amber)}.fs-fate.fs-melted,.fs-fate.fs-fell_apart,.fs-fate.fs-dense{color:var(--muted)}.fs-fate.fs-unmoved{color:var(--blue)}.fs-at{font-weight:400}.fs-distances td.ss-within{color:var(--green)}.fs-distances td.ss-beyond{color:var(--bad)}.fs-distances td.ss-none{color:var(--muted)}.fs-trend{max-width:160ch;margin:4px 0}.fs-detail{margin:4px 0 0}.fs-detail>summary{cursor:pointer;font:600 12px/1.6 system-ui,sans-serif}</style></head><body><div id="gsdSystemHeader"></div><main class="candidate-content"><div id="app"><div class="hdr"><h1>Research runtime</h1><span class="muted">connecting to local API…</span><span class="header-controls"><button disabled>■ pause compute</button></span></div><h2 data-tone="cyan">campaigns</h2><p class="muted">live campaign state is loading asynchronously; the dashboard shell is already interactive</p><h2 data-tone="green">best candidates</h2><p class="muted">waiting for compact live summary…</p><h2 data-tone="violet">dimension landscape</h2><p class="muted">waiting for compact live summary…</p></div></main><script>window.GSD_UI_CONFIG={basePath:__GSD_BASE_PATH_JSON__,buildNumber:"__GSD_BUILD_NUMBER__",runtimeFingerprint:"__GSD_RUNTIME_FINGERPRINT__",runtimeShort:"__GSD_RUNTIME_SHORT__",devMode:__GSD_DEV_MODE__,homeHref:"/"};</script><script src="assets/system.js?v=__GSD_BUILD_NUMBER__"></script><script src="assets/term_visual.js?v=__GSD_BUILD_NUMBER__"></script><script>
+const qs = new URLSearchParams(location.search);
+const fragment = new URLSearchParams(location.hash.startsWith('#')?location.hash.slice(1):location.hash);
+const ADMIN_TOKEN=fragment.get('admin')||'';
+if(ADMIN_TOKEN){ fragment.delete('admin'); const h=fragment.toString(); history.replaceState(null,'',location.pathname+location.search+(h?'#'+h:'')); }
+const BASE_PATH=__GSD_BASE_PATH_JSON__;
+const HOME=window.GSD_SYSTEM?.route('/') || (BASE_PATH||'')+'/';
+const apiPath=u=>window.GSD_SYSTEM?.api ? window.GSD_SYSTEM.api(u) : (BASE_PATH||'')+u;
+let currentCampaign=qs.get('campaign')||null;
+const GSD_UI_STATE_SCHEMA='2';
+try {
+  if(localStorage.getItem('gsd_ui_state_schema')!==GSD_UI_STATE_SCHEMA){
+    for(const key of Object.keys(localStorage)){
+      if(key.startsWith('gsd_details_overview-')) localStorage.removeItem(key);
+    }
+    localStorage.setItem('gsd_ui_state_schema',GSD_UI_STATE_SCHEMA);
+  }
+} catch(_e) {  }
+const el = (t, a={}, ...kids) => { const n = document.createElement(t);
+  for (const [k,v] of Object.entries(a)) k=='html'? n.innerHTML=v : n.setAttribute(k,v);
+  kids.flat().forEach(k => k!==null && k!==undefined && n.append(k)); return n; };
+async function j(u){ const headers=ADMIN_TOKEN?{'X-GSD-Admin-Token':ADMIN_TOKEN}:{}; const r = await fetch(apiPath(u),{headers}); if(!r.ok){ let why=''; try{ const b=await r.json(); why=b&&b.error?' ('+b.error+')':''; }catch(_){} const e=new Error(u+': '+r.status+why); e.status=r.status; e.retryable=r.status===503; throw e; } return r.json(); }
+async function jRetry(u,{tries=6,sleep=ms=>new Promise(r=>setTimeout(r,ms)),onWait=null}={}){
+  for(let attempt=0;;attempt++){
+    try{ return await j(u); }
+    catch(e){ if(!e.retryable||attempt>=tries-1) throw e; if(onWait) onWait(attempt+1); await sleep(Math.min(4000,500*2**attempt)); }
+  }
+}
+async function copyTextPortable(text){
+  if(navigator.clipboard && window.isSecureContext){ await navigator.clipboard.writeText(text); return true; }
+  const ta=el('textarea',{style:'position:fixed;left:-10000px;top:-10000px;opacity:0'},text); document.body.append(ta); ta.focus(); ta.select();
+  let ok=false; try{ ok=document.execCommand('copy'); } finally { ta.remove(); } return ok;
+}
+function saveJsonPortable(payload,filename){
+  const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}), url=URL.createObjectURL(blob), a=el('a',{href:url,download:filename});
+  document.body.append(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url),1200);
+}
+function flashButton(button,text){ const before=button.textContent; button.textContent=text; setTimeout(()=>{if(button.textContent===text)button.textContent=before},1600); }
+function fmt(x,d=3){ return (x===null||x===undefined)?'-':(+x).toFixed(d); }
+function fmtDur(x){ x=+(x||0); return x>=5400?`${(x/3600).toFixed(1)}h`:x>=90?`${Math.round(x/60)}m`:`${Math.round(x)}s`; }
+function stat(s){ return s&&s.mean!==null&&s.mean!==undefined ? fmt(s.mean)+(s.se?` ± ${fmt(s.se)}`:'') : 'invalid'; }
+
+const GAP_MAX_N=65536;
+function censusExponent(a,b,na,nb){
+  if(!(a>0)||!(b>0)||!(na>0)||!(nb>0)||na===nb) return null;
+  return Math.log(b/a)/Math.log(nb/na);
+}
+function sci(x){ if(x===null||x===undefined||!isFinite(+x)) return null; const v=+x;
+  return (v!==0&&Math.abs(v)<1e-2)?v.toExponential(2):v.toFixed(4); }
+function pct(x){ return x==null?'n/a':(100*(+x)).toFixed(1)+'%'; }
+function ecChains(payload){ return inShownOrder((((payload&&payload.every_chain)||{}).chains||[]).filter(c=>c&&c.key),c=>c.key); }
+function ecColor(key){ const ch=TC_CHAINS.find(x=>x.key===key); return ch?ch.color:'inherit'; }
+function ecName(c){ return c.key==='empty'?'empty':String(c.name||c.key); }
+function ecStart(c){ return c.key==='empty'?'the empty graph':(tcStartWords(c.start)||'its start'); }
+function ecChainCell(c,rows){ return el('td',{class:'ec-chain tc-'+c.key,rowspan:String(Math.max(1,rows)),style:'color:'+ecColor(c.key),
+  title:`the chain from the ${ecName(c)} start: ${ecStart(c)}`},ecName(c)); }
+function ecVerdict(st){ return st.finite_dimension===true?'a finite dimension by the committed rule'
+  :st.finite_dimension===false?'no finite dimension by the committed rule':'not decidable yet'; }
+function renderEveryChainGraph(app,payload,fallbackRungs){
+  let chains=ecChains(payload);
+  if(!chains.length&&fallbackRungs) chains=[{key:'empty',name:'empty',start:null,structure:{rungs:[]},
+    census:(fallbackRungs||[]).filter(r=>r&&r.summary).map(r=>({n:+r.n,census:r.summary.census}))}];
+  app.append(el('h2',{'data-tone':'teal',id:'everyChainGraph'},'each chain’s graph (recorded, not decided on)'));
+  const read=chains.filter(c=>((c.structure||{}).rungs||[]).length);
+  const counted=chains.filter(c=>(c.census||[]).some(r=>r&&r.census));
+  if(!read.length&&!counted.length){ app.append(el('p',{class:'muted structure-empty'},'no census on these rungs')); return; }
+  app.append(el('p',{class:'muted'},'the final graphs of every chain, read the same way, in the order the campaign lists its starts. '
+    +'Degree shares are from each seed\'s final graph; Molloy-Reed is the sum of k(k-2)p_k, '
+    +'positive when a random graph with these degrees has a giant component; "random would give" is that giant '
+    +'fraction (the configuration model on these exact degrees). Measured above it: the wiring gathers more of the '
+    +'graph than chance would; below it: less.'));
+  if(read.length){
+    const head=['chain','N','p0','p1','p2','p3+','⟨d⟩','Molloy-Reed','giant','random would give','difference','gap','diameter','cycles / node','κ mean','κ > 0'];
+    const t=el('table',{class:'structure-reading-table'},el('tr',{},...head.map(h=>el('th',{},h))));
+    const m=(r,k)=>r[k]&&r[k].mean!=null?+r[k].mean:null;
+    read.forEach(c=>{ const rows=c.structure.rungs;
+      rows.forEach((r,i)=>t.append(el('tr',{class:i?'':'ec-first'},...(i?[]:[ecChainCell(c,rows.length)]),
+        el('td',{},'N='+r.n),el('td',{},pct(m(r,'p0'))),el('td',{},pct(m(r,'p1'))),
+        el('td',{},pct(m(r,'p2'))),el('td',{},pct(m(r,'p3_plus'))),el('td',{},m(r,'mean_degree')==null?'n/a':m(r,'mean_degree').toFixed(3)),
+        el('td',{},m(r,'molloy_reed')==null?'n/a':m(r,'molloy_reed').toFixed(3)),el('td',{},m(r,'measured_giant_fraction')==null?'n/a':m(r,'measured_giant_fraction').toFixed(3)),
+        el('td',{},m(r,'predicted_giant_fraction')==null?'n/a':m(r,'predicted_giant_fraction').toFixed(3)),
+        el('td',{},r.giant_excess==null?'n/a':(r.giant_excess>=0?'+':'')+(+r.giant_excess).toFixed(3)),
+        el('td',{},m(r,'spectral_gap')==null?'n/a':sci(m(r,'spectral_gap'))),
+        el('td',{},m(r,'diameter')==null?'n/a':m(r,'diameter').toFixed(1)),
+        el('td',{},m(r,'cycle_rank_per_node')==null?'n/a':m(r,'cycle_rank_per_node').toFixed(4)),
+        ...kappaCells(r,m)))); });
+    app.append(t);
+    app.append(el('p',{class:'muted kappa-note'},KAPPA_NOTE));
+    const verdicts=el('div',{class:'ec-verdicts'});
+    read.forEach(c=>{ const st=c.structure;
+      verdicts.append(el('p',{class:'structure-verdict'},el('strong',{style:'color:'+ecColor(c.key)},ecName(c)),
+        el('strong',{},': '+ecVerdict(st)),' · '+(st.why||'')
+        +(st.implied_spectral_dimension!=null?` · the gap implies d_s ≈ ${(+st.implied_spectral_dimension).toFixed(2)}`:''))); });
+    app.append(verdicts);
+    const th=(read.map(c=>c.structure.thresholds).find(x=>x&&x.gap_exponent_at_most!=null))||null;
+    if(th) app.append(el('p',{class:'muted ec-rule'},`the rule, for every chain: gap exponent ≤ ${th.gap_exponent_at_most} and diameter exponent ≥ ${th.diameter_exponent_at_least}, committed from the fifteen calibration families before any law was read (523; the gate that reads it is 524)`));
+  }
+  renderStructureCensus(app,counted);
+}
+const KAPPA_NOTE='\u03ba is the Ollivier curvature of an edge (Kelly, Trugenberger and Biancalana), read on the giant '
+  +'component from 544: 0 on every edge of a flat grid (the square torus, the cubic lattice), -2(d-2)/d on a d-regular '
+  +'graph with no short cycles (-4/3 at degree 6). A reading, never a gate; n/a on a rung measured before 544.';
+function kappaCells(r,m){
+  const mean=m(r,'kappa_mean'), pos=m(r,'kappa_positive_share'), w=m(r,'kappa_weighted');
+  return [el('td',{class:'kappa',title:w==null?'':`degree-weighted mean ${w.toFixed(4)}`},mean==null?'n/a':mean.toFixed(4)),
+          el('td',{class:'kappa'},pos==null?'n/a':pct(pos))];
+}
+const CV_KINDS=[['return_probability','return probability','steps','P(t): the share of walks back at their start after t steps; a space falls as t^(-d_s/2)'],
+  ['volume_growth','ball volume','radius','V(r): the mean number of nodes within r steps; a space grows as r^d_V'],
+  ['walk_displacement','walk displacement','steps','the mean square distance a walk has gone after t steps; t^(2/d_w)'],
+  ['box_covering','boxes to cover it','box radius','N_B(r): the boxes of radius r that cover the graph; a space falls as r^(-d_B)']];
+function cvChart(kind,series,refused,kept){
+  const [key,title,xl,about]=kind, W=330,H=236,L=50,R=10,T=28,B=36,FS=10;
+  const pts=series.flatMap(sr=>sr.points).filter(([x,y])=>x>0&&y>0);
+  const cell=el('div',{class:'tc-chart cv-cell','data-kind':key,title:about});
+  const why=(refused||[]).length?el('p',{class:'muted cv-refused',title:'a probe that refuses a graph keeps no curve of it'},
+    (refused.length>1&&refused.length===kept&&refused.every(r=>r.codes.join()===refused[0].codes.join()))
+      ?'no curve of any chain: '+refused[0].codes.join(', ')
+      :'no curve: '+refused.map(r=>`${r.name} (${r.codes.join(', ')})`).join('; ')):null;
+  if(!pts.length){ cell.append(el('div',{class:'tc-chart-title'},title),why||el('p',{class:'muted'},'no curve kept at this size')); return cell; }
+  const [x0,x1]=tcRange(pts.map(q=>q[0]),{logY:true}), [y0,y1]=tcRange(pts.map(q=>q[1]),{logY:true});
+  const ax=tcAxis(y0,y1,true,T,H-B,L,W-R,FS), a=Math.log10(x0), b=Math.log10(x1);
+  const X=v=>L+(Math.log10(v)-a)/((b-a)||1)*(W-L-R);
+  let svg=ax.svg;
+  tcLogTicks(x0,x1).forEach(v=>{ svg+=`<text x="${X(v).toFixed(1)}" y="${H-B+13}" font-size="${FS-1}" text-anchor="middle" style="fill:var(--muted)">${v>=1e6?(v/1e6)+'M':v>=1000?(v/1000)+'k':v}</text>`; });
+  svg+=`<text x="${W-R}" y="${H-6}" font-size="${FS-1}" text-anchor="end" style="fill:var(--muted)">${tcEsc(xl)}</text>`;
+  series.forEach(sr=>{ const d=sr.points.filter(([x,y])=>x>0&&y>0).map(([x,y],i)=>`${i?'L':'M'}${X(x).toFixed(1)},${ax.Y(y).toFixed(1)}`).join('');
+    if(d) svg+=`<path class="cv-line cv-${tcEsc(sr.key)}" d="${d}" style="fill:none;stroke:${sr.color};stroke-width:1.3;opacity:.85${sr.dash?';stroke-dasharray:'+sr.dash:''}"><title>${tcEsc(sr.name)}, seed ${tcEsc(sr.seed)}</title></path>`; });
+  cell.append(el('div',{class:'tc-chart-title'},title));
+  const holder=el('div',{class:'cv-plot'}); holder.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${tcEsc(title)}">${svg}</svg>`;
+  cell.append(holder); if(why) cell.append(why); return cell; }
+function cvDraw(host,data){
+  host.textContent='';
+  const chains=(data.chains||[]).filter(c=>c&&c.key), seeds=(data.seeds||[]).filter(sd=>sd&&sd.chains);
+  if(!seeds.length){ host.append(el('p',{class:'muted cv-empty'},'no curve was kept at this size')); return; }
+  const grid=el('div',{class:'tc-grid cv-grid'});
+  const drawn=chains.filter(c=>seeds.some(sd=>(sd.chains||{})[c.key]));
+  CV_KINDS.forEach(kind=>{
+    const series=[], refused=[]; chains.forEach(c=>{ const name=c.key==='empty'?'empty':String(c.name||c.key), codes=new Set();
+      seeds.forEach(sd=>{ const own=((sd.chains||{})[c.key]||{})[kind[0]];
+        if(own&&(own.x||[]).length) series.push({key:c.key,name,seed:sd.seed,
+          color:ecColor(c.key),dash:(TC_CHAINS.find(x=>x.key===c.key)||{}).dash||'',points:own.x.map((x,i)=>[+x,+own.y[i]])});
+        else if(own&&own.refused) codes.add(String(own.refused).toLowerCase().replace(/_/g,' ')); });
+      if(codes.size) refused.push({name,codes:[...codes]}); });
+    grid.append(cvChart(kind,series,refused,drawn.length)); });
+  host.append(grid);
+  host.append(el('p',{class:'muted cv-note'},`drawn: ${drawn.map(c=>c.key==='empty'?'empty':String(c.name||c.key)).join(', ')||'none'}; one line a seed, ${seeds.length} seed${seeds.length===1?'':'s'}, both axes logarithmic. `
+    +'A chain that ended at the mean degree cap, or one whose start is not a declared shape, keeps no curves.')); }
+function renderCurves(app,payload,baseUrl){
+  const sizes=(((payload||{}).chains||{}).rungs||[]).map(r=>+r.n).filter(n=>n>0).sort((a,b)=>a-b);
+  app.append(el('h2',{'data-tone':'teal',id:'everyChainCurves'},'each chain’s curves'));
+  if(!sizes.length){ app.append(el('p',{class:'muted cv-empty'},'no size measured yet')); return; }
+  app.append(el('p',{class:'muted'},'what the four probes fitted, kept for every chain since analysis 5.2: the same curves, every chain alike. '
+    +'Choose a size.'));
+  const bar=el('div',{class:'cv-sizes'}), host=el('div',{class:'cv-host'},el('p',{class:'muted'},'choose a size'));
+  const show=n=>{ [...bar.children].forEach(b=>b.classList.toggle('cv-on',b.getAttribute('data-n')===String(n)));
+    host.textContent=''; host.append(el('p',{class:'muted'},`reading the curves at N=${tcNFull(n)}…`));
+    return j(baseUrl+'/'+n).then(data=>cvDraw(host,data))
+      .catch(e=>{ host.textContent=''; host.append(el('p',{class:'muted cv-empty'},'the curves are unavailable: '+(e&&e.message))); }); };
+  sizes.forEach(n=>{ const b=el('button',{class:'cv-size','data-n':String(n),title:`draw every chain’s curves at N=${tcNFull(n)}`},'N='+tcN(n)); b.onclick=()=>show(n); bar.append(b); });
+  app.append(bar,host);
+  return show(sizes[sizes.length-1]); }
+function renderWhatHappened(app,payload){
+  const story=(payload&&payload.what_happened)||{}, clauses=story.clauses||[];
+  app.append(el('h2',{'data-tone':'violet'},'what happened'+(story.rung?` at N=${story.rung}`:'')));
+  if(!clauses.length){ app.append(el('p',{class:'muted what-empty'},story.why||'nothing recorded to read')); return; }
+  const list=el('dl',{class:'what-happened'});
+  clauses.forEach(cl=>{ list.append(el('dt',{},cl.topic)); list.append(el('dd',{},cl.text||'')); });
+  app.append(list);
+}
+const START_STYLE={empty:{color:'var(--start-empty,#CBD2D9)',mark:'circle',dash:''},
+  given:{color:'var(--start-random,#DC5D5F)',mark:'cross',dash:'5 3'},
+  triangular:{color:'var(--start-triangular,#51C947)',mark:'triangle',dash:'8 3'},
+  square:{color:'var(--start-square,#F2D935)',mark:'square',dash:'2 2'},
+  cubic:{color:'var(--start-cubic,#3979B2)',mark:'diamond',dash:'4 2'},
+  bcc:{color:'var(--start-bcc,#7746E0)',mark:'circle',dash:'6 2 1 2'},
+  fcc:{color:'var(--start-fcc,#D36BF1)',mark:'cross',dash:'10 2 2 2'},
+  tesseract:{color:'var(--start-tesseract,#41B2B2)',mark:'square',dash:'3 5'},
+  honeycomb:{color:'var(--start-honeycomb,#E69F00)',mark:'diamond',dash:'2 2'}};
+const START_OTHER=[{color:'var(--start-other-a,#B08D57)',mark:'diamond',dash:'2 2'},{color:'var(--start-other-b,#CC79A7)',mark:'triangle',dash:'8 3'},
+               {color:'var(--start-other-c,#A0764A)',mark:'cross',dash:'1 3'}];
+const START_ORDER=['empty','given','triangular','square','honeycomb','cubic','bcc','fcc','tesseract'];
+function startRank(key){ const k=String(key||''), i=START_ORDER.indexOf(k==='random'?'given':k); return i<0?START_ORDER.length:i; }
+function inShownOrder(list,keyOf){ return (list||[]).map((item,i)=>[item,i])
+  .sort((a,b)=>startRank(keyOf(a[0]))-startRank(keyOf(b[0]))||a[1]-b[1]).map(x=>x[0]); }
+const TC_TWO=[{key:'empty',...START_STYLE.empty},{key:'given',...START_STYLE.given}];
+let TC_CHAINS=TC_TWO.slice(), TC_SHORT={empty:'empty',given:'given'};
+const TC_SEVERITY=['disagreeing_while_moving','frozen','converging','agreeing','not_enough_points'];
+const TC_COUNT=['no','one','two','three','four','five','six','seven','eight'];
+function tcEveryChain(chains){
+  TC_CHAINS=TC_TWO.slice(); TC_SHORT={empty:'empty',given:'given'};
+  const every=inShownOrder(Array.isArray(chains.every_chain)?chains.every_chain.filter(c=>c&&c.key):[],c=>c.key);
+  if(every.length<=2) return null;
+  let other=0;
+  every.slice(2).forEach(c=>TC_CHAINS.push({key:c.key,more:true,
+    ...(START_STYLE[c.key]||START_STYLE[c.name]||START_OTHER[(other++)%START_OTHER.length])}));
+  every.forEach(c=>{ if(c.key!=='empty') TC_SHORT[c.key]=String(c.name||c.key); });
+  (chains.rungs||[]).forEach(r=>{
+    Object.entries(r.more_given||{}).forEach(([k,v])=>{ if(!(k in r)) r[k]=v; });
+    (r.per_seed||[]).forEach(sd=>{ const c=sd.course;
+      if(c&&c.more_given) Object.entries(c.more_given).forEach(([k,v])=>{ if(v&&!(k in c)) c[k]=v; });
+      (sd.checks||[]).forEach(ch=>{
+        if(ch.rest&&ch.more_rest) Object.entries(ch.more_rest).forEach(([k,v])=>{ if(!(k in ch.rest)) ch.rest[k]=v; });
+        if(ch.more_z){ ch.z_every={...(ch.z||{})};
+          Object.entries(ch.more_z).forEach(([k,z])=>{ ch.z_every[k+', energy']=(z||{}).energy_per_node; ch.z_every[k+', degree']=(z||{}).mean_degree; }); } }); }); });
+  return every; }
+function tcStartWords(family){ const s=String(family||'').replace(/^family_/,''); const m=/^random_mean_degree_([\d.]+)$/.exec(s);
+  if(m) return `a random graph at mean degree ${(+m[1]).toFixed(2)}`;
+  return s.replace(/_/g,' ')||null; }
+function tcEveryReading(r){
+  const all=[(r.reading||{}).reading,...Object.values(r.more_readings||{}).map(v=>(v||{}).reading)].filter(Boolean);
+  return TC_SEVERITY.find(x=>all.includes(x))||null; }
+const TC_QUANTITIES=[
+  {key:'mean_degree',label:'⟨d⟩ mean degree',short:'⟨d⟩',about:'the mean degree of each chain’s final graph'},
+  {key:'giant_fraction',label:'largest component',short:'largest',about:'the largest component’s share of the nodes'},
+  {key:'d_s',label:'d_s',short:'d_s',probe:true,about:'spectral dimension, from the random-walk return probability'},
+  {key:'d_V',label:'d_V',short:'d_V',probe:true,about:'volume-growth exponent from sampled sources'},
+  {key:'d_B',label:'d_B',short:'d_B',probe:true,about:'box-covering dimension'},
+  {key:'d_w',label:'d_w',short:'d_w',probe:true,about:'walk dimension, from the walkers’ spread'},
+  {key:'kappa',label:'κ mean curvature',short:'κ',digits:4,about:'the mean Ollivier curvature of the giant component’s edges: 0 on a flat grid, negative on a tree-like graph'},
+  {key:'energy_per_node',label:'energy / node',short:'energy / node',digits:4,about:'each chain’s final energy per node; the same law on both, so the lower one found the deeper state'},
+  {key:'triangles_per_node',label:'triangles / node',short:'triangles / node',digits:4,about:'triangles in each chain’s final graph per node (counted to N=262,144)'},
+  {key:'squares_per_node',label:'squares / node',short:'squares / node',about:'4-cycles in each chain’s final graph per node, where the census counts them'},
+  {key:'reach',label:'reach (half-volume radius)',short:'reach',logY:true,about:'hops from a typical node to half the graph: it grows as N^(1/d) in d dimensions and as log N on an expander'},
+];
+const TC_ROWS=[{title:'the basics',keys:['mean_degree','giant_fraction','d_s','d_V','d_B','d_w']},
+               {title:'in detail',keys:['kappa','energy_per_node','triangles_per_node','squares_per_node','reach']}];
+const TC_TABLE=TC_ROWS.flatMap(row=>row.keys);
+const TC_MEET={agreeing:['met','tc-met','within their noise of each other at the end'],
+  converging:['closing','tc-closing','the gap halved while both moved: out of budget, not stuck'],
+  frozen:['apart, frozen','tc-frozen','apart, and at least one chain no longer moves: the result depends on the start'],
+  disagreeing_while_moving:['apart','tc-apart','both still move and the gap holds'],
+  not_enough_points:['too short to tell','tc-unread','too few recorded points in a chain’s late half to compare']};
+const TC_ENDS={completed:'complete',ceiling:'at the ceiling',budget:'at its budget',frozen:'frozen',mean_degree_cap:'at the cap'};
+const TC_FAIL={EFFECTIVE_SAMPLES_BELOW_TARGET:'too few effective samples',EFFECTIVE_SAMPLES_MISSING:'no effective-sample estimate',
+  STARTS_DISAGREED:'the chains apart beyond their noise',STARTS_SPLIT_MISSING:'no comparison between the chains',
+  STARTS_STRUCTURAL_DISAGREED:'the chains’ graphs apart in structure',STATIONARITY_DRIFT:'the energy still drifting',
+  STATIONARITY_DRIFT_MISSING:'no drift estimate',NOT_AT_REST:'a chain still improving',AT_REST_EVIDENCE_MISSING:'no rest evidence',
+  CERTIFICATE_MISSING:'no certificate',NUMERICS_NON_FINITE:'non-finite numbers'};
+const TC_CLASS={EQUILIBRATED_ACTIVE:'equilibrated and moving',EQUILIBRATED_LOW_ACTIVITY:'equilibrated, barely moving',
+  AT_REST:'at rest',FROZEN_OR_ABSORBING:'frozen',METASTABLE_OR_NONMIXING:'the chains never met: metastable or not mixing',
+  RELAXING_AT_CEILING:'still relaxing',INSUFFICIENT_EFFECTIVE_SAMPLES:'too few effective samples',
+  NUMERICAL_FAILURE:'numerical failure',OPERATIONAL_UNRESOLVED:'unresolved',
+  REFUSED_MEAN_DEGREE_ABOVE_WINDOW:'above the mean degree window',REFUSED_COMPUTE_BUDGET:'at its budget'};
+const TC_REFUSED={NO_SCALING_WINDOW:'no window',WINDOW_TOO_SHORT:'window short',EXPONENTIAL_GROWTH:'exponential',
+  NO_DIFFUSIVE_WINDOW:'no diffusive window',WALK_SATURATED:'walk saturated',GROWTH_UNDECIDED:'growth undecided',
+  GROWTH_UNEVEN:'growth uneven',
+  NOT_SETTLED:'not settled',UNPHYSICAL_FIT:'unphysical fit',COMPONENT_BELOW_MEASURABLE_SIZE:'below floor',NOT_POWER_LAW:'not a power law',
+  NOT_MEASURED:'not measured',REFUSED_MEAN_DEGREE_ABOVE_WINDOW:'⟨d⟩ above window',REFUSED_COMPUTE_BUDGET:'seed budget'};
+function tcEsc(s){ return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function tcFmt(v,digits=3){ if(v===null||v===undefined||!isFinite(+v)) return '-'; const x=+v, a=Math.abs(x);
+  if(x===0) return '0'; if(a<1e-3||a>=1e5) return x.toExponential(2); if(a>=100) return x.toFixed(1); return x.toFixed(digits); }
+function tcTick(t,step){ const a=Math.abs(t); if(t===0) return '0'; if(a<1e-3||a>=1e5) return t.toExponential(step?Math.min(3,Math.max(0,Math.round(Math.log10(a/step)))):0);
+  if(step&&step<1) return t.toFixed(Math.min(6,Math.max(0,-Math.floor(Math.log10(step)+1e-9)))); return String(+t.toPrecision(4)); }
+function tcN(n){ n=+n; return n>=1048576&&n%1048576===0?(n/1048576)+'M':n>=1024&&n%1024===0?(n/1024)+'k':String(n); }
+function tcNFull(n){ return (+n).toLocaleString('en-US'); }
+function tcStart(label){ const s=String(label||''); let m=/^(?:family_)?random_geometric_(\d+)d_degree_(\d+)$/.exec(s);
+  if(m) return `a random geometric graph (${m[1]}-D, degree ${m[2]})`;
+  if((m=/^erdos_renyi_mean_degree_(\d+)/.exec(s))) return `a random graph (Erdos-Renyi, mean degree ${m[1]})`;
+  if((m=/^family_(.+)$/.exec(s))) return `the declared answer, ${m[1].replace(/_/g,' ')}`;
+  return s||null; }
+function tcGivenStart(chains){
+  for(const r of (chains.rungs||[]).slice().reverse()) for(const s of r.per_seed||[]){
+    const t=((s.course||{}).given)||null; if(t&&t.start) return {words:tcStart(t.start),kernel:t.kernel||null}; }
+  return {words:chains.given_start||'a random graph',kernel:null}; }
+function tcMarker(mark,x,y,color,hollow,r=3.6){
+  const style=hollow?`fill:none;stroke:${color};stroke-width:1.5;stroke-dasharray:2 2`:`fill:${color};stroke:none`;
+  if(mark==='square') return `<rect x="${(x-r).toFixed(1)}" y="${(y-r).toFixed(1)}" width="${(2*r).toFixed(1)}" height="${(2*r).toFixed(1)}" style="${style}"/>`;
+  const R=r*1.25, pts=v=>v.map(([a,b])=>`${(x+a).toFixed(1)},${(y+b).toFixed(1)}`).join(' ');
+  if(mark==='diamond') return `<polygon points="${pts([[0,-R],[R,0],[0,R],[-R,0]])}" style="${style}"/>`;
+  if(mark==='triangle') return `<polygon points="${pts([[0,-R],[R*0.9,R*0.7],[-R*0.9,R*0.7]])}" style="${style}"/>`;
+  if(mark==='cross') return `<path d="M${(x-r).toFixed(1)},${(y-r).toFixed(1)}L${(x+r).toFixed(1)},${(y+r).toFixed(1)}M${(x-r).toFixed(1)},${(y+r).toFixed(1)}L${(x+r).toFixed(1)},${(y-r).toFixed(1)}" `
+    +`style="fill:none;stroke:${color};stroke-width:2${hollow?';stroke-dasharray:2 2':''}"/>`;
+  return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r}" style="${style}"/>`; }
+function tcTicks(lo,hi,count=4){ const span=hi-lo; if(!(span>0)) return [lo];
+  const raw=span/count, mag=Math.pow(10,Math.floor(Math.log10(raw))), norm=raw/mag;
+  const step=(norm<1.5?1:norm<3?2:norm<7?5:10)*mag, out=[];
+  for(let v=Math.ceil(lo/step)*step; v<=hi+step*1e-9; v+=step) out.push(Math.abs(v)<step*1e-6?0:+v.toPrecision(12));
+  return out; }
+function tcLogTicks(lo,hi){ const out=[];
+  for(let e=Math.floor(Math.log10(lo)); e<=Math.ceil(Math.log10(hi)); e++) for(const m of [1,2,5]){
+    const v=m*Math.pow(10,e); if(v>=lo*0.999&&v<=hi*1.001) out.push(v); }
+  const decades=out.filter(v=>Math.abs(Math.log10(v)-Math.round(Math.log10(v)))<1e-9);
+  return decades.length>=2?decades:out; }
+function tcAxis(lo,hi,logY,top,bottom,left,right,fs=10){
+  const f=v=>logY?Math.log10(v):v, a=f(lo), b=f(hi);
+  const Y=v=>top+(1-((f(v)-a)/((b-a)||1)))*(bottom-top);
+  let s='';
+  const narrow=logY&&hi/lo<10, ticks=logY&&!narrow?tcLogTicks(lo,hi):tcTicks(lo,hi).filter(t=>!logY||t>0);
+  const step=(logY&&!narrow)||ticks.length<2?null:Math.abs(ticks[1]-ticks[0]);
+  ticks.forEach(t=>{ const y=Y(t).toFixed(1);
+    s+=`<line x1="${left}" y1="${y}" x2="${right}" y2="${y}" style="stroke:var(--line)"/>`
+      +`<text x="${left-4}" y="${(+y+fs*0.3).toFixed(1)}" font-size="${fs}" text-anchor="end" style="fill:var(--muted)">${tcTick(t,step)}</text>`; });
+  return {Y,svg:s}; }
+function tcRange(values,{floor0=false,logY=false}={}){
+  let lo=Math.min(...values), hi=Math.max(...values);
+  if(logY){ return [lo/1.25,hi*1.25]; }
+  const pad=(hi-lo)*0.1||Math.abs(hi)*0.05||0.5; lo-=pad; hi+=pad;
+  if(floor0&&lo<0&&Math.min(...values)>=0) lo=0;
+  return [lo,hi]; }
+function tcAcross(rungs,q,names){
+  const W=260,H=184,L=46,R=6,T=24,B=30,FS=11;
+  const series={}, hollow={};
+  TC_CHAINS.forEach(ch=>{series[ch.key]=[];hollow[ch.key]=[];});
+  (rungs||[]).forEach(r=>TC_CHAINS.forEach(ch=>{ const s=((r[ch.key]||{})[q.key])||{};
+    if(s.mean!==null&&s.mean!==undefined&&isFinite(+s.mean)) series[ch.key].push({n:+r.n,y:+s.mean,se:(s.se!==null&&s.se!==undefined&&isFinite(+s.se))?+s.se:0,s});
+    else if(s.withheld&&s.withheld.mean!==null&&s.withheld.mean!==undefined&&isFinite(+s.withheld.mean)) hollow[ch.key].push({n:+r.n,y:+s.withheld.mean,s}); }));
+  const box=el('div',{class:'tc-chart','data-quantity':q.key,title:q.about||''});
+  const points=TC_CHAINS.flatMap(ch=>series[ch.key].concat(hollow[ch.key]));
+  if(!points.length){ box.append(el('div',{class:'tc-chart-title'},q.label),el('p',{class:'muted tc-none'},'not measured on any rung')); return box; }
+  const ns=[...new Set((rungs||[]).map(r=>+r.n).filter(n=>n>0))].sort((a,b)=>a-b);
+  const x0=Math.log(ns[0]), x1=Math.log(ns[ns.length-1]);
+  const X=n=>L+9+(ns.length>1?(Math.log(n)-x0)/(x1-x0):0.5)*(W-L-R-18);
+  const values=points.map(p=>p.y).concat(TC_CHAINS.flatMap(ch=>series[ch.key].flatMap(p=>[p.y-p.se,p.y+p.se])));
+  const logY=!!q.logY&&values.every(v=>v>0);
+  const [lo,hi]=tcRange(values,{floor0:!!q.probe,logY});
+  const axis=tcAxis(lo,hi,logY,T,H-B,L,W-R,FS), Y=axis.Y;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${tcEsc(q.label)} across N, every chain">`+axis.svg;
+  const every=ns.length>9?2:1;
+  ns.forEach((n,i)=>{ if(i%every===0||i===ns.length-1) s+=`<text x="${X(n).toFixed(1)}" y="${H-B+14}" font-size="${FS}" text-anchor="middle" style="fill:var(--muted)">${tcN(n)}</text>`; });
+  s+=`<text x="${W-R}" y="${H-3}" font-size="${FS-1}" text-anchor="end" style="fill:var(--muted)">N</text>`;
+  s+=`<text x="8" y="15" font-size="${FS+1}" font-weight="600" style="fill:var(--text)">${tcEsc(q.label)}</text>`;
+  TC_CHAINS.forEach((ch,ci)=>{ const pp=series[ch.key].slice().sort((a,b)=>a.n-b.n),
+      dx=TC_CHAINS.length>2?(ci-(TC_CHAINS.length-1)/2)*2.5:(ci?2.5:-2.5);
+    if(pp.length>1) s+=`<polyline points="${pp.map(p=>`${(X(p.n)+dx).toFixed(1)},${Y(p.y).toFixed(1)}`).join(' ')}" style="fill:none;stroke:${ch.color};stroke-width:1.5;opacity:.85${ch.dash?';stroke-dasharray:'+ch.dash:''}"/>`;
+    pp.forEach(p=>{ const x=X(p.n)+dx;
+      if(p.se>0) s+=`<line x1="${x.toFixed(1)}" y1="${Y(logY?Math.max(lo,p.y-p.se):p.y-p.se).toFixed(1)}" x2="${x.toFixed(1)}" y2="${Y(p.y+p.se).toFixed(1)}" style="stroke:${ch.color};stroke-width:1.2"/>`;
+      const seeds=(p.s.values||[]).length>1?`; seeds ${p.s.values.map(v=>tcFmt(v,4)).join(', ')}`:'';
+      s+=`<g>${tcMarker(ch.mark,x,Y(p.y),ch.color,false)}<title>${tcEsc(names[ch.key])}, N=${tcNFull(p.n)}: ${tcFmt(p.y,4)}`
+        +`${p.se>0?' ± '+tcFmt(p.se,4):''} (${p.s.seeds} of ${p.s.of} seeds${tcEsc(seeds)})</title></g>`; });
+    hollow[ch.key].forEach(p=>{ const why=Object.entries(p.s.withheld.reasons||{}).map(([k,v])=>`${k} on ${v}`).join(', ');
+      s+=`<g class="tc-withheld">${tcMarker(ch.mark,X(p.n)+dx,Y(p.y),ch.color,true,4.2)}<title>${tcEsc(names[ch.key])}, N=${tcNFull(p.n)}: `
+        +`computed ${tcFmt(p.y,4)} on ${p.s.withheld.seeds} seed(s) and withheld (${tcEsc(why)}). Not a reading.</title></g>`; }); });
+  s+='</svg>';
+  box.innerHTML=s;
+  return box; }
+const TC_RUN_W=500,TC_RUN_H=212,TC_RUN_FS=11;
+function tcSizeInk(i,k){ const t=k>1?i/(k-1):1;
+  return {color:`color-mix(in srgb, var(--text) ${Math.round(22+78*t)}%, var(--panel))`,opacity:1,width:+(1.1+1.7*t).toFixed(2)}; }
+function tcSizeKey(ns,x,y){
+  let s='', at=x;
+  ns.forEach((n,i)=>{ const ink=tcSizeInk(i,ns.length);
+    s+=`<line class="tc-size-key" x1="${at}" y1="${y-3}" x2="${at+14}" y2="${y-3}" style="stroke:${ink.color};stroke-width:${ink.width}"/>`
+      +`<text x="${at+17}" y="${y}" font-size="${TC_RUN_FS-1}" style="fill:var(--muted)">${tcN(n)}</text>`;
+    at+=22+7*tcN(n).length; });
+  return s; }
+function tcEndLabels(items,top,bottom,right,fs){
+  const gap=fs+1, placed=items.filter(it=>isFinite(it.x)&&isFinite(it.y)).sort((a,b)=>a.y-b.y).map(it=>({...it}));
+  placed.forEach((it,i)=>{ it.ty=Math.max(top+fs,i?Math.max(it.y+fs*0.35,placed[i-1].ty+gap):it.y+fs*0.35); });
+  for(let i=placed.length-1;i>=0;i--){ const lim=i===placed.length-1?bottom-2:placed[i+1].ty-gap; if(placed[i].ty>lim) placed[i].ty=lim; }
+  return placed.map(it=>`<text class="tc-end-label" x="${Math.min(right,it.x+5).toFixed(1)}" y="${it.ty.toFixed(1)}" font-size="${fs-1}" `
+    +`style="fill:${it.color};paint-order:stroke;stroke:var(--panel);stroke-width:3px">${tcEsc(it.text)}</text>`).join(''); }
+function tcRunTitle(text,sub){
+  return `<text x="8" y="15" font-size="${TC_RUN_FS+1}" font-weight="600" style="fill:var(--text)">${tcEsc(text)}</text>`
+    +(sub?`<text x="8" y="28" font-size="${TC_RUN_FS-1}" style="fill:var(--muted)">${tcEsc(sub)}</text>`:''); }
+function tcMedian(values){ const v=values.slice().sort((a,b)=>a-b), m=Math.floor(v.length/2);
+  return v.length%2?v[m]:(v[m-1]+v[m])/2; }
+function tcMeetAcross(rungs,chains){
+  const W=TC_RUN_W,H=TC_RUN_H,L=58,R=14,T=44,B=34,FS=TC_RUN_FS, zeroT=!!chains.zero_temperature, key=zeroT?'rest':'gap';
+  const label=zeroT?'sweeps until the chains the check reads were at rest':'sweeps until the chains the check reads met';
+  const sub=zeroT?'from that check on, every chain still: they need not meet':`from that check on, within their noise (split z ≤ ${(chains.rule||{}).split_z??3})`;
+  const ns=[...new Set(rungs.map(r=>+r.n))].sort((a,b)=>a-b), pts=[];
+  rungs.forEach(r=>{ const seeds=r.per_seed||[];
+    seeds.forEach((sd,i)=>{ const checks=(sd.checks||[]).filter(c=>c.sweeps!==null&&c.sweeps!==undefined);
+      const at=(sd.met_from||{})[key], last=checks.length?+checks[checks.length-1].sweeps:null;
+      const ended=TC_ENDS[(sd.stop||{}).reason]||(sd.stop||{}).reason||'ended';
+      if(at!==null&&at!==undefined) pts.push({n:+r.n,y:+at,met:true,seed:sd.seed,dx:(i-(seeds.length-1)/2)*6,ended,last});
+      else if(last) pts.push({n:+r.n,y:last,met:false,seed:sd.seed,dx:(i-(seeds.length-1)/2)*6,ended,last}); }); });
+  const box=el('div',{class:'tc-chart tc-run-across','data-quantity':'met_from'});
+  if(!pts.length){ box.append(el('div',{class:'tc-chart-title'},label),el('p',{class:'muted tc-none'},'no check recorded')); return box; }
+  const x0=Math.log(ns[0]), x1=Math.log(ns[ns.length-1]);
+  const X=n=>L+14+(ns.length>1?(Math.log(n)-x0)/(x1-x0):0.5)*(W-L-R-28);
+  const ys=pts.map(p=>p.y), axis=tcAxis(Math.max(1,Math.min(...ys)/2),Math.max(...ys)*2,true,T,H-B,L,W-R,FS), Y=axis.Y;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${tcEsc(label)}, across N">`+axis.svg+tcRunTitle(label,sub);
+  ns.forEach(n=>{ s+=`<text x="${X(n).toFixed(1)}" y="${H-B+14}" font-size="${FS}" text-anchor="middle" style="fill:var(--muted)">${tcN(n)}</text>`; });
+  s+=`<text x="${W-R}" y="${H-3}" font-size="${FS-1}" text-anchor="end" style="fill:var(--muted)">N</text>`;
+  ns.forEach(n=>{ const v=pts.filter(p=>p.n===n&&p.met).map(p=>p.y);
+    if(v.length>1) s+=`<line x1="${(X(n)-14).toFixed(1)}" y1="${Y(tcMedian(v)).toFixed(1)}" x2="${(X(n)+14).toFixed(1)}" y2="${Y(tcMedian(v)).toFixed(1)}" `
+      +`style="stroke:var(--green);stroke-width:2;opacity:.6"><title>N=${tcNFull(n)}: the median of the ${v.length} seeds that got there, ${tcNFull(tcMedian(v))} sweeps</title></line>`; });
+  pts.forEach(p=>{ const x=X(p.n)+p.dx, y=Y(p.y);
+    const why=p.met?`seed ${p.seed}, N=${tcNFull(p.n)}: ${zeroT?'both at rest':'met'} from ${tcNFull(p.y)} sweeps; its run ${p.ended} at ${tcNFull(p.last)}`
+      :`seed ${p.seed}, N=${tcNFull(p.n)}: ${zeroT?'not both at rest':'not met'} by the end of its run, ${p.ended} at ${tcNFull(p.y)} sweeps`;
+    s+=`<g class="${p.met?'tc-met-dot':'tc-unmet-dot'}"><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="9" style="fill:transparent"/>`
+      +(p.met?`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4" style="fill:var(--green);stroke:var(--panel);stroke-width:2"/>`
+        :`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4.2" style="fill:var(--panel);stroke:var(--bad);stroke-width:1.8"/>`)
+      +`<title>${tcEsc(why)}</title></g>`; });
+  s+=`<circle cx="${L+8}" cy="${T-10}" r="4" style="fill:var(--green)"/><text x="${L+16}" y="${T-6}" font-size="${FS-1}" style="fill:var(--muted)">${zeroT?'at rest':'met'}</text>`
+    +`<circle cx="${L+76}" cy="${T-10}" r="4.2" style="fill:var(--panel);stroke:var(--bad);stroke-width:1.8"/><text x="${L+84}" y="${T-6}" font-size="${FS-1}" style="fill:var(--muted)">not by its run's end</text>`
+    +`<line x1="${L+216}" y1="${T-10}" x2="${L+236}" y2="${T-10}" style="stroke:var(--green);stroke-width:2;opacity:.6"/><text x="${L+240}" y="${T-6}" font-size="${FS-1}" style="fill:var(--muted)">median</text>`;
+  box.innerHTML=s+'</svg>';
+  return box; }
+function tcCourseAt(rows,s){
+  if(!rows.length||s<rows[0][0]||s>rows[rows.length-1][0]) return null;
+  let j=1; while(j<rows.length&&rows[j][0]<s) j++;
+  if(j>=rows.length) return rows[rows.length-1][1];
+  const a=rows[j-1], b=rows[j], fa=Math.log1p(a[0]), fb=Math.log1p(b[0]);
+  return fb>fa?a[1]+(b[1]-a[1])*(Math.log1p(s)-fa)/(fb-fa):b[1]; }
+function tcGapFamily(rungs,chains){
+  const W=TC_RUN_W,H=TC_RUN_H,L=58,R=14,T=44,B=34,FS=TC_RUN_FS;
+  const every=TC_CHAINS.length>2;
+  const label=every?'widest energy gap between the chain from empty and another':'energy gap between the chains over the run', sub='per node, the median of the seeds; one line per N, stronger for larger N';
+  const ns=[...new Set(rungs.map(r=>+r.n))].sort((a,b)=>a-b), series=[];
+  const rowsOf=(c,k)=>(((c[k]||{}).course)||[]).filter(x=>Array.isArray(x)&&x[1]!==null);
+  rungs.forEach(r=>{ const seeds=(r.per_seed||[]).map(sd=>{ const c=sd.course||{};
+      const a=rowsOf(c,'empty'), bs=TC_CHAINS.slice(1).map(ch=>rowsOf(c,ch.key)).filter(b=>b.length);
+      return a.length&&bs.length?{a,bs,end:Math.min(a[a.length-1][0],Math.max(...bs.map(b=>b[b.length-1][0])))}:null; }).filter(Boolean);
+    if(!seeds.length) return;
+    const xmax=Math.max(...seeds.map(sd=>sd.end)), pts=[];
+    for(let j=0;j<=36;j++){ const sw=Math.expm1(Math.log1p(xmax)*j/36);
+      const gaps=seeds.filter(sd=>sw<=sd.end).map(sd=>{ const ea=tcCourseAt(sd.a,sw);
+        const each=sd.bs.map(b=>tcCourseAt(b,sw)).filter(v=>v!==null).map(eb=>Math.abs(ea-eb));
+        return ea===null||!each.length?null:Math.max(...each); }).filter(v=>v!==null);
+      if(gaps.length) pts.push({x:sw,y:tcMedian(gaps),seeds:gaps.length}); }
+    if(pts.length) series.push({n:+r.n,pts}); });
+  const box=el('div',{class:'tc-chart tc-run-across','data-quantity':'energy_gap'});
+  if(!series.length){ box.append(el('div',{class:'tc-chart-title'},label),el('p',{class:'muted tc-none'},'these seeds carry no course of each chain over the run. The checks beside it are from every run.')); return box; }
+  const floor=1e-5, all=series.flatMap(sr=>sr.pts.map(p=>Math.max(floor,p.y)));
+  const xmax=Math.max(1,...series.flatMap(sr=>sr.pts.map(p=>p.x)));
+  const ax=tcSweepAxis(xmax,L,W-R,H-B), X=ax.X, axis=tcAxis(Math.max(floor,Math.min(...all)/2),Math.max(...all)*2,true,T,H-B,L,W-R,FS), Y=axis.Y;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${tcEsc(label)}, every N">`+axis.svg+ax.svg+tcRunTitle(label,sub);
+  series.forEach(sr=>{ const ink=tcSizeInk(ns.indexOf(sr.n),ns.length), last=sr.pts[sr.pts.length-1];
+    s+=`<g class="tc-size-line"><polyline points="${sr.pts.map(p=>`${X(p.x).toFixed(1)},${Y(Math.max(floor,p.y)).toFixed(1)}`).join(' ')}" `
+      +`style="fill:none;stroke:${ink.color};stroke-width:${ink.width}"/><title>N=${tcNFull(sr.n)}: the gap ${tcFmt(sr.pts[0].y,4)} at the start, `
+      +`${tcFmt(last.y,4)} at ${tcNFull(Math.round(last.x))} sweeps (median of ${last.seeds} seed${last.seeds>1?'s':''})</title></g>`; });
+  s+=tcEndLabels(series.map(sr=>{ const end=sr.pts[sr.pts.length-1];
+    return {x:X(end.x),y:Y(Math.max(floor,end.y)),text:tcN(sr.n),color:tcSizeInk(ns.indexOf(sr.n),ns.length).color}; }),T,H-B,W-R-18,FS);
+  s+=tcSizeKey(ns.filter(n=>series.some(sr=>sr.n===n)),L+4,T-6);
+  box.innerHTML=s+'</svg>';
+  return box; }
+function tcLogXAxis(lo,hi,left,right,bottom,fs){
+  const a=Math.log10(lo), b=Math.log10(hi), X=v=>left+(Math.log10(Math.max(lo,v))-a)/((b-a)||1)*(right-left);
+  const ticks=tcLogTicks(lo,hi);
+  let s=ticks.map(v=>`<text x="${X(v).toFixed(1)}" y="${bottom+13}" font-size="${fs-1}" text-anchor="middle" style="fill:var(--muted)">${v>=1e6?(v/1e6)+'M':v>=1000?(v/1000)+'k':v}</text>`).join('');
+  s+=`<text x="${right}" y="${bottom+25}" font-size="${fs-2}" text-anchor="end" style="fill:var(--muted)">sweeps</text>`;
+  return {X,svg:s}; }
+function tcCheckFamily(rungs,chains){
+  const W=TC_RUN_W,H=TC_RUN_H,L=58,R=14,T=44,B=34,FS=TC_RUN_FS, zeroT=!!chains.zero_temperature, rule=chains.rule||{};
+  const label=zeroT?'how far each chain still fell, at each check':'the gap in noise units, at each check';
+  const sub=zeroT?'late descent share of the chain that fell more; at rest below the line'
+    :TC_CHAINS.length>2?'split z, the largest over every chain against the one from empty, energy and degree; met below the line':'split z, the larger of energy and degree; met below the line';
+  const floor=zeroT?1e-5:1e-2, cap=1e4, limit=zeroT?(rule.rest_share??0.01):(rule.split_z??3);
+  const ns=[...new Set(rungs.map(r=>+r.n))].sort((a,b)=>a-b), lines=[];
+  rungs.forEach(r=>(r.per_seed||[]).forEach(sd=>{ const pts=(sd.checks||[]).filter(c=>c.sweeps!==null&&c.sweeps!==undefined).map(c=>{
+      const v=zeroT?(c.rest?Math.max(...Object.values(c.rest).filter(x=>x!==null&&x!==undefined).map(Number)):null)
+        :Math.max(...Object.values(c.z_every||c.z||{}).filter(x=>x!==null&&x!==undefined&&isFinite(+x)).map(Number));
+      return v===null||!isFinite(v)?null:{x:+c.sweeps,raw:v,y:Math.min(cap,Math.max(floor,v))}; }).filter(Boolean);
+    if(pts.length) lines.push({n:+r.n,seed:sd.seed,pts}); }));
+  const box=el('div',{class:'tc-chart tc-run-across','data-quantity':'checks'});
+  if(!lines.length){ box.append(el('div',{class:'tc-chart-title'},label),el('p',{class:'muted tc-none'},'no check recorded')); return box; }
+  const xmax=Math.max(1,...lines.flatMap(l=>l.pts.map(p=>p.x))), ys=lines.flatMap(l=>l.pts.map(p=>p.y)).concat([limit]);
+  const xmin=Math.max(1,Math.min(...lines.flatMap(l=>l.pts.map(p=>p.x))));
+  const ax=tcLogXAxis(xmin/1.6,xmax*1.25,L+6,W-R-6,H-B,FS), X=ax.X, axis=tcAxis(Math.max(floor,Math.min(...ys)/2),Math.min(cap*2,Math.max(...ys)*2),true,T,H-B,L,W-R,FS), Y=axis.Y;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${tcEsc(label)}, every N">`+axis.svg+ax.svg+tcRunTitle(label,sub);
+  s+=`<line x1="${L}" y1="${Y(limit).toFixed(1)}" x2="${W-R}" y2="${Y(limit).toFixed(1)}" style="stroke:var(--green);stroke-dasharray:5 3"/>`
+    +`<text x="${L+4}" y="${(Y(limit)+12).toFixed(1)}" font-size="${FS-1}" style="fill:var(--green)">${zeroT?`${(100*limit).toFixed(0)}%: at rest below`:`${limit}: met below`}</text>`;
+  lines.forEach(l=>{ const ink=tcSizeInk(ns.indexOf(l.n),ns.length);
+    if(l.pts.length>1) s+=`<polyline points="${l.pts.map(p=>`${X(p.x).toFixed(1)},${Y(p.y).toFixed(1)}`).join(' ')}" style="fill:none;stroke:${ink.color};stroke-width:${ink.width}"/>`;
+    l.pts.forEach(p=>{ s+=`<g><circle cx="${X(p.x).toFixed(1)}" cy="${Y(p.y).toFixed(1)}" r="8" style="fill:transparent"/>`
+      +`<circle cx="${X(p.x).toFixed(1)}" cy="${Y(p.y).toFixed(1)}" r="3" style="fill:${ink.color}"/>`
+      +`<title>N=${tcNFull(l.n)}, seed ${tcEsc(l.seed)}, at ${tcNFull(p.x)} sweeps: ${zeroT?(100*p.raw).toFixed(2)+'% of its whole descent in its late window':'z = '+tcFmt(p.raw,3)}`
+      +`${p.raw>cap?' (drawn at the top: past '+cap+')':''}</title></g>`; }); });
+  const longest=ns.map(n=>lines.filter(l=>l.n===n).sort((a,b)=>b.pts[b.pts.length-1].x-a.pts[a.pts.length-1].x)[0]).filter(Boolean);
+  s+=tcEndLabels(longest.map(l=>{ const end=l.pts[l.pts.length-1];
+    return {x:X(end.x),y:Y(end.y),text:tcN(l.n),color:tcSizeInk(ns.indexOf(l.n),ns.length).color}; }),T,H-B,W-R-18,FS);
+  s+=tcSizeKey(ns.filter(n=>lines.some(l=>l.n===n)),L+4,T-6);
+  box.innerHTML=s+'</svg>';
+  return box; }
+function tcSweepAxis(xmax,left,right,bottom){
+  const f=v=>Math.log10(1+Math.max(0,v)), X=v=>left+f(v)/(f(xmax)||1)*(right-left);
+  let s=`<text x="${left}" y="${bottom+13}" font-size="10" text-anchor="middle" style="fill:var(--muted)">0</text>`;
+  for(let e=0;Math.pow(10,e)<=xmax;e++){ const v=Math.pow(10,e);
+    s+=`<text x="${X(v).toFixed(1)}" y="${bottom+13}" font-size="10" text-anchor="middle" style="fill:var(--muted)">${v>=1000?(v/1000)+'k':v}</text>`; }
+  s+=`<text x="${right}" y="${bottom+25}" font-size="9" text-anchor="end" style="fill:var(--muted)">sweeps</text>`;
+  return {X,svg:s}; }
+function tcCheckMarks(perSeed,X,top,bottom){
+  let s=''; const seen=new Set();
+  perSeed.forEach((seed,si)=>(seed.checks||[]).forEach((c,ci)=>{ if(c.sweeps===null||c.sweeps===undefined) return;
+    const x=X(c.sweeps), key=x.toFixed(0);
+    if(!seen.has(key)){ seen.add(key); s+=`<line x1="${x.toFixed(1)}" y1="${top}" x2="${x.toFixed(1)}" y2="${bottom}" style="stroke:var(--muted);stroke-dasharray:1 3;opacity:.7"/>`; }
+    const why=c.passed?'passed':'failed: '+(c.failures||[]).map(f=>f.detail||TC_FAIL[f.code]||f.code).join('; ');
+    s+=`<text x="${(x+si*7-3).toFixed(1)}" y="${top-3}" font-size="10" style="fill:${c.passed?'var(--green)':'var(--bad)'}">${c.passed?'✓':'✗'}`
+      +`<title>seed ${tcEsc(seed.seed)}, check ${ci+1} at ${tcNFull(c.sweeps)} sweeps (×${tcEsc(c.multiplier)}): ${tcEsc(why)}</title></text>`; }));
+  return s; }
+let tcClipSeq=0;
+function tcRunChart(perSeed,part,index,label,names){
+  const W=460,H=220,L=54,R=12,T=36,B=34;
+  const lines=[];
+  perSeed.forEach(seed=>TC_CHAINS.forEach(ch=>{ const rows=((((seed.course||{})[ch.key])||{})[part])||[];
+    const pts=rows.filter(r=>Array.isArray(r)&&r[0]!==null&&r[index]!==null&&r[index]!==undefined&&isFinite(+r[index])).map(r=>({x:+r[0],y:+r[index]}));
+    if(pts.length) lines.push({ch,seed:seed.seed,pts}); }));
+  if(!lines.length) return null;
+  const xmax=Math.max(1,...lines.flatMap(l=>l.pts.map(p=>p.x)),...perSeed.flatMap(sd=>(sd.checks||[]).map(c=>+c.sweeps||0)));
+  const ax=tcSweepAxis(xmax,L,W-R,H-B), X=ax.X;
+  const all=lines.flatMap(l=>l.pts), cut=Math.sqrt(1+xmax)-1, late=all.filter(p=>p.x>=cut).map(p=>p.y);
+  const [lo,hi]=tcRange(late.length?late:all.map(p=>p.y)), off=all.some(p=>p.y<lo||p.y>hi);
+  const axis=tcAxis(lo,hi,false,T,H-B,L,W-R), Y=axis.Y, clip='tc-clip-'+(++tcClipSeq);
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${tcEsc(label)} over the run, every chain">`
+    +`<defs><clipPath id="${clip}"><rect x="${L}" y="${T}" width="${W-L-R}" height="${H-B-T}"/></clipPath></defs>`+axis.svg+ax.svg;
+  s+=`<text x="${L}" y="12" font-size="11" font-weight="600" style="fill:var(--text)">${tcEsc(label)}</text>`;
+  if(off) s+=`<text x="${L}" y="23" font-size="9" style="fill:var(--muted)">scaled to the late run; the early course runs off it</text>`;
+  s+=tcCheckMarks(perSeed,X,T,H-B)+`<g clip-path="url(#${clip})">`;
+  lines.forEach(l=>{ const last=l.pts[l.pts.length-1];
+    s+=`<polyline points="${l.pts.map(p=>`${X(p.x).toFixed(1)},${Y(p.y).toFixed(1)}`).join(' ')}" style="fill:none;stroke:${l.ch.color};stroke-width:1.4;opacity:.8${l.ch.dash?';stroke-dasharray:'+l.ch.dash:''}">`
+      +`<title>${tcEsc(names[l.ch.key])}, seed ${tcEsc(l.seed)}: ${tcFmt(l.pts[0].y,4)} at the start, ${tcFmt(last.y,4)} at ${tcNFull(Math.round(last.x))} sweeps</title></polyline>`
+      +tcMarker(l.ch.mark,X(last.x),Y(last.y),l.ch.color,false,2.8); });
+  s+='</g></svg>';
+  return el('div',{class:'tc-chart tc-run-chart',html:s}); }
+function tcChecksChart(perSeed,rule,mode,names){
+  const W=460,H=214,L=54,R=12,T=30,B=34;
+  const floor=mode==='rest'?1e-5:1e-2, lines=[];
+  perSeed.forEach(seed=>{ const checks=(seed.checks||[]).filter(c=>c.sweeps!==null&&c.sweeps!==undefined);
+    if(mode==='rest') TC_CHAINS.forEach(ch=>{ const pts=checks.filter(c=>c.rest&&c.rest[ch.key]!==null&&c.rest[ch.key]!==undefined)
+        .map(c=>({x:+c.sweeps,y:Math.max(floor,+c.rest[ch.key]),raw:+c.rest[ch.key],ok:+c.rest[ch.key]<=(c.rest_limit??rule.rest_share)}));
+      if(pts.length) lines.push({color:ch.color,mark:ch.mark,dash:ch.dash,seed:seed.seed,who:names[ch.key],pts}); });
+    else { const pts=checks.map(c=>{ const zs=Object.values(c.z_every||c.z||{}).filter(v=>v!==null&&v!==undefined&&isFinite(+v)).map(Number);
+        return zs.length?{x:+c.sweeps,y:Math.max(floor,Math.max(...zs)),raw:Math.max(...zs),ok:Math.max(...zs)<=rule.split_z}:null; }).filter(Boolean);
+      if(pts.length) lines.push({color:'var(--text)',mark:'circle',dash:'',seed:seed.seed,pts,
+        who:TC_CHAINS.length>2?'the widest gap between the chain from empty and another (energy per node or mean degree)':'the gap between the chains (the larger of energy per node and mean degree)'}); } });
+  if(!lines.length) return null;
+  const limit=mode==='rest'?rule.rest_share:rule.split_z;
+  const xmax=Math.max(1,...lines.flatMap(l=>l.pts.map(p=>p.x)));
+  const ax=tcSweepAxis(xmax,L,W-R,H-B), X=ax.X;
+  const ys=lines.flatMap(l=>l.pts.map(p=>p.y)).concat([limit]);
+  const lo=Math.max(floor,Math.min(...ys)/2), hi=Math.max(...ys)*2;
+  const axis=tcAxis(lo,hi,true,T,H-B,L,W-R), Y=axis.Y;
+  const label=mode==='rest'?'late descent share of each chain, per check':'the chains’ gap in noise units (split z), per check';
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${tcEsc(label)}">`+axis.svg+ax.svg;
+  s+=`<text x="${L}" y="12" font-size="11" font-weight="600" style="fill:var(--text)">${tcEsc(label)}</text>`;
+  s+=`<line x1="${L}" y1="${Y(limit).toFixed(1)}" x2="${W-R}" y2="${Y(limit).toFixed(1)}" style="stroke:var(--green);stroke-dasharray:5 3"/>`
+    +`<text x="${L+4}" y="${(Y(limit)-4).toFixed(1)}" font-size="9" style="fill:var(--green)">${mode==='rest'?`${(100*limit).toFixed(0)}%: at rest below`:`${limit}: within noise below`}</text>`;
+  lines.forEach(l=>{ if(l.pts.length>1) s+=`<polyline points="${l.pts.map(p=>`${X(p.x).toFixed(1)},${Y(p.y).toFixed(1)}`).join(' ')}" style="fill:none;stroke:${l.color};stroke-width:1.2;opacity:.75${l.dash?';stroke-dasharray:'+l.dash:''}"/>`;
+    l.pts.forEach(p=>{ s+=`<g>${tcMarker(l.mark,X(p.x),Y(p.y),l.color,!p.ok,3.2)}<title>${tcEsc(l.who)}, seed ${tcEsc(l.seed)}, at ${tcNFull(p.x)} sweeps: `
+      +`${mode==='rest'?(100*p.raw).toFixed(2)+'% of its whole descent in its late window':'z = '+tcFmt(p.raw,2)}${p.ok?' (met)':' (not met)'}</title></g>`; }); });
+  s+='</svg>';
+  return el('div',{class:'tc-chart tc-run-chart',html:s}); }
+function tcStopText(seed,rule){
+  const st=seed.stop||{}, reason=st.reason, last=(seed.checks||[]).slice(-1)[0]||null;
+  const how={completed:`complete: the check passed ${rule.required_consecutive_passes} times in a row`,
+    ceiling:`at the ceiling: ×${st.final_multiplier||rule.max_sweeps_multiplier} the declared sweeps without ${rule.required_consecutive_passes} passing checks in a row`,
+    budget:'at its budget: the next chunk would not have fit the seed’s budget in work'+(st.work_units!=null&&st.work_budget?` (${Number(st.work_units).toExponential(2)} of ${Number(st.work_budget).toExponential(2)} units)`:''),
+    mean_degree_cap:`at the mean degree cap${st.mean_degree_cap!==null&&st.mean_degree_cap!==undefined?' of '+st.mean_degree_cap:''}`
+      +(st.cap_chain==='given'?', crossed by the chain from '+(TC_SHORT.given==='given'?'the given start':'the '+TC_SHORT.given+' start'):st.cap_chain==='empty'?', crossed by the chain from the empty start':'')}[reason]
+    ||('ended '+(reason||'with no record of how'));
+  let text=`seed ${seed.seed}: ${how}`+(st.chunks?` after ${st.chunks} chunk${st.chunks>1?'s':''}`:'')
+    +(last&&last.sweeps!==null&&last.sweeps!==undefined?` (${tcNFull(last.sweeps)} sweeps)`:'')
+    +(st.wall_seconds!==null&&st.wall_seconds!==undefined?`, in ${fmtDur(st.wall_seconds)}`+(st.budget_seconds?` of a ${fmtDur(st.budget_seconds)} window`:''):'');
+  if(reason!=='completed'&&(st.failures||[]).length) text+='; the last check failed: '+st.failures.map(f=>f.detail||TC_FAIL[f.code]||f.code).join('; ');
+  if(st.given_rest) text+=st.given_rest==='same_minimum'?'; the chains the check reads at rest in the same minimum':'; the chains the check reads at rest, in different minima';
+  if(st.classification) text+=`; the fleet’s label: ${TC_CLASS[st.classification]||st.classification}`;
+  return text; }
+function tcRuleText(chains){
+  const r=chains.rule||{}, passes=r.required_consecutive_passes||2;
+  const ends=`If it never passes ${passes} in a row the run stops at the ceiling (×${r.max_sweeps_multiplier||64} the declared sweeps), `
+    +'or when the rung’s time window runs out, or when both twin starts’ chains have crossed the campaign’s cap of mean degree (a chain that crosses it ends there alone). '
+    +'The window is the last resort; a run that ends on it says so in its row below.';
+  if(chains.zero_temperature) return 'How a run stops. One rule: every graph must stop changing. This law is at zero temperature: a chain only goes downhill, so it cannot mix, and no two chains '
+    +'need meet, not even the twin starts (the chain from empty and the random start’s, the two given no structure). The chains run in chunks, each at least twice as long as the last. After each chunk the fleet checks that every chain that ran '
+    +`has stopped improving: over its late window each chain's energy fell by no more than ${(100*(r.rest_share??0.01)).toFixed(0)}% of its `
+    +`whole descent. ${passes} such checks in a row and the run is complete; where each chain came to rest, the twins together or apart, is the finding. `+ends;
+  return 'How a run stops. The chains run in chunks, each at least twice as long as the last (longer where the effective samples ask for it). '
+    +`One rule: every graph must stop changing, and at a finite temperature the twin starts (the chain from empty and the random start’s, the two given no structure) must also land together. `
+    +`After each chunk the fleet checks every chain that ran, each on its own: that it holds at least ${r.min_effective_samples??8} effective samples of its own, `
+    +`that its energy no longer drifts (≤ ${r.drift??0.5}) and its structure no longer trends; and that the twins sit within ${r.split_z??3} of their combined noise of each other on energy per `
+    +`node and on mean degree (split z ≤ ${r.split_z??3}) and that their final graphs agree in structure. A lattice start’s chain need meet no other. `
+    +`${passes} passing checks in a row and the run is complete. `+ends; }
+function tcMeetTitle(r,names){
+  const lines=(r.per_seed||[]).map(s=>{ const m=s.meeting||{}, w=TC_MEET[m.reading];
+    const gaps=Object.entries(m.gaps||{}).map(([k,g])=>`${k.replace(/_/g,' ')} gap ${tcFmt(g.late_gap,4)} (noise ${tcFmt(g.late_noise,4)})`).join(', ');
+    const more=Object.entries(s.more_meetings||{}).map(([k,mm])=>{ const ww=TC_MEET[(mm||{}).reading];
+      return `the ${TC_SHORT[k]||k} chain ${ww?ww[0]:((mm||{}).reading||'not read')}`
+        +((mm||{}).lower_energy&&mm.lower_energy!=='level'?` (lower: ${mm.lower_energy==='empty'?'empty':TC_SHORT[mm.lower_energy]||mm.lower_energy})`:''); });
+    const first=TC_CHAINS.length>2?`the ${TC_SHORT.given} chain `:'';
+    return `seed ${s.seed}: ${first}${w?w[0]:(m.reading||'not read')}${gaps?'; '+gaps:''}`
+      +(m.lower_energy&&m.lower_energy!=='level'?`; lower energy: ${names[m.lower_energy]}`:m.lower_energy==='level'?'; the same energy':'')
+      +(more.length?'; '+more.join('; '):''); });
+  const w=TC_MEET[TC_CHAINS.length>2?tcEveryReading(r):(r.reading||{}).reading];
+  return (w?w[2]+'.\n\n':'')+lines.join('\n'); }
+function tcMetBy(r,zeroT){
+  const seeds=r.per_seed||[], key=zeroT?'rest':'gap';
+  const at=seeds.map(s=>(s.met_from||{})[key]);
+  if(!seeds.length||at.some(v=>v===null||v===undefined)) return null;
+  return Math.max(...at); }
+function tcCell(s,q,names,chainKey){
+  if(!s) return el('td',{class:'muted'},'-');
+  if(s.mean!==null&&s.mean!==undefined){
+    const title=`${names[chainKey]}: ${tcFmt(s.mean,5)}`+(s.se!==null&&s.se!==undefined?` ± ${tcFmt(s.se,4)}`:'')
+      +` over ${s.seeds} of ${s.of} seeds`+((s.values||[]).length>1?`: ${s.values.map(v=>tcFmt(v,4)).join(', ')}`:'');
+    return el('td',{class:'tc-v tc-'+chainKey,title},tcFmt(s.mean,q.digits||3)+(s.seeds<s.of?` (${s.seeds}/${s.of})`:'')); }
+  if(s.withheld){ const why=Object.entries(s.withheld.reasons||{}).map(([k,v])=>`${v}/${s.of} ${k}`).join(', ');
+    return el('td',{class:'tc-v withheld-value tc-'+chainKey,title:`computed and withheld: ${tcFmt(s.withheld.mean,4)} on ${s.withheld.seeds} seed(s), not a reading (${why})`},'◌ '+tcFmt(s.withheld.mean,q.digits||3)); }
+  if(s.refused){ const entries=Object.entries(s.refused).sort((a,b)=>b[1]-a[1]);
+    return el('td',{class:'tc-v muted tc-'+chainKey,title:'no reading: '+entries.map(([c,v])=>`${v}/${s.of} ${c}`).join(', ')},
+      TC_REFUSED[entries[0][0]]||entries[0][0].toLowerCase().replace(/_/g,' ')); }
+  if(q.probe&&s.read===false) return el('td',{class:'tc-v muted tc-'+chainKey,title:'the probes read a chain from a given start only where that start is a declared shape; a chain from the historical random graph is compared with the one from empty, not read'},'not read');
+  return el('td',{class:'tc-v muted tc-'+chainKey,title:'not measured'},'-'); }
+function tcApart(a,b){
+  if(!a||!b||a.mean===null||a.mean===undefined||b.mean===null||b.mean===undefined) return null;
+  const gap=Math.abs(+a.mean-+b.mean), noise=Math.sqrt(Math.pow(+(a.se||0),2)+Math.pow(+(b.se||0),2));
+  return gap>Math.max(2*noise,0.02*Math.max(Math.abs(+a.mean),Math.abs(+b.mean)),1e-9)?gap:null; }
+const SS_PROPS=[['dimension','dimension','the median of d_s, d_V and d_B against the chain’s integer d (2 or more), in units of 0.15'],
+  ['agree','the probes agree','the spread of d_s, d_V and d_B, in units of 0.30: each within 0.15 of one value'],
+  ['walk','d_w is 2','the walk dimension against 2, diffusion as on a lattice, in units of 0.15'],
+  ['reach','reach grows as N^(1/d)','the reach’s growth exponent since the size before against 1/d, in the units 0.15 on d gives it'],
+  ['local','local structure','the largest change since the size before: mean degree, triangles and squares a node (2%, or 0.02 where under one a node), the mean curvature (0.02)'],
+  ['piece','one piece','the share of the nodes outside the largest piece, in units of 0.02']];
+const SS_GAP={d_s:'d_s',d_V:'d_V',d_B:'d_B',d_w:'d_w',mean_degree:'mean degree',triangles_per_node:'triangles a node',
+  squares_per_node:'squares a node',kappa:'curvature',energy_per_node:'energy a node',reach:'reach',giant_fraction:'largest piece'};
+function ssNum(d){ d=+d; return d>=100?d.toFixed(0):d>=10?d.toFixed(1):d.toFixed(2); }
+function ssCell(p,title,cls=''){ if(!p||p.distance===null||p.distance===undefined) return el('td',{class:('ss-none '+cls).trim()},'-');
+  return el('td',{class:((+p.distance<=1?'ss-within':'ss-beyond')+' '+cls).trim(),title:title||''},ssNum(p.distance)); }
+function ssChainName(ch,names){ return ch==='empty'?'from the empty graph':TC_CHAINS.length>2?(names[ch]||ch):(names.given||'from the given start'); }
+function ssChainWords(ch,short){ return ch==='empty'?(short?'from empty':'from the empty graph'):TC_CHAINS.length>2?`the ${TC_SHORT[ch]||ch} chain`:'the given chain'; }
+function ssWorst(chain){ return (chain.rungs||[]).filter(r=>r.distance!==null&&r.distance!==undefined)
+  .reduce((a,r)=>!a||r.distance>a.distance?r:a,null); }
+function ssWhy(score,key,names){
+  const chains=score.chains||{}, gaps=score.gaps||[];
+  if(key==='full') return score.full&&score.full.passed?'every seed at every size ended by its own rule'
+    :((score.full||{}).cut||[]).map(c=>'N='+tcNFull(c.n)+': '+Object.entries(c.ends||{}).map(([k,v])=>`${v} ${TC_ENDS[k]||k}`).join(', ')).join('; ')||'no seed read';
+  if(key==='space'){
+    if((score.spaces||[]).length) return score.spaces.map(ch=>`${ssChainWords(ch,false)}, d = ${(chains[ch]||{}).d}`).join('; ');
+    return TC_CHAINS.map(c=>{ const w=ssWorst(chains[c.key]||{}); const prop=w&&SS_PROPS.find(p=>p[0]===w.worst);
+      return ssChainWords(c.key,true)+': '+(w?`${ssNum(w.distance)} at N=${tcNFull(w.n)} (${prop?prop[1]:w.worst})`:'not judged'); }).join('; '); }
+  if(TC_CHAINS.length>2&&score.more_gaps){
+    const all=[['given',gaps],...Object.entries(score.more_gaps)].filter(([,g])=>(g||[]).length);
+    if(!all.length) return 'no size where the chain from empty and another were both read';
+    if(key==='closing') return all.map(([k,g])=>`${TC_SHORT[k]||k}: `+(g.length<2?'one size':`${ssNum(g[0].distance)} at N=${tcNFull(g[0].n)}, ${ssNum(g[g.length-1].distance)} at N=${tcNFull(g[g.length-1].n)}`)).join('; ');
+    return all.map(([k,g])=>{ const worst=g.reduce((a,x)=>!a||x.distance>a.distance?x:a,null);
+      return `${TC_SHORT[k]||k}: `+(worst.distance<=1?'within 1':`${ssNum(worst.distance)} at N=${tcNFull(worst.n)}, in ${SS_GAP[worst.worst]||worst.worst}`); }).join('; '); }
+  if(!gaps.length) return 'no size where the chains were read side by side';
+  const first=gaps[0], last=gaps[gaps.length-1];
+  if(key==='closing') return gaps.length<2?'one size judged':`apart by ${ssNum(first.distance)} at N=${tcNFull(first.n)}, ${ssNum(last.distance)} at N=${tcNFull(last.n)}`;
+  const worst=gaps.reduce((a,g)=>!a||g.distance>a.distance?g:a,null);
+  return worst.distance<=1?'within 1 of each other at every size judged'
+    :`apart by ${ssNum(worst.distance)} at N=${tcNFull(worst.n)}, in ${SS_GAP[worst.worst]||worst.worst}`; }
+function renderSpaceScore(score,names,explain){
+  const box=el('div',{class:'ss',id:'spaceScore'});
+  if(!score||!Array.isArray(score.stages)) return box;
+  box.append(el('h3',{class:'tc-row-title'},`how far from a space: stage ${score.stage} of ${score.of}`));
+  const stages=el('div',{class:'ss-stages'});
+  score.stages.forEach((st,i)=>{ const state=i<score.stage?'ss-passed':i===score.stage?'ss-failed':'ss-ahead';
+    stages.append(el('div',{class:'ss-stage '+state,'data-stage':st.key,title:state==='ss-ahead'?`not reached: stage ${score.stage+1} comes first`:''},
+      el('span',{},el('span',{class:'ss-mark'},state==='ss-passed'?'✓ ':state==='ss-failed'?'✗ ':'· '),el('span',{class:'ss-name'},`${i+1}. ${st.name}`)),
+      el('span',{class:'muted'},ssWhy(score,st.key,names)))); });
+  box.append(stages);
+  const facts=score.facts||{}, feels=facts.feels_n;
+  const feelsText=!feels?'':feels.band==='none'?'its couplings keep their ratios at every N: it feels no N'
+    :feels.band==='felt at a finite temperature'?'a coupling moves with N, which a finite temperature feels'
+    :`its couplings move against each other ${feels.band} from N=64 to 65,536${feels.between?' ('+feels.between.join(' against ')+')':''}: it feels N`;
+  const judged=score.judged||[];
+  (explain||box).append(el('p',{class:'muted ss-facts'},`Each property is a distance in tolerances: 0 is exact, 1 the edge of what counts (${(score.margins||{}).dimension??0.15} on a dimension, `
+    +`${100*((score.margins||{}).per_node??0.02)}% on a quantity a node); a chain is a space where every size judged is within 1, from N=${tcNFull(score.from_n)}. `
+    +(feelsText?feelsText+'. ':'')+'Shown and recorded, never decided on.'));
+  if(!judged.length){ box.append(el('p',{class:'muted ss-none-judged'},`no size of N=${tcNFull(score.from_n)} or more read yet`)); return box; }
+  const chains=score.chains||{};
+  const t=el('table',{class:'tc-table ss-table'});
+  const span=String(TC_CHAINS.length);
+  t.append(el('tr',{},el('th',{rowspan:'2'},'distance from a space'),...judged.map(n=>el('th',{colspan:span,class:'ss-n'},'N='+tcNFull(n)))));
+  t.append(el('tr',{},...judged.flatMap(()=>TC_CHAINS.map(c=>el('th',{class:'tc-sub tc-'+c.key,title:ssChainName(c.key,names),
+    ...(c.more?{style:'color:'+c.color}:{})},
+    (TC_SHORT[c.key]||c.key)+((chains[c.key]||{}).d?` (d=${chains[c.key].d})`:''))))));
+  const rungOf=(ch,n)=>((chains[ch]||{}).rungs||[]).find(r=>r.n===n)||null;
+  SS_PROPS.forEach(([key,label,about])=>{ const cells=[el('td',{title:about},label)];
+    judged.forEach(n=>TC_CHAINS.forEach((c,j)=>{ const r=rungOf(c.key,n), p=r&&(r.properties||{})[key];
+      const title=p?`read ${p.reading}${p.target!==undefined?', against '+p.target:''}${p.worst?', worst: '+p.worst+' ('+p.before+' at N='+tcNFull(p.from_n)+')':p.from_n?', since N='+tcNFull(p.from_n):''}`:'';
+      cells.push(ssCell(p,title,j===0?'ss-first':'')); }));
+    t.append(el('tr',{'data-property':key},...cells)); });
+  const total=[el('td',{title:'the worst of its properties at that size'},'the chain')];
+  judged.forEach(n=>TC_CHAINS.forEach((c,j)=>{ const r=rungOf(c.key,n);
+    total.push(ssCell(r,r&&r.worst?'worst: '+((SS_PROPS.find(p=>p[0]===r.worst)||[])[1]||r.worst):'',j===0?'ss-first':'')); }));
+  t.append(el('tr',{class:'ss-total'},...total));
+  const pairs=TC_CHAINS.length>2?[['given',score.gaps||[]],...Object.entries(score.more_gaps||{})]:[['given',score.gaps||[]]];
+  pairs.forEach(([k,series])=>{
+    const words=TC_CHAINS.length>2?`empty and ${TC_SHORT[k]||k} apart`:'the chains apart';
+    const apart=[el('td',{title:'how far the two chains are from each other: every quantity both read, in the larger of its tolerance and twice their combined standard error; the worst'},words)];
+    judged.forEach(n=>{ const g=(series||[]).find(x=>x.n===n);
+      const cell=ssCell(g,g&&g.worst?'worst: '+(SS_GAP[g.worst]||g.worst):'','ss-first'); cell.setAttribute('colspan',span); apart.push(cell); });
+    t.append(el('tr',{class:'ss-total ss-apart'},...apart)); });
+  box.append(el('div',{class:'tc-table-wrap'},t));
+  return box; }
+const FS_FATES={holds:'kept 0.8 to 2 of its start’s reach (against a random wiring of its degrees), its mean degree within a tenth, and moved: the shape held',
+  partly:'kept 0.5 to 0.8 of its start’s reach: what a lattice with about 1% of its edges rewired at random keeps',
+  unmoved:'its census and reach its start’s to a millionth: the start itself, which nothing the law did changed',
+  changed:'kept its start’s reach, but its mean degree moved more than a tenth: another shape',
+  stretched:'reaches more than twice as far as its start: thinned towards chains or rings, or a shape of lower dimension',
+  melted:'kept under half its start’s reach: towards a random wiring’s',
+  fell_apart:'its largest piece under the 16 nodes the probes need: nothing to read',
+  dense:'its chain ended at the mean-degree cap on half its seeds or more, where no probe is read'};
+function fsKey(name){ return name==='empty'?'empty':(name===TC_SHORT.given||name==='given')?'given':name; }
+function fsShort(name){ return TC_SHORT[fsKey(name)]||name; }
+function fsColor(name){ const c=TC_CHAINS.find(x=>x.key===fsKey(name)); return c?c.color:'var(--muted)'; }
+function fsChip(name){ return el('span',{class:'fs-chain',style:'color:'+fsColor(name)},fsShort(name)); }
+function fsFateTitle(name,f){ const like=f.like_start||{};
+  return `${name} ${f.fate.replace('_',' ')}: ${FS_FATES[f.fate]||''}. Kept ${tcFmt(f.kept,3)}; mean degree ${tcFmt(f.degree,3)} against its start’s `
+    +`${tcFmt(f.start_degree,3)}`+(like.distance!==null&&like.distance!==undefined?`; from its start’s own reading ${ssNum(like.distance)}`
+    +(like.worst?` (worst: ${SS_GAP[like.worst]||like.worst})`:''):''); }
+function renderStartsReading(reading,explain){
+  const box=el('div',{class:'fs',id:'startsReading'});
+  if(!reading||!Array.isArray(reading.rungs)) return box;
+  const words=reading.names||{}, chains=reading.chains||[], count=chains.length;
+  const atN=reading.at_n, readAt=atN!==null&&atN!==undefined;
+  box.append(el('h3',{class:'tc-row-title'},`the ${TC_COUNT[count]||count} starts against each other: `
+    +(readAt?(words[reading.class]||reading.class):'not read yet'),
+    readAt?el('span',{class:'fs-at muted'},` at N=${tcNFull(atN)}`+(reading.top_dense?`; at N=${tcNFull(reading.top_n)} only the chain `
+      +'from empty was read: it crossed the mean-degree cap before the others ran':'')):''));
+  (explain||box).append(el('p',{class:'muted fs-facts'},`At each size from N=${tcNFull(reading.from_n)} every two chains are compared on every quantity both read on `
+    +'two seeds or more: they are apart on it where they differ by more than its tolerance and three times their combined standard '
+    +`error together (a count a node’s error at least a Poisson count’s); within ${reading.met_within} on all of them, they met. The groups are `
+    +'the fewest in which every two chains met. A lattice start is read against its own start, read the same way: it holds, is partly '
+    +'kept, unmoved, changed (its degree moved), stretched (it reaches more than twice as far), melted, fell apart or went dense; only one '
+    +'that holds is a shape. A law is read at its largest size two chains read. In a campaign decided chain by chain this decides its '
+    +'depth from the last base rung (602): a shape buys the next size, every start alike parks it, the starts apart get the next size once.'));
+  if(!reading.references) box.append(el('p',{class:'muted fs-norefs'},'the lattice starts’ own readings were measured by other sources '
+    +'than this build’s: no lattice’s fate is read until they are measured again'));
+  if(!reading.rungs.length){ box.append(el('p',{class:'muted fs-none'},`no size of N=${tcNFull(reading.from_n)} or more read yet`)); return box; }
+  const lattices=inShownOrder(chains.filter(c=>c.lattice),c=>c.name);
+  const t=el('table',{class:'tc-table fs-table'});
+  t.append(el('tr',{},el('th',{},'N'),el('th',{},'what the starts did'),el('th',{title:'the fewest groups in which every two chains met'},'groups'),
+    ...lattices.map(c=>el('th',{style:'color:'+fsColor(c.name),title:`the ${c.name} start (${c.lattice}-D) against its own start`},
+      `${fsShort(c.name)}${lattices.length>3?'':' against its start'}`)),
+    el('th',{title:'the widest distance between two chains, in tolerances'},'widest')));
+  reading.rungs.forEach(r=>{
+    const groups=el('td',{class:'fs-groups'},...(r.groups||[]).map(g=>el('span',{class:'fs-group'},
+      ...g.flatMap((name,i)=>i?[' · ',fsChip(name)]:[fsChip(name)]))));
+    const cells=[el('td',{},'N='+tcNFull(r.n)),el('td',{class:'fs-class fs-'+r.class},words[r.class]||r.class),groups];
+    lattices.forEach(c=>{ const f=(r.fates||{})[c.name];
+      cells.push(f&&f.fate?el('td',{class:'fs-fate fs-'+f.fate,title:fsFateTitle(fsShort(c.name),f)},
+        f.fate.replace('_',' ')+(f.kept===null||f.kept===undefined?'':` (kept ${tcFmt(f.kept,2)})`))
+        :el('td',{class:'muted',title:(f&&f.why)||'not read at this size'},'-')); });
+    cells.push(el('td',{},r.spread===null||r.spread===undefined?'-':ssNum(r.spread)));
+    t.append(el('tr',{'data-n':String(r.n),'data-class':r.class},...cells)); });
+  box.append(el('div',{class:'tc-table-wrap'},t));
+  const top=reading.rungs.find(r=>r.n===atN)||reading.rungs[reading.rungs.length-1], bits=[], tr=reading.trend, low=top.lowest_energy;
+  const pairs=list=>(list||[]).map(k=>k.split('|').map(fsShort).join(' and ')).join('; ');
+  if(tr){ const moved=[];
+    if((tr.joined||[]).length) moved.push('met: '+pairs(tr.joined));
+    if((tr.parted||[]).length) moved.push('parted: '+pairs(tr.parted));
+    bits.push(`from N=${tcNFull(tr.from_n)} to N=${tcNFull(tr.to_n)} the starts are ${tr.way} (groups ${tr.groups.join(' \u2192 ')})`
+      +(moved.length?'; '+moved.join('; and '):'')
+      +(tr.apart?`; of the ${tr.apart} pairs apart at both, ${(tr.closing||[]).length} nearer at the last`
+        +((tr.closing||[]).length?` (${pairs(tr.closing)})`:''):'')); }
+  if(low) bits.push(`lowest in energy a node at N=${tcNFull(top.n)}: ${low.group.map(fsShort).join(', ')}`
+    +(low.apart===true?', apart from the rest':low.apart===false?', level with the nearest other group':''));
+  if(bits.length) box.append(el('p',{class:'muted fs-trend'},bits.join('. ')+'.'));
+  const read=top.chains||[];
+  if(read.length>1){ const d=el('table',{class:'tc-table fs-distances'});
+    d.append(el('tr',{},el('th',{},`apart at N=${tcNFull(top.n)}`),...read.map(n=>el('th',{style:'color:'+fsColor(n)},fsShort(n)))));
+    read.forEach(a=>d.append(el('tr',{},el('th',{style:'color:'+fsColor(a)},fsShort(a)),...read.map(b=>{
+      if(a===b) return el('td',{class:'muted'},'·');
+      const k=[a,b].sort().join('|'), v=(top.distances||{})[k], w=(top.worst||{})[k];
+      if(v===null||v===undefined) return el('td',{class:'ss-none',title:'no quantity both read'},'-');
+      return el('td',{class:v<=reading.met_within?'ss-within':'ss-beyond',title:w?'worst: '+(SS_GAP[w]||w):''},ssNum(v)); }))));
+    box.append(el('details',{class:'fs-detail'},el('summary',{},'how far every two chains are apart, in tolerances'),
+      el('div',{class:'tc-table-wrap'},d))); }
+  return box; }
+const LS_WHO={empty:'the chain from empty',random:'the random start',lattice:'a lattice start, changed',kept:'a lattice start, kept',frozen:'a lattice start, frozen: no edge changed'};
+const LS_FROM=16384;
+function lsN(n){ return n===null||n===undefined?'-':tcNFull(n); }
+function lsWords(found){
+  if(!found) return 'not read';
+  if(!(found.score>0)) return found.top_n!==null&&found.top_n!==undefined&&+found.top_n<LS_FROM
+    ?'not yet at N=16,384, the first size a probe can settle at':'no probe settles on any start from N=4,096';
+  const lattice=found.by==='lattice'||found.by==='kept'||found.by==='frozen';
+  return `${LS_WHO[found.by]||found.by}${lattice&&found.chain?' ('+found.chain+')':''}: ${found.points!=null?found.points:'?'} of ${found.points_of||15} at N=${lsN(found.to_n)}${found.einstein?', all four agreeing by Einstein':''}`; }
+function lsTitle(found){
+  return (found?`score ${found.score} of 100: ${lsWords(found)}.`:'the score is not read yet.')
+    +'\n\nPoints times depth times who (784): only readings from N=4,096 on a piece of 4,096 nodes or more count. Each '
+    +'probe, and the Einstein relation d_s = 2 d_f / d_w as a fifth item, earns 1 when it reads at two sizes in a row '
+    +'(4,096 and 16,384 first), 2 when it settles between them (its step within the margin the calibration table’s '
+    +'exact lattices set), 3 when it settles again at the next size: 15 at most. Each size from N=1,024 to N=4,194,304 '
+    +'is a seventh; the twin starts count 1, a lattice start that changed 0.6, one that kept its shape 0.3. '
+    +'Shown and ranked by, and the order of the deep lane’s queue; no decision stops or buys a law on it.'; }
+function fillScoreChip(chip,found){
+  const v=found&&typeof found.score==='number'?found.score:null;
+  chip.textContent=v===null?'?':String(v);
+  chip.setAttribute('class','hdr-score'+(v===null?' zero':v>=50?' strong':v>0?' partial':' zero'));
+  chip.setAttribute('title',v===null?'the score is unavailable: the structure reading did not answer':lsTitle(found)); }
+function lsHow(e){ if(!e||e.points===undefined) return '-';
+  return `${e.points} of 15${e.einstein?' ✓':''}`; }
+function lsCellTitle(name,n,e){
+  const lines=[`${name}, N=${lsN(e.from_n)} to ${lsN(n)}: ${e.how||'not read'}`];
+  Object.entries(e.steps||{}).forEach(([probe,st])=>lines.push(`${probe}: ${st.from} to ${st.to}, a step of ${(100*st.step).toFixed(1)}% `
+    +`of itself, ${(100*st.margin).toFixed(0)}% allowed${(e.settled||[]).includes(probe)?': settles':''}`));
+  if(e.residual!==null&&e.residual!==undefined) lines.push(`the Einstein relation: d_s within ${(100*e.residual).toFixed(1)}% of 2 d_f / d_w, ${(100*e.tau).toFixed(1)}% allowed`);
+  const said={1:'reads at two sizes',2:'settles',3:'settles again'};
+  Object.entries(e.items||{}).forEach(([item,got])=>{ if(got) lines.push(`${item==='einstein'?'the Einstein relation':item}: ${got} (${said[got]})`); });
+  if(e.fate) lines.push(`its fate as a lattice start: ${e.fate}`);
+  return lines.join('\n'); }
+function lsByKey(score){ const out={};
+  ((score&&score.sizes)||[]).forEach(size=>Object.entries(size.chains||{}).forEach(([name,e])=>{
+    const key=e.key||fsKey(name); (out[key]=out[key]||{})[+size.n]=e; }));
+  return out; }
+function renderLawScore(app,payload){
+  const score=(payload&&payload.score)||null;
+  tcEveryChain((payload&&payload.chains)||{});
+  app.append(el('h2',{'data-tone':'blue',id:'lawScore'},'the score'));
+  if(!score){ app.append(el('p',{class:'muted'},'not read: the score reads every start’s measurements')); return; }
+  app.append(el('div',{class:'ls-head',title:lsTitle(score)},el('span',{class:'ls-value'},String(score.score)),
+    el('span',{class:'muted'},' of 100 · '),el('span',{class:'ls-words'},lsWords(score))));
+  app.append(el('p',{class:'muted ls-rule'},'Points times depth times who (784). Only readings from N=4,096 count, and only on '
+    +'a piece of 4,096 nodes or more: a reading under it is pilot data for the decisions. Each probe, and the Einstein '
+    +'relation d_s = 2 d_f / d_w (d_f read by d_V and by d_B alike) as a fifth item, earns 1 when it reads at two sizes '
+    +'in a row, the larger at least three times the smaller (4,096 and 16,384 first); 2 when it settles between them, '
+    +'its step within the margin the calibration table’s exact lattices and fractals set at that size (checked on '
+    +'graphs the table never measured: a lattice settles, a random graph and a small world do not); 3 when it settles '
+    +'again at the next size (16,384 to 65,536): 15 points at most. All four settled and the Einstein relation '
+    +'held at two sizes is the landscape’s 5th band. The twin starts count 1, a lattice start that changed '
+    +'into something else 0.6 and one that kept its shape 0.3; each size from N=1,024 to N=4,194,304 is a seventh. The '
+    +'score is shown and ranked by, and orders the deep lane’s queue; no decision stops or buys a law on it.'));
+  const pt=el('table',{class:'ls-parts'},el('tr',{},...[['who',''],['counts','what its points are worth'],
+    ['its chain',''],['at N','the size its points were read at'],['of the ladder','sevenths, from N=1,024 to N=4,194,304'],
+    ['points','of 15: each probe and the Einstein relation, 1 read, 2 settled, 3 settled again'],['score','100 × counts × its share of the ladder × points / 15']].map(([h,about])=>el('th',about?{title:about}:{},h))));
+  Object.entries(score.weights||{}).forEach(([cat,w])=>{ const part=(score.parts||{})[cat]||{};
+    pt.append(el('tr',{class:(part.points>0?'ls-held':'ls-none')+(cat===score.by?' ls-best':'')},
+      el('td',{},LS_WHO[cat]||cat),el('td',{},String(w)),el('td',{},part.chain?fsChip(part.chain):'-'),
+      el('td',{},lsN(part.to_n)),el('td',{},part.depth!==null&&part.depth!==undefined?`${Math.round(part.depth*7)} of 7`:'-'),
+      el('td',{},part.to_n?`${part.of||0} of 15`:'-'),el('td',{},(+(part.points||0)).toFixed(1)))); });
+  app.append(el('div',{class:'tc-table-wrap'},pt));
+  const sizes=score.sizes||[];
+  if(!sizes.length){ app.append(el('p',{class:'muted'},'no two sizes from N=4,096 measured yet: the score starts at N=16,384')); return; }
+  const names=[...new Set(sizes.flatMap(size=>Object.keys(size.chains||{})))];
+  app.append(el('p',{class:'muted ls-caption'},'every start at every size: its points up to there, of 15, ✓ where the '
+    +'Einstein relation held at two sizes; hover a cell for each item’s points and each probe’s step against its margin'));
+  const kindOf=name=>{ const found=sizes.map(size=>(size.chains||{})[name]).find(Boolean)||{}; return found.start; };
+  const st=el('table',{class:'ls-sizes'},el('tr',{},el('th',{},'N'),...names.map(name=>el('th',{title:LS_WHO[kindOf(name)]||''},fsChip(name)))));
+  sizes.forEach(size=>st.append(el('tr',{},el('td',{},'N='+tcNFull(size.n)),...names.map(name=>{ const e=(size.chains||{})[name]||{};
+    return el('td',{class:e.points>0?'ls-geometry':'ls-not',title:lsCellTitle(fsShort(name),size.n,e)},lsHow(e)); }))));
+  app.append(el('div',{class:'tc-table-wrap'},st)); }
+function flowStartPanel(rungs,ch,label,sub,geometry,top){
+  const W=300,H=196,L=34,R=8,T=12,B=28,FS=11;
+  const pts={}, md=[];
+  CHANNELS.forEach(c=>{pts[c.id]=[];});
+  rungs.forEach(r=>{ const side=r[ch.key]||{};
+    CHANNELS.forEach(c=>{ const v=side[c.id]||{};
+      if(v.mean!==null&&v.mean!==undefined&&isFinite(+v.mean)) pts[c.id].push({n:+r.n,y:+v.mean,se:(v.se!==null&&v.se!==undefined&&isFinite(+v.se))?+v.se:0,v}); });
+    const m=(side.mean_degree||{}).mean; if(m!==null&&m!==undefined&&isFinite(+m)) md.push({n:+r.n,y:+m-1}); });
+  const box=el('div',{class:'flow-start','data-chain':ch.key});
+  box.append(el('div',{class:'flow-start-title'},el('span',{class:'fs-chain',style:'color:'+ch.color},label),sub?el('span',{class:'muted'},' · '+sub):null));
+  const all=CHANNELS.flatMap(c=>pts[c.id]);
+  if(!all.length){ box.append(el('p',{class:'muted flow-none'},'no probe read on this start')); return box; }
+  const ns=[...new Set(rungs.map(r=>+r.n).filter(n=>n>0))].sort((a,b)=>a-b);
+  const x0=Math.log(ns[0]), x1=Math.log(ns[ns.length-1]), span=W-L-R-16;
+  const X=n=>L+8+(ns.length>1?(Math.log(n)-x0)/(x1-x0):0.5)*span;
+  const values=all.flatMap(p=>[p.y-p.se,p.y+p.se]);
+  const hi=Math.max(4,top||0,...values)+0.25;
+  const axis=tcAxis(0,hi,false,T,H-B,L,W-R,FS), Y=axis.Y;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${tcEsc(label)}: the four probes across N">`;
+  const step=ns.length>1?span/(ns.length-1):40;
+  ns.forEach(n=>{ const g=(geometry||{})[n]; if(!g||!(g.points>0)) return;
+    s+=`<rect class="flow-geometry" x="${(X(n)-step/2).toFixed(1)}" y="${T}" width="${step.toFixed(1)}" height="${H-B-T}" style="fill:var(--green);opacity:.13">`
+      +`<title>N=${tcNFull(n)}: ${tcEsc(g.how)}</title></rect>`; });
+  s+=axis.svg;
+  const every=ns.length>7?2:1;
+  ns.forEach((n,i)=>{ if(i%every===0||i===ns.length-1) s+=`<text x="${X(n).toFixed(1)}" y="${H-B+14}" font-size="${FS}" text-anchor="middle" style="fill:var(--muted)">${tcN(n)}</text>`; });
+  s+=`<text x="${W-R}" y="${H-3}" font-size="${FS-1}" text-anchor="end" style="fill:var(--muted)">N</text>`;
+  CHANNELS.forEach((c,ci)=>{ const pp=pts[c.id].slice().sort((a,b)=>a.n-b.n), dx=(ci-1.5)*2.2;
+    if(pp.length>1) s+=`<polyline points="${pp.map(p=>`${(X(p.n)+dx).toFixed(1)},${Y(p.y).toFixed(1)}`).join(' ')}" style="fill:none;stroke:${c.color};stroke-width:1.4;opacity:.8"/>`;
+    pp.forEach(p=>{ const x=X(p.n)+dx;
+      if(p.se>0) s+=`<line x1="${x.toFixed(1)}" y1="${Y(Math.max(0,p.y-p.se)).toFixed(1)}" x2="${x.toFixed(1)}" y2="${Y(p.y+p.se).toFixed(1)}" style="stroke:${c.color};stroke-width:1.1"/>`;
+      s+=`<g>${tcMarker(c.mark,x,Y(p.y),c.color,false,3.2)}<title>${c.id} on ${tcEsc(label)}, N=${tcNFull(p.n)}: ${tcFmt(p.y,4)}`
+        +`${p.se>0?' ± '+tcFmt(p.se,4):''}${p.v.seeds!==undefined?` (${p.v.seeds}${p.v.of!==undefined?' of '+p.v.of:''} seeds)`:''}</title></g>`; }); });
+  s+='</svg>';
+  box.append(el('div',{class:'flow-start-svg',html:s}));
+  const absent=CHANNELS.filter(c=>!pts[c.id].length);
+  if(absent.length) box.append(el('div',{class:'muted flow-absent'},'not read on any size: '+absent.map(c=>c.id).join(', ')));
+  return box; }
+function renderFlowEveryStart(app,payload){
+  const chains=(payload&&payload.chains)||{};
+  tcEveryChain(chains);
+  const rungs=(chains.rungs||[]).slice().sort((a,b)=>a.n-b.n);
+  app.append(el('h2',{'data-tone':'blue'},'finite-size flow, every start'));
+  if(!rungs.length){ app.append(el('p',{class:'muted'},'no measured seed to read yet')); return; }
+  const score=(payload&&payload.score)||null, byKey=lsByKey(score);
+  app.append(el('p',{class:'muted flow-intro'},'Each start’s four probes across N, every start drawn alike: where they '
+    +'agree on one dimension as N grows, that start is a space. Shaded are the sizes a start scores points at: a probe that settles from the size before.'),
+    el('div',{class:'flow-key'},...CHANNELS.map(c=>el('span',{class:'flow-key-item',title:c.about},
+      el('span',{html:`<svg width="12" height="12" viewBox="0 0 12 12">${tcMarker(c.mark,6,6,c.color,false,3.4)}</svg>`}),' '+c.id)),
+      el('span',{class:'flow-key-item muted',title:'where a structureless graph reads d_s'},'··· ⟨d⟩ − 1'),
+      el('span',{class:'flow-key-item'},el('span',{class:'flow-key-geometry'}),' points, as the score reads them')));
+  const grid=el('div',{class:'flow-grid'});
+  const top=Math.max(4,...rungs.flatMap(r=>TC_CHAINS.flatMap(ch=>CHANNELS.map(c=>{ const v=((r[ch.key]||{})[c.id])||{};
+    return v.mean!==null&&v.mean!==undefined&&isFinite(+v.mean)?(+v.mean)+((v.se!==null&&v.se!==undefined&&isFinite(+v.se))?+v.se:0):0; }))));
+  TC_CHAINS.forEach(ch=>{ const sizes=byKey[ch.key]||{}, read=Object.values(sizes);
+    const held=Object.keys(sizes).filter(n=>sizes[n].points>0).map(Number);
+    const last=read.length?sizes[Math.max(...Object.keys(sizes).map(Number))]:{}, weight=((score&&score.weights)||{})[last.kind||last.start];
+    const sub=[weight!==undefined?`counts ${weight}`:null,
+      held.length?`points to N=${tcNFull(Math.max(...held))}`:(read.length?'no probe settles':null)].filter(Boolean).join(' · ');
+    grid.append(flowStartPanel(rungs,ch,ch.key==='empty'?'from empty':String(TC_SHORT[ch.key]||ch.key),sub,sizes,top)); });
+  app.append(grid);
+  if(!chains.given_probes_read) app.append(el('p',{class:'muted'},'the probes read a chain from a given start only where that start is a declared shape; '
+    +'this law’s given chain is not read, so the chain from empty is the only one with probes to draw')); }
+function renderTwoChains(app,payload){
+  const chains=(payload&&payload.chains)||{}, rungs=chains.rungs||[];
+  const every=tcEveryChain(chains);
+  const start=tcGivenStart(chains);
+  const names={empty:'from the empty graph',given:'from '+(start.words||'its start')};
+  if(every) every.forEach(c=>{ if(c.key!=='empty') names[c.key]=`from the ${c.name} start`+(c.start?` (${tcStartWords(c.start)})`:''); });
+  const count=every?(TC_COUNT[every.length]||String(every.length)):'two';
+  app.append(el('h2',{'data-tone':'cyan',id:'twoChainsHeading'},`the ${count} chains`));
+  const key=el('div',{class:'tc-key'},...TC_CHAINS.map(ch=>el('span',{class:'tc-key-item',title:names[ch.key]},
+    el('span',{class:'tc-swatch',style:`border-top:2px ${ch.dash?'dashed':'solid'} ${ch.color}`}),TC_SHORT[ch.key]||ch.key)));
+  app.append(key);
+  const explain=el('details',{class:'tc-explain'},el('summary',{},'explanation: how the chains are run, read against each other and stopped'));
+  explain.append(el('p',{class:'muted tc-intro'},every?`Every seed runs this law ${every.length===2?'twice':every.length+' times'}, from ${count} starts: the same law, `
+    +'the same temperature, every chain alike, and each can earn the law its next size. Where the chains end in the same place the start did not matter; '
+    +'where they do not, it did, and that is a finding about the law.'
+    :'Every seed runs this law twice, from two starts: the same law, the same temperature. Where the two chains end in the same place the start did not '
+    +'matter; where they do not, it did, and that is a finding about the law.'));
+  if(start.kernel) explain.append(start.kernel==='local_walk'?el('p',{class:'muted tc-kernel'},'The chain from the given start moves by its own local kernel (local_walk): every move stays '
+      +'within three steps and it takes none it could not undo, so it cannot cut its graph in two or join two pieces. Where the '
+      +'law\u2019s own equilibrium is in pieces, the two chains differ for that reason too.')
+    :el('p',{class:'muted tc-kernel'},`The chain from the given start moves by its own kernel (${start.kernel}).`));
+  if(!rungs.length){ app.append(el('p',{class:'muted tc-empty'},'no measured seed to read yet'),explain); return; }
+  let selected=null;
+  const pickable=rungs.filter(r=>(r.per_seed||[]).some(s=>(s.checks||[]).length||s.course));
+  const preferred=pickable.filter(r=>r.courses>0);
+  selected=((preferred.length?preferred:pickable).slice(-1)[0]||rungs[rungs.length-1]).n;
+  const strip=el('div',{class:'tc-strip'});
+  const rows=el('div',{class:'tc-rows'});
+  app.append(rows);
+  TC_ROWS.forEach(row=>{ const grid=el('div',{class:'tc-grid','data-row':row.title});
+    row.keys.forEach(k=>grid.append(tcAcross(rungs,TC_QUANTITIES.find(q=>q.key===k),names)));
+    rows.append(el('h3',{class:'tc-row-title'},row.title),grid); });
+  rows.append(el('h3',{class:'tc-row-title'},'the run, across N'),
+    el('div',{class:'tc-grid tc-grid-run','data-row':'the run, across N'},tcMeetAcross(rungs,chains),tcGapFamily(rungs,chains),
+      tcCheckFamily(rungs,chains)));
+  if(!chains.given_probes_read) app.append(el('p',{class:'muted tc-note'},'the probes read a chain from a given start only where that start is a '
+    +'declared shape; this law’s given chain is compared with the one from empty, not read, so the four probes show one chain'));
+  const t=el('table',{class:'tc-table'});
+  t.append(el('tr',{},el('th',{rowspan:'2'},'N'),el('th',{rowspan:'2',title:'how the chains ended: met, closing, apart'},'the chains'),
+    ...TC_TABLE.map(k=>{ const q=TC_QUANTITIES.find(x=>x.key===k); return el('th',{colspan:String(TC_CHAINS.length),class:'tc-pair',title:q.about||''},q.short); })));
+  t.append(el('tr',{},...TC_TABLE.flatMap(()=>TC_CHAINS.map(ch=>el('th',{class:'tc-sub tc-'+ch.key,title:names[ch.key],
+    ...(ch.more?{style:'color:'+ch.color}:{})},TC_SHORT[ch.key]||ch.key)))));
+  rungs.forEach(r=>{ const w=TC_MEET[every?tcEveryReading(r):(r.reading||{}).reading]||['not read','tc-unread',''];
+    const cells=[el('td',{},'N='+tcNFull(r.n)),el('td',{class:w[1],title:tcMeetTitle(r,names)},w[0])];
+    TC_TABLE.forEach(k=>{ const q=TC_QUANTITIES.find(x=>x.key===k), a=(r.empty||{})[k];
+      const row=TC_CHAINS.map(ch=>tcCell((r[ch.key]||{})[k],q,names,ch.key));
+      TC_CHAINS.slice(1).forEach((ch,i)=>{ const gap=tcApart(a,(r[ch.key]||{})[k]); if(gap===null) return;
+        const words=every?`the ${TC_SHORT[ch.key]||ch.key} chain differs from the chain from empty by ${tcFmt(gap,4)}`:`the chains differ by ${tcFmt(gap,4)}`;
+        [row[0],row[i+1]].forEach(cell=>{ if(!String(cell.getAttribute('class')||'').includes('tc-diff')) cell.setAttribute('class',(cell.getAttribute('class')||'')+' tc-diff');
+          cell.setAttribute('title',(cell.getAttribute('title')||'')+`\n\n${words}, beyond twice their combined standard error and 2%`); }); });
+      row[0].setAttribute('class',(row[0].getAttribute('class')||'')+' tc-first');
+      cells.push(...row); });
+    t.append(el('tr',{},...cells)); });
+  app.append(el('div',{class:'tc-table-wrap'},t));
+  const sizes=el('div',{class:'tc-sizes'}), run=el('div',{class:'tc-run'});
+  app.append(el('details',{class:'tc-detail'},el('summary',{},`one size in detail: each seed’s ${TC_CHAINS.length} chains over its run, and every check`),
+    sizes,run));
+  app.append(el('h3',{class:'tc-row-title'},'how the chains ended, size by size'),strip);
+  if(payload&&payload.space_score) app.append(renderSpaceScore(payload.space_score,names,explain));
+  if(payload&&payload.starts_reading) app.append(renderStartsReading(payload.starts_reading,explain));
+  explain.append(el('p',{class:'muted tc-rule'},tcRuleText(chains)));
+  app.append(explain);
+  function drawSizes(){
+    sizes.textContent='';
+    rungs.forEach(r=>{ const tab=el('button',{type:'button',class:'tc-size'+(r.n===selected?' selected':'')},'N='+tcNFull(r.n));
+      tab.onclick=()=>{ selected=r.n; drawSizes(); drawRun(); };
+      sizes.append(tab); }); }
+  function drawStrip(){
+    strip.textContent='';
+    rungs.forEach(r=>{ const w=TC_MEET[every?tcEveryReading(r):(r.reading||{}).reading]||['not read','tc-unread',''];
+      const lower=Object.entries(r.lower_energy||{}).filter(([k])=>k!=='level');
+      const met=tcMetBy(r,!!chains.zero_temperature);
+      const frozen=[...new Set((r.per_seed||[]).flatMap(sd=>((sd.meeting||{}).frozen)||[]))];
+      const ends=Object.entries(r.ends||{}).map(([k,v])=>`${v} of ${r.seeds} ${TC_ENDS[k]||k}`).join(' · ');
+      const each=every?[[TC_SHORT.given,(r.reading||{}).reading],...Object.entries(r.more_readings||{}).map(([k,v])=>[TC_SHORT[k]||k,(v||{}).reading])]
+        .map(([k,v])=>`${k} ${(TC_MEET[v]||['not read'])[0]}`).join(' · '):null;
+      const capped=every?[...new Set((r.per_seed||[]).flatMap(sd=>sd.ended_at_cap||[]))].map(k=>TC_SHORT[k]||k):[];
+      const cell=el('div',{class:'tc-cell '+w[1],title:tcMeetTitle(r,names)},
+        el('span',{class:'tc-cell-n'},'N='+tcNFull(r.n)),el('span',{class:'tc-word'},w[0]),
+        each?el('span',{class:'muted tc-more-readings'},each):null,
+        frozen.length?el('span',{class:'muted'},'not moving: '+frozen.map(k=>k==='empty'?'empty start':every?TC_SHORT.given:'given').join(', ')):null,
+        capped.length?el('span',{class:'muted',title:'a chain from a given start that crosses the mean degree cap ends alone, where it crossed; the rest run on'},'at the cap alone: '+capped.join(', ')):null,
+        el('span',{class:'muted'},ends||'no ending recorded'),
+        met!==null?el('span',{class:'muted',title:chains.zero_temperature?'every check from then on found the chains the check reads at rest':'every check from then on found the chains within their noise (split z at or under the limit)'},
+          (chains.zero_temperature?'at rest from ':`z \u2264 ${(chains.rule||{}).split_z??3} from `)+tcNFull(met)+' sweeps'):null,
+        lower.length?el('span',{class:'muted'},'lower energy: '+lower.map(([k,v])=>`${k==='empty'?'empty':TC_SHORT[k]||k} ${v}/${r.seeds}`).join(', ')):null);
+      strip.append(cell); }); }
+  function drawRun(){
+    run.textContent='';
+    const r=rungs.find(x=>x.n===selected); if(!r) return;
+    const seeds=r.per_seed||[];
+    run.append(el('h3',{class:'tc-run-title'},`over the run, at N=${tcNFull(r.n)}`),
+      el('p',{class:'muted'},'Each line is one seed’s chain; a tick at the top marks each chunk’s check (✓ passed, '
+        +'✗ failed, the reason on hover).'));
+    const charts=el('div',{class:'tc-runs'});
+    const courses=seeds.filter(s=>s.course);
+    if(courses.length){
+      [['course',1,'energy / node'],['course',2,'⟨d⟩ mean degree'],['structure',1,'triangles / node'],['structure',2,'largest component']]
+        .forEach(([part,index,label])=>{ const c=tcRunChart(seeds,part,index,label,names); if(c) charts.append(c); });
+    } else run.append(el('p',{class:'muted tc-no-course'},'these seeds carry no course of each chain over the run. The checks below are from the run’s own record.'));
+    const z=tcChecksChart(seeds,chains.rule||{},'gap',names); if(z) charts.append(z);
+    if(chains.zero_temperature){ const rest=tcChecksChart(seeds,chains.rule||{},'rest',names); if(rest) charts.append(rest); }
+    run.append(charts);
+    seeds.forEach(s=>run.append(el('p',{class:'tc-stop'},tcStopText(s,chains.rule||{}))));
+    const ct=el('table',{class:'tc-checks'});
+    ct.append(el('tr',{},...[['seed',''],['check','each chunk ends in a check'],['sweeps','cumulative sweeps at the check, and the multiplier on the declared sweeps'],
+      ['z energy','the gap in energy per node between the twin starts’ chains, the chain from empty and the '+(every?TC_SHORT.given:'given')+' chain, in units of their combined noise; no other chain need meet'],['z degree','the same for mean degree'],
+      ...(chains.zero_temperature?(every?TC_CHAINS.map(ch=>ch.key==='empty'?['rest, empty','share of its whole descent the chain from the empty graph made in its late window']
+        :['rest, '+(TC_SHORT[ch.key]||ch.key),'the same for the '+(TC_SHORT[ch.key]||ch.key)+' chain']):[['rest, empty','share of its whole descent the chain from the empty graph made in its late window'],['rest, given','the same for the chain from the given start']]):[]),
+      ['eff. samples','the fewest effective samples of any chain that ran, each counted on its own; every chain’s own count in the mouse-over'],['drift','the largest late energy drift of any chain that ran; every chain’s own in the mouse-over'],['result',''],['wall','wall clock spent so far']]
+      .map(([h,about])=>el('th',about?{title:about}:{},h))));
+    seeds.forEach(s=>(s.checks||[]).forEach((c,i)=>{ const zs=c.z||{};
+      ct.append(el('tr',{class:c.passed?'tc-pass':'tc-fail'},el('td',{},String(s.seed)),el('td',{},String(i+1)),
+        el('td',{},c.sweeps===null||c.sweeps===undefined?'-':`${tcNFull(c.sweeps)} (×${c.multiplier})`),
+        el('td',{class:zs.energy_per_node>(chains.rule||{}).split_z?'reason':''},tcFmt(zs.energy_per_node,2)),
+        el('td',{class:zs.mean_degree>(chains.rule||{}).split_z?'reason':''},tcFmt(zs.mean_degree,2)),
+        ...(chains.zero_temperature?TC_CHAINS.map(ch=>el('td',{},c.rest&&c.rest[ch.key]!==null&&c.rest[ch.key]!==undefined?(100*c.rest[ch.key]).toFixed(2)+'%':'-')):[]),
+        el('td',{title:Object.entries(c.chains||{}).map(([k,o])=>`${TC_SHORT[k]||k}: ${tcFmt((o||{}).effective_samples,1)}`).join('\n')},tcFmt(c.effective_samples,1)),
+        el('td',{title:Object.entries(c.chains||{}).map(([k,o])=>`${TC_SHORT[k]||k}: ${tcFmt((o||{}).drift,2)}`).join('\n')},tcFmt(c.drift,2)),
+        el('td',{class:c.passed?'tc-result-pass':'tc-result-fail',title:(c.failures||[]).map(f=>f.detail||f.code).join('\n')},c.passed?'✓ passed':'✗ '+((c.failures||[]).map(f=>TC_FAIL[f.code]||f.code).filter((v,j,a)=>a.indexOf(v)===j).join(', ')||'failed')),
+        el('td',{},c.wall_seconds===null||c.wall_seconds===undefined?'-':fmtDur(c.wall_seconds)))); }));
+    run.append(el('div',{class:'tc-table-wrap'},ct)); }
+  drawStrip(); drawSizes(); drawRun();
+  return {select:n=>{ selected=n; drawSizes(); drawRun(); }}; }
+function renderStructureCensus(app, chains){
+  app.append(el('h3',{class:'tc-row-title','id':'structureCensus'},'the census of each chain’s final graphs'));
+  if(!(chains||[]).length){
+    app.append(el('p',{class:'muted census-empty'},'no structure census on these rungs'));
+    return;
+  }
+  app.append(el('p',{class:'muted'},'the census of each seed\'s final graph, every chain alike, averaged over '
+    +'seeds. gap: the spectral gap of the largest component, and its exponent per x4 step: a graph of '
+    +'dimension d closes it as N^(-2/d), so the exponent reads -2/d, near 0 means it stays open (an '
+    +'expander or random graph). diameter: of the largest component, lower and upper bound, and its '
+    +'growth exponent per x4: 1 for a ring, 1/d for a d-dimensional lattice, near 0 for log N. '
+    +'Computed up to N='+GAP_MAX_N.toLocaleString('en-US')+' for the gap and at every N for the diameter.'));
+  const head=[['chain','the start this chain ran from'],['N','rung size'],['gap','spectral gap of the largest component (normalised Laplacian), mean over seeds'],
+    ['gap exp','log(gap ratio) / log(N ratio) from the rung below; -2/d for a d-dimensional graph'],
+    ['d from gap','-2 / gap exponent, where the exponent is negative'],
+    ['diameter','largest component: lower bound (upper bound where they differ)'],
+    ['diam exp','log(diameter ratio) / log(N ratio) from the rung below'],
+    ['giant','largest component size / N'],
+    ['cycles / node','cycle rank of the largest component / N'],
+    ['components','connected components'],
+    ['triangles','triangle count'],['clique','largest clique'],['k-core','degeneracy'],
+    ['assort.','degree assortativity']];
+  const t=el('table',{class:'census-table'},el('tr',{},...head.map(([h,about])=>el('th',{title:about},h))));
+  chains.forEach(chain=>{
+  const rows=(chain.census||[]).filter(r=>r).map(r=>({n:+r.n,summary:{census:r.census}})).sort((a,b)=>a.n-b.n);
+  let prev=null;
+  rows.forEach((r,i)=>{
+    const c=r.summary.census||{}, n=+r.n;
+    const v=k=>(c[k]&&c[k].mean!==undefined&&c[k].mean!==null)?+c[k].mean:null;
+    const gap=v('spectral_gap'), dl=v('largest_component_diameter'), du=v('largest_component_diameter_upper');
+    const pc=prev?(prev.summary.census||{}):{};
+    const pv=k=>(pc[k]&&pc[k].mean!==undefined&&pc[k].mean!==null)?+pc[k].mean:null;
+    const gx=prev?censusExponent(pv('spectral_gap'),gap,+prev.n,n):null;
+    const dx=prev?censusExponent(pv('largest_component_diameter'),dl,+prev.n,n):null;
+    const missing=(why)=>el('span',{class:'muted',title:why},'n/a');
+    const gapCell=gap!==null?el('span',{title:c.spectral_gap&&c.spectral_gap.seed_sd!=null?
+        `seed sd ${sci(c.spectral_gap.seed_sd)} over ${c.spectral_gap.seeds} seeds`:''},sci(gap))
+      :missing(!r.summary.census?'no census on this rung':n>GAP_MAX_N?`not computed above N=${GAP_MAX_N}`
+        :'the solver did not converge, or the component has under three nodes');
+    const size=v('largest_component_size'), cyc=v('largest_component_cycle_rank');
+    t.append(el('tr',{class:i?'':'ec-first'},...(i?[]:[ecChainCell(chain,rows.length)]),el('td',{},'N='+String(n)),el('td',{},gapCell),
+      el('td',{},gx===null?missing('needs a gap at this rung and the one below'):gx.toFixed(3)),
+      el('td',{},gx!==null&&gx<0?(-2/gx).toFixed(2):missing('the gap is not closing between these rungs')),
+      el('td',{},dl===null?missing('no census on this rung'):(du!==null&&du!==dl?`${dl.toFixed(1)} to ${du.toFixed(1)}`:dl.toFixed(1))),
+      el('td',{},dx===null?missing('needs a diameter at this rung and the one below'):dx.toFixed(3)),
+      el('td',{},size===null?missing('no census'):(size/n).toFixed(3)),
+      el('td',{},cyc===null?missing('no census'):(cyc/n).toFixed(4)),
+      el('td',{},v('component_count')===null?missing('no census'):v('component_count').toFixed(0)),
+      el('td',{},v('triangles')===null?missing('not computed above N=262144'):v('triangles').toFixed(0)),
+      el('td',{},v('largest_clique')===null?missing('not computed above N=262144'):v('largest_clique').toFixed(1)),
+      el('td',{},v('degeneracy')===null?missing('not computed above N=262144'):v('degeneracy').toFixed(1)),
+      el('td',{},v('assortativity')===null?missing('undefined on this graph'):v('assortativity').toFixed(3))));
+    if(r.summary.census) prev=r;
+  }); });
+  app.append(t);
+}
+function short(id){ const c=currentCampaign?'&campaign='+encodeURIComponent(currentCampaign):''; return el('a',{href:'?candidate='+id+c,class:'law'},id.slice(0,12)); }
+
+function fmtMoment(s){
+  if(!s) return '-';
+  return (window.GSD_SYSTEM && window.GSD_SYSTEM.localTime)
+    ? window.GSD_SYSTEM.localTime(s,{seconds:false})
+    : String(s);
+}
+
+
+
+
+const CHANNELS=[
+  {id:'d_s',color:'#0072B2',mark:'circle',
+   about:'spectral dimension, from the random-walk return probability'},
+  {id:'d_V',color:'#E69F00',mark:'diamond',
+   about:'volume-growth exponent from sampled sources. Not a Hausdorff dimension: a finite graph has Hausdorff dimension exactly zero.'},
+  {id:'d_B',color:'#009E73',mark:'square',
+   about:'box-covering dimension, a global cover. Withheld unless the covering statistic is power-law, so a gap here is a finding about the graph.'},
+  {id:'d_w',color:'#CC79A7',mark:'triangle',
+   about:'walk dimension, ⟨r²⟩ ~ t^(2/d_w). d_w = 2 is ordinary diffusion; the Einstein relation d_s = 2 d_f / d_w only collapses to d_s = d_f there.'},
+];
+
+function rungChannels(r){
+  if(Array.isArray(r.channels)) return r.channels;
+  return [];
+}
+
+const MEETING_READING_WORDS={agreeing:'agreeing',converging:'converging',frozen:'frozen',
+  disagreeing_while_moving:'disagreeing while moving',not_enough_points:'not enough points'};
+function meetingReadingText(t){
+  if(!t||!t.reading) return 'not read';
+  return MEETING_READING_WORDS[t.reading]||String(t.reading);}
+function meetingReadingTitle(t){
+  if(!t||!t.counts) return 'this rung was analysed before 513, which added the reading';
+  return Object.entries(t.counts).filter(([,v])=>v).map(([k,v])=>`${v} seed(s) ${MEETING_READING_WORDS[k]||k}`).join(', ')
+    +': agreeing = within noise; converging = the gap halved while both move (out of budget, not stuck); '
+    +'frozen = a chain does not move and they differ (the result depends on the start); '
+    +'disagreeing while moving = both move and the gap holds';}
+const REGIME_WHY={equilibrium:'samples the Boltzmann measure of its energy',
+  zero_temperature:'accepts only moves that do not raise the energy, so it can come to rest where its start led it'};
+const REGIME_TEXT={equilibrium:'equilibrium',zero_temperature:'zero temperature'};
+const DYNAMICS_DEFAULT_MIX={add:0.425,delete:0.425,swap:0.15};
+function lawDynamicsOf(c,d){
+  const dyn=((c||{}).spec||{}).dynamics||{}, given=(d||{}).law_dynamics||{};
+  const raw=given.move_mix||dyn.move_mix;
+  const mix=Object.assign({swap:0},(raw&&Object.keys(raw).length)?raw:DYNAMICS_DEFAULT_MIX);
+  const zero=given.zero_temperature!=null?!!given.zero_temperature:(!!dyn.zero_temperature||(c||{}).regime==='zero_temperature');
+  return {zero, beta:given.beta!=null?given.beta:dyn.beta,
+    locality:+(given.locality!=null?given.locality:(dyn.locality||0))||0, localityWritten:dyn.locality!=null,
+    localMove:given.local_move||dyn.local_move||'toggle', mix,
+    sweeps:given.sweeps!=null?given.sweeps:dyn.sweeps, cooling:given.cooling||dyn.cooling||null,
+    init:given.init||((c||{}).spec||{}).init};
+}
+function lawDynamicsBlock(c,d){
+  const x=lawDynamicsOf(c,d), pc=v=>`${(100*v).toFixed(1)}%`, num=v=>(v==null||!isFinite(+v))?'\u2013':String(+(+v).toPrecision(6));
+  const rows=[];
+  rows.push(['temperature', x.zero
+    ?`zero: a move is taken only if it does not raise the energy`+(x.beta!=null?`; the beta drawn with the law, ${num(x.beta)}, is not used`:'')
+    :`beta ${num(x.beta)}`+(+x.beta>0?`, a temperature of ${num(1/x.beta)}`:'')+': a move that raises the energy by \u0394 is taken with probability e^(\u2212beta \u0394)']);
+  if(x.cooling) rows.push(['cooling',`from beta ${num(x.cooling.from_beta)} to the law\u2019s beta over ${x.cooling.over_sweeps} sweeps`]);
+  rows.push(['locality', x.locality>0
+    ?`${num(x.locality)}: ${pc(x.locality)} of the moves are local, a ${x.localMove} of the edge between two neighbours of a node; the other ${pc(1-x.locality)} are global, between any two nodes`
+    :`0${x.localityWritten?'':', the default'}: every move is global, between any two nodes`]);
+  const m=x.mix, tot=(+m.add||0)+(+m.delete||0)+(+m.swap||0)||1;
+  rows.push(['global moves',`add ${pc((+m.add||0)/tot)} \u00b7 delete ${pc((+m.delete||0)/tot)} \u00b7 swap ${pc((+m.swap||0)/tot)}`]);
+  rows.push(['sweeps', x.sweeps!=null?`${x.sweeps} a chain as drawn; the certificate may run a rung\u2019s chains longer, up to its multiplier`:'\u2013']);
+  return el('table',{class:'law-dynamics',title:'how this law moves: every setting of its dynamics, the defaults written out; the same in the repro JSON under law_dynamics'},
+    rows.map(([k,v])=>el('tr',{},el('th',{},k),el('td',{},v))));
+}
+function dynamicsLine(c,d){
+  const dyn=(c.spec||{}).dynamics||{},regime=c.regime||'equilibrium';
+  return el('p',{class:'muted'},
+    el('b',{class:'regime regime-'+regime,title:REGIME_WHY[regime]||''},REGIME_TEXT[regime]||regime),
+    ` · dynamics: ${c.dynamics} · beta ${dyn.beta}`+
+    (dyn.locality?` · locality ${dyn.locality} toggle`:'')+
+    (dyn.zero_temperature?' · zero temperature':'')+` · ${dyn.sweeps} sweeps · move mix `+
+    `${(dyn.move_mix||{}).add}/${(dyn.move_mix||{}).delete}`+
+    ((dyn.move_mix||{}).swap!=null?`/${(dyn.move_mix||{}).swap} swap`:``)+
+    ` · init ${(c.spec||{}).init} · `+
+    `complexity ${c.complexity}`+
+    (c.lineage_parent?` · lineage ${c.lineage_parent.slice(0,12)}`:'')+' · campaign ',
+    el('a',{href:'?campaign='+c.campaign_id},'Campaign '+c.campaign_id),
+    d.campaign&&d.campaign.mode==='confirmation'?document.createTextNode(' · sealed confirmation evidence'):null);}
+function renderChainMixing(app,rows){
+  if(!(rows||[]).length) return;
+  app.append(el('h2',{'data-tone':'orange'},'chain mixing (recorded, not decided on)'));
+  app.append(el('p',{class:'muted'},'split R-hat over the chains of every seed; '+
+    'in equilibrium it sits near \u221a(1 + 2 / effective samples per chain), so the excess over that value is what to read'));
+  const obs=[['energy_per_node','energy / node'],['mean_degree','mean degree'],['isolated_fraction','isolated fraction']];
+  const mt=el('table',{},el('tr',{},...['N','half-chains',...obs.map(([,label])=>label+' R\u0302 (excess)'),
+    'effective samples / chain','seeds the chains disagreed','how they met','seconds, empty / given'].map(h=>el('th',{},h))));
+  rows.forEach(row=>{ const g=row.diagnostics||{}, o=g.observables||{};
+    const first=obs.map(([key])=>o[key]).find(x=>x&&x.half_chains)||{};
+    mt.append(el('tr',{},
+      el('td',{},'N='+String(row.n)),
+      el('td',{},String(first.half_chains??'-')),
+      ...obs.map(([key])=>{ const x=o[key]||{};
+        return el('td',{class:(x.excess!=null&&x.excess>0.05)?'reason':''},
+          x.split_rhat==null?'not measured':`${fmt(x.split_rhat,3)} (${x.excess>=0?'+':''}${fmt(x.excess,3)})`); }),
+      el('td',{},first.effective_samples_per_chain==null?'-':fmt(first.effective_samples_per_chain,1)),
+      el('td',{},String(g.seeds_with_chains_disagreement??'-')+' of '+String(g.seeds??'-')),
+      el('td',{title:meetingReadingTitle(g.meeting_reading)},meetingReadingText(g.meeting_reading)),
+      el('td',{},`${fmt((g.chain_seconds||{}).empty,1)} / ${fmt((g.chain_seconds||{}).given,1)}`)));
+  });
+  app.append(mt);
+}
+
+function candidateCode(c,d){
+  const camp=String((d&&d.campaign_id)||(c&&c.campaign_id)||currentCampaign||'');
+  const m=/^G-?(\d+)$/.exec(String((c&&c.ensemble_code)||''));
+  return m&&camp?`C${camp}-G${m[1]}`:((c&&c.ensemble_code)||null);
+}
+function lawIdentityLine(c,idn){
+  if(!idn) return null;
+  const line=el('div',{class:'law-identity muted'});
+  const link=(cid,camp,label)=>el('a',{href:'?candidate='+encodeURIComponent(cid)+'&campaign='+encodeURIComponent(camp),class:'law'},label);
+  line.append(el('span',{title:'law hash: the fingerprint of the normalised law, the same in every campaign that holds it'},'law ',el('code',{},String(idn.law_hash||''))));
+  if(idn.function_hash) line.append(' \u00b7 ',el('span',{title:'function hash: the energy with exact redundancies folded, with the dynamics that shape a finite run; a law with another law hash and this function hash is this function written another way'},'function ',el('code',{},String(idn.function_hash))));
+  const same=idn.same_law_in||[];
+  if(same.length){ line.append(' \u00b7 the same law in '); same.forEach((camp,i)=>line.append(i?', ':'',link(c.candidate_id,camp,'campaign '+camp))); }
+  const sameAs=idn.same_function||[];
+  if(sameAs.length){ line.append(' \u00b7 the same function as ');
+    sameAs.forEach((t,i)=>{ const m=/^G-?(\d+)$/.exec(String(t.ensemble_code||''));
+      line.append(i?', ':'',link(t.candidate_id,t.campaign_id,m?`C${t.campaign_id}-G${m[1]}`:`C${t.campaign_id} law ${String(t.candidate_id).slice(0,10)}`)); });
+    if((idn.same_function_count||0)>sameAs.length) line.append(` and ${idn.same_function_count-sameAs.length} more`); }
+  else if(idn.function_hash) line.append(' \u00b7 no other law, in any campaign, is this function');
+  return line;
+}
+async function candidateView(id){
+  let d;
+  try {
+    const endpoint=currentCampaign
+      ?'/candidate-data/'+encodeURIComponent(currentCampaign)+'/'+encodeURIComponent(id)
+      :'/candidate-data/'+encodeURIComponent(id);
+    d=await jRetry(endpoint,{onWait:n=>{document.getElementById('app').textContent=`the dashboard is busy; asking again (${n})…`}});
+  } catch(e) {
+    if(!(currentCampaign && e && e.status===404)) throw e;
+    d=await j('/candidate-data/'+encodeURIComponent(id));
+    currentCampaign=String(d.campaign_id||d.candidate?.campaign_id||currentCampaign);
+    const u=new URL(location.href);u.searchParams.set('campaign',currentCampaign);history.replaceState(null,'',u);
+  }
+  const root=document.getElementById('app'); root.innerHTML='';
+  let app=root;
+  const contextSection=el('div',{}), thermSection=el('div',{}), flowSection=el('div',{});
+  const c=d.candidate;
+  const capsule={
+    capsule_contract:'gsd-specimen-capsule-1', exported_utc:new Date().toISOString(),
+    reproduction:d.reproduction||{}, candidate:d.candidate, law_dynamics:d.law_dynamics||null, campaign:d.campaign,
+    four_rung_phenotype:d.four_rung_phenotype, locality_audit:d.locality_audit,
+    rungs:d.rungs, equilibration:d.equilibration, transitions:d.transitions,
+    engine_decisions:d.engine_decisions, proposal_assessments:d.proposal_assessments,
+    measurements:d.measurements, provenance:d.provenance,
+    compute:d.compute, active_work:d.active_work
+  };
+  const code=candidateCode(c,d);
+  const lawNumber=(c.candidate_number==null?null:c.candidate_number);
+  const scoreChip=el('span',{class:'hdr-score zero',title:'the score, read from every start: reading\u2026'},'\u2026');
+  const heading=el('div',{class:'hdr'},
+    el('h1',{title:'content hash '+c.candidate_id},
+      code?el('span',{class:'ensemble-code'},code)
+          :el('code',{},c.candidate_id.slice(0,16)),
+      ' ',scoreChip,
+      ' ',el('span',{class:'state '+c.state},c.state)));
+  if(!code) heading.append(el('span',{class:'muted hdr-hash identity-pending',
+    title:'A G-code is the position of a law\u2019s first graph in this campaign\u2019s simulation '
+         +'sequence. No graph has been built for this law, so it has none.'},
+    lawNumber!=null?`not run yet \u00b7 law ${lawNumber} by proposal order`:'not run yet'));
+  if(code) heading.append(el('code',{class:'muted hdr-hash',
+    title:'candidate_id: the content hash of the Hamiltonian, which is what reproduces and deduplicates it'},
+    c.candidate_id.slice(0,16)));
+  const lawIdentity=lawIdentityLine(c,d.identity);
+  const copyCapsule=el('button',{title:'copy the complete reproducibility/specimen capsule as JSON'},'copy repro JSON');
+  copyCapsule.onclick=async()=>{ const text=JSON.stringify(capsule,null,2); try{ if(await copyTextPortable(text)) flashButton(copyCapsule,'copied'); else { saveJsonPortable(capsule,`GSD-specimen-${c.candidate_id.slice(0,16)}.json`); flashButton(copyCapsule,'saved JSON'); } } catch(_e){ saveJsonPortable(capsule,`GSD-specimen-${c.candidate_id.slice(0,16)}.json`); flashButton(copyCapsule,'saved JSON'); } };
+  const saveCapsule=el('button',{title:'save the complete reproducibility/specimen capsule as JSON'},'save repro JSON');
+  saveCapsule.onclick=()=>{saveJsonPortable(capsule,`GSD-specimen-${c.candidate_id.slice(0,16)}.json`); flashButton(saveCapsule,'saved');};
+  heading.append(el('span',{class:'header-controls'},copyCapsule,saveCapsule)); app.append(heading);
+  if(lawIdentity) app.append(lawIdentity);
+  const grammar=window.GSD_TERMS;
+  if(grammar){ const composition=el('div',{class:'candidate-composition'}); composition.innerHTML=`<div class="candidate-composition-summary">Hamiltonian composition · ${grammar.summary((c.spec||{}).terms||[])} · visual grammar ${grammar.version}</div>${grammar.html((c.spec||{}).terms||[])}<div class="candidate-exact-law">${String(c.law||'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]))}</div>`; app.append(composition); }
+  else app.append(el('p',{class:'law'},c.law));
+  app.append(lawDynamicsBlock(c,d));
+  app=contextSection;
+  app.append(el('h2',{'data-tone':'cyan'},'candidate context'));
+  if(c.state_reason) app.append(el('p',{class:'reason'},c.state_reason));
+  app.append(dynamicsLine(c,d));
+  if((d.proposal_assessments||[]).length){
+    const p=d.proposal_assessments[d.proposal_assessments.length-1], a=p.assessment||{};
+    app.append(el('div',{class:'assess'},el('b',{},'proposal intelligence: '),
+      el('span',{class:'state '+((a.exhausted||a.saturated)?'diverging':'stabilizing')},
+        p.mode+' · '+(a.category||'unclassified')+' · '+(a.scaling_profile||'?')),
+      el('div',{class:'muted'},`${a.family_id||'?'} · region ${a.coefficient_region_id||'?'} · `+
+        `allocation ${fmt(a.allocation_weight??a.score,3)} · selection ${fmt(a.selection_weight,3)} · source ${p.source||'?'}`),
+      el('div',{class:'muted'},(a.reasons||[]).join(' · '))));
+  }
+  if(d.active_work&&d.active_work.count){
+    const wb=el('div',{class:'assess'},el('b',{},'active work now: '),
+      el('span',{class:'state stabilizing'},`${d.active_work.count} queued/running operations`));
+    (d.active_work.simulation||[]).forEach(j=>wb.append(el('div',{class:'muted'},
+      `simulation · N=${j.n} · seed ${j.seed} · ${j.status}${j.stage?' · '+j.stage:''}${j.requested_by?' · '+j.requested_by:''}`)));
+    (d.active_work.analysis||[]).forEach(a=>wb.append(el('div',{class:'muted'},
+      `analysis · N=${a.n} · seed ${a.seed} · ${a.status}${a.lease_owner?' · '+a.lease_owner:''}`)));
+    app.append(wb);
+  } else {
+    app.append(el('div',{class:'assess'},el('b',{},'active work now: '),
+      el('span',{class:'muted'},'none queued or leased for this campaign membership')));
+  }
+  if(d.compute){
+    const next=d.compute.next_rung_estimate;
+    const cb=el('div',{class:'assess'},el('b',{},'compute audit: '),
+      document.createTextNode(`${fmtDur(d.compute.total_core_seconds)} simulation core-time spent on this campaign membership`));
+    if(next) cb.append(el('div',{class:'muted'}, next.rung_core_seconds===null||next.rung_core_seconds===undefined?
+      `next rung N=${next.n}: runtime estimate unavailable (${next.seeds} jobs planned)`:
+      `next rung N=${next.n}: approximately ${fmtDur(next.rung_core_seconds)} additional core-time `+
+      `(${next.seeds} jobs × ${fmtDur(next.per_job_seconds)} median predicted wall each)`));
+    cb.append(el('div',{class:'muted'},'row totals include successful work, retries, and failed attempts; cumulative is the evidence cost paid before the next decision'));
+    app.append(cb);
+  }
+  if(d.provenance){
+    const counts=d.provenance.counts||{};
+    const statuses=Object.entries(counts);
+    const pb=el('div',{class:'assess'},el('b',{},'evidence provenance: '),
+      document.createTextNode(statuses.length?statuses.map(([k,v])=>`${k} ${v}`).join(' · '):'not audited yet'));
+    pb.append(el('div',{class:'muted'},
+      'verified = digest + executed identity + build fingerprint + fenced lease generation'));
+    app.append(pb);
+  }
+  const spec=el('details',{style:'margin:8px 0'},
+    el('summary',{class:'muted',style:'cursor:pointer'},
+      'exact specification (canonical JSON) · ',
+      el('span',{class:'badge '+(c.fingerprint_verified?'bg-ok':'bg-bad')},
+        c.fingerprint_verified?'fingerprint verified':'FINGERPRINT MISMATCH')),
+    el('p',{class:'muted'},'the display label above is a rounded rendering; this JSON is the '+
+      'complete Hamiltonian and dynamics as executed, and its hash is the candidate id'),
+    el('pre',{style:'background:#f7f9fc;border:1px solid #e2e7ee;border-radius:6px;padding:10px;'+
+      'font-size:12px;overflow:auto'},JSON.stringify(c.spec,null,2)));
+  app.append(spec);
+  const trail=d.engine_decisions||[];
+  const latestDecision=trail.length?trail[trail.length-1]:null;
+  if(latestDecision){
+    const f=latestDecision.facts||{}, cls={run_next:'stabilizing',hold:'undetermined',stop:'diverging',done:'stabilizing'}[latestDecision.action]||'undetermined';
+    app.append(el('h2',{'data-tone':'violet'},'engine decision'));
+    const box=el('div',{class:'assess'},el('b',{},'latest decision: '),
+      el('span',{class:'state '+cls},latestDecision.action),' ',
+      el('span',{class:'muted'},`rule ${latestDecision.rule} at N=${latestDecision.at_n}`+(latestDecision.next_n!=null?` \u00b7 next N=${latestDecision.next_n}`:'')+(latestDecision.priority!=null?` \u00b7 priority ${latestDecision.priority}`:'')));
+    box.append(el('div',{class:'reason'},latestDecision.reason));
+    const read=[];
+    if(f.d_s_step!=null) read.push(`d_s step ${fmt(f.d_s_step,3)} against ${fmt(f.d_s_sigma,3)}`);
+    if(f.mean_degree_step!=null) read.push(`mean degree step ${(100*f.mean_degree_step).toFixed(1)}%`);
+    if((f.other_probes||[]).length) read.push(`also reading ${f.other_probes.join(', ')}`);
+    if((f.chains_disagreed_at||[]).length) read.push(`chains disagreed at N=${f.chains_disagreed_at.join(', ')}`);
+    if((f.lane||{}).audit) read.push('in the audit lane');
+    if(read.length) box.append(el('div',{class:'muted'},read.join(' \u00b7 ')));
+    const budgets=(f.budget_use||[]).filter(u=>u.budget_fraction!=null);
+    if(budgets.length) box.append(el('div',{class:'muted'},'budget use at this rung: '+budgets.map(u=>`seed ${u.seed} ${(100*u.budget_fraction).toFixed(1)}%${u.reached?' (reached)':''}`).join(' \u00b7 ')));
+    app.append(box);
+  }
+  app=thermSection;
+  if((d.equilibration||[]).length){
+    const zeroT=!!((c.spec||{}).dynamics||{}).zero_temperature||c.regime==='zero_temperature';
+    app.append(el('h2',{'data-tone':'orange'},'thermalization screening'));
+    if(zeroT) app.append(el('p',{class:'muted'},'at zero temperature the certificate reads whether every chain that ran came to rest, each on its own; '
+      +'the twin starts need not meet, and where each rests is the finding; the effective samples and the split z are shown, and judge nothing'));
+    app.append(el('p',{class:'muted'},'a rung counts only when every chain that ran is many '+
+      'autocorrelation times long by its own count (effective samples \u2265 floor, the smallest shown), no chain’s energy drifts or structure trends, '+
+      'and the twin starts (the chain from empty and the random start’s) land together (split z, shown); LONGER_RUN reruns are sized from the smallest count. '+
+      'A rung is frozen only when every chain is. Each chain’s own count is in its row of each check; '+
+      'every chain’s meeting is in the chains table above'));
+    const et=el('table',{},el('tr',{},...[
+      ['N','the rung size this chain was run at'],
+      ['sweeps run','declared sweeps, with the LONGER_RUN multiplier applied to them'],
+      ['\u03c4_int (sweeps)','integrated autocorrelation time: how many sweeps one independent sample costs'],
+      ['effective samples','sweeps divided by \u03c4_int, against the floor the policy requires'],
+      ['split z','how far the chain from the given start landed from the chain from empty, in standard errors, against z_max'],
+      ["structural \u0394 max",'the largest difference between the final graphs of the chain from empty and the chain from the given start, in connected fraction, two-core fraction, cycle density or components per node, each judged against its own limit'],
+      ['screen','whether this rung counts as certified evidence'],
+    ].map(([h,about])=>el('th',{title:about},h))));
+    d.equilibration.forEach(r=>{
+      const why=(r.screen_failures||[]);
+      const explain='The chain has not demonstrably reached equilibrium, so this rung is measured but '
+        +'not certified evidence: the flow ladder will not read a state from it.'
+        +(why.length?'\n\nWhy it failed:\n\u00b7 '+why.join('\n\u00b7 '):'');
+      const overFloor=!zeroT&&r.effective_samples!==null&&r.effective_samples!==undefined
+        &&r.floor!==undefined&&r.effective_samples<r.floor;
+      const overZ=!zeroT&&r.split_z!==null&&r.split_z!==undefined&&r.z_max!==undefined&&r.split_z>r.z_max;
+      et.append(el('tr',{},
+      el('td',{},'N='+String(r.n)),
+      el('td',{},r.sweeps?`${r.sweeps}`+(r.multiplier>1?` (\u00d7${r.multiplier})`:''):'-'),
+      el('td',{title:r.tau_int_sweeps?`one independent sample costs about ${fmt(r.tau_int_sweeps,2)} sweeps`:''},fmt(r.tau_int_sweeps,2)),
+      el('td',{class:overFloor?'reason':'',title:overFloor?'below the floor: the chain is too short to have decorrelated':''},
+        r.effective_samples===null||r.effective_samples===undefined?'-':`${r.effective_samples} / ${r.floor}`),
+      el('td',{class:overZ?'reason':'',title:overZ
+        ?'above z_max: the two starting conditions have not reached the same ensemble'
+        :(r.split_methods||[]).join(', ')},
+        r.split_z===null||r.split_z===undefined?'-':`${r.split_z} / ${r.z_max}`),
+      el('td',{},fmt(r.structural_delta_max,3)),
+      el('td',{},r.screen_passed===null
+        ?el('span',{class:'muted',title:'no thermalization certificate was recorded for this rung, so the screen has not been evaluated'},'n/a')
+        :el('span',{class:'badge '+(r.screen_passed?'bg-ok':'bg-bad'),
+            title:r.screen_passed
+              ?'Certified evidence: the chain ran many autocorrelation times, the chain from the given start landed with it, and the substrate held still.'
+              :explain},
+          r.screen_passed?'passed':'failed'))));});
+    app.append(et); }
+  renderChainMixing(app,d.rung_diagnostics);
+  app=flowSection;
+  const twoChainsHost=el('div',{class:'two-chains',id:'twoChains'},el('h2',{'data-tone':'cyan'},'the chains'),
+    el('p',{class:'muted'},'reading every chain\u2026'));
+  app.append(twoChainsHost);
+  const flowHost=el('div',{class:'flow-every'},el('h2',{'data-tone':'blue'},'finite-size flow, every start'),
+    el('p',{class:'muted'},'reading every start\u2026'));
+  const scoreHost=el('div',{class:'law-score'},el('h2',{'data-tone':'blue'},'the score'),el('p',{class:'muted'},'reading every start\u2026'));
+  app.append(flowHost,scoreHost);
+  const eqByN=new Map((d.equilibration||[]).map(r=>[+r.n,r]));
+  const workByN=new Map();
+  const noteWork=(n,text)=>{ const key=+n; if(!workByN.has(key))workByN.set(key,[]); workByN.get(key).push(text); };
+  ((d.active_work||{}).simulation||[]).forEach(j=>noteWork(j.n,
+    `simulation seed ${j.seed} ${j.status==='leased'?'running':j.status}${j.stage?' · '+j.stage:''}`));
+  ((d.active_work||{}).analysis||[]).forEach(a=>noteWork(a.n,
+    `analysis seed ${a.seed} ${a.status==='leased'?'running':a.status}`));
+  const statusCell=(n,measured)=>{ const items=workByN.get(+n);
+    if(items){ const running=items.some(t=>t.includes('running'));
+      return el('span',{class:'badge '+(running?'bg-run':'bg-queued'),
+        title:items.join('\n')},running?'running now':'queued'); }
+    if(measured) return el('span',{class:'badge bg-ok',
+      title:'graph realizations for this rung are complete; whether the result counts as evidence is the thermalization column'},'done');
+    return el('span',{class:'muted',title:'no result and no work in flight for this rung'},'\u2014');
+  };
+  const SCREEN_HELP={
+    passed:'This rung is certified evidence: the chain from empty ran many autocorrelation times, '
+          +'the chain from the given start landed with it, and no structural observable moved between the chain halves.',
+    'n/a':'No thermalization certificate was recorded for this rung, so the screen has not been evaluated. '
+         +'It is not a pass and not a failure.',
+  };
+  const screenTitle=eq=>{ if(!eq||eq.screen_passed===null||eq.screen_passed===undefined) return SCREEN_HELP['n/a'];
+    if(eq.screen_passed) return SCREEN_HELP.passed;
+    const why=(eq.screen_failures||[]);
+    return 'The chain has not demonstrably reached equilibrium, so this rung is measured but not '
+         +'certified evidence. Any dimension estimate from it is provisional and the flow ladder will '
+         +'not read a state from it.'+(why.length?'\n\nWhy it failed:\n· '+why.join('\n· '):'');
+  };
+  const EVIDENCE_HELP={
+    'decision-eligible':'The screen passed and at least one estimator produced a value, so this rung '
+      +'can carry weight in a convergence decision.',
+    provisional:'The thermalization screen failed. The numbers are shown because they were measured, '
+      +'but they are not certified evidence and the flow ladder will not read a state from them.',
+    'no estimator':'The screen passed, but no channel produced a valid estimate at this N. That is a '
+      +'statement about the estimators, not about the chain.',
+    unscreened:'No thermalization certificate exists for this rung yet, so nothing has been decided '
+      +'about whether it counts.',
+  };
+  const REFUSAL_LABEL={
+    NO_SCALING_WINDOW:'no window', WINDOW_TOO_SHORT:'window short',
+    EXPONENTIAL_GROWTH:'exponential', NO_DIFFUSIVE_WINDOW:'no diffusive window',
+    WALK_SATURATED:'walk saturated', GROWTH_UNDECIDED:'growth undecided', GROWTH_UNEVEN:'growth uneven',
+    NOT_SETTLED:'not settled',
+    UNPHYSICAL_FIT:'unphysical fit',
+    COMPONENT_BELOW_MEASURABLE_SIZE:'below floor',
+    NOT_POWER_LAW:'not a power law',
+    NOT_MEASURED:'not measured',
+    UNCODED_LEGACY_RECORD:'no code recorded',
+    REFUSED_MEAN_DEGREE_ABOVE_WINDOW:'\u27e8d\u27e9 above window',
+    REFUSED_MEAN_DEGREE_BELOW_WINDOW:'\u27e8d\u27e9 below window',
+    REFUSED_COMPUTE_BUDGET:'seed budget',
+    REFUSED_BELOW_CONNECTIVITY_FLOOR:'below floor',
+  };
+  const refusalCell=(c,totalSeeds)=>{
+    const counts=c.refusals||{}, entries=Object.entries(counts);
+    if(!entries.length) return el('span',{class:'muted',
+      title:'no seed produced a usable estimate for this channel at this rung, and no refusal code was published for it'},'invalid');
+    entries.sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0]));
+    const [code,n]=entries[0];
+    const label=REFUSAL_LABEL[code]||code.toLowerCase().replace(/_/g,' ');
+    const breakdown=entries.map(([k,v])=>`${v}/${totalSeeds} ${k}`).join('\n');
+    const text=entries.length>1||n<totalSeeds?`${label} (${n}/${totalSeeds})`:label;
+    return el('span',{class:'muted',
+      title:`no usable estimate for this channel at this rung.\n\nWhy, by seed:\n${breakdown}`},text);
+  };
+  const channelValue=(c,totalSeeds,withheldEntry)=>{
+    if((c.mean===null||c.mean===undefined)&&withheldEntry&&withheldEntry.mean!=null){
+      const why=Object.entries(withheldEntry.reasons||{}).map(([k,v])=>`${v}/${totalSeeds} ${k}`).join('\n');
+      return el('span',{class:'withheld-value',title:`computed and withheld: ${(+withheldEntry.mean).toFixed(3)} on ${withheldEntry.seeds} seed(s), not a reading.\n\nWhy:\n${why}`},
+        '\u25cc '+(+withheldEntry.mean).toFixed(3));
+    }
+    if(c.mean===null||c.mean===undefined) return refusalCell(c,totalSeeds);
+    const fraction=c.valid_fraction;
+    const used=c.n_seeds!==null&&c.n_seeds!==undefined?+c.n_seeds
+      :(fraction===null||fraction===undefined?null:Math.round(+fraction*(+totalSeeds||0)));
+    const complete=fraction===null||fraction===undefined||+fraction>=1;
+    const text=stat({mean:c.mean,se:c.se});
+    if(complete||used===null) return document.createTextNode(text);
+    return el('span',{title:`mean over ${used} of ${totalSeeds} seeds; the rest produced no usable estimate for this channel`},
+      text+` (${used}/${totalSeeds} seeds)`);
+  };
+  const connFloor=(d.stability&&d.stability.connectivity_floor!=null)?+d.stability.connectivity_floor:null;
+  const floorLabel=connFloor==null?'connected':`connected (floor ${connFloor})`;
+  const belowFloor=s=>connFloor!=null&&s&&s.connected_fraction&&s.connected_fraction.mean!=null&&+s.connected_fraction.mean<connFloor;
+  const logDiamText=s=>{ const y=+(s.log_diameter_flags||0), n=+(s.log_diameter_false||0), u=+(s.log_diameter_unknown||0);
+    return (s.log_diameter_false===undefined&&s.log_diameter_unknown===undefined)?String(y):`${y} yes \u00b7 ${n} no \u00b7 ${u} unknown`; };
+  const rungHost=el('div',{class:'rung-ledger',id:'rungLedger'});
+  app.append(el('h2',{'data-tone':'blue',id:'theRungs'},'the rungs'));
+  app.append(el('p',{class:'muted'},'each size’s jobs, compute and certificate, and what every chain read there: '
+    +'the mean over its seeds, its standard error after ±, and its own log-diameter flags.'));
+  app.append(rungHost);
+  const sideOf=(chains,n,key)=>{ const r=((chains||{}).rungs||[]).find(x=>+x.n===+n);
+    return r?(r[key]||(r.more_given||{})[key]||null):null; };
+  const sideProbe=(s)=>{
+    if(!s) return el('span',{class:'muted'},'—');
+    if(s.mean!==null&&s.mean!==undefined) return el('span',{title:`mean over ${s.seeds} of ${s.of} seeds`+((s.values||[]).length>1?`: ${s.values.join(', ')}`:'')},
+      stat({mean:s.mean,se:s.se})+(s.seeds<s.of?` (${s.seeds}/${s.of} seeds)`:''));
+    if(s.withheld&&s.withheld.mean!=null){ const why=Object.entries(s.withheld.reasons||{}).map(([k,v])=>`${v}/${s.of} ${k}`).join('\n');
+      return el('span',{class:'withheld-value',title:`computed and withheld: ${(+s.withheld.mean).toFixed(3)} on ${s.withheld.seeds} seed(s), not a reading.\n\nWhy:\n${why}`},'◌ '+(+s.withheld.mean).toFixed(3)); }
+    if(s.refused) return refusalCell({refusals:s.refused},s.of);
+    if(s.read===false) return el('span',{class:'muted',title:'this chain’s final graphs are compared, not read by the probes: its start is not a declared shape'},'not read');
+    return el('span',{class:'muted',title:'not measured'},'—'); };
+  const renderRungs=(chains)=>{
+    rungHost.textContent='';
+    const keys=chains?TC_CHAINS.map(ch=>ch.key):['empty'];
+    const rt=el('table',{class:'rung-table'},el('tr',{},...[
+      ['N','rung size'],
+      ['status','what this rung is doing right now'],
+      ['seeds','independent seeds contributing to this rung; each runs every chain'],
+      ['jobs / attempts','distinct simulation jobs / all attempts including retries'],
+      ['rung compute','core-time spent on this rung'],
+      ['cumulative','core-time spent on this candidate up to and including this rung'],
+      ['chain','the start each row’s chain ran from, in the order the campaign lists its starts'],
+      ['mean degree','the ensemble each channel on this row was measured on'],
+      [floorLabel,'fraction of nodes in the largest component; below the campaign\'s connectivity floor '
+                   +(connFloor==null?'':'('+connFloor+') ')+'a rung is not valid evidence, and is marked'],
+    ].map(([h,about])=>el('th',{title:about},h)),
+    ...CHANNELS.map(ch=>el('th',{title:ch.about},ch.id)),
+    ...[['thermalization','whether this rung counts as certified evidence'],
+        ['evidence','what this rung can be used for'],
+        ['log-diam','seeds whose diameter is logarithmic in N: yes / no / unknown, each chain on its own row']]
+      .map(([h,about])=>el('th',about?{title:about}:{},h))));
+    const measuredNs=new Set();
+    d.rungs.forEach(r=>{const s=r.summary, cpt=r.compute||{}, eq=eqByN.get(+r.n)||null;
+      measuredNs.add(+r.n);
+      const screen=eq?eq.screen_passed:null;
+      const channels=rungChannels(r);
+      const byId=new Map(channels.map(c=>[c.channel,c]));
+      const estimatorAvailable=channels.some(c=>(+c.valid_fraction||0)>0);
+      const evidence=screen===true&&estimatorAvailable?'decision-eligible':screen===false?'provisional':screen===true?'no estimator':'unscreened';
+      const span={rowspan:String(keys.length)};
+      keys.forEach((key,i)=>{
+        const side=chains?sideOf(chains,r.n,key):null;
+        const lead=i?[]:[el('td',span,'N='+String(r.n)), el('td',span,statusCell(r.n,true)), el('td',span,String(s.seeds)),
+          el('td',{...span,title:'distinct simulation jobs / all attempts including retries; interrupted attempts were stopped by a pause or a restart, not by the law'},
+            `${cpt.jobs||0} / ${cpt.attempts||0}`+((+cpt.interrupted_attempts||0)?` (${cpt.interrupted_attempts} interrupted)`:'')),
+          el('td',{...span,title:`successful ${fmtDur(cpt.successful_seconds)} · failed/retried ${fmtDur(cpt.failed_seconds)}`+((+cpt.interrupted_seconds||0)?` · interrupted by a pause or restart ${fmtDur(cpt.interrupted_seconds)}`:'')},fmtDur(cpt.core_seconds)),
+          el('td',span,fmtDur(cpt.cumulative_core_seconds))];
+        const chainCell=el('td',{class:'ec-chain tc-'+key,style:'color:'+ecColor(key)},key==='empty'?'empty':String(TC_SHORT[key]||key));
+        const low=side&&side.giant_fraction&&side.giant_fraction.mean!=null&&connFloor!=null&&+side.giant_fraction.mean<connFloor;
+        const read=side
+          ?[el('td',{},side.mean_degree&&side.mean_degree.mean!=null?stat(side.mean_degree):'—'),
+            el('td',low?{class:'below-floor',title:`below the campaign's connectivity floor of ${connFloor}: not valid evidence`}:{},
+              (side.giant_fraction&&side.giant_fraction.mean!=null?stat(side.giant_fraction):'—')+(low?' ↓ floor':'')),
+            ...CHANNELS.map(ch=>el('td',{},sideProbe(side[ch.id])))]
+          :[el('td',{},stat(s.mean_degree)),
+            el('td',belowFloor(s)?{class:'below-floor',title:`below the campaign's connectivity floor of ${connFloor}: not valid evidence`}:{},
+              stat(s.connected_fraction)+(belowFloor(s)?' ↓ floor':'')),
+            ...CHANNELS.map(ch=>el('td',{},channelValue(byId.get(ch.id)||{},s.seeds,(s.withheld||{})[ch.id])))];
+        const tail=i?[]:[el('td',span,screen===null?el('span',{class:'muted',title:screenTitle(eq)},'n/a'):
+            el('span',{class:'badge '+(screen?'bg-ok':'bg-bad'),title:screenTitle(eq)},screen?'passed':'failed')),
+          el('td',span,el('span',{class:'state '+(evidence==='decision-eligible'?'stabilizing':evidence==='provisional'?'inconclusive':'undetermined'),
+            title:EVIDENCE_HELP[evidence]||''},evidence)),
+          ];
+        const flags=side&&side.log_diameter?{log_diameter_flags:side.log_diameter.raised,log_diameter_false:side.log_diameter.false,
+          log_diameter_unknown:side.log_diameter.unknown}:(key==='empty'?s:null);
+        const logDiam=el('td',{title:'the log-diameter flag per seed, in three states (521): yes (a logarithmic diameter, certified), '
+            +'no (the diameter is too long for a logarithm), unknown (no bound decides it); this chain’s own'},
+            flags?logDiamText(flags):'—');
+        rt.append(el('tr',{class:i?'rung-chain':'rung-chain ec-first'},...lead,chainCell,...read,...tail,logDiam)); }); });
+    const columnCount=rt.querySelectorAll('th').length;
+    [...workByN.keys()].filter(n=>!measuredNs.has(n)).sort((a,b)=>a-b).forEach(n=>{
+      const cells=[el('td',{},'N='+String(n)),el('td',{},statusCell(n,false))];
+      while(cells.length<columnCount) cells.push(el('td',{class:'muted'},'—'));
+      rt.append(el('tr',{class:'rung-inflight'},...cells)); });
+    rungHost.append(rt); };
+  renderRungs(null);
+  if(workByN.size) app.append(el('p',{class:'muted'},
+    'rows marked running/queued are being gathered now; a rung with no measured row yet is a data '
+    +'point the fleet is currently trying to collect'));
+  const readingHost=el('div',{class:'structure-reading'},el('p',{class:'muted'},'reading every chain’s graph…'));
+  app.append(readingHost);
+  const structureUrl='/structure-data/'+encodeURIComponent(String(d.campaign_id||c.campaign_id||currentCampaign||''))+'/'+encodeURIComponent(c.candidate_id);
+  const readStructure=tries=>j(structureUrl).catch(e=>{ if(tries>0&&e&&e.retryable)
+    return new Promise(r=>setTimeout(r,Number(e.retry_after_ms)||2000)).then(()=>readStructure(tries-1)); throw e; });
+  readStructure(1)
+    .then(payload=>{ twoChainsHost.textContent=''; renderTwoChains(twoChainsHost,payload);
+      flowHost.textContent=''; renderFlowEveryStart(flowHost,payload);
+      scoreHost.textContent=''; renderLawScore(scoreHost,payload); fillScoreChip(scoreChip,payload&&payload.score);
+      renderRungs(payload&&payload.chains||null);
+      readingHost.innerHTML=''; renderEveryChainGraph(readingHost,payload,d.rungs||[]); renderCurves(readingHost,payload,structureUrl.replace('/structure-data/','/curves-data/')); renderWhatHappened(readingHost,payload); })
+    .catch(e=>{ twoChainsHost.textContent=''; twoChainsHost.append(el('h2',{'data-tone':'cyan'},'the chains'),el('p',{class:'muted'},'the chains are unavailable: '+(e&&e.message)));
+      flowHost.textContent=''; flowHost.append(el('h2',{'data-tone':'blue'},'finite-size flow, every start'),el('p',{class:'muted'},'unavailable: '+(e&&e.message)));
+      scoreHost.textContent=''; scoreHost.append(el('h2',{'data-tone':'blue'},'the score'),el('p',{class:'muted'},'the score is unavailable: '+(e&&e.message)));
+      fillScoreChip(scoreChip,null);
+      readingHost.innerHTML=''; renderEveryChainGraph(readingHost,null,d.rungs||[]); readingHost.append(el('p',{class:'muted'},'every chain’s reading is unavailable: '+(e&&e.message))); });
+  const lin=d.lineage;
+  if(lin&&(lin.rungs||[]).length){
+    app.append(el('h2',{'data-tone':'teal'},'base block, from campaign '+String(lin.source_campaign_id)));
+    app.append(el('p',{class:'muted'},
+      `the same law (${lin.source_ensemble_code||'\u2014'}) measured up to the anchor `
+      +`N=${lin.anchor_n} in its source campaign \u00b7 ${lin.score_scope}`));
+    const lt=el('table',{},el('tr',{},...['N','seeds','d_s','d_V','d_B','d_w','mean degree','connected']
+      .map(h=>el('th',{},h))));
+    (lin.rungs||[]).slice().sort((a,b)=>a.n-b.n).forEach(r=>{
+      const s=r.summary||{}, byChannel={};
+      (r.channels||[]).forEach(c=>{byChannel[c.channel]=c;});
+      const seeds=s.seeds??s.measurement_seeds??'\u2014';
+      lt.append(el('tr',{class:'rung-lineage'},
+        el('td',{},'N='+String(r.n)), el('td',{},String(seeds)),
+        ...['d_s','d_V','d_B','d_w'].map(ch=>el('td',{},channelValue(byChannel[ch]||{},seeds))),
+        el('td',{},stat(s.mean_degree)), el('td',{},stat(s.connected_fraction))));});
+    app.append(lt);
+  }
+  root.append(flowSection, thermSection, contextSection);
+  app=root;
+  app.append(el('h2',{'data-tone':'violet'},'engine decision trail'));
+  const decisions=d.engine_decisions||[];
+  if(decisions.length){
+    const dt=el('table',{},el('tr',{},...['when','N','action','rule','reason','priority','jobs created'].map(h=>el('th',{},h))));
+    decisions.forEach(x=>dt.append(el('tr',{},
+      el('td',{class:'muted'},fmtMoment(x.created_utc)),
+      el('td',{},x.at_n==null?'-':String(x.at_n)),
+      el('td',{},x.action+(x.released_hold?' (hold released)':'')),
+      el('td',{},x.rule),
+      el('td',{},x.reason),
+      el('td',{},x.priority==null?'-':String(x.priority)),
+      el('td',{},String(x.jobs_created)))));
+    app.append(dt);
+  } else app.append(el('p',{class:'muted'},'no engine decision yet'));
+}
+
+(async()=>{ try{
+  if(qs.get('candidate')) await candidateView(qs.get('candidate'));
+  else { location.replace(HOME); return; }
+}catch(e){ document.getElementById('app').textContent='error: '+e.message; }})();
+</script></body></html>

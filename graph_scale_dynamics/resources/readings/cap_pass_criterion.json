@@ -1,0 +1,21 @@
+{
+ "contract": "gsd-cap-pass-criterion-1",
+ "committed_utc": "2026-11-19T16:48:52Z",
+ "committed_before": "the held-out samples (search seeds 807000000000000002 and 807000000000000004) were drawn; the two lines of the fix in scaleflow/one_shot.py were written beside this file on the calibration's evidence and are judged on those samples",
+ "question": "Does 803's confirmation of a pass at the multiplier's cap ('a seed whose chunk at the cap passes runs further chunks at the cap', certificate_fixes_criterion.json) confirm anything?",
+ "seen": {
+  "zero_temperature": "in the descent calibration (descent_early_end_criterion.json, 1,200 seeds) 80 seeds of 41 laws are classed OPERATIONAL_UNRESOLVED, every one a seed whose first pass came at the cap: the confirming chunk at the cap asks for the cumulative sweeps the chain already has, runs no move, its rest window (the chunk's last quarter) is empty, and every deciding chain reads AT_REST_EVIDENCE_MISSING; 17.0% of the sample's work. Before 803 such a seed ended at the ceiling as AT_REST",
+  "finite_temperature": "with the cap at the first chunk (search seed 807000000000000003, 256 nodes, two seeds, 54 seeds): 5 seeds passed at the cap and were 'confirmed' by a chunk of no moves, each a re-read of the same chain identical to the pass in its activity, its chains and its codes"
+ },
+ "fix": "at the cap a chunk ends the run: completed, with the class of its own pass (activity_label), or the ceiling; no chunk of no moves is run; rung_terminal.passes_in_a_row says how many passes in a row the run ended on (1 where a pass at the cap stood alone). Below the cap nothing changes",
+ "held_out": {
+  "samples": "zero temperature: the descent held-out sample (search seed 807000000000000002); finite temperature: the cap at the first chunk, search seed 807000000000000004, 256 nodes, two seeds",
+  "predicted": [
+   "Z1: on 806, every zero-temperature seed classed OPERATIONAL_UNRESOLVED had its last chunk with moves pass at the cap and a confirming chunk of no moves reading no rest, and there is at least one",
+   "Z2: every seed of the zero-temperature sample that reached the cap, run again on the fix, ends as on 806 but for those: each ends completed AT_REST with passes_in_a_row 1 and one chunk fewer",
+   "F1: on 806, every finite-temperature seed confirmed at the cap by a chunk of no moves read the same activity, chains and codes as its pass",
+   "F2: run again on the fix, each of those ends completed with the class 806 gave it and one chunk fewer, and every other seed of the sample ends with 806's reason and class"
+  ]
+ },
+ "passes_when": "Z1, Z2, F1 and F2 hold"
+}

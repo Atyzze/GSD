@@ -1,0 +1,135 @@
+{
+ "contract": "gsd-study-design-1",
+ "study": "test",
+ "name": "a design for the tests: blind laws free of N on the eight starts, today's design format",
+ "question": "None: no folder starts it. The tests read a design through the same code a study's design takes.",
+ "axes": {
+  "zero_temperature": "drawn",
+  "dense_cap": 16.0
+ },
+ "search_seeds": [
+  7980042117353112931
+ ],
+ "ladder": {
+  "base": [
+   64,
+   256,
+   1024,
+   4096
+  ],
+  "deep": [
+   16384,
+   65536
+  ],
+  "seeds": 3,
+  "budgets": [
+   [
+    64,
+    200000000000
+   ],
+   [
+    256,
+    200000000000
+   ],
+   [
+    1024,
+    400000000000
+   ],
+   [
+    4096,
+    1600000000000
+   ],
+   [
+    16384,
+    6000000000000
+   ],
+   [
+    65536,
+    48000000000000
+   ]
+  ]
+ },
+ "law_budget": 1000,
+ "starts": [
+  {
+   "name": "random",
+   "family": "random_at_drawn_degree"
+  },
+  {
+   "name": "square",
+   "family": "periodic_square_lattice"
+  },
+  {
+   "name": "triangular",
+   "family": "periodic_triangular_lattice"
+  },
+  {
+   "name": "cubic",
+   "family": "periodic_cubic_quotient"
+  },
+  {
+   "name": "bcc",
+   "family": "periodic_body_centred_cubic_lattice"
+  },
+  {
+   "name": "fcc",
+   "family": "periodic_face_centred_cubic_lattice"
+  },
+  {
+   "name": "tesseract",
+   "family": "periodic_tesseract_quotient"
+  }
+ ],
+ "engine": {
+  "every_chain": true,
+  "dimension_extends": true,
+  "let_through_rule": "gsd-let-through-1",
+  "let_through_from": 256,
+  "confirm_after": 100,
+  "known_result_after": 100,
+  "known_result_from": 4096,
+  "ab_share": 0.1,
+  "kept_shape_park": true,
+  "gate_shares": [
+   [
+    "starts_alike",
+    0.0
+   ],
+   [
+    "no_steady_chain",
+    0.5
+   ]
+  ],
+  "steady_chain_gate": true
+ },
+ "limits": {
+  "mean_degree_cap_armed_from_n": 64
+ },
+ "starts_reading": {
+  "hold_structure": true,
+  "lattice_chains_meet": false
+ },
+ "finds": false,
+ "campaigns": [
+  {
+   "label": "laws free of N, drawn blind",
+   "kind": "blind",
+   "grid": {
+    "local_moves": [
+     "toggle"
+    ],
+    "scales": [
+     "one"
+    ],
+    "magnitudes": {
+     "min": 0.005,
+     "max": 20.0,
+     "spacing": "log"
+    }
+   }
+  }
+ ],
+ "terms_left_out": [
+  "ollivier_curvature"
+ ]
+}

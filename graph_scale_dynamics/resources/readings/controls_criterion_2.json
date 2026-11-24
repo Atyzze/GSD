@@ -1,0 +1,326 @@
+{
+  "contract": "gsd-controls-criterion-2",
+  "committed_utc": "2026-09-29T13:30:50Z",
+  "build": 542,
+  "question": "Do the readings recognise a known answer at every size of the ladder, by every probe, when a chain sits at it, and refuse it when it is not stable? 538's four laws (the square lattice law at beta 2 and 4, and two whose torus is not stable) at every rung from 64 to 4,194,304, and a law from the literature whose answer is the cubic lattice. Each law's twin starts at its own answer (sampling_contract.control_init_by_law); the committed structure rule reads both chains and every probe reads the twin (scaleflow/one_shot.twin_probes).",
+  "before_any_fleet_run": "Committed before the standing controls ran anywhere. It was informed by 538's criterion and study 152's campaign 5 (which passed it on 2026-09-29), and by 542's sandbox runs (docs/readings/controls_sandbox_542.json): C1's twin melts at beta 2 and holds at 4 and 8, which is why C1 is at beta 4; the known answers themselves read within the bands; P1's twin probes read within the square lattice's bands at 4,096 and 16,384. It is not revised after a run (docs/RESEARCH_METHOD.md, the standing risk).",
+  "campaign": "campaign-standing-controls (operations/standing_controls.py), created by the fleet start in a folder that has none",
+  "rungs": [
+    64,
+    256,
+    1024,
+    4096,
+    16384,
+    65536,
+    262144,
+    1048576,
+    4194304
+  ],
+  "seeds": 3,
+  "read_with": "research/structure_reading.law_structure on each chain: the committed rule (thresholds of 523) over the rungs from 4,096, as report 28's `chains_by_law` records it",
+  "probes_read_with": "research/control_verdict.judge_probes on report 28's twin_probes_by_law: at the top two rungs from from_n up where a probe reads the twin, its mean over the seeds within calibration.ladder_tolerance(bands, probe, n) of theory",
+  "words": {
+    "finite dimension": "the committed rule reads a finite dimension",
+    "not finite": "no finite dimension, or not decidable: anything but a finite dimension",
+    "null": "not judged; reported"
+  },
+  "laws": [
+    {
+      "label": "P1",
+      "role": "positive",
+      "what": "the lattice law at beta 2, where its torus holds (537, G2, to 65,536)",
+      "spec": {
+        "dsl_version": 1,
+        "init": "empty",
+        "dynamics": {
+          "kind": "equilibrium",
+          "beta": 2.0,
+          "sweeps": 250,
+          "move_mix": {
+            "add": 0.425,
+            "delete": 0.425,
+            "swap": 0.15
+          }
+        },
+        "terms": [
+          {
+            "op": "degree_anchor",
+            "params": {
+              "k": 4
+            },
+            "coeff": {
+              "c0": 5.0,
+              "scale": "one"
+            }
+          },
+          {
+            "op": "induced_square_count",
+            "params": {},
+            "coeff": {
+              "c0": -6.0,
+              "scale": "one"
+            }
+          },
+          {
+            "op": "square_edge_overlap",
+            "params": {},
+            "coeff": {
+              "c0": 1.0,
+              "scale": "one"
+            }
+          }
+        ]
+      },
+      "expect": {
+        "empty": "not finite",
+        "given": "finite dimension",
+        "given_implied_d_s": [
+          1.6,
+          2.4
+        ],
+        "given_probes": {
+          "theory": {
+            "d_s": 2,
+            "d_V": 2,
+            "d_B": 2,
+            "d_w": 2
+          },
+          "bands": "periodic_square_lattice",
+          "from_n": 4096
+        }
+      },
+      "given_start": {
+        "family": "periodic_square_lattice"
+      }
+    },
+    {
+      "label": "P2",
+      "role": "positive",
+      "what": "the lattice law at beta 4, colder",
+      "spec": {
+        "dsl_version": 1,
+        "init": "empty",
+        "dynamics": {
+          "kind": "equilibrium",
+          "beta": 4.0,
+          "sweeps": 250,
+          "move_mix": {
+            "add": 0.425,
+            "delete": 0.425,
+            "swap": 0.15
+          }
+        },
+        "terms": [
+          {
+            "op": "degree_anchor",
+            "params": {
+              "k": 4
+            },
+            "coeff": {
+              "c0": 5.0,
+              "scale": "one"
+            }
+          },
+          {
+            "op": "induced_square_count",
+            "params": {},
+            "coeff": {
+              "c0": -6.0,
+              "scale": "one"
+            }
+          },
+          {
+            "op": "square_edge_overlap",
+            "params": {},
+            "coeff": {
+              "c0": 1.0,
+              "scale": "one"
+            }
+          }
+        ]
+      },
+      "expect": {
+        "empty": "not finite",
+        "given": "finite dimension",
+        "given_implied_d_s": [
+          1.6,
+          2.4
+        ],
+        "given_probes": {
+          "theory": {
+            "d_s": 2,
+            "d_V": 2,
+            "d_B": 2,
+            "d_w": 2
+          },
+          "bands": "periodic_square_lattice",
+          "from_n": 4096
+        }
+      },
+      "given_start": {
+        "family": "periodic_square_lattice"
+      }
+    },
+    {
+      "label": "N1",
+      "role": "negative",
+      "what": "the degree anchor alone at beta 2: the same degrees, no energy for squares, so the torus is not its equilibrium",
+      "spec": {
+        "dsl_version": 1,
+        "init": "empty",
+        "dynamics": {
+          "kind": "equilibrium",
+          "beta": 2.0,
+          "sweeps": 250,
+          "move_mix": {
+            "add": 0.425,
+            "delete": 0.425,
+            "swap": 0.15
+          }
+        },
+        "terms": [
+          {
+            "op": "degree_anchor",
+            "params": {
+              "k": 4
+            },
+            "coeff": {
+              "c0": 5.0,
+              "scale": "one"
+            }
+          }
+        ]
+      },
+      "expect": {
+        "empty": "not finite",
+        "given": "not finite"
+      },
+      "given_start": {
+        "family": "periodic_square_lattice"
+      }
+    },
+    {
+      "label": "N2",
+      "role": "negative",
+      "what": "the lattice law at beta 1, above the torus's melting point",
+      "spec": {
+        "dsl_version": 1,
+        "init": "empty",
+        "dynamics": {
+          "kind": "equilibrium",
+          "beta": 1.0,
+          "sweeps": 250,
+          "move_mix": {
+            "add": 0.425,
+            "delete": 0.425,
+            "swap": 0.15
+          }
+        },
+        "terms": [
+          {
+            "op": "degree_anchor",
+            "params": {
+              "k": 4
+            },
+            "coeff": {
+              "c0": 5.0,
+              "scale": "one"
+            }
+          },
+          {
+            "op": "induced_square_count",
+            "params": {},
+            "coeff": {
+              "c0": -6.0,
+              "scale": "one"
+            }
+          },
+          {
+            "op": "square_edge_overlap",
+            "params": {},
+            "coeff": {
+              "c0": 1.0,
+              "scale": "one"
+            }
+          }
+        ]
+      },
+      "expect": {
+        "empty": "not finite",
+        "given": "not finite"
+      },
+      "given_start": {
+        "family": "periodic_square_lattice"
+      }
+    },
+    {
+      "label": "C1",
+      "role": "positive",
+      "what": "the Ollivier-curvature action of Kelly, Trugenberger and Biancalana (Class. Quantum Grav. 36 (2019) 125012, arXiv:1901.09870, eq. 20) at degree 6, beta 4: minus the summed Ollivier curvature of the edges, each edge's from its triangles, squares and pentagons (the paper's exact expression; the ledger `ollivier_curvature` holds the sum of d_a d_b kappa, scaled here by -1/48 so an edge of a graph with no short cycle costs 1 and the cubic lattice's edges cost 0), the degree held at 6 by the anchor, and triangles penalised, standing in for the paper's configuration space without the defects its minimisers are free of (the curvature alone rewards cliques). Its answer: the cubic lattice, the paper's action minimiser up to defects; the twin starts there, folded to exactly each rung's N (measurements/known_answers.periodic_cubic_quotient)",
+      "spec": {
+        "dsl_version": 1,
+        "init": "empty",
+        "dynamics": {
+          "kind": "equilibrium",
+          "beta": 4.0,
+          "sweeps": 250,
+          "move_mix": {
+            "add": 0.425,
+            "delete": 0.425,
+            "swap": 0.15
+          }
+        },
+        "terms": [
+          {
+            "op": "degree_anchor",
+            "params": {
+              "k": 6
+            },
+            "coeff": {
+              "c0": 1.0,
+              "scale": "one"
+            }
+          },
+          {
+            "op": "ollivier_curvature",
+            "params": {},
+            "coeff": {
+              "c0": -0.0208333333333,
+              "scale": "one"
+            }
+          },
+          {
+            "op": "triangle_count",
+            "params": {},
+            "coeff": {
+              "c0": 1.0,
+              "scale": "one"
+            }
+          }
+        ]
+      },
+      "given_start": {
+        "family": "periodic_cubic_quotient"
+      },
+      "expect": {
+        "empty": null,
+        "given": "finite dimension",
+        "given_implied_d_s": [
+          2.4,
+          3.6
+        ],
+        "given_probes": {
+          "theory": {
+            "d_s": 3,
+            "d_V": 3,
+            "d_B": 3,
+            "d_w": 2
+          },
+          "bands": "periodic_cubic_lattice",
+          "from_n": 4096
+        }
+      }
+    }
+  ],
+  "pass": "Every law meets every expectation in the campaign's bundle. A chain not decidable yet where a finite dimension is expected, or a judged probe read at fewer than two rungs, has not passed; the campaign is read again when it has."
+}

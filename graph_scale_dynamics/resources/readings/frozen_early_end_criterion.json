@@ -1,0 +1,15 @@
+{
+ "contract": "gsd-frozen-early-end-criterion-1",
+ "committed_utc": "2026-11-19T04:40:07Z",
+ "committed_before": "the code of the early end was written and before the held-out sample (search seed 20261122) was drawn",
+ "question": "At a finite temperature, does a seed whose every deciding chain is frozen on two chunks in a row ever have a chain move again if it is run on, as today, towards the x64 cap? If not, it can end there, by its own record, and the sweeps after are spent for nothing.",
+ "decided": "the operator, 2026-11-19 04:12: 'we want to detect & park as efficiently as possible', deterministically, from the chain's own dynamics",
+ "frozen": "the certificate's own test of every chain that decides (`certificate.own_activity`): at most 0.05 accepted changes a node over its last 30% of points and at least 99.9% of its edges kept from 85% of the chunk's moves to its end",
+ "seen": "803's two samples (search seeds 20261119 and 20261120, 156 finite-temperature seeds): 12 and 16 seeds frozen on two chunks in a row, none of them, and no seed frozen even once, moving again later; the early end would have saved 1,328 of 3,770 and 1,728 of 4,500 chunk multiples",
+ "rule": "after a chunk at a finite temperature, if every deciding chain was frozen in this chunk and in the one before, the seed ends there with reason `frozen` and the classification FROZEN_OR_ABSORBING it would have had at the cap; nothing else changes; at zero temperature nothing changes",
+ "held_out": {
+  "sample": "40 laws, search seed 20261122, 256 and 1,024 nodes, two seeds each, grown on 803's code, which runs every seed on to its end",
+  "predicted": "no seed frozen on two chunks in a row has a deciding chain that is not frozen on a later chunk; at least 20% of the finite-temperature seeds' chunk multiples come after such a pair"
+ },
+ "passes_when": "the first prediction holds; the second is judged and shown"
+}

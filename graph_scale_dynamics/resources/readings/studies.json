@@ -1,0 +1,69 @@
+{
+ "contract": "gsd-studies-1",
+ "reading": "One entry per study (a study is a folder, /data/projects/GSD/<id>/main, since 533): what it asked, how it was built, how big it is, where its readings are, and the operator's own line for it, the anchor they keep as notes.txt in the folder (the operator, 2026-10-02 16:49: 'so that for later, I can get a text/memory/anchor for what was this study even about'). Sizes are measured where the study's bundle says them, estimated (and marked so) where it has not ended. The guideline is the operator's for keeping studies of similar size.",
+ "guideline": {
+  "laws_at_most": 100000,
+  "from": "the operator, 2026-10-02 16:49",
+  "graph": "a seed whose simulation finished, as report 28's graphs_by_rung counts it: the primary chain's final graph; a twin's is counted beside it",
+  "words": "every entry before study 169 left the tree at 799 with the designs, criteria and readings of those studies (the operator, 2026-11-18 16:43: \"ALL old data we want GONE, and DEFINITELY not in the paper\"); study 169, the first clean study, is the first entry",
+  "graphs": "no limit (the operator, 2026-11-16 11:01: 'There is no 1 million graph limit'); study A at 100,000 laws runs 2.4 million graphs at its first size, eight chains and three seeds a law"
+ },
+ "studies": [
+  {
+   "id": "169",
+   "notes": "Study 169, the first clean study: 1,000 blind laws free of N on the eight starts, the cap at 32, every law to 16,384 and the learned let-through to 65,536, on build 813.",
+   "design": "graph_scale_dynamics/resources/readings/study_169_design.json",
+   "criterion": "graph_scale_dynamics/resources/readings/study_169_criterion.json",
+   "laws": 1000,
+   "status": "ended on 813; its last bundle (2026-11-20T01:47:08Z) read at 821"
+  },
+  {
+   "id": "170",
+   "notes": "Study 170, the second clean study: 2,500 blind laws free of N on the eight starts in five batches of 500, every gate on from 256 with the learned let-through, the cap at 32, to 65,536, on build 820.",
+   "design": "graph_scale_dynamics/resources/readings/study_170_design.json",
+   "criterion": "graph_scale_dynamics/resources/readings/study_170_criterion.json",
+   "laws": 2500,
+   "status": "ended on 820 on 2026-11-20 at 05:26Z; its bundle read at 827"
+  },
+  {
+   "id": "171",
+   "notes": "Study 171, the baseline: 1,000 blind laws free of N on the eight starts, only the empty, too dense and disconnected gates, each on three sizes in a row, and the budget stopping a law, every other gate recording, the budgets four times 170's at 4,096 and 16,384, to 65,536, on build 828.",
+   "design": "graph_scale_dynamics/resources/readings/study_171_design.json",
+   "criterion": "graph_scale_dynamics/resources/readings/study_171_criterion.json",
+   "laws": 1000,
+   "status": "started on 829 (2026-11-20 11:42Z), its folder on 830 with auto extend ticked at 14:58, 834 applied at 23:37 after its laws had waited pending: learning for hours; stopped on 834 on 2026-11-21 for study 172 (the operator, 04:23); its progress bundle of 01:32Z read for 835"
+  },
+  {
+   "id": "172",
+   "notes": "Study 172, the bigger baseline: 2,500 blind laws free of N on the eight starts in one batch, as 171 but with one die a law a size: only the empty, too dense and disconnected gates, each on three sizes in a row, and the budget stopping a law, every other gate recording, the budgets 171's, to 65,536, on build 835.",
+   "design": "graph_scale_dynamics/resources/readings/study_172_design.json",
+   "criterion": "graph_scale_dynamics/resources/readings/study_172_criterion.json",
+   "laws": 2500,
+   "status": "designed on 835 while 171 ran; started on 835 on 2026-11-21 in a folder of its own (the operator, 04:23), 838 applied at 15:56Z; its progress bundle of 15:58Z read for 839 to 841; running, to be stopped for study 173 after its last bundle (the operator, 2026-11-21 20:01)"
+  },
+  {
+   "id": "173",
+   "notes": "Study 173, the gated pilot: 2,500 blind laws free of N on the eight starts in one batch, as 172 with a search seed of its own and six gates stopping a law, a tenth let through past each: empty, too dense and disconnected as in 172, starts_alike, starts_apart_by_history and nothing_read; the cut gate and every other gate recording, a longer chain on twice its budget, a frozen lattice scoring 1, to 65,536, on build 841.",
+   "design": "graph_scale_dynamics/resources/readings/study_173_design.json",
+   "criterion": "graph_scale_dynamics/resources/readings/study_173_criterion.json",
+   "laws": 2500,
+   "status": "started on 841 on 2026-11-21 in a folder of its own, its first run read at 842 and 843; run again on 841 with --workers 32 (23 slots held) and on 843 with 32 held, all three the same law by law but where a memory bound guessed from the fleet failed a law; read 2026-11-22"
+  },
+  {
+   "id": "174",
+   "notes": "Study 174, the stable trial: 10,000 blind laws free of N on the eight starts in ten batches of 1,000, each its own search seed, as 173 with nothing_read acting only from 16,384 and starts_apart_by_history recording, on 16 workers, on build 844.",
+   "design": "graph_scale_dynamics/resources/readings/study_174_design.json",
+   "criterion": "graph_scale_dynamics/resources/readings/study_174_criterion.json",
+   "laws": 10000,
+   "status": "designed on 844 from 173's bundle; starts on 844 in a folder of its own"
+  },
+  {
+   "id": "175",
+   "notes": "Study 175, the perturbation side study: the 35 drawn laws of study 174's first bundle that the score in force and its candidate both settle, each run again and perturbed at random at four radii (1e-9, 0.001, 0.01, 0.1), four laws a radius, 595 laws, on 174's rules with starts_alike and nothing_read recording, on build 847.",
+   "design": "graph_scale_dynamics/resources/readings/study_175_design.json",
+   "criterion": "graph_scale_dynamics/resources/readings/study_175_criterion.json",
+   "laws": 595,
+   "status": "designed on 847 from 174's first bundle; starts on 847 in a folder of its own"
+  }
+ ]
+}

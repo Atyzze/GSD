@@ -1,0 +1,841 @@
+{
+ "contract": "gsd-score-known-answers-criterion-3",
+ "committed_utc": "2026-11-19T22:42:43Z",
+ "committed_before": "any structure it names was built or read on seeds 51, 52 and 53, on build 817. It is the rule the score's margins are made by since 783 (criterion 1's training set and triples, criterion 2's margin of twice the widest training step on its grid, criterion 1's tau), trained on the table installed at 805 and judged on criterion 2's seventeen structures, sizes and holds, each built by 764's builder, on fresh seeds read by the final probes. Criterion 2's seeds 41 to 43 and 764's set were read by the probes before the lock (estimator 05c5651ce3981d52); they, criteria 1 and 2 and their readings leave the tree with this build (the operator, 2026-11-18 16:43: \"ALL old data we want GONE\").",
+ "question": "What does it mean for a probe to settle as N grows, and for all four probes to agree by the Einstein relation d_s = 2 d_f / d_w, such that every exact lattice of the calibration table settles on every probe it is held to and reaches the fifth band where it is held on all four, a random graph scores nothing and a small world does not settle? (the operator, 2026-11-11 05:07: every probe that settles to a value as N grows adds to the score, the tree line left out, a kept lattice adds too, more probes more points; 2026-11-14 19:39: a 5th band where all probes agree by the Einstein law)",
+ "relied_on_from_nodes": 4096,
+ "probes": [
+  "d_s",
+  "d_V",
+  "d_B",
+  "d_w"
+ ],
+ "a_reading": "a probe reads a size when more than half of its three seeds read a value there (the fleet's rule, observability/space_score._probe); its reading is the mean of the seeds that read",
+ "the_sizes": "from the smallest size at or above 4,096, the next size is the smallest at least three times the last: the fleet's ladder steps by four, and a table family or a judged structure built at other sizes is read at the sizes nearest that step. A pair is two such sizes one after the other.",
+ "settles": "a probe settles at a pair when it reads at both sizes and |x_b - x_a| <= r(p, b) * (x_a + x_b) / 2, r the probe's relative margin at the pair's larger size",
+ "einstein": "all four probes agree at a pair when all four settle there and, at the larger size, both |d_s - 2 d_V / d_w| and |d_s - 2 d_B / d_w| are at most tau * d_s: d_V and d_B are each the mass dimension d_f of the relation",
+ "points": "at a pair, the probes that settle (0 to 4) and one more where all four agree: 0 to 5; the fifth is the landscape's 5th band",
+ "training": {
+  "file": "calibration/seed_table.json",
+  "file_sha256": "d09b4255e8f18284f0aeadeb7dade01ed7dabed6ef426268176a792ff10d480e",
+  "held_by": "graph_scale_dynamics/resources/calibration/table_holds.json",
+  "held_by_sha256": "2f03dad7b9939aa435d4b3fc8d60e6b13fb6d366321a288f84dc6534304dbeb7",
+  "families": "every family of table_holds' with_a_dimension, the lattices of one to four dimensions, both quotients, the Sierpinski gasket and carpet and the uniform random tree, each probe at the sizes table_holds holds it at (from its from_nodes)",
+  "triples": "seeds 0, 1, 2; 3, 4, 5; 6, 7, 8 of a size the table holds ten seeds at, and 0, 1, 2 alone where it holds three: a fleet rung's three seeds",
+  "margin_rule": "r(p, b) is the smallest value of the grid that is at least twice the widest training step at that level (the table's exact lattices and fractals, criterion 1's training set and triples unchanged): the factor of two the stability score has used for a step against its noise floor (research/stability_score.TOLERANCE_MULTIPLIER), so a seed's sampling noise has room that the exact lattices' near-identical seeds did not show",
+  "margin_grid": [
+   0.02,
+   0.03,
+   0.04,
+   0.05,
+   0.06,
+   0.08,
+   0.1,
+   0.12,
+   0.15,
+   0.2
+  ],
+  "tau_rule": "tau is the smallest value of its grid that is at least every training triple's larger relative Einstein residual, max(|d_s - 2 d_V / d_w|, |d_s - 2 d_B / d_w|) / d_s, at a size the table holds all four probes at for its family. A residual above the grid's largest value sets tau to it and is listed.",
+  "tau_grid": [
+   0.03,
+   0.05,
+   0.075,
+   0.1,
+   0.125,
+   0.15,
+   0.2
+  ],
+  "written_to": "graph_scale_dynamics/resources/calibration/score_margins.json, by tools/score_known_answers.py --write, never by hand; the score reads it",
+  "factor": 2.0
+ },
+ "held": "a probe is held where the table holds that family at that size (table_holds' bands) for a family of the table, where 764's criterion gave it a band for any other structure, and from 16,384 for the random geometric graph in three dimensions; a probe held at a size that does not read there is reported, not a miss: the score judges settling, the probes' own judged sets judge reading",
+ "seeds": [
+  51,
+  52,
+  53
+ ],
+ "predictions": {
+  "K1": "every probe held at both sizes of a pair and reading at both settles at that pair",
+  "K2": "every structure held on all four probes at both sizes of a pair and reading all four at both is in the fifth band there",
+  "K3": "no probe that must refuse settles at any pair: the random graphs, the small world (a square lattice with shortcuts), preferential attachment and the hyperbolic geometric graph have no point",
+  "K4": "the law score of a chain from empty given a structure's readings is 0 for every structure of K3, and its points at its top pair are 5 for every structure of K2",
+  "margins": "the margins trained by this rule on the installed table are the ones in force (resources/calibration/score_margins.json: every relative margin and tau the same)"
+ },
+ "passes": "when K1 to K4 hold on every case; every miss is listed. A sandbox set: to 65,536 nodes (the operator, 2026-11-12 22:01); 262,144 and 1,048,576 are judged on the table alone.",
+ "measured_by": "graph_scale_dynamics/research/probes_known_answers.measure, the probes of this tree (analysis-5.3.0, estimator e639334808716378), each structure built by 764's builder",
+ "structures": [
+  {
+   "name": "square",
+   "build": "start",
+   "family": "periodic_square_lattice",
+   "sizes": [
+    4096,
+    16384,
+    65536
+   ],
+   "expected": {
+    "d_s": {
+     "theory": 2.0,
+     "within": 0.2
+    },
+    "d_V": {
+     "theory": 2.0,
+     "within": 0.1
+    },
+    "d_B": {
+     "theory": 2.0,
+     "within": {
+      "1024": 0.25,
+      "4096": 0.2,
+      "16384": 0.2,
+      "65536": 0.2,
+      "262144": 0.2
+     }
+    },
+    "d_w": {
+     "theory": 2.0,
+     "within": {
+      "1024": 0.3,
+      "4096": 0.15,
+      "16384": 0.15,
+      "65536": 0.15,
+      "262144": 0.15
+     }
+    }
+   },
+   "held": {
+    "d_s": [
+     4096,
+     16384,
+     65536
+    ],
+    "d_V": [
+     4096,
+     16384,
+     65536
+    ],
+    "d_B": [
+     4096,
+     16384,
+     65536
+    ],
+    "d_w": [
+     4096,
+     16384,
+     65536
+    ]
+   }
+  },
+  {
+   "name": "triangular",
+   "build": "start",
+   "family": "periodic_triangular_lattice",
+   "sizes": [
+    4096,
+    16384,
+    65536
+   ],
+   "expected": {
+    "d_s": {
+     "theory": 2.0,
+     "within": 0.2
+    },
+    "d_V": {
+     "theory": 2.0,
+     "within": 0.1
+    },
+    "d_B": {
+     "theory": 2.0,
+     "within": {
+      "1024": 0.25,
+      "4096": 0.2,
+      "16384": 0.2,
+      "65536": 0.2,
+      "262144": 0.2
+     }
+    },
+    "d_w": {
+     "theory": 2.0,
+     "within": {
+      "1024": 0.3,
+      "4096": 0.15,
+      "16384": 0.15,
+      "65536": 0.15,
+      "262144": 0.15
+     }
+    }
+   },
+   "held": {
+    "d_s": [
+     4096,
+     16384,
+     65536
+    ],
+    "d_V": [
+     4096,
+     16384,
+     65536
+    ],
+    "d_B": [
+     4096,
+     16384,
+     65536
+    ],
+    "d_w": [
+     4096,
+     16384,
+     65536
+    ]
+   }
+  },
+  {
+   "name": "honeycomb",
+   "build": "start",
+   "family": "periodic_honeycomb_lattice",
+   "sizes": [
+    4096,
+    16384,
+    65536
+   ],
+   "expected": {
+    "d_s": {
+     "theory": 2.0,
+     "within": 0.2
+    },
+    "d_V": {
+     "theory": 2.0,
+     "within": 0.1
+    },
+    "d_B": {
+     "theory": 2.0,
+     "within": {
+      "1024": 0.25,
+      "4096": 0.2,
+      "16384": 0.2,
+      "65536": 0.2
+     }
+    },
+    "d_w": {
+     "theory": 2.0,
+     "within": {
+      "1024": 0.3,
+      "4096": 0.15,
+      "16384": 0.15,
+      "65536": 0.15
+     }
+    }
+   },
+   "held": {
+    "d_s": [
+     4096,
+     16384,
+     65536
+    ],
+    "d_V": [
+     4096,
+     16384,
+     65536
+    ],
+    "d_B": [
+     4096,
+     16384,
+     65536
+    ],
+    "d_w": [
+     4096,
+     16384,
+     65536
+    ]
+   }
+  },
+  {
+   "name": "cubic",
+   "build": "start",
+   "family": "periodic_cubic_quotient",
+   "sizes": [
+    4096,
+    16384,
+    65536
+   ],
+   "expected": {
+    "d_s": {
+     "theory": 3.0,
+     "within": 0.3
+    },
+    "d_V": {
+     "theory": 3.0,
+     "within": 0.2
+    },
+    "d_B": {
+     "theory": 3.0,
+     "within": 0.35
+    },
+    "d_w": {
+     "theory": 2.0,
+     "within": {
+      "16384": 0.25,
+      "65536": 0.2,
+      "262144": 0.2
+     },
+     "reported_at": [
+      "1024",
+      "4096"
+     ]
+    }
+   },
+   "held": {
+    "d_s": [
+     4096,
+     16384,
+     65536
+    ],
+    "d_V": [
+     4096,
+     16384,
+     65536
+    ],
+    "d_B": [
+     4096,
+     16384,
+     65536
+    ],
+    "d_w": [
+     16384,
+     65536
+    ]
+   }
+  },
+  {
+   "name": "body-centred cubic",
+   "build": "start",
+   "family": "periodic_body_centred_cubic_lattice",
+   "sizes": [
+    4096,
+    16384,
+    65536
+   ],
+   "expected": {
+    "d_s": {
+     "theory": 3.0,
+     "within": 0.3
+    },
+    "d_V": {
+     "theory": 3.0,
+     "within": 0.2
+    },
+    "d_B": {
+     "theory": 3.0,
+     "within": 0.35
+    },
+    "d_w": {
+     "theory": 2.0,
+     "within": {
+      "16384": 0.2,
+      "65536": 0.2,
+      "262144": 0.2
+     },
+     "reported_at": [
+      "1024",
+      "4096"
+     ]
+    }
+   },
+   "held": {
+    "d_s": [
+     4096,
+     16384,
+     65536
+    ],
+    "d_V": [
+     4096,
+     16384,
+     65536
+    ],
+    "d_B": [
+     16384,
+     65536
+    ],
+    "d_w": [
+     16384,
+     65536
+    ]
+   }
+  },
+  {
+   "name": "face-centred cubic",
+   "build": "start",
+   "family": "periodic_face_centred_cubic_lattice",
+   "sizes": [
+    4096,
+    16384,
+    65536
+   ],
+   "expected": {
+    "d_s": {
+     "theory": 3.0,
+     "within": 0.3
+    },
+    "d_V": {
+     "theory": 3.0,
+     "within": 0.2
+    },
+    "d_B": {
+     "theory": 3.0,
+     "within": 0.35
+    },
+    "d_w": {
+     "theory": 2.0,
+     "within": {
+      "16384": 0.2,
+      "65536": 0.2,
+      "262144": 0.2
+     },
+     "reported_at": [
+      "1024",
+      "4096"
+     ]
+    }
+   },
+   "held": {
+    "d_s": [
+     4096,
+     16384,
+     65536
+    ],
+    "d_V": [
+     4096,
+     16384,
+     65536
+    ],
+    "d_B": [
+     16384,
+     65536
+    ],
+    "d_w": [
+     16384,
+     65536
+    ]
+   }
+  },
+  {
+   "name": "4D",
+   "build": "start",
+   "family": "periodic_tesseract_quotient",
+   "sizes": [
+    4096,
+    16384,
+    65536
+   ],
+   "expected": {
+    "d_s": {
+     "theory": 4.0,
+     "within": 0.4
+    },
+    "d_V": {
+     "theory": 4.0,
+     "within": {
+      "1024": 0.8,
+      "4096": 0.6,
+      "16384": 0.3,
+      "65536": 0.3,
+      "262144": 0.2
+     }
+    },
+    "d_B": {
+     "theory": 4.0,
+     "within": 0.75
+    },
+    "d_w": {
+     "theory": 2.0,
+     "within": {
+      "262144": 0.25
+     },
+     "reported_at": [
+      "1024",
+      "4096",
+      "16384",
+      "65536"
+     ]
+    }
+   },
+   "held": {
+    "d_s": [
+     4096,
+     16384,
+     65536
+    ],
+    "d_V": [
+     4096,
+     16384,
+     65536
+    ],
+    "d_B": [
+     16384,
+     65536
+    ],
+    "d_w": []
+   }
+  },
+  {
+   "name": "ring",
+   "build": "ring",
+   "sizes": [
+    4096,
+    16384
+   ],
+   "expected": {
+    "d_s": {
+     "theory": 1.0,
+     "within": 0.1
+    },
+    "d_V": {
+     "theory": 1.0,
+     "within": 0.05
+    },
+    "d_B": {
+     "theory": 1.0,
+     "within": 0.1
+    },
+    "d_w": {
+     "theory": 2.0,
+     "within": {
+      "1024": 0.15,
+      "4096": 0.15,
+      "16384": 0.15
+     }
+    }
+   },
+   "held": {
+    "d_s": [
+     4096,
+     16384
+    ],
+    "d_V": [
+     4096,
+     16384
+    ],
+    "d_B": [
+     4096,
+     16384
+    ],
+    "d_w": [
+     4096,
+     16384
+    ]
+   }
+  },
+  {
+   "name": "random geometric graph in the plane, mean degree 8",
+   "build": "random_geometric",
+   "dimension": 2,
+   "mean_degree": 8.0,
+   "sizes": [
+    4096,
+    16384,
+    65536
+   ],
+   "same_on_every_seed": false,
+   "expected": {
+    "d_s": {
+     "theory": 2.0,
+     "within": 0.3
+    },
+    "d_V": {
+     "theory": 2.0,
+     "within": 0.3
+    },
+    "d_B": {
+     "theory": 2.0,
+     "within": 0.3
+    },
+    "d_w": {
+     "theory": 2.0,
+     "within": 0.35
+    }
+   },
+   "held": {
+    "d_s": [
+     4096,
+     16384,
+     65536
+    ],
+    "d_V": [
+     4096,
+     16384,
+     65536
+    ],
+    "d_B": [
+     4096,
+     16384,
+     65536
+    ],
+    "d_w": [
+     4096,
+     16384,
+     65536
+    ]
+   }
+  },
+  {
+   "name": "random geometric graph in three dimensions, mean degree 10",
+   "build": "random_geometric",
+   "dimension": 3,
+   "mean_degree": 10.0,
+   "sizes": [
+    4096,
+    16384,
+    65536
+   ],
+   "same_on_every_seed": false,
+   "expected": {
+    "d_s": {
+     "theory": 3.0,
+     "within": 0.5
+    },
+    "d_V": {
+     "theory": 3.0,
+     "within": 0.5
+    },
+    "d_B": {
+     "theory": 3.0,
+     "within": 0.5
+    },
+    "d_w": {
+     "theory": 2.0,
+     "within": {
+      "65536": 0.35
+     },
+     "reported_at": [
+      "4096",
+      "16384"
+     ]
+    }
+   },
+   "held": {
+    "d_s": [
+     16384,
+     65536
+    ],
+    "d_V": [
+     16384,
+     65536
+    ],
+    "d_B": [
+     16384,
+     65536
+    ],
+    "d_w": [
+     16384,
+     65536
+    ]
+   }
+  },
+  {
+   "name": "square lattice with chords within three steps",
+   "build": "square_with_local_chords",
+   "chords_a_node": 0.05,
+   "within": 3,
+   "sizes": [
+    4096,
+    16384
+   ],
+   "same_on_every_seed": false,
+   "expected": {
+    "d_s": {
+     "theory": 2.0,
+     "within": 0.3
+    },
+    "d_V": {
+     "theory": 2.0,
+     "within": 0.3
+    },
+    "d_B": {
+     "theory": 2.0,
+     "within": 0.3
+    },
+    "d_w": {
+     "theory": 2.0,
+     "within": 0.35
+    }
+   },
+   "held": {
+    "d_s": [
+     4096,
+     16384
+    ],
+    "d_V": [
+     4096,
+     16384
+    ],
+    "d_B": [
+     4096,
+     16384
+    ],
+    "d_w": [
+     4096,
+     16384
+    ]
+   }
+  },
+  {
+   "name": "square lattice with a fifth of its sites removed",
+   "build": "diluted_square",
+   "kept": 0.8,
+   "sizes": [
+    4096,
+    16384
+   ],
+   "same_on_every_seed": false,
+   "expected": {
+    "d_s": {
+     "theory": 2.0,
+     "within": 0.3
+    },
+    "d_V": {
+     "theory": 2.0,
+     "within": 0.3
+    },
+    "d_B": {
+     "theory": 2.0,
+     "within": 0.3
+    },
+    "d_w": {
+     "theory": 2.0,
+     "within": 0.3
+    }
+   },
+   "held": {
+    "d_s": [
+     4096,
+     16384
+    ],
+    "d_V": [
+     4096,
+     16384
+    ],
+    "d_B": [
+     4096,
+     16384
+    ],
+    "d_w": [
+     4096,
+     16384
+    ]
+   }
+  },
+  {
+   "name": "random 3-regular graph",
+   "build": "table_family",
+   "family": "random_3_regular",
+   "sizes": [
+    4096,
+    16384
+   ],
+   "same_on_every_seed": false,
+   "expected": {
+    "d_s": "refuse",
+    "d_V": "refuse",
+    "d_B": "refuse",
+    "d_w": "refuse"
+   },
+   "held": {
+    "d_s": "refuse",
+    "d_V": "refuse",
+    "d_B": "refuse",
+    "d_w": "refuse"
+   }
+  },
+  {
+   "name": "random graph of mean degree 2.5",
+   "build": "table_family",
+   "family": "erdos_renyi_sparse",
+   "sizes": [
+    4096,
+    16384
+   ],
+   "same_on_every_seed": false,
+   "expected": {
+    "d_s": "refuse",
+    "d_V": "refuse",
+    "d_B": "refuse",
+    "d_w": "refuse"
+   },
+   "held": {
+    "d_s": "refuse",
+    "d_V": "refuse",
+    "d_B": "refuse",
+    "d_w": "refuse"
+   }
+  },
+  {
+   "name": "square lattice with 0.008 shortcuts a node",
+   "build": "torus_with_shortcuts",
+   "dimension": 2,
+   "shortcuts_a_node": 0.008,
+   "sizes": [
+    4096,
+    16384
+   ],
+   "same_on_every_seed": false,
+   "expected": {
+    "d_s": "refuse",
+    "d_V": "refuse",
+    "d_B": "refuse",
+    "d_w": "refuse"
+   },
+   "held": {
+    "d_s": "refuse",
+    "d_V": "refuse",
+    "d_B": "refuse",
+    "d_w": "refuse"
+   }
+  },
+  {
+   "name": "preferential attachment, two links a node",
+   "build": "preferential_attachment",
+   "links": 2,
+   "sizes": [
+    4096,
+    16384
+   ],
+   "same_on_every_seed": false,
+   "expected": {
+    "d_s": "refuse",
+    "d_V": "refuse",
+    "d_B": "refuse",
+    "d_w": "refuse"
+   },
+   "held": {
+    "d_s": "refuse",
+    "d_V": "refuse",
+    "d_B": "refuse",
+    "d_w": "refuse"
+   }
+  },
+  {
+   "name": "hyperbolic geometric graph, mean degree 12",
+   "build": "hyperbolic_geometric",
+   "mean_degree": 12.0,
+   "within": 1.0,
+   "sizes": [
+    4096,
+    16384
+   ],
+   "same_on_every_seed": false,
+   "expected": {
+    "d_s": "refuse",
+    "d_V": "refuse",
+    "d_B": "refuse",
+    "d_w": "refuse"
+   },
+   "held": {
+    "d_s": "refuse",
+    "d_V": "refuse",
+    "d_B": "refuse",
+    "d_w": "refuse"
+   }
+  }
+ ],
+ "reported_beside": "every training and judged step and residual, by family or structure, probe and pair; where each table family first reaches 5 points; what a reading under 4,096 nodes would have added (kept, not relied on)",
+ "what_follows": "If K1 to K4 hold, the score's margins stay as they are, judged on the final probes, and the score orders the deep lane and names the curvature study's laws as it does. If one misses, the miss is named with its structure, probe and pair, and a change to the margins is made for the study after 169 only, criterion first; study 169's folder is not touched."
+}

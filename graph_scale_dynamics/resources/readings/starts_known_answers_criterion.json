@@ -1,0 +1,409 @@
+{
+ "contract": "gsd-starts-known-answers-criterion-1",
+ "committed_utc": "2026-11-19T23:43:47Z",
+ "committed_before": "the reading of any case it names on seeds 0 to 2, on build 819. It is the eleven known answers of 2026-10-08 (five_starts_criterion_2.json, read at 602 against study 159's references on the chains of the starts before 769), each case written again for the eight starts a law runs (measurements/starts.py: empty, random, square, triangular, cubic, bcc, fcc, tesseract) and read against the calibration table's own references (observability/starts_reading.table_references). Each expectation is the case's answer by its construction, as in the cases it replaces: a lattice whose graph is melted, rewired or another shape is not held, one nothing moved is unmoved, one moved locally holds; where a lattice's graph is another lattice's, any fate but holds, unmoved and partly is right. A scratch reading of a draft on seeds 100 to 102 was seen for K1 to K6 before this was committed (K1 missed there on the fcc start at 1,024, reading a random graph of mean degree 6 as partly kept); no expectation was set from it. The old criterion, its run and 159's references leave the tree with this build (the operator, 2026-11-18 16:43).",
+ "question": "Does the starts' reading (observability/starts_reading.py, which the starts' rule decides depth by) read graphs whose answer is known as it should, on the eight starts and against the table's references, before it decides any law of a study after 169?",
+ "reading": "observability/starts_reading.py",
+ "tool": "tools/starts_check.py",
+ "command": "python3 tools/starts_check.py check --judge graph_scale_dynamics/resources/readings/starts_known_answers_criterion.json --out <file>",
+ "how_a_case_is_made": "each case is a law of the eight starts' chains whose graph at each size and seed is given rather than grown, read as the analysis reads a chain, three seeds a size: an exact start (lattice:<name>), a uniform random graph at a mean degree (random:<d>), a lattice melted into a random wiring of its own degrees (melted:<name>), a lattice with a share of its edges moved two steps (local:<name>:<share>) or rewired at random (rewired:<name>:<share>), the empty graph, a random graph ended at the cap (capped:<d>), or a chain not run (skipped)",
+ "sizes": [
+  1024,
+  4096
+ ],
+ "seeds": 3,
+ "cases": [
+  {
+   "id": "K1",
+   "name": "every start ends alike, no shape",
+   "chains": {
+    "empty": "random:6",
+    "random": "random:6",
+    "square": "random:6",
+    "triangular": "random:6",
+    "cubic": "random:6",
+    "bcc": "random:6",
+    "fcc": "random:6",
+    "tesseract": "random:6"
+   },
+   "expect": {
+    "class": "forgets",
+    "groups": 1,
+    "fates": {
+     "square": "melted",
+     "triangular": "melted",
+     "cubic": "melted",
+     "bcc": "melted",
+     "fcc": "melted",
+     "tesseract": "melted"
+    }
+   }
+  },
+  {
+   "id": "K2",
+   "name": "the starts end apart, no shape held",
+   "chains": {
+    "empty": "random:4",
+    "random": "random:12",
+    "square": "melted:square",
+    "triangular": "melted:triangular",
+    "cubic": "melted:cubic",
+    "bcc": "melted:bcc",
+    "fcc": "melted:fcc",
+    "tesseract": "melted:tesseract"
+   },
+   "expect": {
+    "class": "remembers",
+    "groups_at_least": 3,
+    "fates": {
+     "square": "melted",
+     "triangular": "melted",
+     "cubic": "melted",
+     "bcc": "melted",
+     "fcc": "melted",
+     "tesseract": "melted"
+    }
+   }
+  },
+  {
+   "id": "K3",
+   "name": "the lattices hold their shapes",
+   "chains": {
+    "empty": "random:4",
+    "random": "random:6",
+    "square": "local:square:0.01",
+    "triangular": "local:triangular:0.01",
+    "cubic": "local:cubic:0.01",
+    "bcc": "local:bcc:0.01",
+    "fcc": "local:fcc:0.01",
+    "tesseract": "local:tesseract:0.01"
+   },
+   "expect": {
+    "class": "holds",
+    "groups": 8,
+    "fates": {
+     "square": "holds",
+     "triangular": "holds",
+     "cubic": "holds",
+     "bcc": "holds",
+     "fcc": "holds",
+     "tesseract": "holds"
+    }
+   }
+  },
+  {
+   "id": "K4",
+   "name": "one lattice holds, the others do not",
+   "chains": {
+    "empty": "random:4",
+    "random": "random:6",
+    "square": "melted:square",
+    "triangular": "melted:triangular",
+    "cubic": "local:cubic:0.01",
+    "bcc": "melted:bcc",
+    "fcc": "melted:fcc",
+    "tesseract": "melted:tesseract"
+   },
+   "expect": {
+    "class": "selects",
+    "fates": {
+     "square": "melted",
+     "triangular": "melted",
+     "bcc": "melted",
+     "fcc": "melted",
+     "tesseract": "melted",
+     "cubic": "holds"
+    }
+   }
+  },
+  {
+   "id": "K5",
+   "name": "a start without a shape reaches one",
+   "chains": {
+    "empty": "local:cubic:0.01",
+    "random": "random:6",
+    "square": "melted:square",
+    "triangular": "melted:triangular",
+    "cubic": "local:cubic:0.01",
+    "bcc": "melted:bcc",
+    "fcc": "melted:fcc",
+    "tesseract": "melted:tesseract"
+   },
+   "expect": {
+    "class": "grows",
+    "together": [
+     [
+      "empty",
+      "cubic"
+     ]
+    ],
+    "fates": {
+     "square": "melted",
+     "triangular": "melted",
+     "bcc": "melted",
+     "fcc": "melted",
+     "tesseract": "melted",
+     "cubic": "holds"
+    }
+   }
+  },
+  {
+   "id": "K6",
+   "name": "a lattice falls into another's shape",
+   "chains": {
+    "empty": "random:4",
+    "random": "random:6",
+    "square": "melted:square",
+    "triangular": "melted:triangular",
+    "cubic": "local:cubic:0.01",
+    "bcc": "melted:bcc",
+    "fcc": "melted:fcc",
+    "tesseract": "local:cubic:0.01"
+   },
+   "expect": {
+    "class": "converts",
+    "together": [
+     [
+      "cubic",
+      "tesseract"
+     ]
+    ],
+    "fates": {
+     "square": "melted",
+     "triangular": "melted",
+     "bcc": "melted",
+     "fcc": "melted",
+     "cubic": "holds",
+     "tesseract": [
+      "stretched",
+      "changed"
+     ]
+    }
+   }
+  },
+  {
+   "id": "K7",
+   "name": "every start ends in one shape",
+   "chains": {
+    "empty": "local:cubic:0.01",
+    "random": "local:cubic:0.01",
+    "square": "local:cubic:0.01",
+    "triangular": "local:cubic:0.01",
+    "cubic": "local:cubic:0.01",
+    "bcc": "local:cubic:0.01",
+    "fcc": "local:cubic:0.01",
+    "tesseract": "local:cubic:0.01"
+   },
+   "expect": {
+    "class": "one_space",
+    "groups": 1,
+    "fates": {
+     "square": [
+      "melted",
+      "stretched",
+      "changed"
+     ],
+     "triangular": [
+      "melted",
+      "stretched",
+      "changed"
+     ],
+     "cubic": "holds",
+     "bcc": [
+      "melted",
+      "stretched",
+      "changed"
+     ],
+     "fcc": [
+      "melted",
+      "stretched",
+      "changed"
+     ],
+     "tesseract": [
+      "stretched",
+      "changed"
+     ]
+    }
+   }
+  },
+  {
+   "id": "K8",
+   "name": "half-melted lattices are not held",
+   "chains": {
+    "empty": "random:4",
+    "random": "random:6",
+    "square": "rewired:square:0.05",
+    "triangular": "rewired:triangular:0.05",
+    "cubic": "rewired:cubic:0.05",
+    "bcc": "rewired:bcc:0.05",
+    "fcc": "rewired:fcc:0.05",
+    "tesseract": "rewired:tesseract:0.075"
+   },
+   "expect": {
+    "class": "remembers",
+    "groups_at_least": 3,
+    "fates": {
+     "square": [
+      "partly",
+      "melted"
+     ],
+     "triangular": [
+      "partly",
+      "melted"
+     ],
+     "cubic": [
+      "partly",
+      "melted"
+     ],
+     "bcc": [
+      "partly",
+      "melted"
+     ],
+     "fcc": [
+      "partly",
+      "melted"
+     ],
+     "tesseract": [
+      "partly",
+      "melted"
+     ]
+    }
+   }
+  },
+  {
+   "id": "K9",
+   "name": "a lattice nothing moved is unmoved, not held",
+   "chains": {
+    "empty": "random:4",
+    "random": "random:6",
+    "square": "lattice:square",
+    "triangular": "lattice:triangular",
+    "cubic": "lattice:cubic",
+    "bcc": "lattice:bcc",
+    "fcc": "lattice:fcc",
+    "tesseract": "lattice:tesseract"
+   },
+   "expect": {
+    "class": "remembers",
+    "groups": 8,
+    "fates": {
+     "square": "unmoved",
+     "triangular": "unmoved",
+     "cubic": "unmoved",
+     "bcc": "unmoved",
+     "fcc": "unmoved",
+     "tesseract": "unmoved"
+    }
+   }
+  },
+  {
+   "id": "K10",
+   "name": "a lattice that fell apart, and one that went to the cap",
+   "chains": {
+    "empty": "random:6",
+    "random": "random:6",
+    "square": "empty",
+    "triangular": "random:6",
+    "cubic": "capped:17",
+    "bcc": "random:6",
+    "fcc": "random:6",
+    "tesseract": "random:6"
+   },
+   "expect": {
+    "class": "remembers",
+    "groups": 3,
+    "together": [
+     [
+      "empty",
+      "random",
+      "triangular",
+      "bcc",
+      "fcc",
+      "tesseract"
+     ]
+    ],
+    "fates": {
+     "square": "fell_apart",
+     "cubic": "dense",
+     "triangular": "melted",
+     "bcc": "melted",
+     "fcc": "melted",
+     "tesseract": "melted"
+    }
+   }
+  },
+  {
+   "id": "K11",
+   "name": "a law whose largest size crossed the cap before its twins ran is read at the size below",
+   "chains": {
+    "empty": "random:6",
+    "random": "random:6",
+    "square": "random:6",
+    "triangular": "random:6",
+    "cubic": "random:6",
+    "bcc": "random:6",
+    "fcc": "random:6",
+    "tesseract": "random:6"
+   },
+   "expect": {
+    "class": "forgets",
+    "groups": 1,
+    "fates": {
+     "square": "melted",
+     "triangular": "melted",
+     "cubic": "melted",
+     "bcc": "melted",
+     "fcc": "melted",
+     "tesseract": "melted"
+    }
+   },
+   "expect_at": {
+    "4096": {
+     "class": "not_read",
+     "groups": 1
+    },
+    "16384": {
+     "class": "not_read",
+     "groups": 1
+    }
+   },
+   "at": {
+    "4096": {
+     "empty": "capped:17",
+     "random": "skipped",
+     "square": "skipped",
+     "triangular": "skipped",
+     "cubic": "skipped",
+     "bcc": "skipped",
+     "fcc": "skipped",
+     "tesseract": "skipped"
+    },
+    "16384": {
+     "empty": "capped:17",
+     "random": "skipped",
+     "square": "skipped",
+     "triangular": "skipped",
+     "cubic": "skipped",
+     "bcc": "skipped",
+     "fcc": "skipped",
+     "tesseract": "skipped"
+    }
+   },
+   "law": {
+    "class": "forgets",
+    "at_n": 1024
+   }
+  }
+ ],
+ "judged": "a case passes when, at every size it is read at, the reading gives the class expected there, every lattice fate expected (one fate, or any of a list), and the groups expected (their number, at least a number, or chains named together), and the law's class and size where the case names them. The criterion passes when every case does. A case that misses is named with its chains, sizes and what was read, and is put to the operator before the study after 169; study 169's folder and decisions are not touched.",
+ "fates": {
+  "dense": "its chain ended at the mean-degree cap on half its seeds or more, where the analysis reads no probe",
+  "fell_apart": "its largest piece under the 16 nodes the probes need",
+  "melted": "kept under 0.5: its reach fell towards a random wiring's",
+  "partly": "kept 0.5 to 0.8: what a lattice with about 1% of its edges rewired at random keeps at 4,096",
+  "stretched": "kept above 2: it reaches further than its start",
+  "changed": "kept 0.8 to 2 with its mean degree more than a tenth from its start's: another shape",
+  "unmoved": "kept 0.8 to 2 and its census and reach its start's to a millionth: the start itself",
+  "holds": "kept 0.8 to 2, its mean degree within a tenth of its start's, and moved: the shape held"
+ }
+}

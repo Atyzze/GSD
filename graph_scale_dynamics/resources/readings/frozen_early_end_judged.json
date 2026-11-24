@@ -1,0 +1,23 @@
+{
+ "contract": "gsd-frozen-early-end-judged-1",
+ "criterion": "gsd-frozen-early-end-criterion-1",
+ "criterion_committed_utc": "2026-11-19T04:40:07Z",
+ "judged_utc": "2026-11-19T05:21:13Z",
+ "passes": true,
+ "held_out": {
+  "sample": "40 laws, search seed 20261122, 256 and 1,024 nodes, two seeds each, 160 seeds grown on 803's code (every seed run on to its end)",
+  "finite_temperature_seeds": 92,
+  "frozen_on_two_chunks_in_a_row": 20,
+  "moving_again_later": 0,
+  "frozen_once_and_moving_again_later": 0,
+  "chunk_multiples_after_the_pair": 2016,
+  "chunk_multiples_in_all": 4428,
+  "share_saved": 0.455,
+  "predicted": [
+   "none moves again: true",
+   "at least 20% of the chunk multiples after such a pair: 45.5%, true"
+  ]
+ },
+ "with_803_s_samples": "seeds 20261119 and 20261120: 28 seeds frozen twice in a row, none moving again; 3,056 of 8,270 chunk multiples after the pair",
+ "known_answer": "a frozen law at 64 nodes (the sample's law 37 of seed 20261119) ends on its second chunk as FROZEN_OR_ABSORBING, where 803 ran it to x64 with the same class (tests/unit/test_a_frozen_seed_ends_by_its_own_record.py)"
+}

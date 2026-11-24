@@ -1,0 +1,36 @@
+{
+ "contract": "gsd-study-criterion-1",
+ "study": "173",
+ "committed_utc": "2026-11-21T20:07:32Z",
+ "committed_before": "study 173's first start, on any host; a change 172's last bundle calls for is made before that start and said in its build",
+ "design": "graph_scale_dynamics/resources/readings/study_173_design.json",
+ "read_for": "the gated pilot, read whole from its bundle on the build it reaches (docs/OPERATIONS.md, \"The pilots\"): what the six gates that stop a law cost and save, counted on the tenth each lets through, beside 172's baseline in which they only recorded; what the cut gate's verdict says one size up; and whether a study on these rules fits study A's month at 100,000 laws",
+ "predicted_from": "tools/design_on_a_bundle.py study_172_2026-11-21T15-58-19Z --design 173: 172's 8,997 decisions of 2,500 laws replayed under this design, each from its own recorded inputs, and carried to 2,500 laws; the same tool on 172's own design gives back 172's recorded stops and about 750 core-hours, against 880 committed for it",
+ "predicted": [
+  "P1: every decision in the bundle replays (tools/replay_bundle.py, 0 that differ), and the gates' counters give what was recorded with the verdicts of the laws stopped over_budget counted (tools/counters_reading.py, C2)",
+  "P2: no zero-temperature seed is classed OPERATIONAL_UNRESOLVED after a pass at the cap (807)",
+  "P3: only the six gates hold a law back: empty, too dense and disconnected, none of them before 1,024, and starts_alike, starts_apart_by_history and nothing_read; every other gate's held is 0 in gates_ledger.json, cut's among them, with cut's verdict recorded on the decision of every law with a seed cut at its budget",
+  "P4: the tenth: at 1,024 and at 4,096, 7% to 13% of the laws the six would hold back go one size on (three standard deviations of a tenth drawn on 1,000 to 1,500 laws; the replay: 154 of 1,540 and 113 of 970), and the share is still a tenth at the last decision, whether or not a gate was right 100 times in a row",
+  "P5: the three fact gates stop 51% to 61% of the laws at 1,024 (the replay: 1,386 of 2,485, 56%; 172 recorded 1,423 of 2,485)",
+  "P6: the six stop 75% to 87% of the laws that reach 4,096 (the replay: 857 of 1,057, 81%)",
+  "P7: 150 to 260 laws reach 16,384 and 30 to 110 reach 65,536 (the replay: 203 and 72, the second from 70 laws followed at 16,384, 18 of them in flight in 172's bundle)",
+  "P8: at most 12 laws are stopped over_budget at 4,096 and at most 1.5% of the laws before 65,536 (172: 33 at 4,096, 27 of them a longer chain refused; the replay, with a longer chain priced on twice the budget: 4 at 4,096 and 24 in all)",
+  "P9: of the laws with a seed cut at its budget that are followed one size up, 60% to 92% have a seed cut there too (the replay: 68 of 84)",
+  "P10: the laws with a seed cut at its budget score at least twice as often as the laws without one (172: 8 of 117 against 14 of 2,383, about 12 times)",
+  "P11: at most one law let through past starts_alike, starts_apart_by_history or nothing_read scores (172: no scoring law among the 778 the three would have held back, nothing_read read on 0.9 of the graph)",
+  "P12: the study takes about 150 core-hours on the host (100 to 260), 65,536 a third to a half of it (the replay: 144 to 156, 68 at 65,536 from 7 laws read there), about half a day on the host's 16 workers"
+ ],
+ "reported": [
+  "each of the six gates' verdicts by size, the laws of its tenth that went on, and what they read and score to 65,536, by law id where they score, beside 172's verdicts of the same gates",
+  "the cut gate: every law with a seed cut at its budget, by size, what its seeds read there and one size up, whether it is cut again, and what it scores; the scoring share of cut laws against the rest",
+  "the longer chains run on twice the budget: what they read, and whether a seed of them is cut",
+  "the frozen lattices: the laws that score 1, by law id and chain, and for every lattice start that holds, its accepted moves from the chains table",
+  "what the six lattice starts cost above 4,096, by chain and size, from the chains table's work (the operator, 2026-11-21 19:52: \"that's the one I want to investigate more on for sure\")",
+  "the laws that nothing_read reads only on a piece between 0.9 of the graph and the whole of it at 4,096",
+  "the score's list, the standing controls apart, beside 172's",
+  "the seeds that end at their budget and the laws stopped over_budget, by size (tools/budget_reading.py)",
+  "the hours and memory a size takes on the host; what 100,000 laws on these rules would take",
+  "the finds"
+ ],
+ "not_judged_here": "what the laws are: no prediction of a law's kind is committed for 173; which laws score is read, not predicted"
+}

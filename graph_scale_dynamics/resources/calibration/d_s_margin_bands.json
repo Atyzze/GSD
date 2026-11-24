@@ -1,0 +1,267 @@
+{
+ "bands": {
+  "1024": {
+   "null_families_reported": {
+    "hyperbolic_geometric_graph": [
+     30.95,
+     60.55
+    ],
+    "hyperbolic_triangle_tiling": [
+     59.64,
+     59.64
+    ]
+   },
+   "plateau": {
+    "cells": {
+     "geometry": 160,
+     "no_finite_dimension": 10
+    },
+    "geometry": [
+     15.84,
+     122.66
+    ],
+    "no_finite_dimension": [
+     30.95,
+     60.55
+    ],
+    "separated": false
+   },
+   "whole_range": {
+    "cells": {
+     "geometry": 200,
+     "no_finite_dimension": 130
+    },
+    "geometry": [
+     6.47,
+     223.92
+    ],
+    "no_finite_dimension": [
+     -15.26,
+     138.03
+    ],
+    "separated": false
+   }
+  },
+  "1048576": {
+   "null_families_reported": {},
+   "plateau": {
+    "cells": {
+     "geometry": 133,
+     "no_finite_dimension": 0
+    },
+    "geometry": [
+     53.34,
+     151.9
+    ],
+    "no_finite_dimension": null,
+    "separated": null
+   },
+   "whole_range": {
+    "cells": {
+     "geometry": 133,
+     "no_finite_dimension": 31
+    },
+    "geometry": [
+     152.38,
+     274.22
+    ],
+    "no_finite_dimension": [
+     -46.52,
+     84.58
+    ],
+    "separated": true
+   }
+  },
+  "16384": {
+   "null_families_reported": {},
+   "plateau": {
+    "cells": {
+     "geometry": 220,
+     "no_finite_dimension": 0
+    },
+    "geometry": [
+     24.4,
+     116.84
+    ],
+    "no_finite_dimension": null,
+    "separated": null
+   },
+   "whole_range": {
+    "cells": {
+     "geometry": 220,
+     "no_finite_dimension": 130
+    },
+    "geometry": [
+     83.68,
+     288.15
+    ],
+    "no_finite_dimension": [
+     -33.5,
+     162.95
+    ],
+    "separated": false
+   }
+  },
+  "256": {
+   "null_families_reported": {},
+   "plateau": {
+    "cells": {
+     "geometry": 140,
+     "no_finite_dimension": 0
+    },
+    "geometry": [
+     24.66,
+     106.98
+    ],
+    "no_finite_dimension": null,
+    "separated": null
+   },
+   "whole_range": {
+    "cells": {
+     "geometry": 190,
+     "no_finite_dimension": 160
+    },
+    "geometry": [
+     1.51,
+     205.99
+    ],
+    "no_finite_dimension": [
+     -9.08,
+     72.27
+    ],
+    "separated": false
+   }
+  },
+  "262144": {
+   "null_families_reported": {},
+   "plateau": {
+    "cells": {
+     "geometry": 190,
+     "no_finite_dimension": 0
+    },
+    "geometry": [
+     37.42,
+     137.21
+    ],
+    "no_finite_dimension": null,
+    "separated": null
+   },
+   "whole_range": {
+    "cells": {
+     "geometry": 190,
+     "no_finite_dimension": 120
+    },
+    "geometry": [
+     144.81,
+     286.13
+    ],
+    "no_finite_dimension": [
+     -49.51,
+     158.0
+    ],
+    "separated": false
+   }
+  },
+  "4096": {
+   "null_families_reported": {},
+   "plateau": {
+    "cells": {
+     "geometry": 229,
+     "no_finite_dimension": 0
+    },
+    "geometry": [
+     24.17,
+     125.11
+    ],
+    "no_finite_dimension": null,
+    "separated": null
+   },
+   "whole_range": {
+    "cells": {
+     "geometry": 240,
+     "no_finite_dimension": 310
+    },
+    "geometry": [
+     41.83,
+     256.35
+    ],
+    "no_finite_dimension": [
+     -31.34,
+     149.39
+    ],
+    "separated": false
+   }
+  },
+  "64": {
+   "null_families_reported": {},
+   "plateau": {
+    "cells": {
+     "geometry": 50,
+     "no_finite_dimension": 0
+    },
+    "geometry": [
+     16.78,
+     86.89
+    ],
+    "no_finite_dimension": null,
+    "separated": null
+   },
+   "whole_range": {
+    "cells": {
+     "geometry": 50,
+     "no_finite_dimension": 10
+    },
+    "geometry": [
+     4.4,
+     146.6
+    ],
+    "no_finite_dimension": [
+     -0.58,
+     2.56
+    ],
+    "separated": true
+   }
+  },
+  "65536": {
+   "null_families_reported": {},
+   "plateau": {
+    "cells": {
+     "geometry": 140,
+     "no_finite_dimension": 0
+    },
+    "geometry": [
+     37.01,
+     130.18
+    ],
+    "no_finite_dimension": null,
+    "separated": null
+   },
+   "whole_range": {
+    "cells": {
+     "geometry": 140,
+     "no_finite_dimension": 120
+    },
+    "geometry": [
+     134.01,
+     294.69
+    ],
+    "no_finite_dimension": [
+     -42.38,
+     163.47
+    ],
+    "separated": false
+   }
+  }
+ },
+ "cells_with_margins": 2584,
+ "computed_utc": "2026-11-19T09:11:28Z",
+ "contract": "d-s-margin-bands-2",
+ "max_n": 1048576,
+ "reading": "Where d_s's two AICc margins put the calibration's geometry families and its families with no finite dimension, per survey rung, from every cell of the seed table that carries its margins (tools/calibrate_margins.py --write). Reporting only; no gate reads it.",
+ "seeds": null,
+ "source": {
+  "estimator_fingerprint": "e639334808716378",
+  "table": "calibration/seed_table.json",
+  "table_sha256": "d09b4255e8f18284f0aeadeb7dade01ed7dabed6ef426268176a792ff10d480e"
+ }
+}

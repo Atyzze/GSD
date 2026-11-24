@@ -1,0 +1,6168 @@
+{
+ "contract": "gsd-start-admission-1",
+ "sizes": [
+  1024,
+  4096,
+  16384
+ ],
+ "seeds": [
+  0,
+  1,
+  2
+ ],
+ "tells_at_least": 0.05,
+ "keeps_at_least": 0.5,
+ "lattices": [
+  {
+   "name": "honeycomb",
+   "family": "periodic_honeycomb_lattice",
+   "dimension": 2,
+   "degree": 3,
+   "built_at_every_size": true,
+   "under_the_cap": true,
+   "told_by": [],
+   "admitted": false,
+   "expected_admitted": false,
+   "expected_told_by": [],
+   "admitted_as_expected": true,
+   "told_as_expected": true,
+   "differences": {
+    "degree_anchor": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "degree_anchor_abs": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "degree_cube_sum": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "degree_fourth_sum": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "degree_neighbor_gradient": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "degree_square_sum": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "edge_count": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "induced_square_count": {
+     "1024": -0.0013020833333333333,
+     "4096": -0.0005696614583333334,
+     "16384": -0.00020345052083333334
+    },
+    "ollivier_curvature": {
+     "1024": -0.1474609375,
+     "4096": -0.025146484375,
+     "16384": -0.00726318359375
+    },
+    "square_count": {
+     "1024": -0.0013020833333333333,
+     "4096": -0.0005696614583333334,
+     "16384": -0.00020345052083333334
+    },
+    "square_edge_overlap": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "triangle_count": {
+     "1024": -0.001953125,
+     "4096": -0.000244140625,
+     "16384": -2.0345052083333332e-05
+    },
+    "triangle_edge_overlap": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "wedge_count": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    }
+   }
+  },
+  {
+   "name": "diamond",
+   "family": "periodic_diamond_lattice",
+   "dimension": 3,
+   "degree": 4,
+   "built_at_every_size": true,
+   "under_the_cap": true,
+   "told_by": [],
+   "admitted": false,
+   "expected_admitted": false,
+   "expected_told_by": [],
+   "admitted_as_expected": true,
+   "told_as_expected": true,
+   "differences": {
+    "degree_anchor": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "degree_anchor_abs": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "degree_cube_sum": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "degree_fourth_sum": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "degree_neighbor_gradient": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "degree_square_sum": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "edge_count": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "induced_square_count": {
+     "1024": -0.008138020833333334,
+     "4096": -0.0023600260416666665,
+     "16384": -0.0006306966145833334
+    },
+    "ollivier_curvature": {
+     "1024": -0.8463541666666679,
+     "4096": -0.2236328125,
+     "16384": -0.06184895833333215
+    },
+    "square_count": {
+     "1024": -0.008138020833333334,
+     "4096": -0.0023600260416666665,
+     "16384": -0.0006306966145833334
+    },
+    "square_edge_overlap": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "triangle_count": {
+     "1024": -0.0032552083333333335,
+     "4096": -0.001220703125,
+     "16384": -0.0003662109375
+    },
+    "triangle_edge_overlap": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "wedge_count": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    }
+   }
+  },
+  {
+   "name": "square",
+   "family": "periodic_square_lattice",
+   "dimension": 2,
+   "degree": 4,
+   "built_at_every_size": true,
+   "under_the_cap": true,
+   "told_by": [
+    "induced_square_count",
+    "ollivier_curvature",
+    "square_count",
+    "square_edge_overlap"
+   ],
+   "admitted": true,
+   "expected_admitted": true,
+   "expected_told_by": [
+    "induced_square_count",
+    "ollivier_curvature",
+    "square_count",
+    "square_edge_overlap"
+   ],
+   "admitted_as_expected": true,
+   "told_as_expected": true,
+   "differences": {
+    "degree_anchor": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "degree_anchor_abs": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "degree_cube_sum": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "degree_fourth_sum": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "degree_neighbor_gradient": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "degree_square_sum": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "edge_count": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "induced_square_count": {
+     "1024": 0.9918619791666666,
+     "4096": 0.9976399739583334,
+     "16384": 0.9993693033854166
+    },
+    "ollivier_curvature": {
+     "1024": 31.153645833333332,
+     "4096": 31.7763671875,
+     "16384": 31.938151041666668
+    },
+    "square_count": {
+     "1024": 0.9918619791666666,
+     "4096": 0.9976399739583334,
+     "16384": 0.9993693033854166
+    },
+    "square_edge_overlap": {
+     "1024": 2.0,
+     "4096": 2.0,
+     "16384": 2.0
+    },
+    "triangle_count": {
+     "1024": -0.0032552083333333335,
+     "4096": -0.001220703125,
+     "16384": -0.0003662109375
+    },
+    "triangle_edge_overlap": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "wedge_count": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    }
+   }
+  },
+  {
+   "name": "triangular",
+   "family": "periodic_triangular_lattice",
+   "dimension": 2,
+   "degree": 6,
+   "built_at_every_size": true,
+   "under_the_cap": true,
+   "told_by": [
+    "ollivier_curvature",
+    "square_count",
+    "square_edge_overlap",
+    "triangle_count",
+    "triangle_edge_overlap"
+   ],
+   "admitted": true,
+   "expected_admitted": true,
+   "expected_told_by": [
+    "induced_square_count",
+    "ollivier_curvature",
+    "square_count",
+    "square_edge_overlap",
+    "triangle_count",
+    "triangle_edge_overlap"
+   ],
+   "admitted_as_expected": true,
+   "told_as_expected": false,
+   "differences": {
+    "degree_anchor": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "degree_anchor_abs": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "degree_cube_sum": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "degree_fourth_sum": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "degree_neighbor_gradient": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "degree_square_sum": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "edge_count": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "induced_square_count": {
+     "1024": -0.07389322916666667,
+     "4096": -0.018798828125,
+     "16384": -0.00482177734375
+    },
+    "ollivier_curvature": {
+     "1024": 166.359375,
+     "4096": 176.61328125,
+     "16384": 179.1243896484375
+    },
+    "square_count": {
+     "1024": 2.9261067708333335,
+     "4096": 2.981201171875,
+     "16384": 2.99517822265625
+    },
+    "square_edge_overlap": {
+     "1024": 17.987955729166668,
+     "4096": 17.998860677083332,
+     "16384": 17.999918619791668
+    },
+    "triangle_count": {
+     "1024": 1.9765625,
+     "4096": 1.9949544270833333,
+     "16384": 1.9989217122395833
+    },
+    "triangle_edge_overlap": {
+     "1024": 3.0,
+     "4096": 3.0,
+     "16384": 3.0
+    },
+    "wedge_count": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    }
+   }
+  },
+  {
+   "name": "cubic",
+   "family": "periodic_cubic_quotient",
+   "dimension": 3,
+   "degree": 6,
+   "built_at_every_size": true,
+   "under_the_cap": true,
+   "told_by": [
+    "induced_square_count",
+    "ollivier_curvature",
+    "square_count",
+    "square_edge_overlap"
+   ],
+   "admitted": true,
+   "expected_admitted": true,
+   "expected_told_by": [
+    "induced_square_count",
+    "ollivier_curvature",
+    "square_count",
+    "square_edge_overlap"
+   ],
+   "admitted_as_expected": true,
+   "told_as_expected": true,
+   "differences": {
+    "degree_anchor": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "degree_anchor_abs": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "degree_cube_sum": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "degree_fourth_sum": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "degree_neighbor_gradient": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "degree_square_sum": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "edge_count": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "induced_square_count": {
+     "1024": 2.9261067708333335,
+     "4096": 2.981201171875,
+     "16384": 2.99517822265625
+    },
+    "ollivier_curvature": {
+     "1024": 130.359375,
+     "4096": 140.61328125,
+     "16384": 143.1243896484375
+    },
+    "square_count": {
+     "1024": 2.9261067708333335,
+     "4096": 2.981201171875,
+     "16384": 2.99517822265625
+    },
+    "square_edge_overlap": {
+     "1024": 17.987955729166668,
+     "4096": 17.998860677083332,
+     "16384": 17.999918619791668
+    },
+    "triangle_count": {
+     "1024": -0.0234375,
+     "4096": -0.005045572916666667,
+     "16384": -0.0010782877604166667
+    },
+    "triangle_edge_overlap": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "wedge_count": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    }
+   }
+  },
+  {
+   "name": "body-centred cubic",
+   "family": "periodic_body_centred_cubic_lattice",
+   "dimension": 3,
+   "degree": 8,
+   "built_at_every_size": true,
+   "under_the_cap": true,
+   "told_by": [
+    "induced_square_count",
+    "ollivier_curvature",
+    "square_count",
+    "square_edge_overlap"
+   ],
+   "admitted": true,
+   "expected_admitted": true,
+   "expected_told_by": [
+    "induced_square_count",
+    "ollivier_curvature",
+    "square_count",
+    "square_edge_overlap"
+   ],
+   "admitted_as_expected": true,
+   "told_as_expected": true,
+   "differences": {
+    "degree_anchor": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "degree_anchor_abs": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "degree_cube_sum": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "degree_fourth_sum": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "degree_neighbor_gradient": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "degree_square_sum": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "edge_count": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "induced_square_count": {
+     "1024": 11.701497395833334,
+     "4096": 11.921630859375,
+     "16384": 11.98248291015625
+    },
+    "ollivier_curvature": {
+     "1024": 296.8385416666667,
+     "4096": 361.5201822916667,
+     "16384": 378.5325520833333
+    },
+    "square_count": {
+     "1024": 11.699544270833334,
+     "4096": 11.92138671875,
+     "16384": 11.982462565104166
+    },
+    "square_edge_overlap": {
+     "1024": 263.814453125,
+     "4096": 263.9868977864583,
+     "16384": 263.99949137369794
+    },
+    "triangle_count": {
+     "1024": -0.058919270833333336,
+     "4096": -0.013346354166666666,
+     "16384": -0.00384521484375
+    },
+    "triangle_edge_overlap": {
+     "1024": -0.001953125,
+     "4096": -0.000244140625,
+     "16384": -2.0345052083333332e-05
+    },
+    "wedge_count": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    }
+   }
+  },
+  {
+   "name": "face-centred cubic",
+   "family": "periodic_face_centred_cubic_lattice",
+   "dimension": 3,
+   "degree": 12,
+   "built_at_every_size": true,
+   "under_the_cap": true,
+   "told_by": [
+    "induced_square_count",
+    "ollivier_curvature",
+    "square_count",
+    "square_edge_overlap",
+    "triangle_count",
+    "triangle_edge_overlap"
+   ],
+   "admitted": true,
+   "expected_admitted": true,
+   "expected_told_by": [
+    "induced_square_count",
+    "ollivier_curvature",
+    "square_count",
+    "square_edge_overlap",
+    "triangle_count",
+    "triangle_edge_overlap"
+   ],
+   "admitted_as_expected": true,
+   "told_as_expected": true,
+   "differences": {
+    "degree_anchor": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "degree_anchor_abs": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "degree_cube_sum": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "degree_fourth_sum": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "degree_neighbor_gradient": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "degree_square_sum": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "edge_count": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "induced_square_count": {
+     "1024": 1.2112630208333333,
+     "4096": 2.555419921875,
+     "16384": 2.8897298177083335
+    },
+    "ollivier_curvature": {
+     "1024": 918.02734375,
+     "4096": 1445.1748046875,
+     "16384": 1657.513427734375
+    },
+    "square_count": {
+     "1024": 31.180989583333332,
+     "4096": 32.553141276041664,
+     "16384": 32.889607747395836
+    },
+    "square_edge_overlap": {
+     "1024": 1381.705078125,
+     "4096": 1385.7418619791667,
+     "16384": 1385.9844563802083
+    },
+    "triangle_count": {
+     "1024": 7.787434895833333,
+     "4096": 7.948974609375,
+     "16384": 7.987691243489583
+    },
+    "triangle_edge_overlap": {
+     "1024": 35.9697265625,
+     "4096": 35.997721354166664,
+     "16384": 35.9998779296875
+    },
+    "wedge_count": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    }
+   }
+  },
+  {
+   "name": "4D",
+   "family": "periodic_tesseract_quotient",
+   "dimension": 4,
+   "degree": 8,
+   "built_at_every_size": true,
+   "under_the_cap": true,
+   "told_by": [
+    "induced_square_count",
+    "ollivier_curvature",
+    "square_count",
+    "square_edge_overlap"
+   ],
+   "admitted": true,
+   "expected_admitted": true,
+   "expected_told_by": [
+    "induced_square_count",
+    "ollivier_curvature",
+    "square_count",
+    "square_edge_overlap"
+   ],
+   "admitted_as_expected": true,
+   "told_as_expected": true,
+   "differences": {
+    "degree_anchor": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "degree_anchor_abs": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "degree_cube_sum": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "degree_fourth_sum": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "degree_neighbor_gradient": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "degree_square_sum": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "edge_count": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    },
+    "induced_square_count": {
+     "1024": 5.701497395833333,
+     "4096": 5.921630859375,
+     "16384": 5.98248291015625
+    },
+    "ollivier_curvature": {
+     "1024": 296.8385416666667,
+     "4096": 361.5201822916667,
+     "16384": 378.5325520833333
+    },
+    "square_count": {
+     "1024": 5.699544270833333,
+     "4096": 5.92138671875,
+     "16384": 5.982462565104167
+    },
+    "square_edge_overlap": {
+     "1024": 59.814453125,
+     "4096": 59.986897786458336,
+     "16384": 59.999491373697914
+    },
+    "triangle_count": {
+     "1024": -0.058919270833333336,
+     "4096": -0.013346354166666666,
+     "16384": -0.00384521484375
+    },
+    "triangle_edge_overlap": {
+     "1024": -0.001953125,
+     "4096": -0.000244140625,
+     "16384": -2.0345052083333332e-05
+    },
+    "wedge_count": {
+     "1024": 0.0,
+     "4096": 0.0,
+     "16384": 0.0
+    }
+   }
+  }
+ ],
+ "rows": [
+  {
+   "name": "honeycomb",
+   "n": 1024,
+   "built": true,
+   "degree": 3,
+   "op": "degree_anchor",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "honeycomb",
+   "n": 1024,
+   "built": true,
+   "degree": 3,
+   "op": "degree_anchor_abs",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "honeycomb",
+   "n": 1024,
+   "built": true,
+   "degree": 3,
+   "op": "degree_cube_sum",
+   "lattice": 27.0,
+   "random": [
+    27.0,
+    27.0,
+    27.0
+   ],
+   "random_mean": 27.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "honeycomb",
+   "n": 1024,
+   "built": true,
+   "degree": 3,
+   "op": "degree_fourth_sum",
+   "lattice": 81.0,
+   "random": [
+    81.0,
+    81.0,
+    81.0
+   ],
+   "random_mean": 81.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "honeycomb",
+   "n": 1024,
+   "built": true,
+   "degree": 3,
+   "op": "degree_neighbor_gradient",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "honeycomb",
+   "n": 1024,
+   "built": true,
+   "degree": 3,
+   "op": "degree_square_sum",
+   "lattice": 9.0,
+   "random": [
+    9.0,
+    9.0,
+    9.0
+   ],
+   "random_mean": 9.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "honeycomb",
+   "n": 1024,
+   "built": true,
+   "degree": 3,
+   "op": "edge_count",
+   "lattice": 1.5,
+   "random": [
+    1.5,
+    1.5,
+    1.5
+   ],
+   "random_mean": 1.5,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "honeycomb",
+   "n": 1024,
+   "built": true,
+   "degree": 3,
+   "op": "induced_square_count",
+   "lattice": 0.0,
+   "random": [
+    0.0009765625,
+    0.0009765625,
+    0.001953125
+   ],
+   "random_mean": 0.0013020833333333333,
+   "random_sd": 0.0005638186222554939,
+   "difference": -0.0013020833333333333
+  },
+  {
+   "name": "honeycomb",
+   "n": 1024,
+   "built": true,
+   "degree": 3,
+   "op": "ollivier_curvature",
+   "lattice": -9.0,
+   "random": [
+    -8.865234375,
+    -8.8505859375,
+    -8.841796875
+   ],
+   "random_mean": -8.8525390625,
+   "random_sd": 0.011840191067365372,
+   "difference": -0.1474609375
+  },
+  {
+   "name": "honeycomb",
+   "n": 1024,
+   "built": true,
+   "degree": 3,
+   "op": "square_count",
+   "lattice": 0.0,
+   "random": [
+    0.0009765625,
+    0.0009765625,
+    0.001953125
+   ],
+   "random_mean": 0.0013020833333333333,
+   "random_sd": 0.0005638186222554939,
+   "difference": -0.0013020833333333333
+  },
+  {
+   "name": "honeycomb",
+   "n": 1024,
+   "built": true,
+   "degree": 3,
+   "op": "square_edge_overlap",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "honeycomb",
+   "n": 1024,
+   "built": true,
+   "degree": 3,
+   "op": "triangle_count",
+   "lattice": 0.0,
+   "random": [
+    0.001953125,
+    0.001953125,
+    0.001953125
+   ],
+   "random_mean": 0.001953125,
+   "random_sd": 0.0,
+   "difference": -0.001953125
+  },
+  {
+   "name": "honeycomb",
+   "n": 1024,
+   "built": true,
+   "degree": 3,
+   "op": "triangle_edge_overlap",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "honeycomb",
+   "n": 1024,
+   "built": true,
+   "degree": 3,
+   "op": "wedge_count",
+   "lattice": 3.0,
+   "random": [
+    3.0,
+    3.0,
+    3.0
+   ],
+   "random_mean": 3.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "honeycomb",
+   "n": 4096,
+   "built": true,
+   "degree": 3,
+   "op": "degree_anchor",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "honeycomb",
+   "n": 4096,
+   "built": true,
+   "degree": 3,
+   "op": "degree_anchor_abs",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "honeycomb",
+   "n": 4096,
+   "built": true,
+   "degree": 3,
+   "op": "degree_cube_sum",
+   "lattice": 27.0,
+   "random": [
+    27.0,
+    27.0,
+    27.0
+   ],
+   "random_mean": 27.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "honeycomb",
+   "n": 4096,
+   "built": true,
+   "degree": 3,
+   "op": "degree_fourth_sum",
+   "lattice": 81.0,
+   "random": [
+    81.0,
+    81.0,
+    81.0
+   ],
+   "random_mean": 81.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "honeycomb",
+   "n": 4096,
+   "built": true,
+   "degree": 3,
+   "op": "degree_neighbor_gradient",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "honeycomb",
+   "n": 4096,
+   "built": true,
+   "degree": 3,
+   "op": "degree_square_sum",
+   "lattice": 9.0,
+   "random": [
+    9.0,
+    9.0,
+    9.0
+   ],
+   "random_mean": 9.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "honeycomb",
+   "n": 4096,
+   "built": true,
+   "degree": 3,
+   "op": "edge_count",
+   "lattice": 1.5,
+   "random": [
+    1.5,
+    1.5,
+    1.5
+   ],
+   "random_mean": 1.5,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "honeycomb",
+   "n": 4096,
+   "built": true,
+   "degree": 3,
+   "op": "induced_square_count",
+   "lattice": 0.0,
+   "random": [
+    0.00048828125,
+    0.000732421875,
+    0.00048828125
+   ],
+   "random_mean": 0.0005696614583333334,
+   "random_sd": 0.00014095465556387347,
+   "difference": -0.0005696614583333334
+  },
+  {
+   "name": "honeycomb",
+   "n": 4096,
+   "built": true,
+   "degree": 3,
+   "op": "ollivier_curvature",
+   "lattice": -9.0,
+   "random": [
+    -8.970703125,
+    -8.97216796875,
+    -8.981689453125
+   ],
+   "random_mean": -8.974853515625,
+   "random_sd": 0.005965230333432918,
+   "difference": -0.025146484375
+  },
+  {
+   "name": "honeycomb",
+   "n": 4096,
+   "built": true,
+   "degree": 3,
+   "op": "square_count",
+   "lattice": 0.0,
+   "random": [
+    0.00048828125,
+    0.000732421875,
+    0.00048828125
+   ],
+   "random_mean": 0.0005696614583333334,
+   "random_sd": 0.00014095465556387347,
+   "difference": -0.0005696614583333334
+  },
+  {
+   "name": "honeycomb",
+   "n": 4096,
+   "built": true,
+   "degree": 3,
+   "op": "square_edge_overlap",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "honeycomb",
+   "n": 4096,
+   "built": true,
+   "degree": 3,
+   "op": "triangle_count",
+   "lattice": 0.0,
+   "random": [
+    0.000244140625,
+    0.000244140625,
+    0.000244140625
+   ],
+   "random_mean": 0.000244140625,
+   "random_sd": 0.0,
+   "difference": -0.000244140625
+  },
+  {
+   "name": "honeycomb",
+   "n": 4096,
+   "built": true,
+   "degree": 3,
+   "op": "triangle_edge_overlap",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "honeycomb",
+   "n": 4096,
+   "built": true,
+   "degree": 3,
+   "op": "wedge_count",
+   "lattice": 3.0,
+   "random": [
+    3.0,
+    3.0,
+    3.0
+   ],
+   "random_mean": 3.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "honeycomb",
+   "n": 16384,
+   "built": true,
+   "degree": 3,
+   "op": "degree_anchor",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "honeycomb",
+   "n": 16384,
+   "built": true,
+   "degree": 3,
+   "op": "degree_anchor_abs",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "honeycomb",
+   "n": 16384,
+   "built": true,
+   "degree": 3,
+   "op": "degree_cube_sum",
+   "lattice": 27.0,
+   "random": [
+    27.0,
+    27.0,
+    27.0
+   ],
+   "random_mean": 27.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "honeycomb",
+   "n": 16384,
+   "built": true,
+   "degree": 3,
+   "op": "degree_fourth_sum",
+   "lattice": 81.0,
+   "random": [
+    81.0,
+    81.0,
+    81.0
+   ],
+   "random_mean": 81.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "honeycomb",
+   "n": 16384,
+   "built": true,
+   "degree": 3,
+   "op": "degree_neighbor_gradient",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "honeycomb",
+   "n": 16384,
+   "built": true,
+   "degree": 3,
+   "op": "degree_square_sum",
+   "lattice": 9.0,
+   "random": [
+    9.0,
+    9.0,
+    9.0
+   ],
+   "random_mean": 9.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "honeycomb",
+   "n": 16384,
+   "built": true,
+   "degree": 3,
+   "op": "edge_count",
+   "lattice": 1.5,
+   "random": [
+    1.5,
+    1.5,
+    1.5
+   ],
+   "random_mean": 1.5,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "honeycomb",
+   "n": 16384,
+   "built": true,
+   "degree": 3,
+   "op": "induced_square_count",
+   "lattice": 0.0,
+   "random": [
+    0.00030517578125,
+    0.00018310546875,
+    0.0001220703125
+   ],
+   "random_mean": 0.00020345052083333334,
+   "random_sd": 9.323274118969402e-05,
+   "difference": -0.00020345052083333334
+  },
+  {
+   "name": "honeycomb",
+   "n": 16384,
+   "built": true,
+   "degree": 3,
+   "op": "ollivier_curvature",
+   "lattice": -9.0,
+   "random": [
+    -8.98992919921875,
+    -8.99468994140625,
+    -8.99359130859375
+   ],
+   "random_mean": -8.99273681640625,
+   "random_sd": 0.0024927463203933274,
+   "difference": -0.00726318359375
+  },
+  {
+   "name": "honeycomb",
+   "n": 16384,
+   "built": true,
+   "degree": 3,
+   "op": "square_count",
+   "lattice": 0.0,
+   "random": [
+    0.00030517578125,
+    0.00018310546875,
+    0.0001220703125
+   ],
+   "random_mean": 0.00020345052083333334,
+   "random_sd": 9.323274118969402e-05,
+   "difference": -0.00020345052083333334
+  },
+  {
+   "name": "honeycomb",
+   "n": 16384,
+   "built": true,
+   "degree": 3,
+   "op": "square_edge_overlap",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "honeycomb",
+   "n": 16384,
+   "built": true,
+   "degree": 3,
+   "op": "triangle_count",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    6.103515625e-05
+   ],
+   "random_mean": 2.0345052083333332e-05,
+   "random_sd": 3.523866389096837e-05,
+   "difference": -2.0345052083333332e-05
+  },
+  {
+   "name": "honeycomb",
+   "n": 16384,
+   "built": true,
+   "degree": 3,
+   "op": "triangle_edge_overlap",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "honeycomb",
+   "n": 16384,
+   "built": true,
+   "degree": 3,
+   "op": "wedge_count",
+   "lattice": 3.0,
+   "random": [
+    3.0,
+    3.0,
+    3.0
+   ],
+   "random_mean": 3.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "diamond",
+   "n": 1024,
+   "built": true,
+   "degree": 4,
+   "op": "degree_anchor",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "diamond",
+   "n": 1024,
+   "built": true,
+   "degree": 4,
+   "op": "degree_anchor_abs",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "diamond",
+   "n": 1024,
+   "built": true,
+   "degree": 4,
+   "op": "degree_cube_sum",
+   "lattice": 64.0,
+   "random": [
+    64.0,
+    64.0,
+    64.0
+   ],
+   "random_mean": 64.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "diamond",
+   "n": 1024,
+   "built": true,
+   "degree": 4,
+   "op": "degree_fourth_sum",
+   "lattice": 256.0,
+   "random": [
+    256.0,
+    256.0,
+    256.0
+   ],
+   "random_mean": 256.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "diamond",
+   "n": 1024,
+   "built": true,
+   "degree": 4,
+   "op": "degree_neighbor_gradient",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "diamond",
+   "n": 1024,
+   "built": true,
+   "degree": 4,
+   "op": "degree_square_sum",
+   "lattice": 16.0,
+   "random": [
+    16.0,
+    16.0,
+    16.0
+   ],
+   "random_mean": 16.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "diamond",
+   "n": 1024,
+   "built": true,
+   "degree": 4,
+   "op": "edge_count",
+   "lattice": 2.0,
+   "random": [
+    2.0,
+    2.0,
+    2.0
+   ],
+   "random_mean": 2.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "diamond",
+   "n": 1024,
+   "built": true,
+   "degree": 4,
+   "op": "induced_square_count",
+   "lattice": 0.0,
+   "random": [
+    0.0078125,
+    0.0078125,
+    0.0087890625
+   ],
+   "random_mean": 0.008138020833333334,
+   "random_sd": 0.0005638186222554939,
+   "difference": -0.008138020833333334
+  },
+  {
+   "name": "diamond",
+   "n": 1024,
+   "built": true,
+   "degree": 4,
+   "op": "ollivier_curvature",
+   "lattice": -32.0,
+   "random": [
+    -31.05078125,
+    -31.234375,
+    -31.17578125
+   ],
+   "random_mean": -31.153645833333332,
+   "random_sd": 0.09377712281266062,
+   "difference": -0.8463541666666679
+  },
+  {
+   "name": "diamond",
+   "n": 1024,
+   "built": true,
+   "degree": 4,
+   "op": "square_count",
+   "lattice": 0.0,
+   "random": [
+    0.0078125,
+    0.0078125,
+    0.0087890625
+   ],
+   "random_mean": 0.008138020833333334,
+   "random_sd": 0.0005638186222554939,
+   "difference": -0.008138020833333334
+  },
+  {
+   "name": "diamond",
+   "n": 1024,
+   "built": true,
+   "degree": 4,
+   "op": "square_edge_overlap",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "diamond",
+   "n": 1024,
+   "built": true,
+   "degree": 4,
+   "op": "triangle_count",
+   "lattice": 0.0,
+   "random": [
+    0.0009765625,
+    0.0029296875,
+    0.005859375
+   ],
+   "random_mean": 0.0032552083333333335,
+   "random_sd": 0.0024576283968980304,
+   "difference": -0.0032552083333333335
+  },
+  {
+   "name": "diamond",
+   "n": 1024,
+   "built": true,
+   "degree": 4,
+   "op": "triangle_edge_overlap",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "diamond",
+   "n": 1024,
+   "built": true,
+   "degree": 4,
+   "op": "wedge_count",
+   "lattice": 6.0,
+   "random": [
+    6.0,
+    6.0,
+    6.0
+   ],
+   "random_mean": 6.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "diamond",
+   "n": 4096,
+   "built": true,
+   "degree": 4,
+   "op": "degree_anchor",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "diamond",
+   "n": 4096,
+   "built": true,
+   "degree": 4,
+   "op": "degree_anchor_abs",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "diamond",
+   "n": 4096,
+   "built": true,
+   "degree": 4,
+   "op": "degree_cube_sum",
+   "lattice": 64.0,
+   "random": [
+    64.0,
+    64.0,
+    64.0
+   ],
+   "random_mean": 64.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "diamond",
+   "n": 4096,
+   "built": true,
+   "degree": 4,
+   "op": "degree_fourth_sum",
+   "lattice": 256.0,
+   "random": [
+    256.0,
+    256.0,
+    256.0
+   ],
+   "random_mean": 256.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "diamond",
+   "n": 4096,
+   "built": true,
+   "degree": 4,
+   "op": "degree_neighbor_gradient",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "diamond",
+   "n": 4096,
+   "built": true,
+   "degree": 4,
+   "op": "degree_square_sum",
+   "lattice": 16.0,
+   "random": [
+    16.0,
+    16.0,
+    16.0
+   ],
+   "random_mean": 16.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "diamond",
+   "n": 4096,
+   "built": true,
+   "degree": 4,
+   "op": "edge_count",
+   "lattice": 2.0,
+   "random": [
+    2.0,
+    2.0,
+    2.0
+   ],
+   "random_mean": 2.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "diamond",
+   "n": 4096,
+   "built": true,
+   "degree": 4,
+   "op": "induced_square_count",
+   "lattice": 0.0,
+   "random": [
+    0.002197265625,
+    0.003173828125,
+    0.001708984375
+   ],
+   "random_mean": 0.0023600260416666665,
+   "random_sd": 0.0007458619295175521,
+   "difference": -0.0023600260416666665
+  },
+  {
+   "name": "diamond",
+   "n": 4096,
+   "built": true,
+   "degree": 4,
+   "op": "ollivier_curvature",
+   "lattice": -32.0,
+   "random": [
+    -31.7734375,
+    -31.7705078125,
+    -31.78515625
+   ],
+   "random_mean": -31.7763671875,
+   "random_sd": 0.007751224544134543,
+   "difference": -0.2236328125
+  },
+  {
+   "name": "diamond",
+   "n": 4096,
+   "built": true,
+   "degree": 4,
+   "op": "square_count",
+   "lattice": 0.0,
+   "random": [
+    0.002197265625,
+    0.003173828125,
+    0.001708984375
+   ],
+   "random_mean": 0.0023600260416666665,
+   "random_sd": 0.0007458619295175521,
+   "difference": -0.0023600260416666665
+  },
+  {
+   "name": "diamond",
+   "n": 4096,
+   "built": true,
+   "degree": 4,
+   "op": "square_edge_overlap",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "diamond",
+   "n": 4096,
+   "built": true,
+   "degree": 4,
+   "op": "triangle_count",
+   "lattice": 0.0,
+   "random": [
+    0.001220703125,
+    0.0009765625,
+    0.00146484375
+   ],
+   "random_mean": 0.001220703125,
+   "random_sd": 0.000244140625,
+   "difference": -0.001220703125
+  },
+  {
+   "name": "diamond",
+   "n": 4096,
+   "built": true,
+   "degree": 4,
+   "op": "triangle_edge_overlap",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "diamond",
+   "n": 4096,
+   "built": true,
+   "degree": 4,
+   "op": "wedge_count",
+   "lattice": 6.0,
+   "random": [
+    6.0,
+    6.0,
+    6.0
+   ],
+   "random_mean": 6.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "diamond",
+   "n": 16384,
+   "built": true,
+   "degree": 4,
+   "op": "degree_anchor",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "diamond",
+   "n": 16384,
+   "built": true,
+   "degree": 4,
+   "op": "degree_anchor_abs",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "diamond",
+   "n": 16384,
+   "built": true,
+   "degree": 4,
+   "op": "degree_cube_sum",
+   "lattice": 64.0,
+   "random": [
+    64.0,
+    64.0,
+    64.0
+   ],
+   "random_mean": 64.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "diamond",
+   "n": 16384,
+   "built": true,
+   "degree": 4,
+   "op": "degree_fourth_sum",
+   "lattice": 256.0,
+   "random": [
+    256.0,
+    256.0,
+    256.0
+   ],
+   "random_mean": 256.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "diamond",
+   "n": 16384,
+   "built": true,
+   "degree": 4,
+   "op": "degree_neighbor_gradient",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "diamond",
+   "n": 16384,
+   "built": true,
+   "degree": 4,
+   "op": "degree_square_sum",
+   "lattice": 16.0,
+   "random": [
+    16.0,
+    16.0,
+    16.0
+   ],
+   "random_mean": 16.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "diamond",
+   "n": 16384,
+   "built": true,
+   "degree": 4,
+   "op": "edge_count",
+   "lattice": 2.0,
+   "random": [
+    2.0,
+    2.0,
+    2.0
+   ],
+   "random_mean": 2.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "diamond",
+   "n": 16384,
+   "built": true,
+   "degree": 4,
+   "op": "induced_square_count",
+   "lattice": 0.0,
+   "random": [
+    0.000732421875,
+    0.000732421875,
+    0.00042724609375
+   ],
+   "random_mean": 0.0006306966145833334,
+   "random_sd": 0.00017619331945484184,
+   "difference": -0.0006306966145833334
+  },
+  {
+   "name": "diamond",
+   "n": 16384,
+   "built": true,
+   "degree": 4,
+   "op": "ollivier_curvature",
+   "lattice": -32.0,
+   "random": [
+    -31.943359375,
+    -31.9345703125,
+    -31.9365234375
+   ],
+   "random_mean": -31.938151041666668,
+   "random_sd": 0.004615054322512313,
+   "difference": -0.06184895833333215
+  },
+  {
+   "name": "diamond",
+   "n": 16384,
+   "built": true,
+   "degree": 4,
+   "op": "square_count",
+   "lattice": 0.0,
+   "random": [
+    0.000732421875,
+    0.000732421875,
+    0.00042724609375
+   ],
+   "random_mean": 0.0006306966145833334,
+   "random_sd": 0.00017619331945484184,
+   "difference": -0.0006306966145833334
+  },
+  {
+   "name": "diamond",
+   "n": 16384,
+   "built": true,
+   "degree": 4,
+   "op": "square_edge_overlap",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "diamond",
+   "n": 16384,
+   "built": true,
+   "degree": 4,
+   "op": "triangle_count",
+   "lattice": 0.0,
+   "random": [
+    0.000244140625,
+    0.00048828125,
+    0.0003662109375
+   ],
+   "random_mean": 0.0003662109375,
+   "random_sd": 0.0001220703125,
+   "difference": -0.0003662109375
+  },
+  {
+   "name": "diamond",
+   "n": 16384,
+   "built": true,
+   "degree": 4,
+   "op": "triangle_edge_overlap",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "diamond",
+   "n": 16384,
+   "built": true,
+   "degree": 4,
+   "op": "wedge_count",
+   "lattice": 6.0,
+   "random": [
+    6.0,
+    6.0,
+    6.0
+   ],
+   "random_mean": 6.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "square",
+   "n": 1024,
+   "built": true,
+   "degree": 4,
+   "op": "degree_anchor",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "square",
+   "n": 1024,
+   "built": true,
+   "degree": 4,
+   "op": "degree_anchor_abs",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "square",
+   "n": 1024,
+   "built": true,
+   "degree": 4,
+   "op": "degree_cube_sum",
+   "lattice": 64.0,
+   "random": [
+    64.0,
+    64.0,
+    64.0
+   ],
+   "random_mean": 64.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "square",
+   "n": 1024,
+   "built": true,
+   "degree": 4,
+   "op": "degree_fourth_sum",
+   "lattice": 256.0,
+   "random": [
+    256.0,
+    256.0,
+    256.0
+   ],
+   "random_mean": 256.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "square",
+   "n": 1024,
+   "built": true,
+   "degree": 4,
+   "op": "degree_neighbor_gradient",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "square",
+   "n": 1024,
+   "built": true,
+   "degree": 4,
+   "op": "degree_square_sum",
+   "lattice": 16.0,
+   "random": [
+    16.0,
+    16.0,
+    16.0
+   ],
+   "random_mean": 16.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "square",
+   "n": 1024,
+   "built": true,
+   "degree": 4,
+   "op": "edge_count",
+   "lattice": 2.0,
+   "random": [
+    2.0,
+    2.0,
+    2.0
+   ],
+   "random_mean": 2.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "square",
+   "n": 1024,
+   "built": true,
+   "degree": 4,
+   "op": "induced_square_count",
+   "lattice": 1.0,
+   "random": [
+    0.0078125,
+    0.0078125,
+    0.0087890625
+   ],
+   "random_mean": 0.008138020833333334,
+   "random_sd": 0.0005638186222554939,
+   "difference": 0.9918619791666666
+  },
+  {
+   "name": "square",
+   "n": 1024,
+   "built": true,
+   "degree": 4,
+   "op": "ollivier_curvature",
+   "lattice": 0.0,
+   "random": [
+    -31.05078125,
+    -31.234375,
+    -31.17578125
+   ],
+   "random_mean": -31.153645833333332,
+   "random_sd": 0.09377712281266062,
+   "difference": 31.153645833333332
+  },
+  {
+   "name": "square",
+   "n": 1024,
+   "built": true,
+   "degree": 4,
+   "op": "square_count",
+   "lattice": 1.0,
+   "random": [
+    0.0078125,
+    0.0078125,
+    0.0087890625
+   ],
+   "random_mean": 0.008138020833333334,
+   "random_sd": 0.0005638186222554939,
+   "difference": 0.9918619791666666
+  },
+  {
+   "name": "square",
+   "n": 1024,
+   "built": true,
+   "degree": 4,
+   "op": "square_edge_overlap",
+   "lattice": 2.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 2.0
+  },
+  {
+   "name": "square",
+   "n": 1024,
+   "built": true,
+   "degree": 4,
+   "op": "triangle_count",
+   "lattice": 0.0,
+   "random": [
+    0.0009765625,
+    0.0029296875,
+    0.005859375
+   ],
+   "random_mean": 0.0032552083333333335,
+   "random_sd": 0.0024576283968980304,
+   "difference": -0.0032552083333333335
+  },
+  {
+   "name": "square",
+   "n": 1024,
+   "built": true,
+   "degree": 4,
+   "op": "triangle_edge_overlap",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "square",
+   "n": 1024,
+   "built": true,
+   "degree": 4,
+   "op": "wedge_count",
+   "lattice": 6.0,
+   "random": [
+    6.0,
+    6.0,
+    6.0
+   ],
+   "random_mean": 6.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "square",
+   "n": 4096,
+   "built": true,
+   "degree": 4,
+   "op": "degree_anchor",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "square",
+   "n": 4096,
+   "built": true,
+   "degree": 4,
+   "op": "degree_anchor_abs",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "square",
+   "n": 4096,
+   "built": true,
+   "degree": 4,
+   "op": "degree_cube_sum",
+   "lattice": 64.0,
+   "random": [
+    64.0,
+    64.0,
+    64.0
+   ],
+   "random_mean": 64.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "square",
+   "n": 4096,
+   "built": true,
+   "degree": 4,
+   "op": "degree_fourth_sum",
+   "lattice": 256.0,
+   "random": [
+    256.0,
+    256.0,
+    256.0
+   ],
+   "random_mean": 256.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "square",
+   "n": 4096,
+   "built": true,
+   "degree": 4,
+   "op": "degree_neighbor_gradient",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "square",
+   "n": 4096,
+   "built": true,
+   "degree": 4,
+   "op": "degree_square_sum",
+   "lattice": 16.0,
+   "random": [
+    16.0,
+    16.0,
+    16.0
+   ],
+   "random_mean": 16.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "square",
+   "n": 4096,
+   "built": true,
+   "degree": 4,
+   "op": "edge_count",
+   "lattice": 2.0,
+   "random": [
+    2.0,
+    2.0,
+    2.0
+   ],
+   "random_mean": 2.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "square",
+   "n": 4096,
+   "built": true,
+   "degree": 4,
+   "op": "induced_square_count",
+   "lattice": 1.0,
+   "random": [
+    0.002197265625,
+    0.003173828125,
+    0.001708984375
+   ],
+   "random_mean": 0.0023600260416666665,
+   "random_sd": 0.0007458619295175521,
+   "difference": 0.9976399739583334
+  },
+  {
+   "name": "square",
+   "n": 4096,
+   "built": true,
+   "degree": 4,
+   "op": "ollivier_curvature",
+   "lattice": 0.0,
+   "random": [
+    -31.7734375,
+    -31.7705078125,
+    -31.78515625
+   ],
+   "random_mean": -31.7763671875,
+   "random_sd": 0.007751224544134543,
+   "difference": 31.7763671875
+  },
+  {
+   "name": "square",
+   "n": 4096,
+   "built": true,
+   "degree": 4,
+   "op": "square_count",
+   "lattice": 1.0,
+   "random": [
+    0.002197265625,
+    0.003173828125,
+    0.001708984375
+   ],
+   "random_mean": 0.0023600260416666665,
+   "random_sd": 0.0007458619295175521,
+   "difference": 0.9976399739583334
+  },
+  {
+   "name": "square",
+   "n": 4096,
+   "built": true,
+   "degree": 4,
+   "op": "square_edge_overlap",
+   "lattice": 2.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 2.0
+  },
+  {
+   "name": "square",
+   "n": 4096,
+   "built": true,
+   "degree": 4,
+   "op": "triangle_count",
+   "lattice": 0.0,
+   "random": [
+    0.001220703125,
+    0.0009765625,
+    0.00146484375
+   ],
+   "random_mean": 0.001220703125,
+   "random_sd": 0.000244140625,
+   "difference": -0.001220703125
+  },
+  {
+   "name": "square",
+   "n": 4096,
+   "built": true,
+   "degree": 4,
+   "op": "triangle_edge_overlap",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "square",
+   "n": 4096,
+   "built": true,
+   "degree": 4,
+   "op": "wedge_count",
+   "lattice": 6.0,
+   "random": [
+    6.0,
+    6.0,
+    6.0
+   ],
+   "random_mean": 6.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "square",
+   "n": 16384,
+   "built": true,
+   "degree": 4,
+   "op": "degree_anchor",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "square",
+   "n": 16384,
+   "built": true,
+   "degree": 4,
+   "op": "degree_anchor_abs",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "square",
+   "n": 16384,
+   "built": true,
+   "degree": 4,
+   "op": "degree_cube_sum",
+   "lattice": 64.0,
+   "random": [
+    64.0,
+    64.0,
+    64.0
+   ],
+   "random_mean": 64.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "square",
+   "n": 16384,
+   "built": true,
+   "degree": 4,
+   "op": "degree_fourth_sum",
+   "lattice": 256.0,
+   "random": [
+    256.0,
+    256.0,
+    256.0
+   ],
+   "random_mean": 256.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "square",
+   "n": 16384,
+   "built": true,
+   "degree": 4,
+   "op": "degree_neighbor_gradient",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "square",
+   "n": 16384,
+   "built": true,
+   "degree": 4,
+   "op": "degree_square_sum",
+   "lattice": 16.0,
+   "random": [
+    16.0,
+    16.0,
+    16.0
+   ],
+   "random_mean": 16.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "square",
+   "n": 16384,
+   "built": true,
+   "degree": 4,
+   "op": "edge_count",
+   "lattice": 2.0,
+   "random": [
+    2.0,
+    2.0,
+    2.0
+   ],
+   "random_mean": 2.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "square",
+   "n": 16384,
+   "built": true,
+   "degree": 4,
+   "op": "induced_square_count",
+   "lattice": 1.0,
+   "random": [
+    0.000732421875,
+    0.000732421875,
+    0.00042724609375
+   ],
+   "random_mean": 0.0006306966145833334,
+   "random_sd": 0.00017619331945484184,
+   "difference": 0.9993693033854166
+  },
+  {
+   "name": "square",
+   "n": 16384,
+   "built": true,
+   "degree": 4,
+   "op": "ollivier_curvature",
+   "lattice": 0.0,
+   "random": [
+    -31.943359375,
+    -31.9345703125,
+    -31.9365234375
+   ],
+   "random_mean": -31.938151041666668,
+   "random_sd": 0.004615054322512313,
+   "difference": 31.938151041666668
+  },
+  {
+   "name": "square",
+   "n": 16384,
+   "built": true,
+   "degree": 4,
+   "op": "square_count",
+   "lattice": 1.0,
+   "random": [
+    0.000732421875,
+    0.000732421875,
+    0.00042724609375
+   ],
+   "random_mean": 0.0006306966145833334,
+   "random_sd": 0.00017619331945484184,
+   "difference": 0.9993693033854166
+  },
+  {
+   "name": "square",
+   "n": 16384,
+   "built": true,
+   "degree": 4,
+   "op": "square_edge_overlap",
+   "lattice": 2.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 2.0
+  },
+  {
+   "name": "square",
+   "n": 16384,
+   "built": true,
+   "degree": 4,
+   "op": "triangle_count",
+   "lattice": 0.0,
+   "random": [
+    0.000244140625,
+    0.00048828125,
+    0.0003662109375
+   ],
+   "random_mean": 0.0003662109375,
+   "random_sd": 0.0001220703125,
+   "difference": -0.0003662109375
+  },
+  {
+   "name": "square",
+   "n": 16384,
+   "built": true,
+   "degree": 4,
+   "op": "triangle_edge_overlap",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "square",
+   "n": 16384,
+   "built": true,
+   "degree": 4,
+   "op": "wedge_count",
+   "lattice": 6.0,
+   "random": [
+    6.0,
+    6.0,
+    6.0
+   ],
+   "random_mean": 6.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "triangular",
+   "n": 1024,
+   "built": true,
+   "degree": 6,
+   "op": "degree_anchor",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "triangular",
+   "n": 1024,
+   "built": true,
+   "degree": 6,
+   "op": "degree_anchor_abs",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "triangular",
+   "n": 1024,
+   "built": true,
+   "degree": 6,
+   "op": "degree_cube_sum",
+   "lattice": 216.0,
+   "random": [
+    216.0,
+    216.0,
+    216.0
+   ],
+   "random_mean": 216.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "triangular",
+   "n": 1024,
+   "built": true,
+   "degree": 6,
+   "op": "degree_fourth_sum",
+   "lattice": 1296.0,
+   "random": [
+    1296.0,
+    1296.0,
+    1296.0
+   ],
+   "random_mean": 1296.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "triangular",
+   "n": 1024,
+   "built": true,
+   "degree": 6,
+   "op": "degree_neighbor_gradient",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "triangular",
+   "n": 1024,
+   "built": true,
+   "degree": 6,
+   "op": "degree_square_sum",
+   "lattice": 36.0,
+   "random": [
+    36.0,
+    36.0,
+    36.0
+   ],
+   "random_mean": 36.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "triangular",
+   "n": 1024,
+   "built": true,
+   "degree": 6,
+   "op": "edge_count",
+   "lattice": 3.0,
+   "random": [
+    3.0,
+    3.0,
+    3.0
+   ],
+   "random_mean": 3.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "triangular",
+   "n": 1024,
+   "built": true,
+   "degree": 6,
+   "op": "induced_square_count",
+   "lattice": 0.0,
+   "random": [
+    0.076171875,
+    0.0712890625,
+    0.07421875
+   ],
+   "random_mean": 0.07389322916666667,
+   "random_sd": 0.0024576283968980304,
+   "difference": -0.07389322916666667
+  },
+  {
+   "name": "triangular",
+   "n": 1024,
+   "built": true,
+   "degree": 6,
+   "op": "ollivier_curvature",
+   "lattice": 36.0,
+   "random": [
+    -129.75,
+    -129.87890625,
+    -131.44921875
+   ],
+   "random_mean": -130.359375,
+   "random_sd": 0.9460305253440887,
+   "difference": 166.359375
+  },
+  {
+   "name": "triangular",
+   "n": 1024,
+   "built": true,
+   "degree": 6,
+   "op": "square_count",
+   "lattice": 3.0,
+   "random": [
+    0.076171875,
+    0.0712890625,
+    0.07421875
+   ],
+   "random_mean": 0.07389322916666667,
+   "random_sd": 0.0024576283968980304,
+   "difference": 2.9261067708333335
+  },
+  {
+   "name": "triangular",
+   "n": 1024,
+   "built": true,
+   "degree": 6,
+   "op": "square_edge_overlap",
+   "lattice": 18.0,
+   "random": [
+    0.0205078125,
+    0.0107421875,
+    0.0048828125
+   ],
+   "random_mean": 0.012044270833333334,
+   "random_sd": 0.007893460711576915,
+   "difference": 17.987955729166668
+  },
+  {
+   "name": "triangular",
+   "n": 1024,
+   "built": true,
+   "degree": 6,
+   "op": "triangle_count",
+   "lattice": 2.0,
+   "random": [
+    0.0146484375,
+    0.03515625,
+    0.0205078125
+   ],
+   "random_mean": 0.0234375,
+   "random_sd": 0.010563138502335907,
+   "difference": 1.9765625
+  },
+  {
+   "name": "triangular",
+   "n": 1024,
+   "built": true,
+   "degree": 6,
+   "op": "triangle_edge_overlap",
+   "lattice": 3.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 3.0
+  },
+  {
+   "name": "triangular",
+   "n": 1024,
+   "built": true,
+   "degree": 6,
+   "op": "wedge_count",
+   "lattice": 15.0,
+   "random": [
+    15.0,
+    15.0,
+    15.0
+   ],
+   "random_mean": 15.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "triangular",
+   "n": 4096,
+   "built": true,
+   "degree": 6,
+   "op": "degree_anchor",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "triangular",
+   "n": 4096,
+   "built": true,
+   "degree": 6,
+   "op": "degree_anchor_abs",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "triangular",
+   "n": 4096,
+   "built": true,
+   "degree": 6,
+   "op": "degree_cube_sum",
+   "lattice": 216.0,
+   "random": [
+    216.0,
+    216.0,
+    216.0
+   ],
+   "random_mean": 216.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "triangular",
+   "n": 4096,
+   "built": true,
+   "degree": 6,
+   "op": "degree_fourth_sum",
+   "lattice": 1296.0,
+   "random": [
+    1296.0,
+    1296.0,
+    1296.0
+   ],
+   "random_mean": 1296.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "triangular",
+   "n": 4096,
+   "built": true,
+   "degree": 6,
+   "op": "degree_neighbor_gradient",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "triangular",
+   "n": 4096,
+   "built": true,
+   "degree": 6,
+   "op": "degree_square_sum",
+   "lattice": 36.0,
+   "random": [
+    36.0,
+    36.0,
+    36.0
+   ],
+   "random_mean": 36.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "triangular",
+   "n": 4096,
+   "built": true,
+   "degree": 6,
+   "op": "edge_count",
+   "lattice": 3.0,
+   "random": [
+    3.0,
+    3.0,
+    3.0
+   ],
+   "random_mean": 3.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "triangular",
+   "n": 4096,
+   "built": true,
+   "degree": 6,
+   "op": "induced_square_count",
+   "lattice": 0.0,
+   "random": [
+    0.01953125,
+    0.01904296875,
+    0.017822265625
+   ],
+   "random_mean": 0.018798828125,
+   "random_sd": 0.0008802615418613255,
+   "difference": -0.018798828125
+  },
+  {
+   "name": "triangular",
+   "n": 4096,
+   "built": true,
+   "degree": 6,
+   "op": "ollivier_curvature",
+   "lattice": 36.0,
+   "random": [
+    -140.55322265625,
+    -140.55615234375,
+    -140.73046875
+   ],
+   "random_mean": -140.61328125,
+   "random_sd": 0.10149792305460942,
+   "difference": 176.61328125
+  },
+  {
+   "name": "triangular",
+   "n": 4096,
+   "built": true,
+   "degree": 6,
+   "op": "square_count",
+   "lattice": 3.0,
+   "random": [
+    0.01953125,
+    0.01904296875,
+    0.017822265625
+   ],
+   "random_mean": 0.018798828125,
+   "random_sd": 0.0008802615418613255,
+   "difference": 2.981201171875
+  },
+  {
+   "name": "triangular",
+   "n": 4096,
+   "built": true,
+   "degree": 6,
+   "op": "square_edge_overlap",
+   "lattice": 18.0,
+   "random": [
+    0.0009765625,
+    0.000732421875,
+    0.001708984375
+   ],
+   "random_mean": 0.0011393229166666667,
+   "random_sd": 0.0005082192381509113,
+   "difference": 17.998860677083332
+  },
+  {
+   "name": "triangular",
+   "n": 4096,
+   "built": true,
+   "degree": 6,
+   "op": "triangle_count",
+   "lattice": 2.0,
+   "random": [
+    0.00537109375,
+    0.00439453125,
+    0.00537109375
+   ],
+   "random_mean": 0.005045572916666667,
+   "random_sd": 0.0005638186222554939,
+   "difference": 1.9949544270833333
+  },
+  {
+   "name": "triangular",
+   "n": 4096,
+   "built": true,
+   "degree": 6,
+   "op": "triangle_edge_overlap",
+   "lattice": 3.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 3.0
+  },
+  {
+   "name": "triangular",
+   "n": 4096,
+   "built": true,
+   "degree": 6,
+   "op": "wedge_count",
+   "lattice": 15.0,
+   "random": [
+    15.0,
+    15.0,
+    15.0
+   ],
+   "random_mean": 15.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "triangular",
+   "n": 16384,
+   "built": true,
+   "degree": 6,
+   "op": "degree_anchor",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "triangular",
+   "n": 16384,
+   "built": true,
+   "degree": 6,
+   "op": "degree_anchor_abs",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "triangular",
+   "n": 16384,
+   "built": true,
+   "degree": 6,
+   "op": "degree_cube_sum",
+   "lattice": 216.0,
+   "random": [
+    216.0,
+    216.0,
+    216.0
+   ],
+   "random_mean": 216.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "triangular",
+   "n": 16384,
+   "built": true,
+   "degree": 6,
+   "op": "degree_fourth_sum",
+   "lattice": 1296.0,
+   "random": [
+    1296.0,
+    1296.0,
+    1296.0
+   ],
+   "random_mean": 1296.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "triangular",
+   "n": 16384,
+   "built": true,
+   "degree": 6,
+   "op": "degree_neighbor_gradient",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "triangular",
+   "n": 16384,
+   "built": true,
+   "degree": 6,
+   "op": "degree_square_sum",
+   "lattice": 36.0,
+   "random": [
+    36.0,
+    36.0,
+    36.0
+   ],
+   "random_mean": 36.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "triangular",
+   "n": 16384,
+   "built": true,
+   "degree": 6,
+   "op": "edge_count",
+   "lattice": 3.0,
+   "random": [
+    3.0,
+    3.0,
+    3.0
+   ],
+   "random_mean": 3.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "triangular",
+   "n": 16384,
+   "built": true,
+   "degree": 6,
+   "op": "induced_square_count",
+   "lattice": 0.0,
+   "random": [
+    0.00537109375,
+    0.00439453125,
+    0.00469970703125
+   ],
+   "random_mean": 0.00482177734375,
+   "random_sd": 0.0004995942853926056,
+   "difference": -0.00482177734375
+  },
+  {
+   "name": "triangular",
+   "n": 16384,
+   "built": true,
+   "degree": 6,
+   "op": "ollivier_curvature",
+   "lattice": 36.0,
+   "random": [
+    -143.12841796875,
+    -143.1507568359375,
+    -143.093994140625
+   ],
+   "random_mean": -143.1243896484375,
+   "random_sd": 0.02859495441839351,
+   "difference": 179.1243896484375
+  },
+  {
+   "name": "triangular",
+   "n": 16384,
+   "built": true,
+   "degree": 6,
+   "op": "square_count",
+   "lattice": 3.0,
+   "random": [
+    0.00537109375,
+    0.00439453125,
+    0.00469970703125
+   ],
+   "random_mean": 0.00482177734375,
+   "random_sd": 0.0004995942853926056,
+   "difference": 2.99517822265625
+  },
+  {
+   "name": "triangular",
+   "n": 16384,
+   "built": true,
+   "degree": 6,
+   "op": "square_edge_overlap",
+   "lattice": 18.0,
+   "random": [
+    6.103515625e-05,
+    0.0001220703125,
+    6.103515625e-05
+   ],
+   "random_mean": 8.138020833333333e-05,
+   "random_sd": 3.523866389096837e-05,
+   "difference": 17.999918619791668
+  },
+  {
+   "name": "triangular",
+   "n": 16384,
+   "built": true,
+   "degree": 6,
+   "op": "triangle_count",
+   "lattice": 2.0,
+   "random": [
+    0.00054931640625,
+    0.00103759765625,
+    0.00164794921875
+   ],
+   "random_mean": 0.0010782877604166667,
+   "random_sd": 0.0005504455264676385,
+   "difference": 1.9989217122395833
+  },
+  {
+   "name": "triangular",
+   "n": 16384,
+   "built": true,
+   "degree": 6,
+   "op": "triangle_edge_overlap",
+   "lattice": 3.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 3.0
+  },
+  {
+   "name": "triangular",
+   "n": 16384,
+   "built": true,
+   "degree": 6,
+   "op": "wedge_count",
+   "lattice": 15.0,
+   "random": [
+    15.0,
+    15.0,
+    15.0
+   ],
+   "random_mean": 15.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "cubic",
+   "n": 1024,
+   "built": true,
+   "degree": 6,
+   "op": "degree_anchor",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "cubic",
+   "n": 1024,
+   "built": true,
+   "degree": 6,
+   "op": "degree_anchor_abs",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "cubic",
+   "n": 1024,
+   "built": true,
+   "degree": 6,
+   "op": "degree_cube_sum",
+   "lattice": 216.0,
+   "random": [
+    216.0,
+    216.0,
+    216.0
+   ],
+   "random_mean": 216.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "cubic",
+   "n": 1024,
+   "built": true,
+   "degree": 6,
+   "op": "degree_fourth_sum",
+   "lattice": 1296.0,
+   "random": [
+    1296.0,
+    1296.0,
+    1296.0
+   ],
+   "random_mean": 1296.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "cubic",
+   "n": 1024,
+   "built": true,
+   "degree": 6,
+   "op": "degree_neighbor_gradient",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "cubic",
+   "n": 1024,
+   "built": true,
+   "degree": 6,
+   "op": "degree_square_sum",
+   "lattice": 36.0,
+   "random": [
+    36.0,
+    36.0,
+    36.0
+   ],
+   "random_mean": 36.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "cubic",
+   "n": 1024,
+   "built": true,
+   "degree": 6,
+   "op": "edge_count",
+   "lattice": 3.0,
+   "random": [
+    3.0,
+    3.0,
+    3.0
+   ],
+   "random_mean": 3.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "cubic",
+   "n": 1024,
+   "built": true,
+   "degree": 6,
+   "op": "induced_square_count",
+   "lattice": 3.0,
+   "random": [
+    0.076171875,
+    0.0712890625,
+    0.07421875
+   ],
+   "random_mean": 0.07389322916666667,
+   "random_sd": 0.0024576283968980304,
+   "difference": 2.9261067708333335
+  },
+  {
+   "name": "cubic",
+   "n": 1024,
+   "built": true,
+   "degree": 6,
+   "op": "ollivier_curvature",
+   "lattice": 0.0,
+   "random": [
+    -129.75,
+    -129.87890625,
+    -131.44921875
+   ],
+   "random_mean": -130.359375,
+   "random_sd": 0.9460305253440887,
+   "difference": 130.359375
+  },
+  {
+   "name": "cubic",
+   "n": 1024,
+   "built": true,
+   "degree": 6,
+   "op": "square_count",
+   "lattice": 3.0,
+   "random": [
+    0.076171875,
+    0.0712890625,
+    0.07421875
+   ],
+   "random_mean": 0.07389322916666667,
+   "random_sd": 0.0024576283968980304,
+   "difference": 2.9261067708333335
+  },
+  {
+   "name": "cubic",
+   "n": 1024,
+   "built": true,
+   "degree": 6,
+   "op": "square_edge_overlap",
+   "lattice": 18.0,
+   "random": [
+    0.0205078125,
+    0.0107421875,
+    0.0048828125
+   ],
+   "random_mean": 0.012044270833333334,
+   "random_sd": 0.007893460711576915,
+   "difference": 17.987955729166668
+  },
+  {
+   "name": "cubic",
+   "n": 1024,
+   "built": true,
+   "degree": 6,
+   "op": "triangle_count",
+   "lattice": 0.0,
+   "random": [
+    0.0146484375,
+    0.03515625,
+    0.0205078125
+   ],
+   "random_mean": 0.0234375,
+   "random_sd": 0.010563138502335907,
+   "difference": -0.0234375
+  },
+  {
+   "name": "cubic",
+   "n": 1024,
+   "built": true,
+   "degree": 6,
+   "op": "triangle_edge_overlap",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "cubic",
+   "n": 1024,
+   "built": true,
+   "degree": 6,
+   "op": "wedge_count",
+   "lattice": 15.0,
+   "random": [
+    15.0,
+    15.0,
+    15.0
+   ],
+   "random_mean": 15.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "cubic",
+   "n": 4096,
+   "built": true,
+   "degree": 6,
+   "op": "degree_anchor",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "cubic",
+   "n": 4096,
+   "built": true,
+   "degree": 6,
+   "op": "degree_anchor_abs",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "cubic",
+   "n": 4096,
+   "built": true,
+   "degree": 6,
+   "op": "degree_cube_sum",
+   "lattice": 216.0,
+   "random": [
+    216.0,
+    216.0,
+    216.0
+   ],
+   "random_mean": 216.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "cubic",
+   "n": 4096,
+   "built": true,
+   "degree": 6,
+   "op": "degree_fourth_sum",
+   "lattice": 1296.0,
+   "random": [
+    1296.0,
+    1296.0,
+    1296.0
+   ],
+   "random_mean": 1296.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "cubic",
+   "n": 4096,
+   "built": true,
+   "degree": 6,
+   "op": "degree_neighbor_gradient",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "cubic",
+   "n": 4096,
+   "built": true,
+   "degree": 6,
+   "op": "degree_square_sum",
+   "lattice": 36.0,
+   "random": [
+    36.0,
+    36.0,
+    36.0
+   ],
+   "random_mean": 36.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "cubic",
+   "n": 4096,
+   "built": true,
+   "degree": 6,
+   "op": "edge_count",
+   "lattice": 3.0,
+   "random": [
+    3.0,
+    3.0,
+    3.0
+   ],
+   "random_mean": 3.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "cubic",
+   "n": 4096,
+   "built": true,
+   "degree": 6,
+   "op": "induced_square_count",
+   "lattice": 3.0,
+   "random": [
+    0.01953125,
+    0.01904296875,
+    0.017822265625
+   ],
+   "random_mean": 0.018798828125,
+   "random_sd": 0.0008802615418613255,
+   "difference": 2.981201171875
+  },
+  {
+   "name": "cubic",
+   "n": 4096,
+   "built": true,
+   "degree": 6,
+   "op": "ollivier_curvature",
+   "lattice": 0.0,
+   "random": [
+    -140.55322265625,
+    -140.55615234375,
+    -140.73046875
+   ],
+   "random_mean": -140.61328125,
+   "random_sd": 0.10149792305460942,
+   "difference": 140.61328125
+  },
+  {
+   "name": "cubic",
+   "n": 4096,
+   "built": true,
+   "degree": 6,
+   "op": "square_count",
+   "lattice": 3.0,
+   "random": [
+    0.01953125,
+    0.01904296875,
+    0.017822265625
+   ],
+   "random_mean": 0.018798828125,
+   "random_sd": 0.0008802615418613255,
+   "difference": 2.981201171875
+  },
+  {
+   "name": "cubic",
+   "n": 4096,
+   "built": true,
+   "degree": 6,
+   "op": "square_edge_overlap",
+   "lattice": 18.0,
+   "random": [
+    0.0009765625,
+    0.000732421875,
+    0.001708984375
+   ],
+   "random_mean": 0.0011393229166666667,
+   "random_sd": 0.0005082192381509113,
+   "difference": 17.998860677083332
+  },
+  {
+   "name": "cubic",
+   "n": 4096,
+   "built": true,
+   "degree": 6,
+   "op": "triangle_count",
+   "lattice": 0.0,
+   "random": [
+    0.00537109375,
+    0.00439453125,
+    0.00537109375
+   ],
+   "random_mean": 0.005045572916666667,
+   "random_sd": 0.0005638186222554939,
+   "difference": -0.005045572916666667
+  },
+  {
+   "name": "cubic",
+   "n": 4096,
+   "built": true,
+   "degree": 6,
+   "op": "triangle_edge_overlap",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "cubic",
+   "n": 4096,
+   "built": true,
+   "degree": 6,
+   "op": "wedge_count",
+   "lattice": 15.0,
+   "random": [
+    15.0,
+    15.0,
+    15.0
+   ],
+   "random_mean": 15.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "cubic",
+   "n": 16384,
+   "built": true,
+   "degree": 6,
+   "op": "degree_anchor",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "cubic",
+   "n": 16384,
+   "built": true,
+   "degree": 6,
+   "op": "degree_anchor_abs",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "cubic",
+   "n": 16384,
+   "built": true,
+   "degree": 6,
+   "op": "degree_cube_sum",
+   "lattice": 216.0,
+   "random": [
+    216.0,
+    216.0,
+    216.0
+   ],
+   "random_mean": 216.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "cubic",
+   "n": 16384,
+   "built": true,
+   "degree": 6,
+   "op": "degree_fourth_sum",
+   "lattice": 1296.0,
+   "random": [
+    1296.0,
+    1296.0,
+    1296.0
+   ],
+   "random_mean": 1296.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "cubic",
+   "n": 16384,
+   "built": true,
+   "degree": 6,
+   "op": "degree_neighbor_gradient",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "cubic",
+   "n": 16384,
+   "built": true,
+   "degree": 6,
+   "op": "degree_square_sum",
+   "lattice": 36.0,
+   "random": [
+    36.0,
+    36.0,
+    36.0
+   ],
+   "random_mean": 36.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "cubic",
+   "n": 16384,
+   "built": true,
+   "degree": 6,
+   "op": "edge_count",
+   "lattice": 3.0,
+   "random": [
+    3.0,
+    3.0,
+    3.0
+   ],
+   "random_mean": 3.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "cubic",
+   "n": 16384,
+   "built": true,
+   "degree": 6,
+   "op": "induced_square_count",
+   "lattice": 3.0,
+   "random": [
+    0.00537109375,
+    0.00439453125,
+    0.00469970703125
+   ],
+   "random_mean": 0.00482177734375,
+   "random_sd": 0.0004995942853926056,
+   "difference": 2.99517822265625
+  },
+  {
+   "name": "cubic",
+   "n": 16384,
+   "built": true,
+   "degree": 6,
+   "op": "ollivier_curvature",
+   "lattice": 0.0,
+   "random": [
+    -143.12841796875,
+    -143.1507568359375,
+    -143.093994140625
+   ],
+   "random_mean": -143.1243896484375,
+   "random_sd": 0.02859495441839351,
+   "difference": 143.1243896484375
+  },
+  {
+   "name": "cubic",
+   "n": 16384,
+   "built": true,
+   "degree": 6,
+   "op": "square_count",
+   "lattice": 3.0,
+   "random": [
+    0.00537109375,
+    0.00439453125,
+    0.00469970703125
+   ],
+   "random_mean": 0.00482177734375,
+   "random_sd": 0.0004995942853926056,
+   "difference": 2.99517822265625
+  },
+  {
+   "name": "cubic",
+   "n": 16384,
+   "built": true,
+   "degree": 6,
+   "op": "square_edge_overlap",
+   "lattice": 18.0,
+   "random": [
+    6.103515625e-05,
+    0.0001220703125,
+    6.103515625e-05
+   ],
+   "random_mean": 8.138020833333333e-05,
+   "random_sd": 3.523866389096837e-05,
+   "difference": 17.999918619791668
+  },
+  {
+   "name": "cubic",
+   "n": 16384,
+   "built": true,
+   "degree": 6,
+   "op": "triangle_count",
+   "lattice": 0.0,
+   "random": [
+    0.00054931640625,
+    0.00103759765625,
+    0.00164794921875
+   ],
+   "random_mean": 0.0010782877604166667,
+   "random_sd": 0.0005504455264676385,
+   "difference": -0.0010782877604166667
+  },
+  {
+   "name": "cubic",
+   "n": 16384,
+   "built": true,
+   "degree": 6,
+   "op": "triangle_edge_overlap",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "cubic",
+   "n": 16384,
+   "built": true,
+   "degree": 6,
+   "op": "wedge_count",
+   "lattice": 15.0,
+   "random": [
+    15.0,
+    15.0,
+    15.0
+   ],
+   "random_mean": 15.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "body-centred cubic",
+   "n": 1024,
+   "built": true,
+   "degree": 8,
+   "op": "degree_anchor",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "body-centred cubic",
+   "n": 1024,
+   "built": true,
+   "degree": 8,
+   "op": "degree_anchor_abs",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "body-centred cubic",
+   "n": 1024,
+   "built": true,
+   "degree": 8,
+   "op": "degree_cube_sum",
+   "lattice": 512.0,
+   "random": [
+    512.0,
+    512.0,
+    512.0
+   ],
+   "random_mean": 512.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "body-centred cubic",
+   "n": 1024,
+   "built": true,
+   "degree": 8,
+   "op": "degree_fourth_sum",
+   "lattice": 4096.0,
+   "random": [
+    4096.0,
+    4096.0,
+    4096.0
+   ],
+   "random_mean": 4096.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "body-centred cubic",
+   "n": 1024,
+   "built": true,
+   "degree": 8,
+   "op": "degree_neighbor_gradient",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "body-centred cubic",
+   "n": 1024,
+   "built": true,
+   "degree": 8,
+   "op": "degree_square_sum",
+   "lattice": 64.0,
+   "random": [
+    64.0,
+    64.0,
+    64.0
+   ],
+   "random_mean": 64.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "body-centred cubic",
+   "n": 1024,
+   "built": true,
+   "degree": 8,
+   "op": "edge_count",
+   "lattice": 4.0,
+   "random": [
+    4.0,
+    4.0,
+    4.0
+   ],
+   "random_mean": 4.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "body-centred cubic",
+   "n": 1024,
+   "built": true,
+   "degree": 8,
+   "op": "induced_square_count",
+   "lattice": 12.0,
+   "random": [
+    0.310546875,
+    0.2958984375,
+    0.2890625
+   ],
+   "random_mean": 0.2985026041666667,
+   "random_sd": 0.010976377148494379,
+   "difference": 11.701497395833334
+  },
+  {
+   "name": "body-centred cubic",
+   "n": 1024,
+   "built": true,
+   "degree": 8,
+   "op": "ollivier_curvature",
+   "lattice": 0.0,
+   "random": [
+    -295.0390625,
+    -299.03125,
+    -296.4453125
+   ],
+   "random_mean": -296.8385416666667,
+   "random_sd": 2.0249350957319803,
+   "difference": 296.8385416666667
+  },
+  {
+   "name": "body-centred cubic",
+   "n": 1024,
+   "built": true,
+   "degree": 8,
+   "op": "square_count",
+   "lattice": 12.0,
+   "random": [
+    0.310546875,
+    0.2998046875,
+    0.291015625
+   ],
+   "random_mean": 0.3004557291666667,
+   "random_sd": 0.009781887500857239,
+   "difference": 11.699544270833334
+  },
+  {
+   "name": "body-centred cubic",
+   "n": 1024,
+   "built": true,
+   "degree": 8,
+   "op": "square_edge_overlap",
+   "lattice": 264.0,
+   "random": [
+    0.2021484375,
+    0.193359375,
+    0.1611328125
+   ],
+   "random_mean": 0.185546875,
+   "random_sd": 0.021595062878414045,
+   "difference": 263.814453125
+  },
+  {
+   "name": "body-centred cubic",
+   "n": 1024,
+   "built": true,
+   "degree": 8,
+   "op": "triangle_count",
+   "lattice": 0.0,
+   "random": [
+    0.0654296875,
+    0.0478515625,
+    0.0634765625
+   ],
+   "random_mean": 0.058919270833333336,
+   "random_sd": 0.00963453684046142,
+   "difference": -0.058919270833333336
+  },
+  {
+   "name": "body-centred cubic",
+   "n": 1024,
+   "built": true,
+   "degree": 8,
+   "op": "triangle_edge_overlap",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.00390625,
+    0.001953125
+   ],
+   "random_mean": 0.001953125,
+   "random_sd": 0.001953125,
+   "difference": -0.001953125
+  },
+  {
+   "name": "body-centred cubic",
+   "n": 1024,
+   "built": true,
+   "degree": 8,
+   "op": "wedge_count",
+   "lattice": 28.0,
+   "random": [
+    28.0,
+    28.0,
+    28.0
+   ],
+   "random_mean": 28.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "body-centred cubic",
+   "n": 4096,
+   "built": true,
+   "degree": 8,
+   "op": "degree_anchor",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "body-centred cubic",
+   "n": 4096,
+   "built": true,
+   "degree": 8,
+   "op": "degree_anchor_abs",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "body-centred cubic",
+   "n": 4096,
+   "built": true,
+   "degree": 8,
+   "op": "degree_cube_sum",
+   "lattice": 512.0,
+   "random": [
+    512.0,
+    512.0,
+    512.0
+   ],
+   "random_mean": 512.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "body-centred cubic",
+   "n": 4096,
+   "built": true,
+   "degree": 8,
+   "op": "degree_fourth_sum",
+   "lattice": 4096.0,
+   "random": [
+    4096.0,
+    4096.0,
+    4096.0
+   ],
+   "random_mean": 4096.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "body-centred cubic",
+   "n": 4096,
+   "built": true,
+   "degree": 8,
+   "op": "degree_neighbor_gradient",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "body-centred cubic",
+   "n": 4096,
+   "built": true,
+   "degree": 8,
+   "op": "degree_square_sum",
+   "lattice": 64.0,
+   "random": [
+    64.0,
+    64.0,
+    64.0
+   ],
+   "random_mean": 64.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "body-centred cubic",
+   "n": 4096,
+   "built": true,
+   "degree": 8,
+   "op": "edge_count",
+   "lattice": 4.0,
+   "random": [
+    4.0,
+    4.0,
+    4.0
+   ],
+   "random_mean": 4.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "body-centred cubic",
+   "n": 4096,
+   "built": true,
+   "degree": 8,
+   "op": "induced_square_count",
+   "lattice": 12.0,
+   "random": [
+    0.08203125,
+    0.07373046875,
+    0.079345703125
+   ],
+   "random_mean": 0.078369140625,
+   "random_sd": 0.004235681536351922,
+   "difference": 11.921630859375
+  },
+  {
+   "name": "body-centred cubic",
+   "n": 4096,
+   "built": true,
+   "degree": 8,
+   "op": "ollivier_curvature",
+   "lattice": 0.0,
+   "random": [
+    -361.09375,
+    -362.166015625,
+    -361.30078125
+   ],
+   "random_mean": -361.5201822916667,
+   "random_sd": 0.5688066503237053,
+   "difference": 361.5201822916667
+  },
+  {
+   "name": "body-centred cubic",
+   "n": 4096,
+   "built": true,
+   "degree": 8,
+   "op": "square_count",
+   "lattice": 12.0,
+   "random": [
+    0.082275390625,
+    0.073974609375,
+    0.07958984375
+   ],
+   "random_mean": 0.07861328125,
+   "random_sd": 0.004235681536351922,
+   "difference": 11.92138671875
+  },
+  {
+   "name": "body-centred cubic",
+   "n": 4096,
+   "built": true,
+   "degree": 8,
+   "op": "square_edge_overlap",
+   "lattice": 264.0,
+   "random": [
+    0.01318359375,
+    0.01416015625,
+    0.011962890625
+   ],
+   "random_mean": 0.013102213541666666,
+   "random_sd": 0.001100891052935277,
+   "difference": 263.9868977864583
+  },
+  {
+   "name": "body-centred cubic",
+   "n": 4096,
+   "built": true,
+   "degree": 8,
+   "op": "triangle_count",
+   "lattice": 0.0,
+   "random": [
+    0.012939453125,
+    0.01220703125,
+    0.014892578125
+   ],
+   "random_mean": 0.013346354166666666,
+   "random_sd": 0.001388242359149738,
+   "difference": -0.013346354166666666
+  },
+  {
+   "name": "body-centred cubic",
+   "n": 4096,
+   "built": true,
+   "degree": 8,
+   "op": "triangle_edge_overlap",
+   "lattice": 0.0,
+   "random": [
+    0.000244140625,
+    0.000244140625,
+    0.000244140625
+   ],
+   "random_mean": 0.000244140625,
+   "random_sd": 0.0,
+   "difference": -0.000244140625
+  },
+  {
+   "name": "body-centred cubic",
+   "n": 4096,
+   "built": true,
+   "degree": 8,
+   "op": "wedge_count",
+   "lattice": 28.0,
+   "random": [
+    28.0,
+    28.0,
+    28.0
+   ],
+   "random_mean": 28.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "body-centred cubic",
+   "n": 16384,
+   "built": true,
+   "degree": 8,
+   "op": "degree_anchor",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "body-centred cubic",
+   "n": 16384,
+   "built": true,
+   "degree": 8,
+   "op": "degree_anchor_abs",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "body-centred cubic",
+   "n": 16384,
+   "built": true,
+   "degree": 8,
+   "op": "degree_cube_sum",
+   "lattice": 512.0,
+   "random": [
+    512.0,
+    512.0,
+    512.0
+   ],
+   "random_mean": 512.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "body-centred cubic",
+   "n": 16384,
+   "built": true,
+   "degree": 8,
+   "op": "degree_fourth_sum",
+   "lattice": 4096.0,
+   "random": [
+    4096.0,
+    4096.0,
+    4096.0
+   ],
+   "random_mean": 4096.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "body-centred cubic",
+   "n": 16384,
+   "built": true,
+   "degree": 8,
+   "op": "degree_neighbor_gradient",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "body-centred cubic",
+   "n": 16384,
+   "built": true,
+   "degree": 8,
+   "op": "degree_square_sum",
+   "lattice": 64.0,
+   "random": [
+    64.0,
+    64.0,
+    64.0
+   ],
+   "random_mean": 64.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "body-centred cubic",
+   "n": 16384,
+   "built": true,
+   "degree": 8,
+   "op": "edge_count",
+   "lattice": 4.0,
+   "random": [
+    4.0,
+    4.0,
+    4.0
+   ],
+   "random_mean": 4.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "body-centred cubic",
+   "n": 16384,
+   "built": true,
+   "degree": 8,
+   "op": "induced_square_count",
+   "lattice": 12.0,
+   "random": [
+    0.01910400390625,
+    0.01556396484375,
+    0.01788330078125
+   ],
+   "random_mean": 0.01751708984375,
+   "random_sd": 0.0017982079910469036,
+   "difference": 11.98248291015625
+  },
+  {
+   "name": "body-centred cubic",
+   "n": 16384,
+   "built": true,
+   "degree": 8,
+   "op": "ollivier_curvature",
+   "lattice": 0.0,
+   "random": [
+    -378.533203125,
+    -378.58837890625,
+    -378.47607421875
+   ],
+   "random_mean": -378.5325520833333,
+   "random_sd": 0.05615517429460055,
+   "difference": 378.5325520833333
+  },
+  {
+   "name": "body-centred cubic",
+   "n": 16384,
+   "built": true,
+   "degree": 8,
+   "op": "square_count",
+   "lattice": 12.0,
+   "random": [
+    0.01910400390625,
+    0.01556396484375,
+    0.0179443359375
+   ],
+   "random_mean": 0.017537434895833332,
+   "random_sd": 0.0018047563503942946,
+   "difference": 11.982462565104166
+  },
+  {
+   "name": "body-centred cubic",
+   "n": 16384,
+   "built": true,
+   "degree": 8,
+   "op": "square_edge_overlap",
+   "lattice": 264.0,
+   "random": [
+    0.00054931640625,
+    0.00042724609375,
+    0.00054931640625
+   ],
+   "random_mean": 0.0005086263020833334,
+   "random_sd": 7.047732778193673e-05,
+   "difference": 263.99949137369794
+  },
+  {
+   "name": "body-centred cubic",
+   "n": 16384,
+   "built": true,
+   "degree": 8,
+   "op": "triangle_count",
+   "lattice": 0.0,
+   "random": [
+    0.00323486328125,
+    0.00439453125,
+    0.00390625
+   ],
+   "random_mean": 0.00384521484375,
+   "random_sd": 0.000582238282114835,
+   "difference": -0.00384521484375
+  },
+  {
+   "name": "body-centred cubic",
+   "n": 16384,
+   "built": true,
+   "degree": 8,
+   "op": "triangle_edge_overlap",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    6.103515625e-05
+   ],
+   "random_mean": 2.0345052083333332e-05,
+   "random_sd": 3.523866389096837e-05,
+   "difference": -2.0345052083333332e-05
+  },
+  {
+   "name": "body-centred cubic",
+   "n": 16384,
+   "built": true,
+   "degree": 8,
+   "op": "wedge_count",
+   "lattice": 28.0,
+   "random": [
+    28.0,
+    28.0,
+    28.0
+   ],
+   "random_mean": 28.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "face-centred cubic",
+   "n": 1024,
+   "built": true,
+   "degree": 12,
+   "op": "degree_anchor",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "face-centred cubic",
+   "n": 1024,
+   "built": true,
+   "degree": 12,
+   "op": "degree_anchor_abs",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "face-centred cubic",
+   "n": 1024,
+   "built": true,
+   "degree": 12,
+   "op": "degree_cube_sum",
+   "lattice": 1728.0,
+   "random": [
+    1728.0,
+    1728.0,
+    1728.0
+   ],
+   "random_mean": 1728.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "face-centred cubic",
+   "n": 1024,
+   "built": true,
+   "degree": 12,
+   "op": "degree_fourth_sum",
+   "lattice": 20736.0,
+   "random": [
+    20736.0,
+    20736.0,
+    20736.0
+   ],
+   "random_mean": 20736.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "face-centred cubic",
+   "n": 1024,
+   "built": true,
+   "degree": 12,
+   "op": "degree_neighbor_gradient",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "face-centred cubic",
+   "n": 1024,
+   "built": true,
+   "degree": 12,
+   "op": "degree_square_sum",
+   "lattice": 144.0,
+   "random": [
+    144.0,
+    144.0,
+    144.0
+   ],
+   "random_mean": 144.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "face-centred cubic",
+   "n": 1024,
+   "built": true,
+   "degree": 12,
+   "op": "edge_count",
+   "lattice": 6.0,
+   "random": [
+    6.0,
+    6.0,
+    6.0
+   ],
+   "random_mean": 6.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "face-centred cubic",
+   "n": 1024,
+   "built": true,
+   "degree": 12,
+   "op": "induced_square_count",
+   "lattice": 3.0,
+   "random": [
+    1.87109375,
+    1.7421875,
+    1.7529296875
+   ],
+   "random_mean": 1.7887369791666667,
+   "random_sd": 0.07152500908522785,
+   "difference": 1.2112630208333333
+  },
+  {
+   "name": "face-centred cubic",
+   "n": 1024,
+   "built": true,
+   "degree": 12,
+   "op": "ollivier_curvature",
+   "lattice": 288.0,
+   "random": [
+    -626.015625,
+    -632.3203125,
+    -631.74609375
+   ],
+   "random_mean": -630.02734375,
+   "random_sd": 3.4860934138429314,
+   "difference": 918.02734375
+  },
+  {
+   "name": "face-centred cubic",
+   "n": 1024,
+   "built": true,
+   "degree": 12,
+   "op": "square_count",
+   "lattice": 33.0,
+   "random": [
+    1.9052734375,
+    1.7666015625,
+    1.78515625
+   ],
+   "random_mean": 1.8190104166666667,
+   "random_sd": 0.0752798158839721,
+   "difference": 31.180989583333332
+  },
+  {
+   "name": "face-centred cubic",
+   "n": 1024,
+   "built": true,
+   "degree": 12,
+   "op": "square_edge_overlap",
+   "lattice": 1386.0,
+   "random": [
+    4.7470703125,
+    4.0390625,
+    4.0986328125
+   ],
+   "random_mean": 4.294921875,
+   "random_sd": 0.3927032119592421,
+   "difference": 1381.705078125
+  },
+  {
+   "name": "face-centred cubic",
+   "n": 1024,
+   "built": true,
+   "degree": 12,
+   "op": "triangle_count",
+   "lattice": 8.0,
+   "random": [
+    0.220703125,
+    0.208984375,
+    0.2080078125
+   ],
+   "random_mean": 0.21256510416666666,
+   "random_sd": 0.007064627087959214,
+   "difference": 7.787434895833333
+  },
+  {
+   "name": "face-centred cubic",
+   "n": 1024,
+   "built": true,
+   "degree": 12,
+   "op": "triangle_edge_overlap",
+   "lattice": 36.0,
+   "random": [
+    0.0341796875,
+    0.0244140625,
+    0.0322265625
+   ],
+   "random_mean": 0.0302734375,
+   "random_sd": 0.005167483029423029,
+   "difference": 35.9697265625
+  },
+  {
+   "name": "face-centred cubic",
+   "n": 1024,
+   "built": true,
+   "degree": 12,
+   "op": "wedge_count",
+   "lattice": 66.0,
+   "random": [
+    66.0,
+    66.0,
+    66.0
+   ],
+   "random_mean": 66.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "face-centred cubic",
+   "n": 4096,
+   "built": true,
+   "degree": 12,
+   "op": "degree_anchor",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "face-centred cubic",
+   "n": 4096,
+   "built": true,
+   "degree": 12,
+   "op": "degree_anchor_abs",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "face-centred cubic",
+   "n": 4096,
+   "built": true,
+   "degree": 12,
+   "op": "degree_cube_sum",
+   "lattice": 1728.0,
+   "random": [
+    1728.0,
+    1728.0,
+    1728.0
+   ],
+   "random_mean": 1728.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "face-centred cubic",
+   "n": 4096,
+   "built": true,
+   "degree": 12,
+   "op": "degree_fourth_sum",
+   "lattice": 20736.0,
+   "random": [
+    20736.0,
+    20736.0,
+    20736.0
+   ],
+   "random_mean": 20736.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "face-centred cubic",
+   "n": 4096,
+   "built": true,
+   "degree": 12,
+   "op": "degree_neighbor_gradient",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "face-centred cubic",
+   "n": 4096,
+   "built": true,
+   "degree": 12,
+   "op": "degree_square_sum",
+   "lattice": 144.0,
+   "random": [
+    144.0,
+    144.0,
+    144.0
+   ],
+   "random_mean": 144.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "face-centred cubic",
+   "n": 4096,
+   "built": true,
+   "degree": 12,
+   "op": "edge_count",
+   "lattice": 6.0,
+   "random": [
+    6.0,
+    6.0,
+    6.0
+   ],
+   "random_mean": 6.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "face-centred cubic",
+   "n": 4096,
+   "built": true,
+   "degree": 12,
+   "op": "induced_square_count",
+   "lattice": 3.0,
+   "random": [
+    0.448974609375,
+    0.4462890625,
+    0.4384765625
+   ],
+   "random_mean": 0.444580078125,
+   "random_sd": 0.005453688453048993,
+   "difference": 2.555419921875
+  },
+  {
+   "name": "face-centred cubic",
+   "n": 4096,
+   "built": true,
+   "degree": 12,
+   "op": "ollivier_curvature",
+   "lattice": 288.0,
+   "random": [
+    -1159.48828125,
+    -1156.1220703125,
+    -1155.9140625
+   ],
+   "random_mean": -1157.1748046875,
+   "random_sd": 2.0062270974251324,
+   "difference": 1445.1748046875
+  },
+  {
+   "name": "face-centred cubic",
+   "n": 4096,
+   "built": true,
+   "degree": 12,
+   "op": "square_count",
+   "lattice": 33.0,
+   "random": [
+    0.450439453125,
+    0.448486328125,
+    0.441650390625
+   ],
+   "random_mean": 0.4468587239583333,
+   "random_sd": 0.004615054322512313,
+   "difference": 32.553141276041664
+  },
+  {
+   "name": "face-centred cubic",
+   "n": 4096,
+   "built": true,
+   "degree": 12,
+   "op": "square_edge_overlap",
+   "lattice": 1386.0,
+   "random": [
+    0.241943359375,
+    0.27587890625,
+    0.256591796875
+   ],
+   "random_mean": 0.2581380208333333,
+   "random_sd": 0.017020530010059133,
+   "difference": 1385.7418619791667
+  },
+  {
+   "name": "face-centred cubic",
+   "n": 4096,
+   "built": true,
+   "degree": 12,
+   "op": "triangle_count",
+   "lattice": 8.0,
+   "random": [
+    0.046142578125,
+    0.05078125,
+    0.05615234375
+   ],
+   "random_mean": 0.051025390625,
+   "random_sd": 0.005009346808760545,
+   "difference": 7.948974609375
+  },
+  {
+   "name": "face-centred cubic",
+   "n": 4096,
+   "built": true,
+   "degree": 12,
+   "op": "triangle_edge_overlap",
+   "lattice": 36.0,
+   "random": [
+    0.00146484375,
+    0.002197265625,
+    0.003173828125
+   ],
+   "random_mean": 0.0022786458333333335,
+   "random_sd": 0.000857393697335021,
+   "difference": 35.997721354166664
+  },
+  {
+   "name": "face-centred cubic",
+   "n": 4096,
+   "built": true,
+   "degree": 12,
+   "op": "wedge_count",
+   "lattice": 66.0,
+   "random": [
+    66.0,
+    66.0,
+    66.0
+   ],
+   "random_mean": 66.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "face-centred cubic",
+   "n": 16384,
+   "built": true,
+   "degree": 12,
+   "op": "degree_anchor",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "face-centred cubic",
+   "n": 16384,
+   "built": true,
+   "degree": 12,
+   "op": "degree_anchor_abs",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "face-centred cubic",
+   "n": 16384,
+   "built": true,
+   "degree": 12,
+   "op": "degree_cube_sum",
+   "lattice": 1728.0,
+   "random": [
+    1728.0,
+    1728.0,
+    1728.0
+   ],
+   "random_mean": 1728.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "face-centred cubic",
+   "n": 16384,
+   "built": true,
+   "degree": 12,
+   "op": "degree_fourth_sum",
+   "lattice": 20736.0,
+   "random": [
+    20736.0,
+    20736.0,
+    20736.0
+   ],
+   "random_mean": 20736.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "face-centred cubic",
+   "n": 16384,
+   "built": true,
+   "degree": 12,
+   "op": "degree_neighbor_gradient",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "face-centred cubic",
+   "n": 16384,
+   "built": true,
+   "degree": 12,
+   "op": "degree_square_sum",
+   "lattice": 144.0,
+   "random": [
+    144.0,
+    144.0,
+    144.0
+   ],
+   "random_mean": 144.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "face-centred cubic",
+   "n": 16384,
+   "built": true,
+   "degree": 12,
+   "op": "edge_count",
+   "lattice": 6.0,
+   "random": [
+    6.0,
+    6.0,
+    6.0
+   ],
+   "random_mean": 6.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "face-centred cubic",
+   "n": 16384,
+   "built": true,
+   "degree": 12,
+   "op": "induced_square_count",
+   "lattice": 3.0,
+   "random": [
+    0.10760498046875,
+    0.11138916015625,
+    0.11181640625
+   ],
+   "random_mean": 0.11027018229166667,
+   "random_sd": 0.0023179970607865104,
+   "difference": 2.8897298177083335
+  },
+  {
+   "name": "face-centred cubic",
+   "n": 16384,
+   "built": true,
+   "degree": 12,
+   "op": "ollivier_curvature",
+   "lattice": 288.0,
+   "random": [
+    -1370.21923828125,
+    -1369.155029296875,
+    -1369.166015625
+   ],
+   "random_mean": -1369.513427734375,
+   "random_sd": 0.6112745462649394,
+   "difference": 1657.513427734375
+  },
+  {
+   "name": "face-centred cubic",
+   "n": 16384,
+   "built": true,
+   "degree": 12,
+   "op": "square_count",
+   "lattice": 33.0,
+   "random": [
+    0.1077880859375,
+    0.11138916015625,
+    0.11199951171875
+   ],
+   "random_mean": 0.11039225260416667,
+   "random_sd": 0.0022758284817390967,
+   "difference": 32.889607747395836
+  },
+  {
+   "name": "face-centred cubic",
+   "n": 16384,
+   "built": true,
+   "degree": 12,
+   "op": "square_edge_overlap",
+   "lattice": 1386.0,
+   "random": [
+    0.01544189453125,
+    0.01556396484375,
+    0.015625
+   ],
+   "random_mean": 0.015543619791666666,
+   "random_sd": 9.323274118969402e-05,
+   "difference": 1385.9844563802083
+  },
+  {
+   "name": "face-centred cubic",
+   "n": 16384,
+   "built": true,
+   "degree": 12,
+   "op": "triangle_count",
+   "lattice": 8.0,
+   "random": [
+    0.01275634765625,
+    0.0120849609375,
+    0.0120849609375
+   ],
+   "random_mean": 0.012308756510416666,
+   "random_sd": 0.00038762530280065207,
+   "difference": 7.987691243489583
+  },
+  {
+   "name": "face-centred cubic",
+   "n": 16384,
+   "built": true,
+   "degree": 12,
+   "op": "triangle_edge_overlap",
+   "lattice": 36.0,
+   "random": [
+    0.00018310546875,
+    0.0,
+    0.00018310546875
+   ],
+   "random_mean": 0.0001220703125,
+   "random_sd": 0.0001057159916729051,
+   "difference": 35.9998779296875
+  },
+  {
+   "name": "face-centred cubic",
+   "n": 16384,
+   "built": true,
+   "degree": 12,
+   "op": "wedge_count",
+   "lattice": 66.0,
+   "random": [
+    66.0,
+    66.0,
+    66.0
+   ],
+   "random_mean": 66.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "4D",
+   "n": 1024,
+   "built": true,
+   "degree": 8,
+   "op": "degree_anchor",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "4D",
+   "n": 1024,
+   "built": true,
+   "degree": 8,
+   "op": "degree_anchor_abs",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "4D",
+   "n": 1024,
+   "built": true,
+   "degree": 8,
+   "op": "degree_cube_sum",
+   "lattice": 512.0,
+   "random": [
+    512.0,
+    512.0,
+    512.0
+   ],
+   "random_mean": 512.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "4D",
+   "n": 1024,
+   "built": true,
+   "degree": 8,
+   "op": "degree_fourth_sum",
+   "lattice": 4096.0,
+   "random": [
+    4096.0,
+    4096.0,
+    4096.0
+   ],
+   "random_mean": 4096.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "4D",
+   "n": 1024,
+   "built": true,
+   "degree": 8,
+   "op": "degree_neighbor_gradient",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "4D",
+   "n": 1024,
+   "built": true,
+   "degree": 8,
+   "op": "degree_square_sum",
+   "lattice": 64.0,
+   "random": [
+    64.0,
+    64.0,
+    64.0
+   ],
+   "random_mean": 64.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "4D",
+   "n": 1024,
+   "built": true,
+   "degree": 8,
+   "op": "edge_count",
+   "lattice": 4.0,
+   "random": [
+    4.0,
+    4.0,
+    4.0
+   ],
+   "random_mean": 4.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "4D",
+   "n": 1024,
+   "built": true,
+   "degree": 8,
+   "op": "induced_square_count",
+   "lattice": 6.0,
+   "random": [
+    0.310546875,
+    0.2958984375,
+    0.2890625
+   ],
+   "random_mean": 0.2985026041666667,
+   "random_sd": 0.010976377148494379,
+   "difference": 5.701497395833333
+  },
+  {
+   "name": "4D",
+   "n": 1024,
+   "built": true,
+   "degree": 8,
+   "op": "ollivier_curvature",
+   "lattice": 0.0,
+   "random": [
+    -295.0390625,
+    -299.03125,
+    -296.4453125
+   ],
+   "random_mean": -296.8385416666667,
+   "random_sd": 2.0249350957319803,
+   "difference": 296.8385416666667
+  },
+  {
+   "name": "4D",
+   "n": 1024,
+   "built": true,
+   "degree": 8,
+   "op": "square_count",
+   "lattice": 6.0,
+   "random": [
+    0.310546875,
+    0.2998046875,
+    0.291015625
+   ],
+   "random_mean": 0.3004557291666667,
+   "random_sd": 0.009781887500857239,
+   "difference": 5.699544270833333
+  },
+  {
+   "name": "4D",
+   "n": 1024,
+   "built": true,
+   "degree": 8,
+   "op": "square_edge_overlap",
+   "lattice": 60.0,
+   "random": [
+    0.2021484375,
+    0.193359375,
+    0.1611328125
+   ],
+   "random_mean": 0.185546875,
+   "random_sd": 0.021595062878414045,
+   "difference": 59.814453125
+  },
+  {
+   "name": "4D",
+   "n": 1024,
+   "built": true,
+   "degree": 8,
+   "op": "triangle_count",
+   "lattice": 0.0,
+   "random": [
+    0.0654296875,
+    0.0478515625,
+    0.0634765625
+   ],
+   "random_mean": 0.058919270833333336,
+   "random_sd": 0.00963453684046142,
+   "difference": -0.058919270833333336
+  },
+  {
+   "name": "4D",
+   "n": 1024,
+   "built": true,
+   "degree": 8,
+   "op": "triangle_edge_overlap",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.00390625,
+    0.001953125
+   ],
+   "random_mean": 0.001953125,
+   "random_sd": 0.001953125,
+   "difference": -0.001953125
+  },
+  {
+   "name": "4D",
+   "n": 1024,
+   "built": true,
+   "degree": 8,
+   "op": "wedge_count",
+   "lattice": 28.0,
+   "random": [
+    28.0,
+    28.0,
+    28.0
+   ],
+   "random_mean": 28.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "4D",
+   "n": 4096,
+   "built": true,
+   "degree": 8,
+   "op": "degree_anchor",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "4D",
+   "n": 4096,
+   "built": true,
+   "degree": 8,
+   "op": "degree_anchor_abs",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "4D",
+   "n": 4096,
+   "built": true,
+   "degree": 8,
+   "op": "degree_cube_sum",
+   "lattice": 512.0,
+   "random": [
+    512.0,
+    512.0,
+    512.0
+   ],
+   "random_mean": 512.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "4D",
+   "n": 4096,
+   "built": true,
+   "degree": 8,
+   "op": "degree_fourth_sum",
+   "lattice": 4096.0,
+   "random": [
+    4096.0,
+    4096.0,
+    4096.0
+   ],
+   "random_mean": 4096.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "4D",
+   "n": 4096,
+   "built": true,
+   "degree": 8,
+   "op": "degree_neighbor_gradient",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "4D",
+   "n": 4096,
+   "built": true,
+   "degree": 8,
+   "op": "degree_square_sum",
+   "lattice": 64.0,
+   "random": [
+    64.0,
+    64.0,
+    64.0
+   ],
+   "random_mean": 64.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "4D",
+   "n": 4096,
+   "built": true,
+   "degree": 8,
+   "op": "edge_count",
+   "lattice": 4.0,
+   "random": [
+    4.0,
+    4.0,
+    4.0
+   ],
+   "random_mean": 4.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "4D",
+   "n": 4096,
+   "built": true,
+   "degree": 8,
+   "op": "induced_square_count",
+   "lattice": 6.0,
+   "random": [
+    0.08203125,
+    0.07373046875,
+    0.079345703125
+   ],
+   "random_mean": 0.078369140625,
+   "random_sd": 0.004235681536351922,
+   "difference": 5.921630859375
+  },
+  {
+   "name": "4D",
+   "n": 4096,
+   "built": true,
+   "degree": 8,
+   "op": "ollivier_curvature",
+   "lattice": 0.0,
+   "random": [
+    -361.09375,
+    -362.166015625,
+    -361.30078125
+   ],
+   "random_mean": -361.5201822916667,
+   "random_sd": 0.5688066503237053,
+   "difference": 361.5201822916667
+  },
+  {
+   "name": "4D",
+   "n": 4096,
+   "built": true,
+   "degree": 8,
+   "op": "square_count",
+   "lattice": 6.0,
+   "random": [
+    0.082275390625,
+    0.073974609375,
+    0.07958984375
+   ],
+   "random_mean": 0.07861328125,
+   "random_sd": 0.004235681536351922,
+   "difference": 5.92138671875
+  },
+  {
+   "name": "4D",
+   "n": 4096,
+   "built": true,
+   "degree": 8,
+   "op": "square_edge_overlap",
+   "lattice": 60.0,
+   "random": [
+    0.01318359375,
+    0.01416015625,
+    0.011962890625
+   ],
+   "random_mean": 0.013102213541666666,
+   "random_sd": 0.001100891052935277,
+   "difference": 59.986897786458336
+  },
+  {
+   "name": "4D",
+   "n": 4096,
+   "built": true,
+   "degree": 8,
+   "op": "triangle_count",
+   "lattice": 0.0,
+   "random": [
+    0.012939453125,
+    0.01220703125,
+    0.014892578125
+   ],
+   "random_mean": 0.013346354166666666,
+   "random_sd": 0.001388242359149738,
+   "difference": -0.013346354166666666
+  },
+  {
+   "name": "4D",
+   "n": 4096,
+   "built": true,
+   "degree": 8,
+   "op": "triangle_edge_overlap",
+   "lattice": 0.0,
+   "random": [
+    0.000244140625,
+    0.000244140625,
+    0.000244140625
+   ],
+   "random_mean": 0.000244140625,
+   "random_sd": 0.0,
+   "difference": -0.000244140625
+  },
+  {
+   "name": "4D",
+   "n": 4096,
+   "built": true,
+   "degree": 8,
+   "op": "wedge_count",
+   "lattice": 28.0,
+   "random": [
+    28.0,
+    28.0,
+    28.0
+   ],
+   "random_mean": 28.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "4D",
+   "n": 16384,
+   "built": true,
+   "degree": 8,
+   "op": "degree_anchor",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "4D",
+   "n": 16384,
+   "built": true,
+   "degree": 8,
+   "op": "degree_anchor_abs",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "4D",
+   "n": 16384,
+   "built": true,
+   "degree": 8,
+   "op": "degree_cube_sum",
+   "lattice": 512.0,
+   "random": [
+    512.0,
+    512.0,
+    512.0
+   ],
+   "random_mean": 512.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "4D",
+   "n": 16384,
+   "built": true,
+   "degree": 8,
+   "op": "degree_fourth_sum",
+   "lattice": 4096.0,
+   "random": [
+    4096.0,
+    4096.0,
+    4096.0
+   ],
+   "random_mean": 4096.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "4D",
+   "n": 16384,
+   "built": true,
+   "degree": 8,
+   "op": "degree_neighbor_gradient",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_mean": 0.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "4D",
+   "n": 16384,
+   "built": true,
+   "degree": 8,
+   "op": "degree_square_sum",
+   "lattice": 64.0,
+   "random": [
+    64.0,
+    64.0,
+    64.0
+   ],
+   "random_mean": 64.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "4D",
+   "n": 16384,
+   "built": true,
+   "degree": 8,
+   "op": "edge_count",
+   "lattice": 4.0,
+   "random": [
+    4.0,
+    4.0,
+    4.0
+   ],
+   "random_mean": 4.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  },
+  {
+   "name": "4D",
+   "n": 16384,
+   "built": true,
+   "degree": 8,
+   "op": "induced_square_count",
+   "lattice": 6.0,
+   "random": [
+    0.01910400390625,
+    0.01556396484375,
+    0.01788330078125
+   ],
+   "random_mean": 0.01751708984375,
+   "random_sd": 0.0017982079910469036,
+   "difference": 5.98248291015625
+  },
+  {
+   "name": "4D",
+   "n": 16384,
+   "built": true,
+   "degree": 8,
+   "op": "ollivier_curvature",
+   "lattice": 0.0,
+   "random": [
+    -378.533203125,
+    -378.58837890625,
+    -378.47607421875
+   ],
+   "random_mean": -378.5325520833333,
+   "random_sd": 0.05615517429460055,
+   "difference": 378.5325520833333
+  },
+  {
+   "name": "4D",
+   "n": 16384,
+   "built": true,
+   "degree": 8,
+   "op": "square_count",
+   "lattice": 6.0,
+   "random": [
+    0.01910400390625,
+    0.01556396484375,
+    0.0179443359375
+   ],
+   "random_mean": 0.017537434895833332,
+   "random_sd": 0.0018047563503942946,
+   "difference": 5.982462565104167
+  },
+  {
+   "name": "4D",
+   "n": 16384,
+   "built": true,
+   "degree": 8,
+   "op": "square_edge_overlap",
+   "lattice": 60.0,
+   "random": [
+    0.00054931640625,
+    0.00042724609375,
+    0.00054931640625
+   ],
+   "random_mean": 0.0005086263020833334,
+   "random_sd": 7.047732778193673e-05,
+   "difference": 59.999491373697914
+  },
+  {
+   "name": "4D",
+   "n": 16384,
+   "built": true,
+   "degree": 8,
+   "op": "triangle_count",
+   "lattice": 0.0,
+   "random": [
+    0.00323486328125,
+    0.00439453125,
+    0.00390625
+   ],
+   "random_mean": 0.00384521484375,
+   "random_sd": 0.000582238282114835,
+   "difference": -0.00384521484375
+  },
+  {
+   "name": "4D",
+   "n": 16384,
+   "built": true,
+   "degree": 8,
+   "op": "triangle_edge_overlap",
+   "lattice": 0.0,
+   "random": [
+    0.0,
+    0.0,
+    6.103515625e-05
+   ],
+   "random_mean": 2.0345052083333332e-05,
+   "random_sd": 3.523866389096837e-05,
+   "difference": -2.0345052083333332e-05
+  },
+  {
+   "name": "4D",
+   "n": 16384,
+   "built": true,
+   "degree": 8,
+   "op": "wedge_count",
+   "lattice": 28.0,
+   "random": [
+    28.0,
+    28.0,
+    28.0
+   ],
+   "random_mean": 28.0,
+   "random_sd": 0.0,
+   "difference": 0.0
+  }
+ ],
+ "admitted": [
+  "square",
+  "triangular",
+  "cubic",
+  "body-centred cubic",
+  "face-centred cubic",
+  "4D"
+ ],
+ "not_admitted": [
+  "honeycomb",
+  "diamond"
+ ],
+ "told_otherwise_than_expected": [
+  "triangular"
+ ],
+ "passes": true,
+ "criterion": "gsd-start-admission-criterion-2",
+ "measured_utc": "2026-11-19T22:16:16+00:00"
+}
