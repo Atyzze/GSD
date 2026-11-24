@@ -47,4 +47,4 @@ The fold of the notes of 823 to 845 into `docs/HISTORY.md`'s eras, which the cad
 
 ## Verification
 
-GATE_RESULT
+3952 passed in 1186.37s (3 lanes at once)
