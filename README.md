@@ -6,8 +6,17 @@ whose readings settle, to 1,048,576; four dimension probes (d_s, d_V, d_B, d_w) 
 settles as N grows. Each stop lets a share of the laws it would stop run one rung past it (its let-through), so its
 cost is measured (`docs/DECISIONS.md`).
 
-**This file is a directory.** Each fact has one home, named in the handoff's last section, "Where everything else
-lives".
+Live on-going research: www.snekpas.nl/research
+
+demo show case pictures
+
+<img width="2340" height="1423" alt="Screenshot_20261124_142449" src="https://github.com/user-attachments/assets/764b74e1-8f01-44f7-bd0e-e520b5a59b2d" />
+
+<img width="1714" height="1354" alt="Screenshot_20261124_141132" src="https://github.com/user-attachments/assets/ec8bebd1-798c-4674-a650-7166f7d18cb9" />
+
+<img width="1899" height="1341" alt="Screenshot_20261124_141344" src="https://github.com/user-attachments/assets/21424449-f2c9-4a27-8484-64d13518598d" />
+
+<img width="2229" height="1317" alt="Screenshot_20261124_141514" src="https://github.com/user-attachments/assets/f4f185b3-7b35-4b08-8353-e899c62218cf" />
 
 ## Read these first
 
