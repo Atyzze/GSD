@@ -96,4 +96,4 @@ of their own (one recalibration).
 
 ## Verification
 
-GATE_RESULT
+3919 passed in 1483.91s (3 lanes at once)
