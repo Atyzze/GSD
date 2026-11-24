@@ -6,7 +6,7 @@ whose readings settle, to 1,048,576; four dimension probes (d_s, d_V, d_B, d_w) 
 settles as N grows. Each stop lets a share of the laws it would stop run one rung past it (its let-through), so its
 cost is measured (`docs/DECISIONS.md`).
 
-Live on-going research: [www.snekpas.nl/research](https://snekpas.nl/research/)
+Live on-going research: [snekpas.nl/research](https://snekpas.nl/research/)
 
 demo show case pictures
 
