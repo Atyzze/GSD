@@ -12,6 +12,8 @@ demo show case pictures
 
 <img width="2340" height="1423" alt="Screenshot_20261124_142449" src="https://github.com/user-attachments/assets/764b74e1-8f01-44f7-bd0e-e520b5a59b2d" />
 
+<img width="2024" height="1307" alt="Screenshot_20261124_143131" src="https://github.com/user-attachments/assets/d2f1e060-86e8-45b9-9468-1778094d69c7" />
+
 <img width="1714" height="1354" alt="Screenshot_20261124_141132" src="https://github.com/user-attachments/assets/ec8bebd1-798c-4674-a650-7166f7d18cb9" />
 
 <img width="1899" height="1341" alt="Screenshot_20261124_141344" src="https://github.com/user-attachments/assets/21424449-f2c9-4a27-8484-64d13518598d" />
