@@ -587,6 +587,22 @@ and the Einstein relation held at two sizes. `landscape_band` is the twins' (the
 `landscape_band_with_lattices` every start's; the page's one toggle, "include lattice starts", chooses, and draws the
 law at its scoring start's readings. The stability blocks of the base rungs no longer band a law.
 
+## The catalogue of behaviours (`observability/catalogue.py`, gsd-catalogue-1)
+
+Every kind of behaviour the survey has seen, kept as data in `resources/catalogue/catalogue.json` (850; the operator,
+2026-11-24 10:22): for each kind, what it is, how a law is placed in it at a size, and how it scores. At a size each
+chain reads its d (the median of its probes), its mean degree, its giant piece, its accepted moves per edge (the median
+over its seeds) and whether most seeds ended at the degree cap; the law's kind there is the first that applies:
+`grown` (any probe on the empty or random start steps within the score's margin at three sizes in a row from 4,096,
+by its value alone; the operator, 2026-11-24 10:43), `made` (two starts or more agree on d and mean degree within a
+tenth, d at least 1.5), `ring` (the same below 1.5: told from made by the d they agree on, not the mean degree),
+`empty`, `full`, `frozen` (a lattice chain at its own degree, within 5%, that accepted no move), `still` (the same
+with at most 0.05 accepted moves an edge, some), `rewired` (at its own degree, moving more), `moved` (lattice chains
+off their degree), `broken`, `apart`, `unread`. The stream and the tree of long paths are listed but read elsewhere. Nothing decides by it: `tools/catalogue_reading.py` places every law
+of a bundle, says how early each kind was known and how often that early call held at the deepest size, and reads the
+still lattice scored lowest beside the score in force, a candidate until `still_lattice_criterion_1.json` is judged on
+a later bundle. A new kind is a new entry; a changed rule is a new criterion.
+
 ## The stability blocks (`research/stability_score.py`, gsd-stability-score-14)
 
 Five blocks, the mean degree and the four probes of the chain from empty, each saying whether its quantity settles

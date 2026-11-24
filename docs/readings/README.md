@@ -127,9 +127,12 @@ as it was in the build that held it. A tool no longer in `tools/` is in a tools 
   `graph_scale_dynamics/resources/readings/controls_criterion_3.json` (the growth controls),
   `graph_scale_dynamics/resources/readings/positive_control_criterion.json` (the positive control).
 * `graph_scale_dynamics/resources/readings/predictor_l2_criterion.json`: the degree predictor's criterion.
+* `graph_scale_dynamics/resources/readings/still_lattice_criterion_1.json` (850): whether a lattice chain called still at
+  1,024 or 4,096 stays still and never hides a made law, committed before the bundle that judges it; the still lattice
+  scores lowest in the score in force only if it passes (`tools/catalogue_reading.py`).
 
 ## Outside this folder
 
-`docs/references/`, the papers used, at the version read (`docs/references/references.json`; private copies, so the
-archive stays private); `calibration/seed_table.json`, the calibration table a host starts from (its
+The papers used are cited by arXiv id and the version read in `docs/RESEARCH_METHOD.md`, "The papers read", and
+not kept in the tree, which is public. `calibration/seed_table.json`, the calibration table a host starts from (its
 `calibration/probe_calibration.json` is the one in force, host state); `docs/origins/`, the operator's first models.

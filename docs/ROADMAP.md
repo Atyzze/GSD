@@ -54,16 +54,9 @@ Open, for after study 174 (the operator, 2026-11-22 15:50):
 * **Put the score's candidate in force?**: answered 2026-11-23 15:45, in force at 848, the trees of long paths a known
   limit of both scores (`docs/HISTORY.md`).
 
-Open, asked 2026-11-24 with study 175's second bundle (849; `docs/build_notes/BUILD849_NOTES.md`):
-
-* **Study 175 to its end, or stopped now?** Recommended: to its end, most of a day more and maybe two (263 core-hours
-  of the 400 to 900 predicted), for every holder's committed verdict, H31's (`3931d03e8edf`) among them. Or stopped
-  now: the compute back, 27 holders left open.
-* **What the study after 175 looks for?** Recommended: laws whose different starts arrive at the same d and mean
-  degree (made, not kept), H31 and the six laws of 174 that did so at 4,096 first; a change to what ranks a law, so a
-  criterion committed first and known answers. Or the score in force, which ranks first the lattices a law leaves
-  alone (`gsd-law-score-8` counts a frozen seed as settled; 32 of the 35 holders accept moves on fewer than 5% of their
-  edges).
+Answered 2026-11-24 10:22 (`docs/HISTORY.md`): study 175 runs to its end; the study after it looks for laws whose
+different starts arrive at the same d and mean degree; a lattice that does not change scores lowest; every behaviour
+seen goes into a catalogue, with how to spot it early and how it scores.
 
 Open, none waiting:
 
@@ -131,7 +124,15 @@ why.
    which reads in 174 that the settled laws reward squares and run cold, with no shared recipe. **848, made**
    (2026-11-23 15:45; `docs/build_notes/BUILD848_NOTES.md`): 846's score in force, `gsd-law-score-8`. **849, made** (2026-11-24; `docs/build_notes/BUILD849_NOTES.md`): 175's
    second bundle read by a reader that keeps unread apart from unlike, kept or made beside each holder; the
-   tree public, its papers out. **Then 175's last reading** at its end (`tools/perturb_reading.py`). **Then 174's reading** (a progress bundle while it runs, its last at the end): its criterion, P1 to P9,
+   tree public, its papers out. **850, made** (2026-11-24 10:22 and
+   10:43; `docs/build_notes/BUILD850_NOTES.md`): the catalogue of behaviours and its reader, every law placed with how
+   early its kind was known; the still lattice scored lowest as a candidate, `still_lattice_criterion_1.json` committed
+   first; no consolidation schedule. **Then 175's last reading** at its end (`tools/perturb_reading.py`,
+   `tools/catalogue_reading.py`): the criterion judged on it or on 174's next bundle, whichever comes first, and if it
+   passes the still lattice scores 1 in the score in force and stopping a law early by the still call is offered with
+   its cost. **First in 851**: whether the score's reach rule wrongly refuses a single loop, a known answer (d 1), as it
+   refuses the 8 laws of 174 that settle by value from the twin starts; and the next study's design, laws whose starts
+   agree (H31 and the six of 174), offered with its criterion. **Then 174's reading** (a progress bundle while it runs, its last at the end): its criterion, P1 to P9,
    each batch beside the others, and what study A would take. 174's rules cost about 1.8 times 173's on the same
    laws (the replay carried to 10,000: about 1,270 core-hours against 720), study A about 33 days against 19 on 16
    workers, nearly all of it nothing_read letting laws on at 4,096 and the laws that then reach 65,536; 174 says what
@@ -294,6 +295,9 @@ bundle on any machine. Each build's notes say in their first line whether it may
 
 ## Unscheduled
 
+* **Calling a lattice left alone before it runs** (850): the early call from a chain's own moves catches a quarter to two
+  thirds of the still lattices at 1,024 or 4,096; whether any single move of the law pays at the perfect lattice could
+  call them before any chain runs, starting from `tools/neutral_moves_check.py`.
 * **A law stopped `empty` while its other starts are full** (849): when every start but the empty one stops at the
   mean degree cap of 32, the law's own reading falls to the empty start and the stop is named `empty`, as in three
   of H15's four 1e-9 twins in study 175. A truer name changes a decision's words, so it is the operator's to agree.
@@ -466,10 +470,9 @@ and those ten in `docs/build_notes/` (the operator, 2026-11-19 22:05; each build
 rewrite every standing document to say what is true now; check the documents against each other and the code; and
 prune this roadmap. A feature or fix found on the way is recorded here.
 
-Consolidation builds: when it pays, a guideline, not a number (the operator, 2026-11-07 16:33): about every ten builds,
-or sooner when the notes pile up or the standing documents drift, never in the middle of a fix a live folder waits
-for; the operator can call one or skip one. A consolidation changes no behaviour and says so in its notes' Type line.
+Consolidation builds: when one is felt to be needed, on no schedule (the operator, 2026-11-24 10:22): when the notes
+pile up or the standing documents drift, never in the middle of a fix a live folder waits for; the operator can call
+one or skip one. A consolidation changes no behaviour and says so in its notes' Type line.
 
-Next consolidation: about ten builds after 833 (844 or near it, once 173's run on 843 is read), or sooner if the notes pile up, never in the middle of a fix a live folder waits for
-
-`tests/unit/test_build_cadence.py` reads the two lines above and holds a consolidation to changing no behaviour.
+`tests/unit/test_build_cadence.py` reads the line above, holds that no line plans the next one, and holds a
+consolidation to changing no behaviour.

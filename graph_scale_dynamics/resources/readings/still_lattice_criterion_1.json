@@ -1,0 +1,24 @@
+{
+ "contract": "gsd-still-lattice-criterion-1",
+ "committed_utc": "2026-11-24T09:41:48Z",
+ "committed_before": "any bundle sent after study 175's second (built 2026-11-24T08:35:35Z) was read; the rule's numbers were chosen on study 174's first bundle and 175's second, which are not judged by it",
+ "question": "The operator's (2026-11-24 10:22): a lattice the law does not change scores lowest, and such a law is found as early as possible and as reliably as possible, its early call never the same as another kind's. Is a lattice chain still, by the rule below, at 1,024 or 4,096 still at every deeper size, and does an early still call ever hide a law that is made or a ring at its deepest size?",
+ "rule": {
+  "still_at_most": 0.05,
+  "degree_within": 0.05,
+  "full_share": 0.5,
+  "words": "a lattice chain not full is still at a size when its mean degree is within degree_within of its lattice's, relative, and the median over its seeds of its accepted moves per edge is at most still_at_most; the catalogue (`graph_scale_dynamics/resources/catalogue/catalogue.json`) holds the same numbers"
+ },
+ "seen": {
+  "study_174_first": "lattice chains still at 1,024 with a deeper size: 63, still at every deeper one 63; at 4,096: 25 of 25; of 88 still from 16,384, 21 still at 1,024 and 25 at 4,096. Laws still at 1,024: 16 of 16 still at their deepest size; at 4,096: 21 of 21; 43 of the 58 drawn laws the score in force scores are still at the size they score at",
+  "study_175_second": "lattice chains still at 1,024 with a deeper size: 235, still at every deeper one 233; at 4,096: 295 of 296; of 491 still from 16,384, 232 still at 1,024 and 296 at 4,096. Laws still at 1,024: 146 of 146; at 4,096: 211 of 211; 246 of 264 scoring laws still at their size"
+ },
+ "judged_on": "the first bundle of study 174 or 175 sent after this commit, read by `tools/catalogue_reading.py`",
+ "predictions": {
+  "S1": "of the lattice chains still at 1,024 that have a deeper size in the bundle, at least 98% are still at every deeper size; the same at 4,096",
+  "S2": "no law whose kind at its deepest size, 16,384 or more, is made or a ring was called still at 1,024 or at 4,096",
+  "S3": "of the drawn laws the score in force scores in the bundle, at least half are still at the size they score at"
+ },
+ "passes": "when S1 and S2 hold; S3 says how much the candidate moves and is reported",
+ "what_follows": "if it passes, the still lattice scores 1, the lowest, in the score in force, as the operator asked (2026-11-24 10:22), and stopping a law early by the still call is offered to them with what it would save and what S1 says it would risk; if it fails, the rule is not put in force and the miss is read first"
+}

@@ -1,26 +1,30 @@
-# The next build is 850
+# The next build is 851
 
 This file names the next build and says how to make it. `tests/unit/test_next_build_is_named.py` parses its first line,
 which must read exactly `# The next build is <N>`, one above `BUILD_NUMBER`.
 
-## Where to begin: 850 reads what the operator sends
+## Where to begin: 851 reads what the operator sends, and the score's reach rule on a single loop
 
-**What is running.** Study 175, the perturbation side study (847, `docs/build_notes/BUILD847_NOTES.md`), in a folder of
-its own on all the workers: 595 laws around 174's 35 settled laws, its verdict committed first. Study 174, the stable
-trial (844), stopped meanwhile in its own folder and resumed afterwards by its own command (the operator, 2026-11-23
-15:45). **849** (`docs/build_notes/BUILD849_NOTES.md`) read 175's second bundle: 2 regions to a tenth and a stream
-settled, 27 holders open, no variant read at its holder's size unlike; 32 of the 35 holders are lattices the law leaves
-alone, and one, H31, has two starts arriving at d 4.0. The tree is public from 848 on, its papers out.
+**What is running.** Study 175, the perturbation side study (847), in a folder of its own on all the workers, to its
+end (the operator, 2026-11-24 10:22); study 174 stopped meanwhile and resumed afterwards by its own command. **850**
+(`docs/build_notes/BUILD850_NOTES.md`) made the catalogue of behaviours (`resources/catalogue/catalogue.json`,
+`tools/catalogue_reading.py`): every law of a bundle placed in a kind, how early each kind was known, the still lattice
+scored lowest beside the score in force, `still_lattice_criterion_1.json` committed before the next bundle.
 
-**850 reads what comes, and what the operator answers.** Two questions are with them (`docs/ROADMAP.md`): whether 175
-runs to its end, and what the study after it looks for. A bundle of study 175: `tools/perturb_reading.py <bundle>`
-gives each holder's verdict, settled or open, and kept or made beside it; P1 (each holder decided at a size of 174
-reads its 174 values there), P2 and P3 from the criterion; `tools/top_laws_alike.py <bundle>` beside it. A bundle of
-study 174: every reader below, 174's criterion P1 to P9, each batch beside the others, its finds as the score in force
-reads them seed by seed in the folder, and what study A would take.
+**First, the reach rule on a single loop.** Eight laws of 174 settle a probe by value from the twin starts, all one
+dimensional, two of them one connected loop of mean degree 2.00 holding every node; the score in force settles none,
+its reach rule reading their reach as growing like d 2. A loop is a known answer (d 1): build the loops of the
+calibration sizes, read them with the score, and say whether the rule refuses them; a fix to a frozen source is a
+criterion first and the operator's word.
 
-**Acceptance** of 850: whatever it reads is read by the committed criterion, every decision of a bundle replays, nothing
-in force changes without the operator's word, `tools/outputs_of_a_law.py --against` 849's record, the full lane green.
+**Then what comes.** A bundle of study 175 or 174: `tools/catalogue_reading.py <bundle>` judges
+`still_lattice_criterion_1.json` (S1, S2; S3 reported) on the first one sent after 850; if it passes, the still
+lattice scores 1 in the score in force (the operator, 2026-11-24 10:22), and stopping a law early by the still call is
+offered with what it saves and risks. `tools/perturb_reading.py <bundle>` for 175's verdicts, H31's family first. The
+next study's design, the laws whose starts agree (H31 and the six of 174), offered with its criterion.
+
+**Acceptance** of 851: whatever it reads is read by the committed criterion, every decision of a bundle replays, nothing
+in force changes without the operator's word, `tools/outputs_of_a_law.py --against` 850's record, the full lane green.
 
 ## Reading a study's bundle
 
@@ -131,8 +135,8 @@ call.
    in it only for a build that changes no behaviour (`tests/unit/test_build_cadence.py`), and end with a `##
    Verification` heading whose line is the literal token `GATE_RESULT`; the packager replaces it with the full-lane
    result. Anywhere else in the notes the token is written in backticks, which the packager leaves alone.
-4. Update `docs/ROADMAP.md` (what is done leaves it; "Next consolidation" says, in words, when the next one is
-   planned), and rewrite `docs/agent/HANDOFF.md`
+4. Update `docs/ROADMAP.md` (what is done leaves it; a consolidation comes when one is needed, on no schedule),
+   and rewrite `docs/agent/HANDOFF.md`
    and `docs/WHERE_WE_ARE.md` for the build. The handoff is what is true now. `docs/WHERE_WE_ARE.md` is one page of at
    most 90 lines in the operator's words (`tests/unit/test_where_we_are_is_current.py`), and its findings move only
    with `docs/readings/findings.json` and `docs/RESEARCH_METHOD.md` (`tests/unit/test_the_findings_manifest.py`). The

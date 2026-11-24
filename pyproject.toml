@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "gsd"
-version = "849"
+version = "850"
 description = "Graph Scale Dynamics: operator-space finite-size flow in stochastic graph ensembles"
 readme = "README.md"
 license = {file = "LICENSE"}
@@ -42,7 +42,8 @@ include-package-data = true
 [tool.setuptools.package-data]
 "graph_scale_dynamics.resources" = ["schema/*.sql", "ui/*.html", "ui/*.js", "ui/*.css", "gate_trees/*.js",
                                       "gate_trees/*.css", "configs/*.json", "calibration/*.json",
-                                      "memory/*.json", "explorer/*.js", "explorer/*.css", "readings/*.json"]
+                                      "memory/*.json", "explorer/*.js", "explorer/*.css", "readings/*.json",
+                                      "catalogue/*.json"]
 "runtime" = ["bootstrap/linux-amd64/*", "licenses/*", "THIRD_PARTY_NOTICES.md"]
 
 [tool.setuptools.packages.find]

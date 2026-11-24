@@ -35,7 +35,7 @@ Then as needed:
     docs/agent/TARGET_ENVIRONMENT.md   the research host and the agent sandbox
 
 **Only the code is real.** When you fix something a document describes, fix the description in the same pass, and
-prefer deleting a sentence to qualifying it; a consolidation comes about every ten builds
+prefer deleting a sentence to qualifying it; a consolidation comes when one is needed
 (`docs/ROADMAP.md`, "Build cadence").
 
 ## Bring up the host first

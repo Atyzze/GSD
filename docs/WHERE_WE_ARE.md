@@ -1,4 +1,4 @@
-# Where we are, at build 849
+# Where we are, at build 850
 
 The whole project on one page, in plain words; the detail is in `docs/agent/HANDOFF.md`.
 
@@ -49,7 +49,7 @@ decision for decision; 35 drawn laws settle under the score of 848 and the one b
 start: squares rewarded and cold dynamics, across 32 term sets. Study 175, the perturbation side study, around those
 35, runs on all the workers in a folder of its own on 847.
 
-## What 800 to 849 changed
+## What 800 to 850 changed
 
 The probes are locked for the calibration (800, 801); 805 installed your table: it passes. 806: no clock decides
 anything; each size's seed has a budget in the engines' own count of work. 808 to 819 judged every set of the
@@ -61,15 +61,17 @@ chunk, carried 173 (six gates, a tenth let through, the cut gate recording), and
 the stable build: your gates and study 174, nothing else. 845 makes Home show 174's map of ten batches. 846 judges a
 mended score as a candidate beside the score in force, and lets you change the worker count while a study runs
 (System, Workers). 847 designs study 175 and reads what the top laws share. 848 puts 846's score in force (15:45).
-849 reads 175 with a reader that keeps a running variant apart from a differing one, and makes the tree public.
+849 reads 175 with a reader that keeps a running variant apart from a differing one, and makes the tree public. 850
+makes the catalogue of behaviours you asked for, and scores a lattice left alone lowest beside the score in force.
 
 ## What study 175 reads so far
 
 Its second bundle (2026-11-24, 263 core-hours): every holder replays seed for seed. Settled: two regions to a tenth
 (H04, H09) and a stream (H15); five regions to at least a hundredth; 27 open; no variant read differs. The regions are
 of lattices a law leaves alone: 32 of the 35 holders accept moves on under 5% of their edges, and in 34 no other start
-arrives at the same d and mean degree. H31 moves: its bcc and fcc starts both reach d 4.0. In 174, of 168 laws whose
-starts agree from 4,096, 161 agree on a ring or chain.
+arrives at the same d and mean degree. H31 moves, and it and all 16 of its variants are made at 4,096: two starts
+agree on d 3.4 to 3.5. From empty or random, 8 laws of 174 settle a probe at three sizes, all one dimensional; two
+close one loop over every node. The score in force settles none of the 8, which 851 checks first.
 
 ## What comes next
 
@@ -78,9 +80,7 @@ its last bundle comes: the ten batches as one study, each gate's tenth, and what
 
 ## The decision in front of you
 
-Two (`docs/ROADMAP.md`): whether 175 runs to its end (recommended); and whether the next study looks for laws whose
-different starts arrive at the same geometry (recommended) or keeps the score in force, which ranks first the lattices
-a law leaves alone. 849 changes no decision: give it to a folder when it suits.
+None now: a lattice left alone scores lowest once its criterion passes, and stopping such laws early comes to you then.
 
 ## Words you will see
 

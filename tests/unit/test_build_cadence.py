@@ -27,17 +27,11 @@ def _type(build: int) -> str | None:
     return kind.group(1)
 
 
-def test_the_roadmap_states_when_a_consolidation_comes_in_one_line_each():
+def test_the_roadmap_states_how_a_consolidation_comes_and_plans_none():
     cadence = _cadence()
     assert re.search(r"^Consolidation builds: \S", cadence, re.M), (
-        "the roadmap's Build cadence section states when consolidations come, in one line: 'Consolidation builds: ...'")
-    assert re.search(r"^Next consolidation: \S", cadence, re.M), (
-        "the roadmap's Build cadence section says when the next consolidation is planned: 'Next consolidation: ...'")
-
-
-def test_there_is_no_due_line_left_to_move():
-    cadence = _cadence()
-    assert not re.search(r"^Next consolidation due:", cadence, re.M), "the movable due line is gone (527)"
+        "the roadmap's Build cadence section states how consolidations come, in one line: 'Consolidation builds: ...'")
+    assert not re.search(r"^Next consolidation", cadence, re.M), "a consolidation comes when needed, on no schedule"
 
 
 def test_the_newest_notes_say_what_kind_of_build_this_is():

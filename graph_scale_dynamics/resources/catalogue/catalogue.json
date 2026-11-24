@@ -1,0 +1,143 @@
+{
+ "contract": "gsd-catalogue-1",
+ "about": "Every kind of behaviour the survey has seen, each with what it is, how a law is placed in it at a size, and how it scores (the operator, 2026-11-24 10:22: \"all behavior needs to have a list of this is a kind of behavior, this is how to spot it early, and this is how we score it\"). How early and how reliably each is known is what `tools/catalogue_reading.py` reads on a bundle; this file holds only the definitions, and a new kind is a new entry.",
+ "rule": {
+  "agree_within": 0.1,
+  "ring_below": 1.5,
+  "still_at_most": 0.05,
+  "degree_within": 0.05,
+  "empty_at_most": 0.05,
+  "full_share": 0.5,
+  "broken_below": 0.5,
+  "lattice_degrees": {
+   "square": 4,
+   "triangular": 6,
+   "cubic": 6,
+   "bcc": 8,
+   "fcc": 12,
+   "tesseract": 8
+  },
+  "words": "At a size, a chain reads its d (the median of its probes), its mean degree, its giant piece's share, its accepted moves per edge (the median over its seeds) and whether most of its seeds ended at the degree cap (full). On a twin start (empty or random) each probe also reads how many sizes in a row, from 4,096, its value steps within the score's own margin at that size. Two chains agree when their d and mean degree are each within agree_within of the other's, relative; a chain empty or full agrees with none. The law's kind at that size is the first that applies, in the order of `categories`.",
+  "frozen_at_most": 0.0,
+  "twin_starts": [
+   "empty",
+   "random",
+   "given"
+  ],
+  "twin_settled_at_least": 3
+ },
+ "categories": [
+  {
+   "id": "grown",
+   "name": "settled from empty or random",
+   "what": "a probe, any one, settles on a twin start, the chain grown from empty or from a random graph: the law makes a structure it was not given, whatever its d",
+   "read": "a probe, any one, on the empty or the random start steps within the score's margin at twin_settled_at_least sizes in a row, the highest read (4,096, 16,384 and 65,536), by its value alone; the score in force, whose reach rule may refuse it, is read beside it",
+   "score": "as the score in force; the kind the operator wants to know of first (2026-11-24 10:43)",
+   "first_seen": "study 174: 8 laws, every one one-dimensional (d 1.0 to 1.15); two of them, 18856793523d and 3a8569fc6094, grow from both twin starts one connected piece holding every node at mean degree 2.00, so a single loop with at most short branches; the score in force settles none of the 8"
+  },
+  {
+   "id": "made",
+   "name": "made",
+   "what": "different starts arrive at the same d and mean degree, d at least ring_below: the law makes one geometry of more than one dimension, whatever it was given",
+   "read": "two chains or more agree",
+   "score": "as the score in force; the kind the survey looks for (2026-11-24)",
+   "first_seen": "study 174, H31 (3931d03e8edf) at 16,384, d 4.0 at mean degree 26, its bcc and fcc starts"
+  },
+  {
+   "id": "ring",
+   "name": "ring or chain made",
+   "what": "different starts arrive at the same d below ring_below: one-dimensional structures, rings, chains and trees; told from made by the d they agree on, not by their mean degree",
+   "read": "two chains or more agree, their d below ring_below",
+   "score": "as the score in force",
+   "first_seen": "the survey's first studies; 161 of the 168 laws of 174 whose starts agree from 4,096"
+  },
+  {
+   "id": "empty",
+   "name": "empty",
+   "what": "no chain grows past empty_at_most mean degree",
+   "read": "every chain at most empty_at_most mean degree",
+   "score": "0",
+   "first_seen": "the empty gate"
+  },
+  {
+   "id": "full",
+   "name": "full",
+   "what": "every chain that grows ends at the degree cap",
+   "read": "every chain past empty_at_most mean degree has full_share of its seeds or more ended at the cap",
+   "score": "0",
+   "first_seen": "the too_dense gate"
+  },
+  {
+   "id": "frozen",
+   "name": "frozen lattice",
+   "what": "a lattice start no move of the law ever changed: not one edge in any seed",
+   "read": "no two chains agree, and the lattice chains not full at their own degree, within degree_within, that accept at most still_at_most moves per edge accepted none",
+   "score": "1, the lowest (the operator, 2026-11-21 19:54)",
+   "first_seen": "study 172 (unmoved); 841"
+  },
+  {
+   "id": "still",
+   "name": "still lattice",
+   "what": "a lattice start the law leaves nearly alone: it keeps its own mean degree and accepts moves on at most still_at_most of its edges, but some, while no other start arrives where it is",
+   "read": "no two chains agree, and a lattice chain not full reads within degree_within of its lattice's degree with at most still_at_most accepted moves per edge, more than none",
+   "score": "1, the lowest (2026-11-24, widening the frozen lattice of 2026-11-21); a candidate beside the score in force until its criterion is judged",
+   "first_seen": "32 of study 175's 35 holders"
+  },
+  {
+   "id": "rewired",
+   "name": "rewired lattice",
+   "what": "a lattice start that keeps its mean degree but accepts many moves, so its shape may not be its lattice's",
+   "read": "no two chains agree, and a lattice chain not full reads within degree_within of its lattice's degree with more than still_at_most accepted moves per edge",
+   "score": "as the score in force",
+   "first_seen": "study 174"
+  },
+  {
+   "id": "moved",
+   "name": "melted lattice",
+   "what": "lattice starts that leave their own mean degree, no two starts arriving at the same place",
+   "read": "no two chains agree, and a lattice chain not full reads, none within degree_within of its lattice's degree",
+   "score": "as the score in force",
+   "first_seen": "study 174"
+  },
+  {
+   "id": "broken",
+   "name": "broken",
+   "what": "no chain keeps a piece of half the graph",
+   "read": "every chain's giant piece below broken_below of the graph",
+   "score": "0",
+   "first_seen": "the disconnected gate"
+  },
+  {
+   "id": "apart",
+   "name": "apart",
+   "what": "starts read a d but end apart, none of them a lattice at its own degree",
+   "read": "a chain reads a d, no two agree, no lattice chain reads",
+   "score": "as the score in force",
+   "first_seen": "study 174"
+  },
+  {
+   "id": "unread",
+   "name": "nothing read",
+   "what": "no chain reads a d at this size",
+   "read": "the remainder",
+   "score": "0",
+   "first_seen": "the nothing_read gate"
+  }
+ ],
+ "not_read_here": [
+  {
+   "id": "stream",
+   "name": "stream",
+   "what": "the law's own random numbers decide what it reads: the same law on new random numbers reads otherwise",
+   "read": "a perturbation study's 1e-9 radius (`tools/perturb_reading.py`)",
+   "first_seen": "study 175, H15 (1b42427547af)"
+  },
+  {
+   "id": "tree",
+   "name": "tree of long paths",
+   "what": "a tree whose branches are long paths settles at d 1.1 to 1.4 under the score, a random tree's spectral dimension being 4/3: a known limit",
+   "read": "placed with rings by its d",
+   "first_seen": "the score's criterion 5 (846)"
+  }
+ ]
+}

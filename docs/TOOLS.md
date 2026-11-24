@@ -522,6 +522,16 @@ The laws are made again from the design, so a law is told by its id.
 
     python3 tools/perturb_reading.py <bundle of study 175> --md <page> --json <file>
 
+## tools/catalogue_reading.py
+
+Every law of a bundle placed in the catalogue of behaviours (850; `docs/ARCHITECTURE.md`, "The catalogue of
+behaviours"), control campaigns left out: each law's kind at every size report 28 reads and at its deepest; for the
+laws read from 16,384, each kind called at 1,024 and at 4,096 against the kind at the deepest size (held: the early
+call was right; caught: the deepest kind was already called); the lattice chains still at 1,024 and 4,096 and whether
+they stayed still; and the scoring laws with a still lattice scored 1 beside the score in force. Seconds on a study.
+
+    python3 tools/catalogue_reading.py <bundle> --md <page> --json <file> [--no-scores]
+
 ## tools/top_laws_alike.py
 
 What the laws the score settles share, read on a study's bundle (847): the drawn laws the score settles, their

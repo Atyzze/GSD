@@ -200,21 +200,22 @@ def _check_build_number_and_consolidation() -> dict:
     build = int((ROOT / "BUILD_NUMBER").read_text(encoding="utf-8").strip())
     heading = (ROOT / "docs" / "agent" / "NEXT_BUILD.md").read_text(encoding="utf-8").splitlines()[0]
     named = re.search(r"#\s*The next build is\s+(\d+)\s*$", heading)
-    roadmap = re.search(r"^Next consolidation:\s*(\S.*?)\s*$",
-                        (ROOT / "docs" / "ROADMAP.md").read_text(encoding="utf-8"), re.M)
+    text = (ROOT / "docs" / "ROADMAP.md").read_text(encoding="utf-8")
+    cadence = re.search(r"^Consolidation builds:\s*(\S.*?)\s*$", text, re.M)
+    planned = re.search(r"^Next consolidation", text, re.M)
     next_build = int(named.group(1)) if named else None
-    planned = roadmap.group(1) if roadmap else None
     expected = {"next_build": "BUILD_NUMBER + 1",
-                "next_consolidation": "said in the roadmap, a guideline since 742"}
-    measured = {"BUILD_NUMBER": build, "next_build": next_build, "next_consolidation": planned}
-    if next_build is None or planned is None:
+                "consolidation": "when one is needed, on no schedule (2026-11-24), no line planning the next"}
+    measured = {"BUILD_NUMBER": build, "next_build": next_build,
+                "consolidation": cadence.group(1) if cadence else None, "a next one planned": bool(planned)}
+    if next_build is None or cadence is None:
         return _finding(UNCHECKABLE, expected, measured,
                         "docs/agent/NEXT_BUILD.md or docs/ROADMAP.md no longer carries the line this "
-                        "claim is read from, so the next build and consolidation cannot be read.")
-    holds = next_build in (build + 1, build + 2)
+                        "claim is read from, so the next build and the consolidation cadence cannot be read.")
+    holds = next_build in (build + 1, build + 2) and not planned
     return _finding(_verdict(holds), expected, measured,
-                    f"the tree is build {build}, names {next_build} as the next build, and the roadmap plans the "
-                    f"next consolidation {planned}.")
+                    f"the tree is build {build}, names {next_build} as the next build, and the roadmap says a "
+                    f"consolidation comes {cadence.group(1)}" + (", yet still plans the next one." if planned else "."))
 
 
 def tree_claims() -> list[Claim]:
@@ -253,7 +254,7 @@ def tree_claims() -> list[Claim]:
         Claim("term_subset_is_expressible", "a campaign can be run on a subset of the thirteen terms",
               _HANDOFF, LANE_TREE, _check_term_subset_is_expressible),
         Claim("build_number_and_consolidation",
-              "the file naming the next build is current and the roadmap says when the next consolidation comes",
+              "the file naming the next build is current and the roadmap says how a consolidation comes, planning none",
               "docs/agent/NEXT_BUILD.md; docs/ROADMAP.md", LANE_TREE,
               _check_build_number_and_consolidation),
     ]

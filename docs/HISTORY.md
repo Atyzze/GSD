@@ -193,9 +193,11 @@ made; a time without a Z is the operator's local time.
   recalibrate. That should only be needed if the probes themselves changed."): a calibration cell is keyed by the
   probes' own code (`calibration/fingerprint.cell_fingerprint`, the import closure of `measurements/estimators.py`),
   never by the decision code; `tests/unit/test_only_the_probes_recalibrate.py`.
-* A consolidation when it pays, a guideline and not a number (2026-11-07 16:33: "perhaps we can drop this rule of
-  forced consolidation and make a guideline instead of a hard rule becuase its getting in the way of our flow here");
-  from September 2026 to then, every build number ending in 0 and no other.
+* A consolidation when one is felt to be needed, on no schedule (2026-11-24 10:22: "I think we will naturally feel
+  whenever we need a consolidation build. I don't think we should fix that behind a fixed schedule of 10 builds
+  anymore"); from 2026-11-07 16:33 a guideline of about every ten builds ("perhaps we can drop this rule of forced
+  consolidation and make a guideline instead of a hard rule becuase its getting in the way of our flow here"); from
+  September 2026 to then, every build number ending in 0 and no other.
 * A consolidation keeps the notes of up to ten builds before it (2026-11-19 22:05, asked whether the notes of 745 to
   812 may be folded into a few lines of the history, each build's notes staying in its own archive, or the history
   keeps an entry per build: "imo we should keep up to 10 notes of previous builds, the rest should be folded into the
@@ -250,6 +252,31 @@ made; a time without a Z is the operator's local time.
 
 **Studies**
 
+* **Study 175 runs to its end, and the study after it looks for laws whose starts agree** (2026-11-24 10:22, after
+  849's reading of 175's second bundle: "agree with everything, and I'm not surprised that structure isn't growing";
+  "any law that has different starts leading to the same result is infinitely more interesting than anything that is
+  just static"): H31 (`3931d03e8edf`) and the six laws of 174 whose starts agreed at 4,096 first. Growth from empty or
+  random is not expected of the current terms ("that's for later"), and the twin starts stay beside every law ("if we
+  always keep the empty and the random twin next to it, we can always backcheck whether or not that geometry can grow
+  from there as well").
+* **A lattice that does not change scores lowest, however few edges it moves** (2026-11-24 10:22: "lattices that
+  don't change shouldn't be scored as well. They should basically get the lowest possible score"; "the ones that don't
+  really change a lattice and where only a small percent of the moves are accepted"): the frozen lattice of 2026-11-21
+  (no edge changed, scoring 1) widened to a lattice start that accepts moves on a small share of its edges, judged on a
+  criterion committed before the bundle that judges it (850), as 846's score was.
+* **Any probe that settles from empty or random is a kind of its own, the first** (2026-11-24 10:43: "Any probe at all,
+  I don't care if it's just one, I still want to know. Any probe that settles from empty or random, I want to know. And
+  settles means at the 3 highest rungs, it shows convergence behavior"): the catalogue's `grown`, read by each probe's
+  value against the score's margin at three sizes in a row (850). A frozen lattice and a still one are kept apart ("we
+  should make a difference between a still lattice, which has a small set of moves, versus actually frozen"); a ring
+  is told from a made geometry by the d its starts agree on; a mean degree below 2 is not a kind of its own ("maybe
+  there is not much compute saved by scanning for this").
+* **A catalogue of every behaviour seen** (2026-11-24 10:22: "I guess we should start building a list of types of
+  behavior that we've seen, and basically create a category list"; "all behavior needs to have a list of this is a
+  kind of behavior, this is how to spot it early, and this is how we score it"; "I feel a bit like an astronomer"):
+  each category with what it is, how it is read, the earliest size it is known at and how reliably, and its score. A
+  law placed in a known category early is given no more compute than predicting it needs ("then just stop wasting
+  compute on them"), once that early call is measured reliable; the gates stay and choose compute by category.
 * **846's score in force; study 175 has the host to itself** (2026-11-23 15:45, after 846 and 847: "I rather dedicate
   all compute to do the perturbation"; "I guess I agree with the remaining recommendations for builds 848"): 848 puts
   the score judged in 846 in force (`gsd-law-score-8`), trees of long paths a limit it shares with the score before it;
