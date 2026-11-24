@@ -704,6 +704,47 @@ going stale.
   a saved chain is continued only under the same dynamics. Their comments go at their next change.
 - Runtime: the whole tree; children verify it before and after work.
 
+## The calibration ledger (`calibration/ledger.py`, `calibration/probe_groups.py`, `probes/`, gsd-calibration-ledger-1)
+
+The table keys every cell by one fingerprint over every probe, so a fifth probe, or an edit to one of four, makes all
+2,584 cells stale and the whole table is measured again. The ledger keys readings by **probe group** instead, and only
+ever grows.
+
+- **A probe group** is a set of channels measured together under one fingerprint. `geometry` is the four probes of the
+  table (`d_s`, `d_V`, `d_B`, `d_w`), keyed by the analysis's name and the estimator's fingerprint, as the table is;
+  they share one stream of randomness and code, so they stay one group. Every module of
+  `graph_scale_dynamics/probes/` is an **appended group**: it declares `GROUP`, `VERSION`, `CHANNELS` and
+  `measure(n, edges, seed)`, draws its own randomness from the cell's seed and its own stream, and is keyed by its
+  version and its own import closure (`probe_groups.group_fingerprint`). `probes/` is outside the frozen trees and
+  outside the estimator's closure (`tests/unit/test_an_appended_probe_moves_nothing_frozen.py`), so appending a group
+  moves no frozen source, no science fingerprint, no running study and no table cell.
+- **A ledger file** is `calibration/ledger/<group>/<fingerprint>.jsonl`: one JSON record a line, each carrying the hash
+  of its own canonical content and the hash of the line before it (the first, a genesis hash of the group and
+  fingerprint). A rewritten or dropped line breaks the chain and `ledger.problems` names it; nothing is appended to a
+  ledger that does not verify. A cell is measured once under a fingerprint; reading it again is an **attestation**
+  (`kind: attest`, `of`: the measured record's hash, the host, the environment, the largest relative deviation, and
+  whether the values are the same bytes). A new fingerprint is a new file: the old one is never touched, so every
+  reading made against it can still be checked against exactly what it used.
+- **The view** is, for each group, the records filed under the tree's current fingerprint for it. A **snapshot**
+  (`ledger.snapshot`, `ledger_runs.view_snapshot`) names each group's fingerprint and two roots: `root`, a Merkle root
+  over the record hashes (who measured what, when), and `content_root`, over each record's `values` hash (the cell,
+  its family's fingerprint and its channels alone). A root is the set's and not the order's: two hosts holding the same
+  records print the same root whatever order they appended them in. A reading that pins a snapshot can be checked
+  later against the ledger, however much the ledger has grown since.
+- **The table stays** what the gate, the score and the readings read. `tools/ledger.py from-table` files its cells in
+  the ledger under the fingerprint that measured them, measuring nothing. An appended group has **no vote**: nothing in
+  the gate, the score or a decision reads its channels until a criterion committed before its known answers says what
+  they must be.
+
+The first appended group is `quantum_walk` (`probes/quantum_walk.py`): a continuous-time quantum walk under the
+degree-normalised adjacency of the largest component, from four starts, stepped by an exact Chebyshev expansion. Its
+channels are `q_alpha`, the exponent of the walk's mean squared graph distance (2 is ballistic, a wave that travels),
+and `q_decay`, the exponent of its smoothed return probability (the dimension on a clean lattice), each read from
+4 pi to the time the walk reaches half the eccentricity, refused as `SATURATES_EARLY` when that span is under four.
+Where `d_s` reads the spectrum alone, the quantum walk reads where the eigenvectors sit: on the ring and the square
+torus the two agree (1.0 and 1.01; 2.0 and 2.08), on the Sierpinski gasket and a uniform random tree `d_s` reads 1.37
+and 1.29 and the walk does not spread (0.00 to 0.03): a space that diffuses but does not carry a wave.
+
 ## The reports
 
 The study runner (`services/reporter/study_run.py`) makes each campaign's cycle from one REPEATABLE READ snapshot,

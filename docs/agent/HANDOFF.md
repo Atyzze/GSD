@@ -1,8 +1,17 @@
-# Handoff: the state of GSD at build 854
+# Handoff: the state of GSD at build 855
 
 What is true now, for a context that has just opened this archive. Each fact has one home; the last section says
 where. **Think from the data, not from this page**: where the data and a document disagree, the data wins and the
 document is fixed in the same build.
+
+**What 855 added, read first** (the operator, 2026-11-24 19:10 to 19:26). `CLAUDE.md`, which every agent on the
+repository loads: several workers now share `github.com/Atyzze/GSD`, each on a branch of its own, each build a pull
+request the operator merges (`docs/agent/NEXT_BUILD.md`, "How to make a build", step 6 onward). And the start of the
+table that only grows: the calibration ledger (`docs/ARCHITECTURE.md`, "The calibration ledger"; `tools/ledger.py`)
+files every probe reading once under its own code's hash, and the quantum walk (`graph_scale_dynamics/probes/`) is its
+first appended group, measured on the host by `tools/ledger.py measure` and voting in nothing until its known answers
+are committed. The road from here, including the C and assembly engines of the reference set of four:
+`docs/agent/APPEND_ONLY_PLAN.md`. Nothing below this paragraph changed at 855: the state is 854's.
 
 **Where things stand, at 854.** The baseline is two bundles and the calibration table, nothing older (the operator,
 2026-11-24 16:34: "these two are now are new baseline together with the unchanged calibration table"): study 174's

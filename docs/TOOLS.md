@@ -449,6 +449,26 @@ No command: every law of a study's campaigns as one compact row, from each campa
 bundle whole for a reader, as the judges' loader did: `study` gives each campaign with its report 28, its ledger, its
 chains and the sections that failed or are absent, and `drawn_laws` every blind law with its fate, regime and score.
 
+## tools/ledger.py
+
+The calibration ledger (`docs/ARCHITECTURE.md`, "The calibration ledger"): the append-only record of every probe
+group's readings on the known families, one file a group and fingerprint under `calibration/ledger/`. Nothing in it is
+rewritten; a probe that changes files its readings under its new fingerprint beside the old.
+
+    python3 tools/ledger.py from-table [--table calibration/seed_table.json]   # file the table's cells, measuring nothing
+    python3 tools/ledger.py status [--max-nodes 65536]                          # cells held and missing, by group
+    python3 tools/ledger.py measure --group quantum_walk [--max-nodes 65536] [--workers 16] [--limit 100]
+    python3 tools/ledger.py attest --group quantum_walk [--sample 8]            # re-measure, file the agreement
+    python3 tools/ledger.py verify                                              # every file's hashes and chain
+    python3 tools/ledger.py snapshot                                            # the roots of the current view
+
+`from-table` files each cell under the fingerprint that measured it (the table's analysis and estimator), once: run
+again, it writes nothing and names any cell held with other values. `measure` takes only the cells the group's current
+fingerprint does not hold, so an interrupted run resumes where it stopped. `attest` exits 1 when a re-measured cell
+disagrees beyond the tolerance. `snapshot` prints `root` (the records: who measured what, when) and `content_root`
+(the values alone: two hosts that measured the same cells under the same fingerprints to the same bytes print the same
+`content_root`).
+
 ## tools/leftovers.py
 
 What fleets have left running on this host, by folder, and ending them.
