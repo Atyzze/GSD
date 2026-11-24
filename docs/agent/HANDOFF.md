@@ -1,4 +1,4 @@
-# Handoff: the state of GSD at build 858
+# Handoff: the state of GSD at build 859
 
 What is true now, for a context that has just opened this archive. Each fact has one home; the last section says
 where. **Think from the data, not from this page**: where the data and a document disagree, the data wins and the
@@ -15,15 +15,19 @@ are committed. The road from here, including the C and assembly engines of the r
 measured into `docs/LESSONS.md` ("Evidence", "Releases", "Host state"), `docs/RESEARCH_METHOD.md` (two papers)
 and `docs/ROADMAP.md` ("Unscheduled").
 
-**Where things stand, at 858.** 858 is a consolidation and moved nothing below. Home has one filter panel for the landscape, the Top 100 and the fleet ladder (857).
+**Where things stand, at 859.** 859 is the handover of the context that made 856 and 857 (the operator, 23:00): Home's
+plot whole above the filters, every law of a small campaign in the Top 100 and every start's point with its kind
+(23:07, 23:09), and the start from the repository alone, by which it was made (`docs/agent/ENVIRONMENT.md`, section
+10). Home has one filter panel for the landscape, the Top 100 and the fleet ladder (857).
 Study 176 is designed and committed, theirs to start in a folder of its own: groups
 A (the blind draw, 174's design on ten new seeds) and B (the map of the ten best laws not yet known), half the work
 slots each (`docs/build_notes/BUILD856_NOTES.md`). The baseline is two bundles and the calibration table, nothing older (the operator,
 2026-11-24 16:34: "these two are now are new baseline together with the unchanged calibration table"): study 174's
 bundle of 2026-11-24 14:22Z (the blind draw, 8,131 laws read, built on 850) and study 175's of 2026-11-24 08:35Z (595
-variants around 174's 35 settled laws). Both run on 850 in folders of their own. The instrument's own checks on known
+variants around 174's 35 settled laws). Both bundles were made on 850, each study in a folder of its own. The instrument's own checks on known
 answers stay (the calibration table, the dimension test, the score's known answers, the Boltzmann check); every study
-before 174 and every reading of one is out of what the project rests on, and 861 takes their files out of the tree.
+before 174 and every reading of one is out of what the project rests on, and the consolidation after group D takes
+their files out of the tree.
 
 **What the baseline says** (`docs/paper/GSD_PAPER.md`, sections 5 and 6, each number with its source):
 * Most blind laws empty the graph, fill it to the cap or melt the lattices; 83 score, and 64 of those are a lattice
@@ -44,17 +48,23 @@ before 174 and every reading of one is out of what the project rests on, and 861
 
 **What the operator asked this afternoon, and where it went** (`docs/HISTORY.md`, "Studies"): one study in groups A, B
 and C, 50-50, the system's CPUs theirs to name (16:33 to 17:39): 856. A science hash and the table in every bundle
-(18:04): 856. The dashboard's filter panel (17:51): 857, made. A study seeded from an earlier bundle (18:04): 859. Group D,
-the best law taken as deep as memory allows (18:06): 860. The consolidation: 861. The shared atlas: after the paper.
+(18:04): 856. The dashboard's filter panel (17:51): 857, made. The work in four parts: A blind, B a scout that maps
+a region, D a scout that pushes one law up in N, the system's CPUs untouched (18:32). A study seeded from an earlier
+bundle (18:04): the next build. Group D, the best law taken as deep as memory allows (18:06): the one after. The
+consolidation: then. The shared atlas: after the paper, a device's CPU model and timings only with its owner's opt-in
+(18:28). This evening: a handover the next context can start from with the source alone (23:00), Home's plot and Top
+100 (23:07, 23:09): 859.
 
 ## Start here, in a fresh context
 
-Every build from 762 on was made from the archive before it, sometimes with the operator's words typed above it; a
-context that opens this archive is in the same place, and `docs/agent/NEXT_BUILD.md` is the page to work from.
+Every build from 762 on was made from the archive before it, and since 855 from `main` of `github.com/Atyzze/GSD`,
+sometimes with the operator's words typed above it; a context that opens either is in the same place, and
+`docs/agent/NEXT_BUILD.md` is the page to work from.
 
-1. **Unpack the archive and make one commit of it as distributed** ("Baseline: Build <N> as distributed"; it carries
-   no `.git` and no `var/`), bring the environment up by `docs/agent/ENVIRONMENT.md`, section 10, and run the full
-   lane once on the untouched tree, detached (20 to 24 minutes on two cores): its count is the newest notes'.
+1. **Clone `main`** (`docs/agent/ENVIRONMENT.md`, section 10, "From the repository"), **or unpack the archive and make
+   one commit of it as distributed** ("Baseline: Build <N> as distributed"; it carries no `.git` and no `var/`); bring
+   the environment up by section 10 and run the full lane once on the untouched tree, detached (20 to 24 minutes on
+   two cores): its count is the newest notes'.
 2. **Read what the operator sent** first (`docs/OPERATIONS.md`, "Reading what the operator sends"); answer in one plain
    sentence first (`docs/agent/WORKING_WITH_THE_OPERATOR.md`). **A study's bundle is read by
    `docs/agent/NEXT_BUILD.md`, "Reading a study's bundle"**, every reader in order. Then make the next build.
@@ -67,8 +77,10 @@ context that opens this archive is in the same place, and `docs/agent/NEXT_BUILD
 * **Study 176** waits on the operator's start (`main.py run --study 176`): eleven campaigns, ten blind batches of
   1,000 in group A and the map in group B (`operations/study_map.py`; its state is the flag `study_map`, in the
   bundle as `map.json`), the split in the flag `work_groups`, the system's CPUs in `system_cores`.
-* **Study 174** on 850 in a folder of its own, 16 workers when 175 is stopped; its bundle of 2026-11-24 14:22Z is the
-  baseline. **Study 175** on 850 in a folder of its own, to its end (the operator, 2026-11-24 10:22); its bundle of
+* **Study 174** in a folder of its own, 16 workers when 175 is stopped; its bundle of 2026-11-24 14:22Z is the
+  baseline. The operator's screenshots of 23:07 and 23:09 show that folder on 857: 9,924 of its 10,000 laws drawn, 16
+  workers, and C11, the standing controls, done.
+* **Study 175** on 850 in a folder of its own, to its end (the operator, 2026-11-24 10:22); its bundle of
   2026-11-24 08:35Z is the baseline. Every older folder (169 to 173, 156, 158) is the operator's to delete.
 * **The worker count while a study runs** (846, System page, Workers): `compute_worker_target`, read by the
   supervisor every half second; a lower count stops the slots above it at once, each saving its seed and giving its
@@ -206,12 +218,14 @@ again after the paper's three studies, on the final probes, with a criterion wri
 
 * **Study 176**: theirs to start; and three questions, none blocking it (`docs/ROADMAP.md`, "Questions for the
   operator"): a map variant's step (a tenth), the halvings of a line (four), the system's CPUs (none).
-* **Where the older data's archive goes public** (861): the review asks for a public archive (Zenodo or a tag) so a
+* **Where the older data's archive goes public** (the consolidation): the review asks for a public archive (Zenodo or a tag) so a
   referee can see nothing was dropped selectively; the operator wants it out of the tree. Both hold if the archive
   goes beside the build and its place is theirs to name.
 * **The sampler** (`docs/ROADMAP.md`, item 4): whether a known law must grow its geometry from empty before more
   compute goes to blind laws from empty; parallel tempering is the cheapest remedy and changes the engine.
-* **853 in the folders of 174 and 175**: theirs to apply; it changes no decision.
+* **Home's refresh every 0.5 s and a control for it** (18:26): held back while the API is starved; the question and
+  the recommendation are in `docs/ROADMAP.md`, "Questions for the operator".
+* **Pull requests**: each build is theirs to merge; 859's is the handover.
 * **Folders**: every pilot folder once read is theirs to delete. A scratch holder parks its files and ends ten minutes
   after its folder's last process.
 

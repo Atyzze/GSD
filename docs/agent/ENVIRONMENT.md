@@ -27,6 +27,8 @@ Section 0 is what a sandbox is; section 9 the habits and traps around the steps.
 
 ## 9 Habits and traps
 
+* **`gh pr create` is refused here** (its GraphQL call answers 403 through the proxy); the REST call opens the
+  pull request: step 14.
 * **Wait for a detached run inside a call** (`sleep 540`): the sandbox is paused between calls, a call is cut off at
   ten minutes, and a waiting background call is stopped at two hours.
 * **Kill by process id**, or bracket a letter (`pkill -f "[p]ackage_release"`): `pkill -f <pattern>` matches its own
@@ -100,6 +102,20 @@ Section 0 is what a sandbox is; section 9 the habits and traps around the steps.
   and what to look for: does every decision replay, what does the SQL select, what happens on odd inputs.
 
 ## 10 A cold start, in order
+
+**From the repository**, the usual start since builds became pull requests (855), and how 859 was made. The
+session needs `Atyzze/GSD` attached with push access (its tool for adding a repository; at 856 it was refused until the
+operator had asked for pull requests). Then, as root:
+
+    git clone https://github.com/Atyzze/GSD /home/claude/build/GSD
+    cd /home/claude/build/GSD && GSD_TREE=$PWD GSD_PREFIX=/home/claude/prefix.sh \
+        setsid nohup ./tools/prepare_environment.sh > /home/claude/prepare.log 2>&1 < /dev/null &
+
+Step 2 finds the history and keeps it; step 6 seeds the table from `calibration/seed_table.json`, as from an archive
+(the table is host state and never in the repository); the rest is as below. At 859, on a clone of 858's `main`:
+every step done, the quick check 216 passed in 171 s, the gate run on that clone. The clone is both the tree the lanes
+and the release run in and the checkout the pull request is pushed from (step 14), so nothing is copied between two
+trees. Where a prefix file already points at another tree, give this one its own (`GSD_PREFIX`).
 
 Root runs it, in a sandbox with a user `claude` (Ubuntu 24.04, two cores, Python 3.12, node at `/opt/node22`, Chromium
 at `/opt/pw-browsers`). First the tree: the archive the operator sent is in the session's uploads
@@ -195,6 +211,13 @@ Then, by hand:
     log ends `build <N+1>: /home/claude/release/GSD<N+1>.tar.zst` and `EXIT 0`. It leaves `BUILD_NUMBER`, the notes'
     `GATE_RESULT` line, the version pins and the freeze baseline modified: commit them as root, signed, as "Build <N+1>
     as released", before the next build's first change.
-14. **The delivery**: the archive goes to the operator with the session's file-sending tool, with a short plain
-    message saying what it changes on their host and what they do (`docs/agent/WORKING_WITH_THE_OPERATOR.md`, "How
-    to answer them"). They apply it with their own `apply_build.py`, which lives on their host, not in the tree.
+14. **The delivery** is a pull request (`CLAUDE.md`, "Several workers, one repository"), the archive beside it. From
+    the clone, as root: `git fetch origin main`; a branch `build-<N>` holding the released tree as one commit on
+    `origin/main` (`git reset --soft origin/main` once "Build <N> as released" is committed, then `git commit -m "Build
+    <N>"`); `git push origin build-<N>`. `gh pr create` is refused here (its GraphQL call answers 403 through the
+    proxy); the REST call opens it: `gh api repos/Atyzze/GSD/pulls -f title="Build <N>: ..." -f head=build-<N> -f
+    base=main -F body=@<description file>`. Nothing is pushed to `main` and nothing is force-pushed; if `main` moves
+    before the merge, renumber and release again. The archive goes to the operator with the session's file-sending
+    tool, with a short plain message saying what it changes on their host and what they do
+    (`docs/agent/WORKING_WITH_THE_OPERATOR.md`, "How to answer them"). They apply it with their own `apply_build.py`,
+    which lives on their host, not in the tree.

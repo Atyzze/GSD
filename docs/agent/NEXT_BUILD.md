@@ -1,33 +1,42 @@
-# The next build is 859
+# The next build is 860
 
 This file names the next build and says how to make it. `tests/unit/test_next_build_is_named.py` parses its first line,
 which must read exactly `# The next build is <N>`, one above `BUILD_NUMBER`.
 
-## Where to begin: 859 seeds a study from an earlier bundle
+## Where to begin: 860 seeds a study from an earlier bundle
 
-**What 855 to 858 left** (`docs/build_notes/BUILD855_NOTES.md` to `BUILD858_NOTES.md`): 855, `CLAUDE.md` (every
+**Starting from nothing but the repository** (the operator, 2026-11-24 23:00): clone `main` and bring it up by
+`docs/agent/ENVIRONMENT.md`, section 10, "From the repository"; 859 was made that way. Then `docs/WHERE_WE_ARE.md`,
+`docs/agent/HANDOFF.md` and this page, in that order, and `CLAUDE.md`'s rules for a shared repository.
+
+**What 855 to 859 left** (`docs/build_notes/BUILD855_NOTES.md` to `BUILD859_NOTES.md`): 855, `CLAUDE.md` (every
 build a pull request the operator merges), the calibration ledger and its first appended probe group, the quantum walk.
 856, study 176 designed and committed (groups A, the blind draw, and B, the map of the ten best, half the work slots
 each), the still lattice at 1 (gsd-law-score-9), the small-world kind (gsd-catalogue-2, `small_world_criterion_1.json`
 waiting on the next bundle), the system's CPUs on the System page, a science hash and the table in every bundle. 857,
 Home's filter panel, every law carrying its kind, group, batch and place on the map. 858, a consolidation of what
-855's context learned (`docs/build_notes/BUILD858_NOTES.md`), so the plan below is 857's with its numbers moved up
-by one. The baseline is still 174's
-bundle of 2026-11-24 14:22Z and 175's of 08:35Z.
+855's context learned. 859, the handover of 856's and 857's context: Home's plot whole above the filters, every law of
+a small campaign in the Top 100, every start's point with its kind, and the start from the repository alone. The
+baseline is still 174's bundle of 2026-11-24 14:22Z and 175's of 08:35Z.
 
-**What 859 makes** (the operator, 2026-11-24 18:04, `docs/HISTORY.md`): a study started from an earlier bundle whose
+**What 860 makes** (the operator, 2026-11-24 18:04, `docs/HISTORY.md`): a study started from an earlier bundle whose
 science hash (`study.json`, `science`) is the folder's own: the bundle's map (`map.json`) loaded, its known regions
 known from the start and its mapping regions taken up again, so B starts where the last study stopped; and A's grid
 leaning toward the regions least explored, the lean drawn and recorded, never chosen by hand. A bundle of another
 science is refused, saying which part of the hash differs (`science_contract.same`).
 
-**Acceptance** of 859: a folder started from a bundle reads the same map the bundle holds; a bundle of another science
-is refused; no score, kind or decision moves (`tools/outputs_of_a_law.py --against` 858's record); the full lane green.
+**Where it will press**: `main.py` stands at 129,396 bytes against its ratchet of 130,000
+(`tests/unit/test_size_ratchet.py`), so a new flag of `run` is a line there and its work a module's, as 856's
+`workload` went to `work_groups.command`.
 
-**Then** 860, group D; 861, the consolidation
-(every study before the baseline, its designs, criteria and readers, `study_169` to `study_173`,
-`tools/study_172_reading.py`, `tools/study_173_reading.py`, `tools/study_twice.py` and the tests that read them, out
-of the tree into `GSD_readings_archive_861.tar.zst`, sent beside the release); `docs/ROADMAP.md`, "Planned builds".
+**Acceptance** of 860: a folder started from a bundle reads the same map the bundle holds; a bundle of another science
+is refused; no score, kind or decision moves (`tools/outputs_of_a_law.py --against` 859's record, written first on
+the untouched tree); the full lane green.
+
+**Then** group D, then the consolidation (every study before the baseline, its designs, criteria and readers,
+`study_169` to `study_173`, `tools/study_172_reading.py`, `tools/study_173_reading.py`, `tools/study_twice.py` and the
+tests that read them, out of the tree into `GSD_readings_archive_<N>.tar.zst`, its own build's number, sent beside the
+release; and the notes of 823 to 845 folded into `docs/HISTORY.md`'s eras); `docs/ROADMAP.md`, "Planned builds". A planned build takes its number when it is made.
 
 **When study 176 sends its first bundle**: `tools/catalogue_reading.py` judges `small_world_criterion_1.json` (W1,
 W2), and the map's regions are read from `map.json` against `study_176_criterion.json` (P1, P2 judged; P3 to P5
@@ -180,7 +189,8 @@ final merge button myself"; `CLAUDE.md`, "Several workers, one repository"): the
 own, one commit `Build <N>`, its description the notes' opening, what moved and what the operator decides. Fetch
 `main` first and rebase onto it: other workers deliver to the same repository and the operator edits on GitHub too
 (the README's opening, 2026-11-24), so anything of theirs since the last build is taken into the tree before the gate
-runs. If `main` has moved past your number before the merge, renumber and run the gate again. Nothing is pushed to
+runs. From this sandbox the pull request is opened by the REST call, `gh pr create` being refused
+(`docs/agent/ENVIRONMENT.md`, section 10, step 14). If `main` has moved past your number before the merge, renumber and run the gate again. Nothing is pushed to
 `main` and nothing is force-pushed; the operator's merge is the release.
 
 The tests that read a build's number (`tests/unit/test_next_build_is_named.py`, `test_build_identity.py`,

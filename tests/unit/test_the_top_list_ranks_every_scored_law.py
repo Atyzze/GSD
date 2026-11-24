@@ -25,7 +25,7 @@ def test_a_law_a_lattice_built_is_listed_though_its_chain_from_empty_reads_nothi
     refused = [_refused("c" * 64, 17), _refused("d" * 64, 0), _refused("e" * 64, 13)]
     deepest = {cid: 65536 for cid in ("a" * 64, "b" * 64, "c" * 64, "d" * 64, "e" * 64)}
     top = top_candidates_of(measured, refused, deepest)
-    assert [row["candidate_id"][0] for row in top] == ["a", "c", "e", "b"], (
+    assert [row["candidate_id"][0] for row in top] == ["a", "c", "e", "b", "d"], (
         "a scored law whose chain from empty read nothing reaches the top list, at zero temperature too")
     listed = {row["candidate_id"][0]: row for row in top}
     assert listed["c"]["regime"] == "zero_temperature"
@@ -33,12 +33,25 @@ def test_a_law_a_lattice_built_is_listed_though_its_chain_from_empty_reads_nothi
     assert listed["c"]["law_score"]["score"] == 17
 
 
-def test_a_refused_law_without_a_score_stays_off_the_list_and_the_list_keeps_its_length():
+def test_a_refused_law_without_a_score_takes_only_a_place_left_empty_and_the_list_keeps_its_length():
     refused = [_refused(f"{i:064d}", 0) for i in range(150)] + [_refused("f" * 64, 9)]
-    top = top_candidates_of([], refused, {}, limit=100)
-    assert [row["candidate_id"] for row in top] == ["f" * 64]
+    deepest = {f"{i:064d}": 1024 * (1 + i % 3) for i in range(150)}
+    top = top_candidates_of([], refused, deepest, limit=100)
+    assert len(top) == 100 and top[0]["candidate_id"] == "f" * 64
+    assert [deepest[row["candidate_id"]] for row in top[1:4]] == [3072, 3072, 3072], "the deepest first"
     many = [_refused(f"{i:064d}", 17) for i in range(150)]
-    assert len(top_candidates_of([], many, {})) == 100
+    assert len(top_candidates_of([], many + refused, {})) == 100
+    assert all(row["law_score"]["score"] == 17 for row in top_candidates_of([], many + refused, {}))
+
+
+def test_a_campaign_of_five_laws_lists_all_five_its_negative_controls_last():
+    measured = [_measured("a" * 64, 0)]
+    refused = [_refused("p" * 64, 9), _refused("n" * 64, 0), _refused("q" * 64, 1), _refused("m" * 64, 0)]
+    deepest = {cid * 64: 65536 for cid in "apnqm"}
+    top = top_candidates_of(measured, refused, deepest)
+    assert [row["candidate_id"][0] for row in top] == ["p", "q", "a", "m", "n"], (
+        "every law of a small campaign is listed, a law that reads nothing and scores 0 after every other")
+    assert top[-1]["landscape_band"] == NO_READING_FROM_EMPTY and top[-1]["law_score"]["score"] == 0
 
 
 def test_a_listed_law_without_a_reading_carries_every_field_the_card_reads():

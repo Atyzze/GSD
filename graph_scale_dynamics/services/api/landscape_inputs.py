@@ -8,7 +8,7 @@ from graph_scale_dynamics.domain.model import content_hash
 from graph_scale_dynamics.observability.score_board import FLAG_PREFIX as SCORES_PREFIX
 from graph_scale_dynamics.operations.study_map import FLAG as MAP_FLAG
 
-CONTRACT = "gsd-landscape-inputs-2"
+CONTRACT = "gsd-landscape-inputs-3"
 TABLES = ("campaign_candidates", "campaigns", "candidate_specs", "engine_decisions", "engine_decisions_latest",
           "four_rung_phenotypes", "jobs", "measurements", "proposal_exposures", "rung_summaries")
 WRITES_SQL = ("SELECT relname,n_tup_ins,n_tup_upd,n_tup_del FROM pg_stat_user_tables "

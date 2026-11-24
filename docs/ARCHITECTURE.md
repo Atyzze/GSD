@@ -585,8 +585,14 @@ committed before its structures were read): criterion 5 held everywhere but on t
 before it settled alike, and the operator put the rules in force at 848 (2026-11-23 15:45).
 The score is read beside a decision, never in it, kept per campaign in a control flag (`observability/score_board.py`,
 which a new contract rescans; since 857 it keeps every scanned law's catalogue kind beside it, scored or not, and the
-landscape marks each point with its kind, group, batch and region for Home's filters, `landscape_worker.marked`) and read by the landscape, `/api/structure` and report 28; `compact` carries each part's
-items so the landscape can band a law by its twins alone or by every start.
+landscape marks each point with its kind, group, batch and region for Home's filters, `landscape_worker.marked`, each
+start's point as well as its law's since 859) and read by the landscape, `/api/structure` and report 28; `compact`
+carries each part's items so the landscape can band a law by its twins alone or by every start.
+
+The Top 100 (`landscape_worker.top_candidates_of`) ranks the laws by their score, then the size it reached: every law
+the chain from empty read, and every law it did not that scores above zero. Since 859 the places left empty are given to
+the laws that read nothing from empty and score 0, the deepest first, so a campaign of fewer than a hundred laws lists
+every one (the standing controls' five, their two negatives last).
 
 The landscape's bands (`services/api/landscape_worker.band_of_items`, since 784) are the score's: how many of the four
 probes settled (2 points or more) on the part the law is read by, 1 to 4, and the 5th band, `einstein`, four settled

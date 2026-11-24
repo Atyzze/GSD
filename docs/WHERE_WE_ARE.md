@@ -1,4 +1,4 @@
-# Where we are, at build 858
+# Where we are, at build 859
 
 The whole project on one page, in plain words; the detail is in `docs/agent/HANDOFF.md`.
 
@@ -54,24 +54,24 @@ lattice scores 1.
 68% to 81% of the way there from empty, worse as N grows. Until a known law grows its geometry from empty, "nothing
 grows from empty" cannot be told from "nothing can get there under these moves".
 
-## What 800 to 858 changed
+## What 800 to 859 changed
 
 The probes are locked (800, 801) and your table installed (805). 806 to 843: no clock decides, the evidence judged
-again on the final code, the studies carried and read, the gates' counters the study's, `--workers 32` holds 32. 844 is
-the stable build with study 174. 845 to 850: Home's ten batches, the worker count while a study runs, study 175, the
-score of 848, the public tree, the catalogue of behaviours. 851 to 853: the README, a stale admin link shown. 854: the
-baseline, the still criterion passed, the trap measured, the paper drafted. 855: `CLAUDE.md` (each worker on a
-branch, each build a pull request you merge), the calibration ledger and its first new probe, the quantum walk, with
-no vote yet. 856: study 176 in groups A (blind) and B (the map of the ten best), half the fleet each; the still
-lattice at 1; the small world a kind; the CPUs the system keeps; a science hash and the table in every bundle. 857:
-one set of filters on Home. 858: what 855's context learned, in the pages; C and assembly engines wait for your word.
+again on the final code, the studies carried and read, `--workers 32` holds 32. 844 is the stable build with study
+174. 845 to 850: Home's ten batches, the worker count while a study runs, study 175, the score of 848, the public tree,
+the catalogue of behaviours. 851 to 853: the README, a stale admin link shown. 854: the baseline, the still criterion
+passed, the trap measured, the paper drafted. 855: `CLAUDE.md` (each build a pull request you merge), the calibration
+ledger, the quantum walk with no vote yet. 856: study 176 in groups A (blind) and B (the map of the ten best), half the
+fleet each; the still lattice at 1; the small world a kind; the CPUs the system keeps; a science hash and the table in
+every bundle. 857: filters on Home. 858: 855's context in the pages; C and assembly wait for your word. 859: the
+handover, Home's plot whole and every law of a small campaign in the Top 100, a start from the repository alone.
 
 ## What comes next
 
 Study 176, on your start: A draws 10,000 laws blind; B maps the ten best laws not yet known (each coupling moved a
 tenth, lines halved toward the nearest law of another kind), marks a region known with how early it can be spotted,
-and takes the next. 859: a study seeded from an earlier bundle. 860: group D, the best law as deep as memory
-allows. 861: every study before the baseline out of the tree, into an archive beside it.
+and takes the next. Then a study seeded from an earlier bundle; group D, the best law as deep as memory allows;
+every study before the baseline out of the tree, into an archive beside it. Each takes its number when it is made.
 
 ## The decision in front of you
 
@@ -79,7 +79,7 @@ allows. 861: every study before the baseline out of the tree, into an archive be
    want any kept (`uv run python main.py workload --system-cpus 0,1`).
 2. **Whether a known law must grow its geometry from empty first** (recommended, before more compute from empty):
    parallel tempering is the cheapest remedy, an engine change of about a build, its known answers read again after.
-3. **Where the archive of the older data goes public** (861), so a reader can see nothing was dropped selectively.
+3. **Where the archive of the older data goes public** (the consolidation), so a reader can see nothing was dropped selectively.
 
 ## Words you will see
 

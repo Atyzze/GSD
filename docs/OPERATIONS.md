@@ -709,10 +709,6 @@ Only laws with a summary for every base rung (four). It recomputes extension run
 ## Reading the dashboard
 
 Classify, Bundle and Anchors are in the study bundle. A campaign is picked on Home's **The study now** cards; with two
-
-Home's **Filters** panel (857), under the landscape and beside the Top 100, keeps the laws of a kind, a map region, a
-group, a batch or settled or not in the landscape, the Top 100 and the fleet ladder alike; the Now researching box
-shows every law. **clear** shows everything again.
 or more batches (every campaign with a law budget), Home opens on **All batches**, every batch read together, and the
 Reports page reads the first batch. A click on a box's title folds it, and the browser remembers (792). The fleet
 ladder's stops are `empty`, `dense`, `discon` (the fact gates), `gated` (every gate that reads the probes, the starts
@@ -735,6 +731,12 @@ to buy, from the share of laws that went on at each size. When something looks w
   host's memory floor", above).
 - **Underfilled**: the System page's capacity verdict names the limit; the Campaigns page shows slots and queue.
 - `failed` on Now Researching carries its reason on hover; `gap` is no result and no job.
+
+Home's **Filters** panel (857), under the landscape and beside the Top 100, keeps the laws of a kind, a map region, a
+group, a batch or settled or not in the landscape, the Top 100 and the fleet ladder alike; the Now researching box
+shows every law. **clear** shows everything again. The row of the landscape, the filters and the Top 100 is the
+landscape's own height plus the filters' measured height (`--gsd-filter-h`, 859), so the plot is never cut off below
+and the Top 100 grows by the same amount.
 
 ## Sending evidence for a diagnosis
 

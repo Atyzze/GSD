@@ -55,6 +55,11 @@ The recipes are `docs/agent/ENVIRONMENT.md`.
 
 ## Releases
 
+* A page build fails on one word: `tests/contract/test_the_operator_is_they.py` reads every page for a gendered pronoun,
+  of anyone, a reader the operator quotes included (856's ROADMAP failed its gate on one).
+* A change to what the landscape carries moves its inputs' contract (`landscape_inputs.CONTRACT`), or a finished
+  campaign, whose tables no longer move, keeps the landscape it had (859); a flag the landscape reads goes into
+  `WATCHED_FLAGS`, or an idle folder's landscape never sees it move (857).
 * The fast lane is not fast for a build that spends a number: `BUILD_NUMBER`, `pyproject.toml` and `uv.lock` count
   as changed, so it takes nearly every test file (456 at 855, with the PostgreSQL slices). Time it as the full lane.
 * Two contexts on one repository spend the same number: whoever's pull request is merged second renumbers and runs
@@ -67,6 +72,9 @@ The recipes are `docs/agent/ENVIRONMENT.md`.
 
 ## Host state
 
+* With a simulation on every hardware thread the API waits for CPU and Home goes stale (2026-11-24 18:26: 32 of 32
+  slots, the round trip 463 s, the status route answering 503). A faster refresh asks more of the process that is
+  starved; CPUs kept for the system free it (856's Workload panel).
 * One key over every probe makes every probe change a full recalibration (the table's 2,584 cells, 7 h 10 min on 31
   workers): a reading is keyed by the code that made it, by group, and filed once (`calibration/ledger.py`, 855).
 * The clean start is three paths, together, or a folder locks itself out of its database and the next move destroys a
@@ -138,6 +146,9 @@ The recipes are `docs/agent/ENVIRONMENT.md`.
 
 ## Evidence
 
+* Say where a number was measured before saying what it shows: 856's context credited SMT's gain to the work
+  unit's fit, which is 288 seeds of the sandbox and never read SMT; the gain was measured by running 173 on 16, 23 and
+  32 slots (843), and the operator decided by it (2026-11-22 15:38).
 * A probe that reads the spectrum alone cannot see where the eigenvectors sit (855): `d_s` reads the Sierpinski
   gasket and a uniform random tree as 1.37 and 1.29, and a quantum walk does not spread on either (its return
   exponent 0.00 to 0.03), while the two agree on the ring and the square torus. A space that diffuses need not carry
@@ -209,6 +220,8 @@ The recipes are `docs/agent/ENVIRONMENT.md`.
 
 ## Documents
 
+* Name a planned build by what it makes, and give it its number when it is made: two builds made in between in one
+  evening (858, 859) each moved every number of the plan on five pages.
 * Give each fact one home (`docs/agent/HANDOFF.md` names them); the read-first set has a budget
   (`tests/unit/test_the_read_first_set_is_small.py`), and the newest notes are in it: 771's first notes carried 9 KB of
   file lists and broke it. A list goes to the file that holds it (a test's own list) and the notes point there.
@@ -299,6 +312,13 @@ The recipes are `docs/agent/ENVIRONMENT.md`.
 
 ## Pages, controls and settings
 
+* A box added to a row of fixed height takes its height from the boxes already there: 857 put the Filters panel in
+  the landscape's row and the plot lost 88 to 198 px at its bottom, on the operator's screen. The stylesheet's checks
+  did their arithmetic without the new box; a page is measured where it is drawn (`tests/ui/hero_check.js`, 859).
+* A rule that keeps a long list short hides what a short one holds: the Top 100 took a law that reads nothing from
+  empty only if it scored, and left out two of the standing controls' five (859). Fill a list's empty places.
+* A field added to every point is added where every kind of point is made: the lattice starts' points were made apart
+  from the list `marked` walked, and read "not read yet" (859).
 * A switch that decides whether half an experiment runs lives on the campaign's row, not in an environment variable.
 * One state, one name; one word, one subject; one meaning a setting (it loses the rest one at a time and keeps its
   name), read in one place.

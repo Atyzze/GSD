@@ -131,6 +131,20 @@ def test_the_inputs_name_every_table_the_landscape_reads(isolated_postgres_schem
     assert FLAG_PREFIX in landscape_inputs.WATCHED_FLAGS, "the score boards and the map's state are what the stamp watches"
 
 
+def test_every_point_the_landscape_draws_says_its_kind_group_and_batch(isolated_postgres_schema, tmp_path):
+    from graph_scale_dynamics.db.repo import Repo, init_db
+    from graph_scale_dynamics.services.api import landscape_worker
+    init_db(isolated_postgres_schema.dsn)
+    with Repo(isolated_postgres_schema.dsn) as repo:
+        campaign_id, _version = _campaign(repo, tmp_path)
+        payload = landscape_worker.build_landscape(repo, campaign_id)
+    chained = [p for drawn in payload["every_chain"]["points"].values() for p in drawn]
+    assert chained and payload["dimension_points"], "the seeded laws are drawn from empty and from their lattices"
+    for point in [*payload["dimension_points"], *chained]:
+        assert {"kind", "group", "region"} <= set(point) and point["batch"] == campaign_id, (
+            "a lattice start's point is filtered as its law is, never read as not read yet")
+
+
 def test_the_stamp_holds_still_without_writes_and_moves_with_one(isolated_postgres_schema, tmp_path):
     from graph_scale_dynamics.db.repo import Repo, init_db
     from graph_scale_dynamics.observability.score_board import FLAG_PREFIX

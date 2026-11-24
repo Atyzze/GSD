@@ -10,7 +10,8 @@ Graph Scale Dynamics asks whether a local energy rule on a sparse graph, sampled
 whose dimension settles as the graph grows. A law is drawn, run from eight starts at sizes 64 to 1,048,576, and read by
 four dimension probes calibrated on 27 families of known graphs; a score and a decision engine say which laws go
 deeper. The question, the method and what is known: `docs/WHERE_WE_ARE.md` (one page), then `docs/agent/HANDOFF.md`
-(what is true now), then `docs/agent/NEXT_BUILD.md` (what to do next and how a build is made).
+(what is true now), then `docs/agent/NEXT_BUILD.md` (what to do next and how a build is made). A context with nothing
+but this repository brings it up by `docs/agent/ENVIRONMENT.md`, section 10, "From the repository" (859).
 
 The loop, each part with its section of `docs/ARCHITECTURE.md`: the proposer draws laws; the fleet runs their chains
 on the engines (`engine/` in Python, `engine_rs/` in Rust, the same chain to the bit); the probes read each chain
