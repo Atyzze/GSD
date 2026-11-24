@@ -44,7 +44,7 @@
     host.innerHTML = `
       <div class="gsd-header-top">
         <a class="gsd-build-home build-identity" data-gsd-page="home" href="${esc(route('/'))}" data-base-title="Runtime fingerprint ${esc(fingerprint || shortFingerprint)}." title="Runtime fingerprint ${esc(fingerprint || shortFingerprint)}. The short #${esc(shortFingerprint)} code is the first 8 hexadecimal characters of the SHA-256-derived identity of this executable runtime payload. The complete fingerprint is shown on System / Provenance.">
-          <span class="gsd-build-dot"></span><span>Build ${esc(build)}</span><span class="gsd-build-hash">#${esc(shortFingerprint)}</span>${cfg.devMode?'<span class="gsd-dev-mode" title="GSD_DEV_MODE is set: the science freeze is advisory and policy epochs are mutable. Every decision, report and bundle from this run is stamped development_mode=true.">DEV MODE</span>':''}
+          <span class="gsd-build-dot"></span><span title="build ${esc(build)}: a law's full code is this build, its campaign and its graph, B${esc(build)}-C6-G7">B${esc(build)}</span><span class="gsd-build-hash">#${esc(shortFingerprint)}</span>${cfg.devMode?'<span class="gsd-dev-mode" title="GSD_DEV_MODE is set: the science freeze is advisory and policy epochs are mutable. Every decision, report and bundle from this run is stamped development_mode=true.">DEV MODE</span>':''}
         </a>
         <nav class="gsd-main-nav">
           ${navLink('Home','home','/')}${navLink('Campaigns','campaigns','/campaigns')}${navLink('Explorer','explorer','/explorer')}${navLink('Reports','reports','/reports')}${navLink('Calibration','calibration','/calibration')}${navLink('System','system','/system')}

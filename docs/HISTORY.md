@@ -277,8 +277,30 @@ made; a time without a Z is the operator's local time.
 * **The two searches are one, and four workers map the best** (2026-11-24 16:33: "both searches will have to merge
   into 1, the top 10 scores being auto-explored/mapped automatically for every best scorer, we can allocate a worker
   budget of say 4 to begin with, to probe around them, for stability/local-variants scanning the region and looking
-  for its boundaries and neighbors"): study 176 (855), the blind draw on twelve workers and the ten best scorers'
-  neighbourhoods and boundaries on four.
+  for its boundaries and neighbors"): study 176 (856), the blind draw and the ten best scorers' neighbourhoods and
+  boundaries in one study. Then (17:37) "one complete work load of at least 3 groups of work, work A, work B and
+  system C ... no work group may ever occupy any of the cores that we assign ourselves manually to ensure system
+  operations is maintained", the map leaving a region "until a space is properly mapped and marked as how to recognize
+  in advance before approaching in depth at higher N ... it stops being interest as we've already classified it"; and
+  (17:39) "we need not create a bias towards either side, how about we do the simply 50-50 default split in two, much
+  easier to argue for and is bias neutral": groups A and B half each by default, the system's CPUs theirs to name
+  (`main.py workload`), a group with no work leaving its slots to the other.
+* **A bundle says which science read it and carries its table** (2026-11-24 18:04: "some sort of science contract on
+  top of the build number contained within the study bundle exports, so same-science data-set can be assured from the
+  hashes"; "the export bundle needs to contain the calibration table as well"): 856. A study seeded from an earlier
+  bundle of the same science, so that it never starts from nothing (the same message), is 858.
+* **The dashboard filters by kind, group and batch in one panel** (2026-11-24 17:51: the filters "in the middle ...
+  above fleet ladder, under macro landscape", acting on the fleet ladder, the landscape and the top unknowns "but not
+  to the now researching box", each point saying "which search group the data point came from"): 857.
+* **Group D, the best law taken as deep as the host allows** (2026-11-24 18:06: "dedicate 1 core to, to select only
+  the top1 current best and push it to higher and higher memory until the system says it has no more space left"): 859.
+* **The atlas as a shared object** (2026-11-24 18:04 and 18:08: peers joining the search and sharing their results on
+  the same calibration table, "a game-like experience", the bundle "simple the condensed version of the ever growing
+  atlas"): after the paper. With it (18:12), the engine contract open to engines in C or assembly, "an inherent
+  benchmark of your cpu/device in terms of graph-simulation capabilities", SMT's extra logical cores read beside the
+  physical ones; a peer's calibration re-measured against the shared table to join (18:14); each device's CPU model and
+  timings beside its runs (18:19); and, as a direction for a later language, directed edges for charge and whether
+  laws grow long strands of a few repeating units (18:19, 18:20).
 * **Study 175 runs to its end, and the study after it looks for laws whose starts agree** (2026-11-24 10:22, after
   849's reading of 175's second bundle: "agree with everything, and I'm not surprised that structure isn't growing";
   "any law that has different starts leading to the same result is infinitely more interesting than anything that is

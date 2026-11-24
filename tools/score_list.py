@@ -32,13 +32,19 @@ def chains_of(law: dict) -> dict:
 COLUMNS = ("n", "d_s", "d_V", "d_B", "d_w", "reach", "mean_degree", "giant_fraction")
 
 
-def chains_of_report(entry: dict) -> tuple[dict, dict]:
+def chains_of_report(entry: dict, columns=None, moved: dict | None = None) -> tuple[dict, dict]:
     values = entry.get("values") or {}
     names = [name for name in values if name not in ("empty", "given")]
+    at = list(columns).index("moved") if columns and "moved" in columns else None
     rungs: dict[int, dict] = {}
     for name, rows in values.items():
         for row in rows:
             side = {key: {"mean": value} for key, value in zip(COLUMNS[1:], row[1:len(COLUMNS)], strict=False)}
+            found = ((moved or {}).get(name) or {}).get(int(row[0]))
+            if found is None and at is not None and at < len(row):
+                found = row[at]
+            if found is not None:
+                side["moved"] = {"median": found}
             rungs.setdefault(int(row[0]), {"n": int(row[0]), "more_given": {}})
             if name in ("empty", "given"):
                 rungs[int(row[0])][name] = side
@@ -102,9 +108,10 @@ def read_report_28(root: Path) -> dict:
         decided = {str(r.get("candidate_id")): r for r in body.get("laws") or [] if isinstance(r, dict)}
         ledger = {str(r.get("candidate_id")): r for r in ((body.get("law_ledger") or {}).get("rows") or [])
                   if isinstance(r, dict)}
+        columns = (body.get("every_chain") or {}).get("value_columns")
         for law_id, entry in sorted(((body.get("every_chain") or {}).get("laws") or {}).items()):
             laws += 1
-            chains, reading = chains_of_report(entry)
+            chains, reading = chains_of_report(entry, columns)
             found = L.score(chains, reading, references={})
             relied += int(bool(found["sizes"]))
             if found["score"] <= 0:

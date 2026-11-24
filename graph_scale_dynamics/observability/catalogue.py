@@ -1,11 +1,12 @@
 from __future__ import annotations
 
 import json
+import math
 import statistics
 from functools import lru_cache
 from pathlib import Path
 
-CONTRACT = "gsd-catalogue-1"
+CONTRACT = "gsd-catalogue-2"
 SOURCE = Path(__file__).resolve().parents[1] / "resources" / "catalogue" / "catalogue.json"
 PROBES = ("d_s", "d_V", "d_B", "d_w")
 
@@ -58,7 +59,32 @@ def frozen(name: str, chain: dict, given: dict | None = None) -> bool:
     return still(name, chain, given) and chain["moved"] <= given["frozen_at_most"]
 
 
-def kind(chains: dict[str, dict], given: dict | None = None, twin_points: int = 0) -> str:
+def random_reach(n: int, degree, given: dict | None = None) -> float | None:
+    found = (given or rule())["small_world"]
+    if not isinstance(degree, (int, float)) or degree < found["degree_at_least"] or int(n) < 2:
+        return None
+    return math.log(int(n) / 2.0) / math.log(float(degree)) + float(found["random_reach_offset"])
+
+
+def small_world(now: dict | None, before: dict | None, n: int, given: dict | None = None) -> bool:
+    given = given or rule()
+    found = given["small_world"]
+    if int(n) < found["from_n"] or not now or not before:
+        return False
+    for chain, size in ((before, int(n) // 4), (now, int(n))):
+        reach, expected = chain.get("reach"), random_reach(size, chain.get("mean_degree"), given)
+        if reach is None or expected is None or reach > found["reach_at_most"] * expected:
+            return False
+    a, b = before.get("d"), now.get("d")
+    return a is not None and b is not None and a > 0 and (b - a) / a >= found["rise_at_least"]
+
+
+def judged_at(chain: dict | None) -> bool:
+    return bool(chain) and chain.get("d") is not None and chain.get("reach") is not None
+
+
+def kind(chains: dict[str, dict], given: dict | None = None, twin_points: int = 0, *,
+         before: dict[str, dict] | None = None, n: int | None = None) -> str:
     given = given or rule()
     if twin_points >= given["twin_settled_at_least"]:
         return "grown"
@@ -68,6 +94,9 @@ def kind(chains: dict[str, dict], given: dict | None = None, twin_points: int = 
     read = {name: c for name, c in open_chains.items() if c.get("d") is not None}
     together = agreeing(read, float(given["agree_within"]))
     if together:
+        judged = [name for name in together if judged_at((before or {}).get(name))]
+        if n is not None and judged and all(small_world(read[name], before[name], n, given) for name in judged):
+            return "small_world"
         return "made" if statistics.median(read[name]["d"] for name in together) >= given["ring_below"] else "ring"
     if not any(c.get("mean_degree") is not None for c in chains.values()):
         return "unread"
@@ -89,3 +118,32 @@ def kind(chains: dict[str, dict], given: dict | None = None, twin_points: int = 
     if all(c.get("giant") is not None and c["giant"] < given["broken_below"] for c in open_chains.values()):
         return "broken"
     return "apart" if read else "unread"
+
+
+SETTLE_FROM = 4096
+
+
+def value_settles(chains: dict, twins: list[str], relative: dict) -> dict[int, dict]:
+    out: dict[int, dict] = {}
+    for name, rows in chains.items():
+        if name not in twins:
+            continue
+        sizes = sorted(n for n in rows if n >= SETTLE_FROM)
+        for probe in PROBES:
+            run = 0
+            for a, b in zip(sizes, sizes[1:], strict=False):
+                va, vb = rows[a].get(probe), rows[b].get(probe)
+                margin = (relative.get(probe) or {}).get(str(b))
+                ok = va is not None and vb is not None and vb != 0 and margin is not None and abs(vb - va) <= margin * abs(vb)
+                run = run + 1 if ok else 0
+                if run:
+                    out.setdefault(b, {})[f"{name}:{probe}"] = run + 1
+    return out
+
+
+def kinds_of(views: dict[int, dict[str, dict]], values: dict[str, dict[int, dict]], relative: dict,
+             given: dict | None = None) -> dict[int, str]:
+    given = given or rule()
+    settles = value_settles(values, given["twin_starts"], relative)
+    return {n: kind(views[n], given, max((settles.get(n) or {}).values(), default=0), before=views.get(n // 4), n=n)
+            for n in sorted(views)}

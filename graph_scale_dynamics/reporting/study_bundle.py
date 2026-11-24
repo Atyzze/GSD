@@ -11,6 +11,7 @@ import tarfile
 import time
 from pathlib import Path
 
+from graph_scale_dynamics.reporting import science_contract
 from graph_scale_dynamics.operations.report_cycle import COMPLETE, normalize_state
 from graph_scale_dynamics.operations.report_home import root_for
 from graph_scale_dynamics.research.report_bundle import (
@@ -377,6 +378,22 @@ def _absent(repo, campaign_ids: list[str]) -> list[dict]:
     return out
 
 
+def _science() -> tuple[dict, bytes | None]:
+    try:
+        return science_contract.science()
+    except Exception as exc:  # noqa: BLE001
+        return {"contract": science_contract.CONTRACT, "unavailable": f"{type(exc).__name__}: {str(exc)[:200]}"}, None
+
+
+def _map_and_groups(repo) -> tuple[dict | None, dict | None]:
+    from graph_scale_dynamics.operations import study_map
+    from graph_scale_dynamics.scheduling import work_groups
+    try:
+        return study_map.load(repo), work_groups.reading(repo)
+    except Exception as exc:  # noqa: BLE001
+        return None, {"unavailable": f"{type(exc).__name__}: {str(exc)[:200]}"}
+
+
 def build(base: Path, repo, campaign_ids: list[str], *, request_id: str | None = None,
           reporting_seconds: float | None = None, finished: list[str] | None = None,
           resumed_utc: str | None = None) -> dict:
@@ -422,6 +439,9 @@ def build(base: Path, repo, campaign_ids: list[str], *, request_id: str | None =
     read_utc = {"counts": counts_read, "anchors": anchors_read, "tables": tables_read,
                 **({"fleet_resumed_utc": resumed_utc} if resumed_utc else {})}
 
+    the_map, groups = _map_and_groups(repo)
+    science, table = _science()
+
     def front_page(links: dict) -> bytes:
         campaigns = [dict(records[p["campaign_id"]], label=labels[p["campaign_id"]],
                           gate_tree=_tree_summary(p["tree"])) for p in ready]
@@ -461,6 +481,10 @@ def build(base: Path, repo, campaign_ids: list[str], *, request_id: str | None =
            if gates is not None else {}),
         "finds": {"file": "finds.json", "contract": finds.get("contract"), **(finds.get("counted") or {}),
                   **({"unavailable": finds["unavailable"]} if finds.get("unavailable") else {})},
+        **({"map": {"file": "map.json", "contract": the_map.get("contract"),
+                    "regions": len(the_map.get("regions") or {})}} if the_map else {}),
+        "work_groups": groups,
+        "science": science,
         "advice": _advice_summary(advice), "front_page": "index.html", "gate_trees": "gate_trees.html",
         "tables": sorted(f"tables/{name}" for name in study_tables),
         "reading": ("One folder is one study. index.html is its front page: what the study found, what deserves a "
@@ -482,6 +506,10 @@ def build(base: Path, repo, campaign_ids: list[str], *, request_id: str | None =
         if gates is not None:
             yield f"{stem}/gates_ledger.json", _compact(gates)
         yield f"{stem}/finds.json", _compact(finds)
+        if the_map:
+            yield f"{stem}/map.json", _compact(the_map)
+        if table is not None:
+            yield f"{stem}/{science_contract.TABLE_IN_BUNDLE}", table
         for name in sorted(study_tables):
             yield f"{stem}/tables/{name}", study_tables[name]
         for part in ready:

@@ -545,7 +545,7 @@ simulations (`FLEET_STOP_GRACE_SECONDS`). A buy that makes no work is recorded w
 to a reader that copies it to the terminal and appends it to `var/log/supervisor.log` (`evidence_sources.TeeStdout`);
 a failed write is counted, never raised. The services' own logs stay in the scratch (`GSD_RUNTIME_LOG_DIR`).
 
-## The score read from every start (`observability/law_score.py`, gsd-law-score-8)
+## The score read from every start (`observability/law_score.py`, gsd-law-score-9)
 
 The board's and the law page's number, 0 to 100 (the operator, 2026-10-09: 100 only for a law that builds geometry
 from empty and holds at 4 million N; 2026-11-11 05:07: every probe that settles adds to it; 2026-11-15 13:52: a reading
@@ -569,7 +569,13 @@ larger size), 3 when it settles again at the next step; the Einstein relation (d
 most (`items_along`). **Who**: the twin starts count 1, a lattice start whose fate is anything but `holds` or
 `unmoved` 0.6, one that kept its shape or whose fate was not read 0.3; a lattice start whose fate is `unmoved` (no
 edge changed: the law froze and the start went on existing) is `frozen` and the law it leads scores 1, the lowest
-score there is (841, contract `gsd-law-score-6`; the operator, 2026-11-21 19:54 and 20:02). **Depth**: a seventh a size from 1,024 to
+score there is (841, contract `gsd-law-score-6`; the operator, 2026-11-21 19:54 and 20:02). A lattice chain `still` at
+a size (856, `still_at`, the catalogue's rule: its mean degree within 5% of its lattice's, most seeds not at the cap,
+the median over its seeds of its accepted moves an edge at most 0.05) scores 1 the same way, as
+`still_lattice_criterion_1.json`, passed at 854, said it would. The moves come from each seed's move accounting
+(`two_chains.accepted_moves_of`, the snapshot keeping only their sum as `accepted_moves`), summed per chain over the
+final edges, the median over seeds in `moved`; report 28's values carry it as the column `moved`. A chain with no
+moves read is never still, so every structure of the score's known answers reads as 8 read it. **Depth**: a seventh a size from 1,024 to
 4,194,304. The margins by probe and size and tau are `resources/calibration/score_margins.json`, made by
 `tools/score_known_answers.py --write` from the calibration seed's exact lattices and fractals (twice the widest
 training step, on a grid) and judged on structures the table never measured, read by the final probes
@@ -587,21 +593,51 @@ and the Einstein relation held at two sizes. `landscape_band` is the twins' (the
 `landscape_band_with_lattices` every start's; the page's one toggle, "include lattice starts", chooses, and draws the
 law at its scoring start's readings. The stability blocks of the base rungs no longer band a law.
 
-## The catalogue of behaviours (`observability/catalogue.py`, gsd-catalogue-1)
+## The catalogue of behaviours (`observability/catalogue.py`, gsd-catalogue-2)
 
 Every kind of behaviour the survey has seen, kept as data in `resources/catalogue/catalogue.json` (850; the operator,
 2026-11-24 10:22): for each kind, what it is, how a law is placed in it at a size, and how it scores. At a size each
 chain reads its d (the median of its probes), its mean degree, its giant piece, its accepted moves per edge (the median
 over its seeds) and whether most seeds ended at the degree cap; the law's kind there is the first that applies:
 `grown` (any probe on the empty or random start steps within the score's margin at three sizes in a row from 4,096,
-by its value alone; the operator, 2026-11-24 10:43), `made` (two starts or more agree on d and mean degree within a
+by its value alone; the operator, 2026-11-24 10:43), `small_world` (856: starts agree, and every agreeing chain read at
+the size and a quarter of it reads at both a reach at most twice ln(N/2)/ln(k) + 0.63, a random graph's of its own mean
+degree k, and a d that rises by a tenth: `rule.small_world`, its random reach read on the random start by
+`tools/small_world_reach.py`), `made` (two starts or more agree on d and mean degree within a
 tenth, d at least 1.5), `ring` (the same below 1.5: told from made by the d they agree on, not the mean degree),
 `empty`, `full`, `frozen` (a lattice chain at its own degree, within 5%, that accepted no move), `still` (the same
 with at most 0.05 accepted moves an edge, some), `rewired` (at its own degree, moving more), `moved` (lattice chains
 off their degree), `broken`, `apart`, `unread`. The stream and the tree of long paths are listed but read elsewhere. Nothing decides by it: `tools/catalogue_reading.py` places every law
-of a bundle, says how early each kind was known and how often that early call held at the deepest size, and reads the
-still lattice scored lowest beside the score in force, a candidate until `still_lattice_criterion_1.json` is judged on
-a later bundle. A new kind is a new entry; a changed rule is a new criterion.
+of a bundle, says how early each kind was known and how often that early call held at the deepest size, and scores
+every law in force with its chains' accepted moves from the bundle's chains table, beside what it scored with no chain
+still. `observability/law_kind.py` reads the same kinds from a law's rungs in a live folder, for the map. A new kind is
+a new entry; a changed rule is a new criterion (`small_world_criterion_1.json`, committed at 856).
+
+## The map of the best and the work groups (`operations/study_map.py`, `scheduling/work_groups.py`, 856)
+
+A study's campaigns carry a group (`study_design.group`): in study 176, A the blind draw and B the map. **The
+split**: the flag `work_groups` gives each group a share (A and B half each by default, `main.py workload --split`);
+a worker claims from the group furthest below its share of the simulations running, among the groups with work
+queued, and inside it as before (`in_shares`, then `allowed_campaigns`), so a group with nothing queued leaves its
+slots to the others. **The system's CPUs**: the flag `system_cores` (btop's numbers); the worker and the analyzer pin
+themselves to the other CPUs just before each child starts (`pin_to_work`), and the child inherits it; with none
+named every CPU is the children's. **The map**: its state is the flag `study_map`. It begins from a committed list of
+holders (176: `study_176_first_ten.json`), each with its points: the holder run again, each real parameter moved alone
+a step up and down (`research/neighbourhood.alone`), and the midpoint of a line toward its partner, the nearest law of
+the same terms whose kind at 4,096 differs and at least 0.001 away. At the end of every controller pass, at most once a
+minute (`step`), a point decided is read for its kinds (`law_kind`), a line is halved on the side where the kind flips
+until its halvings are spent, and a region whose points are all decided and whose lines are done is marked known:
+its kind, the smallest of 1,024 and 4,096 at which every point of that kind already reads it, its boundaries and its
+points' kinds. Free places among the ten go to the best laws of the study by the score boards, above 1 and in no
+region; a law of another campaign is not run again, its points are run in B. The bundle carries the state as
+`map.json`.
+
+## The science a bundle was read by (`reporting/science_contract.py`, 856)
+
+`study.json`'s `science`: the analysis version, the estimator's and the starts' fingerprints, the score's and the
+catalogue's contracts, the engine crate, the calibration table's SHA-256 and one SHA-256 over them all; the table
+itself is in the bundle (`calibration/probe_calibration.json`). Two bundles with one science hash were read the same
+way on the same table; `science_contract.same` names what differs.
 
 ## The stability blocks (`research/stability_score.py`, gsd-stability-score-14)
 

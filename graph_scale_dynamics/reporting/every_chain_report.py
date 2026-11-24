@@ -15,7 +15,8 @@ def _first_given_name(rows: list[dict]) -> str | None:
 
 
 VALUE_COLUMNS = ("n", "d_s", "d_V", "d_B", "d_w", "reach", "mean_degree", "giant_fraction", "triangles_per_node",
-                 "squares_per_node", "kappa")
+                 "squares_per_node", "kappa", "moved")
+MEDIANS = ("moved",)
 
 
 def _short4(value):
@@ -31,7 +32,8 @@ def chain_values(chains: dict) -> dict:
         for name, side in sides.items():
             if not isinstance(side, dict):
                 continue
-            row = [int(rung["n"])] + [_short4((side.get(key) or {}).get("mean")) for key in VALUE_COLUMNS[1:]]
+            row = [int(rung["n"])] + [_short4((side.get(key) or {}).get("median" if key in MEDIANS else "mean"))
+                                      for key in VALUE_COLUMNS[1:]]
             out.setdefault(name, []).append(row)
     return out
 

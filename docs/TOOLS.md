@@ -19,6 +19,8 @@ The command line of the instrument; with no subcommand it is `run`.
     python3 main.py status --campaign <id>     # a campaign's jobs by state
     python3 main.py report --campaign <id>     # every law's rungs and decisions, printed
     python3 main.py extend-only <id> --on | --off
+    python3 main.py workload [--split A=1,B=1] [--system-cpus 0,1]
+                                               # the work groups' shares and the CPUs the system keeps (856)
     python3 main.py proposal status
     python3 main.py benchmark                  # the analyzer's battery, which `campaign start` needs: four cells
                                                # of the table read through the analyzer, held to the table's rule
@@ -548,9 +550,33 @@ Every law of a bundle placed in the catalogue of behaviours (850; `docs/ARCHITEC
 behaviours"), control campaigns left out: each law's kind at every size report 28 reads and at its deepest; for the
 laws read from 16,384, each kind called at 1,024 and at 4,096 against the kind at the deepest size (held: the early
 call was right; caught: the deepest kind was already called); the lattice chains still at 1,024 and 4,096 and whether
-they stayed still; and the scoring laws with a still lattice scored 1 beside the score in force. Seconds on a study.
+they stayed still; and every scoring law under the score in force (gsd-law-score-9 since 856: a still lattice scores
+1), each beside what it scored with no chain read as still. Since 856 a chain is also read for the small-world kind
+(the catalogue's `rule.small_world`), which needs its reach and the size a quarter below it, and each law is scored
+with its chains' accepted moves an edge from `tables/chains.ndjson.gz`, so a bundle made before 856, whose report 28
+has no `moved` column, is scored as the fleet scores it now. Seconds on 175's bundle, under three minutes on 174's.
 
     python3 tools/catalogue_reading.py <bundle> --md <page> --json <file> [--no-scores]
+
+## tools/small_world_reach.py
+
+The random reach the small-world rule assumes, read on known answers (856): the random start
+(`measurements/random_starts.build`) at mean degrees 2 to 32 and 1,024 to 16,384 nodes, three seeds each, by the
+estimator's own reach (`estimators.volume_growth`), against ln(N/2)/ln(k) plus the catalogue's offset; and the six
+lattice starts as built, with each one's reach over the random reach of its degree. Exit 1 when a random start reads
+more than 1.05 steps off or past the rule's band. About 35 seconds.
+
+    python3 tools/small_world_reach.py --json <file> --md <page>
+
+## tools/map_first_ten.py
+
+Where a study's map starts (856): the laws of one or more bundles read together by `tools/catalogue_reading.py`
+under the score in force, a law in two bundles keeping its higher score; the ten that score above 1 and whose law is
+rebuilt exactly (from the bundle's ledger by its fingerprint, or from a study's design when given as `STUDY=path`),
+by score, depth and id; and for each its partner, the nearest law of the same terms and dynamics, at least 0.001 away,
+whose kind at 4,096 differs. It wrote `study_176_first_ten.json` from the two baseline bundles in two minutes.
+
+    python3 tools/map_first_ten.py 174=<bundle> 175=<bundle> --write <file.json>
 
 ## tools/top_laws_alike.py
 

@@ -739,6 +739,16 @@ def cmd_compute_control(args):
     return 0
 
 
+def cmd_workload(args):
+    from graph_scale_dynamics.scheduling import work_groups
+    db, _, _ = paths(args)
+    init_db(db)
+    with Repo(db) as repo:
+        code, said = work_groups.command(repo, args.split, args.system_cpus)
+    print(said, file=sys.stderr if code else sys.stdout)
+    return code
+
+
 def cmd_extend_only(args):
     db, _, _ = paths(args)
     init_db(db)
@@ -2355,6 +2365,9 @@ def build_parser() -> argparse.ArgumentParser:
                          help="write the rebuilt records; without this nothing is written")
     rebuild.add_argument("--limit", type=int, default=None)
     rebuild.add_argument("--json", action="store_true")
+    workload = sub.add_parser("workload", help="the groups' shares and the CPUs the system keeps")
+    workload.add_argument("--split", default=None, help="e.g. A=1,B=1; '' treats every campaign alike")
+    workload.add_argument("--system-cpus", default=None, help="CPUs no child runs on, e.g. 0,16; '' for none")
     extend = sub.add_parser("extend-only",
                             help="close a campaign to new candidates, or reopen it")
     extend.add_argument("campaign")
@@ -2484,7 +2497,7 @@ def main(argv=None) -> int:
             "reset": cmd_reset,
             "hardware": cmd_hardware, "selftest": cmd_selftest, "sweep": cmd_sweep, "audit": cmd_audit, "backup": cmd_backup, "restore": cmd_restore,
             "pause": cmd_compute_control, "resume": cmd_compute_control,
-            "extend-only": cmd_extend_only,
+            "extend-only": cmd_extend_only, "workload": cmd_workload,
             "rebuild-phenotypes": cmd_rebuild_phenotypes,
             "calibration-rekey": cmd_calibration_rekey,
             "campaign": cmd_campaign, "artifacts": cmd_artifacts, "proposal": cmd_proposal,

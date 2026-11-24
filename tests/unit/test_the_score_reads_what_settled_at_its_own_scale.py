@@ -33,7 +33,7 @@ def _law(**at_every_seed) -> list[dict]:
 def test_a_plane_whose_seeds_certified_scores_what_it_scored_before():
     found = _score(_law())
     assert (found["score"], found["by"], found["points"]) == (57, "empty", L.POINTS)
-    assert L.CONTRACT == "gsd-law-score-8"
+    assert L.CONTRACT == "gsd-law-score-9"
 
 
 @pytest.mark.parametrize("classification", [EQ.RELAXING_AT_CEILING, EQ.METASTABLE_OR_NONMIXING,

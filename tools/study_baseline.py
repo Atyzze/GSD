@@ -39,7 +39,7 @@ def _laws(root: Path):
             terms = [str(term[0]) for term in ((row.get("spec") or {}).get("terms") or []) if term]
             found = None
             if entry:
-                chains, five = SL.chains_of_report(entry)
+                chains, five = SL.chains_of_report(entry, (body.get("every_chain") or {}).get("value_columns"))
                 found = L.compact(L.score(chains, five, references={}))
             fates = {name: fate for name, (fate, _kept) in ((entry.get("starts_reading") or {}).get("fates") or {}).items()}
             sizes = sorted(int(n) for n in hours.get(law, {}))

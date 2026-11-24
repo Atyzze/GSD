@@ -37,4 +37,4 @@ def test_the_page_divides_the_fleet_and_deletes_but_never_archives():
     assert {"workers", "allocate", "delete"} <= set(ACTIONS) and "archive" not in ACTIONS
     assert set(ACTIONS) <= {"pause", "resume", "reopen", "preflight", "clone", "create",
                             "workers", "allocate", "fleet_pause", "fleet_resume", "delete", "budget",
-                            "auto_extend", "fleet_workers"}
+                            "auto_extend", "fleet_workers", "workload"}

@@ -64,7 +64,8 @@ def test_the_stream_radius_changes_the_law_s_random_numbers_and_nothing_a_chain_
 def test_every_holder_is_the_law_it_names_and_is_settled_by_the_score_in_force():
     from graph_scale_dynamics.observability import law_score as L
     source = _json("study_175_holders.json")
-    assert source["study"] == "175" and source["from"]["study"] == "174" and source["score"] == L.CONTRACT
+    assert source["study"] == "175" and source["from"]["study"] == "174" and source["score"] == "gsd-law-score-8"
+    assert L.CONTRACT == "gsd-law-score-9", "856 put the still lattice at 1; the holders were chosen under 8"
     assert source["score_in_force"] == "gsd-law-score-6", "the score in force when 847 chose them"
     labels = [h["label"] for h in source["holders"]]
     assert labels == [f"H{i:02d}" for i in range(1, len(labels) + 1)] and len(labels) >= 10

@@ -15,6 +15,7 @@ from graph_scale_dynamics.observability.chain_mixing import rung_mixing
 from graph_scale_dynamics.artifact_store.blobstore import BlobStore
 from graph_scale_dynamics.operations.artifact_retention import evict_analyzed_raw_body
 from graph_scale_dynamics.db.repo import Repo, retryable_db_error
+from graph_scale_dynamics.scheduling import work_groups
 from graph_scale_dynamics.db.connection import DatabaseOperationalError
 from graph_scale_dynamics.db.write_outcome import analysis_claim_state, rebuild_landed
 from graph_scale_dynamics.domain.model import (
@@ -403,6 +404,7 @@ def run_analysis_job(repo: Repo, blobs: BlobStore, log: Log, owner: str,
     try:
         stdout_handle = stdout_file.open("wb")
         error_handle = error_file.open("wb")
+        work_groups.pin_to_work(repo)
         child = subprocess.Popen(
             [sys.executable, "-m", "graph_scale_dynamics.services.analyzer.child", str(blobs.root), artifact,
              str(job["seed"]), str(job["n"]), job["job_id"], job["candidate_id"],
@@ -411,7 +413,9 @@ def run_analysis_job(repo: Repo, blobs: BlobStore, log: Log, owner: str,
             stdout=stdout_handle, stderr=error_handle,
         )
         CURRENT_CHILD = child
+        pinned = work_groups.Pinned(repo, child.pid)
         while True:
+            pinned.keep()
             if stop_requested is not None and stop_requested():
                 preempted = True
                 preempt_reason = "fleet shutdown"

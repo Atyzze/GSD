@@ -38,7 +38,7 @@ from graph_scale_dynamics.observability.child_diagnostics import (
 from graph_scale_dynamics.measurements.version import ANALYSIS_VERSION
 from graph_scale_dynamics.artifact_store.resume_state import (
     STOP_GRACE_SECONDS, discard_resume_state, resume_path, resume_saved_at, stop_file_for)
-from graph_scale_dynamics.scheduling import fleet_halves, memory_hold
+from graph_scale_dynamics.scheduling import fleet_halves, memory_hold, work_groups
 from graph_scale_dynamics.scheduling.memory import (
     RUNAWAY,
     hard_process_limit_bytes,
@@ -325,6 +325,7 @@ def run_one(repo: Repo, blobs: BlobStore, log: Log, owner: str, job: dict, *,
     try:
         job_file.write_text(json.dumps(child_payload), encoding="utf-8")
         stdout_handle, error_handle = stdout_file.open("wb"), error_file.open("wb")
+        work_groups.pin_to_work(repo)
         child = subprocess.Popen(
             [sys.executable, "-m", "graph_scale_dynamics.services.worker.child", str(job_file), str(out_file),
              str(receipt_file)],
@@ -332,7 +333,9 @@ def run_one(repo: Repo, blobs: BlobStore, log: Log, owner: str, job: dict, *,
             stdout=stdout_handle, stderr=error_handle,
         )
         CURRENT_CHILD, oom_before = child, oom_evidence.counters(child.pid)
+        pinned = work_groups.Pinned(repo, child.pid)
         while True:
+            pinned.keep()
             if stop_requested is not None and stop_requested():
                 ended = stop_current_child(staging)
                 if child.returncode == 0:
@@ -871,9 +874,13 @@ LANE_RESERVED_WORKERS = int(os.environ.get("GSD_LANE_RESERVED_WORKERS", "3"))
 EXTENSION_FROM_N = fleet_halves.EXTENSION_FROM_N
 
 
-def allowed_campaigns(allocation: list[dict]) -> tuple[str, ...] | None:
+def allowed_campaigns(allocation: list[dict], shares: dict | None = None) -> tuple[str, ...] | None:
     if not allocation:
         return ()
+    grouped = work_groups.in_shares(allocation, shares or {})
+    if grouped is not None:
+        found = allowed_campaigns(grouped)
+        return tuple(str(row["campaign_id"]) for row in grouped) if found is None else found
     with_work = [row for row in allocation if int(row["queued"] or 0) > 0 and row["workers_target"] != 0]
     if len(with_work) < 2 and all(row["workers_target"] is None for row in allocation):
         return None
@@ -942,7 +949,7 @@ def _claim_by_reserve(repo, owner: str, campaigns: tuple[str, ...] | None, below
 
 
 def claim_simulation_for_owner(repo: Repo, owner: str) -> dict | None:
-    campaigns = allowed_campaigns(repo.worker_allocation(claimable=True))
+    campaigns = allowed_campaigns(repo.worker_allocation(claimable=True), work_groups.shares(repo))
     held = memory_hold.active(getattr(repo, "conn", None))
     below = None
     while True:

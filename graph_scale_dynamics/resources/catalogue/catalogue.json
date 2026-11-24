@@ -1,5 +1,5 @@
 {
- "contract": "gsd-catalogue-1",
+ "contract": "gsd-catalogue-2",
  "about": "Every kind of behaviour the survey has seen, each with what it is, how a law is placed in it at a size, and how it scores (the operator, 2026-11-24 10:22: \"all behavior needs to have a list of this is a kind of behavior, this is how to spot it early, and this is how we score it\"). How early and how reliably each is known is what `tools/catalogue_reading.py` reads on a bundle; this file holds only the definitions, and a new kind is a new entry.",
  "rule": {
   "agree_within": 0.1,
@@ -24,7 +24,15 @@
    "random",
    "given"
   ],
-  "twin_settled_at_least": 3
+  "twin_settled_at_least": 3,
+  "small_world": {
+   "from_n": 4096,
+   "reach_at_most": 2.0,
+   "rise_at_least": 0.1,
+   "degree_at_least": 2.0,
+   "random_reach_offset": 0.63,
+   "words": "A chain is a small world at a size from from_n when, at that size and at a quarter of it, its reach (the half-volume radius) is at most reach_at_most times what a random graph of its own mean degree gives, ln(N/2)/ln(k) + random_reach_offset steps, its mean degree at least degree_at_least, and the d it reads rises from the smaller size to the larger by at least rise_at_least, relative. The random reach was fitted on the random start (`measurements/random_starts.build`) at mean degrees 2 to 32 and 1,024 to 16,384 nodes, three seeds each, by the estimator's own reach (`tools/small_world_reach.py`): every one within 1.05 steps of it, the widest at mean degree 2 and below it, none more than 1.1 times it; the two numbers were chosen on the baseline bundles (study 174 of 2026-11-24 14:22Z, study 175 of 08:35Z) and are judged by `small_world_criterion_1.json` on the next"
+  }
  },
  "categories": [
   {
@@ -34,6 +42,14 @@
    "read": "a probe, any one, on the empty or the random start steps within the score's margin at twin_settled_at_least sizes in a row, the highest read (4,096, 16,384 and 65,536), by its value alone; the score in force, whose reach rule may refuse it, is read beside it",
    "score": "as the score in force; the kind the operator wants to know of first (2026-11-24 10:43)",
    "first_seen": "study 174: 8 laws, every one one-dimensional by its probes (d 1.0 to 1.15); two of them, 18856793523d and 3a8569fc6094, grow from both twin starts one connected piece holding every node at mean degree 2.00. The score in force settles none of the 8: their reach grows as about d 2, so the piece is not a clean loop (a ring settles at full points among the score's known answers, criterion 5): those two are one loop with about 13 and 35 shortcuts at 65,536, every node on a cycle (853); four are open strings with no cycle, one is a loop with about 284 shortcuts, and 99e25674e37a is small cliques strung into strands"
+  },
+  {
+   "id": "small_world",
+   "name": "small world",
+   "what": "different starts arrive at the same d and mean degree, but the place they arrive at has no dimension: its reach stays near a random graph's of the same mean degree, growing as log N, and the d its probes read rises with N, so the d at any one size is not the graph's",
+   "read": "two chains or more agree, and every one that agrees is a small world by rule.small_world at this size and a quarter of it",
+   "score": "as the score in force; read beside made, never as one",
+   "first_seen": "study 174, H31 (3931d03e8edf) and fdc563a72c98, called made at 4,096 and 16,384 before 856: their agreeing chains read reach 1.3 to 1.8 times a random graph's at mean degrees 26 and 17, d rising 3.5 to 4.0 and 4.0 to 4.6 from 4,096 to 16,384"
   },
   {
    "id": "made",
@@ -80,7 +96,7 @@
    "name": "still lattice",
    "what": "a lattice start the law leaves nearly alone: it keeps its own mean degree and accepts moves on at most still_at_most of its edges, but some, while no other start arrives where it is",
    "read": "no two chains agree, and a lattice chain not full reads within degree_within of its lattice's degree with at most still_at_most accepted moves per edge, more than none",
-   "score": "1, the lowest (2026-11-24, widening the frozen lattice of 2026-11-21); a candidate beside the score in force until its criterion is judged",
+   "score": "1, the lowest, in the score in force since 856 (gsd-law-score-9), its criterion `still_lattice_criterion_1.json` judged and passed at 854; widening the frozen lattice of 2026-11-21",
    "first_seen": "32 of study 175's 35 holders"
   },
   {

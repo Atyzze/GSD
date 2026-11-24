@@ -10,7 +10,7 @@ from pathlib import Path
 DESIGN_CONTRACT = "gsd-study-design-1"
 STARTS_READING_KEYS = ("hold_structure", "lattice_chains_meet")
 DESIGNS = Path("graph_scale_dynamics") / "resources" / "readings"
-BLIND, AROUND, PERTURB = "blind", "around", "perturb"
+BLIND, AROUND, PERTURB, MAP = "blind", "around", "perturb", "map"
 NUDGE = 1.5
 SIGNIFICANT_FIGURES = 4
 TRIES = 50
@@ -129,11 +129,24 @@ def perturb_laws(design: dict, survey: dict, tree: Path) -> list[dict]:
     return laws
 
 
+def map_holders(design: dict, tree: Path) -> list[dict]:
+    from graph_scale_dynamics.resources import committed
+    source = json.loads(committed.resolve(design["map"]["source"], tree).read_text(encoding="utf-8"))
+    return list(source["holders"])
+
+
+def map_laws(design: dict, survey: dict, tree: Path) -> list[dict]:
+    from graph_scale_dynamics.operations import study_map
+    return study_map.designed_points(design["map"], map_holders(design, tree), survey)
+
+
 def fixed_laws(design: dict, entry: dict, survey: dict, tree: Path) -> list[dict]:
     if entry["kind"] == AROUND:
         return around_laws(design, survey, tree)
     if entry["kind"] == PERTURB:
         return perturb_laws(design, survey, tree)
+    if entry["kind"] == MAP:
+        return map_laws(design, survey, tree)
     return []
 
 
@@ -177,9 +190,10 @@ def campaign_spec(design: dict, base: dict, entry: dict, index: int) -> dict:
         _merge_grid(spec, {GRID_STRATA: design["strata"]})
     if entry.get("grid"):
         _merge_grid(spec, entry["grid"])
-    if design.get("engine"):
+    if design.get("engine") or entry.get("engine"):
         spec["engine"] = dict(spec.get("engine") or {},
-                              policy=dict((spec.get("engine") or {}).get("policy") or {}, **design["engine"]))
+                              policy={**((spec.get("engine") or {}).get("policy") or {}), **(design.get("engine") or {}),
+                                      **(entry.get("engine") or {})})
     if design.get("limits"):
         spec["limits"] = dict(spec.get("limits") or {}, **design["limits"])
     policy = Policy.from_spec(spec)
@@ -211,7 +225,9 @@ def campaign_spec(design: dict, base: dict, entry: dict, index: int) -> dict:
         spec["study_design"]["stratified"] = stratified(design, entry)
     if entry.get("arm"):
         spec["study_design"]["arm"] = str(entry["arm"])
-    if entry["kind"] in (AROUND, PERTURB):
+    if entry.get("group"):
+        spec["study_design"]["group"] = str(entry["group"])
+    if entry["kind"] in (AROUND, PERTURB, MAP):
         spec["proposer"] = {"pool_min": 1}
         spec["search_policy"] = {"contract": "gsd-hand-1", "kind": "hand"}
     return spec
@@ -252,6 +268,10 @@ def start(repo, design: dict, spec: dict, *, var=None, tree=None, search_seed=No
             raise ValueError("the laws around the holders are not the ones the design committed: this tree draws "
                              "them differently, so the study would not be the one it describes")
         planned.append((index, entry, campaign, laws))
+    if design.get("groups"):
+        from graph_scale_dynamics.scheduling import work_groups
+        if not work_groups.shares(repo):
+            work_groups.set_shares(repo, design["groups"])
     first = None
     for index, entry, campaign, laws in planned:
         seed = seed_of(design, index, search_seed)
@@ -270,6 +290,9 @@ def start(repo, design: dict, spec: dict, *, var=None, tree=None, search_seed=No
         laws_budget = int(budget if budget is not None else design["law_budget"])
         if entry["kind"] == BLIND and laws_budget:
             budget_once(repo, campaign_id, laws_budget, reason=f"study {design['study']}'s law budget")
+        if entry["kind"] == MAP:
+            from graph_scale_dynamics.operations import study_map
+            study_map.begin(repo, str(design["study"]), campaign_id, design["map"], map_holders(design, tree), campaign)
         if index in (made or {}):
             continue
         log(f"created Campaign {campaign_id} ({entry['label']}), study {design['study']}: "

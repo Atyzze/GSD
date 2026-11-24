@@ -104,7 +104,7 @@ def chains_of(per_size, sizes=SIZES, given=None) -> dict:
 def test_the_ladder_is_a_seventh_a_size_to_4194304_and_the_twin_starts_count_alike():
     assert [round(L.depth(n) * 7, 6) for n in L.LADDER] == [1, 2, 3, 4, 5, 6, 7]
     assert L.depth(512) == 0.0 and L.depth(8_388_608) == 1.0
-    assert dict(L.WEIGHTS) == {"empty": 1.0, "random": 1.0, "lattice": 0.6, "kept": 0.3, "frozen": 0.0}
+    assert dict(L.WEIGHTS) == {"empty": 1.0, "random": 1.0, "lattice": 0.6, "kept": 0.3, "frozen": 0.0, "still": 0.0}
     assert L.POINTS == 15 and L.ITEMS == ("d_s", "d_V", "d_B", "d_w", "einstein")
 
 
@@ -258,7 +258,7 @@ def test_a_control_s_given_started_at_its_answer_counts_as_a_shaped_start_not_th
     found = L.score(two, references=REFS, first_given=L.given_family(spec, "law-1"))
     assert (found["score"], found["by"], found["chain"], found["to_n"]) == (17, "kept", "given", 65536), \
         "a lattice start whose fate is not read counts as kept: an unread fate is no move"
-    assert L.CONTRACT == "gsd-law-score-8"
+    assert L.CONTRACT == "gsd-law-score-9"
 
 
 def test_the_score_says_what_dimension_it_read_and_a_ring_is_marked():
@@ -269,3 +269,38 @@ def test_the_score_says_what_dimension_it_read_and_a_ring_is_marked():
     assert rings["score"] > 0 and rings["d"] == 1.0 and L.is_ring(rings["d"]), "a ring scores; its d says it is one"
     assert rings["mean_degree"] == 2.0
     assert L.zero()["d"] is None and not L.is_ring(None)
+
+
+def _cubic_held(moved):
+    def per_size(n):
+        values = dict(held(CUBIC, n), d_s=2.6)
+        return refused(n), refused(n), refused(n), values, refused(n)
+    chains = law(per_size)
+    for rung in chains["rungs"]:
+        if moved is not None:
+            rung["more_given"]["cubic"]["moved"] = {"mean": moved, "median": moved}
+    five = {"rungs": [{"n": n, "fates": {"cubic": {"fate": "holds"}}} for n in SIZES]}
+    return L.score(chains, five, references=REFS)
+
+
+def test_a_lattice_the_law_leaves_still_scores_1_the_lowest_and_says_why():
+    still = _cubic_held(0.01)
+    assert (still["score"], still["by"], still["chain"]) == (1, "still", "cubic")
+    top = still["sizes"][-1]["chains"]["cubic"]
+    assert top["kind"] == "still" and top["value"] == 1.0 and "still: the lattice kept its own mean degree" in top["how"]
+    moving = _cubic_held(0.2)
+    assert moving["by"] == "kept" and moving["score"] > 1, "more than 0.05 accepted moves an edge is not still"
+    unread = _cubic_held(None)
+    assert (unread["score"], unread["by"]) == (moving["score"], "kept"), "no accepted moves read: the score of 8"
+    assert L.compact(still)["by"] == "still" and L.WHO["still"] == "a lattice start, still"
+
+
+def test_a_still_lattice_is_one_at_its_own_degree_and_not_full():
+    chain = {"key": "cubic", "name": "cubic", "family": CUBIC}
+    side = {"mean_degree": {"mean": 6.0}, "moved": {"median": 0.01}, "ended_at_cap": {"seeds": 0, "of": 3}}
+    assert L.still_at(chain, {"cubic": side})
+    assert not L.still_at(chain, {"cubic": dict(side, mean_degree={"mean": 6.4})}), "5% off its degree at most"
+    assert not L.still_at(chain, {"cubic": dict(side, ended_at_cap={"seeds": 2, "of": 3})}), "full is not still"
+    assert not L.still_at({"key": "honeycomb", "name": "honeycomb", "family": HONEYCOMB},
+                          {"honeycomb": dict(side, mean_degree={"mean": 3.0})}), "only the six starts have a degree"
+    assert L.lattice_name({"key": "given", "name": "given", "family": "periodic_square_lattice"}) == "square"

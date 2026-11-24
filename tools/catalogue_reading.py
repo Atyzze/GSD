@@ -18,10 +18,10 @@ sys.path.insert(0, str(ROOT / "tools"))
 from graph_scale_dynamics.observability import catalogue as K  # noqa: E402
 from graph_scale_dynamics.observability import law_score as L  # noqa: E402
 
-CONTRACT = "gsd-catalogue-reading-1"
+CONTRACT = "gsd-catalogue-reading-2"
 EARLY = (1024, 4096)
 DEEP_FROM = 16384
-SETTLE_FROM = 4096
+SETTLE_FROM = K.SETTLE_FROM
 SHOWN = 5
 
 
@@ -53,6 +53,7 @@ def values_of(root: Path) -> dict[str, dict]:
         for law, entry in ((body.get("every_chain") or {}).get("laws") or {}).items():
             own = decided.get(str(law)) or {}
             out[str(law)] = {"campaign": str(report.get("campaign_id")), "folder": Path(path).parent.name, "raw": entry,
+                             "columns": columns,
                              "decision": [own.get("action"), own.get("rule"), own.get("at_n")],
                              "chains": {name: {int(row[0]): dict(zip(columns, row, strict=False)) for row in rows}
                                         for name, rows in (entry.get("values") or {}).items()}}
@@ -64,7 +65,7 @@ def views(law: str, entry: dict, moves: dict) -> dict[int, dict[str, dict]]:
     for name, rows in entry["chains"].items():
         for n, row in rows.items():
             seen = moves.get((law, name, n)) or {}
-            out[n][name] = {"d": K.d_of(row), "mean_degree": row.get("mean_degree"),
+            out[n][name] = {"d": K.d_of(row), "mean_degree": row.get("mean_degree"), "reach": row.get("reach"),
                             "giant": row.get("giant_fraction"), "moved": seen.get("moved"),
                             "full": bool(seen.get("full"))}
     return dict(out)
@@ -82,22 +83,7 @@ def twin_points(found: dict, twins: list[str]) -> dict[int, dict]:
     return out
 
 
-def value_settles(chains: dict, twins: list[str], relative: dict) -> dict[int, dict]:
-    out: dict[int, dict] = defaultdict(dict)
-    for name, rows in chains.items():
-        if name not in twins:
-            continue
-        sizes = sorted(n for n in rows if n >= SETTLE_FROM)
-        for probe in K.PROBES:
-            run = 0
-            for a, b in zip(sizes, sizes[1:], strict=False):
-                va, vb = rows[a].get(probe), rows[b].get(probe)
-                margin = (relative.get(probe) or {}).get(str(b))
-                ok = va is not None and vb is not None and vb != 0 and margin is not None and abs(vb - va) <= margin * abs(vb)
-                run = run + 1 if ok else 0
-                if run:
-                    out[b][f"{name}:{probe}"] = run + 1
-    return dict(out)
+value_settles = K.value_settles
 
 
 def early_table(laws: dict, n: int) -> dict:
@@ -130,21 +116,26 @@ def chain_stills(laws: dict, given: dict) -> dict:
     return out
 
 
-def candidate_scores(root: Path, laws: dict, given: dict) -> dict:
-    import score_list
-    found = score_list.read_report_28(root)
+def moved_by_chain(law: str, moves: dict) -> dict[str, dict[int, float]]:
+    out: dict[str, dict[int, float]] = defaultdict(dict)
+    for (law_id, name, n), seen in moves.items():
+        if law_id == law and seen.get("moved") is not None:
+            out[name][n] = seen["moved"]
+    return dict(out)
+
+
+def scores_in_force(laws: dict) -> dict:
     rows = []
-    for row in found["list"]:
-        if row.get("control"):
+    for law_id, law in laws.items():
+        found = law["score"]
+        if found["score"] <= 0:
             continue
-        law = laws.get(row["law"]) or {}
-        view = ((law.get("views") or {}).get(int(row["to_n"])) or {}).get(row["chain"]) or {}
-        is_still = K.still(row["chain"], view, given) if view else False
-        rows.append({"law": row["law"], "chain": row["chain"], "to_n": row["to_n"], "score": row["score"],
-                     "still": is_still, "candidate": float(L.FROZEN_SCORE) if is_still else row["score"],
-                     "kind": law.get("kind")})
-    rows.sort(key=lambda r: (-r["candidate"], -r["to_n"], r["law"]))
-    return {"scored": len(rows), "still": sum(1 for r in rows if r["still"]), "rows": rows}
+        rows.append({"law": law_id, "chain": found["chain"], "to_n": found["to_n"], "score": found["score"],
+                     "by": found["by"], "still": found["by"] in L.LOWEST, "kind": law.get("kind"),
+                     "kept_score": found["kept_score"]})
+    rows.sort(key=lambda r: (-r["score"], -r["to_n"], r["law"]))
+    return {"score": L.CONTRACT, "scored": len(rows), "still": sum(1 for r in rows if r["still"]), "rows": rows}
+
 
 
 def read(root: Path, *, scores: bool = True) -> dict:
@@ -162,9 +153,12 @@ def read(root: Path, *, scores: bool = True) -> dict:
         sizes = sorted(seen)
         if not sizes:
             continue
-        twin = twin_points(L.score(*score_list.chains_of_report(entry["raw"]), references={}), given["twin_starts"])
+        found = L.score(*score_list.chains_of_report(entry["raw"], entry["columns"], moved_by_chain(law, moves)),
+                        references={})
+        twin = twin_points(found, given["twin_starts"])
         settles = value_settles(entry["chains"], given["twin_starts"], relative)
-        kinds = {n: K.kind(seen[n], given, max((settles.get(n) or {}).values(), default=0)) for n in sizes}
+        kinds = {n: K.kind(seen[n], given, max((settles.get(n) or {}).values(), default=0), before=seen.get(n // 4), n=n)
+                 for n in sizes}
         tracks: dict[str, dict[int, bool]] = defaultdict(dict)
         for n in sizes:
             for name, chain in seen[n].items():
@@ -173,7 +167,10 @@ def read(root: Path, *, scores: bool = True) -> dict:
         deep_twin = {"sizes": max((settles.get(sizes[-1]) or {}).values(), default=0),
                      "probes": settles.get(sizes[-1]) or {},
                      "score_points": (twin.get(sizes[-1]) or {}).get("probes") or {}}
+        score = {"score": found["score"], "by": found["by"], "chain": found["chain"], "to_n": found["to_n"],
+                 "kept_score": L.score(*score_list.chains_of_report(entry["raw"]), references={})["score"]}
         laws[law] = {"campaign": entry["campaign"], "decision": entry["decision"], "kinds": kinds, "twin": deep_twin,
+                     "score": score,
                      "deepest": sizes[-1], "kind": kinds[sizes[-1]], "views": seen, "tracks": dict(tracks)}
     tally = Counter(law["kind"] for law in laws.values())
     shown = {k: [law_id for law_id, law in sorted(laws.items(), key=lambda kv: (-kv[1]["deepest"], kv[0]))
@@ -190,7 +187,7 @@ def read(root: Path, *, scores: bool = True) -> dict:
                                "kinds": {str(n): k for n, k in law["kinds"].items()}}
                       for law_id, law in laws.items()}}
     if scores:
-        out["score"] = candidate_scores(root, laws, given)
+        out["score"] = scores_in_force(laws)
     return out
 
 
@@ -231,13 +228,13 @@ def render(found: dict) -> str:
                      f"{row['still_from_16384']} | {row['of_them_still_already']} |")
     if "score" in found:
         score = found["score"]
-        lines += ["", "## The still lattice scored lowest, a candidate beside the score in force", "",
-                  f"{score['scored']} laws score; {score['still']} of them are still at the size they score at and "
-                  f"would score {L.FROZEN_SCORE}. The ten first under the candidate:", "",
-                  "| law | chain | to N | kind | score in force | candidate |", "|---|---|---|---|---|---|"]
+        lines += ["", f"## The score in force ({score['score']}), the still lattice scored lowest", "",
+                  f"{score['scored']} laws score; {score['still']} of them score {L.FROZEN_SCORE}, their best chain a "
+                  "frozen or still lattice. The ten first, beside what each scored with no lattice read as still:", "",
+                  "| law | chain | to N | kind | score | no chain still |", "|---|---|---|---|---|---|"]
         for row in score["rows"][:10]:
             lines.append(f"| `{row['law'][:12]}` | {row['chain']} | {int(row['to_n']):,} | {row['kind']} | "
-                         f"{row['score']:g} | {row['candidate']:g} |")
+                         f"{row['score']:g} | {row['kept_score']:g} |")
     return "\n".join(lines) + "\n"
 
 

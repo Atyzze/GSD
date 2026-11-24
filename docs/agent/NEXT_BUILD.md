@@ -1,53 +1,42 @@
-# The next build is 856
+# The next build is 857
 
 This file names the next build and says how to make it. `tests/unit/test_next_build_is_named.py` parses its first line,
 which must read exactly `# The next build is <N>`, one above `BUILD_NUMBER`.
 
-## Where to begin: 856 merges the two studies into one
+## Where to begin: 857 is the dashboard's filter panel
 
-**855 came first** (the operator, 2026-11-24 19:26: "a new handover build on the fast lane, so that the pull request
-can be merged early so that all other workers out there share this new root"): `CLAUDE.md`, the page every worker on
-the repository loads, with the rule that every build now arrives as a pull request the operator merges; and the
-calibration ledger with its first appended probe group, the quantum walk (`docs/build_notes/BUILD855_NOTES.md`,
-`docs/agent/APPEND_ONLY_PLAN.md`). It moved no score, no decision and no frozen source, so the plan for 856 below is
-the plan 854 wrote for 855, its numbers moved up by one.
+**What 855 and 856 left** (`docs/build_notes/BUILD855_NOTES.md`, `docs/build_notes/BUILD856_NOTES.md`): 855,
+`CLAUDE.md` (every build a pull request the operator merges), the calibration ledger and its first appended probe group,
+the quantum walk. 856, study 176 designed and committed (groups A, the blind draw, and B, the map of the ten best, half
+the work slots each; `study_176_design.json`, `study_176_criterion.json`, `study_176_first_ten.json`), the still
+lattice at 1 in the score in force (gsd-law-score-9), the small-world kind (gsd-catalogue-2,
+`small_world_criterion_1.json` committed before the next bundle), the system's CPUs (`main.py workload`, the System
+page's Workload panel), and a science hash with the calibration table, the map's state and the split in every bundle.
+The baseline is still 174's bundle of 2026-11-24 14:22Z and 175's of 08:35Z.
 
-**The baseline** (the operator, 2026-11-24 16:34): study 174's bundle of 2026-11-24 14:22Z and study 175's of
-2026-11-24 08:35Z, with the calibration table; nothing older. `docs/agent/HANDOFF.md`, "Where things stand, at 854",
-says what they show; `docs/paper/GSD_PAPER.md` is the working draft that rests on them alone; **854**
-(`docs/build_notes/BUILD854_NOTES.md`) judged `still_lattice_criterion_1.json` (it passes), measured the sampler's trap
-from empty, and wrote the paper and this handover.
+**What 857 makes** (the operator, 2026-11-24 17:51, `docs/HISTORY.md`): one filter panel in the middle of Home,
+under the macro landscape and above the fleet ladder, the top unknowns draped beside it, acting on the fleet ladder,
+the landscape and the top unknowns together and never on the now-researching box:
 
-**What 856 makes** (the operator, 2026-11-24 16:33: "both searches will have to merge into 1, the top 10 scores being
-auto-explored/mapped automatically for every best scorer, we can allocate a worker budget of say 4 to begin with, to
-probe around them, for stability/local-variants scanning the region and looking for its boundaries and neighbors"):
+1. Every kind the catalogue and the map know, ticked on or off (a region the map marked known is a kind known), with
+   one kind chosen from a list; the settled filter moved into the panel.
+2. Each law's group (A blind, B map, from its campaign's `study_design.group`) and batch, each a filter.
+3. The top unknowns: the best laws in no known region, the map's ten first.
+4. Each render function of `resources/ui/app.js` it adds or changes gets its case in `tests/ui/dashboard_smoke.js`,
+   with real rows and an element that survives a poll (`docs/LESSONS.md`, "Where defects cluster"); a table keeps its
+   shape and no table gets a horizontal scroll bar (`docs/agent/WORKING_WITH_THE_OPERATOR.md`).
 
-1. **The still lattice scores 1 in the score in force**, as the passed criterion says (`still_lattice_judged_1.json`,
-   "what_follows"), so the ten best are not lattices left alone. The frozen call stays a kind, never an early stop.
-2. **The small-world kind** in the catalogue, before `made`: a chain whose half-volume radius at 1,024 and 4,096 is
-   what a random graph of its mean degree gives (about log N over log of the degree) and whose readings rise with N;
-   its rule's numbers chosen on the two baseline bundles, judged on the next bundle by a criterion committed first.
-3. **Study 176, one study on 16 workers**: twelve run the blind draw on as 174 does (new batches, new seeds); four map
-   the ten best scorers of the whole study, read again after every batch. For each of the ten, 175's variants (each
-   coupling moved alone, `perturb`) and lines toward its nearest law of another kind in the same term set, halved
-   where the kind flips; each point to 4,096, deeper where its kind needs it (`made`, `ring`, small world). It starts
-   from the baseline: the first ten are the best of 174's and 175's bundles together under the new score. Its design
-   and criterion are committed before it runs; the operator starts it in a folder of its own.
-4. **What stays open for the operator**, asked in the notes: whether the four workers are a fixed share or follow the
-   queue; how far a variant moves a coupling (175 used one step either way); whether study 176 starts in 174's folder.
+**Acceptance** of 857: the panel's filters change the three boxes and not the fourth, in the smoke test; no score,
+kind or decision moves (`tools/outputs_of_a_law.py --against` 856's record moves nothing); the full lane green.
 
-**The sampler** (`docs/ROADMAP.md`, item 4) is not in 856 unless the operator asks: the merged study's lattice starts
-and neighbourhoods are read as they are, and its runs from empty are what a quench of its sweeps produces.
+**Then** 858, a study seeded from any earlier bundle of the same science hash; 859, group D; 860, the consolidation
+(every study before the baseline, its designs, criteria and readers, `study_169` to `study_173`,
+`tools/study_172_reading.py`, `tools/study_173_reading.py`, `tools/study_twice.py` and the tests that read them, out
+of the tree into `GSD_readings_archive_860.tar.zst`, sent beside the release); `docs/ROADMAP.md`, "Planned builds".
 
-**Acceptance** of 856: the still criterion's consequence and nothing else changes the score (`tools/outputs_of_a_law.py
---against` 855's record shows only the still laws moving), the small-world rule's criterion committed before any
-bundle that judges it, the merged design replayed in the sandbox on the baseline bundles, the full lane green.
-
-**Then 857**, a consolidation (the operator, 2026-11-24 16:34: "all other data references other than the known
-neighbor papers can go out of the study"): every study before the baseline, its designs, criteria and readers
-(`study_169` to `study_173`, `tools/study_172_reading.py`, `tools/study_173_reading.py`, `tools/study_twice.py` and
-the tests that read them) leave the tree into `GSD_readings_archive_857.tar.zst`, sent beside the release; the
-instrument's known answers and the calibration table stay.
+**When study 176 sends its first bundle**: `tools/catalogue_reading.py` judges `small_world_criterion_1.json` (W1,
+W2), and the map's regions are read from `map.json` against `study_176_criterion.json` (P1, P2 judged; P3 to P5
+reported); 174's or 175's next bundle judges the small-world criterion too.
 
 ## Reading a study's bundle
 
@@ -58,6 +47,7 @@ and not judged (`docs/OPERATIONS.md`, "Reading what the operator sends"). 171's 
 in 839's, 173's predictions in `study_173_criterion.json`; no bundle is in the tree.
 
     python3 tools/read_bundle.py <bundle>                                   # the first look: build, campaigns, laws
+    python3 tools/catalogue_reading.py <bundle> --md <dir>/kinds.md        # every law's kind, the score in force
     python3 tools/study_173_reading.py <bundle>                             # 173's criterion, P1 to P12 (46 s)
     python3 tools/study_172_reading.py <bundle>                             # 172's criterion, R1 to R7 (30 s)
     python3 tools/replay_bundle.py <bundle>                                 # every decision replayed (13 s)

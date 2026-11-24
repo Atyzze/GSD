@@ -30,6 +30,9 @@ def _descent_read(descent):
 
 def metrics_read(metrics):
     if isinstance(metrics, dict):
+        if "move_accounting" in metrics:
+            from graph_scale_dynamics.observability.two_chains import accepted_moves_of
+            metrics["accepted_moves"] = accepted_moves_of(metrics)
         for name in UNREAD_METRICS_SECTIONS:
             metrics.pop(name, None)
         if "descent" in metrics:
