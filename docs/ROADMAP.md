@@ -134,23 +134,27 @@ own build, in this order; a planned build takes its number when it is made:
    and its rings filling in, its seeds and its sensitivity, the depth, the queue, the ended laws, and every mapped
    region as GG#n with each axis's range (a term a law lacks at 0), a region of the same kind that overlaps joining the
    lower number, regions of other kinds that overlap said to touch.
-3. **863, the 65 run on in 174** (09:42, option 3): a "run on" action the decisions respect for a law a gate held,
-   the 65 named in a committed reading file from 174's newest bundle (the 53 lines or rings and the 12 at d 1.3 to
-   2.5 that `starts_alike` holds at 16,384), and their reading when they end: how many score, by class, against the
-   23 let through at random. Then the outliers' queue below joins the next study's focus.
+3. **863, made: the handover** (09:14 and 10:01; `docs/build_notes/BUILD863_NOTES.md`): what the context that made
+   860 to 862 read and what the operator decided, so a fresh context starts from the repository alone.
+   **864, the 65 run on in 174, the law page as a 4x4 grid, the pages' build numbers in words** (09:42, 09:53, 10:00,
+   10:03; `docs/agent/NEXT_BUILD.md`): a "run on" action the decisions respect for a law a gate held, the list
+   committed first with its rule (the held laws that read something on some start; 863's notes on the count), their
+   reading when they end against the 23 let through at random; the law page's 16 charts in two styles with the
+   Einstein check and the share of its start each chain keeps; every build cited in the pages' words checked and
+   said plainly. Then the outliers' queue below joins the next study's focus.
 4. **The outliers' queue** (08:04: "any outlier should automatically be added to the list of potential zones to
    investigate its area"; 08:07: "But only if all the top scorers are already done being mapped"): once every scoring
    law is mapped or inside a mapped region, the focus takes the study's outliers, strongest first: a probe's reading
    far outside its bulk (a criterion committed first; in 174, d_w over about 3.5 and d_V over about 3, where 99% read
    under 2.87 and 2.24), its own seeds and tiny rings telling a lucky strike (one seed, not repeated) from a region
    (its neighbours repeat it), a new region given the next GG number and a later outlier inside it joining it.
-5. **Study 176, designed again, the three groups from its first law** (09:42: "the triple mapper in place from the
+5. **865, study 176, designed again, the three groups from its first law** (09:42: "the triple mapper in place from the
    start, technically a simple hierarchy of 3, the blind mass guesses, the first filters, and the absolute top end
    pusher for higher N til memory limit hit"): a new design file (176's committed one never ran), its gates set on what
    the 65 show (recommended: `starts_alike` at 16,384 acting only where the starts' shared end reads no dimension),
    its groups A (the blind draw), N (the focus's neighbours and seeds, from the best law the moment one scores) and D
    (the best laws up the ladder to the memory limit) in the design, so the folder starts all three at once.
-6. **The engine's diet** (08:35: "can we not make our engines more memory efficient? Or would that sacrifice speed?"),
+6. **866, the engine's diet** (08:35: "can we not make our engines more memory efficient? Or would that sacrifice speed?"),
    profiled first (the profile in "Unscheduled"): by the code, a seed at 65,536 nodes and mean degree 29 holds every
    finished chain's edges as Python tuples (about 120 bytes an edge, eight chains, about 0.9 of the 1.46 GiB
    C1-G6940's seed peaked at) and saves them as JSON (19 s); the Rust graph holds about 40 to 150 bytes an edge (both

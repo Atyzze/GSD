@@ -1,4 +1,4 @@
-# Where we are, at build 862
+# Where we are, at build 863
 
 The whole project on one page, in plain words; the detail is in `docs/agent/HANDOFF.md`.
 
@@ -56,25 +56,26 @@ are one seed of three at small sizes, on graphs in pieces or trees the next size
 68% to 81% of the way there from empty, worse as N grows. Until a known law grows its geometry from empty, "nothing
 grows from empty" cannot be told from "nothing can get there under these moves".
 
-## What 800 to 862 changed
+## What 800 to 863 changed
 
 The probes locked and your table installed (800 to 805); no clock decides and the evidence judged again on the final
 code (806 to 843); 844 the stable build with study 174; 845 to 853 Home's batches, study 175, the score of 848, the
-catalogue; 854 the baseline and the paper's draft; 855 `CLAUDE.md` and the ledger; 856 study 176 and a science hash
-in every bundle; 857 Home's filters; 858 and 859 the handovers. 860: the orange banner only when Home falls behind,
-the lattice strips back, the Top 100 in one order, every law of a bundle whole. 861: the focus, the best laws one at a
+catalogue; 854 the baseline and the paper's draft; 855 `CLAUDE.md` and the ledger; 856 study 176 and a science hash in
+every bundle; 857 Home's filters; 858 and 859 the handovers. 860: the orange banner only when Home falls behind, the
+lattice strips back, the Top 100 in one order, every law of a bundle whole. 861: the focus, the best laws one at a
 time beside the blind draw, their neighbours, seeds and depth. 862: the Map page steers it, and names regions GG#n.
+863: a handover.
 
 ## What comes next
 
-The focus on 174 from the Map page; 863 lets 65 held laws run on in 174 (your choice at 09:42); study 176 designed
-again on the gates they bear out, with A, N and D from its first law and the outliers' queue; the engine's diet,
-proven by replaying 176's seeds to the bit; the reader, the fleet ladder under the filters, the term axis, the
-consolidation (`docs/ROADMAP.md`). Each takes its number when it is made.
+The focus on 174 from the Map page; 864 lets 65 held laws run on in 174 (your choice at 09:42) and draws the law page
+as a 4x4 grid; 865 study 176 designed again on the gates they bear out, with A, N and D from its first law and the
+outliers' queue; the engine's diet, proven by replaying 176's seeds to the bit; the reader, the fleet ladder under the
+filters, the term axis, the consolidation (`docs/ROADMAP.md`). Each takes its number when it is made.
 
 ## The decision in front of you
 
-1. **Start the focus on 174 and pause 175** (recommended): Map, "start the focus"; the 65 held laws run on once 863
+1. **Start the focus on 174 and pause 175** (recommended): Map, "start the focus"; the 65 held laws run on once 864
    is in (decided 09:42).
 2. **Whether a known law must grow its geometry from empty first** (recommended, before more compute from empty):
    parallel tempering is the cheapest remedy, an engine change of about a build, its known answers read again after.

@@ -1,4 +1,4 @@
-# Handoff: the state of GSD at build 862
+# Handoff: the state of GSD at build 863
 
 What is true now, for a context that has just opened this archive. Each fact has one home; the last section says
 where. **Think from the data, not from this page**: where the data and a document disagree, the data wins and the
@@ -44,10 +44,16 @@ depth and boundaries, the queue, the ended laws, and every mapped region as GG#n
 each axis's range over the laws that read its kind with a term a law lacks at 0, a region of the same kind that
 overlaps joining the lower number. `main.py` is as 861 left it. Next: 863 lets 65 held laws run on (09:42).
 
-**Open threads at 862** (a handoff, the operator 2026-11-25 09:14), each with its home:
+**What 863 is**: a handover (`docs/build_notes/BUILD863_NOTES.md`): only pages; what the context that made 860 to
+862 read (174's outliers, the box probe's time, C8's 463fc3bf67 whose bcc and tesseract starts keep d 3 and 4 while
+from empty it grows a small world, E8's ladder and memory, the engine's memory, the count of the 65) and the operator's
+choices of the day.
 
-* Pull requests: 861 (#8) and 862, each made from the archive the gate wrote; the operator merges after testing. A
-  build made before the one under it merges carries that one's commits too until it does.
+**Open threads at 863** (the operator 2026-11-25 09:14 and 10:01), each with its home:
+
+* Pull requests: 861 (#8), 862 (#9) and 863 (#10), each made from the archive the gate wrote and built on the one
+  before; the operator merges after testing. A build made before the one under it merges carries that one's commits
+  too until it does.
 * Study 174 runs on; the focus is started from the Map page (or `main.py focus --study 174`); 175 is to be paused.
 * Decided 09:42: the 65 laws `starts_alike` holds at 16,384 that read a line, a ring or d 1.3 to 2.5 run on in 174
   (about 300 core-hours) with a "run on" action (863); then study 176 designed again on the gates they bear out, with
@@ -56,8 +62,8 @@ overlaps joining the lower number. `main.py` is as 861 left it. Next: 863 lets 6
   operator to send (their questions: a local rule, a lower-dimensional analogue such as D4, a finite-scale observable,
   what fixes the formula's integers). A reading of 8 on E8 needs a torus of side 16 to 20, 4 to 26 billion nodes,
   1.7 to 11 TB at the floor.
-* Next builds: 863 the 65 run on, 176 designed again with the outliers' queue, the engine's diet
-  (`docs/agent/NEXT_BUILD.md`).
+* Next builds: 864 the 65 run on, the law page's 4x4 grid and the pages' build numbers in words; 865 study 176
+  designed again with the outliers' queue; 866 the engine's diet (`docs/agent/NEXT_BUILD.md`).
 
 **A correction the next builds carry** (860's reading of 174's bundle of 2026-11-24 23:19Z): the score in force counts
 a seed only where its chain stopped changing, and the folder scores 46 laws on that bundle. The counts below ("83
