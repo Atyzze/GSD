@@ -64,6 +64,10 @@ Open, from 864 (2026-11-25 11:06):
   the instrument inside a study's own folder and bundle.
 * **When 176 starts**: answered, the operator started it on 867 at about 15:00, as designed (`docs/HISTORY.md`); a
   gate change learned from 174 would be study 177.
+* **A law's code**: answered 16:34, SnCnGn, the study, the campaign and the graph, its fingerprint underneath (not
+  the build: a build can change nothing a law does, a study is one folder across builds).
+* **The split** (16:12: "why should I not set the distribution 10-1?"): recommended, 90% focus on the slider; the blind
+  draw keeps finding new types beside it, and a group with nothing queued leaves its slots to the others.
 
 Answered 2026-11-24 10:22 (`docs/HISTORY.md`): study 175 runs to its end; the study after it looks for laws whose
 different starts arrive at the same d and mean degree; a lattice that does not change scores lowest; every behaviour
@@ -128,6 +132,37 @@ Open, none waiting:
 
 ## Planned builds, in order
 
+**From 870** (the handover, 2026-11-25 16:05; the operator's words of the day in `docs/HISTORY.md` and in
+`docs/build_notes/BUILD870_NOTES.md`), each its own build, in this order; a planned build takes its number when it is
+made. The blocks after this one are the plans as they were made, kept for their reasons.
+
+1. **871, the seeded laws in the focus, the seeds as a selection, every law named SnCnGn** (16:02 to 16:34;
+   `docs/agent/NEXT_BUILD.md`): a seeded law standing on its bundle's score until read here; a bundle read twice
+   refused; the `import/` folder's bundles one list of ticks, "synchronize" reading in the ticked and letting go of
+   the unticked (their readings kept); each law named by its study, campaign and graph over its fingerprint, every
+   label a link to its law page, a seeded law naming its origin; one line saying what the focus does; the refresh
+   button and "depth 1 worker" gone; the fleet ladder's header in whole numbers.
+2. **872, Home's four boxes as one** (14:24, 14:29, 16:19): the study bar in core-hours in four parts (blind, the
+   focus's neighbours and seeds, the depth seeker, the system's own use) and a second bar of memory held over time in
+   the same parts; the filters lead as "which laws"; the landscape and the Top 100
+   read that selection; the fleet ladder in two, the selection size by size and the fleet's work size by size; a test
+   recomputing the selection's ladder from a bundle's tables, matching to the law.
+3. **873, the depth seeker to the memory limit** (13:11; item 5's text below).
+4. **The neighbours read at a law's earliest identification** (13:11), once 866's early call says the early size
+   agrees with 16,384 often enough; the rule is the operator's to choose on that reading.
+5. **The pages' and reports' build numbers in words** (10:00; item 5's "866" below).
+6. **The engines' diet: Rust, then C, then x86-64 assembly** (08:35, 09:42, 11:10; item 6 below), each proven by
+   replaying 176's seeds to the bit and timed on the same seeds, so each engine is compared by how fast it moves
+   through the same search.
+7. **The lexicon and every law against every known type** (12:03; item 5's text below), then **the phenotype as the
+   shortest description of a law's sixteen charts**, the null map complete, and new terms, the Ricci curvature in its
+   two forms first (12:12).
+8. **Study 177, on the gates 174 and 176 teach** (a reading of their two ledgers: the clean gates confirmed, the two
+   leaking at 4,096 read again), seeded from 176's last bundle.
+9. **The outliers' queue** (08:04; item 4 below), if the focus's lists have not taken it in by then.
+10. **The shared effort** (11:08, 11:10): an invitation to run one's own node and add one's own terms, once one node
+    has proven the zone mapping and the engines are timed.
+
 **After 859** (the operator, 2026-11-24 17:51 to 18:32 and 2026-11-25 00:25 to 00:47, `docs/HISTORY.md`), each its
 own build, in this order; a planned build takes its number when it is made:
 
@@ -171,10 +206,11 @@ own build, in this order; a planned build takes its number when it is made:
    curves a row a size, the sections lettered and the plots numbered. **868, made: plain words behind every plot**
    (14:17 to 14:22; `docs/build_notes/BUILD868_NOTES.md`), a line between two readings naming both, a click pinning the
    card. **869, made: the import folder, the focus's settings folded, each running law's group** (15:08 to 15:18;
-   `docs/build_notes/BUILD869_NOTES.md`); the focus's laws on Home. **870, Home's four boxes as one** (14:24, 14:29): the fleet ladder, the landscape, the Top 100 and the filters
+   `docs/build_notes/BUILD869_NOTES.md`); the focus's laws on Home. **870, made: the handover** (16:05). Then, as planned
+   at 869, **Home's four boxes as one** (14:24, 14:29), 872 since 870: the fleet ladder, the landscape, the Top 100 and the filters
    drawn from one selection of the laws, the focus's laws in the ladder, every box following the filters so the
    statistics can be read per phenotype; a consolidation build, each box checked against the bundle's tables.
-   **871, the depth seeker to the memory limit** (13:11: "always just 1 worker
+   **The depth seeker to the memory limit**, 873 since 870 (13:11: "always just 1 worker
    thread responsible for always pushing the memory limit to the system max (+ its free buffer zone ofc) but
    automatically testing how far N is feasible/safe to run without getting oom killed"): the depth campaign's ladder
    open past 262,144, its next size priced from the law's own peak growth (`memory.own_earlier_seed_bytes`) and bought

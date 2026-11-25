@@ -359,6 +359,28 @@ made; a time without a Z is the operator's local time.
   somewhere so we can see the split between which ones are coming from the blind draw vs the focused group"): the
   operator started 176 on 867 at about 15:00; a seed joins at any time; 869 the import folder, the settings folded, each
   running law's group; 174's and 176's gates are the same, word for word.
+* **The seeds as a selection; the zones do not run; a handover** (2026-11-25 16:02: "its still counter intuitive, now we
+  have two lists, 1 we can modify and 1 we cant ... why not simple let the ticks be whether or not to include its seed
+  set in our map ... instead of 'seed from ticked' instead be 'synchronize/read-from' and then consolidate the new
+  bundle and make it clear that a new bundle can always be generated from the reports menu ... what the hell is that
+  top right refresh button doing? also the depth worker size doesnt need to be listed ... make sure that updating that
+  seed map is locked behind the admin token ... still isnt running laws in the zones, seems to have created a queue
+  though"; 16:05: "lets focus the next build to be a handover for the new build agent context to start from ... so
+  870 still here please, which should be ready for 871 and beyond"): 870 the handover, 871 the seeds as a selection and
+  the zones running, 176's bundle asked for to name what stalls its seeded laws at 4,096.
+* **The zones run; 10 to 1; a law's code SnCnGn; the study bar in core-hours and memory** (2026-11-25 16:12: "it seems
+  the zoned laws did after all start, the second import attempt should have been rejected ... since gates havent
+  changed since 174 ... why should I not set the distribution 10-1?"; 16:15: "for seeded laws to ALSO be
+  click-able/explore-able in the candidate specific page ... add the B(build) code as well, then we have BnCnGn";
+  16:19: "both halves should show how many compute hours budget was spent on each share ... a third as well, for the
+  depth seeker ... it should be counted from total compute hours ... a second bar for ... how much memory was occupied
+  for how long ... perhaps a 4th to account for all the system/non-science-worker hours/memory"; 16:20: "we dont want
+  decimals there"; 16:22: "incorporating the B-code at the deeper layer per law seems kinda important to do earlier
+  than later"; 16:34: "going with S/study perhaps makes more sense actually as build numbers can arbitrarily change
+  trivial/nothing in the code and thus we shouldnt link it to that, whereas study is very different and can contain
+  multiple builds"): 176's bundle of 15:09Z read (no stall; the focus idle until a seeded law scored here); 90% focus
+  recommended; a law's code SnCnGn over its fingerprint; 871 the codes and the seeds, 872 the bars, both planned in the
+  handover (870).
 * **The engines in order: Rust to its limit, then C, then assembly, each timed on the same seed** (2026-11-25 11:10:
   "first improve the existing rust one, once we found the limits of the language, see if we can do any new neat
   tricks with c instead, and after, same last exercise in ASM, each time comparing how fast we can iterate through the
