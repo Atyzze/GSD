@@ -12,6 +12,7 @@ def answer(repo) -> dict:
     from graph_scale_dynamics.operations import run_on
     from graph_scale_dynamics.scheduling import work_groups
     return {"contract": PAGE_CONTRACT, "focus": focus.reading(repo), "studies": focus.studies(repo),
+            "work": focus.work_of(repo, focus.load(repo)),
             "workload": work_groups.reading(repo), "defaults": focus.settings_of(focus.plan()),
             "run_on": run_on.reading(repo), "run_on_lists": run_on.lists(focus.studies(repo))}
 

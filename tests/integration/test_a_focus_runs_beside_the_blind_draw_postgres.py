@@ -65,7 +65,10 @@ def test_a_focus_takes_one_law_of_study_174_into_its_neighbours_its_seeds_and_it
         assert radii == {1e-9: 4, 1e-6: 4, 1e-3: 4, 0.01: 8, 0.1: 8, 0.2: 8, 0.4: 8}
         assert laws["N"] == set(current["points"]) and holder not in laws["N"]
         assert current["stage"] == focus.NEIGHBOURHOOD and current["of"] == batches[2]
-        assert work_groups.shares(repo) == {"A": 0.5, "N": 0.25, "D": 0.25}
+        one = 1 / 16
+        assert work_groups.shares(repo) == pytest.approx({"A": 0.5 * (1 - one), "N": 0.5 * (1 - one), "D": one}), (
+            "its first law leans the folder half to the focus, the depth seeker holding one worker of sixteen")
+        assert {str(c["campaign_id"]): c.get("workers_target") for c in repo.all_campaigns()}[made["D"]] == 1
         allocation = {row["campaign_id"]: row["work_group"] for row in repo.worker_allocation()}
         assert {allocation[cid] for cid in batches} == {None} and allocation[made["S"]] == "N"
 
@@ -122,7 +125,16 @@ def test_the_map_page_starts_steers_stops_and_starts_the_focus_again(isolated_po
         assert {paused[cid] for cid in batches} == {None}, "the blind draw goes on"
         focus.act(repo, {"do": "start"})
         resumed = {str(c["campaign_id"]): c.get("workers_target") for c in repo.all_campaigns()}
-        assert {resumed[cid] for cid in made.values()} == {None} and not focus.load(repo)["stopped"]
+        assert {resumed[cid] for cid in made.values() if cid != made["D"]} == {None} and resumed[made["D"]] == 1
+        assert not focus.load(repo)["stopped"]
+        focus.act(repo, {"do": "lean", "focus": 0})
+        assert focus.load(repo)["stopped"] and work_groups.shares(repo) == {"A": 1.0}
+        off = {str(c["campaign_id"]): c.get("workers_target") for c in repo.all_campaigns()}
+        assert {off[cid] for cid in made.values()} == {0} and {off[cid] for cid in batches} == {None}
+        focus.act(repo, {"do": "lean", "focus": 0.8})
+        assert not focus.load(repo)["stopped"] and work_groups.shares(repo)["N"] == pytest.approx(0.8 * 15 / 16)
+        on = {str(c["campaign_id"]): c.get("workers_target") for c in repo.all_campaigns()}
+        assert on[made["D"]] == 1 and on[made["N"]] is None
 
         focus.act(repo, {"do": "skip", "law": holder[:12]})
         state = focus.load(repo)

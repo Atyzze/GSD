@@ -26,10 +26,11 @@
       return `<div class=toolbar><span class=muted>no focus in this folder</span>${studies.length?`<select id=mapStudy data-admin-write>${options}</select><button type=button class=gsd-control data-admin-write data-map-do=start>start the focus</button>`:'<span class=muted>and no study to focus on</span>'}</div>${said}`}
     const s=f.settings||{}, next=f.next_settings;
     const camps=f.campaigns||{};
-    return `<div class=muted>study <b>${esc(f.study)}</b> · ${f.stopped?'<b class=warn>stopped</b>':'running'} · neighbours in campaign ${esc(camps.N)}, seeds in ${esc(camps.S)} (group N), depth in ${esc(camps.D)} (group D) · shares: ${shares}</div>
-      <div class=toolbar>${f.stopped?'<button type=button class=gsd-control data-admin-write data-map-do=start>start again</button>':'<button type=button class=gsd-control data-admin-write data-map-do=stop title="pause the three campaigns; the blind draw goes on">stop the focus</button>'}
-        <label class=muted>split <input id=mapSplit data-admin-write type=text value="${esc(w.split||'')}" placeholder="A=2,N=1,D=1" style="width:10em"></label><button type=button class=gsd-control data-admin-write data-map-do=split>set</button>
-        <label class=muted>law <input id=mapLaw data-admin-write type=text placeholder="C1-G6940 or an id" style="width:12em"></label><button type=button class=gsd-control data-admin-write data-map-do=law title="set the law in focus aside and take this one now">focus now</button></div>
+    const lean=leanOf(f,w), work=(d&&d.work)||{};
+    const workText=[['N','neighbours'],['S','seeds'],['D','depth']].map(([k,name])=>{const r=work[k]||{};return `${name} (C${esc(r.campaign||camps[k]||'?')}): running ${esc(num(r.running||0))}, queued ${esc(num(r.queued||0))}, ${esc(num(r.done||0))} done${r.deepest?`, deepest N=${esc(num(r.deepest))}`:''}`}).join(' · ');
+    return `<div class=muted>study <b>${esc(f.study)}</b> · ${f.stopped?'<b class=warn>the focus is off</b>':'the focus runs'} · shares: ${shares}</div>
+      <div class="toolbar map-lean"><span>random draw</span><input id=mapLean data-admin-write type=range min=0 max=100 step=5 value="${esc(Math.round(100*lean))}" title="the share of the workers the focus's neighbours and seeds take against the blind draw; the depth seeker always holds one worker; at 0 the focus is off" style="width:22em"><span>in focus</span><b id=mapLeanValue>${esc(100-Math.round(100*lean))}% random · ${esc(Math.round(100*lean))}% focus · depth 1 worker</b></div>
+      <div class=muted>${workText}</div>
       <div class=toolbar><label class=muted>rings <input id=mapRings data-admin-write type=text value="${esc(ringsText((next||s).radii))}" style="width:26em"></label>
         <label class=muted>confirm at ${esc(radiusText(s.confirm_radius))} by <input id=mapConfirm data-admin-write type=number min=0.5 max=1 step=0.01 value="${esc((next||s).confirm_share)}" style="width:5em"></label>
         <label class=muted>deep laws <input id=mapContenders data-admin-write type=number min=0 max=20 step=1 value="${esc((next||s).contenders)}" style="width:4em"></label>
@@ -38,6 +39,11 @@
         <label class=muted title="the focus takes first the law whose type is least known; a type counts as known once this many of its laws are mapped, a one-dimensional form (a ring or a line) counting one from the start">a type known after <input id=mapPerType data-admin-write type=number min=1 max=50 step=1 value="${esc((next||s).mapped_per_type??3)}" style="width:4em"> laws</label>
         <button type=button class=gsd-control data-admin-write data-map-do=settings>apply from the next law</button></div>
       ${next?`<div class=muted>the next law takes: rings ${esc(ringsText(next.radii))}, confirmed by ${esc(next.confirm_share)}, ${esc(next.contenders)} deep laws, rings to ${esc(next.outward_most)}</div>`:''}${said}`}
+  function leanOf(f,w){const sh=(w&&w.shares)||{};if(f&&f.stopped)return 0;if(f&&f.lean&&f.lean.focus!=null)return +f.lean.focus;const a=+sh.A||0,n=+sh.N||0;return a+n>0?n/(a+n):0.5}
+  function listTable(d,which){
+    const rows=((d&&d.focus&&d.focus.lists)||{})[which]||[];
+    if(!rows.length)return `<div class=empty>${which==='focus'?'no scoring law waits for the focus':'no law to take deeper yet'}</div>`;
+    return `<table class=map-queue><thead><tr><th></th><th>law</th><th>score</th><th>type</th><th>identified from</th><th></th></tr></thead><tbody>${rows.map((e,i)=>`<tr><td class=muted>${i+1}</td><td>${esc(e.label||short(e.law))}${e.placed?' <span class=muted title="placed by hand">\u2022</span>':''}</td><td>${esc(e.score)}</td><td>${esc(e.type||'not read yet')}</td><td>${e.identified_from?`N=${esc(num(e.identified_from))}`:'<span class=muted>not yet</span>'}</td><td><button type=button class=chip data-admin-write data-map-do=order data-map-list="${which}" data-map-move=up data-map-law="${esc(e.law)}" ${i?'':'disabled'}>\u2191</button> <button type=button class=chip data-admin-write data-map-do=order data-map-list="${which}" data-map-move=down data-map-law="${esc(e.law)}" ${i<rows.length-1?'':'disabled'}>\u2193</button>${which==='focus'?` <button type=button class=chip data-admin-write data-map-do=skip data-map-law="${esc(e.law)}">skip</button>`:(e.in_depth?' <span class=muted>in the depth campaign</span>':'')}</td></tr>`).join('')}</tbody></table><div class=toolbar><button type=button class=chip data-admin-write data-map-do=order data-map-list="${which}" data-map-move=reset title="forget the order set by hand and take the suggested one">the suggested order</button></div>`}
   function current(d){
     const c=d&&d.focus&&d.focus.current;
     if(!c)return `<div class=empty>${d&&d.focus?'no law is in focus now: every scoring law is mapped, inside a mapped region, or skipped':'no focus in this folder'}</div>`;
@@ -46,7 +52,9 @@
     const seedLine=seeds?`its own campaign's seeds: ${Object.entries(seeds.own||{}).map(([k,v])=>`${esc(k)} ${esc(v)}`).join(', ')} · on more seeds: ${Object.entries(seeds.more||{}).map(([k,v])=>`${esc(k)} ${esc(v)}`).join(', ')} · ${seeds.reproduced?'its own seeds reproduced':'<b class=warn>its own seeds did not reproduce</b>'}`:'its seeds: waiting for the seeds campaign to decide';
     const lines=Object.entries(c.boundaries||{}).map(([p,b])=>`<li>toward ${esc(short(p))}: between ${esc(b.between[0])} and ${esc(b.between[1])} of the line, ${esc(b.kinds[0])} to ${esc(b.kinds[1])}${b.why?` (${esc(b.why)})`:''}</li>`).join('');
     const depth=c.depth||{};
-    return `<div class=toolbar><b>${esc(c.label)}</b><span class=muted>score ${esc(c.score)} · its kind at 16,384: ${esc(c.kind)} · ${esc(stageText(c.stage))}${c.why?` (${esc(c.why)})`:''}</span><button type=button class=gsd-control data-admin-write data-map-do=skip data-map-law="${esc(c.law)}">skip this law</button></div>
+    const early=c.early_call;
+    return `<div class=toolbar><b>${esc(c.label)}</b><span class=muted>score ${esc(c.score)} · its kind at 16,384: ${esc(c.kind)}${c.identified_from?`, read so from N=${esc(num(c.identified_from))}`:''} · ${esc(stageText(c.stage))}${c.why?` (${esc(c.why)})`:''}</span><button type=button class=gsd-control data-admin-write data-map-do=skip data-map-law="${esc(c.law)}">skip this law</button></div>
+      ${early?`<div class=muted title="each neighbour's kind at the size this law is identified from, against its kind at 16,384: how far a smaller read would have called it">the call at N=${esc(num(early.at_n))} agrees with 16,384 on ${esc(num(early.agreed))} of ${esc(num(early.of))} neighbours read</div>`:''}
       <table class=map-rings><thead><tr><th>ring</th><th>laws</th><th>alike</th><th>other</th><th>waiting</th><th></th></tr></thead><tbody>${rows||'<tr><td colspan=6 class=muted>no ring yet</td></tr>'}</tbody></table>
       <div class=muted>${seedLine}</div>
       <div>${sens?`sensitive to <b>${esc(sens.on)}</b>: ${esc(sens.words)}`:'<span class=muted>sensitive to: not read yet (its seeds and the rings of 1e-3 or less)</span>'}</div>
@@ -73,7 +81,7 @@
     if(!q.length)return '<div class=empty>the queue arrives with the focus’s first step</div>';
     return `<table class=map-queue><thead><tr><th></th><th>law</th><th>score</th><th>where it stands</th><th></th></tr></thead><tbody>${q.map((e,i)=>{
       const free=e.status==='waiting', back=e.status==='skipped'||!['waiting','in focus'].includes(e.status);
-      return `<tr><td class=muted>${i+1}</td><td>${esc(e.label||short(e.law))}</td><td>${esc(e.score)}</td><td>${esc(e.status)}${e.region?` · ${esc(e.region)}`:''}${e.type?` <span class=muted>· ${esc(e.type)}</span>`:''}</td><td>${free?`<button type=button class=chip data-admin-write data-map-do=law data-map-law="${esc(e.law)}">focus now</button> <button type=button class=chip data-admin-write data-map-do=skip data-map-law="${esc(e.law)}">skip</button>`:''}${back?`<button type=button class=chip data-admin-write data-map-do=back data-map-law="${esc(e.law)}">put back</button>`:''}</td></tr>`}).join('')}</tbody></table>`}
+      return `<tr><td class=muted>${i+1}</td><td>${esc(e.label||short(e.law))}</td><td>${esc(e.score)}</td><td>${esc(e.status)}${e.region?` · ${esc(e.region)}`:''}${e.type?` <span class=muted>· ${esc(e.type)}</span>`:''}</td><td>${free?`<button type=button class=chip data-admin-write data-map-do=skip data-map-law="${esc(e.law)}">skip</button>`:''}${back?`<button type=button class=chip data-admin-write data-map-do=back data-map-law="${esc(e.law)}">put back</button>`:''}</td></tr>`}).join('')}</tbody></table>`}
   function done(d){
     const list=((d&&d.focus&&d.focus.done)||[]).slice().reverse();
     if(!list.length)return '<div class=empty>no law’s focus has ended yet</div>';
@@ -95,9 +103,9 @@
     data=d||data;
     const put=(id,html)=>{const el=document.getElementById(id);if(el)el.innerHTML=html};
     const scope=document.getElementById('mapScope');if(scope)scope.textContent=data&&data.focus?`study ${data.focus.study}`:'';
-    const typing=['mapSplit','mapLaw','mapRings','mapConfirm','mapContenders','mapOutward','mapInside','mapPerType','mapStudy','mapBundle'].some(id=>{const el=document.getElementById(id);return el&&document.activeElement===el});
+    const typing=['mapLean','mapRings','mapConfirm','mapContenders','mapOutward','mapInside','mapPerType','mapStudy','mapBundle'].some(id=>{const el=document.getElementById(id);return el&&document.activeElement===el});
     if(!typing)put('mapControls',controls(data));
-    put('mapCurrent',current(data));put('mapRegions',regions(data));put('mapDepth',depthTable(data));put('mapQueue',queue(data));put('mapDone',done(data));put('mapRunOn',runOn(data));if(!typing)put('mapSeed',seeds(data));
+    put('mapCurrent',current(data));put('mapRegions',regions(data));put('mapDepth',depthTable(data));put('mapQueue',queue(data));put('mapFocusList',listTable(data,'focus'));put('mapDepthList',listTable(data,'depth'));put('mapDone',done(data));put('mapRunOn',runOn(data));if(!typing)put('mapSeed',seeds(data));
     wire()}
   function value(id){const el=document.getElementById(id);return el?el.value:''}
   function bodyFor(button){
@@ -109,6 +117,7 @@
     if(what==='skip'||what==='back')return {do:what,law};
     if(what==='run_on')return {do:'run_on',study:button.getAttribute('data-map-study')||undefined};
     if(what==='seed')return {do:'seed',bundle:value('mapBundle')};
+    if(what==='order')return {do:'order',list:button.getAttribute('data-map-list'),law:law||'',move:button.getAttribute('data-map-move')};
     if(what==='run_on_clear')return {do:'run_on',clear:true};
     return {do:'settings',settings:{radii:parseRings(value('mapRings')),confirm_share:+value('mapConfirm'),contenders:+value('mapContenders'),outward_most:+value('mapOutward'),inside_share:+value('mapInside'),mapped_per_type:+value('mapPerType')||3}}}
   async function act(body){
@@ -122,7 +131,9 @@
       const reload=e.target.closest&&e.target.closest('#mapReload');if(reload){refresh(true);return}
       const button=e.target.closest&&e.target.closest('[data-map-do]');if(!button)return;
       let body;try{body=bodyFor(button)}catch(err){note=String(err.message||err);render(data);return}
-      act(body)})}
+      act(body)});
+    root.addEventListener('input',e=>{if(e.target&&e.target.id==='mapLean'){const v=+e.target.value,out=document.getElementById('mapLeanValue');if(out)out.textContent=`${100-v}% random \u00b7 ${v}% focus \u00b7 depth 1 worker`}});
+    root.addEventListener('change',e=>{if(e.target&&e.target.id==='mapLean')act({do:'lean',focus:(+e.target.value)/100})})}
   async function refresh(force){
     if(busy&&!force)return;busy=true;
     try{data=await SYS.getJson('/api/focus')}

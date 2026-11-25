@@ -167,6 +167,15 @@ own build, in this order; a planned build takes its number when it is made:
    laws run again, its GG regions joined with their numbers, a newer bundle of the same study widening its regions);
    "The study now" one bar, blind against zoned, the standing controls a tick. Its gates are 174's until the 40 run
    on say otherwise (the questions above).
+   **866, made: one slider, two ordered lists, one depth worker, the earliest identification** (13:11;
+   `docs/build_notes/BUILD866_NOTES.md`). **867, the depth seeker to the memory limit** (13:11: "always just 1 worker
+   thread responsible for always pushing the memory limit to the system max (+ its free buffer zone ofc) but
+   automatically testing how far N is feasible/safe to run without getting oom killed"): the depth campaign's ladder
+   open past 262,144, its next size priced from the law's own peak growth (`memory.own_earlier_seed_bytes`) and bought
+   only when it fits the host's reach less the free 10 GiB, else the law settled at its memory ceiling with the size it
+   reached and the bytes the next would need; 1,048,576's save past the stop's grace (the focus plan's note) met
+   first. Then the neighbours read at a law's earliest identification once 866's early call says it holds (the
+   operator's choice on that reading).
    **Then, the lexicon and every law against every known type** (12:03: "all laws should instead carry multiple
    scores/probabilities vs all known phenotypes and how similar they are to the other phenotypes, a giant matrix 2d"):
    a law's name is its type (the catalogue's kind, how its starts end, and its form, what was grown: a ring, a line,

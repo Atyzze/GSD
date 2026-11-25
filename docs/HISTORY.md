@@ -308,6 +308,19 @@ made; a time without a Z is the operator's local time.
   its two variants the compared against each other"): 865, the focus switches each term of its law off (coupling 0)
   beside its rings and records which bear the law's kind, its core; the phenotype's compression, the categories and
   the null map's completion before new terms, planned (`docs/ROADMAP.md`).
+* **One slider between the blind draw and the focus, two ordered lists, one depth worker** (2026-11-25 13:11: "turn
+  the split into a slider between allocating workers to random draws vs in focus instead of this text box, and then
+  theres no need for a 'stop' or 'focus now' you slide between the two sides to set your desired split, it starts
+  50-50 initially, or well, 100 random first and on first reading ... 50-50, and then on top of the slider we want to
+  be able to switch/change the priority order of the existing coming up focus groups ... let's pick the smallest rung
+  that was needed for the first confirmed data point ... and then we compare results to auto identify the earliest
+  possible identification at sizes that small, the memory/max-N seeker instead is always just 1 worker thread
+  responsible for always pushing the memory limit to the system max (+ its free buffer zone ofc) but automatically
+  testing how far N is feasible/safe to run without getting oom killed ... two selection menus, 1 for each? with a
+  top10 by default suggested by the best data and then set manually up/down the priority queue? ... I either way
+  basically cant tell whether or not work has started or not"): 866, the slider, the focus's and the depth's lists
+  of ten with up and down, the depth seeker held to one worker, each law's earliest identification and the early
+  call read beside 16,384, and the focus's work shown; the seeker to the memory limit next (`docs/ROADMAP.md`).
 * **The engines in order: Rust to its limit, then C, then assembly, each timed on the same seed** (2026-11-25 11:10:
   "first improve the existing rust one, once we found the limits of the language, see if we can do any new neat
   tricks with c instead, and after, same last exercise in ASM, each time comparing how fast we can iterate through the

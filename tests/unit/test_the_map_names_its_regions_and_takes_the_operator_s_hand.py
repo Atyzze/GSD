@@ -207,5 +207,51 @@ def test_a_type_names_its_kind_and_its_form_family():
     assert L.type_of("grown", "a ring") == L.type_of("grown", "rings") == "grown ring"
     assert L.type_of("grown", "open strings") == "grown line" and L.type_of("made", "d 2.1") == "made d 2"
     assert L.type_of("rewired", None) == "rewired" and L.type_of(None, "a ring") is None
+    assert L.type_of("ring", "a ring") == "made ring" and L.type_of("ring", "open strings") == "made line"
     assert L.one_dimensional("grown ring") and not L.one_dimensional("made d 2") and not L.one_dimensional(None)
     assert L.known_from_the_table("still") and L.known_from_the_table("made line") and not L.known_from_the_table("rewired")
+
+
+def test_a_group_at_its_cap_leaves_its_slot_to_the_others():
+    from graph_scale_dynamics.scheduling import work_groups
+    rows = [{"campaign_id": "1", "work_group": "A", "queued": 50, "leased": 7, "workers_target": None},
+            {"campaign_id": "14", "work_group": "D", "queued": 3, "leased": 1, "workers_target": 1}]
+    shares = {"A": 0.9, "D": 0.1}
+    assert [r["campaign_id"] for r in work_groups.in_shares(rows, shares)] == ["1"], "the depth seeker holds one, no more"
+    rows[1]["leased"] = 0
+    rows[0]["leased"] = 15
+    assert [r["campaign_id"] for r in work_groups.in_shares(rows, shares)] == ["14"], "and takes its one when it has none"
+
+
+def test_the_earliest_size_a_law_is_identified_at_is_where_its_last_kind_begins():
+    from graph_scale_dynamics.operations import focus
+    assert focus.identified_from({64: "ring", 256: "ring", 1024: "ring", 16384: "ring"}) == 64
+    assert focus.identified_from({64: "empty", 256: "moved", 1024: "made", 4096: "made", 16384: "made"}) == 1024
+    assert focus.identified_from({64: "ring", 256: "made", 1024: "ring"}) == 1024
+    assert focus.identified_from({}) is None
+
+
+def test_the_operator_s_order_goes_first_and_the_suggested_order_fills_the_rest(monkeypatch):
+    from graph_scale_dynamics.operations import focus
+    types = {"ring": "grown ring", "lattice": "moved", "sheet": "made d 2", "late": "moved"}
+    monkeypatch.setattr(focus, "type_of", lambda repo, state, campaign, law: types[law])
+    ranked = [{"candidate_id": law, "campaign": "1", "score": score, "label": law}
+              for law, score in (("ring", 38), ("lattice", 27), ("sheet", 20), ("late", 5))]
+    flags = {}
+    state = {"study": "1", "done": [], "inside": {}, "types": {}, "events": [], "contenders": {},
+             "plan": {"next": {"mapped_per_type": 3}, "neighbourhood": {"read_n": 16384}}}
+    state["lists"] = focus.lists_of(None, state, ranked)
+    assert [e["law"] for e in state["lists"]["focus"]] == ["lattice", "sheet", "late", "ring"]
+    flags[focus.FLAG] = json.dumps(dict(state, contract=focus.CONTRACT))
+    repo = type("R", (), {"get_flag": lambda self, k, d=None: flags.get(k, d),
+                          "set_flag": lambda self, k, v: flags.__setitem__(k, v)})()
+    after = focus.reorder(repo, "focus", "ring", "top")
+    assert after["order"]["focus"][0] == "ring" and focus.suggested(None, after, ranked)[0]["candidate_id"] == "ring"
+    after = focus.reorder(repo, "focus", "sheet", "down")
+    assert after["order"]["focus"] == ["ring", "lattice", "late", "sheet"]
+    after = focus.reorder(repo, "depth", "late", "up")
+    assert [e["candidate_id"] for e in focus.depth_order(after, ranked)][:3] == ["ring", "lattice", "late"]
+    after = focus.reorder(repo, "focus", "", "reset")
+    assert "focus" not in after["order"] and after["order"]["depth"]
+    with pytest.raises(ValueError, match="not on the"):
+        focus.reorder(repo, "focus", "nowhere", "up")

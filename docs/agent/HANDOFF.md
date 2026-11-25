@@ -1,4 +1,4 @@
-# Handoff: the state of GSD at build 865
+# Handoff: the state of GSD at build 866
 
 What is true now, for a context that has just opened this archive. Each fact has one home; the last section says
 where. **Think from the data, not from this page**: where the data and a document disagree, the data wins and the
@@ -40,17 +40,24 @@ a bundle" fills from any bundle of the same science (`operations/study_seed.py`:
 regions joined with their numbers, kinds and ranges, a newer bundle of the same study widening them). Home's "The
 study now" is one bar, blind against zoned, the standing controls a tick (`study-split`).
 
-**Open threads at 865**, each with its home:
+**What 866 changed** (the operator, 2026-11-25 13:11; `docs/build_notes/BUILD866_NOTES.md`): the Map page's slider
+between the blind draw and the focus (`do: lean`; 0 turns the focus off; a focus leans 50-50 at its first law), the
+depth seeker held to one worker (its campaign capped, `work_groups.in_shares` leaving a capped group's slot); the
+focus's and the depth's lists of ten with up and down (`do: order`); each law's earliest identification and the early
+call read beside 16,384 (`early_call`); each focus campaign's work on the page; the controls' verdict in the bundle.
+Pull requests #11 (864) and #12 (865) were opened from the repository at 12:55.
 
-* Pull requests: 861 (#8), 862 (#9) and 863 (#10) open; 864 and 865 made from the archives in a session that could not
-  reach the repository, their pull requests the operator's to open.
+**Open threads at 866**, each with its home:
+
+* Pull requests: 863 (#10) merged; 864 (#11) and 865 (#12) open, 865 built on 864; 866 built on 865.
 * Study 174 runs on: the 40 run on from the Map page, the focus started there; 175 to be paused.
 * Study 176, designed at 865, waits on two questions (`docs/ROADMAP.md`): keep the standing controls (recommended,
   as a tick); start after the 40 and the first regions on 174 (recommended) or now. Then `main.py run --study 176` in
   a folder of its own and "seed from a bundle" on its Map page.
 * E8 (`docs/ROADMAP.md`, "Unscheduled"): the paper gives no law to run; a reply to its authors drafted.
-* Next builds: 866 the pages' build numbers in words; 867 the engine's diet, timed on 176's seeds; then C and
-  assembly (`docs/agent/NEXT_BUILD.md`).
+* Next builds: 867 the depth seeker to the memory limit; the pages' build numbers in words; the engine's diet,
+  timed on 176's seeds; then C and assembly (`docs/agent/NEXT_BUILD.md`). 174's standing controls read "fail" on
+  Home: the next bundle names the law (`known_answers` in `study.json`).
 
 **A correction the next builds carry** (860's reading of 174's bundle of 2026-11-24 23:19Z): the score in force counts
 a seed only where its chain stopped changing, and the folder scores 46 laws on that bundle. The counts below ("83

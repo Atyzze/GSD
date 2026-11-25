@@ -1,35 +1,37 @@
-# The next build is 866
+# The next build is 867
 
 This file names the next build and says how to make it. `tests/unit/test_next_build_is_named.py` parses its first line,
 which must read exactly `# The next build is <N>`, one above `BUILD_NUMBER`.
 
-## Where to begin: 866 says the pages' build numbers in words; 867 is the engine's diet
+## Where to begin: 867 is the depth seeker to the memory limit
 
 **Starting from nothing but the repository** (the operator, 2026-11-24 23:00): clone `main` and bring it up by
 `docs/agent/ENVIRONMENT.md`, section 10, "From the repository". Then `docs/WHERE_WE_ARE.md`, `docs/agent/HANDOFF.md`
-and this page, in that order, and `CLAUDE.md`'s rules for a shared repository. 864 ran the held laws on and said every
-law's status in words; 865 designed study 176 again, seeded from bundles, and gave Home's top one bar
-(`docs/build_notes/BUILD864_NOTES.md`, `BUILD865_NOTES.md`).
+and this page, in that order, and `CLAUDE.md`'s rules for a shared repository. 864 to 866 (`docs/build_notes/`): the
+held laws run on, study 176 seeded from bundles, Home's one bar, a law's type, the least known type first, each term
+switched off, the Map page's slider and ordered lists, one depth worker.
 
-**What 866 makes** (the operator, 2026-11-25 10:00, `docs/HISTORY.md`): the pages' and the reports' build numbers in
-words. Every citation of a build in what the pages and the reports say to a reader (863's notes: about 90 in the
-code, 27 in the pages; `grep -rnoE "\((5|6|7|8)[0-9]{2}(, [^)]{0,30})?\)"` over `graph_scale_dynamics/resources/ui`,
-`reporting/` and `operations/`) checked against today's code and said plainly, anything worth keeping folded into
-`docs/HISTORY.md`. A decision's reason (`decisions/gates.py`, `decisions/starts_rule.py`) keeps its words: they are
-recorded with every decision and 174's replay compares them; they change only with a study that starts on new gates.
+**What 867 makes** (the operator, 2026-11-25 13:11, `docs/HISTORY.md`): the depth seeker pushes its law to the host's
+memory limit. Its campaign's ladder opens past 262,144 (1,048,576, 4,194,304 and on); before a size is bought its seed's
+peak is priced from the law's own peak growth over the sizes it ran (`memory.own_earlier_seed_bytes` and its fit), and
+the size is bought only when that fits the host's reach (`scheduling/memory_hold.reach`) less the free 10 GiB the
+admission keeps; else the law is settled at its memory ceiling, the size it reached and the bytes the next would need
+said, and the seeker takes the next law of the depth list. Met first: a seed's save at 1,048,576 takes about 5 minutes
+against the stop's 120 s grace (the focus plan's note): the save made to fit it, or the stop told to wait for it. Its
+one worker never waits on a size that cannot fit (866 holds it to one worker; a seed held by memory admission would
+idle that slot).
 
-**Then 867, the engine's diet, Rust first** (08:35, 09:42 and 11:10; `docs/ROADMAP.md`, item 6): profiled first, every
-chain the same to the bit before and after (`tools/outputs_of_a_law.py`, both engines), proven by replaying 176's
-seeds from scratch and timed on them, so each engine is compared by how fast it moves through the same search; then
-C, then x86-64 assembly, each the same way (`docs/agent/APPEND_ONLY_PLAN.md`). A shared effort only after one node has
-proven the mapping (11:08).
+**Where it will press**: `main.py` at 129,976 bytes of its 130,000 and `build_handler` at its 1,160 lines. Any change to
+`decisions/` says why in the notes; every decision of 174 replays.
 
-**Where it will press**: `main.py` at 129,976 bytes of its 130,000 and `build_handler` at its 1,160 lines (864 swapped
-a line, adding none): a new route goes through `services/api/readings_route.py` or `focus_route.py`.
+**Acceptance** of 867: a law pushed to its ceiling on a sandbox with a small reach (a test that fakes the host's
+reach), settled there with its numbers; a size that fits bought; no score, kind or decision of a law outside the depth
+campaign moves (`tools/outputs_of_a_law.py --against` 866's record, `tools/replay_bundle.py`); the full lane green.
 
-**Acceptance** of 866: no score, kind or decision moves (`tools/outputs_of_a_law.py --against` 865's record, written
-first; `tools/replay_bundle.py` on 174's newest bundle); every page's words checked by the tests that draw them; the
-full lane green.
+**Then**: the neighbours read at a law's earliest identification once 866's early call shows it holds (the operator's
+choice on that reading); the pages' and reports' build numbers in words (10:00); the engine's diet, Rust first, timed
+on 176's seeds, then C and assembly (11:10); the lexicon and every law against every known type (12:03); the phenotype
+as the shortest description of its charts (12:12) (`docs/ROADMAP.md`).
 
 **Waiting on the operator** (`docs/ROADMAP.md`, "Questions for the operator"): 176's standing controls (keep, as a
 tick, recommended) and when 176 starts (after the 40 and the first regions on 174, recommended).

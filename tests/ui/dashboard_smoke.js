@@ -3987,7 +3987,12 @@ const FOCUS_PAGE = {
             { law: 'ef'.repeat(32), label: 'C6-G1015', score: 19, status: 'waiting' },
             { law: '12'.repeat(32), label: 'C8-G33', score: 19, status: 'skipped' }],
     done: [{ law: 'cd'.repeat(32), label: 'C2-G64', stage: 'mapped', region: 'GG#1', why: 'every neighbour to radius 0.4 reads its kind', sensitivity: { on: 'robust' } }],
+    lists: { focus: [{ law: 'ef'.repeat(32), label: 'C6-G1015', score: 19, type: 'grown ring', identified_from: 64 },
+                     { law: '34'.repeat(32), label: 'C8-G2983', score: 27, type: 'moved', identified_from: null, placed: true }],
+             depth: [{ law: 'b4'.repeat(32), label: 'C1-G6940', score: 19, type: 'grown ring', in_depth: true }] },
   },
+  work: { N: { campaign: '12', running: 2, queued: 9, done: 40, deepest: 1024 }, S: { campaign: '13', running: 0, queued: 3, done: 6, deepest: 256 },
+          D: { campaign: '14', running: 1, queued: 0, done: 12, deepest: 65536 } },
 };
 
 check('the Map page shows the law in focus, its rings, seeds, depth, regions, queue and ended laws', () => {
@@ -3995,18 +4000,23 @@ check('the Map page shows the law in focus, its rings, seeds, depth, regions, qu
   map.render(FOCUS_PAGE);
   const html = (id) => getElementById(id).innerHTML;
   for (const [id, wants] of [
-    ['mapControls', ['study <b>174</b>', 'stop the focus', 'A 50%', 'value="1e-9:4, 0.001:4, 0.1:8, 0.2:8"']],
+    ['mapControls', ['study <b>174</b>', 'type=range', 'value="33"', '67% random \u00b7 33% focus \u00b7 depth 1 worker',
+                     'neighbours (C12): running 2, queued 9, 40 done, deepest N=1,024', 'depth (C14): running 1', 'A 50%',
+                     'value="1e-9:4, 0.001:4, 0.1:8, 0.2:8"']],
+    ['mapFocusList', ['C6-G1015', 'grown ring', 'N=64', 'C8-G2983', 'placed by hand', 'data-map-move=up', 'the suggested order']],
+    ['mapDepthList', ['C1-G6940', 'in the depth campaign', 'data-map-list="depth"']],
     ['mapCurrent', ['C1-G6940', 'halving its boundaries', 'its exact parameters', 'its own seeds reproduced', 'between 0.25 and 0.3125']],
     ['mapRegions', ['GG#1', 'coupling degree_cube_sum', '1.100 to 1.300', '41 laws read its kind']],
     ['mapDepth', ['262,144', 'C1-G6940']],
-    ['mapQueue', ['C6-G1015', 'focus now', 'put back', 'mapped \u00b7 GG#1']],
+    ['mapQueue', ['C6-G1015', 'skip', 'put back', 'mapped \u00b7 GG#1']],
     ['mapDone', ['C2-G64', 'mapped as GG#1', 'sensitive to robust']]]) {
     for (const want of wants) {
       const text = want.replace('\\u00b7', '\u00b7');
       if (!html(id).includes(text)) throw new Error(`${id} lacks "${text}": ${html(id).slice(0, 400)}`);
     }
   }
-  if ((html('mapQueue').match(/focus now/g) || []).length !== 1) throw new Error('only a waiting law offers "focus now"');
+  if (/focus now|stop the focus|mapSplit/.test(html('mapQueue') + html('mapControls'))) throw new Error('the slider and the lists replace focus now, stop and the split');
+  if (!/disabled/.test(html('mapFocusList').split('data-map-move=up')[1] || '')) throw new Error('the first law of a list cannot move up');
   map.render({ studies: [{ study: '174', campaigns: 11 }], workload: {}, focus: null });
   if (!/start the focus/.test(html('mapControls')) || !/no focus in this folder/.test(html('mapCurrent'))) {
     throw new Error(`a folder with no focus offers no start: ${html('mapControls')}`);
