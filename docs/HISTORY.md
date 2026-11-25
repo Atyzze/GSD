@@ -199,6 +199,35 @@ made; a time without a Z is the operator's local time.
 * **E8 checked against its paper first** (2026-11-25 00:40: "e8 is an open question that needs further investigation
   of the original paper to see if theres a test-able claim/data-point to reproduce in it or not"): 860 read it; its
   number reproduces by arithmetic and it has no reading the instrument makes.
+* **One law at a time, inside its own study, beside the blind draw** (2026-11-25 07:33: "perhap its better to pick 1
+  law at a time to explore its region? so that we have 2 worker groups for our current best candidate, 1 pushing N as
+  high as possible and the other doing random pertubations of it to explore its neighborhood and once a neighborhood
+  is confirmed, and the top N not invalidating our result -> start finding the boundaries/phase-transitions of that
+  candidate/law-zone, ideally this can be done on the same study 174"; 07:47: "one of the coming builds has me stop
+  needing to switch between both modes and does both automatically + pushing that N on the top contenders as well"):
+  861, `operations/focus.py`, groups N and D beside A.
+* **The smallest moves, to tell a law sensitive to its exact digits from one that depends on its seeds** (2026-11-25
+  07:47: "perhaps the pertubation is lacking the one that checks the smaller ranges as well to see whether or not it's
+  RNG-dependant or not ... being able to tell the difference is I feel important"): 861, the rings of 1e-9 to 1e-3
+  read beside the law's own seeds, each alone, and three fresh ones.
+* **A gate change is a new study, seeded from the old one's best and its map** (2026-11-25 07:33: "when we modify
+  that, then its also time for a new study, but we can still seed it with the best-scorers and more specifically their
+  phenotype map of behaviors"): planned (`docs/ROADMAP.md`); 174 keeps its gates and draws on.
+* **E8 as a side experiment only if its paper gives a law to run** (2026-11-25 07:35: "Does their paper contain enough
+  needed data to actually build a law/term for it to run? or would we be left guessing?"): it gives none (860's
+  reading); not run, nothing guessed.
+* **Compute back to 174, 175 paused** (2026-11-25 07:44: "should i Swap back compute to study 174 for now? or keep it
+  on 175? what is giving us the most important data the fastest?"): recommended at 07:44, 175's bundle of 06:43Z on
+  860 read the same science as 174 and only 3 of its 35 holders score now.
+* **A probe's outliers are looked into, not left on the plot** (2026-11-25 07:51: "the macro landscape flowing band has
+  been showing some extreme outliers for d_w, a value around ~8.6 ... what is going on there?"): 861 read them (one
+  seed of three each, on graphs in pieces or trees the next sizes refuse) and draws such a reading faint.
+* **Outliers are the next thing to explore, once score has had its turn** (2026-11-25 08:04: "any outlier should
+  automatically be added to the list of potential zones to investigate its area ... if new and no existing name, just
+  create a new GG, G-group for it GG#391 or whatever number"; 08:07: "But only if all the top scorers are already done
+  being mapped, because ultimately, score matters as to what to prioritize exploration compute on ... Then the next
+  best thing to explore is all the outliers/edges their neighborhood, even if bad/unscored"): 861 passes over a
+  scoring law inside a mapped region; 862, the outliers' queue and the GG numbers.
 * A context ends in a build the next can start from with nothing but the source (2026-11-24 23:00: "create 1 more
   hand-over built so the next context can make a fresh start from source alone"): 859, made on a clone of `main` and
   brought up from it alone (`docs/agent/ENVIRONMENT.md`, section 10).

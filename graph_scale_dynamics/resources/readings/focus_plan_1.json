@@ -1,0 +1,72 @@
+{
+  "contract": "gsd-focus-plan-1",
+  "asked": "the operator, 2026-11-25 07:33 and 07:47: two worker groups for the study's best law inside its own study, one pushing N as high as possible (and on the top contenders too) and the other perturbing it at random to explore its neighbourhood, the smallest moves too, so that a law sensitive to its exact parameters is told from one that depends on its seeds; once the neighbourhood is confirmed and the top N does not invalidate the result, find the boundaries of the law's zone; and the folder doing both by itself, without switching between studies; the outliers only once every scoring law is mapped or inside a mapped region (08:04 and 08:07)",
+  "neighbourhood": {
+    "radii": [
+      [
+        1e-09,
+        4
+      ],
+      [
+        1e-06,
+        4
+      ],
+      [
+        0.001,
+        4
+      ],
+      [
+        0.01,
+        8
+      ],
+      [
+        0.1,
+        8
+      ],
+      [
+        0.2,
+        8
+      ],
+      [
+        0.4,
+        8
+      ]
+    ],
+    "read_n": 16384,
+    "confirm_radius": 0.1,
+    "confirm_share": 0.667,
+    "lines_from_radius": 0.01,
+    "why": "moves of every parameter at once by a radius times a draw between a half and one, at random signs. A law's random streams are drawn from its own fingerprint, so any move, however small, also runs it on new streams: the rings of 1e-9 to 1e-3 cannot change the physics of a law that is not on a knife edge, and are read beside its seeds (below). In study 175 (bundle of 2026-11-24 08:35Z) a perturbation kept its holder's outcome in 92% of cases at 1e-9, 96% at 0.001, 89% at 0.01 and 71% at 0.1, and one holder, aba936bffa (175's H12), read another outcome in 4 of 4 at 1e-9 and at 0.001: two thirds alike at 0.1 is a region above that noise, and 16,384 the first size every kind is read at, so the neighbours run to it and no further",
+    "tiny_to": 0.001
+  },
+  "seeds": {
+    "times": 2,
+    "why": "the law itself again on twice the design's seeds (0 to 5), to the neighbourhood's read: seeds 0 to 2 are its own campaign's again, the same streams, so they show the run reproduces; seeds 3 to 5 are new. Each seed is read alone at 16,384, with the law's own campaign's three. Its seeds disagree: it depends on its seeds. They agree but a move of 1e-3 or less reads another kind: it is sensitive to its exact parameters. Both agree: robust (the operator, 2026-11-25 07:47: \"being able to tell the difference is I feel important\")"
+  },
+  "outward": {
+    "factor": 2.0,
+    "most": 0.8,
+    "per_radius": 8,
+    "why": "where every neighbour reads the law's kind, a ring at twice the largest radius, until one differs or 0.8; a relative move under 1 never flips a coupling's sign, so the terms a law holds stay the same (the term axis is a later build)"
+  },
+  "boundaries": {
+    "halvings": 4,
+    "why": "each neighbour of another kind at 0.01 or beyond is joined to the law by a line halved four times where the kind flips, as study 176's map does: the boundary known to a sixteenth of the line"
+  },
+  "depth": {
+    "beyond": [
+      262144
+    ],
+    "contenders": 5,
+    "why": "the focus law and the study's best five by score, each run again from 64 to one size past the study's 65,536 (the operator, 2026-11-14 19:58: one size at a time, 262,144 first). A seed's save is JSON of its chains' edges, 19 s at 65,536 and mean degree 32, so about 76 s at 262,144, inside the 120 s a stop waits for it, and about 5 min at 1,048,576, outside it: 1,048,576 waits on the save"
+  },
+  "groups": {
+    "A": 2,
+    "N": 1,
+    "D": 1
+  },
+  "next": {
+    "inside_share": 0.5,
+    "why": "when a law's focus ends (mapped, unconfirmed or invalidated), the next best law by score that has not had one begins in the same three campaigns, unless it lies inside a region already mapped: of the same kind, and nearer a mapped law than half the largest radius at which every one of that law's neighbours read its kind (a distance measured as `research/neighbourhood.distance`, the relative step of every parameter, root mean square). Score decides where the compute goes first (the operator, 2026-11-25 08:07); when every scoring law is mapped or inside a mapped region, the outliers come next (862)"
+  }
+}

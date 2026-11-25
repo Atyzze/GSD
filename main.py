@@ -749,6 +749,16 @@ def cmd_workload(args):
     return code
 
 
+def cmd_focus(args):
+    from graph_scale_dynamics.operations import focus
+    db, _, _ = paths(args)
+    init_db(db)
+    with Repo(db) as repo:
+        code, said = focus.command(repo, args.study, args.law, args.show)
+    print(said, file=sys.stderr if code else sys.stdout)
+    return code
+
+
 def cmd_extend_only(args):
     db, _, _ = paths(args)
     init_db(db)
@@ -2368,6 +2378,10 @@ def build_parser() -> argparse.ArgumentParser:
     workload = sub.add_parser("workload", help="the groups' shares and the CPUs the system keeps")
     workload.add_argument("--split", default=None, help="e.g. A=1,B=1; '' treats every campaign alike")
     workload.add_argument("--system-cpus", default=None, help="CPUs no child runs on, e.g. 0,16; '' for none")
+    focus = sub.add_parser("focus", help="best laws one at a time: neighbours, seeds, depth, beside the blind draw")
+    focus.add_argument("--study", required=True)
+    focus.add_argument("--law", default=None)
+    focus.add_argument("--show", action="store_true")
     extend = sub.add_parser("extend-only",
                             help="close a campaign to new candidates, or reopen it")
     extend.add_argument("campaign")
@@ -2497,7 +2511,7 @@ def main(argv=None) -> int:
             "reset": cmd_reset,
             "hardware": cmd_hardware, "selftest": cmd_selftest, "sweep": cmd_sweep, "audit": cmd_audit, "backup": cmd_backup, "restore": cmd_restore,
             "pause": cmd_compute_control, "resume": cmd_compute_control,
-            "extend-only": cmd_extend_only, "workload": cmd_workload,
+            "extend-only": cmd_extend_only, "workload": cmd_workload, "focus": cmd_focus,
             "rebuild-phenotypes": cmd_rebuild_phenotypes,
             "calibration-rekey": cmd_calibration_rekey,
             "campaign": cmd_campaign, "artifacts": cmd_artifacts, "proposal": cmd_proposal,

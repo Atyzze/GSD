@@ -43,6 +43,19 @@ def test_a_campaign_outside_every_group_competes_beside_the_group_that_is_owed()
     assert set(found) <= {"3", "9"} and found
 
 
+def test_a_study_s_batches_made_before_its_groups_are_the_blind_draw():
+    shares = W.parse_shares({"A": 2, "N": 1, "D": 1})
+    batches = [_row("1", None, 4, 50), _row("2", None, 4, 50)]
+    focus = [_row("11", "N", 1, 40), _row("12", "N", 0, 1), _row("13", "D", 2, 6)]
+    assert allowed_campaigns(batches + focus, shares) == ("12",), (
+        "the batches hold 8 of 12, over their half, N 1 of its 3: N is owed, its campaign furthest behind first")
+    assert allowed_campaigns([_row("1", None, 1, 50), _row("2", None, 3, 50), _row("11", "N", 3, 40),
+                              _row("13", "D", 3, 6)], shares) == ("1",), (
+        "the batches hold 4 of 11, under their half: A is owed, and an ungrouped batch is A")
+    assert {r["campaign_id"] for r in W.in_shares([_row("1", None, 4, 50), _row("3", "B", 1, 9)], {"B": 1.0})} == {"1", "3"}, (
+        "with no A among the shares, a campaign outside every group still competes beside the owed one")
+
+
 def test_no_shares_is_the_fleet_as_it_was():
     rows = [_row("1", "A", 3, 50), _row("3", "B", 1, 9)]
     assert allowed_campaigns(rows) == allowed_campaigns(rows, {}) == allowed_campaigns(rows, None)

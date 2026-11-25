@@ -59,6 +59,24 @@ def _latest_dimension(entry: dict, metric: str):
     return None, None, None
 
 
+def reading_support(entry: dict, metric: str, n) -> dict | None:
+    rows = sorted(entry.get("rungs") or [], key=lambda r: int(r.get("n") or 0))
+    at = next((r for r in rows if r.get("n") == n), None)
+    if at is None:
+        return None
+    summary = at.get("summary") or {}
+    of = int(summary.get("seeds") or 0)
+    share = summary.get(f"{metric}_valid_fraction")
+    above = []
+    for row in rows:
+        found = row.get("summary") or {}
+        if int(row.get("n") or 0) > int(n) and not found.get(f"{metric}_valid_fraction"):
+            reasons = ((found.get("probe_refusals") or {}).get(metric)) or {}
+            above.append([int(row["n"]), max(reasons, key=lambda k: (reasons[k], k)) if reasons else None])
+    return {"n": int(n), "seeds": round(float(share) * of) if isinstance(share, (int, float)) and of else None,
+            "of": of or None, "refused_above": above}
+
+
 def _score_candidate(entry: dict, *, floors: dict, phenotype: dict | None = None,
                      base_rungs: frozenset[int] | None = None,
                      floors_by_n: dict | None = None,
@@ -538,6 +556,9 @@ def build_landscape(repo: Repo, campaign_id: str) -> dict:
             "mean_degree": mean_degree,
             "limit_hits": limit_hits,
             "small_world_fraction": top_summary.get("small_world_fraction"),
+            "readings_from": {probe: reading_support(entry, metric, n) for probe, metric, n in (
+                ("d_s", "d_s", ds_n), ("d_V", "d_V", dh_n), ("d_B", "d_B", db_n), ("d_w", "d_w", dw_n))
+                if n is not None},
             **stability_fields(score),
         }
         lost_at = reading_lost_at(entry)

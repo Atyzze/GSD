@@ -248,3 +248,21 @@ def test_the_web_process_lists_and_serves_the_study_beside_the_campaign_roots(tm
     finally:
         server.shutdown()
         server.server_close()
+
+
+def test_a_folder_s_focus_goes_into_its_bundle_whole_and_named_on_the_study_s_page(tmp_path):
+    from graph_scale_dynamics.operations import focus
+    base = _recorded(tmp_path / "F533" / "var" / "reports")
+    _report_root(base, "1")
+    repo = Repo()
+    state = {"contract": focus.CONTRACT, "study": "GSD533", "campaigns": {"N": "12", "S": "13", "D": "14"},
+             "current": {"law": "ab" * 32, "label": "C3-G7363", "stage": focus.BOUNDARIES, "points": {}},
+             "done": [{"law": "cd" * 32, "stage": focus.MAPPED}]}
+    repo.flags[focus.FLAG] = json.dumps(state)
+    entry = B.build(base, repo, ["1"], request_id="r-2")
+    stem = entry["filename"][:-len(".tar.zst")]
+    members = _members(B.bundles_dir(base) / entry["filename"])
+    assert json.loads(members[f"{stem}/focus.json"]) == state
+    assert json.loads(members[f"{stem}/study.json"])["focus"] == {
+        "file": "focus.json", "contract": focus.CONTRACT, "campaigns": state["campaigns"], "done": 1,
+        "law": "ab" * 32, "label": "C3-G7363", "stage": focus.BOUNDARIES}
