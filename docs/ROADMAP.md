@@ -69,6 +69,17 @@ Open, from 864 (2026-11-25 11:06):
 * **The split** (16:12: "why should I not set the distribution 10-1?"): recommended, 90% focus on the slider; the blind
   draw keeps finding new types beside it, and a group with nothing queued leaves its slots to the others.
 
+Open, from 871 (`docs/build_notes/BUILD871_NOTES.md`):
+
+* **A let-go law's own runs.** Unticking a bundle and synchronizing takes its laws out of the focus and the depth
+  seeker and its regions off the map; each law's ladder in the seeded campaign, and any depth run already queued, go on
+  to their gates. 1. Let them run (recommended): a tick takes them back at once with their readings, and the cost is
+  what those ladders still hold. 2. Hold them by word, as `run_on` releases by word: a `decisions/` change, about a
+  build, every decision of 174 replayed after it.
+* **871's pull request**: the session that made it was refused push access to `github.com/Atyzze/GSD`. 1. Open it
+  from the archive yourself (a branch `build-871` on `main`, one commit "Build 871"). 2. Give the next session push
+  access, and it opens it.
+
 Answered 2026-11-24 10:22 (`docs/HISTORY.md`): study 175 runs to its end; the study after it looks for laws whose
 different starts arrive at the same d and mean degree; a lattice that does not change scores lowest; every behaviour
 seen goes into a catalogue, with how to spot it early and how it scores.
@@ -136,12 +147,8 @@ Open, none waiting:
 `docs/build_notes/BUILD870_NOTES.md`), each its own build, in this order; a planned build takes its number when it is
 made. The blocks after this one are the plans as they were made, kept for their reasons.
 
-1. **871, the seeded laws in the focus, the seeds as a selection, every law named SnCnGn** (16:02 to 16:34;
-   `docs/agent/NEXT_BUILD.md`): a seeded law standing on its bundle's score until read here; a bundle read twice
-   refused; the `import/` folder's bundles one list of ticks, "synchronize" reading in the ticked and letting go of
-   the unticked (their readings kept); each law named by its study, campaign and graph over its fingerprint, every
-   label a link to its law page, a seeded law naming its origin; one line saying what the focus does; the refresh
-   button and "depth 1 worker" gone; the fleet ladder's header in whole numbers.
+1. **871, made** (`docs/build_notes/BUILD871_NOTES.md`): the seeded laws in the focus on their bundle's score, a
+   bundle read twice refused, the seeds as a selection, every law named SnCnGn, the Map page's line, the ladder's header.
 2. **872, Home's four boxes as one** (14:24, 14:29, 16:19): the study bar in core-hours in four parts (blind, the
    focus's neighbours and seeds, the depth seeker, the system's own use) and a second bar of memory held over time in
    the same parts; the filters lead as "which laws"; the landscape and the Top 100

@@ -300,6 +300,20 @@
     window.dispatchEvent(new CustomEvent('rr:overview',{detail:d}));
   }
   let campaignRows = [];
+  function studyOf(camp) {
+    const row = (campaignRows || []).find(x => String(x.campaign_id) === String(camp));
+    const study = row && row.study;
+    return study == null || study === '' ? null : String(study);
+  }
+  function lawCode(camp, ordinal, law, study) {
+    const s = study !== undefined ? study : studyOf(camp);
+    if (ordinal != null && ordinal !== '') return s ? `S${s}C${camp}G${ordinal}` : `C${camp}-G${ordinal}`;
+    return `${s ? `S${s}` : ''}C${camp}-${String(law || '').slice(0, 8)}`;
+  }
+  function lawCodeQuery(q) {
+    const m = /^(?:s([a-z0-9._]+?)-?)?(?:b\d+-)?(?:c(\d+))?-?(?:g-?(\d+))?$/.exec(String(q || '').replace(/\s+/g, '').toLowerCase());
+    return m && (m[2] != null || m[3] != null) ? {study: m[1] ?? null, campaign: m[2] ?? null, ordinal: m[3] != null ? +m[3] : null} : null;
+  }
 
   function switchCampaign(next) {
     if (!next || String(next) === String(campaign)) return;
@@ -526,5 +540,5 @@
 
   function setPinned(key){ pinnedKey=key||null; }
   function getPinned(){ return pinnedKey; }
-  window.GSD_SYSTEM={freshnessOf,STALE_AFTER_MS,api,getJson,postJson,headers,route,esc,fmt,gib,mbps,measureHeaderHeight,updateHeader,registerLiveRegion,pointerIsOverLiveRegion,deferrableRedraw,setPinned,getPinned,localTime,localTimeHtml,relativeTime,parseUtc,LOCAL_ZONE,switchCampaign,refreshCampaignList,set campaignRows(v){campaignRows=Array.isArray(v)?v:[];},get campaignRows(){return campaignRows;},get campaign(){return campaign;},get overview(){return overview;}};
+  window.GSD_SYSTEM={freshnessOf,STALE_AFTER_MS,api,getJson,postJson,headers,route,esc,fmt,gib,mbps,measureHeaderHeight,updateHeader,registerLiveRegion,pointerIsOverLiveRegion,deferrableRedraw,setPinned,getPinned,localTime,localTimeHtml,relativeTime,parseUtc,LOCAL_ZONE,switchCampaign,refreshCampaignList,studyOf,lawCode,lawCodeQuery,set campaignRows(v){campaignRows=Array.isArray(v)?v:[];},get campaignRows(){return campaignRows;},get campaign(){return campaign;},get overview(){return overview;}};
 })();

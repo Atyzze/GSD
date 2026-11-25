@@ -1,4 +1,4 @@
-# Handoff: the state of GSD at build 870
+# Handoff: the state of GSD at build 871
 
 What is true now, for a context that has just opened this archive. Each fact has one home; the last section says
 where. **Think from the data, not from this page**: where the data and a document disagree, the data wins and the
@@ -34,15 +34,27 @@ readings naming both); 869 the `import/` folder beside `main.py` whose bundles t
 (`operations/imports.py`), the focus's settings folded, each running law's group, the focus's and seeded campaigns
 in the study's view on Home (`dashboard_workers.batches`). 870 is this handover (`docs/build_notes/BUILD870_NOTES.md`).
 
-**Open threads at 870**, each with its home:
+**What 871 changed** (the operator, 2026-11-25 16:02 to 16:34; `docs/build_notes/BUILD871_NOTES.md`): a seed records
+each scoring law's bundle score and code, and `focus.best` takes a seeded law on that score until this folder decides
+it at 16,384 (`focus.read_here`), so the focus and the depth seeker start on the seeded laws at once; a law in focus
+waits for its own kind before its neighbours or depth judge it. A bundle read already, or identical to one in the map,
+or adding nothing is refused with its reason. The Seeds panel is one list of ticks: synchronize reads in the ticked
+and lets go of the unticked (`imports.synchronize`, `study_seed.release` and `choose`: out of the focus and the depth
+seeker, regions off the map, readings kept; its own ladder goes on). Every law is named SnCnGn
+(`operations/law_code.py`): the study, the campaign, its first graph; on every page, in the Explorer's search and in
+`tables/laws`. The Map page opens on one line saying what the focus does; the fleet ladder's header is whole numbers.
 
-* **Pull requests**: 864 to 867 (#11 to #14) merged; 868 (#15) and 869 (#16, built on 868) open; 870 is #17, built on
-  869. Each is the tree of the archive its gate wrote.
+**Open threads at 871**, each with its home:
+
+* **Pull requests**: 864 to 870 (#11 to #17) merged by the operator. 871's was not opened: the session that made it
+  was refused push access to `github.com/Atyzze/GSD`; its archive `GSD871.tar.zst` is the delivery, its tree for a
+  branch `build-871` on `main` with one commit "Build 871" and the notes' opening as the description.
 * **Study 176 runs** in its own folder (`/data/projects/GSD/176/main` on the operator's host) since about 15:00, on 867
-  and then 869, seeded at 14:14Z from 174's bundle of 13:04Z (72 laws) and again at 14:56Z (nothing new: 871 refuses a
-  bundle read already). Its bundle of 15:09Z: the seeded laws on their ladder, none held; the focus idle until a seeded
-  law scored here (C11-G79, 1), since `focus.best` reads only this folder's scores (871). Its gates are 174's word for
-  word; a gate learned from 174 is study 177. The operator's split: 90% focus recommended (16:12).
+  and then 869, seeded at 14:14Z from 174's bundle of 13:04Z (72 laws) and again at 14:56Z (nothing new). Its bundle
+  of 15:09Z: the seeded laws on their ladder, none held; the focus idle until a seeded law scored here (C11-G79, 1).
+  On 871, after one synchronize with that bundle in `import/` (its laws' scores were not recorded one by one before),
+  the focus takes the bundle's best law at once. Its gates are 174's word for word; a gate learned from 174 is study
+  177. The operator's split: 90% focus recommended (16:12).
 * **Study 174** ran on to its bundle of 13:04Z on 865 (its focus on C8-G2983 since 11:59Z, 47 neighbours at 4,096, the
   depth campaign's five, one at 65,536); the 40 held laws were never run on (no `run_on` decision) and are 40 rings, a
   type the focus already holds. Paused or running is the operator's.
@@ -117,7 +129,8 @@ sometimes with the operator's words typed above it; a context that opens either 
 ## What is live
 
 * **Study 176** is designed again at 865 (`study_176_design.json`: A's ten blind batches, the focus from its start, a
-  seeded campaign filled from bundles by the Map page); 856's design, never run, is replaced. Not started.
+  seeded campaign filled from bundles by the Map page); 856's design, never run, is replaced. Started by the operator
+  on 867 at about 15:00, 869 applied; 871 to apply, then one synchronize.
 * **Study 174** in a folder of its own, 16 workers when 175 is stopped; its bundle of 2026-11-24 14:22Z is the
   baseline, its newest 2026-11-25 09:59Z (on 863): all ten batches at their law budget, 150 laws read to the top of the
   ladder and waiting to be extended, 193 held by `starts_alike` at 16,384, of which 40 run on with 864, and C11, the
@@ -258,9 +271,10 @@ again after the paper's three studies, on the final probes, with a criterion wri
 
 ## What waits on the operator
 
-* **Study 176's bundle** (asked 16:02): Reports, a study bundle, sent to the next context, so 871 names the rule that
-  holds the seeded laws at 4,096 before it changes anything in a running folder.
-* **Pull requests #15 to #17**: each theirs to merge, in order.
+* **871's pull request**: theirs to open from the archive (or to give the session push access) and to merge.
+* **Study 176's next bundle**, on 871 after one synchronize: whether the focus stands on its seeded best law.
+* **A let-go law's own runs**: let them run (recommended; a tick takes them back), or a hold by word, a
+  `decisions/` change (`docs/ROADMAP.md`, "Questions for the operator").
 * **Study 176's standing controls**: kept as a tick (recommended; `docs/ROADMAP.md`, "Questions for the operator").
 * **Study 174's 40 held laws**: 40 rings; running them on (the Map page's "run them on") is no longer recommended.
 * **Where the older data's archive goes public** (the consolidation): the review asks for a public archive (Zenodo or a tag) so a

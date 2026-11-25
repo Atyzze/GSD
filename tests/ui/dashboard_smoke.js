@@ -2489,12 +2489,34 @@ check('the explorer caps rendered rows and debounces the search box', () => {
   }
 });
 
-check('a law of every batch together is never named Cstudy (674)', () => {
-  const app = fs.readFileSync(path.join(uiDir, 'app.js'), 'utf8');
-  const body = app.slice(app.indexOf('function lawCode('), app.indexOf('function lawCodeQuery('));
-  const lawCode = new Function(`let campaign='study';${body};return lawCode;`)();
-  if (lawCode({ ensemble_code: 'G-33430' }) !== 'G-33430') throw new Error('the study scope named a law\'s campaign');
-  if (lawCode({ ensemble_code: 'G-33430', campaign_id: '3' }) !== 'C3-G33430') throw new Error('its own batch lost');
+check('a law of every batch together is never named Cstudy (674), and a law of a study is named SnCnGn (871)', () => {
+  const app = sandbox.GSD_APP, sys = sandbox.GSD_SYSTEM, rows = sys.campaignRows;
+  try {
+    sys.campaignRows = [{ campaign_id: '3', study: '176' }, { campaign_id: '4' }];
+    if (app.lawCode({ ensemble_code: 'G-33430' }, 'study') !== 'G-33430') throw new Error('the study scope named a law\'s campaign');
+    if (app.lawCode({ ensemble_code: 'G-33430', campaign_id: '3' }) !== 'S176C3G33430') throw new Error(app.lawCode({ ensemble_code: 'G-33430', campaign_id: '3' }));
+    if (app.lawCode({ ensemble_code: 'G-79', campaign_id: '4' }) !== 'C4-G79') throw new Error('a campaign of no study lost its code');
+    if (sys.lawCode('3', null, 'ab12cd34ef') !== 'S176C3-ab12cd34') throw new Error(sys.lawCode('3', null, 'ab12cd34ef'));
+    const read = (q) => JSON.stringify(app.lawCodeQuery(q));
+    for (const [q, want] of [['S176C11G79', { study: '176', campaign: '11', ordinal: 79 }], ['s176-c11-g79', { study: '176', campaign: '11', ordinal: 79 }],
+                             ['C11-G79', { study: null, campaign: '11', ordinal: 79 }], ['g79', { study: null, campaign: null, ordinal: 79 }]]) {
+      if (read(q) !== JSON.stringify(want)) throw new Error(`${q} reads ${read(q)}`);
+    }
+    if (app.lawCodeQuery('ring') !== null || app.lawCodeQuery('S176') !== null) throw new Error('a word reads as a code');
+  } finally {
+    sys.campaignRows = rows;
+  }
+});
+
+check('the fleet ladder\u2019s header says a law\u2019s graphs in whole numbers, a range where the merged campaigns differ (871)', () => {
+  const app = sandbox.GSD_APP;
+  const one = app.ladderPerLaw([{ n: 64, chains_per_seed: 8, seeds_per_law: 3 }]);
+  if (one !== ' \u00b7 a law at a size = 3 seeds \u00d7 8 starts = 24 graphs') throw new Error(one);
+  const merged = app.ladderPerLaw([{ n: 64, chains_per_seed: 8, seeds_per_law: 3.0049875311720697, seeds_per_law_most: 9 },
+                                   { n: 4096, chains_per_seed: 8, chains_per_seed_most: 8, seeds_per_law: 3, seeds_per_law_most: 3 }]);
+  if (merged !== ' \u00b7 a law at a size = 3 to 9 seeds \u00d7 8 starts = 24 to 72 graphs') throw new Error(merged);
+  if (/\.\d/.test(merged)) throw new Error('a mean was shown unrounded');
+  if (app.ladderPerLaw([{ n: 64 }]) !== '') throw new Error('a ladder without seeds says a law\u2019s graphs');
 });
 
 check('a ladder with a queue and no running work says so', () => {
@@ -3968,6 +3990,7 @@ const FOCUS_PAGE = {
   workload: { shares: { A: 0.5, N: 0.25, D: 0.25 }, split: 'A=2,D=1,N=1' },
   focus: {
     study: '174', stopped: false, campaigns: { N: '12', S: '13', D: '14' },
+    doing: 'in focus: S174C1G6940, halving its boundaries; the depth seeker on 1 law, deepest N=262,144',
     settings: { radii: [[1e-9, 4], [0.001, 4], [0.1, 8], [0.2, 8]], confirm_radius: 0.1, confirm_share: 0.667,
                 contenders: 5, outward_most: 0.8, inside_share: 0.5 },
     next_settings: null,
@@ -3988,6 +4011,8 @@ const FOCUS_PAGE = {
             { law: '12'.repeat(32), label: 'C8-G33', score: 19, status: 'skipped' }],
     done: [{ law: 'cd'.repeat(32), label: 'C2-G64', stage: 'mapped', region: 'GG#1', why: 'every neighbour to radius 0.4 reads its kind', sensitivity: { on: 'robust' } }],
     lists: { focus: [{ law: 'ef'.repeat(32), label: 'C6-G1015', score: 19, type: 'grown ring', identified_from: 64 },
+                     { law: '56'.repeat(32), campaign: '15', label: 'S176C15G3', score: 38, type: null, identified_from: null, standing: 'bundle',
+                       origin: { code: 'S174C2G3187', score: 38, study: '174', bundle: 'study_174_2026-11-25T13-04-19Z' } },
                      { law: '34'.repeat(32), label: 'C8-G2983', score: 27, type: 'moved', identified_from: null, placed: true }],
              depth: [{ law: 'b4'.repeat(32), label: 'C1-G6940', score: 19, type: 'grown ring', in_depth: true }] },
   },
@@ -4000,10 +4025,11 @@ check('the Map page shows the law in focus, its rings, seeds, depth, regions, qu
   map.render(FOCUS_PAGE);
   const html = (id) => getElementById(id).innerHTML;
   for (const [id, wants] of [
-    ['mapControls', ['study <b>174</b>', 'type=range', 'value="33"', '67% random \u00b7 33% focus \u00b7 depth 1 worker',
+    ['mapControls', ['in focus: S174C1G6940, halving its boundaries', 'the depth seeker on 1 law', 'study <b>174</b>', 'type=range', 'value="33"', '67% random \u00b7 33% focus</b>',
                      'neighbours (C12): running 2, queued 9, 40 done, deepest N=1,024', 'depth (C14): running 1', 'A 50%',
                      'value="1e-9:4, 0.001:4, 0.1:8, 0.2:8"']],
-    ['mapFocusList', ['C6-G1015', 'grown ring', 'N=64', 'C8-G2983', 'placed by hand', 'data-map-move=up', 'the suggested order']],
+    ['mapFocusList', ['C6-G1015', 'grown ring', 'N=64', 'C8-G2983', 'placed by hand', 'data-map-move=up', 'the suggested order',
+                      'S176C15G3</a>', 'from S174C2G3187, 38 there', "38 <span class=muted", "in study 174's bundle", 'candidate=' + '56'.repeat(32) + '&amp;campaign=15']],
     ['mapDepthList', ['C1-G6940', 'in the depth campaign', 'data-map-list="depth"']],
     ['mapCurrent', ['C1-G6940', 'halving its boundaries', 'its exact parameters', 'its own seeds reproduced', 'between 0.25 and 0.3125']],
     ['mapRegions', ['GG#1', 'coupling degree_cube_sum', '1.100 to 1.300', '41 laws read its kind']],
@@ -4016,6 +4042,10 @@ check('the Map page shows the law in focus, its rings, seeds, depth, regions, qu
     }
   }
   if (/focus now|stop the focus|mapSplit/.test(html('mapQueue') + html('mapControls'))) throw new Error('the slider and the lists replace focus now, stop and the split');
+  if (/depth 1 worker/.test(html('mapControls'))) throw new Error('the depth seeker is always one worker: the slider does not say so');
+  for (const id of ['mapCurrent', 'mapDepth', 'mapQueue', 'mapDone', 'mapFocusList', 'mapDepthList']) {
+    if (!/<a class="candidate-link map-law" href="[^"]*candidate=/.test(html(id))) throw new Error(`${id}'s laws do not link to their law page: ${html(id).slice(0, 300)}`);
+  }
   if (!/disabled/.test(html('mapFocusList').split('data-map-move=up')[1] || '')) throw new Error('the first law of a list cannot move up');
   map.render({ studies: [{ study: '174', campaigns: 11 }], workload: {}, focus: null });
   if (!/start the focus/.test(html('mapControls')) || !/no focus in this folder/.test(html('mapCurrent'))) {
@@ -4027,20 +4057,32 @@ check('the Map page lists the import folder\u2019s bundles to tick, and folds th
   const map = sandbox.GSD_MAP;
   const page = Object.assign({}, FOCUS_PAGE, { imports: { contract: 'gsd-imports-1', folder: '/data/projects/GSD/176/main/import', exists: true, bundles: [
     { name: 'study_174_2026-11-25T13-04-19Z.tar.zst', kind: 'archive', bytes: 180621331, readable: true, bundle: 'study_174_2026-11-25T13-04-19Z',
-      study: '174', build: 865, built_utc: '2026-11-25T13:04:19Z', laws: 10058, scoring: 69, regions: 0, science_same: true, science_differ: [], seeded: null },
+      study: '174', build: 865, built_utc: '2026-11-25T13:04:19Z', laws: 10058, scoring: 69, regions: 0, science_same: true, science_differ: [], in_folder: true,
+      seeded: { at: '2026-11-25T14:14:02Z', selected: true, laws_recorded: true, laws_standing: 72, regions: ['GG#3'] } },
+    { name: 'study_174_copy.tar.zst', kind: 'archive', bytes: 180621331, readable: true, bundle: 'study_174_copy', study: '174', build: 865,
+      built_utc: '2026-11-25T13:04:19Z', laws: 10058, scoring: 69, regions: 0, science_same: true, science_differ: [], in_folder: true,
+      seeded: null, identical_to: 'study_174_2026-11-25T13-04-19Z' },
+    { name: 'study_175_b', bundle: 'study_175_b', readable: true, in_folder: false, kind: 'read', study: '175', scoring: 12, science_same: true,
+      seeded: { at: '2026-11-25T15:00:00Z', selected: false, let_go_utc: '2026-11-25T16:40:00Z', laws_recorded: true, laws_standing: 12, regions: [] } },
     { name: 'study_170_old.tar.zst', kind: 'archive', bytes: 1000, readable: true, bundle: 'study_170_old', study: '170', build: 790,
       built_utc: '2026-10-01T00:00:00Z', laws: 10, scoring: 1, regions: 0, science_same: false, science_differ: ['probes'], seeded: null },
     { name: 'copying.tar.zst', kind: 'archive', bytes: 10, readable: false, why: 'ValueError: truncated' }] } });
   map.render(page);
   const seedHtml = getElementById('mapSeed').innerHTML;
   for (const want of ['/data/projects/GSD/176/main/import', 'data-map-do=open_import', 'open the folder', 'copy the path',
-                      'study_174_2026-11-25T13-04-19Z.tar.zst', 'build 865', '172 MiB', '69 scoring laws of 10,058', 'seed from the ticked',
-                      'another science: refused', 'not readable yet', 'still being copied?']) {
+                      'study_174_2026-11-25T13-04-19Z.tar.zst', 'build 865', '172 MiB', '69 scoring laws of 10,058', 'data-map-do=synchronize',
+                      'another science: refused', 'not readable yet', 'still being copied?', 'in the map since 2026-11-25 14:14', '72 laws, regions GG#3',
+                      'identical to study_174_2026-11-25T13-04-19Z: refused', 'let go 2026-11-25 16:40; its readings kept', '(not in the folder)',
+                      'A merged set is a new bundle, made on Reports.']) {
     if (!seedHtml.includes(want)) throw new Error(`the Seeds panel lacks "${want}": ${seedHtml.slice(0, 300)}`);
   }
   if (/mapBundle|path\/to\//.test(seedHtml)) throw new Error('the Seeds panel still asks for a path');
   const ticks = seedHtml.split('map-import-tick').length - 1;
-  if (ticks !== 2 || !/data-import-name="study_170_old.tar.zst" disabled/.test(seedHtml)) throw new Error('a bundle of another science can be ticked');
+  if (ticks !== 4 || !/data-import-name="study_170_old" disabled/.test(seedHtml)) throw new Error('a bundle of another science can be ticked');
+  if (!/data-import-name="study_174_2026-11-25T13-04-19Z" checked/.test(seedHtml)) throw new Error('a bundle in the map is not ticked');
+  if (!/data-import-name="study_174_copy" disabled/.test(seedHtml)) throw new Error('a bundle identical to one in the map can be ticked');
+  if (/data-import-name="study_175_b" checked/.test(seedHtml) || /data-import-name="study_175_b" disabled/.test(seedHtml)) throw new Error('a bundle let go is not offered again');
+  if (/seeded so far/.test(seedHtml)) throw new Error('a bundle is one row, not a row and a line of what was seeded');
   const controls = getElementById('mapControls').innerHTML;
   if (!/<details class=map-settings/.test(controls) || / open>/.test(controls.split('<summary>')[0])) throw new Error('the focus\u2019s settings are not folded away');
   for (const want of ['how far from the law its neighbours are drawn', 'the depth seeker takes', 'counts as inside it']) {
@@ -4048,8 +4090,13 @@ check('the Map page lists the import folder\u2019s bundles to tick, and folds th
   }
   const open = { getAttribute: (k) => ({ 'data-map-do': 'open_import' })[k] || null };
   if (JSON.stringify(map.bodyFor(open)) !== JSON.stringify({ do: 'open_import' })) throw new Error('opening the folder sends nothing');
-  const seed = { getAttribute: (k) => ({ 'data-map-do': 'seed' })[k] || null };
-  if (JSON.stringify(map.bodyFor(seed)) !== JSON.stringify({ do: 'seed', bundles: [] })) throw new Error(JSON.stringify(map.bodyFor(seed)));
+  const sync = { getAttribute: (k) => ({ 'data-map-do': 'synchronize' })[k] || null };
+  if (JSON.stringify(map.bodyFor(sync)) !== JSON.stringify({ do: 'synchronize', ticked: [] })) throw new Error(JSON.stringify(map.bodyFor(sync)));
+  const said = map.doneNote({ do: 'synchronize' }, { read_in: [{ bundle: 'study_174_b', laws_added: 3, laws_standing: 40 }], let_go: [{ bundle: 'study_175_b' }],
+                                                  refused: [{ name: 'study_174_c', why: 'bundle study_174_c was read already' }] });
+  for (const want of ['read in study_174_b: 3 laws new, 40 standing on its scores', 'let go of study_175_b', 'refused study_174_c: bundle study_174_c was read already']) {
+    if (!said.includes(want)) throw new Error(`the note after synchronize lacks "${want}": ${said}`);
+  }
 });
 
 check('a running law says whether the blind draw or the focus drew it (15:18)', () => {

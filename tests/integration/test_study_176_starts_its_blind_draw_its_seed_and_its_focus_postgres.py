@@ -80,7 +80,7 @@ def test_study_176_starts_ten_blind_batches_an_empty_seeded_campaign_and_its_foc
         repo.close()
 
 
-def test_a_bundle_seeds_its_scoring_laws_and_its_regions_and_a_second_seed_appends_only_what_is_new(
+def test_a_bundle_seeds_its_scoring_laws_and_its_regions_a_second_appends_only_what_is_new_and_a_third_is_refused(
         isolated_postgres_schema, tmp_path):
     from graph_scale_dynamics.db.repo import Repo, init_db
     from graph_scale_dynamics.operations import focus, study_seed
@@ -122,7 +122,8 @@ def test_a_bundle_seeds_its_scoring_laws_and_its_regions_and_a_second_seed_appen
         known = {r["name"]: r for r in focus.load(repo)["regions"]}
         assert sorted(known) == ["GG#1", "GG#3"] and known["GG#3"]["ranges"]["beta"] == [0.15, 0.2], (
             "a newer bundle of the same study widens the region it already gave")
-        assert study_seed.seed(repo, second, science=SCIENCE)["regions_grown"] == [], "nothing new, nothing grows"
+        with pytest.raises(ValueError, match="study_174_b was read already"):
+            study_seed.seed(repo, second, science=SCIENCE)
         elsewhere = _bundle(tmp_path, "study_175_a", [(holder, holder_spec, 19)], [region], study="175")
         assert study_seed.seed(repo, elsewhere, science=SCIENCE)["regions"] == ["GG#4"], (
             "another study's region keeps its number unless it is taken")

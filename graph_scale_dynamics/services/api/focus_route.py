@@ -32,6 +32,8 @@ def act(repo, body: dict) -> dict:
         return {"ok": True, "did": do, **imports.open_folder(import_folder())}
     if do == "seed" and "bundles" in body:
         return {"ok": True, "did": do, **imports.seed(repo, import_folder(), body.get("bundles") or [])}
+    if do == "synchronize":
+        return {"ok": True, "did": do, **imports.synchronize(repo, import_folder(), body.get("ticked") or [])}
     return focus.act(repo, body)
 
 

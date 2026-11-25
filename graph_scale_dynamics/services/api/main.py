@@ -1003,21 +1003,7 @@ def build_handler(db_path: str, blobs_path: str, admin_token: str, port: int,
                 if parts[:2] == ["api", "campaigns"] and len(parts) > 2:
                     self._json(*campaign_manager.read(repo, parts[2:], dashboard_cache_root))
                 elif parts[:2] == ["api", "campaigns"]:
-                    rows = repo.conn.execute(
-                        "SELECT campaign_id,status,created_utc,spec_json FROM campaigns ORDER BY created_utc"
-                    ).fetchall()
-                    payload = []
-                    for row in rows:
-                        spec = json.loads(row["spec_json"])
-                        link = repo.campaign_link(row["campaign_id"])
-                        payload.append({"campaign_id": row["campaign_id"], "status": row["status"],
-                                        "created_utc": row["created_utc"],
-                                        "mode": spec.get("mode", "bounded"),
-                                        "name": spec.get("name"),
-                                        "parent_campaign_id": link and link["parent_campaign_id"],
-                                        "channel": link and link["channel"],
-                                        })
-                    self._json(payload)
+                    self._json(campaign_manager.campaign_list(repo))
                 elif ((parts[:2] == ["api", "candidate"] and len(parts) == 3)
                       or (parts[:2] == ["api", "campaign"] and len(parts) == 5
                           and parts[3] == "candidate")):

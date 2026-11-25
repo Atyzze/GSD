@@ -43,6 +43,14 @@ def test_the_rung_ladder_adds_what_adds_and_weighs_what_does_not():
     assert at["compute_share"] == 0.5 and rows[16384]["compute_share"] == 0.5, "the share read again over the sum"
 
 
+def test_the_merged_ladder_keeps_a_law_s_seeds_and_starts_as_their_range_never_their_mean():
+    blind = [{"n": 64, "completed": 400, "seeds_per_law": 3, "chains_per_seed": 8}]
+    seeded = [{"n": 64, "completed": 1, "seeds_per_law": 9, "chains_per_seed": 8}]
+    at = S.merge_ladder([blind, seeded])[0]
+    assert (at["seeds_per_law"], at["seeds_per_law_most"]) == (3, 9), "3 to 9 seeds, not 3.0149"
+    assert (at["chains_per_seed"], at["chains_per_seed_most"]) == (8, 8)
+
+
 def test_the_overviews_join_the_live_work_and_keep_the_fleet_s_own():
     a = {"campaign_id": "1", "status": "active", "active": [{"candidate_id": "x"}], "proposed": [],
          "rung_distribution": [], "analysis_backlog": 3, "runtime_counts": {"graph_jobs_created": 5},
