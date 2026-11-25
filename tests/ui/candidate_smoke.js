@@ -277,23 +277,34 @@ const SPACE_SCORE = { contract: 'gsd-space-score-1', from_n: 1024, margins: { di
   facts: { zero_temperature: false, beta: 4, given_start: 'the declared answer, family_torus', given_probes_read: true,
            feels_n: { band: 'none', knows_n: false } } };
 
+function tableOf(app) { return nodesWhere(app, (n) => n.tagName === 'TABLE' && hasClass(n, 'tc-all'))[0]; }
+function tableRows(app, quantity) {
+  return nodesWhere(tableOf(app), (n) => n.tagName === 'TR' && n.attributes['data-quantity'] === quantity);
+}
+function tableCell(app, quantity, chain, n) {
+  const table = tableOf(app);
+  const head = nodesWhere(table, (x) => x.tagName === 'TH' && hasClass(x, 'tc-n')).map((x) => String(x.textContent));
+  const row = tableRows(app, quantity).find((r) => chain === null || r.attributes['data-chain'] === chain);
+  if (!row) return null;
+  const values = row.children.filter((c) => c && c.tagName === 'TD' && hasClass(c, 'tc-v'));
+  return values[head.indexOf('N=' + n.toLocaleString('en-US'))] || null;
+}
+
 function spaceScoreChecks(app, score, label, chainCount = 2) {
-  const box = nodesWhere(app, (n) => n.attributes && n.attributes.id === 'spaceScore')[0];
-  if (!box) throw new Error(`${label}: no section of how far the law is from a space`);
-  const text = String(box.textContent);
-  if (!text.includes(`how far from a space: stage ${score.stage} of ${score.of}`)) throw new Error(`${label}: the stage is not said`);
-  const chips = nodesWhere(box, (n) => hasClass(n, 'ss-stage'));
-  if (chips.length !== score.stages.length) throw new Error(`${label}: ${chips.length} stages drawn for ${score.stages.length}`);
-  const passed = chips.filter((c) => hasClass(c, 'ss-passed')).length;
-  if (passed !== score.stage) throw new Error(`${label}: ${passed} stages marked passed at stage ${score.stage}`);
-  if (score.stage < score.of && !hasClass(chips[score.stage], 'ss-failed')) throw new Error(`${label}: the stage not reached is not marked`);
-  if (!score.judged.length) return { box, text };
-  const rows = nodesWhere(box, (n) => n.tagName === 'TR' && n.attributes['data-property']);
-  if (rows.map((r) => r.attributes['data-property']).join(',') !== 'dimension,agree,walk,reach,local,piece') {
-    throw new Error(`${label}: the properties are not every row`);
+  const head = nodesWhere(tableOf(app), (n) => n.tagName === 'TR' && n.attributes['data-group'] === 'space')[0];
+  if (!head) throw new Error(`${label}: no rows of how far the law is from a space`);
+  const text = String(head.textContent);
+  if (!text.includes(`stage ${score.stage} of ${score.of}`)) throw new Error(`${label}: the stage is not said`);
+  for (const st of score.stages) if (!text.includes(st.name)) throw new Error(`${label}: the stage "${st.name}" is not named`);
+  if ((text.match(/✓/g) || []).length !== score.stage) throw new Error(`${label}: the stages passed are not marked`);
+  if (score.stage < score.of && !text.includes('✗ ' + score.stages[score.stage].name)) throw new Error(`${label}: the stage not reached is not marked`);
+  const props = ['dimension', 'agree', 'walk', 'reach', 'local', 'piece'];
+  for (const p of props) {
+    const rows = tableRows(app, 'space_' + p);
+    if (rows.length !== chainCount) throw new Error(`${label}: ${rows.length} rows of ${p} for ${chainCount} chains`);
   }
-  if (rows.some((r) => r.children.length !== 1 + chainCount * score.judged.length)) throw new Error(`${label}: a property row lacks a size's chains`);
-  return { box, text };
+  if (tableRows(app, 'space_chain').length !== chainCount) throw new Error(`${label}: the chains' worst is not a row each`);
+  return { box: tableOf(app), text: String(tableOf(app).textContent) + ' ' + text };
 }
 
 function twoChainsChecks(payload, label) {
@@ -309,8 +320,9 @@ function twoChainsChecks(payload, label) {
     throw new Error(`${label}: the key names ${keyItems.length} chains for ${count}, the chain from the empty graph first, its start on hover`);
   }
   if (text.includes('from the empty graph')) throw new Error(`${label}: a start is spelled out above the charts again`);
-  const cells = nodesWhere(app, (n) => hasClass(n, 'tc-cell'));
-  if (cells.length !== rungs.length) throw new Error(`${label}: ${cells.length} strip cells for ${rungs.length} rungs`);
+  if (nodesWhere(app, (n) => hasClass(n, 'tc-cell') || hasClass(n, 'tc-strip') || hasClass(n, 'ss-stage')).length) {
+    throw new Error(`${label}: the strip or the stage cards are still drawn`);
+  }
   const charts = nodesWhere(app, (n) => hasClass(n, 'tc-chart') && n.attributes['data-quantity'] && !hasClass(n, 'tc-run-across'));
   if (charts.length !== 13) throw new Error(`${label}: ${charts.length} charts across N, not 13`);
   const all = nodesWhere(app, (n) => hasClass(n, 'tc-chart') && n.attributes['data-quantity']);
@@ -323,9 +335,41 @@ function twoChainsChecks(payload, label) {
   }
   const both = drawn.filter((h) => h.includes('var(--start-empty') && h.includes('var(--start-random')).length;
   if (both < 5) throw new Error(`${label}: only ${both} charts overlay the two chains`);
-  const pairs = (every ? every.map((c) => 'tc-' + c.key) : ['tc-empty', 'tc-given'])
-    .map((k) => nodesWhere(app, (n) => n.tagName === 'TD' && hasClass(n, k)).length);
-  if (pairs.some((p) => p !== rungs.length * 11)) throw new Error(`${label}: the table pairs ${pairs} cells`);
+  const table = tableOf(app);
+  if (!table) throw new Error(`${label}: no table of every value`);
+  const heads = nodesWhere(table, (n) => n.tagName === 'TH' && hasClass(n, 'tc-n')).map((n) => String(n.textContent));
+  const sizes = heads.map((h) => Number(h.slice(2).replace(/,/g, '')));
+  if (sizes.some((n, i) => i && n >= sizes[i - 1]) || rungs.some((r) => !sizes.includes(r.n))) {
+    throw new Error(`${label}: the table's columns are ${heads}, not every size largest first`);
+  }
+  if (nodesWhere(table, (n) => n.tagName === 'TD' && n.attributes.title !== undefined).length) throw new Error(`${label}: a cell of the table has a mouse-over`);
+  const keys = every ? every.map((c) => c.key) : ['empty', 'given'];
+  let copied = 0;
+  all.forEach((chart) => {
+    const quantity = chart.attributes['data-quantity'];
+    (chart._tips || []).filter((t) => t.value !== undefined).forEach((t) => {
+      const cell = tableCell(app, quantity, t.chain === undefined ? null : t.chain, t.n);
+      if (!cell || String(cell.textContent) !== t.value) {
+        throw new Error(`${label}: ${quantity} of ${t.chain || 'the law'} at N=${t.n} reads "${t.value}" on its plot and "${cell && cell.textContent}" in the table`);
+      }
+      copied += 1;
+    });
+  });
+  if (copied < rungs.length * 2) throw new Error(`${label}: only ${copied} plotted values are found in the table`);
+  for (const k of ['mean_degree', 'd_s', 'reach', 'einstein']) {
+    if (tableRows(app, k).length !== keys.length) throw new Error(`${label}: ${k} is not a row a start`);
+  }
+  const silent = all.filter((c) => String(c.innerHTML).includes('<svg') && !(c._tips || []).length).map((c) => c.attributes['data-quantity']);
+  if (silent.length) throw new Error(`${label}: the plots of ${silent} draw points no mouse-over answers`);
+  const keptChart = all.find((c) => c.attributes['data-quantity'] === 'kept');
+  if (String(keptChart.innerHTML).includes('<svg') && ((String(keptChart.innerHTML).match(/class="tc-guide"/g) || []).length !== 2
+      || !String(keptChart.innerHTML).includes('a random wiring') || !String(keptChart.innerHTML).includes('its start'))) {
+    throw new Error(`${label}: the kept share is not drawn against a random wiring at 0 and its start at 1`);
+  }
+  const across = nodesWhere(app, (n) => n.attributes && n.attributes['data-quantity'] === 'd_s')[0];
+  if (!(across._tips || []).every((t) => String(t.head).startsWith('from ') && /^N=[\d,]+: /.test(t.lines[0]))) {
+    throw new Error(`${label}: a point's mouse-over does not name its start and its value`);
+  }
   const withCourse = rungs.filter((r) => r.courses > 0);
   const want = (withCourse.length ? withCourse : rungs)[(withCourse.length ? withCourse : rungs).length - 1].n;
   if (!text.includes(`over the run, at N=${want.toLocaleString('en-US')}`)) throw new Error(`${label}: the run panel is not at N=${want}`);
@@ -341,7 +385,6 @@ function twoChainsChecks(payload, label) {
     ['d_s', 'd_V', 'd_B', 'd_w'], ['reach', 'kappa', 'energy_per_node', 'einstein'],
     ['met_from', 'energy_gap', 'checks', 'kept']];
   if (JSON.stringify(rows) !== JSON.stringify(wantRows)) throw new Error(`${label}: the chart rows are ${JSON.stringify(rows)}`);
-  if (cells.some((c) => c.tagName === 'BUTTON' || c.onclick)) throw new Error(`${label}: a strip cell is still a button`);
   if (payload.space_score) spaceScoreChecks(app, payload.space_score, label, count);
   const detail = nodesWhere(app, (n) => n.tagName === 'DETAILS' && hasClass(n, 'tc-detail'))[0];
   if (!detail || detail.attributes.open !== undefined) throw new Error(`${label}: one size's detail is not a closed section`);
@@ -363,9 +406,10 @@ check('both chains are drawn alike: met or apart per size, overlaid across N, pa
   }
   if (!text.includes('local_walk')) throw new Error("the given chain's kernel is not named");
   if (!text.includes('split z ≤ 3') || !text.includes('2 passing checks in a row')) throw new Error('the stopping rule is not stated');
-  for (const want of ['met', 'apart', 'z \u2264 3 from 800 sweeps', 'lower energy: given 3/3']) {
-    if (!text.includes(want)) throw new Error(`the strip lacks "${want}"`);
+  for (const want of ['met', 'apart', 'every check within z \u2264 3 from', '800 sweeps', 'seeds lower in energy than from empty']) {
+    if (!text.includes(want)) throw new Error(`the table's run lacks "${want}"`);
   }
+  if (String(tableCell(app, 'lower_energy', 'given', 4096).textContent) !== '3/3') throw new Error('the seeds lower in energy are not counted');
   const dw = nodesWhere(app, (n) => n.attributes && n.attributes['data-quantity'] === 'd_w')[0];
   if (!String(dw.innerHTML).includes('tc-withheld')) throw new Error('a withheld d_w is not drawn hollow');
   if (!text.includes('◌ 1.727')) throw new Error('a withheld d_w is not listed hollow in the table');
@@ -404,8 +448,7 @@ check('how far the law is from a space: the stages, each property per size and c
   const app = makeElement('div');
   sandbox.renderTwoChains(app, { ...CHAINS_PAYLOAD, space_score: SPACE_SCORE });
   const { box, text } = spaceScoreChecks(app, SPACE_SCORE, 'score');
-  for (const want of ['the given chain, d = 2', 'apart by 28.2 at N=1,024, 37.4 at N=4,096', 'apart by 37.4 at N=4,096, in reach',
-                      'empty (d=3)', 'given (d=2)']) {
+  for (const want of ['apart by 28.2 at N=1,024, 37.4 at N=4,096', 'empty (d=3)', 'given (d=2)']) {
     if (!text.includes(want)) throw new Error(`the score lacks "${want}"`);
   }
   const explained = String(nodesWhere(app, (n) => hasClass(n, 'tc-explain'))[0].textContent);
@@ -415,13 +458,12 @@ check('how far the law is from a space: the stages, each property per size and c
   const within = nodesWhere(box, (n) => n.tagName === 'TD' && hasClass(n, 'ss-within')).length;
   const beyond = nodesWhere(box, (n) => n.tagName === 'TD' && hasClass(n, 'ss-beyond')).length;
   if (within < 10 || beyond < 4) throw new Error(`the score marks ${within} cells within and ${beyond} beyond`);
-  const first = nodesWhere(app, (n) => hasClass(n, 'ss') || hasClass(n, 'tc-strip'));
-  if (!hasClass(first[0], 'tc-strip')) throw new Error('the sizes\u2019 strip is not drawn before the score');
   const cut = JSON.parse(JSON.stringify(SPACE_SCORE));
   cut.stage = 0; cut.full = { passed: false, cut: [{ n: 4096, ends: { budget: 2 } }] }; cut.stages[0].passed = false;
   const app2 = makeElement('div');
   sandbox.renderTwoChains(app2, { ...CHAINS_PAYLOAD, space_score: cut });
   if (!String(app2.textContent).includes('N=4,096: 2 at its budget')) throw new Error('a run ended at its budget is not named');
+  if (tableRows(app2, 'space_apart_given').length !== 1) throw new Error('the chains apart are not a row');
 });
 
 check('a zero-temperature law is read by rest, and a law with no seed says so', () => {
@@ -479,13 +521,16 @@ check('every chain of a law with a list of starts is drawn alike, each by its st
   for (const want of ['from the random start (a random graph at mean degree 6.13)', 'from the honeycomb start']) {
     if (!hovered.some((title) => title.includes(want))) throw new Error(`the key of five chains lacks "${want}" on hover`);
   }
-  for (const want of ['runs this law 5 times, from five starts',
-                      'random met · honeycomb met · cubic apart, frozen · tesseract met', 'at the cap alone: tesseract',
-                      'the honeycomb chain, d = 2', 'empty and tesseract apart']) {
+  for (const want of ['runs this law 5 times, from five starts', 'ended alone at the mean degree cap', 'honeycomb (d=2)', 'empty and tesseract apart']) {
     if (!text.includes(want)) throw new Error(`five chains lack "${want}"`);
   }
-  const strip = nodesWhere(app, (n) => hasClass(n, 'tc-cell'));
-  if (!String(strip[1].textContent).includes('apart, frozen')) throw new Error('the strip does not take the most severe chain');
+  const severe = tableRows(app, 'the_chains')[0].children.filter((c) => c && c.tagName === 'TD' && hasClass(c, 'tc-v')).map((c) => String(c.textContent));
+  if (!severe.includes('apart, frozen')) throw new Error(`the chains' row does not take the most severe chain: ${severe}`);
+  const each = Object.fromEntries(['given', 'honeycomb', 'cubic', 'tesseract'].map((k) => [k, String(tableCell(app, 'reading', k, payload.chains.rungs[1].n).textContent)]));
+  if (each.given !== 'met' || each.honeycomb !== 'met' || each.cubic !== 'apart, frozen' || each.tesseract !== 'met') {
+    throw new Error(`each chain against the one from empty reads ${JSON.stringify(each)}`);
+  }
+  if (String(tableCell(app, 'at_cap', null, 4096).textContent) !== 'tesseract') throw new Error('the chain that ended alone at the cap is not named');
   const checks = String(nodesWhere(app, (n) => n.attributes && n.attributes['data-quantity'] === 'checks')[0].innerHTML);
   if (!checks.includes('N=4,096, seed 2, at 1,600 sweeps: z = 22')) throw new Error('the checks across N do not take the widest chain');
   nodesWhere(app, (n) => hasClass(n, 'tc-size')).find((c) => String(c.textContent).includes('N=4,096')).onclick();
@@ -546,23 +591,27 @@ const STARTS_READING = { contract: 'gsd-starts-reading-2', from_n: 1024, met_wit
 function startsReadingChecks(app, reading, label) {
   const box = nodesWhere(app, (n) => n.attributes && n.attributes.id === 'startsReading')[0];
   if (!box) throw new Error(`${label}: no section of the starts against each other`);
-  const text = String(box.textContent);
-  const said = reading.at_n !== null && reading.at_n !== undefined ? reading.names[reading.class] : 'not read yet';
-  if (!text.includes(`starts against each other: ${said}`)) throw new Error(`${label}: the class is not said`);
   const explain = nodesWhere(app, (n) => hasClass(n, 'tc-explain'))[0];
   if (!String((explain || box).textContent).includes('decides its depth from the last base rung')) {
     throw new Error(`${label}: it does not say what it decides`);
   }
-  const rows = nodesWhere(box, (n) => n.tagName === 'TR' && n.attributes['data-n']);
-  if (rows.length !== reading.rungs.length) throw new Error(`${label}: ${rows.length} sizes drawn for ${reading.rungs.length}`);
-  reading.rungs.forEach((r, i) => {
-    if (rows[i].attributes['data-class'] !== r.class) throw new Error(`${label}: N=${r.n} is not drawn as ${r.class}`);
-    const groups = nodesWhere(rows[i], (n) => hasClass(n, 'fs-group'));
+  if (!reading.rungs.length) return { box, text: String(box.textContent) };
+  const head = nodesWhere(tableOf(app), (n) => n.tagName === 'TR' && n.attributes['data-group'] === 'starts')[0];
+  if (!head) throw new Error(`${label}: the table has no rows of the starts against each other`);
+  const said = reading.at_n !== null && reading.at_n !== undefined ? reading.names[reading.class] : 'not read yet';
+  if (!String(head.textContent).includes('starts against each other') || !String(head.textContent).includes(said)) throw new Error(`${label}: the class is not said`);
+  reading.rungs.forEach((r) => {
+    const cls = tableCell(app, 'starts_class', null, r.n);
+    if (!cls || !hasClass(cls, 'fs-' + r.class)) throw new Error(`${label}: N=${r.n} is not drawn as ${r.class}`);
+    const groups = nodesWhere(tableCell(app, 'starts_groups', null, r.n), (n) => hasClass(n, 'fs-group'));
     if (groups.length !== r.groups.length) throw new Error(`${label}: N=${r.n} draws ${groups.length} groups for ${r.groups.length}`);
-    const fates = nodesWhere(rows[i], (n) => hasClass(n, 'fs-fate'));
-    if (fates.length !== Object.values(r.fates).filter((f) => f.fate).length) throw new Error(`${label}: N=${r.n} lacks a lattice's fate`);
+    Object.entries(r.fates).filter(([, f]) => f.fate).forEach(([name, f]) => {
+      const key = name === 'random' ? 'given' : name;
+      const cell = tableCell(app, 'fate', key, r.n);
+      if (!cell || !hasClass(cell, 'fs-' + f.fate)) throw new Error(`${label}: N=${r.n} lacks the ${name} lattice's fate`);
+    });
   });
-  return { box, text };
+  return { box, text: String(box.textContent) + ' ' + String(tableOf(app).textContent) };
 }
 
 check('the eight starts: each its own colour, in the page\u2019s order, the charts first and the explanation last', () => {
@@ -580,19 +629,19 @@ check('the eight starts: each its own colour, in the page\u2019s order, the char
   const inks = items.map((n) => (/var\(--start-[a-z-]+/.exec(String(n.children[0].attributes.style)) || [''])[0]);
   if (new Set(inks).size !== 8 || inks.some((ink) => !ink)) throw new Error(`two starts share a colour: ${inks}`);
   wanted.forEach((name, i) => { if (inks[i] !== `var(--start-${name}`) throw new Error(`${name} is drawn in ${inks[i]}`); });
-  const heads = nodesWhere(app, (n) => n.tagName === 'TH' && hasClass(n, 'tc-sub')).slice(0, 8).map((n) => String(n.textContent));
-  if (heads.join(',') !== wanted.join(',')) throw new Error(`the table\u2019s columns are ${heads}`);
+  const heads = tableRows(app, 'mean_degree').map((r) => String(r.children.find((c) => c && hasClass(c, 'tc-start')).textContent));
+  if (heads.join(',') !== wanted.join(',')) throw new Error(`the table\u2019s rows are ${heads}`);
   const text = String(app.textContent);
   const at = (needle) => { const i = text.indexOf(needle); if (i < 0) throw new Error(`the page lacks "${needle}"`); return i; };
-  const order = ['the eight chains', 'the graph counted', 'the four probes', 'geometry and energy', 'the run', 'how the chains ended, size by size',
-                 'how far from a space', 'starts against each other', 'explanation: how the chains are run'];
+  const order = ['the eight chains', 'the graph counted', 'the four probes', 'geometry and energy', 'the run', 'every value the plots above draw',
+                 'starts against each other', 'how far from a space', 'explanation: how the chains are run'];
   order.slice(1).forEach((needle, i) => { if (at(order[i]) > at(needle)) throw new Error(`"${needle}" comes before "${order[i]}"`); });
   const explain = nodesWhere(app, (n) => hasClass(n, 'tc-explain'));
   if (explain.length !== 1 || explain[0].tagName !== 'DETAILS' || explain[0].attributes.open !== undefined) {
     throw new Error('the explanation is one folded block at the end');
   }
   const said = String(explain[0].textContent);
-  for (const want of ['Every seed runs this law 8 times', 'Each property is a distance in tolerances', 'every two chains are compared']) {
+  for (const want of ['Every seed runs this law 8 times', 'each property is a distance in tolerances', 'every two chains are compared']) {
     if (!said.includes(want)) throw new Error(`the explanation lost "${want}"`);
   }
   if (at('the graph counted') > text.indexOf('Every seed runs this law')) throw new Error('the explanation stands above the charts');
@@ -602,29 +651,31 @@ check('every start read against the others: the class, the groups, each lattice 
   const app = makeElement('div');
   sandbox.renderTwoChains(app, { ...fiveChains(CHAINS_PAYLOAD), space_score: FIVE_SCORE, starts_reading: STARTS_READING });
   const { box, text } = startsReadingChecks(app, STARTS_READING, 'the starts');
-  for (const want of ["a lattice falls into another's shape", 'stretched (kept 2.51)', 'changed (kept 1.59)', 'holds (kept 1.00)',
-                      'melted (kept 0.14)', 'partly (kept 0.61)', 'cubic against its start', 'are merging (groups 4 → 1); met: ', 'empty and random',
+  for (const want of ["a lattice falls into another's shape", 'stretched', 'changed', 'holds', 'melted', 'partly', 'against its own start',
+                      'its start’s mean degree', 'are merging (groups 4 → 1); met: ', 'empty and random',
                       'every start ends in one shape at N=4,096; at N=16,384 only the chain from empty was read',
                       'what the starts did',
                       'lowest in energy a node at N=4,096: empty, random, honeycomb, cubic, tesseract', 'apart at N=4,096']) {
     if (!text.includes(want)) throw new Error(`the starts against each other lack "${want}"`);
   }
-  const chips = nodesWhere(box, (n) => hasClass(n, 'fs-chain'));
+  const chips = nodesWhere(tableOf(app), (n) => hasClass(n, 'fs-chain'));
   if (!chips.some((c) => String(c.attributes.style).includes('var(--start-tesseract')) || !chips.some((c) => String(c.attributes.style).includes('var(--start-empty'))) {
     throw new Error('a chain in a group is not drawn in its own colour');
   }
   const cells = nodesWhere(box, (n) => n.tagName === 'TD' && (hasClass(n, 'ss-within') || hasClass(n, 'ss-beyond')));
   if (cells.length !== 20) throw new Error(`the distances at the top draw ${cells.length} cells, not every two of five chains both ways`);
-  const fate = nodesWhere(box, (n) => n.tagName === 'TD' && hasClass(n, 'fs-stretched'))[0];
-  if (!String(fate.attributes.title).includes('mean degree 6.000 against its start’s 8.000')) throw new Error('a fate does not say its degree');
-  const order = nodesWhere(app, (n) => hasClass(n, 'ss') || hasClass(n, 'fs') || hasClass(n, 'tc-strip')).map((n) => n.attributes.class.split(' ')[0]);
-  if (order.join(',') !== 'tc-strip,ss,fs') throw new Error(`the sections are in the order ${order}`);
+  const stretched = nodesWhere(tableOf(app), (n) => n.tagName === 'TD' && hasClass(n, 'fs-stretched'))[0];
+  const row = nodesWhere(tableOf(app), (n) => n.tagName === 'TR' && n.children.includes(stretched))[0];
+  const degree = tableCell(app, 'start_degree', row.attributes['data-chain'], STARTS_READING.rungs.find((r) => Object.values(r.fates).some((f) => f.fate === 'stretched')).n);
+  if (!degree || String(degree.textContent) !== '8.000') throw new Error('a fate does not say its start’s degree');
+  const keptRows = tableRows(app, 'kept');
+  if (!keptRows.length || !String(tableOf(app).textContent).includes('2.508')) throw new Error('the kept share is not a row of the table');
   const none = makeElement('div');
   sandbox.renderTwoChains(none, { ...fiveChains(CHAINS_PAYLOAD), starts_reading: { ...STARTS_READING, rungs: [], class: 'not_read', references: false,
     at_n: null, top_n: null, top_dense: false } });
   const noneText = String(nodesWhere(none, (n) => n.attributes && n.attributes.id === 'startsReading')[0].textContent);
   if (!noneText.includes('no size of N=1,024 or more read yet') || !noneText.includes('no lattice’s fate is read')
-      || !noneText.includes('against each other: not read yet')) {
+      || !noneText.includes('against each other: no size')) {
     throw new Error('a law not yet read from 1,024 does not say so');
   }
 });
@@ -635,12 +686,8 @@ if (process.env.GSD_TWO_CHAINS_PAYLOAD) {
     const { app } = twoChainsChecks(payload, 'reader');
     if (payload.starts_reading) startsReadingChecks(app, payload.starts_reading, 'reader');
     const lattices = ((payload.starts_reading || {}).chains || []).filter((c) => c.lattice);
-    const heads = nodesWhere(app, (n) => n.tagName === 'TH' && String(n.attributes.title || '').includes('against its own start'));
-    if (payload.starts_reading && payload.starts_reading.rungs.length && heads.length !== lattices.length) {
-      throw new Error(`${heads.length} lattice columns drawn for ${lattices.length} lattice starts`);
-    }
-    if (heads.some((h) => String(h.textContent).includes('against its start') !== (lattices.length <= 3))) {
-      throw new Error('more than three lattices: a column is headed by its start alone, the rest in its mouse-over');
+    if (payload.starts_reading && payload.starts_reading.rungs.length && tableRows(app, 'fate').length !== lattices.length) {
+      throw new Error(`${tableRows(app, 'fate').length} lattice rows drawn for ${lattices.length} lattice starts`);
     }
     if (process.env.GSD_CHAINS_EXPECTED) {
       const wanted = process.env.GSD_CHAINS_EXPECTED.split(',');
@@ -807,7 +854,13 @@ check('every chain’s curves are drawn alike: one chart a probe, one line a cha
     }
   });
   const note = String(nodesWhere(host, (n) => hasClass(n, 'cv-note'))[0].textContent);
-  if (!note.includes('drawn: empty, random, honeycomb, cubic;') || !note.includes('3 seeds')) throw new Error(`the note reads: ${note}`);
+  if (!note.includes('drawn: empty, random, honeycomb, cubic') || !note.includes('3 seeds')) throw new Error(`the note reads: ${note}`);
+  charts.forEach((chart) => {
+    const tips = chart._tips || [];
+    if (!tips.length || !tips.some((t) => t.head === 'honeycomb, seed 2') || !tips.every((t) => t.lines[0] === 'N=4,096')) {
+      throw new Error(`${chart.attributes['data-kind']}: a point's mouse-over does not name its start, seed and size`);
+    }
+  });
   const refusing = curvesPayload(4096, CURVE_CHAINS);
   refusing.seeds.forEach((s) => { s.chains.cubic.box_covering = { x: [], y: [], refused: 'NO_SCALING_WINDOW' };
     Object.values(s.chains).forEach((c) => { c.walk_displacement = { x: [], y: [], refused: 'WALK_SATURATED' }; }); });
@@ -1084,50 +1137,57 @@ async function pageChecks() {
   const root = await draw();
   const tables = nodesWhere(root, (n) => n.tagName === 'TABLE' && hasClass(n, 'rung-table'));
   if (tables.length !== 1) throw new Error(`${tables.length} rung tables on the page`);
-  const rows = nodesWhere(tables[0], (n) => n.tagName === 'TR' && hasClass(n, 'rung-chain'));
-  if (rows.length !== sizes.length * names.length) throw new Error(`${rows.length} rung rows for ${sizes.length} sizes of ${names.length} chains`);
-  const widths = new Set();
-  sizes.forEach((n, i) => {
-    const own = rows.slice(i * names.length, (i + 1) * names.length);
-    const lead = own[0].children[0];
-    if (!hasClass(own[0], 'ec-first') || String(lead.textContent) !== `N=${n}` || lead.attributes.rowspan !== String(names.length)) {
-      throw new Error(`the rows of N=${n} do not open with the size over every chain`);
-    }
-    const chainCells = own.map((r) => r.children.filter((c) => hasClass(c, 'ec-chain')));
-    if (chainCells.some((c) => c.length !== 1)) throw new Error(`a row of N=${n} does not name one chain`);
-    if (chainCells.map((c) => String(c[0].textContent)).join(',') !== names.join(',')) {
-      throw new Error(`the chains of N=${n} are ${chainCells.map((c) => String(c[0].textContent))}`);
-    }
-    own.forEach((r) => {
-      const at = r.children.findIndex((c) => hasClass(c, 'ec-chain'));
-      const read = r.children.slice(at + 1).filter((c) => !c.attributes.rowspan);
-      widths.add(read.length);
-    });
-  });
-  if (widths.size !== 1 || !widths.has(7)) throw new Error(`the chains are not read in the same seven cells a row, their own log-diameter flags last: ${[...widths]}`);
-  const top = rows.slice((sizes.length - 1) * names.length);
-  if (!String(top[1].textContent).includes('5.500 ± 0.010')) throw new Error(`the given chain’s own mean degree is not on its row: ${top[1].textContent}`);
-  if (!String(top[0].textContent).includes('4.000 ± 0.010')) throw new Error('the mean degree of the chain from empty is not on its row');
-  if (!String(top[3].textContent).includes('◌ 1.727')) throw new Error('a withheld probe of a further chain is not drawn hollow on its row');
+  const rows = nodesWhere(tables[0], (n) => n.tagName === 'TR' && hasClass(n, 'rung-row'));
+  if (rows.map((r) => String(r.children[0].textContent)).join(',') !== sizes.map((n) => `N=${n}`).join(',')) {
+    throw new Error(`the rungs table is not one row a size: ${rows.map((r) => String(r.children[0].textContent))}`);
+  }
+  if (nodesWhere(tables[0], (n) => hasClass(n, 'ec-chain')).length) throw new Error('the rungs table still repeats every chain’s reading');
+  const top_n = sizes[sizes.length - 1];
+  if (String(tableCell(root, 'mean_degree', 'given', top_n).textContent) !== '5.500 ± 0.010') throw new Error('the given chain’s own mean degree is not in the table');
+  if (String(tableCell(root, 'mean_degree', 'empty', top_n).textContent) !== '4.000 ± 0.010') throw new Error('the mean degree of the chain from empty is not in the table');
+  if (!String(tableOf(root).textContent).includes('◌ 1.727')) throw new Error('a withheld probe of a further chain is not drawn hollow in the table');
   const dynamics = nodesWhere(root, (n) => n.tagName === 'TABLE' && hasClass(n, 'law-dynamics'));
   if (dynamics.length !== 1 || !String(dynamics[0].textContent).includes('locality')) throw new Error('the law page has no dynamics table');
   const firstH2 = nodesWhere(root, (n) => n.tagName === 'H2')[0];
   const order = nodesWhere(root, (n) => n === dynamics[0] || n === firstH2);
   if (order[0] !== dynamics[0]) throw new Error('the dynamics table is not above the readings');
   const heads = nodesWhere(root, (n) => n.tagName === 'H2').map((n) => String(n.textContent));
-  const wanted = ['finite-size flow, every start', 'the score', 'the rungs', 'each chain’s graph', 'each chain’s curves', 'what happened'];
+  const wanted = ['finite-size flow, every start', 'the score', 'the rungs', 'each chain’s graph', 'what happened'];
   const places = wanted.map((w) => heads.findIndex((h) => h.startsWith(w)));
   if (places.some((p) => p < 0) || places.some((p, i) => i && p < places[i - 1])) throw new Error(`the sections are ${heads.join(' | ')}`);
   const chainsAt = heads.findIndex((h) => h.includes('five chains'));
   if (!(chainsAt >= 0 && chainsAt < places[0])) throw new Error('the chains are not the first section of the readings');
-  const top_n = sizes[sizes.length - 1];
-  if (!asked.includes(`/curves-data/1/${id}/${top_n}`)) throw new Error(`the curves of the largest size were not asked for: ${asked}`);
-  const buttons = nodesWhere(root, (n) => hasClass(n, 'cv-size'));
-  if (buttons.length !== sizes.length) throw new Error(`${buttons.length} size buttons for the curves of ${sizes.length} sizes`);
-  if (nodesWhere(root, (n) => hasClass(n, 'cv-cell')).length !== CURVE_KINDS.length) throw new Error('the curves are not drawn on the page');
-  await buttons[0].onclick();
-  await settle();
-  if (!asked.includes(`/curves-data/1/${id}/${sizes[0]}`)) throw new Error('choosing a size does not ask for its curves');
+  sizes.forEach((n) => { if (!asked.includes(`/curves-data/1/${id}/${n}`)) throw new Error(`the curves of N=${n} were not asked for: ${asked}`); });
+  if (nodesWhere(root, (n) => hasClass(n, 'cv-size')).length) throw new Error('the curves still wait behind a size button');
+  const curveRows = nodesWhere(root, (n) => hasClass(n, 'cv-n')).map((n) => String(n.textContent));
+  if (curveRows.join(',') !== sizes.slice().sort((a, b) => a - b).map((n) => 'N=' + n.toLocaleString('en-US')).join(',')) {
+    throw new Error(`the curves are not a row a size, the smallest first: ${curveRows}`);
+  }
+  if (nodesWhere(root, (n) => hasClass(n, 'cv-cell')).length !== CURVE_KINDS.length * sizes.length) throw new Error('the curves are not drawn four a size');
+  const h2 = nodesWhere(root, (n) => n.tagName === 'H2');
+  if (h2.map((n) => n.attributes['data-letter']).join('') !== 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.slice(0, h2.length)) {
+    throw new Error(`the sections are not lettered A to Z in order: ${h2.map((n) => n.attributes['data-letter'])}`);
+  }
+  const letter = h2[chainsAt].attributes['data-letter'];
+  const section = nodesWhere(root, (n) => n.attributes && n.attributes.id === 'twoChains')[0];
+  const plots = nodesWhere(section, (n) => hasClass(n, 'tc-chart'));
+  const grid = plots.filter((n) => n.attributes['data-quantity']);
+  if (grid.map((n) => n.attributes['data-num']).join(',') !== Array.from({ length: 16 }, (_, i) => letter + (i + 1)).join(',')) {
+    throw new Error(`the grid is not numbered ${letter}1 to ${letter}16: ${grid.map((n) => n.attributes['data-num'])}`);
+  }
+  const badge = nodesWhere(grid[0], (n) => hasClass(n, 'pg-num'))[0];
+  if (!badge || String(badge.textContent) !== letter + '1' || !String(badge.attributes.title || '').includes('mean degree')) {
+    throw new Error('a plot does not carry its number, with what it draws on the number');
+  }
+  const tableHead = nodesWhere(tableOf(root), (n) => n.tagName === 'TH')[0];
+  if (tableHead.attributes['data-num'] !== letter + '17') throw new Error(`the table is not numbered after the grid: ${tableHead.attributes['data-num']}`);
+  const curveCells = plots.filter((n) => hasClass(n, 'cv-cell'));
+  if (curveCells[0].attributes['data-num'] !== letter + '18' || curveCells[curveCells.length - 1].attributes['data-num'] !== letter + (17 + curveCells.length)) {
+    throw new Error('the curves are not numbered after the table, row by row');
+  }
+  if (!curveCells.every((c) => (c._tips || []).length && c._tips.every((t) => /, seed \d+$/.test(t.head) && /^N=[\d,]+$/.test(t.lines[0])))) {
+    throw new Error('a curve’s mouse-over does not name its start, its seed and its size');
+  }
   structureStatus = 404;
   const bare = await draw();
   const bareRows = nodesWhere(bare, (n) => n.tagName === 'TR' && hasClass(n, 'rung-chain'));
