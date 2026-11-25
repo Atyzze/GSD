@@ -335,6 +335,20 @@ made; a time without a Z is the operator's local time.
   the strip, the stage cards and the starts' table folded into it, the rungs' table one row a size, the curves a row a
   size smallest first, the sections lettered and the plots numbered; the two run plots differ (the chains apart, each
   chain at rest) and both stay; the kept share drawn against 0 and 1, read as a dimension ratio at large N.
+* **Plain words behind every plot, and a line between two readings names both** (2026-11-25 14:17: "each of the 4x4
+  plots/charts deserve their mouse over description, or also made visible when tapped/clicked and hidden again on
+  another click, a 'speach bubble' box that opens as extra info to explain what that plot shows"; 14:20: "a small
+  paragraph an eli5 as compressed as possible"; 14:22: "the box is arguably currently not explaining what negative and
+  above 1 values are to be interpreted ... mousing over a line in the color of a start should tell you which start it
+  is and between which two data points you're hovering ... but also when clicked in between"): 868.
+* **Study 176 tonight; Home's four boxes as one** (2026-11-25 14:23: "what build will start us study 176? ... ideally
+  we have that ready before tonight so we can let it run over night"; 14:24: "the zoned/focused laws should be
+  included in the fleet ladder, and the fleet ladder should also dynamically update according to the filters set in
+  the middle so that we can see how different the statistics look per phenotype"; 14:29: "might be time to zoom out and
+  rethink the overal design of the fleet ladder and macroscopic landscape ... the top100 ... all 4 boxes/elements ...
+  between cycles of feature expansion and complexity consolidation ... everything can always be reabased/reanchored
+  around the main table"): 176 needs no build (its design stands: the 40 held laws are 40 rings, not run on; its own
+  ledger confirms its gates); 869 Home's fleet ladder, landscape, Top 100 and filters read as one, from the table.
 * **The engines in order: Rust to its limit, then C, then assembly, each timed on the same seed** (2026-11-25 11:10:
   "first improve the existing rust one, once we found the limits of the language, see if we can do any new neat
   tricks with c instead, and after, same last exercise in ASM, each time comparing how fast we can iterate through the

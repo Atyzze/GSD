@@ -1,4 +1,4 @@
-# Handoff: the state of GSD at build 867
+# Handoff: the state of GSD at build 868
 
 What is true now, for a context that has just opened this archive. Each fact has one home; the last section says
 where. **Think from the data, not from this page**: where the data and a document disagree, the data wins and the
@@ -54,15 +54,20 @@ a quantity and a start, the largest size first (`tcTable`), and takes in the str
 space and the starts' table; the rungs' table is one row a size once every chain is read; each chain's curves are a row
 of four a size, the smallest first. Pull request #13 (866) was opened at 13:52.
 
-**Open threads at 867**, each with its home:
+**What 868 changed** (14:17 to 14:22; `docs/build_notes/BUILD868_NOTES.md`): plain words behind every plot's title
+(`TC_ELI5`, `tcInfo`), a line between two readings naming both and a click pinning the card (`tcPick`, `tcSegments`).
+174's bundle of 13:04Z: the 40 held laws were not run on (no `run_on` decision) and are all rings; the focus on
+C8-G2983 since 11:59Z, its 47 neighbours at 4,096, none scored yet; the depth campaign's five, one at 65,536.
 
-* Pull requests: 864 (#11) and 865 (#12) merged; 866 (#13) open; 867 built on 866.
+**Open threads at 868**, each with its home:
+
+* Pull requests: 864 to 866 (#11 to #13) merged; 867 (#14) open; 868 built on 867.
 * Study 174 runs on: the 40 run on from the Map page, the focus started there; 175 to be paused.
 * Study 176, designed at 865, waits on two questions (`docs/ROADMAP.md`): keep the standing controls (recommended,
   as a tick); start after the 40 and the first regions on 174 (recommended) or now. Then `main.py run --study 176` in
   a folder of its own and "seed from a bundle" on its Map page.
 * E8 (`docs/ROADMAP.md`, "Unscheduled"): the paper gives no law to run; a reply to its authors drafted.
-* Next builds: 868 the depth seeker to the memory limit; the pages' build numbers in words; the engine's diet,
+* Next builds: 869 Home's four boxes as one; 870 the depth seeker to the memory limit; the pages' build numbers in words; the engine's diet,
   timed on 176's seeds; then C and assembly (`docs/agent/NEXT_BUILD.md`). 174's standing controls read "fail" on
   Home: the next bundle names the law (`known_answers` in `study.json`).
 
