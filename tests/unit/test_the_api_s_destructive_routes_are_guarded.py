@@ -162,3 +162,19 @@ def test_every_campaign_action_the_page_can_send_needs_the_admin_token(server, m
     assert reached == [], "without the admin capability no campaign action reaches the manager"
     status, body = _post(server, "/api/campaigns/manage", {"action": "pause", "campaign_id": "7"}, admin=True)
     assert status == 200 and body == {"ok": True} and len(reached) == 1
+
+
+def test_the_focus_is_steered_by_an_admin_only(server, monkeypatch):
+    from graph_scale_dynamics.services.api import focus_route
+    seen = []
+
+    def post(handler, db_path, parts, max_bytes):
+        seen.append(parts)
+        return handler._json({"ok": True}, 200)
+
+    monkeypatch.setattr(focus_route, "post", post)
+    assert readings_route.handles(["api", "focus"])
+    status, _ = _post(server, "/api/focus", {"do": "stop"}, admin=False)
+    assert status == 403 and seen == [], "without the admin capability nothing reaches the focus"
+    status, body = _post(server, "/api/focus", {"do": "stop"}, admin=True)
+    assert status == 200 and body == {"ok": True} and seen == [["api", "focus"]]

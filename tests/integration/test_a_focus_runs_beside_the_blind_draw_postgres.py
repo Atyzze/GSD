@@ -81,3 +81,53 @@ def test_a_focus_takes_one_law_of_study_174_into_its_neighbours_its_seeds_and_it
             focus.begin(repo, "176", tree=ROOT)
     finally:
         repo.close()
+
+
+def test_the_map_page_starts_steers_stops_and_starts_the_focus_again(isolated_postgres_schema):
+    from graph_scale_dynamics.db.repo import Repo, init_db
+    from graph_scale_dynamics.operations import focus
+    from graph_scale_dynamics.operations import study_design as SD
+    from graph_scale_dynamics.operations import study_map
+    from graph_scale_dynamics.scheduling import work_groups
+    from graph_scale_dynamics.services.api import focus_route
+    init_db(isolated_postgres_schema.dsn)
+    repo = Repo(isolated_postgres_schema.dsn)
+    try:
+        SD.start(repo, SD.design_for(ROOT, "174"), json.loads(json.dumps(SURVEY)), tree=ROOT, log=lambda *_a: None)
+        batches = sorted(str(c["campaign_id"]) for c in repo.all_campaigns())
+        holder = study_map._insert(repo, batches[2], H12)
+        empty = focus_route.answer(repo)
+        assert empty["focus"] is None and empty["studies"] == [{"study": "174", "campaigns": len(batches)}]
+        assert empty["defaults"]["radii"][0] == [1e-9, 4]
+        with pytest.raises(ValueError, match="no focus yet"):
+            focus.act(repo, {"do": "stop"})
+
+        assert focus.act(repo, {"do": "start"}) == {"ok": True, "did": "start"}
+        assert focus.load(repo)["current"] is None, "no law scores yet: nothing to focus until one does"
+        focus.act(repo, {"do": "law", "law": holder[:12]})
+        made = focus.load(repo)["campaigns"]
+        assert focus.load(repo)["current"]["law"] == holder
+
+        focus.act(repo, {"do": "settings", "settings": {"radii": [[0.1, 2]], "contenders": 1}})
+        focus.act(repo, {"do": "split", "split": "A=1,N=1,D=2"})
+        assert work_groups.shares(repo) == {"A": 0.25, "N": 0.25, "D": 0.5}
+
+        focus.act(repo, {"do": "stop"})
+        paused = {str(c["campaign_id"]): c.get("workers_target") for c in repo.all_campaigns()}
+        assert {paused[cid] for cid in made.values()} == {0} and focus.step(repo, force=True) is None
+        assert {paused[cid] for cid in batches} == {None}, "the blind draw goes on"
+        focus.act(repo, {"do": "start"})
+        resumed = {str(c["campaign_id"]): c.get("workers_target") for c in repo.all_campaigns()}
+        assert {resumed[cid] for cid in made.values()} == {None} and not focus.load(repo)["stopped"]
+
+        focus.act(repo, {"do": "skip", "law": holder[:12]})
+        state = focus.load(repo)
+        assert state["current"] is None and holder in state["skipped"]
+        page = focus_route.answer(repo)["focus"]
+        assert page["next_settings"]["radii"] == [[0.1, 2]] and page["settings"]["radii"][0] == [1e-9, 4]
+        assert page["skipped"][holder] and page["done"][-1]["why"] == "skipped on the operator's word"
+        focus.act(repo, {"do": "law", "law": holder[:12]})
+        state = focus.load(repo)
+        assert holder not in state["skipped"] and state["current"]["radii"] == [[0.1, 2]], "the settings, from this law"
+    finally:
+        repo.close()

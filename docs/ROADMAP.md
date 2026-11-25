@@ -89,10 +89,11 @@ Open, from 861 (`docs/build_notes/BUILD861_NOTES.md`):
   of the 165 it holds, 53 are lines or rings, 12 read d 1.3 to 2.5 and 100 read nothing; the fact gates,
   `starts_alike` at 4,096 and `nothing_read` at 16,384 lost nothing a let-through found. Recommended for the next
   study: `starts_alike` at 16,384 to act only where the starts' shared end reads no dimension, the rest as in 174.
-  Recommended now, in 174: let 65 of the 165 held at 16,384 run on (about 300 core-hours), to measure what the gate
-  withholds before the next study is designed on it.
+  Answered 2026-11-25 09:42, option 3 of four: the 65 that read something (the 53 lines or rings and the 12 at d 1.3
+  to 2.5) run on in 174, about 300 core-hours, with a "run on" action the decisions respect (863); the next study's
+  gates are set on what they show.
 * **Which law first**: recommended the folder's order (C1-G6940, then the other rings at 19, then C3-G7363 at 18);
-  `main.py focus --law` takes another at any time, 175's H12 (aba936bffa) the one to tell seeds from digits on.
+  the Map page's "focus now" takes another at any time, 175's H12 (aba936bffa) the one to tell seeds from digits on.
 
 Open, none waiting:
 
@@ -119,7 +120,7 @@ Open, none waiting:
 **After 859** (the operator, 2026-11-24 17:51 to 18:32 and 2026-11-25 00:25 to 00:47, `docs/HISTORY.md`), each its
 own build, in this order; a planned build takes its number when it is made:
 
-**After 860** (the operator, 2026-11-25 07:33 to 08:10, `docs/HISTORY.md`), each its own build, in this order:
+**After 860** (the operator, 2026-11-25 07:33 to 09:02, `docs/HISTORY.md`), each its own build, in this order:
 
 1. **861, made**: the focus (`docs/build_notes/BUILD861_NOTES.md`): the study's best laws one at a time inside its own
    folder and beside its blind draw (groups N and D, nothing to switch), each law's rings from 1e-9 to 0.4, its seeds
@@ -127,20 +128,42 @@ own build, in this order; a planned build takes its number when it is made:
    then rings outward or boundaries halved, a scoring law inside a mapped region passed over; the reports late, not
    offline, while a bundle is made; a reading one seed of three gave drawn faint (174's d_w outliers near 4 to 8.6);
    the science hash over the table's cells.
-2. **862, the Map page and a GG number for every mapped region** (08:10: "Calls for a dedicated page, titled phase
-   map? Or just map rather... Cause that's what we're really doing, exploring the map, initially blind, afterwards,
-   walk its borders and find potentially overlapping regions"): a page of its own beside Home, read from the focus's
-   state and 176's map: the law in focus and its rings filling in, its seeds and its verdict, the depth climbing, every
-   mapped region named GG#1, GG#2 and so on in the order it was mapped, with each parameter's range so far and its
-   boundaries, and where two regions touch or overlap (two regions of one kind whose ranges meet become one, the
-   lower number kept). The bundle carries the regions with their numbers.
-3. **863, the outliers' queue** (08:04: "any outlier should automatically be added to the list of potential zones to
+2. **862, made: the Map page and a GG number for every mapped region** (08:10 and 08:55;
+   `docs/build_notes/BUILD862_NOTES.md`): the focus started, steered (the split, a law now, skip, put back, the next
+   law's settings), stopped and started again from the page behind the admin link, and shown there: the law in focus
+   and its rings filling in, its seeds and its sensitivity, the depth, the queue, the ended laws, and every mapped
+   region as GG#n with each axis's range (a term a law lacks at 0), a region of the same kind that overlaps joining the
+   lower number, regions of other kinds that overlap said to touch.
+3. **863, the 65 run on in 174** (09:42, option 3): a "run on" action the decisions respect for a law a gate held,
+   the 65 named in a committed reading file from 174's newest bundle (the 53 lines or rings and the 12 at d 1.3 to
+   2.5 that `starts_alike` holds at 16,384), and their reading when they end: how many score, by class, against the
+   23 let through at random. Then the outliers' queue below joins the next study's focus.
+4. **The outliers' queue** (08:04: "any outlier should automatically be added to the list of potential zones to
    investigate its area"; 08:07: "But only if all the top scorers are already done being mapped"): once every scoring
    law is mapped or inside a mapped region, the focus takes the study's outliers, strongest first: a probe's reading
    far outside its bulk (a criterion committed first; in 174, d_w over about 3.5 and d_V over about 3, where 99% read
    under 2.87 and 2.24), its own seeds and tiny rings telling a lucky strike (one seed, not repeated) from a region
    (its neighbours repeat it), a new region given the next GG number and a later outlier inside it joining it.
-4. **The study after 174, its gates revisited and seeded from 174** (07:33: "when we modify that, then its also time
+5. **Study 176, designed again, the three groups from its first law** (09:42: "the triple mapper in place from the
+   start, technically a simple hierarchy of 3, the blind mass guesses, the first filters, and the absolute top end
+   pusher for higher N til memory limit hit"): a new design file (176's committed one never ran), its gates set on what
+   the 65 show (recommended: `starts_alike` at 16,384 acting only where the starts' shared end reads no dimension),
+   its groups A (the blind draw), N (the focus's neighbours and seeds, from the best law the moment one scores) and D
+   (the best laws up the ladder to the memory limit) in the design, so the folder starts all three at once.
+6. **The engine's diet** (08:35: "can we not make our engines more memory efficient? Or would that sacrifice speed?"),
+   profiled first (the profile in "Unscheduled"): by the code, a seed at 65,536 nodes and mean degree 29 holds every
+   finished chain's edges as Python tuples (about 120 bytes an edge, eight chains, about 0.9 of the 1.46 GiB
+   C1-G6940's seed peaked at) and saves them as JSON (19 s); the Rust graph holds about 40 to 150 bytes an edge (both
+   adjacency lists, an edge list, a hash index of edges, and per-term caches as hash maps). Finished chains as packed
+   int32 arrays saved in binary (about 15 times less there, the save under a second, which clears 1,048,576's stop
+   grace), the caches as flat arrays by edge slot (fewer bytes and no hashing), and edges sampled through the degree
+   tree the engine already keeps: about 25 bytes an edge, a seed about 20 times smaller, no slower. The floor for that
+   graph is about 4 MB a chain in 17-bit indices; below about 16 bytes an edge costs speed. Every chain the same to
+   the bit before and after (`tools/outputs_of_a_law.py`), both engines. Proven on 176 itself (09:42: "replay the
+   seeds, results should remain identical, but simply grown faster with less memory"): its seeds run again from
+   scratch on the new engine, every chain and reading the same to the bit (`tools/two_runs.py`), the time and memory
+   each took compared; D's ceiling then rises by itself as memory admission allows.
+7. **The study after 174, its gates revisited and seeded from 174** (now item 5) (07:33: "when we modify that, then its also time
    for a new study, but we can still seed it with the best-scorers and more specifically their phenotype map of
    behaviors so that we dont lose that and already have regions to start probing/mapping straight away"): the gates
    chosen on the question above, the study started from 174's last bundle whose science hash is the folder's (what
@@ -154,7 +177,7 @@ are taken up above:
    refreshes fall behind (00:25: "I'm still seeing that too often"), the frozen and still lattices back on the
    landscape (00:40), the Top 100 in one order (00:45), every law of a bundle whole (00:40: "generalize it so we can
    bootstrap new studies with that seed-data set").
-2. **A study seeded from an earlier bundle** (now item 4 above), the bundle a seed set others can join from: any bundle whose
+2. **A study seeded from an earlier bundle** (now items 5 and 7 above), the bundle a seed set others can join from: any bundle whose
    science hash (`study.json`, `science`) is the folder's, its laws taken whole, its map's regions and known kinds
    loaded, so B starts where the last one stopped and A's grid can lean toward the regions least explored (the lean
    drawn and recorded, never chosen by hand) (`docs/agent/NEXT_BUILD.md`).

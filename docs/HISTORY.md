@@ -227,7 +227,32 @@ made; a time without a Z is the operator's local time.
   create a new GG, G-group for it GG#391 or whatever number"; 08:07: "But only if all the top scorers are already done
   being mapped, because ultimately, score matters as to what to prioritize exploration compute on ... Then the next
   best thing to explore is all the outliers/edges their neighborhood, even if bad/unscored"): 861 passes over a
-  scoring law inside a mapped region; 862, the outliers' queue and the GG numbers.
+  scoring law inside a mapped region; 862, the GG numbers; 863, the outliers' queue.
+* **A Map page to watch and steer the exploration** (2026-11-25 08:10: "we probably need a new box or page added to
+  show the neighbor hood fleet data to keep some visual oversight over how our map is going and being currently
+  explored, see the parameter ranges grow for every GG.... Calls for a dedicated page, titled phase map? Or just map
+  rather"; 08:55: "Can't we leave the main pipeline as is and instead add the set focus group functionality to the map
+  page so it can be adjusted and observed from there as the data set grows?"; 09:02: "still didn't want it added to
+  the main, but I understand why you did now"): 862, the page starts, steers, stops and shows the focus; the
+  controller keeps only the minute's step that makes it run by itself, and `main.py` gains nothing.
+* **A term at coupling 0 is the term absent** (2026-11-25 08:29: "we basically just need to show the list of terms
+  which coupling strength is not 0. And then technically every other term is in there, but is not being computed"):
+  862's regions count a term a law lacks at 0 on its axis; the lines that cross between laws of other terms are the
+  map's term axis, later.
+* **The 65 laws `starts_alike` holds at 16,384 that read something run on in 174, and a fresh study after it**
+  (2026-11-25 09:42: "yes let's go with the recommendation, option 3. We can afford the compute, and modifying the
+  gates calls for a fresh study base. We've learned plenty from 174 and 175 to warrant 176 with the triple mapper in
+  place from the start, technically a simple hierarchy of 3, the blind mass guesses, the first filters, and the
+  absolute top end pusher for higher N til memory limit hit"): 863, the "run on" action and the 65; then study 176
+  designed again on the gates the 65 bear out, its groups A, N and D in its design from its first law.
+* **A faster engine proven by replay** (2026-11-25 09:42: "once it's started. We optimize the engine, replay the
+  seeds, results should remain identical, but simply grown faster with less memory needed Thus unlocking higher rungs
+  automatically, we can then objectively proof more efficient engine code in the difference between studies that can
+  be replayed from scratch and compares in execution down to the 10th decimal"): the engine's diet after 176 starts,
+  its seeds replayed on it, every chain the same to the bit.
+* **A leaner engine** (2026-11-25 08:35: "can we not make our engines more memory efficient? Or would that sacrifice
+  speed? And how close are we to the theoretical minimum memory needed"): planned after 863, profiled first
+  (`docs/ROADMAP.md`).
 * A context ends in a build the next can start from with nothing but the source (2026-11-24 23:00: "create 1 more
   hand-over built so the next context can make a fresh start from source alone"): 859, made on a clone of `main` and
   brought up from it alone (`docs/agent/ENVIRONMENT.md`, section 10).
