@@ -250,6 +250,16 @@ made; a time without a Z is the operator's local time.
   automatically, we can then objectively proof more efficient engine code in the difference between studies that can
   be replayed from scratch and compares in execution down to the 10th decimal"): the engine's diet after 176 starts,
   its seeds replayed on it, every chain the same to the bit.
+* **The law page as a 4x4 grid in two styles** (2026-11-25 09:53: "why not make it a perfect beautiful 4x4 grid? That
+  means we need 2 more plots ... I think 2 types of charts is enough ... make sure that it justifies it"; 10:03: "agree
+  with all recommendations so far"): 864, the Einstein check and the share of its start each chain keeps added, the
+  graph counted on the first row and the four probes on the second.
+* **Interpretations in the code checked against today's code** (2026-11-25 10:00: "a lot of reference to old builds, i
+  think these interpretation should be rechecked for validity vs main code base line and consolidate/folded in if
+  important enough to Remember"): 863 counted them, 864 says the pages' and reports' in plain words, a decision's reason
+  changes at study 176.
+* **A handover build when a context has run long** (2026-11-25 09:14 and 10:01: "the next one that is stil aiming to
+  function as a handover for a new clean conversation to rebase on"): 863.
 * **A leaner engine** (2026-11-25 08:35: "can we not make our engines more memory efficient? Or would that sacrifice
   speed? And how close are we to the theoretical minimum memory needed"): planned after 863, profiled first
   (`docs/ROADMAP.md`).
