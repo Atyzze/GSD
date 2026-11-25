@@ -1,33 +1,21 @@
 {
  "contract": "gsd-study-design-1",
  "study": "176",
- "name": "study 176, one study in two groups: A draws laws blind on as 174 did, ten new batches of 1,000; B maps the ten best scorers not yet known, each coupling moved alone and lines halved toward the nearest law of another kind; each group half the work slots by default",
+ "name": "study 176, the map and the blind draw in one folder: A draws laws blind as 174 did, ten new batches of 1,000; the focus maps the study's best laws one at a time from its first scoring law, its neighbours and seeds in group N and its depth in group D; and a seed from any bundle of the same science puts that bundle's scoring laws and GG regions into the study before or while it runs",
  "question": "The operator's question (2026-10-13): can simple local rules make a graph grow a real dimension, like space; which keep one they are given; and can the null map predict a law before it runs? Study 169 is the first study on the final probes, the installed table and the deterministic fleet (800 to 806), run on 813, its data the first clean data (the operator, 2026-11-19 21:11: \"This way, we immediately have clean data from our latest codebase\").",
  "decided": {
-  "why_now": "the operator, 2026-11-24 16:33: \"both searches will have to merge into 1, the top 10 scores being auto-explored/mapped automatically for every best scorer\"; 17:37: one workload of groups A (the blind draw), B (the map of the best) and C (the cores the system keeps); 17:39: \"the simply 50-50 default split in two, much easier to argue for and is bias neutral\"",
-  "groups": "each campaign carries its group (study_design.group); the folder's work_groups flag gives A and B half each by default (`python3 main.py workload --split A=1,B=1`), each group with work given slots toward its share of the simulations running, a group with nothing queued leaving its slots to the other until it has work again; the system's CPUs (`main.py workload --system-cpus`) are none until the operator names them",
-  "blind": "A is 174's design on ten new search seeds: the same grid, starts, ladder, budgets and gates, a batch of 1,000 laws each",
-  "map": "B starts from the ten best laws of 174's bundle of 2026-11-24 14:22Z and 175's of 08:35Z together under the score in force, gsd-law-score-9 (`study_176_first_ten.json`, written by `tools/map_first_ten.py`): each is run again, each of its real parameters moved alone by a tenth up and down, and a line toward its nearest law of the same terms whose kind at 4,096 differs, at least 0.001 away, is halved four times where the kind flips. A region is known when every point of it is decided and its lines are done; it then records its kind, the size from which that kind is called on every point that reaches it, and its boundaries, and leaves the ten; the next best law of the study not in a region comes in, read again at every controller pass at most once a minute. B's gates are 175's: starts_alike and nothing_read only record, so that no point is stopped on a judgment its holder passed",
-  "open": "asked of the operator in the notes: whether a variant moves a coupling by a tenth or by 175's 0.001, and whether four halvings are enough",
-  "seeds": "the eleven search seeds drawn with Python's secrets.randbits(63) at 2026-11-24T17:00:58Z; the map campaign draws nothing"
+  "why_now": "the operator, 2026-11-25 09:42: \"We've learned plenty from 174 and 175 to warrant 176 with the triple mapper in place from the start, technically a simple hierarchy of 3, the blind mass guesses, the first filters, and the absolute top end pusher for higher N til memory limit hit\"; 11:06: \"lets design study 176 that we seed with the existing top scoring ggs+overall map space so far, and then again same 10 batches of 1k laws each\"",
+  "blind": "A is 174's design on ten new search seeds: the same grid, starts, ladder, budgets and gates, a batch of 1,000 laws each; its seeds are the ten blind ones 176 drew at 2026-11-24T17:00:58Z, never run",
+  "focus": "the focus (operations/focus.py, resources/readings/focus_plan_1.json) is begun by the study's start: its three campaigns N (neighbours), S (seeds, group N) and D (depth) made at once, the first law taken the moment one scores, nothing to press",
+  "seed": "the seeded campaign starts empty and draws nothing; the Map page's \"seed from a bundle\" (POST /api/focus, do seed, operations/study_seed.py) puts into it every law a bundle of the same science scores above zero, its spec whole, and joins the bundle's GG regions to the focus's with their numbers, kinds and ranges; a second seed appends. Its gates record starts_alike and nothing_read only, as the focus's neighbours do, so no seeded law is stopped on a judgment its first run passed",
+  "groups": "A 2, N 1, D 1, the focus's plan; a split the operator set is never reset",
+  "gates": "174's, unless the 40 laws run on in 174 (864) say otherwise before 176 starts: the design is then written again, since a criterion is never revised after its run started",
+  "seeds": "the eleven search seeds 176 drew with Python's secrets.randbits(63) at 2026-11-24T17:00:58Z: the first ten for A, the eleventh for the seeded campaign, which draws nothing"
  },
  "axes": {
   "zero_temperature": "drawn",
   "dense_cap": 32.0
  },
- "search_seeds": [
-  828176122159149529,
-  1074110591206384262,
-  3349674298784595374,
-  8064636464268266991,
-  8797760624000474488,
-  3737464569165965375,
-  2496540246858385447,
-  9167546200733623495,
-  5358309555045039903,
-  5953887356850769380,
-  418380065375734150
- ],
  "ladder": {
   "base": [
    64,
@@ -215,10 +203,28 @@
   "lattice_chains_meet": false
  },
  "finds": true,
+ "terms_left_out": [
+  "ollivier_curvature"
+ ],
+ "search_seeds": [
+  828176122159149529,
+  1074110591206384262,
+  3349674298784595374,
+  8064636464268266991,
+  8797760624000474488,
+  3737464569165965375,
+  2496540246858385447,
+  9167546200733623495,
+  5358309555045039903,
+  5953887356850769380,
+  418380065375734150
+ ],
  "groups": {
-  "A": 0.5,
-  "B": 0.5
+  "A": 2,
+  "N": 1,
+  "D": 1
  },
+ "focus": true,
  "campaigns": [
   {
    "label": "laws free of N, drawn blind, batch 1 of 10",
@@ -401,9 +407,9 @@
    }
   },
   {
-   "label": "the ten best laws not yet known, mapped",
-   "kind": "map",
-   "group": "B",
+   "label": "laws seeded from earlier bundles of the same science",
+   "kind": "seed",
+   "group": "N",
    "engine": {
     "gate_from": [],
     "gate_shares": [
@@ -494,16 +500,5 @@
     ]
    }
   }
- ],
- "map": {
-  "source": "graph_scale_dynamics/resources/readings/study_176_first_ten.json",
-  "top": 10,
-  "step": 0.1,
-  "halvings": 4,
-  "laws": 125,
-  "laws_sha256": "4f7dddaffa54d2d5e58c7eb0dab2bfefb424f93975a28f9efc923a9ac3d2d4c4"
- },
- "terms_left_out": [
-  "ollivier_curvature"
  ]
 }

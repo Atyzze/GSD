@@ -27,6 +27,8 @@ _PROBED = ("AND NOT EXISTS(SELECT 1 FROM jobs j WHERE j.campaign_id=c.campaign_i
 _MARK = ("(SELECT COUNT(*)::text || ':' || COALESCE(MAX(j.updated_utc),'') FROM jobs j WHERE "
          "j.campaign_id=c.campaign_id AND j.candidate_id=c.candidate_id AND j.status NOT IN ('queued','leased'))")
 LATEST = "engine_decisions_latest"
+SEEDED = "seed"
+OUTSIDE_THE_LEDGER = ("focus", SEEDED)
 REDECIDE_MARK = "decide again:"
 LAW_IDLE_SQL = ("NOT EXISTS(SELECT 1 FROM jobs j WHERE j.campaign_id=c.campaign_id AND j.candidate_id=c.candidate_id "
                 "AND j.status IN ('queued','leased')) "
@@ -100,7 +102,8 @@ def _study_place(repo, campaign_id: str) -> tuple | None:
             spec = (repo.campaign(str(campaign_id)) or {}).get("spec") or {}
             design = spec.get("study_design")
             theirs = Policy.from_spec(spec)
-            _STUDY_SPECS[key] = (None if not isinstance(design, dict) or design.get("study") is None else
+            _STUDY_SPECS[key] = (None if not isinstance(design, dict) or design.get("study") is None
+                                 or design.get("kind") == SEEDED else
                                  (str(design["study"]), int(design.get("campaign") or 0), theirs.let_through_rule,
                                   policy_fingerprint(theirs)))
         except (TypeError, ValueError, AttributeError, KeyError):
@@ -145,7 +148,7 @@ def let_through_campaigns(conn) -> frozenset:
     for row in conn.execute("SELECT campaign_id, spec_json FROM campaigns").fetchall():
         try:
             spec = json.loads(row["spec_json"] or "{}")
-            if isinstance(spec, dict) and (spec.get("study_design") or {}).get("kind") == "focus":
+            if isinstance(spec, dict) and (spec.get("study_design") or {}).get("kind") in OUTSIDE_THE_LEDGER:
                 continue
             if Policy.from_spec(spec).let_through_rule:
                 out.add(str(row["campaign_id"]))

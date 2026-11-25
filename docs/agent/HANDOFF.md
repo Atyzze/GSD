@@ -1,4 +1,4 @@
-# Handoff: the state of GSD at build 864
+# Handoff: the state of GSD at build 865
 
 What is true now, for a context that has just opened this archive. Each fact has one home; the last section says
 where. **Think from the data, not from this page**: where the data and a document disagree, the data wins and the
@@ -33,16 +33,24 @@ one size with the Einstein check and the share of its start each chain keeps. Th
 against zoned laws (865); a shared effort only once one node has proven the zone mapping; the engines in order, Rust,
 then C, then assembly, each timed on the same seed.
 
-**Open threads at 864**, each with its home:
+**What 865 changed** (the operator, 2026-11-25 09:42 and 11:06; `docs/build_notes/BUILD865_NOTES.md`): study 176
+designed again (`study_176_design.json` and its criterion, replacing 856's, which never ran): A's ten blind batches of
+1,000 on 176's seeds, the focus begun by the study's own start, and an empty seeded campaign the Map page's "seed from
+a bundle" fills from any bundle of the same science (`operations/study_seed.py`: its scoring laws run again, its GG
+regions joined with their numbers, kinds and ranges, a newer bundle of the same study widening them). Home's "The
+study now" is one bar, blind against zoned, the standing controls a tick (`study-split`).
 
-* Pull requests: 861 (#8), 862 (#9) and 863 (#10) open; 864 made from 863's archive in a session that could not reach
-  the repository, its pull request the operator's to open.
+**Open threads at 865**, each with its home:
+
+* Pull requests: 861 (#8), 862 (#9) and 863 (#10) open; 864 and 865 made from the archives in a session that could not
+  reach the repository, their pull requests the operator's to open.
 * Study 174 runs on: the 40 run on from the Map page, the focus started there; 175 to be paused.
-* Study 176 (865): seeded from any bundle of the same science, its blind batches and focus from its first law; two
-  questions in `docs/ROADMAP.md` (keep the standing controls; start now or after the 40 and the first regions).
+* Study 176, designed at 865, waits on two questions (`docs/ROADMAP.md`): keep the standing controls (recommended,
+  as a tick); start after the 40 and the first regions on 174 (recommended) or now. Then `main.py run --study 176` in
+  a folder of its own and "seed from a bundle" on its Map page.
 * E8 (`docs/ROADMAP.md`, "Unscheduled"): the paper gives no law to run; a reply to its authors drafted.
-* Next builds: 865 study 176 and Home's bar; the pages' build numbers in words; 866 the engine's diet
-  (`docs/agent/NEXT_BUILD.md`).
+* Next builds: 866 the pages' build numbers in words; 867 the engine's diet, timed on 176's seeds; then C and
+  assembly (`docs/agent/NEXT_BUILD.md`).
 
 **A correction the next builds carry** (860's reading of 174's bundle of 2026-11-24 23:19Z): the score in force counts
 a seed only where its chain stopped changing, and the folder scores 46 laws on that bundle. The counts below ("83
@@ -110,9 +118,8 @@ sometimes with the operator's words typed above it; a context that opens either 
 
 ## What is live
 
-* **Study 176** is designed again in 865 (seeded from a bundle, its blind batches and focus from its first law); its
-  design as committed at 856 (ten blind batches and the map in group B, `operations/study_map.py`) never ran, and is
-  not to be started.
+* **Study 176** is designed again at 865 (`study_176_design.json`: A's ten blind batches, the focus from its start, a
+  seeded campaign filled from bundles by the Map page); 856's design, never run, is replaced. Not started.
 * **Study 174** in a folder of its own, 16 workers when 175 is stopped; its bundle of 2026-11-24 14:22Z is the
   baseline, its newest 2026-11-25 09:59Z (on 863): all ten batches at their law budget, 150 laws read to the top of the
   ladder and waiting to be extended, 193 held by `starts_alike` at 16,384, of which 40 run on with 864, and C11, the

@@ -1,4 +1,4 @@
-# Where we are, at build 864
+# Where we are, at build 865
 
 The whole project on one page, in plain words; the detail is in `docs/agent/HANDOFF.md`.
 
@@ -39,7 +39,7 @@ Study 174 (its bundle of 2026-11-25 09:59Z read at 864: every batch at its law b
 blind draw once you start it, and 40 held laws to run on; 175 to be paused. Since
 2026-11-24 16:34 the project rests on two of their bundles and the calibration table, nothing older: 174's of 14:22Z
 (the blind draw, 8,131 laws read) and 175's of 08:35Z (595 variants around 174's 35 settled laws).
-`docs/paper/GSD_PAPER.md` is the working draft that rests on them alone. Study 176 is designed again in 865.
+`docs/paper/GSD_PAPER.md` is the working draft that rests on them alone. Study 176 is designed (865), not started.
 
 ## What they show
 
@@ -56,7 +56,7 @@ are one seed of three at small sizes, on graphs in pieces or trees the next size
 68% to 81% of the way there from empty, worse as N grows. Until a known law grows its geometry from empty, "nothing
 grows from empty" cannot be told from "nothing can get there under these moves".
 
-## What 800 to 864 changed
+## What 800 to 865 changed
 
 The probes locked and your table installed (800 to 805); no clock decides and the evidence judged again on the final
 code (806 to 843); 844 the stable build with study 174; 845 to 853 Home's batches, study 175, the score of 848, the
@@ -64,19 +64,19 @@ catalogue; 854 the baseline and the paper's draft; 855 `CLAUDE.md` and the ledge
 every bundle; 857 Home's filters; 858 and 859 the handovers. 860: the orange banner only when Home falls behind, the
 lattice strips back, the Top 100 in one order, every law of a bundle whole. 861: the focus, the best laws one at a
 time beside the blind draw, their neighbours, seeds and depth. 862: the Map page steers it, and names regions GG#n.
-863: a handover. 864: 40 held laws run on, no law done, the law page a 4x4 grid.
+863: a handover. 864: 40 held laws run on, no law done, the law page a 4x4 grid. 865: study 176 seeded from bundles,
+Home's top one bar, blind against zoned, a law's type and GG region where DONE stood.
 
 ## What comes next
 
-865 study 176 seeded from the map so far (any bundle of the same science: its scoring laws and GG regions) beside
-ten blind batches of 1,000, the focus from its first law, Home's top one bar of blind against zoned laws; then the
-engines in order, Rust, C, assembly, each proven by replay and timed on the same seed; a shared effort only after
-one node has proven the mapping (`docs/ROADMAP.md`). Each takes its number when it is made.
+866 the pages' build numbers in words; 867 the engine's diet, then the engines in order, Rust, C, assembly, each
+proven by replaying 176's seeds and timed on the same seed; a shared effort only after one node has proven the
+mapping, a node's bundle seeding another's study as 865's seed already does (`docs/ROADMAP.md`).
 
 ## The decision in front of you
 
-1. **Apply 864 to 174, run the 40 on and start the focus there; pause 175** (recommended). Then 176: keep its
-   standing controls off Home's top (recommended), and start it after the 40 and the first regions (recommended).
+1. **Apply 865 to 174, run the 40 on and start the focus there; pause 175** (recommended). Then 176: keep its
+   standing controls as a tick (recommended), start it after the 40 and the first regions (recommended), and seed it.
 2. **Whether a known law must grow its geometry from empty first** (recommended, before more compute from empty):
    parallel tempering is the cheapest remedy, an engine change of about a build, its known answers read again after.
 3. **Where the archive of the older data goes public** (the consolidation), so a reader can see nothing was dropped selectively.

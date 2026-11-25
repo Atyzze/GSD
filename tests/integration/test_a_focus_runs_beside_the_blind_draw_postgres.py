@@ -57,7 +57,11 @@ def test_a_focus_takes_one_law_of_study_174_into_its_neighbours_its_seeds_and_it
         current = state["current"]
         radii = {}
         for point in current["points"].values():
+            if point["how"] == focus.KNOCKOUT:
+                continue
             radii[point["radius"]] = radii.get(point["radius"], 0) + 1
+        assert sorted(p["term"] for p in current["points"].values() if p["how"] == focus.KNOCKOUT) == [
+            "degree_cube_sum", "degree_neighbor_gradient", "square_edge_overlap"], "each term switched off once"
         assert radii == {1e-9: 4, 1e-6: 4, 1e-3: 4, 0.01: 8, 0.1: 8, 0.2: 8, 0.4: 8}
         assert laws["N"] == set(current["points"]) and holder not in laws["N"]
         assert current["stage"] == focus.NEIGHBOURHOOD and current["of"] == batches[2]

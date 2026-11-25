@@ -213,3 +213,24 @@ def test_a_neighbour_once_read_is_not_read_again(monkeypatch):
     first = len(asked)
     focus.advance(None, state)
     assert first == len(state["current"]["points"]) and len(asked) - first == 4, "only the four still undecided"
+
+
+def test_each_term_switched_off_says_whether_it_bears_the_law_s_kind_and_the_law_waits_for_them(monkeypatch):
+    world = World(monkeypatch)
+    state = world.state()
+    off, kept = focus.knockouts(state, SPEC)
+    assert [p["term"] for p in off] == ["degree_cube_sum", "square_edge_overlap"] and not kept
+    assert all(len(p["spec"]["terms"]) == 1 for p in off)
+    focus._add(None, state, state["current"], off)
+    world.read(state, lambda law, point: KIND if point["how"] != focus.KNOCKOUT else None)
+    focus.advance(None, state)
+    assert state["current"]["stage"] == focus.NEIGHBOURHOOD and state["current"]["core"] is None, (
+        "a law is not mapped while a term switched off is unread")
+    world.verdicts.update({law: (OTHER if point["term"] == "square_edge_overlap" else KIND)
+                           for law, point in state["current"]["points"].items() if point["how"] == focus.KNOCKOUT})
+    focus.advance(None, state)
+    terms = state["current"]["terms"]
+    assert terms["square_edge_overlap"]["load_bearing"] is True and terms["degree_cube_sum"]["load_bearing"] is False
+    assert state["current"]["core"] == ["square_edge_overlap"]
+    alone = dict(SPEC, terms=SPEC["terms"][:1])
+    assert focus.knockouts(state, alone) == ([], [{"term": "degree_cube_sum", "why": "no term left"}])

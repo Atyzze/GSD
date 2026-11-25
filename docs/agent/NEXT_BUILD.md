@@ -1,61 +1,43 @@
-# The next build is 865
+# The next build is 866
 
 This file names the next build and says how to make it. `tests/unit/test_next_build_is_named.py` parses its first line,
 which must read exactly `# The next build is <N>`, one above `BUILD_NUMBER`.
 
-## Where to begin: 865 designs study 176 again, seeded from the map so far, and gives Home's top one bar
+## Where to begin: 866 says the pages' build numbers in words; 867 is the engine's diet
 
 **Starting from nothing but the repository** (the operator, 2026-11-24 23:00): clone `main` and bring it up by
 `docs/agent/ENVIRONMENT.md`, section 10, "From the repository". Then `docs/WHERE_WE_ARE.md`, `docs/agent/HANDOFF.md`
-and this page, in that order, and `CLAUDE.md`'s rules for a shared repository. 864 (`docs/build_notes/BUILD864_NOTES.md`)
-ran the held laws on, said every law's status in words and drew the law page as a 4x4 grid.
+and this page, in that order, and `CLAUDE.md`'s rules for a shared repository. 864 ran the held laws on and said every
+law's status in words; 865 designed study 176 again, seeded from bundles, and gave Home's top one bar
+(`docs/build_notes/BUILD864_NOTES.md`, `BUILD865_NOTES.md`).
 
-**What 865 makes** (the operator, 2026-11-25 09:42 and 11:06, `docs/HISTORY.md`):
+**What 866 makes** (the operator, 2026-11-25 10:00, `docs/HISTORY.md`): the pages' and the reports' build numbers in
+words. Every citation of a build in what the pages and the reports say to a reader (863's notes: about 90 in the
+code, 27 in the pages; `grep -rnoE "\((5|6|7|8)[0-9]{2}(, [^)]{0,30})?\)"` over `graph_scale_dynamics/resources/ui`,
+`reporting/` and `operations/`) checked against today's code and said plainly, anything worth keeping folded into
+`docs/HISTORY.md`. A decision's reason (`decisions/gates.py`, `decisions/starts_rule.py`) keeps its words: they are
+recorded with every decision and 174's replay compares them; they change only with a study that starts on new gates.
 
-1. **Study 176 designed again** (a new `study_176_design.json`; the one committed at 856 never ran): group A, ten
-   blind batches of 1,000 on 174's grid, starts, ladder, budgets and gates, on the ten blind seeds 176 drew at
-   2026-11-24T17:00:58Z; the focus (`operations/focus.py`, groups N and D) begun by the study's start, so it maps from
-   its first scoring law with nothing to press; no map campaign (B). Its gates are 174's unless the 40 run on say
-   otherwise before it starts (the operator's question in `docs/ROADMAP.md`).
-2. **A seed from any bundle of the same science, appended** (11:06: "seed with the existing top scoring ggs+overall map
-   space so far"; `docs/ROADMAP.md`, item 2 after 859): the Map page's "seed from a bundle" takes a path on the host (a
-   `.tar.zst` or its folder), refused unless the bundle's science hash (`study.json`, `science`) is the folder's. From
-   `tables/laws.ndjson.gz` every law the bundle's folder scores above zero (`law_score`) is put, by its spec whole, into
-   a seeded campaign of the study (hand policy, group N, outside the let-through ledger), run again here and queued
-   first for the focus by its score; from `focus.json`, every GG region with its number, kind, ranges and holder laws
-   (their specs from the laws table) joins the focus's regions, numbers kept, so a scoring law inside one is passed
-   over and a new region takes the next number. A second seed appends; a law or a region already known is skipped by
-   id and number. The seed's record (bundle name, built time, science hash, counts) goes into the focus's state and
-   the bundle's `focus.json`.
-3. **The map as its own control** (11:06: "our own map has already become its own control"): every law of group A
-   that lands inside a known region on every axis (`focus_regions.overlap` of the point) predicts that region's kind;
-   when its reading at 16,384 arrives it agrees or not, counted per region (`focus.reading`) and on the bar.
-4. **Home's top, one bar** (11:06: "1 bar of random laws tried vs zoned-hand-picked region-laws % and counters
-   instead of needing even care about batches or controls"): "The study now" becomes one bar: blind (group A) against
-   zoned (seeded, neighbours, seeds, depth), each its share of the laws drawn, its laws, graphs, scoring laws and work
-   running, and the map's predictions held; the standing controls a tick on the bar (known answers: as read), not a
-   card; the batch to read is chosen in the filter panel (its `batch` select), the panels reading the whole study by
-   default.
+**Then 867, the engine's diet, Rust first** (08:35, 09:42 and 11:10; `docs/ROADMAP.md`, item 6): profiled first, every
+chain the same to the bit before and after (`tools/outputs_of_a_law.py`, both engines), proven by replaying 176's
+seeds from scratch and timed on them, so each engine is compared by how fast it moves through the same search; then
+C, then x86-64 assembly, each the same way (`docs/agent/APPEND_ONLY_PLAN.md`). A shared effort only after one node has
+proven the mapping (11:08).
 
-**Where it will press**: `main.py` at 129,976 bytes of its 130,000: the seed goes through `POST /api/focus` (`do:
-seed`), never a new command. The focus's queue is `best()` over the study's own campaigns, so the seeded campaign is
-one of them (kind `seed`, not `focus`). A bundle is large (174's 176 MB): read only `study.json`, the laws table and
-`focus.json`, streamed.
+**Where it will press**: `main.py` at 129,976 bytes of its 130,000 and `build_handler` at its 1,160 lines (864 swapped
+a line, adding none): a new route goes through `services/api/readings_route.py` or `focus_route.py`.
 
-**Acceptance** of 865: the design committed with its seeds and groups; a Postgres test that seeds a folder from a
-bundle folder twice (the second appends nothing it knew), refuses another science hash, queues the seeded laws first
-and passes over a scoring law inside a seeded region; the bar's smoke (blind against zoned from the overview's rows,
-no batch card); no score, kind or decision of 174 moves (`tools/replay_bundle.py`, `tools/outputs_of_a_law.py
---against` 864's record); the full lane green.
+**Acceptance** of 866: no score, kind or decision moves (`tools/outputs_of_a_law.py --against` 865's record, written
+first; `tools/replay_bundle.py` on 174's newest bundle); every page's words checked by the tests that draw them; the
+full lane green.
 
-**Then** (`docs/ROADMAP.md`, "Planned builds"): the pages' and reports' build numbers in words (10:00); 866, the
-engine's diet, profiled first and proven by replaying 176's seeds to the bit, timed on the same seeds; C and assembly
-after it (11:10); the reader that scores as the folder does, the fleet ladder under the filters, the map's term axis,
-the outliers' queue, the depth past 262,144, the consolidation. A planned build takes its number when it is made.
+**Waiting on the operator** (`docs/ROADMAP.md`, "Questions for the operator"): 176's standing controls (keep, as a
+tick, recommended) and when 176 starts (after the 40 and the first regions on 174, recommended).
 
 **When study 176 sends its first bundle**: `tools/catalogue_reading.py` judges `small_world_criterion_1.json` (W1,
-W2), and the map's regions are read from `map.json` against `study_176_criterion.json` (P1, P2 judged; P3 to P5
-reported); 174's or 175's next bundle judges the small-world criterion too.
+W2), and `study_176_criterion.json` is read on it (P1 by `tools/perturb_reading.py`'s run-again line on the seeded
+laws against their source bundle, P2 from `focus.json`'s seed records; P3 to P5 reported); 174's or 175's next bundle
+judges the small-world criterion too.
 
 ## Reading a study's bundle
 

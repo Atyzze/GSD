@@ -19,8 +19,11 @@ NEIGHBOURHOOD, BOUNDARIES, MAPPED, UNCONFIRMED, INVALIDATED = (
     "neighbourhood", "boundaries", "mapped", "unconfirmed", "invalidated")
 ENDED = (MAPPED, UNCONFIRMED, INVALIDATED)
 ROBUST, ITS_SEEDS, ITS_DIGITS = "robust", "its seeds", "its exact parameters"
-DOS = ("start", "law", "skip", "back", "stop", "settings", "split", "run_on")
+DOS = ("start", "law", "skip", "back", "stop", "settings", "split", "run_on", "seed")
 QUEUE_LENGTH = 100
+KNOCKOUT = "term off"
+MAPPED_PER_TYPE = 3
+KNOWN_FROM_THE_TABLE = 1
 INTERVAL_SECONDS = 60.0
 _LAST: dict[str, float] = {}
 
@@ -203,6 +206,39 @@ def neighbours(state: dict, law: str, spec: dict, radii: list) -> tuple[list[dic
     return out, refused
 
 
+def knockouts(state: dict, spec: dict) -> tuple[list[dict], list[dict]]:
+    from graph_scale_dynamics.dsl import dsl
+    terms = list((spec or {}).get("terms") or [])
+    out, refused = [], []
+    for place, term in enumerate(terms):
+        name = R.term_name(term)
+        child = dict(spec, terms=[t for i, t in enumerate(terms) if i != place])
+        problems = dsl.validate(child, complexity_budget=int(state["complexity_budget"]),
+                                operator_whitelist=state["whitelist"]) if child["terms"] else ["no term left"]
+        if problems:
+            refused.append({"term": name, "why": "; ".join(str(p) for p in problems)[:200]})
+            continue
+        out.append({"how": KNOCKOUT, "term": name, "spec": dsl.normalize(child)})
+    return out, refused
+
+
+def terms_read(current: dict, verdicts: dict) -> dict[str, dict]:
+    out = {}
+    for law, point in current["points"].items():
+        if point.get("how") != KNOCKOUT:
+            continue
+        seen = verdicts.get(law)
+        out[point["term"]] = {"law": law, "kind": seen,
+                              "load_bearing": None if seen is None else seen != current["kind"]}
+    return out
+
+
+def core_of(found: dict[str, dict]) -> list[str] | None:
+    if not found or any(row["load_bearing"] is None for row in found.values()):
+        return None
+    return sorted(term for term, row in found.items() if row["load_bearing"])
+
+
 def _add(repo, state: dict, current: dict, points: list[dict]) -> int:
     for point in points:
         law = _insert(repo, state["campaigns"][NEIGHBOURS], point["spec"])
@@ -260,20 +296,56 @@ def inside(repo, state: dict, entry: dict) -> dict | None:
     return None
 
 
+def type_of(repo, state: dict, campaign_id: str, law: str) -> str | None:
+    from graph_scale_dynamics.observability import law_status, two_chains
+    from graph_scale_dynamics.operations import study_map
+    kept = state.setdefault("types", {})
+    if law in kept:
+        return kept[law]
+    if not callable(getattr(repo, "measurements", None)):
+        return None
+    read_n = int(state["plan"]["neighbourhood"]["read_n"])
+    rows, starts = _rows(repo, campaign_id, law)
+    found = law_status.phenotype(two_chains.chains_per_rung(rows, starts), at_n=read_n)
+    if study_map.decided(repo, campaign_id, law) and found.get("at_n") is not None:
+        kept[law] = found.get("type")
+    return found.get("type")
+
+
+def known_types(state: dict, also=()) -> dict[str, int]:
+    from graph_scale_dynamics.observability import law_status
+    known: dict[str, int] = {}
+    for entry in state.get("done") or []:
+        if entry.get("stage") == MAPPED and entry.get("type"):
+            known[entry["type"]] = known.get(entry["type"], 0) + 1
+    for found in {t for t in also if t} | set((state.get("types") or {}).values()) | set(known):
+        if law_status.known_from_the_table(found):
+            known[found] = known.get(found, 0) + KNOWN_FROM_THE_TABLE
+    return known
+
+
 def _chosen(repo, state: dict, law: str | None, ranked: list | None = None) -> dict | None:
     ranked = best(repo, state["study"]) if ranked is None else ranked
     if not law:
         seen = ({entry["law"] for entry in state["done"]} | set(state.setdefault("inside", {}))
                 | set(state.get("skipped") or {}))
+        free = []
         for entry in ranked:
             if entry["candidate_id"] in seen:
                 continue
             found = inside(repo, state, entry)
             if found is None:
-                return entry
+                free.append(entry)
+                continue
             state["inside"][entry["candidate_id"]] = dict(found, label=label(repo, entry["campaign"],
                                                                                 entry["candidate_id"]))
-        return None
+        if not free:
+            return None
+        few = int(state["plan"]["next"].get("mapped_per_type", MAPPED_PER_TYPE))
+        types = [type_of(repo, state, e["campaign"], e["candidate_id"]) for e in free]
+        known = known_types(state, types)
+        order = [(min(few, known.get(found or "", 0)), place) for place, found in enumerate(types)]
+        return free[min(order)[1]]
     found = next((e for e in ranked if e["candidate_id"].startswith(str(law)) or e.get("label") == str(law)), None)
     if found is not None:
         return found
@@ -305,6 +377,9 @@ def start_next(repo, state: dict, law: str | None = None, chosen: dict | None = 
     found, refused = neighbours(state, holder, spec, radii)
     current["refused"] = refused
     _add(repo, state, current, found)
+    off, kept = knockouts(state, spec)
+    current["terms_kept"] = kept
+    _add(repo, state, current, off)
     contenders(repo, state, ranked)
     state["events"].append({"at": utc_now(), "began": current["label"], "points": len(current["points"])})
     return current
@@ -482,7 +557,8 @@ def _summary(current: dict) -> dict:
             "depth": current.get("depth"), "refused": current.get("refused"),
             "boundaries": {p: {"between": [line["lo"], line["hi"]], "kinds": [line["lo_kind"], line["hi_kind"]],
                                "why": line.get("why")} for p, line in (current.get("lines") or {}).items()},
-            "began_utc": current.get("began_utc"), "ended_utc": current.get("ended_utc")}
+            "began_utc": current.get("began_utc"), "ended_utc": current.get("ended_utc"),
+            "terms": current.get("terms"), "core": current.get("core"), "terms_kept": current.get("terms_kept")}
 
 
 def _end(state: dict, current: dict, stage: str, why: str) -> None:
@@ -516,6 +592,8 @@ def advance(repo, state: dict) -> int:
             if seen is not None:
                 verdicts[law] = seen
     current["tally"] = tally(current, verdicts)
+    current["terms"] = terms_read(current, verdicts)
+    current["core"] = core_of(current["terms"])
     current["depth"] = depth_of(repo, state, current["law"], current["of"])
     if current.get("seeds") is None:
         current["seeds"] = seeds_of(repo, state, current)
@@ -536,7 +614,8 @@ def advance(repo, state: dict) -> int:
                  f"{float(p['confirm_radius']):g} read its kind at {read_n:,}")
             return 0
         if current["depth"]["holds_to"] is None or current["seeds"] is None \
-                or any(row["waiting"] for row in current["tally"].values()):
+                or any(row["waiting"] for row in current["tally"].values()) \
+                or any(row["load_bearing"] is None for row in current["terms"].values()):
             return 0
         if not _lines_for(state, current, verdicts):
             return _outward(repo, state, current)
@@ -553,19 +632,39 @@ def members(repo, state: dict, current: dict) -> list[dict]:
     seen = current.get("read") or {}
     specs = [_spec_of(repo, current["of"], current["law"])]
     for law, point in current["points"].items():
-        if seen.get(law) == current["kind"] and point["how"] in ("neighbour", "line"):
+        if seen.get(law) == current["kind"] and point["how"] in ("neighbour", "line", KNOCKOUT):
             specs.append(_spec_of(repo, state["campaigns"][NEIGHBOURS], law))
     return [spec for spec in specs if spec]
 
 
 def _finish(repo, state: dict, current: dict) -> None:
     summary = _summary(current)
+    summary["type"] = type_of(repo, state, current["of"], current["law"])
     if current["stage"] == MAPPED:
         region = R.place(state, summary, members(repo, state, current))
         summary["region"] = region["name"]
+        if summary.get("core") is not None:
+            region.setdefault("cores", {})[str(summary.get("label") or summary["law"])] = summary["core"]
         state["events"].append({"at": utc_now(), "law": current["label"], "region": region["name"]})
     state["done"].append(summary)
     state["current"] = None
+
+
+def place_of(state: dict | None, law: str) -> dict | None:
+    if not state:
+        return None
+    if (state.get("current") or {}).get("law") == law:
+        return {"region": None, "how": "in focus now"}
+    region = R.name_of(state, law)
+    if region:
+        return {"region": region, "how": "mapped"}
+    inside_of = (state.get("inside") or {}).get(law)
+    if inside_of:
+        return {"region": inside_of.get("region") or inside_of.get("region_of"), "how": "inside, passed over"}
+    ended = next((entry for entry in state.get("done") or [] if entry.get("law") == law), None)
+    if ended:
+        return {"region": None, "how": str(ended.get("stage"))}
+    return None
 
 
 def queue_of(state: dict, ranked: list[dict]) -> list[dict]:
@@ -586,7 +685,7 @@ def queue_of(state: dict, ranked: list[dict]) -> list[dict]:
         else:
             status = "waiting"
         out.append({"law": law, "campaign": entry["campaign"], "label": entry.get("label"), "score": entry["score"],
-                    "status": status, "region": R.name_of(state, law)})
+                    "status": status, "region": R.name_of(state, law), "type": (state.get("types") or {}).get(law)})
     return out
 
 
@@ -658,7 +757,8 @@ def settings_of(found_plan: dict) -> dict:
             "confirm_share": float(found_plan["neighbourhood"]["confirm_share"]),
             "contenders": int(found_plan["depth"]["contenders"]),
             "outward_most": float(found_plan["outward"]["most"]),
-            "inside_share": float(found_plan["next"]["inside_share"])}
+            "inside_share": float(found_plan["next"]["inside_share"]),
+            "mapped_per_type": int(found_plan["next"].get("mapped_per_type", MAPPED_PER_TYPE))}
 
 
 def _bounded(value, low: float, high: float, what: str) -> float:
@@ -698,7 +798,10 @@ def settled(found_plan: dict, given: dict) -> dict:
         out["outward"]["most"] = _bounded(given["outward_most"], 0.1, 0.95, "the widest ring")
     if "inside_share" in given:
         out["next"]["inside_share"] = _bounded(given["inside_share"], 0.0, 1.0, "the share of a region's reach")
-    unknown = sorted(set(given) - {"radii", "confirm_share", "contenders", "outward_most", "inside_share"})
+    if "mapped_per_type" in given:
+        out["next"]["mapped_per_type"] = int(_bounded(given["mapped_per_type"], 1, 50, "the laws a type is mapped by"))
+    unknown = sorted(set(given) - {"radii", "confirm_share", "contenders", "outward_most", "inside_share",
+                                   "mapped_per_type"})
     if unknown:
         raise ValueError(f"no such setting: {', '.join(unknown)}")
     return out
@@ -747,6 +850,9 @@ def act(repo, body: dict, *, tree=None) -> dict:
         stop(repo)
     elif do == "settings":
         set_next(repo, body.get("settings"))
+    elif do == "seed":
+        from graph_scale_dynamics.operations import study_seed
+        return {"ok": True, "did": do, "seeded": study_seed.seed(repo, str(body.get("bundle") or ""))}
     elif do == "run_on":
         from graph_scale_dynamics.operations import run_on
         if body.get("clear"):
@@ -814,6 +920,7 @@ def reading_of(state: dict) -> dict:
             "done": state["done"], "inside": state.get("inside") or {}, "stopped": bool(state.get("stopped")),
             "skipped": state.get("skipped") or {}, "queue": state.get("queue") or [],
             "regions": state.get("regions") or [], "touching": R.touching(state.get("regions") or []),
+            "seeded": state.get("seeded") or [],
             "settings": settings_of(state["plan"]),
             "next_settings": settings_of(state["next_plan"]) if state.get("next_plan") else None,
             "events": (state.get("events") or [])[-30:]}
