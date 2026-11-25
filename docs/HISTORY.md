@@ -321,6 +321,20 @@ made; a time without a Z is the operator's local time.
   basically cant tell whether or not work has started or not"): 866, the slider, the focus's and the depth's lists
   of ten with up and down, the depth seeker held to one worker, each law's earliest identification and the early
   call read beside 16,384, and the focus's work shown; the seeker to the memory limit next (`docs/ROADMAP.md`).
+* **The law page read in one pass: mouse-overs, one table, the curves a row a size, letters and numbers**
+  (2026-11-25 13:28: "this row should end up higher at the top of the page, under our main 4x4 grid which is missing
+  mouse overs so that when one hovers over a line, one can see the actual chain start type+value at that point on the
+  plot, and also lets not stack this one behind a filter by default show them as a grid starting from the msallest of
+  the top N first row, to the highest possible N Row"; 13:34: "the red circled area ... its too dense text, we want
+  either clean tables or good plots ... the 2 plots circled in yellow, they have the same shape, are not they not
+  portraying the same thing ... for the table circled in green, we want the colums to be the rows basically, and show
+  the highest N first ... an exact 1to1 copy of the above dataset in the plots above ... perhaps its time to number all
+  the plot boxes ... label A->Z ... and revisit whether all the other tables can be perhaps consolidated in fewer
+  tables? without losing any valuable data"; 14:11: "values between 0 and 1 made sense, but above 1? huh?"): 867, every
+  plot answers the pointer, one table of every plotted value a row a quantity and start with the largest size first,
+  the strip, the stage cards and the starts' table folded into it, the rungs' table one row a size, the curves a row a
+  size smallest first, the sections lettered and the plots numbered; the two run plots differ (the chains apart, each
+  chain at rest) and both stay; the kept share drawn against 0 and 1, read as a dimension ratio at large N.
 * **The engines in order: Rust to its limit, then C, then assembly, each timed on the same seed** (2026-11-25 11:10:
   "first improve the existing rust one, once we found the limits of the language, see if we can do any new neat
   tricks with c instead, and after, same last exercise in ASM, each time comparing how fast we can iterate through the

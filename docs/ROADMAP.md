@@ -168,7 +168,9 @@ own build, in this order; a planned build takes its number when it is made:
    "The study now" one bar, blind against zoned, the standing controls a tick. Its gates are 174's until the 40 run
    on say otherwise (the questions above).
    **866, made: one slider, two ordered lists, one depth worker, the earliest identification** (13:11;
-   `docs/build_notes/BUILD866_NOTES.md`). **867, the depth seeker to the memory limit** (13:11: "always just 1 worker
+   `docs/build_notes/BUILD866_NOTES.md`). **867, made: the law page read in one pass** (13:28, 13:34 and 14:11;
+   `docs/build_notes/BUILD867_NOTES.md`): every plot answers the pointer, one table of every value plotted, the
+   curves a row a size, the sections lettered and the plots numbered. **868, the depth seeker to the memory limit** (13:11: "always just 1 worker
    thread responsible for always pushing the memory limit to the system max (+ its free buffer zone ofc) but
    automatically testing how far N is feasible/safe to run without getting oom killed"): the depth campaign's ladder
    open past 262,144, its next size priced from the law's own peak growth (`memory.own_earlier_seed_bytes`) and bought

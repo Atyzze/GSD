@@ -1,17 +1,18 @@
-# The next build is 867
+# The next build is 868
 
 This file names the next build and says how to make it. `tests/unit/test_next_build_is_named.py` parses its first line,
 which must read exactly `# The next build is <N>`, one above `BUILD_NUMBER`.
 
-## Where to begin: 867 is the depth seeker to the memory limit
+## Where to begin: 868 is the depth seeker to the memory limit
 
 **Starting from nothing but the repository** (the operator, 2026-11-24 23:00): clone `main` and bring it up by
 `docs/agent/ENVIRONMENT.md`, section 10, "From the repository". Then `docs/WHERE_WE_ARE.md`, `docs/agent/HANDOFF.md`
-and this page, in that order, and `CLAUDE.md`'s rules for a shared repository. 864 to 866 (`docs/build_notes/`): the
+and this page, in that order, and `CLAUDE.md`'s rules for a shared repository. 864 to 867 (`docs/build_notes/`): the
 held laws run on, study 176 seeded from bundles, Home's one bar, a law's type, the least known type first, each term
-switched off, the Map page's slider and ordered lists, one depth worker.
+switched off, the Map page's slider and ordered lists, one depth worker; the law page in one pass, its plots numbered
+and answering the pointer, one table of every plotted value.
 
-**What 867 makes** (the operator, 2026-11-25 13:11, `docs/HISTORY.md`): the depth seeker pushes its law to the host's
+**What 868 makes** (the operator, 2026-11-25 13:11, `docs/HISTORY.md`): the depth seeker pushes its law to the host's
 memory limit. Its campaign's ladder opens past 262,144 (1,048,576, 4,194,304 and on); before a size is bought its seed's
 peak is priced from the law's own peak growth over the sizes it ran (`memory.own_earlier_seed_bytes` and its fit), and
 the size is bought only when that fits the host's reach (`scheduling/memory_hold.reach`) less the free 10 GiB the
@@ -24,9 +25,9 @@ idle that slot).
 **Where it will press**: `main.py` at 129,976 bytes of its 130,000 and `build_handler` at its 1,160 lines. Any change to
 `decisions/` says why in the notes; every decision of 174 replays.
 
-**Acceptance** of 867: a law pushed to its ceiling on a sandbox with a small reach (a test that fakes the host's
+**Acceptance** of 868: a law pushed to its ceiling on a sandbox with a small reach (a test that fakes the host's
 reach), settled there with its numbers; a size that fits bought; no score, kind or decision of a law outside the depth
-campaign moves (`tools/outputs_of_a_law.py --against` 866's record, `tools/replay_bundle.py`); the full lane green.
+campaign moves (`tools/outputs_of_a_law.py --against` 867's record, `tools/replay_bundle.py`); the full lane green.
 
 **Then**: the neighbours read at a law's earliest identification once 866's early call shows it holds (the operator's
 choice on that reading); the pages' and reports' build numbers in words (10:00); the engine's diet, Rust first, timed
