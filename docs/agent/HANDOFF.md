@@ -1,4 +1,4 @@
-# Handoff: the state of GSD at build 869
+# Handoff: the state of GSD at build 870
 
 What is true now, for a context that has just opened this archive. Each fact has one home; the last section says
 where. **Think from the data, not from this page**: where the data and a document disagree, the data wins and the
@@ -22,59 +22,33 @@ groups N (neighbours and seeds) and D (depth) beside A; 862, the Map page (`reso
 `services/api/focus_route.py`) that starts, steers and shows it, every mapped region named GG#n
 (`operations/focus_regions.py`); 863, a handover.
 
-**What 864 changed** (the operator, 2026-11-25 09:42 to 11:10; `docs/build_notes/BUILD864_NOTES.md`): the held laws
-run on (`tools/held_by_a_gate.py` wrote `study_174_run_on.json`: of the 193 laws `starts_alike` holds at 16,384 in
-174's bundle of 09:59Z, 40 read something, all lines or rings, not 65); the Map page's "run them on" writes the flag
-`run_on`, and the decider turns that gate's stop into `run_next` (rule `run_on`, `decisions/by_word.py`) outside the
-gates' counts, every other decision replaying. No law is done: every page says a law's status as waiting to be
-extended or settled at its highest reading, by what (`observability/law_status.py`). The law page is a 4x4 grid of
-one size with the Einstein check and the share of its start each chain keeps. The operator's newer words (11:06 to
-11:10, `docs/HISTORY.md`): study 176 seeded from the map so far beside a blind draw, Home's top one bar of blind
-against zoned laws (865); a shared effort only once one node has proven the zone mapping; the engines in order, Rust,
-then C, then assembly, each timed on the same seed.
+**What 864 to 869 changed** (the operator, 2026-11-25 09:42 to 15:18; each build's notes in `docs/build_notes/`):
+864 ran no law to done (`observability/law_status.py`: waiting to be extended or settled at its highest reading) and
+made the decider's `run_on` (`decisions/by_word.py`); 865 designed study 176 again (`study_176_design.json`: A's ten
+blind batches, the focus begun by the study's start, an empty seeded campaign) and the seed (`operations/study_seed.py`),
+Home's one bar of blind against zoned laws and a law's type where DONE stood; 866 the Map page's slider (`do: lean`),
+the depth seeker held to one worker, the focus's and the depth's ordered lists (`do: order`), each law's earliest
+identification (`early_call`); 867 and 868 the law page (lettered sections and numbered plots, a mouse-over on every
+plot, one table of every plotted value, the curves a row a size, plain words behind every title, a line between two
+readings naming both); 869 the `import/` folder beside `main.py` whose bundles the Map page lists to tick and seed
+(`operations/imports.py`), the focus's settings folded, each running law's group, the focus's and seeded campaigns
+in the study's view on Home (`dashboard_workers.batches`). 870 is this handover (`docs/build_notes/BUILD870_NOTES.md`).
 
-**What 865 changed** (the operator, 2026-11-25 09:42 and 11:06; `docs/build_notes/BUILD865_NOTES.md`): study 176
-designed again (`study_176_design.json` and its criterion, replacing 856's, which never ran): A's ten blind batches of
-1,000 on 176's seeds, the focus begun by the study's own start, and an empty seeded campaign the Map page's "seed from
-a bundle" fills from any bundle of the same science (`operations/study_seed.py`: its scoring laws run again, its GG
-regions joined with their numbers, kinds and ranges, a newer bundle of the same study widening them). Home's "The
-study now" is one bar, blind against zoned, the standing controls a tick (`study-split`).
+**Open threads at 870**, each with its home:
 
-**What 866 changed** (the operator, 2026-11-25 13:11; `docs/build_notes/BUILD866_NOTES.md`): the Map page's slider
-between the blind draw and the focus (`do: lean`; 0 turns the focus off; a focus leans 50-50 at its first law), the
-depth seeker held to one worker (its campaign capped, `work_groups.in_shares` leaving a capped group's slot); the
-focus's and the depth's lists of ten with up and down (`do: order`); each law's earliest identification and the early
-call read beside 16,384 (`early_call`); each focus campaign's work on the page; the controls' verdict in the bundle.
-Pull requests #11 (864) and #12 (865) were opened from the repository at 12:55.
-
-**What 867 changed** (the operator, 2026-11-25 13:28, 13:34 and 14:11; `docs/build_notes/BUILD867_NOTES.md`): the
-law page only. Its sections are lettered and its plots and tables numbered (`pgLabel`); every plot answers the pointer
-with the start, the size and the value (`tcHover`); one table under the 4x4 grid holds every value the plots draw, a row
-a quantity and a start, the largest size first (`tcTable`), and takes in the strip, the stage cards of how far from a
-space and the starts' table; the rungs' table is one row a size once every chain is read; each chain's curves are a row
-of four a size, the smallest first. Pull request #13 (866) was opened at 13:52.
-
-**What 868 changed** (14:17 to 14:22; `docs/build_notes/BUILD868_NOTES.md`): plain words behind every plot's title
-(`TC_ELI5`, `tcInfo`), a line between two readings naming both and a click pinning the card (`tcPick`, `tcSegments`).
-174's bundle of 13:04Z: the 40 held laws were not run on (no `run_on` decision) and are all rings; the focus on
-C8-G2983 since 11:59Z, its 47 neighbours at 4,096, none scored yet; the depth campaign's five, one at 65,536.
-
-**What 869 changed** (15:08 to 15:18; `docs/build_notes/BUILD869_NOTES.md`): the `import/` folder beside `main.py`,
-its bundles listed on the Map page to tick and seed (`operations/imports.py`); the focus's settings folded; each running
-law's group in Now researching; the focus's and seeded campaigns in the study's view on Home. Study 176 runs since about
-15:00 (867), its seed not yet given.
-
-**Open threads at 869**, each with its home:
-
-* Pull requests: 864 to 867 (#11 to #14) merged; 868 (#15) open; 869 built on 868.
-* Study 174 runs on: the 40 run on from the Map page, the focus started there; 175 to be paused.
-* Study 176, designed at 865, waits on two questions (`docs/ROADMAP.md`): keep the standing controls (recommended,
-  as a tick); start after the 40 and the first regions on 174 (recommended) or now. Then `main.py run --study 176` in
-  a folder of its own and "seed from a bundle" on its Map page.
-* E8 (`docs/ROADMAP.md`, "Unscheduled"): the paper gives no law to run; a reply to its authors drafted.
-* Next builds: 870 Home's four boxes as one; 871 the depth seeker to the memory limit; the pages' build numbers in words; the engine's diet,
-  timed on 176's seeds; then C and assembly (`docs/agent/NEXT_BUILD.md`). 174's standing controls read "fail" on
-  Home: the next bundle names the law (`known_answers` in `study.json`).
+* **Pull requests**: 864 to 867 (#11 to #14) merged; 868 (#15) and 869 (#16, built on 868) open; 870 is #17, built on
+  869. Each is the tree of the archive its gate wrote.
+* **Study 176 runs** in its own folder (`/data/projects/GSD/176/main` on the operator's host) since about 15:00, on 867
+  and then 869, seeded at 14:14Z from 174's bundle of 13:04Z (72 laws) and again at 14:56Z (nothing new: 871 refuses a
+  bundle read already). Its bundle of 15:09Z: the seeded laws on their ladder, none held; the focus idle until a seeded
+  law scored here (C11-G79, 1), since `focus.best` reads only this folder's scores (871). Its gates are 174's word for
+  word; a gate learned from 174 is study 177. The operator's split: 90% focus recommended (16:12).
+* **Study 174** ran on to its bundle of 13:04Z on 865 (its focus on C8-G2983 since 11:59Z, 47 neighbours at 4,096, the
+  depth campaign's five, one at 65,536); the 40 held laws were never run on (no `run_on` decision) and are 40 rings, a
+  type the focus already holds. Paused or running is the operator's.
+* **Open questions** (`docs/ROADMAP.md`, "Questions for the operator"): 176's standing controls kept as a tick
+  (recommended); past 65,536, a tenth or a hundredth let through (after 174).
+* **E8** (`docs/ROADMAP.md`, "Unscheduled"): the paper gives no law to run; a reply to its authors drafted.
 
 **A correction the next builds carry** (860's reading of 174's bundle of 2026-11-24 23:19Z): the score in force counts
 a seed only where its chain stopped changing, and the folder scores 46 laws on that bundle. The counts below ("83
@@ -284,11 +258,11 @@ again after the paper's three studies, on the final probes, with a criterion wri
 
 ## What waits on the operator
 
-* **Study 174's 40 held laws**: theirs to run on from the Map page once 864 is applied (decided 09:42).
-* **Study 176** (865): whether its standing controls stay (recommended, off Home's top as a tick) and whether it
-  starts after the 40 and the first regions (recommended) or now (`docs/ROADMAP.md`, "Questions for the operator").
-* **860's archive**: theirs to test on a folder and to open as a pull request; and 860's questions (the counts the
-  pages give, group D's law, E8 as a known refusal rather than a study).
+* **Study 176's bundle** (asked 16:02): Reports, a study bundle, sent to the next context, so 871 names the rule that
+  holds the seeded laws at 4,096 before it changes anything in a running folder.
+* **Pull requests #15 to #17**: each theirs to merge, in order.
+* **Study 176's standing controls**: kept as a tick (recommended; `docs/ROADMAP.md`, "Questions for the operator").
+* **Study 174's 40 held laws**: 40 rings; running them on (the Map page's "run them on") is no longer recommended.
 * **Where the older data's archive goes public** (the consolidation): the review asks for a public archive (Zenodo or a tag) so a
   referee can see nothing was dropped selectively; the operator wants it out of the tree. Both hold if the archive
   goes beside the build and its place is theirs to name.
@@ -296,7 +270,6 @@ again after the paper's three studies, on the final probes, with a criterion wri
   compute goes to blind laws from empty; parallel tempering is the cheapest remedy and changes the engine.
 * **Home's refresh every 0.5 s and a control for it** (18:26): held back while the API is starved; the question and
   the recommendation are in `docs/ROADMAP.md`, "Questions for the operator".
-* **Pull requests**: each build is theirs to merge; 859's is the handover.
 * **Folders**: every pilot folder once read is theirs to delete. A scratch holder parks its files and ends ten minutes
   after its folder's last process.
 
