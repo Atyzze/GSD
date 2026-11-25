@@ -11,7 +11,7 @@ def _score(score: int, to_n: int | None = 65536) -> dict:
 
 def _measured(cid: str, score: int) -> dict:
     return {"candidate_id": cid, "regime": "equilibrium", "law_score": _score(score), "d_s_estimate": 1.0,
-            "landscape_band": "flowing"}
+            "landscape_band": "flowing", "ensemble_code": "G-1"}
 
 
 def _refused(cid: str, score: int, regime: str = "zero_temperature") -> dict:
@@ -61,3 +61,14 @@ def test_a_listed_law_without_a_reading_carries_every_field_the_card_reads():
                 "stability_contracting_probes", "stability_contracting_tier"):
         assert key in row, key
     assert row["d_s_estimate"] is None and row["stability_contracting_probes"] == []
+
+
+def test_equal_scores_keep_one_order_by_campaign_then_graph_number():
+    from graph_scale_dynamics.services.api.law_order import law_rank
+    rows = [{"candidate_id": h * 64, "campaign_id": c, "ensemble_code": f"G-{g}", "law_score": _score(s)}
+            for h, c, g, s in (("3", "6", 1015, 19), ("b", "1", 6940, 19), ("9", "2", 64, 19), ("0", "10", 5, 19),
+                               ("7", "3", 7363, 7))]
+    assert [f"C{r['campaign_id']}-{r['ensemble_code']}" for r in sorted(rows, key=law_rank)] == [
+        "C1-G-6940", "C2-G-64", "C6-G-1015", "C10-G-5", "C3-G-7363"]
+    within = top_candidates_of([dict(r, campaign_id=None) for r in rows[:2]], [], {})
+    assert [r["ensemble_code"] for r in within] == ["G-1015", "G-6940"], "one campaign's ties by graph number"

@@ -8,7 +8,8 @@ import threading
 import time
 from pathlib import Path
 
-from graph_scale_dynamics.services.api import admin_view
+from graph_scale_dynamics.services.api import admin_view, freshness
+from graph_scale_dynamics.services.api.law_order import LATTICE_WHO, law_rank
 
 STUDY = "study"
 CONTRACT = "gsd-study-scope-1"
@@ -37,13 +38,7 @@ def _add(a, b):
     return a if a is not None else b
 
 
-def _rank(row: dict) -> tuple:
-    found = row.get("law_score") or {}
-    return (-int(found.get("score") or 0), -int(found.get("to_n") or 0), -int(found.get("top_n") or 0),
-            str(row.get("campaign_id") or ""), str(row.get("candidate_id") or ""))
-
-
-LATTICE_KINDS = ("lattice", "kept", "frozen", "still")
+LATTICE_KINDS = LATTICE_WHO
 
 
 def _scored_at(point: dict, name: str) -> bool:
@@ -86,8 +81,8 @@ def merge_landscapes(bodies: list[dict]) -> dict:
             "revision": revision_of([b.get("revision") for b in bodies]),
             "generated_utc": max(str(b.get("generated_utc") or "") for b in bodies),
             "counts": counts, "exposure": exposure, "dimension_points": points, "refused_candidates": [],
-            "selection": selection, "top_candidates": sorted(top, key=_rank)[:TOP],
-            "gates_ledger": merge_ledgers(ledgers),
+            "selection": selection, "top_candidates": sorted(top, key=law_rank)[:TOP],
+            "lattice_who": list(LATTICE_WHO), "gates_ledger": merge_ledgers(ledgers),
             "every_chain": merge_every_chain(bodies)}
 
 
@@ -195,10 +190,12 @@ MERGE_RETRY_SECONDS = 60.0
 
 class Scope:
     def __init__(self, *, batches, landscape_status, schedule_landscape, landscape_ttl, cached_overview,
-                 schedule_overview, overview_ttl, host_snapshot, incidents, cache_root: Path, python: str, root: Path):
+                 schedule_overview, overview_ttl, host_snapshot, incidents, cache_root: Path, python: str, root: Path,
+                 overview_slots: int = 1):
         self.batches, self.landscape_status, self.schedule_landscape = batches, landscape_status, schedule_landscape
         self.landscape_ttl, self.cached_overview, self.schedule_overview = landscape_ttl, cached_overview, schedule_overview
         self.overview_ttl, self.host_snapshot, self.incidents = overview_ttl, host_snapshot, incidents
+        self.overview_slots = max(1, int(overview_slots))
         self.cache_root, self.python, self.root = Path(cache_root), python, root
         self.merging = threading.Lock()
         self.merge_failed: dict | None = None
@@ -276,16 +273,18 @@ class Scope:
         if not ids:
             handler._json({"error": "this folder's study has no batch", "campaign_id": STUDY}, 404)
             return
-        payloads, stale_any, refreshing_any, oldest = [], False, False, 0.0
+        payloads, stale_any, refreshing_any, oldest, failed = [], False, False, 0.0, {}
         for cid in ids:
             key = (cid, False, False)
-            cached, age, refreshing, _error = self.cached_overview(key)
+            cached, age, refreshing, error = self.cached_overview(key)
             stale = cached is None or age is None or age >= self.overview_ttl
             if stale and not refreshing:
                 self.schedule_overview(key)
                 refreshing = True
             stale_any, refreshing_any = stale_any or stale, refreshing_any or refreshing
             oldest = max(oldest, age or 0.0)
+            if error:
+                failed[str(cid)] = error
             if cached is not None:
                 payloads.append(cached)
         if len(payloads) < len(ids):
@@ -298,10 +297,19 @@ class Scope:
         payload["access"] = handler._access_payload()
         payload["system_resources"] = self.host_snapshot()
         response = dict(payload.get("dashboard_response") or {})
+        builds = [freshness.build_seconds(p) for p in payloads]
+        admin = handler._privileged()
         response.update({"pending": False, "stale": bool(stale_any), "refreshing": bool(refreshing_any),
-                         "source_age_ms": round(oldest * 1000.0, 1), "stale_after_ms": round(3 * self.overview_ttl * 1000.0),
+                         "source_age_ms": round(oldest * 1000.0, 1),
+                         **freshness.answer(self.overview_ttl, builds, self.overview_slots),
                          "retry_after_ms": 100 if stale_any else None, "incidents": self.incidents(handler),
                          "cache_contract": "gsd-dashboard-async-cache-2"})
+        if failed:
+            first = sorted(failed, key=lambda cid: (not cid.isdigit(), int(cid) if cid.isdigit() else 0, cid))[0]
+            response["last_refresh_error"] = admin_view.refresh_error(
+                f"batch {first}: {failed[first]}" + (f" (and {len(failed) - 1} other batch(es))" if len(failed) > 1
+                                                     else ""), admin)
+            response["refresh_errors"] = {cid: admin_view.refresh_error(text, admin) for cid, text in failed.items()}
         payload["dashboard_response"] = response
         handler._json(payload, 200)
 

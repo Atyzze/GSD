@@ -1,4 +1,4 @@
-# Where we are, at build 859
+# Where we are, at build 860
 
 The whole project on one page, in plain words; the detail is in `docs/agent/HANDOFF.md`.
 
@@ -35,10 +35,10 @@ What the instrument reads on known answers (1, 2). **No data from a study before
 
 ## What is running
 
-Studies 174 and 175 on 850, each in a folder of its own. Since 2026-11-24 16:34 the project rests on two of their
-bundles and the calibration table, nothing older: 174's of 2026-11-24 14:22Z (the blind draw, 8,131 laws read) and
-175's of 08:35Z (595 variants around 174's 35 settled laws). `docs/paper/GSD_PAPER.md` is the working draft that rests
-on them alone. Study 176 is ready for your start, in a folder of its own.
+Studies 174 (on 859, its bundle of 2026-11-25 00:19 read at 860) and 175, each in a folder of its own. Since
+2026-11-24 16:34 the project rests on two of their bundles and the calibration table, nothing older: 174's of 14:22Z
+(the blind draw, 8,131 laws read) and 175's of 08:35Z (595 variants around 174's 35 settled laws).
+`docs/paper/GSD_PAPER.md` is the working draft that rests on them alone. Study 176 waits for your start.
 
 ## What they show
 
@@ -48,35 +48,33 @@ settle a probe from empty or random, all one dimensional: five open strings, fou
 chain of small cliques. Two laws whose starts agree, H31 and fdc563a72c98, are small worlds: their reach stays within
 twice a random graph's of their degree and their d rises with N, so not a space of d 4. One law, de7ab4a85198, is
 frozen to 4,096 and changes at 16,384. The still call held on every chain: its criterion passed, and since 856 a still
-lattice scores 1.
+lattice scores 1. **Read again at 860**: those counts came from a reading that counts every seed; the folder's own
+score, which counts only seeds that stopped changing, gives 46 laws on 174's newest bundle, and five of 176's first
+ten score 0 there. Both are read again before 176 starts.
 
 **The trap from empty** (an outside review, and 854's own run): P1, whose lowest energy is the square lattice, gets
 68% to 81% of the way there from empty, worse as N grows. Until a known law grows its geometry from empty, "nothing
 grows from empty" cannot be told from "nothing can get there under these moves".
 
-## What 800 to 859 changed
+## What 800 to 860 changed
 
-The probes are locked (800, 801) and your table installed (805). 806 to 843: no clock decides, the evidence judged
-again on the final code, the studies carried and read, `--workers 32` holds 32. 844 is the stable build with study
-174. 845 to 850: Home's ten batches, the worker count while a study runs, study 175, the score of 848, the public tree,
-the catalogue of behaviours. 851 to 853: the README, a stale admin link shown. 854: the baseline, the still criterion
-passed, the trap measured, the paper drafted. 855: `CLAUDE.md` (each build a pull request you merge), the calibration
-ledger, the quantum walk with no vote yet. 856: study 176 in groups A (blind) and B (the map of the ten best), half the
-fleet each; the still lattice at 1; the small world a kind; the CPUs the system keeps; a science hash and the table in
-every bundle. 857: filters on Home. 858: 855's context in the pages; C and assembly wait for your word. 859: the
-handover, Home's plot whole and every law of a small campaign in the Top 100, a start from the repository alone.
+The probes locked and your table installed (800 to 805); no clock decides and the evidence judged again on the final
+code (806 to 843); 844 the stable build with study 174; 845 to 853 Home's batches, study 175, the score of 848, the
+catalogue; 854 the baseline and the paper's draft; 855 `CLAUDE.md` and the ledger; 856 study 176 and a science hash
+in every bundle; 857 Home's filters; 858 and 859 the handovers. 860: the orange banner only when Home falls behind,
+the lattice strips back, the Top 100 in one order, every law of a bundle whole.
 
 ## What comes next
 
-Study 176, on your start: A draws 10,000 laws blind; B maps the ten best laws not yet known (each coupling moved a
-tenth, lines halved toward the nearest law of another kind), marks a region known with how early it can be spotted,
-and takes the next. Then a study seeded from an earlier bundle; group D, the best law as deep as memory allows;
-every study before the baseline out of the tree, into an archive beside it. Each takes its number when it is made.
+Study 176, on your start: A draws 10,000 laws blind; B maps the ten best laws not yet known, and takes the next. Then
+(`docs/ROADMAP.md`): a study seeded from an earlier bundle, which others can join; the reader scoring as the folder
+does; the fleet ladder under the filters; the map's term axis; group D, the best law as deep as memory allows; the
+consolidation. Each takes its number when it is made.
 
 ## The decision in front of you
 
-1. **Start study 176** (`uv run python main.py run --study 176`, a new folder), and name the system's CPUs if you
-   want any kept (`uv run python main.py workload --system-cpus 0,1`).
+1. **Study 176's first ten chosen again by the folder's score** (recommended; send 175's newest bundle), then start
+   it (`uv run python main.py run --study 176`, a new folder).
 2. **Whether a known law must grow its geometry from empty first** (recommended, before more compute from empty):
    parallel tempering is the cheapest remedy, an engine change of about a build, its known answers read again after.
 3. **Where the archive of the older data goes public** (the consolidation), so a reader can see nothing was dropped selectively.

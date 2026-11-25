@@ -34,6 +34,7 @@ SCALE_SHORT = {"one": "", "log_N": "·lnN", "inv_log_N": "/lnN", "inv_N": "/N",
 
 from graph_scale_dynamics.observability import live_panel as _live_panel
 from graph_scale_dynamics.services.api import landscape_chains as _chains
+from graph_scale_dynamics.services.api.law_order import LATTICE_WHO, campaign_number, graph_number, law_rank
 
 
 def _law_label(spec: dict) -> str:
@@ -258,16 +259,13 @@ def marked(point: dict, marks: dict) -> dict:
 
 
 def top_candidates_of(scored: list[dict], refused: list[dict], deepest: dict, limit: int = TOP_LIMIT) -> list[dict]:
-    def _rank(row: dict) -> tuple:
-        found = row.get("law_score") or {}
-        return (-int(found.get("score") or 0), -int(found.get("to_n") or 0),
-                -int(deepest.get(row["candidate_id"]) or 0), row["candidate_id"])
     def _scores(row: dict) -> bool:
         return int((row.get("law_score") or {}).get("score") or 0) > 0
-    listed = sorted(list(scored) + [scored_refusal(row) for row in refused if _scores(row)], key=_rank)[:limit]
+    listed = sorted(list(scored) + [scored_refusal(row) for row in refused if _scores(row)], key=law_rank)[:limit]
     room = limit - len(listed)
     unscored = sorted((row for row in refused if not _scores(row)),
-                      key=lambda row: (-int(deepest.get(row["candidate_id"]) or 0), row["candidate_id"]))
+                      key=lambda row: (-int(deepest.get(row["candidate_id"]) or 0), campaign_number(row),
+                                       graph_number(row), row["candidate_id"]))
     return listed + [scored_refusal(row) for row in unscored[:max(room, 0)]]
 
 
@@ -624,6 +622,7 @@ def build_landscape(repo: Repo, campaign_id: str) -> dict:
         "selection": _live_panel.selection_summary(campaign["spec"] or {}),
         "gates_ledger": gates_ledger(repo, campaign["spec"] or {}, campaign_id=str(campaign_id), top=top_candidates),
         "top_candidates": top_candidates,
+        "lattice_who": list(LATTICE_WHO),
         "score_model": {
             "id": STABILITY_SCORE_CONTRACT,
             "reporting_only": True,

@@ -69,6 +69,20 @@ Open, from 856 (`docs/build_notes/BUILD856_NOTES.md`), none blocking study 176:
   (`docs/build_notes/BUILD856_NOTES.md`). Recommended: keep one core's two threads for the system first and read the
   header's API round trip; if it holds under a second, the refresh and its control are a small build.
 
+Open, from 860 (`docs/build_notes/BUILD860_NOTES.md`), the first two before study 176 starts:
+
+* **Study 176's first ten**: five of them (M02, M04, M08, M09, M10, `study_176_first_ten.json`) score 0 in the folder,
+  their seeds having run to the sweeps' ceiling without stopping; the list was made by a reading that counts every
+  seed. Recommended: choose the ten again by the folder's own score, from 174's and 175's newest bundles (175's newest
+  is wanted), before 176 starts; the design is committed and not yet run, so this is a new design file.
+* **The counts the pages and the paper's draft give** ("83 laws score, 54 of them 1", from 14:22Z): recommended, read
+  again by the folder's score (the reader's build above) and restated, the old figure kept in the history beside why.
+* **Group D's law**: the best by score is C1-G6940, a ring (d 1.06 from empty, 19 points); the best that holds more
+  than a line is C3-G7363 (d 3.13 from the fcc start, 7 points). Recommended: the best by score, as asked, and the best
+  lattice-holder second if the first stops early.
+* **E8**: recommended, no study at a cap of 240 or 1,024: the probes refuse E8 at every size the host holds (860's
+  notes); its cells appended to the table as refusals instead ("Unscheduled").
+
 Open, none waiting:
 
 * **The noise floors** (offered with 805): the installed table's own floors are its cells' median errors, and its
@@ -91,28 +105,46 @@ Open, none waiting:
 
 ## Planned builds, in order
 
-**After 856** (the operator, 2026-11-24 17:51 to 18:08, `docs/HISTORY.md`), each its own build, in this order; a planned
-build takes its number when it is made, since 858 and 859, made in between, each moved every number of the plan:
+**After 859** (the operator, 2026-11-24 17:51 to 18:32 and 2026-11-25 00:25 to 00:47, `docs/HISTORY.md`), each its
+own build, in this order; a planned build takes its number when it is made:
 
-1. **857, made**: Home's filter panel (`docs/build_notes/BUILD857_NOTES.md`); the ladder's live counts by kind, read per
-   law on the server, are left for a later build. So is a count of every law in the panel: it counts the landscape's
-   points, so a law that reads nothing from empty is in no kind (C11, the standing controls, reads "1 of 1 laws
-   shown" for its five, 859).
-2. **858, made**: a consolidation of what the context of 855 learned (`docs/build_notes/BUILD858_NOTES.md`): five
-   lessons, two papers read, two items under "Unscheduled", the reference engines paused at the operator's word.
-3. **859, made**: the handover of the context of 856 and 857 (`docs/build_notes/BUILD859_NOTES.md`), with Home's plot
-   whole above the filters, every law of a small campaign in the Top 100 and every start's point carrying its kind
-   (23:07, 23:09); made on a clone of `main` and brought up from it alone.
-4. **Next, a study seeded from an earlier bundle**: any bundle whose science hash (`study.json`, `science`) is the
-   folder's: its map's regions and known kinds loaded, so B starts where the last one stopped and A's grid can lean
-   toward the regions least explored (the lean itself drawn and recorded, never chosen by hand).
-5. **Then group D**: one core that takes the study's best law up the ladder past 65,536 until memory admission
-   refuses the next size; the size it stops at is the host's limit, recorded in the bundle.
-6. **Then the consolidation**: every study before the baseline out of the tree into
+1. **860, made**: Home says what is true (`docs/build_notes/BUILD860_NOTES.md`): the orange banner only when the
+   refreshes fall behind (00:25: "I'm still seeing that too often"), the frozen and still lattices back on the
+   landscape (00:40), the Top 100 in one order (00:45), every law of a bundle whole (00:40: "generalize it so we can
+   bootstrap new studies with that seed-data set").
+2. **Next, a study seeded from an earlier bundle**, the bundle a seed set others can join from: any bundle whose
+   science hash (`study.json`, `science`) is the folder's, its laws taken whole, its map's regions and known kinds
+   loaded, so B starts where the last one stopped and A's grid can lean toward the regions least explored (the lean
+   drawn and recorded, never chosen by hand) (`docs/agent/NEXT_BUILD.md`).
+3. **The reader that scores as the folder does**: `tools/catalogue_reading.py` and `tools/score_list.py` read each
+   law's `law_score` from the bundle (since 860) and say where they cannot (an older bundle: report 28 to carry each
+   chain's counted seeds); the counts in the handoff, `docs/readings/findings.json`, `docs/RESEARCH_METHOD.md` and the
+   paper's draft read again by it (the folder scores 46 laws on 174's bundle of 23:19Z, the reader 122); study 176's
+   first ten chosen again by it, on the operator's word (questions below).
+4. **The fleet ladder under the filters** (00:45: "none of the data in the fleet ladder table seems to actually update
+   the filter"; 857 was asked for it at 17:51): the server sums the ladder again over the laws the filters keep, kinds,
+   groups and batches, on request and cached by the filters, each rung's laws, graphs, stops, times, budgets, memory
+   and each probe's time; the live counts (running, queued) stay the fleet's. About a build; the probes' times by
+   region come with it.
+5. **The map's term axis** (00:25: "exploring the parameter zones and overlaps automatically between term presence
+   and their couple-strength"): 176's map moves each coupling alone and halves a line toward a law of the same terms.
+   Then each holder's terms switched off one at a time, a line toward its coupling at zero halved where the kind flips,
+   and each term it lacks switched on at a small coupling, both sides of zero; two regions that meet are joined, their
+   boundary recorded once. About a region's cost again (16 to 30 more laws a holder, by its terms); the split with A
+   stays half and half.
+6. **Group D** (2026-11-24 18:06; 00:27: "our auto extender to seek out the memory boundary for our current top
+   scoring candidate"): one core takes the study's best law up the ladder past 65,536 until memory admission refuses
+   the next size, the size it stops at recorded in the bundle as the host's limit. From 174's bundle: C1-G6940's seed
+   peaked at 1.46 GiB at 65,536 (its random and lattice starts at mean degree 29; 266 MiB at 16,384), so about 7 GiB
+   at 262,144, 30 to 45 GiB at 1,048,576 and 150 GiB or more at 4,194,304 against the single job's ceiling of 60% of
+   the host's 92 GiB: the boundary is expected at 1,048,576. Before it: the ladder past 1,048,576, the seed's save at
+   depth (19 s at 65,536 and mean degree 32, growing with N), and the fixed points of what reads the fleet's state
+   above 65,536 ("Unscheduled", below).
+7. **Then the consolidation**: every study before the baseline out of the tree into
    `GSD_readings_archive_<N>.tar.zst`, `<N>` its own build's, sent beside the release (`docs/agent/NEXT_BUILD.md`);
-   and the notes of 823 to 845 folded into `docs/HISTORY.md`'s eras, which 858 left for it.
+   and the notes of 823 to 845 folded into `docs/HISTORY.md`'s eras.
 
-7. **After the paper**: the atlas shared, peers in a browser or a container contributing runs checked against one
+8. **After the paper**: the atlas shared, peers in a browser or a container contributing runs checked against one
    science hash and calibration table; a front end to watch it grow; a formal check in Lean of the countability of
    the phases (`docs/paper/GSD_PAPER.md`, musings); the engine contract (`engine/boundary.py`, the parity suite and
    the Boltzmann known answers) opened to engines in C or assembly, each admitted only by the same parity and known
@@ -378,12 +410,13 @@ bundle on any machine. Each build's notes say in their first line whether it may
   and files that no frozen source imports, without the PostgreSQL lane; today any change under
   `graph_scale_dynamics/calibration/` or a frozen source takes the full lane, about 22 minutes on two cores.
 
-* **Can the probes see eight dimensions?** (the operator, 2026-11-24 19:49, after a reader remarked that only the e8
-  lattice persists in that reader's own work): a known-answer reading of the e8 lattice and the 8D hypercubic lattice at the sizes the
-  host allows (side 4 or 5, 65,536 or 390,625 nodes; e8 has 240 neighbours a point, beyond the dense cap of 32), before
-  any study at a cap above 240. At those sides every point is two or three steps from every other, so the probes are
-  expected to read a small world or refuse; a cap-480 study around a planted law is worth its cost only if they read
-  something dimension-like.
+* **Can the probes see eight dimensions?** (the operator, 2026-11-24 19:49, and 2026-11-25 00:25: "is there enough data
+  provided in their paper to reproduce their claims?"): read at 860 on this tree's probes. The 8D cubic torus at
+  65,536 nodes reads d_V 5.07 and d_s 6.7 and refuses d_B and d_w; E8's torus at 256, 6,561 and 65,536 nodes refuses
+  all four, the whole graph within four steps. A scaling window at d 8 needs a side near 20, about 2.6 x 10^10 nodes.
+  So E8 is appended to the table as a known refusal at the host's sizes (side 4 and 5), with the 8D cubic lattice
+  beside it, under the append-only plan's rule (a criterion before its readings vote), and no study at a cap above
+  32 is run for it. The paper itself has no reading the instrument makes: its one number reproduces by arithmetic.
 
 * **Calling a lattice left alone before it runs** (850): the early call from a chain's own moves catches a quarter to two
   thirds of the still lattices at 1,024 or 4,096; whether any single move of the law pays at the perfect lattice could

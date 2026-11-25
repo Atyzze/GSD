@@ -442,6 +442,18 @@ exits 1 when the reading does not pass. It changes no start a campaign runs.
 
     python3 tools/lattice_starts_known_answers.py run --criterion <criterion> --workers 2 --json <out> --md <out>
 
+## tools/laws_of_a_bundle.py
+
+Every law of a study's bundle, whole (860): taken from the bundle's laws table where it carries `spec` (since 860),
+else a blind batch's laws drawn again from its design's search seed on this tree and the standing controls' from
+their criterion, each checked by its fingerprint against the law's id. A bundle whose design differs from this tree's
+(its `design_sha256`) is refused. Exit 0 when every law is had whole.
+
+    python3 tools/laws_of_a_bundle.py <bundle folder>                       # per campaign: carried, drawn again, neither
+    python3 tools/laws_of_a_bundle.py <bundle folder> --out laws.ndjson.gz  # one row per law: campaign, id, spec
+
+On 174's bundle of 2026-11-24 23:19Z: all 10,005, the 10,000 blind laws drawn again bit for bit in 3.4 s.
+
 ## tools/law_rows.py
 
 No command: every law of a study's campaigns as one compact row, from each campaign's report 28, for the readers. Its
