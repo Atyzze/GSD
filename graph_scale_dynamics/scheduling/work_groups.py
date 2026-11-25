@@ -188,7 +188,9 @@ def in_shares(allocation: list[dict], given: dict[str, float]) -> list[dict] | N
         groups.setdefault(group if group in given else None, []).append(row)
 
     def working(rows: list[dict]) -> bool:
-        return any(int(row.get("queued") or 0) > 0 and row.get("workers_target") != 0 for row in rows)
+        return any(int(row.get("queued") or 0) > 0 and row.get("workers_target") != 0
+                   and (row.get("workers_target") is None or int(row.get("leased") or 0) < int(row["workers_target"]))
+                   for row in rows)
 
     named = {group: rows for group, rows in groups.items() if group is not None and working(rows)}
     if not named:

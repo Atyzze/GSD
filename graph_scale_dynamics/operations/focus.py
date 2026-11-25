@@ -19,8 +19,14 @@ NEIGHBOURHOOD, BOUNDARIES, MAPPED, UNCONFIRMED, INVALIDATED = (
     "neighbourhood", "boundaries", "mapped", "unconfirmed", "invalidated")
 ENDED = (MAPPED, UNCONFIRMED, INVALIDATED)
 ROBUST, ITS_SEEDS, ITS_DIGITS = "robust", "its seeds", "its exact parameters"
-DOS = ("start", "law", "skip", "back", "stop", "settings", "split", "run_on", "seed")
+DOS = ("start", "law", "skip", "back", "stop", "settings", "split", "run_on", "seed", "lean", "order")
 QUEUE_LENGTH = 100
+FOCUS_LIST, DEPTH_LIST = "focus", "depth"
+LIST_SHOWN = 10
+DEPTH_WORKERS = 1
+DEFAULT_WORKERS = 16
+FIRST_LEAN = 0.5
+TYPE_WORDS = "law-type-2"
 KNOCKOUT = "term off"
 MAPPED_PER_TYPE = 3
 KNOWN_FROM_THE_TABLE = 1
@@ -222,6 +228,21 @@ def knockouts(state: dict, spec: dict) -> tuple[list[dict], list[dict]]:
     return out, refused
 
 
+def early_call(repo, state: dict, current: dict, verdicts: dict) -> dict | None:
+    from graph_scale_dynamics.observability import law_kind
+    at_n = current.get("identified_from")
+    read_n = int(state["plan"]["neighbourhood"]["read_n"])
+    if at_n is None or int(at_n) >= read_n:
+        return None
+    early = current.setdefault("early", {})
+    for law, point in current["points"].items():
+        if law in early or point.get("how") != "neighbour" or verdicts.get(law) is None:
+            continue
+        early[law] = law_kind.at(kinds(repo, state["campaigns"][NEIGHBOURS], law), int(at_n))
+    read = [law for law in early if verdicts.get(law) is not None]
+    return {"at_n": int(at_n), "of": len(read), "agreed": sum(1 for law in read if early[law] == verdicts[law])}
+
+
 def terms_read(current: dict, verdicts: dict) -> dict[str, dict]:
     out = {}
     for law, point in current["points"].items():
@@ -248,7 +269,7 @@ def _add(repo, state: dict, current: dict, points: list[dict]) -> int:
 
 def contenders(repo, state: dict, ranked: list | None = None) -> list[str]:
     ranked = best(repo, state["study"]) if ranked is None else ranked
-    wanted = ranked[:int(state["plan"]["depth"]["contenders"])]
+    wanted = depth_order(state, ranked)[:int(state["plan"]["depth"]["contenders"])]
     current = state.get("current") or {}
     if current.get("law") and all(e["candidate_id"] != current["law"] for e in wanted):
         wanted.append({"candidate_id": current["law"], "campaign": current["of"], "score": current.get("score")})
@@ -299,6 +320,8 @@ def inside(repo, state: dict, entry: dict) -> dict | None:
 def type_of(repo, state: dict, campaign_id: str, law: str) -> str | None:
     from graph_scale_dynamics.observability import law_status, two_chains
     from graph_scale_dynamics.operations import study_map
+    if state.get("types_by") != TYPE_WORDS:
+        state["types"], state["types_by"] = {}, TYPE_WORDS
     kept = state.setdefault("types", {})
     if law in kept:
         return kept[law]
@@ -306,10 +329,25 @@ def type_of(repo, state: dict, campaign_id: str, law: str) -> str | None:
         return None
     read_n = int(state["plan"]["neighbourhood"]["read_n"])
     rows, starts = _rows(repo, campaign_id, law)
-    found = law_status.phenotype(two_chains.chains_per_rung(rows, starts), at_n=read_n)
+    chains = two_chains.chains_per_rung(rows, starts)
+    found = law_status.phenotype(chains, at_n=read_n)
     if study_map.decided(repo, campaign_id, law) and found.get("at_n") is not None:
         kept[law] = found.get("type")
+        state.setdefault("identified", {})[law] = identified_from(_kinds_of(rows, starts))
     return found.get("type")
+
+
+def identified_from(found: dict[int, str]) -> int | None:
+    if not found:
+        return None
+    sizes = sorted(int(n) for n in found)
+    last = found[sizes[-1]]
+    earliest = sizes[-1]
+    for n in reversed(sizes):
+        if found[n] != last:
+            break
+        earliest = n
+    return earliest
 
 
 def known_types(state: dict, also=()) -> dict[str, int]:
@@ -322,6 +360,100 @@ def known_types(state: dict, also=()) -> dict[str, int]:
         if law_status.known_from_the_table(found):
             known[found] = known.get(found, 0) + KNOWN_FROM_THE_TABLE
     return known
+
+
+def suggested(repo, state: dict, free: list[dict]) -> list[dict]:
+    if not free:
+        return []
+    few = int(state["plan"]["next"].get("mapped_per_type", MAPPED_PER_TYPE))
+    types = [type_of(repo, state, e["campaign"], e["candidate_id"]) for e in free]
+    known = known_types(state, types)
+    hand = {law: place for place, law in enumerate((state.get("order") or {}).get(FOCUS_LIST) or [])}
+    keyed = sorted(range(len(free)), key=lambda i: (hand.get(free[i]["candidate_id"], len(hand)),
+                                                    min(few, known.get(types[i] or "", 0)), i))
+    return [free[i] for i in keyed]
+
+
+def free_laws(repo, state: dict, ranked: list[dict]) -> list[dict]:
+    seen = ({entry["law"] for entry in state["done"]} | set(state.get("inside") or {})
+            | set(state.get("skipped") or {}) | {(state.get("current") or {}).get("law")})
+    return [entry for entry in ranked if entry["candidate_id"] not in seen]
+
+
+def depth_order(state: dict, ranked: list[dict]) -> list[dict]:
+    hand = {law: place for place, law in enumerate((state.get("order") or {}).get(DEPTH_LIST) or [])}
+    return [ranked[i] for i in sorted(range(len(ranked)),
+                                      key=lambda i: (hand.get(ranked[i]["candidate_id"], len(hand)), i))]
+
+
+def lists_of(repo, state: dict, ranked: list[dict]) -> dict[str, list[dict]]:
+    def row(entry: dict) -> dict:
+        law = entry["candidate_id"]
+        return {"law": law, "campaign": entry["campaign"], "label": entry.get("label"), "score": entry.get("score"),
+                "type": (state.get("types") or {}).get(law),
+                "identified_from": (state.get("identified") or {}).get(law),
+                "placed": law in ((state.get("order") or {}).get(FOCUS_LIST) or [])
+                or law in ((state.get("order") or {}).get(DEPTH_LIST) or []),
+                "in_depth": law in state.get("contenders", {})}
+    return {FOCUS_LIST: [row(e) for e in suggested(repo, state, free_laws(repo, state, ranked))[:LIST_SHOWN]],
+            DEPTH_LIST: [row(e) for e in depth_order(state, ranked)[:LIST_SHOWN]]}
+
+
+def reorder(repo, which: str, given: str, move: str) -> dict:
+    state = _loaded(repo)
+    if which not in (FOCUS_LIST, DEPTH_LIST):
+        raise ValueError(f"the list is {FOCUS_LIST} or {DEPTH_LIST}")
+    orders = state.setdefault("order", {})
+    if move == "reset":
+        orders.pop(which, None)
+        state["events"].append({"at": utc_now(), "order": which, "reset": True})
+        save(repo, state)
+        return state
+    shown = [entry["law"] for entry in (state.get("lists") or {}).get(which) or []]
+    law = next((x for x in shown if x.startswith(str(given or "").strip()) and given), None)
+    if law is None:
+        raise ValueError(f"{given!r} is not on the {which} list as the page last read it")
+    order = list(orders.get(which) or [])
+    order += [x for x in shown if x not in order]
+    place = order.index(law)
+    if move not in ("up", "down", "top"):
+        raise ValueError("move is up, down, top or reset")
+    order.pop(place)
+    order.insert(0 if move == "top" else max(0, place - 1) if move == "up" else min(len(order), place + 1), law)
+    orders[which] = order
+    state["events"].append({"at": utc_now(), "order": which, "law": law, "move": move})
+    save(repo, state)
+    return state
+
+
+def _lean(repo, state: dict, share) -> None:
+    from graph_scale_dynamics.operations import campaign_control as control
+    from graph_scale_dynamics.scheduling import work_groups, worker_count
+    focus_share = _bounded(share, 0.0, 1.0, "the focus's share")
+    state["lean"] = {"focus": focus_share, "at": utc_now()}
+    state["events"].append({"at": utc_now(), "lean": focus_share})
+    if focus_share <= 0.0:
+        for campaign_id in state["campaigns"].values():
+            control.pause(repo, campaign_id, reason="the focus slid to the blind draw")
+        state["stopped"] = True
+        work_groups.set_shares(repo, {work_groups.BLIND: 1.0})
+        return
+    if state.get("stopped"):
+        for campaign_id in state["campaigns"].values():
+            control.resume(repo, campaign_id, reason="the focus given a share again")
+        state["stopped"] = False
+    workers = worker_count.wanted(repo.get_flag(worker_count.FLAG, ""), DEFAULT_WORKERS) or DEFAULT_WORKERS
+    one = 1.0 / max(2, workers)
+    work_groups.set_shares(repo, {work_groups.BLIND: (1.0 - focus_share) * (1.0 - one),
+                                  NEIGHBOURS: focus_share * (1.0 - one), DEPTH: one})
+    control.set_workers(repo, state["campaigns"][DEPTH], DEPTH_WORKERS, reason="the depth seeker holds one worker")
+
+
+def lean(repo, share) -> dict:
+    state = _loaded(repo)
+    _lean(repo, state, share)
+    save(repo, state)
+    return state
 
 
 def _chosen(repo, state: dict, law: str | None, ranked: list | None = None) -> dict | None:
@@ -341,11 +473,7 @@ def _chosen(repo, state: dict, law: str | None, ranked: list | None = None) -> d
                                                                                 entry["candidate_id"]))
         if not free:
             return None
-        few = int(state["plan"]["next"].get("mapped_per_type", MAPPED_PER_TYPE))
-        types = [type_of(repo, state, e["campaign"], e["candidate_id"]) for e in free]
-        known = known_types(state, types)
-        order = [(min(few, known.get(found or "", 0)), place) for place, found in enumerate(types)]
-        return free[min(order)[1]]
+        return suggested(repo, state, free)[0]
     found = next((e for e in ranked if e["candidate_id"].startswith(str(law)) or e.get("label") == str(law)), None)
     if found is not None:
         return found
@@ -373,7 +501,11 @@ def start_next(repo, state: dict, law: str | None = None, chosen: dict | None = 
                "score": chosen.get("score"), "kind": verdict(repo, campaign_id, holder, read_n),
                "stage": NEIGHBOURHOOD, "began_utc": utc_now(), "points": {}, "lines": {}, "radii": radii}
     state["current"] = current
+    type_of(repo, state, campaign_id, holder)
+    current["identified_from"] = (state.get("identified") or {}).get(holder)
     _insert(repo, state["campaigns"][SEEDS], spec)
+    if state.get("lean") is None and not state.get("stopped") and callable(getattr(repo, "set_flag", None)):
+        _lean(repo, state, FIRST_LEAN)
     found, refused = neighbours(state, holder, spec, radii)
     current["refused"] = refused
     _add(repo, state, current, found)
@@ -558,7 +690,8 @@ def _summary(current: dict) -> dict:
             "boundaries": {p: {"between": [line["lo"], line["hi"]], "kinds": [line["lo_kind"], line["hi_kind"]],
                                "why": line.get("why")} for p, line in (current.get("lines") or {}).items()},
             "began_utc": current.get("began_utc"), "ended_utc": current.get("ended_utc"),
-            "terms": current.get("terms"), "core": current.get("core"), "terms_kept": current.get("terms_kept")}
+            "terms": current.get("terms"), "core": current.get("core"), "terms_kept": current.get("terms_kept"),
+            "identified_from": current.get("identified_from"), "early_call": current.get("early_call")}
 
 
 def _end(state: dict, current: dict, stage: str, why: str) -> None:
@@ -592,6 +725,7 @@ def advance(repo, state: dict) -> int:
             if seen is not None:
                 verdicts[law] = seen
     current["tally"] = tally(current, verdicts)
+    current["early_call"] = early_call(repo, state, current, verdicts)
     current["terms"] = terms_read(current, verdicts)
     current["core"] = core_of(current["terms"])
     current["depth"] = depth_of(repo, state, current["law"], current["of"])
@@ -850,6 +984,10 @@ def act(repo, body: dict, *, tree=None) -> dict:
         stop(repo)
     elif do == "settings":
         set_next(repo, body.get("settings"))
+    elif do == "lean":
+        lean(repo, body.get("focus"))
+    elif do == "order":
+        reorder(repo, str(body.get("list") or ""), str(body.get("law") or ""), str(body.get("move") or ""))
     elif do == "seed":
         from graph_scale_dynamics.operations import study_seed
         return {"ok": True, "did": do, "seeded": study_seed.seed(repo, str(body.get("bundle") or ""))}
@@ -901,9 +1039,28 @@ def step(repo, *, now: float | None = None, force: bool = False) -> dict | None:
         current = start_next(repo, state, ranked=ranked)
         added += len(current["points"]) if current else 0
     state["queue"] = queue_of(state, ranked)
+    state["lists"] = lists_of(repo, state, ranked)
     state["events"] = state["events"][-200:]
     save(repo, state)
     return {"stage": (current or {}).get("stage"), "added": added, "label": (current or {}).get("label")}
+
+
+def work_of(repo, state: dict | None) -> dict[str, dict]:
+    if not state or not state.get("campaigns"):
+        return {}
+    ids = {str(cid): name for name, cid in state["campaigns"].items()}
+    rows = repo.conn.execute(
+        "SELECT campaign_id, SUM(CASE WHEN status='leased' THEN 1 ELSE 0 END) AS running, "
+        "SUM(CASE WHEN status='queued' THEN 1 ELSE 0 END) AS queued, "
+        "SUM(CASE WHEN status='done' THEN 1 ELSE 0 END) AS done, "
+        "MAX(CASE WHEN status='done' THEN n END) AS deepest FROM jobs WHERE kind='simulate' "
+        f"AND campaign_id IN ({','.join('?' for _ in ids)}) GROUP BY campaign_id", tuple(ids)).fetchall()
+    out = {name: {"campaign": cid, "running": 0, "queued": 0, "done": 0, "deepest": None} for cid, name in ids.items()}
+    for row in rows:
+        out[ids[str(row["campaign_id"])]].update(running=int(row["running"] or 0), queued=int(row["queued"] or 0),
+                                                 done=int(row["done"] or 0),
+                                                 deepest=None if row["deepest"] is None else int(row["deepest"]))
+    return out
 
 
 def reading(repo) -> dict | None:
@@ -920,7 +1077,8 @@ def reading_of(state: dict) -> dict:
             "done": state["done"], "inside": state.get("inside") or {}, "stopped": bool(state.get("stopped")),
             "skipped": state.get("skipped") or {}, "queue": state.get("queue") or [],
             "regions": state.get("regions") or [], "touching": R.touching(state.get("regions") or []),
-            "seeded": state.get("seeded") or [],
+            "seeded": state.get("seeded") or [], "lists": state.get("lists") or {}, "lean": state.get("lean"),
+            "order": state.get("order") or {}, "identified": state.get("identified") or {},
             "settings": settings_of(state["plan"]),
             "next_settings": settings_of(state["next_plan"]) if state.get("next_plan") else None,
             "events": (state.get("events") or [])[-30:]}

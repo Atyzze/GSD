@@ -107,7 +107,19 @@ def _campaign_record(repo, campaign_id: str) -> dict:
                                    "AND status='done' AND result_artifact IS NOT NULL", campaign_id),
             "graphs_finished": _count(repo, "SELECT COUNT(*) AS c FROM (SELECT DISTINCT candidate_id, n, seed FROM jobs "
                                             "WHERE campaign_id=? AND kind='simulate' AND status='done' "
-                                            "AND result_artifact IS NOT NULL) AS finished", campaign_id)}
+                                            "AND result_artifact IS NOT NULL) AS finished", campaign_id),
+            **_known_answers(repo, row)}
+
+
+def _known_answers(repo, row: dict) -> dict:
+    if ((row.get("spec") or {}).get("search_policy") or {}).get("kind") != "hand":
+        return {}
+    try:
+        from graph_scale_dynamics.research.control_verdict import campaign_verdict
+        found = campaign_verdict(repo, row)
+    except Exception as exc:  # noqa: BLE001
+        found = {"overall": "unreadable", "why": f"{type(exc).__name__}: {str(exc)[:160]}"}
+    return {"known_answers": found} if found else {}
 
 
 def _label(repo, part: dict, records: dict) -> str:

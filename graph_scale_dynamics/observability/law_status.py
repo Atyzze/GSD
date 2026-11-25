@@ -89,6 +89,7 @@ def form_of(d, degree, giant) -> str | None:
 
 
 ONE_DIMENSIONAL = {"a ring": "ring", "rings": "ring", "open strings": "line", "a line": "line"}
+RING_KIND, MADE = "ring", "made"
 
 
 def type_of(kind, form) -> str | None:
@@ -97,7 +98,7 @@ def type_of(kind, form) -> str | None:
     if form is None:
         return str(kind)
     family = ONE_DIMENSIONAL.get(form) or (f"d {round(float(form.split()[1]))}" if form.startswith("d ") else form)
-    return f"{kind} {family}"
+    return f"{MADE if kind == RING_KIND else kind} {family}"
 
 
 def one_dimensional(found_type: str | None) -> bool:
