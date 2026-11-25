@@ -5,6 +5,7 @@ from contextlib import contextmanager
 from dataclasses import asdict
 from typing import Protocol
 
+from graph_scale_dynamics.decisions.by_word import run_on
 from graph_scale_dynamics.decisions.engine import (
     DONE, ENGINE_VERSION, HOLD, LANE_AUDIT, LANE_FAMILY, LANE_ORDER, PARKING_RULES, RUN_NEXT, STOP,
     Decision, Policy, Seed, decide, policy_fingerprint, rules_revision)
@@ -381,7 +382,11 @@ def decide_pass(store: Store, campaign_id: str, policy: Policy = Policy(), *, ho
         redo = set(again_now)
         parked_redo = {law for law in parked_now if law in redo and law not in held_now}
         tally[("rules_changed", rules)] += len(again_now)
-    order = again + [law for law in awaiting if law not in again]
+    named = getattr(store, "run_on_laws", None)
+    by_word = dict(named(campaign_id) or {}) if callable(named) else {}
+    parked_redo |= set(by_word)
+    order = again + [law for law in by_word if law not in again]
+    order += [law for law in awaiting if law not in order]
     reader_of_the_gate = getattr(store, "gate_context", None)
     gate = dict(reader_of_the_gate(campaign_id) or {}) if (order and callable(reader_of_the_gate)) else {}
     for position, law in enumerate(order):
@@ -432,6 +437,9 @@ def decide_pass(store: Store, campaign_id: str, policy: Policy = Policy(), *, ho
             decision = (decide_every_chain(str(law), {EMPTY: rungs, **every}, policy, starts_reading=starts_reading,
                                            **context_of_the_rules)
                         if every is not None else decide(str(law), rungs, policy, **context_of_the_rules))
+            if str(law) in by_word:
+                inputs["run_on"] = by_word[str(law)]
+                decision = run_on(decision, by_word[str(law)], policy)
             if decision.action == RUN_NEXT and lanes.get(decision.next_n) is not None:
                 lanes[decision.next_n] += 1
             if decision.action == RUN_NEXT and decision.rule == "gate_audit":

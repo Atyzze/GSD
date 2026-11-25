@@ -72,13 +72,21 @@
     const list=((d&&d.focus&&d.focus.done)||[]).slice().reverse();
     if(!list.length)return '<div class=empty>no law’s focus has ended yet</div>';
     return `<ul class=map-done>${list.map(e=>`<li><b>${esc(e.label||short(e.law))}</b> ${esc(e.stage)}${e.region?` as ${esc(e.region)}`:''}${e.why?`: ${esc(e.why)}`:''}${e.sensitivity?` · sensitive to ${esc(e.sensitivity.on)}`:''}</li>`).join('')}</ul>`}
+  function runOn(d){
+    const lists=(d&&d.run_on_lists)||[], now=d&&d.run_on;
+    if(now){
+      const st=now.stages||{}, rows=(now.laws||[]).map(e=>`<tr><td>C${esc(e.campaign)}</td><td><code>${esc(short(e.law))}</code></td><td>${esc(e.class||'')}</td><td>${esc(e.stage)}</td><td class=muted>${esc(e.rule||'')}${e.at_n!=null?` at N=${esc(num(e.at_n))}`:''}</td></tr>`).join('');
+      return `<div class=toolbar><span>${esc(num((now.laws||[]).length))} laws named by <code>${esc(now.list)}</code>: ${esc(num(st.waiting||0))} waiting to be decided again, ${esc(num(st['running on']||0))} running on, ${esc(num(st.settled||0))} settled again</span><button type=button class=gsd-control data-admin-write data-map-do=run_on_clear title="name no more laws; a law already run on goes on">name no more</button></div>
+        <table class=map-run-on><thead><tr><th>campaign</th><th>law</th><th>class at the gate</th><th>where it stands</th><th>its latest decision</th></tr></thead><tbody>${rows}</tbody></table>`}
+    if(!lists.length)return '<div class=empty>no run-on list for this folder\u2019s study</div>';
+    return lists.map(l=>`<div class=toolbar><span>study ${esc(l.study)}: ${esc(num(l.held))} laws ${esc(l.gate)} holds at N=${esc(num(l.at_n))} in ${esc(l.bundle||'its bundle')}, ${esc(num(l.run_on))} of them read something (${Object.entries(l.classes||{}).map(([k,v])=>`${esc(k)} ${esc(num(v))}`).join(', ')})</span><button type=button class=gsd-control data-admin-write data-map-do=run_on data-map-study="${esc(l.study)}" title="each named law is decided again at the size its gate held it and goes to the next size; the gate's own counts do not move">run them on</button></div>`).join('')}
   function render(d){
     data=d||data;
     const put=(id,html)=>{const el=document.getElementById(id);if(el)el.innerHTML=html};
     const scope=document.getElementById('mapScope');if(scope)scope.textContent=data&&data.focus?`study ${data.focus.study}`:'';
     const typing=['mapSplit','mapLaw','mapRings','mapConfirm','mapContenders','mapOutward','mapInside','mapStudy'].some(id=>{const el=document.getElementById(id);return el&&document.activeElement===el});
     if(!typing)put('mapControls',controls(data));
-    put('mapCurrent',current(data));put('mapRegions',regions(data));put('mapDepth',depthTable(data));put('mapQueue',queue(data));put('mapDone',done(data));
+    put('mapCurrent',current(data));put('mapRegions',regions(data));put('mapDepth',depthTable(data));put('mapQueue',queue(data));put('mapDone',done(data));put('mapRunOn',runOn(data));
     wire()}
   function value(id){const el=document.getElementById(id);return el?el.value:''}
   function bodyFor(button){
@@ -88,6 +96,8 @@
     if(what==='split')return {do:'split',split:value('mapSplit')};
     if(what==='law')return {do:'law',law:law||value('mapLaw')};
     if(what==='skip'||what==='back')return {do:what,law};
+    if(what==='run_on')return {do:'run_on',study:button.getAttribute('data-map-study')||undefined};
+    if(what==='run_on_clear')return {do:'run_on',clear:true};
     return {do:'settings',settings:{radii:parseRings(value('mapRings')),confirm_share:+value('mapConfirm'),contenders:+value('mapContenders'),outward_most:+value('mapOutward'),inside_share:+value('mapInside')}}}
   async function act(body){
     note='';

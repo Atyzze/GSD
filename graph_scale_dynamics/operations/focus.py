@@ -19,7 +19,7 @@ NEIGHBOURHOOD, BOUNDARIES, MAPPED, UNCONFIRMED, INVALIDATED = (
     "neighbourhood", "boundaries", "mapped", "unconfirmed", "invalidated")
 ENDED = (MAPPED, UNCONFIRMED, INVALIDATED)
 ROBUST, ITS_SEEDS, ITS_DIGITS = "robust", "its seeds", "its exact parameters"
-DOS = ("start", "law", "skip", "back", "stop", "settings", "split")
+DOS = ("start", "law", "skip", "back", "stop", "settings", "split", "run_on")
 QUEUE_LENGTH = 100
 INTERVAL_SECONDS = 60.0
 _LAST: dict[str, float] = {}
@@ -747,6 +747,17 @@ def act(repo, body: dict, *, tree=None) -> dict:
         stop(repo)
     elif do == "settings":
         set_next(repo, body.get("settings"))
+    elif do == "run_on":
+        from graph_scale_dynamics.operations import run_on
+        if body.get("clear"):
+            return {"ok": True, "did": do, "run_on": run_on.clear(repo)}
+        study = str(body.get("study") or ((load(repo) or {}).get("study")) or "")
+        if not study:
+            found = studies(repo)
+            if len(found) != 1:
+                raise ValueError(f"this folder holds {len(found)} studies: name one")
+            study = found[0]["study"]
+        return {"ok": True, "did": do, "run_on": run_on.name(repo, study, tree=tree)}
     else:
         work_groups.set_shares(repo, work_groups.split_of(str(body.get("split") or "")))
     return {"ok": True, "did": do}

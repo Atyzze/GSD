@@ -312,7 +312,11 @@ function twoChainsChecks(payload, label) {
   const cells = nodesWhere(app, (n) => hasClass(n, 'tc-cell'));
   if (cells.length !== rungs.length) throw new Error(`${label}: ${cells.length} strip cells for ${rungs.length} rungs`);
   const charts = nodesWhere(app, (n) => hasClass(n, 'tc-chart') && n.attributes['data-quantity'] && !hasClass(n, 'tc-run-across'));
-  if (charts.length !== 11) throw new Error(`${label}: ${charts.length} charts across N, not 11`);
+  if (charts.length !== 13) throw new Error(`${label}: ${charts.length} charts across N, not 13`);
+  const all = nodesWhere(app, (n) => hasClass(n, 'tc-chart') && n.attributes['data-quantity']);
+  if (all.length !== 16) throw new Error(`${label}: ${all.length} charts, not a grid of 16`);
+  const boxes = new Set(all.map((c) => (String(c.innerHTML).match(/viewBox="([^"]+)"/) || [])[1]).filter(Boolean));
+  if (boxes.size !== 1) throw new Error(`${label}: the charts are not all one size: ${[...boxes]}`);
   const drawn = charts.map((c) => String(c.innerHTML || ''));
   if (!drawn.some((h) => h.includes('var(--start-empty')) || !drawn.some((h) => h.includes('var(--start-random'))) {
     throw new Error(`${label}: the charts do not draw both chains`);
@@ -333,8 +337,9 @@ function twoChainsChecks(payload, label) {
   const selected = rungs.find((r) => r.n === want);
   if (stops.length !== selected.per_seed.length) throw new Error(`${label}: ${stops.length} stop lines for ${selected.per_seed.length} seeds`);
   const rows = nodesWhere(app, (n) => hasClass(n, 'tc-grid')).map((g) => g.children.map((c) => c.attributes['data-quantity']));
-  const wantRows = [['mean_degree', 'giant_fraction', 'd_s', 'd_V', 'd_B', 'd_w'],
-    ['kappa', 'energy_per_node', 'triangles_per_node', 'squares_per_node', 'reach'], ['met_from', 'energy_gap', 'checks']];
+  const wantRows = [['mean_degree', 'giant_fraction', 'triangles_per_node', 'squares_per_node'],
+    ['d_s', 'd_V', 'd_B', 'd_w'], ['reach', 'kappa', 'energy_per_node', 'einstein'],
+    ['met_from', 'energy_gap', 'checks', 'kept']];
   if (JSON.stringify(rows) !== JSON.stringify(wantRows)) throw new Error(`${label}: the chart rows are ${JSON.stringify(rows)}`);
   if (cells.some((c) => c.tagName === 'BUTTON' || c.onclick)) throw new Error(`${label}: a strip cell is still a button`);
   if (payload.space_score) spaceScoreChecks(app, payload.space_score, label, count);
@@ -368,10 +373,12 @@ check('both chains are drawn alike: met or apart per size, overlaid across N, pa
   if (!nodesWhere(app, (n) => hasClass(n, 'tc-diff')).length) throw new Error('chains that differ are not marked');
   const meet = nodesWhere(app, (n) => n.attributes && n.attributes['data-quantity'] === 'met_from')[0];
   const meetSvg = String(meet.innerHTML);
-  if ((meetSvg.match(/tc-met-dot/g) || []).length !== 6 || (meetSvg.match(/tc-unmet-dot/g) || []).length !== 3) {
-    throw new Error('the meeting chart does not draw six seeds met and three not');
+  const marks = (meetSvg.match(/tc-met-dot/g) || []).length + (meetSvg.match(/tc-unmet-dot/g) || []).length;
+  if (marks !== 2 * CHAINS_PAYLOAD.chains.rungs.length) throw new Error(`the rest chart draws ${marks} marks, not one a start a size`);
+  if (!(meetSvg.match(/tc-unmet-dot/g) || []).length || !(meetSvg.match(/tc-met-dot/g) || []).length) {
+    throw new Error('the rest chart does not draw a start that met filled and one that did not hollow');
   }
-  if (!meetSvg.includes('not met by the end of its run, at the ceiling at 1,600 sweeps')) throw new Error('an unmet seed does not say how its run ended');
+  if (!meetSvg.includes('not by the end of its run, at the ceiling at 1,600 sweeps')) throw new Error('an unmet seed does not say how its run ended');
   const gap = String(nodesWhere(app, (n) => n.attributes && n.attributes['data-quantity'] === 'energy_gap')[0].innerHTML);
   if ((gap.match(/tc-size-line/g) || []).length !== 2) throw new Error('the gap over the run is not one line per size with a course');
   if ((gap.match(/class="tc-end-label"/g) || []).length !== 2) throw new Error('each size of the gap is not named at its end');
@@ -577,7 +584,7 @@ check('the eight starts: each its own colour, in the page\u2019s order, the char
   if (heads.join(',') !== wanted.join(',')) throw new Error(`the table\u2019s columns are ${heads}`);
   const text = String(app.textContent);
   const at = (needle) => { const i = text.indexOf(needle); if (i < 0) throw new Error(`the page lacks "${needle}"`); return i; };
-  const order = ['the eight chains', 'the basics', 'in detail', 'the run, across N', 'how the chains ended, size by size',
+  const order = ['the eight chains', 'the graph counted', 'the four probes', 'geometry and energy', 'the run', 'how the chains ended, size by size',
                  'how far from a space', 'starts against each other', 'explanation: how the chains are run'];
   order.slice(1).forEach((needle, i) => { if (at(order[i]) > at(needle)) throw new Error(`"${needle}" comes before "${order[i]}"`); });
   const explain = nodesWhere(app, (n) => hasClass(n, 'tc-explain'));
@@ -588,7 +595,7 @@ check('the eight starts: each its own colour, in the page\u2019s order, the char
   for (const want of ['Every seed runs this law 8 times', 'Each property is a distance in tolerances', 'every two chains are compared']) {
     if (!said.includes(want)) throw new Error(`the explanation lost "${want}"`);
   }
-  if (at('the basics') > text.indexOf('Every seed runs this law')) throw new Error('the explanation stands above the charts');
+  if (at('the graph counted') > text.indexOf('Every seed runs this law')) throw new Error('the explanation stands above the charts');
 });
 
 check('every start read against the others: the class, the groups, each lattice against its own start', () => {

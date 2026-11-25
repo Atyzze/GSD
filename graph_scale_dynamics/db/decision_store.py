@@ -848,6 +848,21 @@ class DecisionStore:
             (CandidateState.PARKED.value, str(campaign_id), *rules, int(limit))).fetchall()
         return [str(r["candidate_id"]) for r in rows]
 
+    def run_on_laws(self, campaign_id: str) -> dict[str, dict]:
+        from graph_scale_dynamics.decisions import by_word
+        named = by_word.entries_of(self.repo.get_flag(by_word.FLAG, ""), str(campaign_id))
+        if not named:
+            return {}
+        rows = self.repo.conn.execute(
+            f"SELECT d.candidate_id, d.rule, d.at_n FROM {LATEST} d JOIN campaign_candidates c "
+            "ON c.campaign_id=d.campaign_id AND c.candidate_id=d.candidate_id AND c.state=? "
+            f"WHERE d.campaign_id=? AND d.action='stop' AND d.candidate_id IN ({','.join('?' for _ in named)}) "
+            + _IDLE + "ORDER BY d.candidate_id",
+            (CandidateState.PARKED.value, str(campaign_id), *sorted(named))).fetchall()
+        return {str(row["candidate_id"]): named[str(row["candidate_id"])] for row in rows
+                if str(row["rule"]) == str(named[str(row["candidate_id"])]["gate"])
+                and row["at_n"] is not None and int(row["at_n"]) == int(named[str(row["candidate_id"])]["at_n"])}
+
     def law_starts_reading(self, campaign_id: str, law: str) -> dict:
         from graph_scale_dynamics.observability import starts_reading, two_chains
         starts = ((self.spec or {}).get("sampling_contract") or {}).get("given_starts")

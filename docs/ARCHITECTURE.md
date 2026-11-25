@@ -688,6 +688,21 @@ with a parameter an axis a value) and the dynamics' axes; a law mapped gives a r
 line point that read its kind, its ranges each axis's least and greatest; it takes the next number unless a region of
 the same kind overlaps it on every axis, which it then joins.
 
+**Held laws run on** (864, `operations/run_on.py`): the Map page's last panel reads each study's committed run-on list
+(`study_<id>_run_on.json`, `tools/held_by_a_gate.py`) and offers "run them on" (`do: run_on`, the flag `run_on`, how
+the decider takes it in `docs/DECISIONS.md`, "A law run on by word"); once named, it lists each law as waiting, running
+on or settled again with its latest decision, and "name no more" clears the flag, a law already run on going on.
+
+## A law's status in words (`observability/law_status.py`, 864)
+
+No law is done: the ladder a study declares is where it stops for now, and any law can be taken higher. Every page
+says a law's status from its state and its latest decision: **waiting to be extended** (read to the top of its
+ladder, the state `DONE` stored as before, or held for a place at its next size), **settled at N=...** by a gate, its
+budget or a condition (the rule named; by a region, GG#n, where the focus names one), the size its highest reading
+was taken at said every time, since a reading at a larger size carries more weight; **running** to its next size; or
+**not started**. The law page's header and its first line, the explorer's state column and Home's lines read it
+(`candidate.status`, `status` on the explorer's rows); nothing stored changes, so every decision replays.
+
 ## The science a bundle was read by (`reporting/science_contract.py`, 856; contract 2 at 861)
 
 `study.json`'s `science`: the analysis version, the estimator's and the starts' fingerprints, the score's and the
