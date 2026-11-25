@@ -361,6 +361,29 @@ function twoChainsChecks(payload, label) {
   }
   const silent = all.filter((c) => String(c.innerHTML).includes('<svg') && !(c._tips || []).length).map((c) => c.attributes['data-quantity']);
   if (silent.length) throw new Error(`${label}: the plots of ${silent} draw points no mouse-over answers`);
+  const unexplained = all.filter((c) => {
+    const bubble = nodesWhere(c, (n) => hasClass(n, 'tc-bubble'))[0];
+    return !c.attributes['data-eli5'] || !bubble || String(bubble.textContent).length < 80 || !nodesWhere(c, (n) => hasClass(n, 'tc-head')).length;
+  }).map((c) => c.attributes['data-quantity']);
+  if (unexplained.length) throw new Error(`${label}: the plots of ${unexplained} carry no plain words behind their title`);
+  const keptWords = String(nodesWhere(all.find((c) => c.attributes['data-quantity'] === 'kept'), (n) => hasClass(n, 'tc-bubble'))[0].textContent);
+  for (const want of ['Above 1', 'Below 0', 'Between 0 and 1', 'a ring from the tesseract tends to 4']) {
+    if (!keptWords.includes(want)) throw new Error(`${label}: the kept share's words do not say "${want}"`);
+  }
+  const ds = all.find((c) => c.attributes['data-quantity'] === 'd_s');
+  const segs = ds._segments || [];
+  const drawnLines = (String(ds.innerHTML).match(/<polyline/g) || []).length;
+  if (drawnLines && (!segs.length || !segs.every((g) => g.lines[0] === 'between two readings:' && /^N=[\d,]+: /.test(g.lines[1]) && /^N=[\d,]+: /.test(g.lines[2])))) {
+    throw new Error(`${label}: a line between two readings does not name both`);
+  }
+  segs.forEach((g) => {
+    const chain = (ds._tips.find((t) => t.head === g.head) || {}).chain;
+    [g.lines[1], g.lines[2]].forEach((line) => {
+      const n = Number(line.slice(2, line.indexOf(':')).replace(/,/g, ''));
+      const cell = tableCell(app, 'd_s', chain, n);
+      if (!cell || line !== `N=${n.toLocaleString('en-US')}: ${cell.textContent}`) throw new Error(`${label}: a line's reading "${line}" is not the table's`);
+    });
+  });
   const keptChart = all.find((c) => c.attributes['data-quantity'] === 'kept');
   if (String(keptChart.innerHTML).includes('<svg') && ((String(keptChart.innerHTML).match(/class="tc-guide"/g) || []).length !== 2
       || !String(keptChart.innerHTML).includes('a random wiring') || !String(keptChart.innerHTML).includes('its start'))) {
@@ -836,6 +859,16 @@ function curvesPayload(n, keys) {
 }
 const CURVE_CHAINS = [['empty', 'empty'], ['given', 'random'], ...MORE.map((name) => [name, name])];
 
+check('a pointer picks the nearest reading, else the line between two, else nothing', () => {
+  const points = [{ x: 0, y: 0, head: 'a', lines: ['the point'] }, { x: 100, y: 0, head: 'a', lines: ['the other'] }];
+  const segments = [{ x1: 0, y1: 0, x2: 100, y2: 0, head: 'a', lines: ['between two readings:', 'N=64: 1', 'N=256: 2'] }];
+  if (sandbox.tcPick(points, segments, 3, 2).lines[0] !== 'the point') throw new Error('a reading under the pointer is not picked');
+  const between = sandbox.tcPick(points, segments, 50, 4);
+  if (!between || between.lines[0] !== 'between two readings:' || Math.abs(between.x - 50) > 1e-9) throw new Error('the line between two readings is not picked');
+  if (sandbox.tcPick(points, segments, 50, 40) !== null) throw new Error('a pointer far from every line picks something');
+  if (sandbox.tcPick(points, [], 20, 5).lines[0] !== 'the point') throw new Error('without a line the nearest reading within reach is not picked');
+});
+
 check('every chain’s curves are drawn alike: one chart a probe, one line a chain and seed, a chain without curves named', () => {
   sandbox.renderTwoChains(makeElement('div'), fiveChains(CHAINS_PAYLOAD));
   const host = makeElement('div');
@@ -856,6 +889,12 @@ check('every chain’s curves are drawn alike: one chart a probe, one line a cha
   const note = String(nodesWhere(host, (n) => hasClass(n, 'cv-note'))[0].textContent);
   if (!note.includes('drawn: empty, random, honeycomb, cubic') || !note.includes('3 seeds')) throw new Error(`the note reads: ${note}`);
   charts.forEach((chart) => {
+    if (chart.attributes['data-eli5'] !== chart.attributes['data-kind'] || !nodesWhere(chart, (n) => hasClass(n, 'tc-bubble')).length) {
+      throw new Error(`${chart.attributes['data-kind']}: the curve carries no plain words behind its title`);
+    }
+    if (!(chart._segments || []).length || !chart._segments.every((g) => g.lines[0] === 'between two readings:')) {
+      throw new Error(`${chart.attributes['data-kind']}: a curve between two of its points says nothing`);
+    }
     const tips = chart._tips || [];
     if (!tips.length || !tips.some((t) => t.head === 'honeycomb, seed 2') || !tips.every((t) => t.lines[0] === 'N=4,096')) {
       throw new Error(`${chart.attributes['data-kind']}: a point's mouse-over does not name its start, seed and size`);
