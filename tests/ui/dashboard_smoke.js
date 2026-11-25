@@ -4023,6 +4023,47 @@ check('the Map page shows the law in focus, its rings, seeds, depth, regions, qu
   }
 });
 
+check('the Map page lists the import folder\u2019s bundles to tick, and folds the focus\u2019s settings away (15:11, 15:13)', () => {
+  const map = sandbox.GSD_MAP;
+  const page = Object.assign({}, FOCUS_PAGE, { imports: { contract: 'gsd-imports-1', folder: '/data/projects/GSD/176/main/import', exists: true, bundles: [
+    { name: 'study_174_2026-11-25T13-04-19Z.tar.zst', kind: 'archive', bytes: 180621331, readable: true, bundle: 'study_174_2026-11-25T13-04-19Z',
+      study: '174', build: 865, built_utc: '2026-11-25T13:04:19Z', laws: 10058, scoring: 69, regions: 0, science_same: true, science_differ: [], seeded: null },
+    { name: 'study_170_old.tar.zst', kind: 'archive', bytes: 1000, readable: true, bundle: 'study_170_old', study: '170', build: 790,
+      built_utc: '2026-10-01T00:00:00Z', laws: 10, scoring: 1, regions: 0, science_same: false, science_differ: ['probes'], seeded: null },
+    { name: 'copying.tar.zst', kind: 'archive', bytes: 10, readable: false, why: 'ValueError: truncated' }] } });
+  map.render(page);
+  const seedHtml = getElementById('mapSeed').innerHTML;
+  for (const want of ['/data/projects/GSD/176/main/import', 'data-map-do=open_import', 'open the folder', 'copy the path',
+                      'study_174_2026-11-25T13-04-19Z.tar.zst', 'build 865', '172 MiB', '69 scoring laws of 10,058', 'seed from the ticked',
+                      'another science: refused', 'not readable yet', 'still being copied?']) {
+    if (!seedHtml.includes(want)) throw new Error(`the Seeds panel lacks "${want}": ${seedHtml.slice(0, 300)}`);
+  }
+  if (/mapBundle|path\/to\//.test(seedHtml)) throw new Error('the Seeds panel still asks for a path');
+  const ticks = seedHtml.split('map-import-tick').length - 1;
+  if (ticks !== 2 || !/data-import-name="study_170_old.tar.zst" disabled/.test(seedHtml)) throw new Error('a bundle of another science can be ticked');
+  const controls = getElementById('mapControls').innerHTML;
+  if (!/<details class=map-settings/.test(controls) || / open>/.test(controls.split('<summary>')[0])) throw new Error('the focus\u2019s settings are not folded away');
+  for (const want of ['how far from the law its neighbours are drawn', 'the depth seeker takes', 'counts as inside it']) {
+    if (!controls.includes(want)) throw new Error(`the settings do not say "${want}"`);
+  }
+  const open = { getAttribute: (k) => ({ 'data-map-do': 'open_import' })[k] || null };
+  if (JSON.stringify(map.bodyFor(open)) !== JSON.stringify({ do: 'open_import' })) throw new Error('opening the folder sends nothing');
+  const seed = { getAttribute: (k) => ({ 'data-map-do': 'seed' })[k] || null };
+  if (JSON.stringify(map.bodyFor(seed)) !== JSON.stringify({ do: 'seed', bundles: [] })) throw new Error(JSON.stringify(map.bodyFor(seed)));
+});
+
+check('a running law says whether the blind draw or the focus drew it (15:18)', () => {
+  const app = sandbox.GSD_APP;
+  const rows = [{ campaign_id: '3', design_kind: 'blind', group: 'A', study_batch: true }, { campaign_id: '12', design_kind: 'focus', group: 'N', focus_part: 'N' },
+                { campaign_id: '13', design_kind: 'focus', group: 'N', focus_part: 'S' }, { campaign_id: '14', design_kind: 'focus', group: 'D', focus_part: 'D' },
+                { campaign_id: '15', design_kind: 'seed', group: 'N' }, { campaign_id: '11', name: 'campaign-standing-controls' }];
+  const got = ['3', '12', '13', '14', '15', '11', '99'].map((cid) => app.lawGroupOf(rows, cid)[1]).join(',');
+  if (got !== 'blind,neighbour,seeds,depth,seeded,control,other') throw new Error(`the groups read ${got}`);
+  app.paintLiveGroups({ A: 6, N: 3, D: 1 });
+  const said = getElementById('liveGroups').innerHTML;
+  if (!/blind<\/span> 6/.test(said) || !/neighbour<\/span> 3/.test(said) || !/depth<\/span> 1/.test(said)) throw new Error(`the heading counts ${said}`);
+});
+
 check('the Map page reads its rings and settings and refuses what is not radius:laws', () => {
   const map = sandbox.GSD_MAP;
   const rings = map.parseRings('1e-9:4, 0.1:8 ,0.4:8');

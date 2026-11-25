@@ -8,13 +8,31 @@ from graph_scale_dynamics.operations import focus
 PAGE_CONTRACT = "gsd-map-page-1"
 
 
+def import_folder():
+    from graph_scale_dynamics.operations import imports
+    from graph_scale_dynamics.services.api import study_route
+    return imports.folder_of(study_route.REPORT_ROOT)
+
+
 def answer(repo) -> dict:
-    from graph_scale_dynamics.operations import run_on
+    from graph_scale_dynamics.operations import imports, run_on
     from graph_scale_dynamics.scheduling import work_groups
+    state = focus.load(repo)
     return {"contract": PAGE_CONTRACT, "focus": focus.reading(repo), "studies": focus.studies(repo),
-            "work": focus.work_of(repo, focus.load(repo)),
+            "work": focus.work_of(repo, state),
             "workload": work_groups.reading(repo), "defaults": focus.settings_of(focus.plan()),
-            "run_on": run_on.reading(repo), "run_on_lists": run_on.lists(focus.studies(repo))}
+            "run_on": run_on.reading(repo), "run_on_lists": run_on.lists(focus.studies(repo)),
+            "imports": imports.listing(import_folder(), seeded=(state or {}).get("seeded"))}
+
+
+def act(repo, body: dict) -> dict:
+    from graph_scale_dynamics.operations import imports
+    do = str(body.get("do") or "")
+    if do == "open_import":
+        return {"ok": True, "did": do, **imports.open_folder(import_folder())}
+    if do == "seed" and "bundles" in body:
+        return {"ok": True, "did": do, **imports.seed(repo, import_folder(), body.get("bundles") or [])}
+    return focus.act(repo, body)
 
 
 def get(handler, db_path: str, parts: list[str]) -> None:
@@ -55,7 +73,7 @@ def post(handler, db_path: str, parts: list[str], max_bytes: int) -> None:
         return None
     try:
         with Repo(db_path) as repo:
-            done = focus.act(repo, body)
+            done = act(repo, body)
             handler._json(dict(done, **answer(repo)))
     except ValueError as exc:
         handler._json({"error": str(exc)}, 400)

@@ -1,23 +1,24 @@
-# The next build is 869
+# The next build is 870
 
 This file names the next build and says how to make it. `tests/unit/test_next_build_is_named.py` parses its first line,
 which must read exactly `# The next build is <N>`, one above `BUILD_NUMBER`.
 
-## Where to begin: 869 is Home's four boxes as one
+## Where to begin: 870 is Home's four boxes as one
 
 **Starting from nothing but the repository** (the operator, 2026-11-24 23:00): clone `main` and bring it up by
 `docs/agent/ENVIRONMENT.md`, section 10, "From the repository". Then `docs/WHERE_WE_ARE.md`, `docs/agent/HANDOFF.md`
 and this page, in that order, and `CLAUDE.md`'s rules for a shared repository. 864 to 868 (`docs/build_notes/`): the
 held laws run on, study 176 seeded from bundles, Home's one bar, a law's type, each term switched off, the Map page's
-slider and ordered lists, one depth worker; the law page in one pass, one table, plain words behind every plot.
+slider and ordered lists, one depth worker; the law page in one pass, one table, plain words behind every plot; the
+import folder and each running law's group (869).
 
-**What 869 makes** (the operator, 2026-11-25 14:24 and 14:29, `docs/HISTORY.md`): Home's fleet ladder, macroscopic
+**What 870 makes** (the operator, 2026-11-25 14:24 and 14:29, `docs/HISTORY.md`): Home's fleet ladder, macroscopic
 landscape, Top 100 and filters drawn from one selection of the laws: the filters choose the laws, every box reads the
-same selection, so the ladder's statistics read per phenotype; the focus's and the depth's laws in the ladder beside the
-blind ones, their group named. A consolidation build: each box's numbers checked against the bundle's own tables
+same selection, so the ladder's statistics read per phenotype (869 put the focus's laws in the study's view; the
+ladder's law counts still come from the server per campaign, not from the filtered laws). A consolidation build: each box's numbers checked against the bundle's own tables
 (`tables/laws.ndjson.gz`, `rungs.ndjson.gz`) on 174's bundle of 13:04Z, the old and the new drawn side by side first.
 
-**Then 870, the depth seeker to the memory limit** (the operator, 2026-11-25 13:11): its campaign's ladder opens past
+**Then 871, the depth seeker to the memory limit** (the operator, 2026-11-25 13:11): its campaign's ladder opens past
 262,144 (1,048,576, 4,194,304 and on); before a size is bought its seed's peak is priced from the law's own peak growth
 over the sizes it ran (`memory.own_earlier_seed_bytes` and its fit), and the size is bought only when that fits the
 host's reach (`scheduling/memory_hold.reach`) less the free 10 GiB the admission keeps; else the law is settled at its
@@ -28,11 +29,12 @@ plan's note). Its one worker never waits on a size that cannot fit.
 **Where it will press**: `main.py` at 129,976 bytes of its 130,000 and `build_handler` at its 1,160 lines. Any change to
 `decisions/` says why in the notes; every decision of 174 replays.
 
-**Acceptance** of 869: every box of Home reads the same laws for the same filters, each count equal to the bundle's
-tables counted the same way (a test on a bundle's tables); no score, kind or decision moves (`tools/outputs_of_a_law.py
---against` 868's record); the full lane green. **Of 870**: a law pushed to its ceiling on a sandbox with a small reach (a test that fakes the host's
-reach), settled there with its numbers; a size that fits bought; no score, kind or decision of a law outside the depth
-campaign moves (`tools/outputs_of_a_law.py --against` 869's record, `tools/replay_bundle.py`); the full lane green.
+**Acceptance** of 870: every box of Home reads the same laws for the same filters, each count equal to the bundle's
+tables counted the same way (a test on a bundle's tables); no score, kind or decision moves
+(`tools/outputs_of_a_law.py --against` 869's record); the full lane green. **Of 871**: a law pushed to its ceiling on
+a sandbox with a small reach (a test that fakes the host's reach), settled there with its numbers; a size that fits
+bought; no score, kind or decision of a law outside the depth campaign moves (`tools/outputs_of_a_law.py --against`
+870's record, `tools/replay_bundle.py`); the full lane green.
 
 **Then**: the neighbours read at a law's earliest identification once 866's early call shows it holds (the operator's
 choice on that reading); the pages' and reports' build numbers in words (10:00); the engine's diet, Rust first, timed
@@ -40,7 +42,7 @@ on 176's seeds, then C and assembly (11:10); the lexicon and every law against e
 as the shortest description of its charts (12:12) (`docs/ROADMAP.md`).
 
 **Waiting on the operator** (`docs/ROADMAP.md`, "Questions for the operator"): 176's standing controls (keep, as a
-tick, recommended) and when 176 starts (tonight as designed, recommended at 868, the 40 held laws being 40 rings).
+tick, recommended); 176 runs since 15:00, its seed the operator's to give from the import folder.
 
 **When study 176 sends its first bundle**: `tools/catalogue_reading.py` judges `small_world_criterion_1.json` (W1,
 W2), and `study_176_criterion.json` is read on it (P1 by `tools/perturb_reading.py`'s run-again line on the seeded

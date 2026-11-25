@@ -89,7 +89,8 @@ def read(path) -> dict:
     scoring.sort(key=lambda e: (-e["score"], int(e["campaign"]) if e["campaign"].isdigit() else 0,
                                 e["number"] or 0, e["law"]))
     return {"name": Path(str(path)).name.removesuffix(".tar.zst").removesuffix("_tar.zst"),
-            "built_utc": meta.get("built_utc"), "study": str(meta.get("study_id") or meta.get("study") or ""),
+            "built_utc": meta.get("built_utc"), "build": meta.get("build_number"),
+            "study": str(meta.get("study_id") or meta.get("study") or ""),
             "science": _dict(meta.get("science")), "specs": specs, "scoring": scoring, "regions": regions}
 
 

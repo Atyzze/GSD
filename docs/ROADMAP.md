@@ -62,12 +62,8 @@ Open, from 864 (2026-11-25 11:06):
   read by a wrong instrument agrees with itself. The map is the control of the search (a blind law inside a known
   region predicts its kind), the controls the control of the instrument. Cost of dropping them: nothing that checks
   the instrument inside a study's own folder and bundle.
-* **When 176 starts** (read again on 174's bundle of 13:04Z, at 14:23's "ideally ... before tonight"): the 40 were
-  not run on, and all 40 are a line or a ring, a type the dex holds; 174's ledger reads three gates clean (disconnected
-  and empty at 1,024, starts alike at 4,096) and two leaking at 4,096 (empty, disconnected), and 176's own ledger
-  confirms and reopens its gates from its own laws. Recommended: tonight on 867 or later as designed, in its own folder,
-  174 paused after a bundle, seeded from the 13:04Z bundle. Or 174's three clean gates written into 176's design at 1%
-  from its first law, a design build of about two hours.
+* **When 176 starts**: answered, the operator started it on 867 at about 15:00, as designed (`docs/HISTORY.md`); a
+  gate change learned from 174 would be study 177.
 
 Answered 2026-11-24 10:22 (`docs/HISTORY.md`): study 175 runs to its end; the study after it looks for laws whose
 different starts arrive at the same d and mean degree; a lattice that does not change scores lowest; every behaviour
@@ -174,10 +170,11 @@ own build, in this order; a planned build takes its number when it is made:
    `docs/build_notes/BUILD867_NOTES.md`): every plot answers the pointer, one table of every value plotted, the
    curves a row a size, the sections lettered and the plots numbered. **868, made: plain words behind every plot**
    (14:17 to 14:22; `docs/build_notes/BUILD868_NOTES.md`), a line between two readings naming both, a click pinning the
-   card. **869, Home's four boxes as one** (14:24, 14:29): the fleet ladder, the landscape, the Top 100 and the filters
+   card. **869, made: the import folder, the focus's settings folded, each running law's group** (15:08 to 15:18;
+   `docs/build_notes/BUILD869_NOTES.md`); the focus's laws on Home. **870, Home's four boxes as one** (14:24, 14:29): the fleet ladder, the landscape, the Top 100 and the filters
    drawn from one selection of the laws, the focus's laws in the ladder, every box following the filters so the
    statistics can be read per phenotype; a consolidation build, each box checked against the bundle's tables.
-   **870, the depth seeker to the memory limit** (13:11: "always just 1 worker
+   **871, the depth seeker to the memory limit** (13:11: "always just 1 worker
    thread responsible for always pushing the memory limit to the system max (+ its free buffer zone ofc) but
    automatically testing how far N is feasible/safe to run without getting oom killed"): the depth campaign's ladder
    open past 262,144, its next size priced from the law's own peak growth (`memory.own_earlier_seed_bytes`) and bought

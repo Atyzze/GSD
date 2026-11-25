@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import threading
 import time
 
@@ -8,6 +9,18 @@ DASHBOARD_WORKER_SLOTS = sum(DASHBOARD_WORKER_SLOTS_BY_KIND.values())
 DASHBOARD_WORKER_RETRY_SECONDS = 60.0
 KNOWN_CAMPAIGNS_TTL_SECONDS = 30.0
 KNOWN_CAMPAIGNS_REREAD_SECONDS = 2.0
+
+
+FOCUS_KINDS = ("focus", "seed")
+
+
+def _design_of(row) -> dict:
+    try:
+        spec = json.loads(row["spec_json"] or "{}")
+    except (KeyError, TypeError, ValueError):
+        return {}
+    design = spec.get("study_design") if isinstance(spec, dict) else None
+    return design if isinstance(design, dict) else {}
 
 
 class DashboardWorkers:
@@ -32,10 +45,13 @@ class DashboardWorkers:
             repo = self.open_repo()
             budgets = {str(r["key"])[len(LAW_BUDGET_PREFIX):] for r in repo.conn.execute(
                 "SELECT key FROM control WHERE key LIKE ? AND value<>''", (LAW_BUDGET_PREFIX + "%",)).fetchall()}
-            found = []
-            for row in repo.conn.execute("SELECT campaign_id,status FROM campaigns").fetchall():
-                if str(row["campaign_id"]) in budgets and str(row["status"] or "") != "archived":
-                    found.append(str(row["campaign_id"]))
+            rows = [r for r in repo.conn.execute("SELECT campaign_id,status,spec_json FROM campaigns").fetchall()
+                    if str(r["status"] or "") != "archived"]
+            designs = {str(r["campaign_id"]): _design_of(r) for r in rows}
+            found = [cid for cid in designs if cid in budgets]
+            studies = {str(designs[cid].get("study")) for cid in found if designs[cid].get("study") is not None}
+            found += [cid for cid, design in designs.items() if cid not in found and design.get("kind") in FOCUS_KINDS
+                      and str(design.get("study")) in studies]
             found.sort(key=lambda cid: (not cid.isdigit(), int(cid) if cid.isdigit() else 0, cid))
         except Exception as exc:
             self.note("study batches", exc)
