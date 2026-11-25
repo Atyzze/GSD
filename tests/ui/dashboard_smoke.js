@@ -188,6 +188,7 @@ function check(label, fn) {
 
 check('load system.js', () => load('system.js'));
 check('load term_visual.js', () => load('term_visual.js'));
+check('load map.js', () => load('map.js'));
 check('load app.js', () => load('app.js'));
 
 if (bootPath !== '/') {
@@ -3322,16 +3323,16 @@ check('577: a study bundle row links its front page first', () => {
   if (/front page</.test(oldRow || '')) throw new Error('a bundle made before 577 has no front page, and none is linked');
 });
 
-check('577: the nav reads Home, Campaigns, Explorer, Reports, Calibration, System', () => {
+check('577 and 862: the nav reads Home, Map, Campaigns, Explorer, Reports, Calibration, System', () => {
   const html = String(getElementById('gsdSystemHeader').innerHTML);
   const order = [...html.matchAll(/class="gsd-nav-link" data-gsd-page="([a-z]+)"/g)].map((m) => m[1]);
-  if (order.join(',') !== 'home,campaigns,explorer,reports,calibration,system') {
+  if (order.join(',') !== 'home,map,campaigns,explorer,reports,calibration,system') {
     throw new Error(`the nav reads ${order.join(', ')}`);
   }
 });
 
 check("a page's address lands on that page, any other on home", () => {
-  for (const [asked, page] of [['campaigns', 'campaigns'], ['explorer', 'explorer'], ['nowhere', 'home']]) {
+  for (const [asked, page] of [['campaigns', 'campaigns'], ['explorer', 'explorer'], ['map', 'map'], ['nowhere', 'home']]) {
     const lands = sandbox.GSD_APP.landingPage(asked);
     if (lands !== page) throw new Error(`${asked} lands on ${lands}, not ${page}`);
   }
@@ -4010,6 +4011,83 @@ checkAsync('the reports page says late, not offline, while the API is busy, and 
   } finally {
     sandbox.fetch = original;
     app.reportsAnsweredAt = 0;
+  }
+});
+
+const FOCUS_PAGE = {
+  contract: 'gsd-map-page-1', studies: [{ study: '174', campaigns: 11 }],
+  workload: { shares: { A: 0.5, N: 0.25, D: 0.25 }, split: 'A=2,D=1,N=1' },
+  focus: {
+    study: '174', stopped: false, campaigns: { N: '12', S: '13', D: '14' },
+    settings: { radii: [[1e-9, 4], [0.001, 4], [0.1, 8], [0.2, 8]], confirm_radius: 0.1, confirm_share: 0.667,
+                contenders: 5, outward_most: 0.8, inside_share: 0.5 },
+    next_settings: null,
+    current: { law: 'b4d17dcdb3'.padEnd(64, '0'), label: 'C1-G6940', score: 19, kind: 'ring', stage: 'boundaries',
+               radii: { '1e-09': { laws: 4, alike: 1, other: 3, waiting: 0 }, '0.1': { laws: 8, alike: 7, other: 1, waiting: 0 },
+                        '0.2': { laws: 8, alike: 5, other: 2, waiting: 1 } },
+               seeds: { own: { 0: 'ring', 1: 'ring', 2: 'ring' }, more: { 3: 'ring', 4: 'ring', 5: 'ring' }, reproduced: true, other: [], of: 6 },
+               sensitivity: { on: 'its exact parameters', words: 'its 6 seeds, each read alone, agree, and 3 of 4 moves of 0.001 or less read another kind' },
+               alike_to: 0.1, depth: { deepest: 65536, holds_to: 65536, invalidated_at: null },
+               boundaries: { ['ab'.repeat(32)]: { between: [0.25, 0.3125], kinds: ['ring', 'full'], why: null } } },
+    contenders: { ['b4'.repeat(32)]: { label: 'C1-G6940', deepest: 262144, holds_to: 262144, invalidated_at: null, kinds: { 16384: 'ring', 262144: 'ring' } } },
+    regions: [{ number: 1, name: 'GG#1', kind: 'ring', labels: ['C2-G64'], members: 41, alike_to: 0.4, boundaries: [],
+                ranges: { 'coupling degree_cube_sum': [1.1, 1.3], beta: [0.18, 0.2], 'zero temperature': [0, 0] } }],
+    touching: [],
+    queue: [{ law: 'b4d17dcdb3'.padEnd(64, '0'), label: 'C1-G6940', score: 19, status: 'in focus' },
+            { law: 'cd'.repeat(32), label: 'C2-G64', score: 19, status: 'mapped', region: 'GG#1' },
+            { law: 'ef'.repeat(32), label: 'C6-G1015', score: 19, status: 'waiting' },
+            { law: '12'.repeat(32), label: 'C8-G33', score: 19, status: 'skipped' }],
+    done: [{ law: 'cd'.repeat(32), label: 'C2-G64', stage: 'mapped', region: 'GG#1', why: 'every neighbour to radius 0.4 reads its kind', sensitivity: { on: 'robust' } }],
+  },
+};
+
+check('the Map page shows the law in focus, its rings, seeds, depth, regions, queue and ended laws', () => {
+  const map = sandbox.GSD_MAP;
+  map.render(FOCUS_PAGE);
+  const html = (id) => getElementById(id).innerHTML;
+  for (const [id, wants] of [
+    ['mapControls', ['study <b>174</b>', 'stop the focus', 'A 50%', 'value="1e-9:4, 0.001:4, 0.1:8, 0.2:8"']],
+    ['mapCurrent', ['C1-G6940', 'halving its boundaries', 'its exact parameters', 'its own seeds reproduced', 'between 0.25 and 0.3125']],
+    ['mapRegions', ['GG#1', 'coupling degree_cube_sum', '1.100 to 1.300', '41 laws read its kind']],
+    ['mapDepth', ['262,144', 'C1-G6940']],
+    ['mapQueue', ['C6-G1015', 'focus now', 'put back', 'mapped \u00b7 GG#1']],
+    ['mapDone', ['C2-G64', 'mapped as GG#1', 'sensitive to robust']]]) {
+    for (const want of wants) {
+      const text = want.replace('\\u00b7', '\u00b7');
+      if (!html(id).includes(text)) throw new Error(`${id} lacks "${text}": ${html(id).slice(0, 400)}`);
+    }
+  }
+  if ((html('mapQueue').match(/focus now/g) || []).length !== 1) throw new Error('only a waiting law offers "focus now"');
+  map.render({ studies: [{ study: '174', campaigns: 11 }], workload: {}, focus: null });
+  if (!/start the focus/.test(html('mapControls')) || !/no focus in this folder/.test(html('mapCurrent'))) {
+    throw new Error(`a folder with no focus offers no start: ${html('mapControls')}`);
+  }
+});
+
+check('the Map page reads its rings and settings and refuses what is not radius:laws', () => {
+  const map = sandbox.GSD_MAP;
+  const rings = map.parseRings('1e-9:4, 0.1:8 ,0.4:8');
+  if (JSON.stringify(rings) !== JSON.stringify([[1e-9, 4], [0.1, 8], [0.4, 8]])) throw new Error(JSON.stringify(rings));
+  let refused = '';
+  try { map.parseRings('0.1-8'); } catch (e) { refused = e.message; }
+  if (!/radius:laws/.test(refused)) throw new Error(`a bad ring was taken: ${refused}`);
+  if (map.ringsText([[1e-9, 4], [0.001, 4], [0.1, 8]]) !== '1e-9:4, 0.001:4, 0.1:8') throw new Error(map.ringsText([[1e-9, 4], [0.001, 4], [0.1, 8]]));
+});
+
+checkAsync('a Map page button sends its action to the focus and draws the answer', async () => {
+  const map = sandbox.GSD_MAP, sys = sandbox.GSD_SYSTEM, original = sys.postJson, sent = [];
+  try {
+    map.render(FOCUS_PAGE);
+    sys.postJson = (path, body) => { sent.push([path, body]); return Promise.resolve(Object.assign({}, FOCUS_PAGE, { ok: true })); };
+    const skip = { getAttribute: (k) => ({ 'data-map-do': 'skip', 'data-map-law': 'ef'.repeat(32) })[k] || null };
+    await map.act(map.bodyFor(skip));
+    if (JSON.stringify(sent[0]) !== JSON.stringify(['/api/focus', { do: 'skip', law: 'ef'.repeat(32) }])) throw new Error(JSON.stringify(sent[0]));
+    if (map.note !== 'done: skip') throw new Error(`the page says "${map.note}"`);
+    sys.postJson = () => Promise.reject(new Error('POST /api/focus \u2192 HTTP 403: admin capability required'));
+    await map.act({ do: 'stop' });
+    if (!/HTTP 403/.test(map.note) || !/HTTP 403/.test(getElementById('mapControls').innerHTML)) throw new Error(`a refusal is not said: ${map.note}`);
+  } finally {
+    sys.postJson = original;
   }
 });
 

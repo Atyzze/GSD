@@ -26,7 +26,7 @@ ADMIN_TOKEN_HEADER = "X-GSD-Admin-Token"
 GENERIC_FAULT = "internal server error"
 
 SPA_SHELL_PATHS = frozenset({
-    "/", "/index.html", "/home", "/explorer", "/reports", "/calibration", "/campaigns", "/system",
+    "/", "/index.html", "/home", "/map", "/explorer", "/reports", "/calibration", "/campaigns", "/system",
 })
 
 
@@ -87,7 +87,8 @@ class RuntimeImportHeartbeat:
 
 SLOW_ROUTES = (("/api/memory-ledger", 20.0), ("/api/runtime-imports", 10.0),
                ("/api/campaign/", 10.0), ("/api/candidate/", 10.0),
-               ("/api/structure/", 10.0), ("/api/curves/", 10.0), ("/api/reports/", 10.0))
+               ("/api/structure/", 10.0), ("/api/curves/", 10.0), ("/api/reports/", 10.0),
+               ("/api/focus", 10.0))
 
 WRITE_TIMEOUT_SECONDS = 300.0
 READ_METHODS = ("GET", "HEAD", "OPTIONS")
@@ -392,6 +393,8 @@ def build_handler(*, api_host: str, api_port: int, bind_host: str,
                 self._serve_ui_asset("app.js", "text/javascript; charset=utf-8")
             elif path == "/assets/term_visual.js":
                 self._serve_ui_asset("term_visual.js", "text/javascript; charset=utf-8")
+            elif path == "/assets/map.js":
+                self._serve_ui_asset("map.js", "text/javascript; charset=utf-8")
             elif path.startswith("/candidate-data/"):
                 access_counter.record(path, self.headers.get("Referer"), self.headers.get("X-GSD-Page"))
                 parts = [p for p in path.split("/") if p]

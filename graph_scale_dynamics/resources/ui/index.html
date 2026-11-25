@@ -13,6 +13,14 @@
   <section class="panel gates-panel"><h2>The gates <span class="campaign-scope" title="every gate's counters are read from the decisions of every batch of this study together">this study, every batch</span></h2><div id="gatesBox"><div class="empty">the gates' counters arrive with the landscape</div></div></section>
   <section class="panel"><h2>Now researching <span id="liveScope" class="campaign-scope"></span></h2><div id="live" class="live-unbounded"><div class="empty">live research warming…</div></div></section>
 </main>
+<main id="gsdMap" class="gsd-app-page" data-page="map" hidden>
+  <section class="panel"><div class="panel-title-row"><div><h2>Map <span id="mapScope" class="campaign-scope"></span></h2><div class="muted">The study's best laws, one at a time, inside its own folder and beside its blind draw (A): each law's neighbours and its seeds (group N), and the best laws' depth (group D). A law is confirmed when two thirds of its ring at 0.1 read its kind, then mapped by rings outward or by lines halved toward each neighbour of another kind; every mapped region is named GG#1, GG#2 and so on, each coupling's range drawn as its laws are read, a term a law lacks counted as 0. Changes need the admin link; a setting applies from the next law, so a reading under way never changes under its feet.</div></div><div class="toolbar"><button id="mapReload" class="gsd-control" type="button">refresh</button></div></div><div id="mapControls"><div class="empty">loading the focus…</div></div></section>
+  <section class="panel"><h2>In focus</h2><div id="mapCurrent"><div class="empty">no law in focus</div></div></section>
+  <section class="panel"><h2>Regions</h2><div id="mapRegions"><div class="empty">no region mapped yet</div></div></section>
+  <section class="panel"><h2>Depth</h2><div id="mapDepth"><div class="empty">no law is being taken deeper yet</div></div></section>
+  <section class="panel"><h2>The queue</h2><div id="mapQueue"><div class="empty">the queue arrives with the focus's first step</div></div></section>
+  <section class="panel"><h2>Ended</h2><div id="mapDone"><div class="empty">no law's focus has ended yet</div></div></section>
+</main>
 <main id="gsdExplorer" class="gsd-app-page" data-page="explorer" hidden>
   <section class="panel explorer-panel">
     <div class="panel-title-row"><div><h2>Candidate explorer</h2><div class="muted">Exploration map, candidate lineage and Past research are merged into one coherent view of every candidate in this campaign, or in every campaign of the study (Campaigns, below): active, proposed, parked, promoted and rejected. Use the structured filters first; free-text search remains available for exact IDs and unusual details.</div></div><div class="toolbar"><button id="explorerReload" class="gsd-control">refresh data</button><button id="explorerClear" class="gsd-control">clear filters</button></div></div>
@@ -87,5 +95,5 @@ window.GSD_UI_CONFIG={basePath:__GSD_BASE_PATH_JSON__,buildNumber:"__GSD_BUILD_N
   setTimeout(()=>{if(!window.GSD_APP_READY)showClientFailure('application startup watchdog expired; UI assets may be missing, stale, or incompatible')},5000);
 })();
 </script>
-<script src="assets/system.js?v=__GSD_BUILD_NUMBER__"></script><script src="assets/term_visual.js?v=__GSD_BUILD_NUMBER__"></script><script src="assets/app.js?v=__GSD_BUILD_NUMBER__"></script>
+<script src="assets/system.js?v=__GSD_BUILD_NUMBER__"></script><script src="assets/term_visual.js?v=__GSD_BUILD_NUMBER__"></script><script src="assets/map.js?v=__GSD_BUILD_NUMBER__"></script><script src="assets/app.js?v=__GSD_BUILD_NUMBER__"></script>
 </body></html>

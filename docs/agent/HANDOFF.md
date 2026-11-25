@@ -1,4 +1,4 @@
-# Handoff: the state of GSD at build 861
+# Handoff: the state of GSD at build 862
 
 What is true now, for a context that has just opened this archive. Each fact has one home; the last section says
 where. **Think from the data, not from this page**: where the data and a document disagree, the data wins and the
@@ -35,6 +35,29 @@ bundle is made; a reading one seed of three gave drawn faint with what the large
 are such); the science hash over the table's cells (contract 2), so bundles whose tables differ only in their
 adoption times read as one science. 175 is to be paused, compute back to 174 (07:44). Next: 862 the Map page with a
 GG number for every mapped region, 863 the outliers' queue (`docs/ROADMAP.md`).
+
+**What 862 changed** (the operator, 2026-11-25 08:10 to 09:02; `docs/build_notes/BUILD862_NOTES.md`): the Map page,
+beside Home (`resources/ui/map.js`; `GET` and `POST /api/focus`, `services/api/focus_route.py`, the POST behind the
+admin capability): the focus started, stopped and started again, its split, a law focused now, skipped or put back,
+and the next law's settings, all from the page; and shown there: the law in focus and its rings, seeds, sensitivity,
+depth and boundaries, the queue, the ended laws, and every mapped region as GG#n (`operations/focus_regions.py`),
+each axis's range over the laws that read its kind with a term a law lacks at 0, a region of the same kind that
+overlaps joining the lower number. `main.py` is as 861 left it. Next: 863 lets 65 held laws run on (09:42).
+
+**Open threads at 862** (a handoff, the operator 2026-11-25 09:14), each with its home:
+
+* Pull requests: 861 (#8) and 862, each made from the archive the gate wrote; the operator merges after testing. A
+  build made before the one under it merges carries that one's commits too until it does.
+* Study 174 runs on; the focus is started from the Map page (or `main.py focus --study 174`); 175 is to be paused.
+* Decided 09:42: the 65 laws `starts_alike` holds at 16,384 that read a line, a ring or d 1.3 to 2.5 run on in 174
+  (about 300 core-hours) with a "run on" action (863); then study 176 designed again on the gates they bear out, with
+  A, N and D from its first law; then the engine's diet, proven by replaying 176's seeds to the bit.
+* E8 (`docs/ROADMAP.md`, "Unscheduled"): the paper gives no law to run; a reply to its authors was drafted for the
+  operator to send (their questions: a local rule, a lower-dimensional analogue such as D4, a finite-scale observable,
+  what fixes the formula's integers). A reading of 8 on E8 needs a torus of side 16 to 20, 4 to 26 billion nodes,
+  1.7 to 11 TB at the floor.
+* Next builds: 863 the 65 run on, 176 designed again with the outliers' queue, the engine's diet
+  (`docs/agent/NEXT_BUILD.md`).
 
 **A correction the next builds carry** (860's reading of 174's bundle of 2026-11-24 23:19Z): the score in force counts
 a seed only where its chain stopped changing, and the folder scores 46 laws on that bundle. The counts below ("83

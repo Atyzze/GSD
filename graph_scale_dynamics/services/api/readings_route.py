@@ -7,11 +7,11 @@ from graph_scale_dynamics.observability.starts_reading import hold_structure, la
 from graph_scale_dynamics.observability.space_score import space_score
 from graph_scale_dynamics.observability.two_chains import stopping_numbers, two_chains
 from graph_scale_dynamics.research.what_happened import law_story
-from graph_scale_dynamics.services.api import gate_route, study_route
+from graph_scale_dynamics.services.api import focus_route, gate_route, study_route
 from graph_scale_dynamics.services.api.answer_cache import ANSWERS
 
 PREFIXES = (["api", "structure"], ["api", "gate"], ["api", "study-bundles"], ["api", "runtime-imports"],
-            ["api", "curves"])
+            ["api", "curves"], ["api", "focus"])
 BLOBS_ROOT = None
 CURVES_MAX_BYTES = 64 * 1024 * 1024
 
@@ -136,6 +136,8 @@ def get(handler, db_path: str, parts: list[str]) -> None:
         return handler._json({"error": "use POST /api/study-bundles/delete"}, 405)
     if parts[1] == "gate":
         return gate_route.get(handler, db_path, parts)
+    if parts[1] == "focus":
+        return focus_route.get(handler, db_path, parts)
     if parts[1] == "runtime-imports":
         return runtime_imports(handler, db_path, publish=False)
     if parts[1] == "curves":
@@ -160,6 +162,8 @@ def get(handler, db_path: str, parts: list[str]) -> None:
 def post(handler, db_path: str, parts: list[str], max_bytes: int) -> None:
     if parts[1] == "gate":
         return gate_route.post(handler, db_path, parts, max_bytes)
+    if parts[1] == "focus":
+        return focus_route.post(handler, db_path, parts, max_bytes)
     if parts[1] == "study-bundles":
         return study_route.post(handler, parts, max_bytes)
     if parts[1] == "runtime-imports" and len(parts) == 2:

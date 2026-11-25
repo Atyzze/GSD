@@ -494,6 +494,7 @@ def build(base: Path, repo, campaign_ids: list[str], *, request_id: str | None =
                     "regions": len(the_map.get("regions") or {})}} if the_map else {}),
         **({"focus": {"file": "focus.json", "contract": the_focus.get("contract"),
                       "campaigns": the_focus.get("campaigns"), "done": len(the_focus.get("done") or []),
+                      "regions": [region.get("name") for region in the_focus.get("regions") or []],
                       **{key: (the_focus.get("current") or {}).get(key) for key in ("law", "label", "stage")}}}
            if the_focus else {}),
         "work_groups": groups,

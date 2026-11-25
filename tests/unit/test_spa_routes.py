@@ -20,7 +20,7 @@ def _client_page_paths() -> dict[str, str]:
 
 def test_the_client_declares_the_pages_this_test_is_about():
     pages = _client_page_paths()
-    assert list(pages) == ["home", "campaigns", "explorer", "reports", "calibration", "system"]
+    assert list(pages) == ["home", "map", "campaigns", "explorer", "reports", "calibration", "system"]
 
 
 @pytest.mark.parametrize("page,path", sorted(_client_page_paths().items()))

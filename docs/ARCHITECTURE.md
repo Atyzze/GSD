@@ -509,6 +509,16 @@ have finished and whose worker is writing the result reads **committing**, not e
 worker's heartbeat names the job and `phase: committing` before its commit (`services/worker/main.py`,
 `overview.committing_jobs`, 837).
 
+**A probe's time on the ladder** (`observability/rung_distribution.py`) is its median over the seeds it ran on, from
+`measurements.probe_seconds_*`. The box probe's median jumps (862, the operator 2026-11-25 09:12): it answers in
+under a millisecond on a graph with no window of box sizes (it refuses, or the ball probe has already called the
+growth exponential) and takes seconds on one that has a window, so its median reads 0 ms while most graphs at a size
+have none and seconds from the size where most of the laws still running have one. Its 95th percentile shows the
+full cost growing smoothly: in study 174 (06:26Z, campaign 1) 0 ms, 30 ms, 0.2 s, 1.1 s, 6.4 s and 29 s from 64 to
+65,536, about five times for four times the nodes. The ladder's headers keep to one short line (787), so this lives
+here; splitting the time into "read" and "refused" needs the probe's verdict stored beside its time, a schema change,
+planned with the fleet ladder under the filters.
+
 A stop does not wait for a boundary: a pause, a shutdown or a lane yield writes `<staging>/stop`; both engines look at
 most every `STOP_CHECK_SECONDS` (4), stop after the current move and return a checkpoint inside the segment
 (`in_segment`); the loop raises `StopRequested`, the child saves it and exits 75, and the resume is byte-identical to
@@ -665,8 +675,18 @@ controller pass, at most once a minute (`step`): the rings' tallies at 16,384 ag
 sensitivity (its seeds, its exact parameters, or robust), D's kinds against the law's own campaign's at each whole
 size; then confirmed (two thirds of the ring of 0.1) or ended unconfirmed, rings outward to 0.8 or lines halved four
 times toward each neighbour of another kind from 0.01 out, D reading another kind ending it invalidated; an ended law's
-summary kept in `done`, and the next law by score begun, passing over one inside a mapped region. The bundle carries
-the state as `focus.json`.
+summary kept in `done`, and the next law by score begun, passing over one inside a mapped region or skipped. The bundle
+carries the state as `focus.json`.
+
+**The Map page** (862, `resources/ui/map.js`, `services/api/focus_route.py`): `GET /api/focus` answers the focus's
+state as read (one flag), the folder's studies and the work groups; `POST /api/focus`, behind the admin capability,
+takes `do`: start (or start again after a stop), law (focus one now, by label or id), skip, back (put back), stop
+(pause the three campaigns), settings (the next law's rings, confirming share, deep laws, widest ring and inside
+share, checked by `focus.settled` and applied by `start_next`), split (the work groups' shares). **GG numbers**
+(`operations/focus_regions.py`): a law is a point on one axis a term (its coupling, 0 where it lacks the term; a term
+with a parameter an axis a value) and the dynamics' axes; a law mapped gives a region of itself and every neighbour or
+line point that read its kind, its ranges each axis's least and greatest; it takes the next number unless a region of
+the same kind overlaps it on every axis, which it then joins.
 
 ## The science a bundle was read by (`reporting/science_contract.py`, 856; contract 2 at 861)
 

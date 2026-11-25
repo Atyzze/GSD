@@ -257,12 +257,13 @@ def test_a_folder_s_focus_goes_into_its_bundle_whole_and_named_on_the_study_s_pa
     repo = Repo()
     state = {"contract": focus.CONTRACT, "study": "GSD533", "campaigns": {"N": "12", "S": "13", "D": "14"},
              "current": {"law": "ab" * 32, "label": "C3-G7363", "stage": focus.BOUNDARIES, "points": {}},
-             "done": [{"law": "cd" * 32, "stage": focus.MAPPED}]}
+             "done": [{"law": "cd" * 32, "stage": focus.MAPPED, "region": "GG#1"}],
+             "regions": [{"number": 1, "name": "GG#1", "kind": "ring", "ranges": {"beta": [0.18, 0.2]}}]}
     repo.flags[focus.FLAG] = json.dumps(state)
     entry = B.build(base, repo, ["1"], request_id="r-2")
     stem = entry["filename"][:-len(".tar.zst")]
     members = _members(B.bundles_dir(base) / entry["filename"])
     assert json.loads(members[f"{stem}/focus.json"]) == state
     assert json.loads(members[f"{stem}/study.json"])["focus"] == {
-        "file": "focus.json", "contract": focus.CONTRACT, "campaigns": state["campaigns"], "done": 1,
+        "file": "focus.json", "contract": focus.CONTRACT, "campaigns": state["campaigns"], "done": 1, "regions": ["GG#1"],
         "law": "ab" * 32, "label": "C3-G7363", "stage": focus.BOUNDARIES}

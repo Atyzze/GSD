@@ -1,50 +1,44 @@
-# The next build is 862
+# The next build is 863
 
 This file names the next build and says how to make it. `tests/unit/test_next_build_is_named.py` parses its first line,
 which must read exactly `# The next build is <N>`, one above `BUILD_NUMBER`.
 
-## Where to begin: 862 is the Map page
+## Where to begin: 863 lets the 65 run on in 174
 
 **Starting from nothing but the repository** (the operator, 2026-11-24 23:00): clone `main` and bring it up by
 `docs/agent/ENVIRONMENT.md`, section 10, "From the repository"; 859 was made that way. Then `docs/WHERE_WE_ARE.md`,
 `docs/agent/HANDOFF.md` and this page, in that order, and `CLAUDE.md`'s rules for a shared repository.
 
-**What 855 to 861 left** (`docs/build_notes/BUILD855_NOTES.md` to `BUILD861_NOTES.md`): 855, `CLAUDE.md` (every
-build a pull request the operator merges), the calibration ledger and its first appended probe group, the quantum walk.
-856, study 176 designed and committed (groups A and B), the still lattice at 1 (gsd-law-score-9), the small-world kind,
-the system's CPUs, a science hash and the table in every bundle. 857, Home's filter panel. 858, a consolidation. 859,
-the handover. 860, Home says what is true (the orange banner, the lattice strips, the Top 100's order, every law of a
-bundle whole). 861, the focus (`operations/focus.py`): the study's best laws one at a time inside its own folder and
-beside its blind draw, their rings from 1e-9 to 0.4 (group N, campaign N), their seeds read alone and three fresh
-ones (group N, campaign S), the top five to 262,144 (group D); the reports late, not offline; a reading one seed of
-three gave drawn faint; the science hash over the table's cells. 860 and 861 were made in a sandbox from the archive
-before and delivered as archives, the pull requests opened from there for the operator to merge after testing. The
-baseline is still 174's bundle of 2026-11-24 14:22Z and 175's of 08:35Z; 174's of 2026-11-25 06:26Z was read at 861.
+**What 855 to 862 left** (`docs/build_notes/BUILD855_NOTES.md` to `BUILD862_NOTES.md`): 855, `CLAUDE.md` and the
+calibration ledger. 856, study 176 designed, the still lattice at 1, the small-world kind, a science hash in every
+bundle. 857, Home's filters. 858 and 859, the consolidation and the handover. 860, Home says what is true. 861, the
+focus (`operations/focus.py`): the study's best laws one at a time inside its own folder and beside its blind draw,
+their rings from 1e-9 to 0.4 and their seeds read alone (group N), the top five to 262,144 (group D). 862, the Map
+page (`resources/ui/map.js`, `services/api/focus_route.py`): the focus started, steered, stopped and watched there,
+and every mapped region named GG#n (`operations/focus_regions.py`). 860 to 862 were made in a sandbox and delivered as
+archives, each with its pull request for the operator to merge after testing.
 
-**What 862 makes** (the operator, 2026-11-25 08:10: "we probably need a new box or page added to show the neighbor
-hood fleet data to keep some visual oversight over how our map is going and being currently explored, see the
-parameter ranges grow for every GG"): a page of its own, Map, beside Home and read from the folder's state alone (the
-flags `study_focus` and `study_map`): the law in focus, its rings by radius filling in (alike, other, waiting), its
-seeds read alone and its verdict (its seeds, its exact parameters, robust), the depth's laws climbing to 262,144, the
-laws passed over and the region they lie in; and every mapped region named GG#1, GG#2 and so on in the order it was
-mapped, kept in the focus's state and the bundle, with its kind, each parameter's range over the laws that read its
-kind, its boundaries and the laws it holds, and two regions that touch or overlap said so (two of one kind whose
-ranges meet become one, the lower number kept). The numbers are new names, never the graph's G codes.
+**What 863 makes** (the operator, 2026-11-25 09:42, option 3 of the four at 09:06, `docs/HISTORY.md`): a "run on"
+action for a law a gate held, which the decisions respect (the decision engine would otherwise hold it again at its
+next decision), and the 65 it is for: the laws `starts_alike` holds at 16,384 in 174's newest bundle that read a line
+or a ring (53) or d 1.3 to 2.5 (12), named in a reading file committed first with how they were chosen. They run in
+174's own batches (group A's share) to the ladder's end or the next gate; when they end, their reading: how many
+score, by class, beside the 23 the gate let through at random. That reading sets the gates of study 176, designed
+again with its groups A, N and D from its first law (`docs/ROADMAP.md`, item 5); the outliers' queue joins 176's
+focus.
 
-**Where it will press**: `main.py` stands at 129,976 bytes against its ratchet of 130,000
-(`tests/unit/test_size_ratchet.py`): the page needs no new command. `resources/ui/app.js` is large; a page of its own
-may be a script of its own beside it, as `term_visual.js` is.
+**Where it will press**: `main.py` stands at 129,976 bytes against its ratchet of 130,000 and `build_handler` at 1,159
+lines against 1,160: a new route goes through `services/api/readings_route.py`, as 862's `/api/focus` did.
 
-**Acceptance** of 862: the smoke draws the Map page from a focus state with a region in each stage; a region's ranges
-widen as its laws are read; the GG numbers survive a restart and go into the bundle; no score, kind or decision moves
-(`tools/outputs_of_a_law.py --against` 861's record, written first on the untouched tree with its calibration table
-copied in: a worktree lacks the ignored `calibration/probe_calibration.json`, and without it every lattice's fate
-reads unreferenced); the full lane green.
+**Acceptance** of 863: a law run on is enqueued at its next size and not held again by the gate that held it, its
+decision recorded as the operator's (a Postgres test); the 65 committed with their classes before any runs; no score,
+kind or decision of any other law moves (`tools/outputs_of_a_law.py --against` 862's record, written first on the
+untouched tree with its calibration table copied in); the full lane green.
 
-**Then** the builds of `docs/ROADMAP.md`, "Planned builds", in order: 863, the outliers' queue; the study after 174,
-its gates revisited and seeded from 174; the reader that scores as the folder does, the fleet ladder under the
-filters, the map's term axis, the depth past 262,144, the consolidation. A planned build takes its number when it is
-made.
+**Then** the builds of `docs/ROADMAP.md`, "Planned builds", in order: study 176 designed again with the three groups
+and the outliers' queue; the engine's diet, profiled first and proven by replaying 176's seeds; the reader that scores as the folder does, the fleet ladder under
+the filters, the map's term axis, the depth past 262,144, the consolidation. A planned build takes its number when it
+is made.
 
 **When study 176 sends its first bundle**: `tools/catalogue_reading.py` judges `small_world_criterion_1.json` (W1,
 W2), and the map's regions are read from `map.json` against `study_176_criterion.json` (P1, P2 judged; P3 to P5

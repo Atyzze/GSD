@@ -7,6 +7,7 @@ from copy import deepcopy
 from pathlib import Path
 
 from graph_scale_dynamics.domain.model import utc_now
+from graph_scale_dynamics.operations import focus_regions as R
 
 CONTRACT = "gsd-focus-1"
 FLAG = "study_focus"
@@ -18,6 +19,8 @@ NEIGHBOURHOOD, BOUNDARIES, MAPPED, UNCONFIRMED, INVALIDATED = (
     "neighbourhood", "boundaries", "mapped", "unconfirmed", "invalidated")
 ENDED = (MAPPED, UNCONFIRMED, INVALIDATED)
 ROBUST, ITS_SEEDS, ITS_DIGITS = "robust", "its seeds", "its exact parameters"
+DOS = ("start", "law", "skip", "back", "stop", "settings", "split")
+QUEUE_LENGTH = 100
 INTERVAL_SECONDS = 60.0
 _LAST: dict[str, float] = {}
 
@@ -73,6 +76,8 @@ def best(repo, study: str) -> list[dict]:
                 found.append({"candidate_id": str(law), "campaign": campaign_id, "score": int(score["score"])})
     for entry in found:
         entry["graph"] = graph_number(repo, entry["campaign"], entry["candidate_id"])
+        entry["label"] = (f"C{entry['campaign']}-G{entry['graph']}" if entry["graph"] is not None
+                          else f"C{entry['campaign']}-{entry['candidate_id'][:8]}")
     return sorted(found, key=lambda e: (-e["score"], _number(e["campaign"]),
                                         e["graph"] if e["graph"] is not None else float("inf"), e["candidate_id"]))
 
@@ -205,8 +210,9 @@ def _add(repo, state: dict, current: dict, points: list[dict]) -> int:
     return len(points)
 
 
-def contenders(repo, state: dict) -> list[str]:
-    wanted = best(repo, state["study"])[:int(state["plan"]["depth"]["contenders"])]
+def contenders(repo, state: dict, ranked: list | None = None) -> list[str]:
+    ranked = best(repo, state["study"]) if ranked is None else ranked
+    wanted = ranked[:int(state["plan"]["depth"]["contenders"])]
     current = state.get("current") or {}
     if current.get("law") and all(e["candidate_id"] != current["law"] for e in wanted):
         wanted.append({"candidate_id": current["law"], "campaign": current["of"], "score": current.get("score")})
@@ -249,14 +255,16 @@ def inside(repo, state: dict, entry: dict) -> dict | None:
             continue
         far = N.distance(_spec_of(repo, done["of"], done["law"]), spec)
         if far is not None and far <= share * float(done["alike_to"]):
-            return {"region_of": done.get("label"), "distance": round(far, 6), "alike_to": done["alike_to"]}
+            return {"region_of": done.get("label"), "region": R.name_of(state, done["law"]),
+                    "distance": round(far, 6), "alike_to": done["alike_to"]}
     return None
 
 
-def _chosen(repo, state: dict, law: str | None) -> dict | None:
-    ranked = best(repo, state["study"])
+def _chosen(repo, state: dict, law: str | None, ranked: list | None = None) -> dict | None:
+    ranked = best(repo, state["study"]) if ranked is None else ranked
     if not law:
-        seen = {entry["law"] for entry in state["done"]} | set(state.setdefault("inside", {}))
+        seen = ({entry["law"] for entry in state["done"]} | set(state.setdefault("inside", {}))
+                | set(state.get("skipped") or {}))
         for entry in ranked:
             if entry["candidate_id"] in seen:
                 continue
@@ -266,7 +274,7 @@ def _chosen(repo, state: dict, law: str | None) -> dict | None:
             state["inside"][entry["candidate_id"]] = dict(found, label=label(repo, entry["campaign"],
                                                                                 entry["candidate_id"]))
         return None
-    found = next((e for e in ranked if e["candidate_id"].startswith(str(law))), None)
+    found = next((e for e in ranked if e["candidate_id"].startswith(str(law)) or e.get("label") == str(law)), None)
     if found is not None:
         return found
     for campaign_id in own_campaigns(repo, state["study"]):
@@ -277,10 +285,14 @@ def _chosen(repo, state: dict, law: str | None) -> dict | None:
     raise ValueError(f"study {state['study']} has no law {law!r}")
 
 
-def start_next(repo, state: dict, law: str | None = None, chosen: dict | None = None) -> dict | None:
-    chosen = chosen or _chosen(repo, state, law)
+def start_next(repo, state: dict, law: str | None = None, chosen: dict | None = None,
+               ranked: list | None = None) -> dict | None:
+    chosen = chosen or _chosen(repo, state, law, ranked)
     if chosen is None:
         return None
+    if state.get("next_plan"):
+        state["plan"] = state.pop("next_plan")
+        state["events"].append({"at": utc_now(), "settings": settings_of(state["plan"])})
     holder, campaign_id = chosen["candidate_id"], chosen["campaign"]
     spec = _spec_of(repo, campaign_id, holder)
     read_n = int(state["plan"]["neighbourhood"]["read_n"])
@@ -293,7 +305,7 @@ def start_next(repo, state: dict, law: str | None = None, chosen: dict | None = 
     found, refused = neighbours(state, holder, spec, radii)
     current["refused"] = refused
     _add(repo, state, current, found)
-    contenders(repo, state)
+    contenders(repo, state, ranked)
     state["events"].append({"at": utc_now(), "began": current["label"], "points": len(current["points"])})
     return current
 
@@ -326,15 +338,20 @@ def begin(repo, study: str, *, law: str | None = None, tree=None) -> dict:
         if not work_groups.shares(repo):
             work_groups.set_shares(repo, found_plan["groups"])
         save(repo, state)
+    if state.get("stopped"):
+        for campaign_id in state["campaigns"].values():
+            control.resume(repo, campaign_id, reason="the focus started again")
+        state["stopped"] = False
+        state["events"].append({"at": utc_now(), "stopped": False})
     current = state.get("current")
     if law or current is None or current["stage"] in ENDED:
         chosen = _chosen(repo, state, law)
         if current is not None and current["stage"] not in ENDED:
             _end(state, current, UNCONFIRMED, "set aside for another law on the operator's word")
         if current is not None:
-            state["done"].append(_summary(current))
-        state["current"] = None
+            _finish(repo, state, current)
         if chosen is not None:
+            (state.get("skipped") or {}).pop(chosen["candidate_id"], None)
             start_next(repo, state, chosen=chosen)
     save(repo, state)
     return state
@@ -532,28 +549,241 @@ def advance(repo, state: dict) -> int:
     return added
 
 
-def step(repo, *, now: float | None = None, force: bool = False) -> dict | None:
+def members(repo, state: dict, current: dict) -> list[dict]:
+    seen = current.get("read") or {}
+    specs = [_spec_of(repo, current["of"], current["law"])]
+    for law, point in current["points"].items():
+        if seen.get(law) == current["kind"] and point["how"] in ("neighbour", "line"):
+            specs.append(_spec_of(repo, state["campaigns"][NEIGHBOURS], law))
+    return [spec for spec in specs if spec]
+
+
+def _finish(repo, state: dict, current: dict) -> None:
+    summary = _summary(current)
+    if current["stage"] == MAPPED:
+        region = R.place(state, summary, members(repo, state, current))
+        summary["region"] = region["name"]
+        state["events"].append({"at": utc_now(), "law": current["label"], "region": region["name"]})
+    state["done"].append(summary)
+    state["current"] = None
+
+
+def queue_of(state: dict, ranked: list[dict]) -> list[dict]:
+    current = (state.get("current") or {}).get("law")
+    ended = {entry["law"]: entry for entry in state["done"]}
+    inside_of, skipped = state.get("inside") or {}, state.get("skipped") or {}
+    out = []
+    for entry in ranked[:QUEUE_LENGTH]:
+        law = entry["candidate_id"]
+        if law == current:
+            status = "in focus"
+        elif law in skipped:
+            status = "skipped"
+        elif law in ended:
+            status = ended[law]["stage"]
+        elif law in inside_of:
+            status = "inside " + str(inside_of[law].get("region") or inside_of[law].get("region_of"))
+        else:
+            status = "waiting"
+        out.append({"law": law, "campaign": entry["campaign"], "label": entry.get("label"), "score": entry["score"],
+                    "status": status, "region": R.name_of(state, law)})
+    return out
+
+
+def _loaded(repo) -> dict:
     state = load(repo)
     if state is None:
+        raise ValueError("this folder has no focus yet: start one first")
+    return state
+
+
+def resolve(state: dict, given: str) -> str:
+    given = str(given or "").strip()
+    if not given:
+        raise ValueError("name a law by its id, the start of its id, or its label (C1-G6940)")
+    known: dict[str, str | None] = {}
+    for entry in state.get("queue") or []:
+        known[entry["law"]] = entry.get("label")
+    for entry in state["done"]:
+        known.setdefault(entry["law"], entry.get("label"))
+    for law, entry in list((state.get("skipped") or {}).items()) + list((state.get("inside") or {}).items()):
+        known.setdefault(law, entry.get("label"))
+    if state.get("current"):
+        known[state["current"]["law"]] = state["current"].get("label")
+    found = sorted(law for law, name in known.items() if law.startswith(given) or name == given)
+    if len(found) != 1:
+        raise ValueError(f"{given!r} names {len(found)} of the focus's laws; give more of its id")
+    return found[0]
+
+
+def skip(repo, given: str) -> dict:
+    state = _loaded(repo)
+    law = resolve(state, given)
+    current = state.get("current")
+    state.setdefault("skipped", {})[law] = {"at": utc_now(), "label": next(
+        (e.get("label") for e in (state.get("queue") or []) if e["law"] == law), (current or {}).get("label"))}
+    if current is not None and current["law"] == law and current["stage"] not in ENDED:
+        _end(state, current, UNCONFIRMED, "skipped on the operator's word")
+        _finish(repo, state, current)
+    state["events"].append({"at": utc_now(), "skipped": state["skipped"][law].get("label") or law})
+    save(repo, state)
+    return state
+
+
+def back(repo, given: str) -> dict:
+    state = _loaded(repo)
+    law = resolve(state, given)
+    (state.get("skipped") or {}).pop(law, None)
+    (state.get("inside") or {}).pop(law, None)
+    state["done"] = [entry for entry in state["done"] if entry["law"] != law]
+    state["events"].append({"at": utc_now(), "back": law})
+    save(repo, state)
+    return state
+
+
+def stop(repo) -> dict:
+    from graph_scale_dynamics.operations import campaign_control as control
+    state = _loaded(repo)
+    for campaign_id in state["campaigns"].values():
+        control.pause(repo, campaign_id, reason="the focus stopped")
+    state["stopped"] = True
+    state["events"].append({"at": utc_now(), "stopped": True})
+    save(repo, state)
+    return state
+
+
+def settings_of(found_plan: dict) -> dict:
+    return {"radii": [[float(r), int(c)] for r, c in found_plan["neighbourhood"]["radii"]],
+            "confirm_radius": float(found_plan["neighbourhood"]["confirm_radius"]),
+            "confirm_share": float(found_plan["neighbourhood"]["confirm_share"]),
+            "contenders": int(found_plan["depth"]["contenders"]),
+            "outward_most": float(found_plan["outward"]["most"]),
+            "inside_share": float(found_plan["next"]["inside_share"])}
+
+
+def _bounded(value, low: float, high: float, what: str) -> float:
+    try:
+        found = float(value)
+    except (TypeError, ValueError):
+        raise ValueError(f"{what} must be a number") from None
+    if not low <= found <= high:
+        raise ValueError(f"{what} must lie between {low:g} and {high:g}")
+    return found
+
+
+def settled(found_plan: dict, given: dict) -> dict:
+    out = deepcopy(found_plan)
+    if "radii" in given:
+        rings = given["radii"]
+        if not isinstance(rings, list) or not 1 <= len(rings) <= 12:
+            raise ValueError("give 1 to 12 rings, each [radius, laws]")
+        radii = []
+        for ring in rings:
+            if not isinstance(ring, (list, tuple)) or len(ring) != 2:
+                raise ValueError("each ring is [radius, laws]")
+            radius = _bounded(ring[0], 1e-12, 0.8, "a ring's radius")
+            count = int(_bounded(ring[1], 1, 32, "a ring's laws"))
+            radii.append([radius, count])
+        if sum(count for _r, count in radii) > 200:
+            raise ValueError("at most 200 neighbours a law")
+        confirm = float(out["neighbourhood"]["confirm_radius"])
+        if not any(abs(radius - confirm) < 1e-12 for radius, _c in radii):
+            raise ValueError(f"keep the ring at {confirm:g}: it confirms a law's neighbourhood")
+        out["neighbourhood"]["radii"] = sorted(radii)
+    if "confirm_share" in given:
+        out["neighbourhood"]["confirm_share"] = _bounded(given["confirm_share"], 0.5, 1.0, "the share to confirm")
+    if "contenders" in given:
+        out["depth"]["contenders"] = int(_bounded(given["contenders"], 0, 20, "the contenders"))
+    if "outward_most" in given:
+        out["outward"]["most"] = _bounded(given["outward_most"], 0.1, 0.95, "the widest ring")
+    if "inside_share" in given:
+        out["next"]["inside_share"] = _bounded(given["inside_share"], 0.0, 1.0, "the share of a region's reach")
+    unknown = sorted(set(given) - {"radii", "confirm_share", "contenders", "outward_most", "inside_share"})
+    if unknown:
+        raise ValueError(f"no such setting: {', '.join(unknown)}")
+    return out
+
+
+def set_next(repo, given: dict) -> dict:
+    state = _loaded(repo)
+    if not isinstance(given, dict) or not given:
+        raise ValueError("send the settings to change")
+    state["next_plan"] = settled(state.get("next_plan") or state["plan"], given)
+    state["events"].append({"at": utc_now(), "next_settings": settings_of(state["next_plan"])})
+    save(repo, state)
+    return state
+
+
+def studies(repo) -> list[dict]:
+    found: dict[str, int] = {}
+    for campaign in repo.all_campaigns():
+        design = (campaign.get("spec") or {}).get("study_design") or {}
+        if design.get("study") is not None and design.get("kind") != KIND:
+            found[str(design["study"])] = found.get(str(design["study"]), 0) + 1
+    return [{"study": study, "campaigns": count} for study, count in sorted(found.items())]
+
+
+def act(repo, body: dict, *, tree=None) -> dict:
+    from graph_scale_dynamics.scheduling import work_groups
+    do = str((body or {}).get("do") or "")
+    if do not in DOS:
+        raise ValueError(f"do must be one of {', '.join(DOS)}")
+    if do == "start":
+        study = str(body.get("study") or "")
+        if not study:
+            found = studies(repo)
+            if len(found) != 1:
+                raise ValueError(f"this folder holds {len(found)} studies: name one")
+            study = found[0]["study"]
+        begin(repo, study, tree=tree)
+    elif do == "law":
+        state = _loaded(repo)
+        begin(repo, state["study"], law=resolve_any(state, str(body.get("law") or "")), tree=tree)
+    elif do == "skip":
+        skip(repo, str(body.get("law") or ""))
+    elif do == "back":
+        back(repo, str(body.get("law") or ""))
+    elif do == "stop":
+        stop(repo)
+    elif do == "settings":
+        set_next(repo, body.get("settings"))
+    else:
+        work_groups.set_shares(repo, work_groups.split_of(str(body.get("split") or "")))
+    return {"ok": True, "did": do}
+
+
+def resolve_any(state: dict, given: str) -> str:
+    try:
+        return resolve(state, given)
+    except ValueError:
+        if not given.strip():
+            raise
+        return given.strip()
+
+
+def step(repo, *, now: float | None = None, force: bool = False) -> dict | None:
+    state = load(repo)
+    if state is None or state.get("stopped"):
         return None
     clock = time.monotonic() if now is None else float(now)
     if not force and clock - _LAST.get(state["study"], -1e18) < INTERVAL_SECONDS:
         return None
     _LAST[state["study"]] = clock
-    added = len(contenders(repo, state))
+    ranked = best(repo, state["study"])
+    added = len(contenders(repo, state, ranked))
     state["depths"] = {law: dict(depth_of(repo, state, law, entry["of"]), label=entry["label"])
                        for law, entry in state["contenders"].items()}
     current = state.get("current")
     if current is not None and current["stage"] not in ENDED:
         added += advance(repo, state)
     if current is not None and current["stage"] in ENDED:
-        state["done"].append(_summary(current))
-        state["current"] = None
-        current = start_next(repo, state)
+        _finish(repo, state, current)
+        current = start_next(repo, state, ranked=ranked)
         added += len(current["points"]) if current else 0
     elif current is None:
-        current = start_next(repo, state)
+        current = start_next(repo, state, ranked=ranked)
         added += len(current["points"]) if current else 0
+    state["queue"] = queue_of(state, ranked)
     state["events"] = state["events"][-200:]
     save(repo, state)
     return {"stage": (current or {}).get("stage"), "added": added, "label": (current or {}).get("label")}
@@ -570,7 +800,12 @@ def reading_of(state: dict) -> dict:
             "current": _summary(current) if current else None,
             "points": len((current or {}).get("points") or {}), "lines": len((current or {}).get("lines") or {}),
             "contenders": state.get("depths") or {law: dict(e) for law, e in state["contenders"].items()},
-            "done": state["done"], "inside": state.get("inside") or {}}
+            "done": state["done"], "inside": state.get("inside") or {}, "stopped": bool(state.get("stopped")),
+            "skipped": state.get("skipped") or {}, "queue": state.get("queue") or [],
+            "regions": state.get("regions") or [], "touching": R.touching(state.get("regions") or []),
+            "settings": settings_of(state["plan"]),
+            "next_settings": settings_of(state["next_plan"]) if state.get("next_plan") else None,
+            "events": (state.get("events") or [])[-30:]}
 
 
 def words(found: dict | None) -> str:
@@ -598,6 +833,12 @@ def words(found: dict | None) -> str:
     for law, entry in (found.get("inside") or {}).items():
         lines.append(f"  passed over: {entry.get('label')}, inside the region of {entry.get('region_of')} "
                      f"(distance {entry.get('distance')}, its neighbours alike to {entry.get('alike_to')})")
+    if found.get("stopped"):
+        lines.insert(1, "  stopped: its three campaigns are paused; the blind draw goes on")
+    for region in found.get("regions") or []:
+        spans = "; ".join(f"{axis} {lo:.4g} to {hi:.4g}" for axis, (lo, hi) in region["ranges"].items() if lo != hi)
+        lines.append(f"  {region['name']} ({region['kind']}): from {', '.join(map(str, region['labels']))}, "
+                     f"{region['members']} laws read its kind" + (f"; {spans}" if spans else ""))
     for entry in found.get("done") or []:
         sensitive = entry.get("sensitivity") or {}
         lines.append(f"  done: {entry.get('label')}: {entry.get('stage')} ({entry.get('why')})"

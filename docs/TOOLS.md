@@ -23,7 +23,8 @@ The command line of the instrument; with no subcommand it is `run`.
                                                # the work groups' shares and the CPUs the system keeps (856)
     python3 main.py focus --study <id> [--law <id prefix>] [--show]
                                                # the study's best laws one at a time beside its blind draw: their
-                                               # neighbours, seeds and depth (groups N and D, 861)
+                                               # neighbours, seeds and depth (groups N and D, 861); the Map page
+                                               # starts, steers, stops and shows it (862)
     python3 main.py proposal status
     python3 main.py benchmark                  # the analyzer's battery, which `campaign start` needs: four cells
                                                # of the table read through the analyzer, held to the table's rule
