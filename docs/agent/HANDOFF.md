@@ -1,4 +1,4 @@
-# Handoff: the state of GSD at build 859
+# Handoff: the state of GSD at build 860
 
 What is true now, for a context that has just opened this archive. Each fact has one home; the last section says
 where. **Think from the data, not from this page**: where the data and a document disagree, the data wins and the
@@ -14,6 +14,21 @@ are committed. The road from here, including the C and assembly engines of the r
 `docs/agent/APPEND_ONLY_PLAN.md`, paused at the operator's word (19:43) after 858, which folded what that context
 measured into `docs/LESSONS.md` ("Evidence", "Releases", "Host state"), `docs/RESEARCH_METHOD.md` (two papers)
 and `docs/ROADMAP.md` ("Unscheduled").
+
+**What 860 changed** (the operator, 2026-11-25 00:25 to 00:47; `docs/build_notes/BUILD860_NOTES.md`): Home's orange
+banner only when the refreshes fall behind (`services/api/freshness.py`), the frozen and still lattices drawn again
+with "include lattice starts" (the landscape carries the score's lattice names, `lattice_who`), the Top 100's ties
+by campaign and graph number (`services/api/law_order.py`), and every law of a bundle whole (the laws table's `spec`
+and `law_score`; `tools/laws_of_a_bundle.py` draws an older bundle's laws again from its design's seeds: all 10,005 of
+174's). 860 was made from 859's archive in a session that could not reach the repository: the operator tests the
+archive and opens the pull request.
+
+**A correction the next builds carry** (860's reading of 174's bundle of 2026-11-24 23:19Z): the score in force counts
+a seed only where its chain stopped changing, and the folder scores 46 laws on that bundle. The counts below ("83
+score, 54 of them 1") and study 176's first ten came from `tools/catalogue_reading.py`, which reads report 28's
+per-chain means and so counts every seed, those run to the sweeps' ceiling included: it scores 122 on the same
+bundle, and five of the ten (M02, M04, M08, M09, M10) score 0 in the folder. They are read again by the reader's fix
+(`docs/ROADMAP.md`, "Planned builds", 3), and 176's ten chosen again on the operator's word, before 176 starts.
 
 **Where things stand, at 859.** 859 is the handover of the context that made 856 and 857 (the operator, 23:00): Home's
 plot whole above the filters, every law of a small campaign in the Top 100 and every start's point with its kind
@@ -216,8 +231,12 @@ again after the paper's three studies, on the final probes, with a criterion wri
 
 ## What waits on the operator
 
-* **Study 176**: theirs to start; and three questions, none blocking it (`docs/ROADMAP.md`, "Questions for the
-  operator"): a map variant's step (a tenth), the halvings of a line (four), the system's CPUs (none).
+* **Study 176**: theirs to start, but not on its first ten as committed: five of them score 0 in the folder (860).
+  Recommended: the ten chosen again by the folder's own score from 174's and 175's newest bundles (175's newest is
+  wanted). Three more questions, none blocking it (`docs/ROADMAP.md`, "Questions for the operator"): a map variant's
+  step (a tenth), the halvings of a line (four), the system's CPUs (none).
+* **860's archive**: theirs to test on a folder and to open as a pull request; and 860's questions (the counts the
+  pages give, group D's law, E8 as a known refusal rather than a study).
 * **Where the older data's archive goes public** (the consolidation): the review asks for a public archive (Zenodo or a tag) so a
   referee can see nothing was dropped selectively; the operator wants it out of the tree. Both hold if the archive
   goes beside the build and its place is theirs to name.

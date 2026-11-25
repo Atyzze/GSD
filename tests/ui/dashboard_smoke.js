@@ -7,6 +7,9 @@ const vm = require('vm');
 const rejections = [];
 process.on('unhandledRejection', (reason) => rejections.push(reason));
 const uiDir = process.argv[2];
+const LATTICE_WHO = JSON.parse(require('child_process').execFileSync(process.env.GSD_PYTHON || 'python3',
+  ['-c', 'import json\nfrom graph_scale_dynamics.services.api.law_order import LATTICE_WHO\nprint(json.dumps(list(LATTICE_WHO)))'],
+  { cwd: path.resolve(__dirname, '..', '..'), encoding: 'utf8' }));
 const bootPath = process.argv[3] || '/';
 
 function makeClassList() {
@@ -1755,7 +1758,7 @@ check('the leader panel names no leader the board has not read', () => {
 
 check('a law that scored is named, with who built its geometry', () => {
   sandbox.GSD_APP.overviewPayload = { active: [] };
-  sandbox.GSD_APP.landscapePayload = { top_candidates: [landscapeRow({ law_score: lawScore(17) })] };
+  sandbox.GSD_APP.landscapePayload = { top_candidates: [landscapeRow({ law_score: lawScore(17) })], lattice_who: LATTICE_WHO };
   sandbox.GSD_APP.leaderRow();
   const html = getElementById('leader').innerHTML;
   if (!html.includes('G-361-373')) throw new Error('a qualifying law is not named');
@@ -2620,7 +2623,7 @@ function mountExplorer() {
   sandbox.GSD_APP.campaign = '1';
   sandbox.GSD_APP.explorerRows = EXPLORER_ROWS;
   sandbox.GSD_APP.landscape = {
-    campaign_id: '1', revision: 'rev-1',
+    campaign_id: '1', revision: 'rev-1', lattice_who: LATTICE_WHO,
     dimension_points: [
       { candidate_id: EXPLORER_ROWS[0].candidate_id, law_score: lawScore(17),
         stability_contracting_probes: ['d_s'] },
@@ -3016,7 +3019,7 @@ check('the landscape has one filter, whether lattice starts count, and labels it
   const law = (id, d_s, band, extra) => ({ ...LAW, candidate_id: id.padEnd(64, '0'), d_s_estimate: d_s, landscape_band: band,
     stability_contracting_probes: [], stability_contracting_tier: 0, ...(extra || {}) });
   sandbox.GSD_APP.campaign = '1';
-  sandbox.GSD_APP.landscapePayload = { campaign_id: '1', revision: 'r2', top_candidates: [], exposure: {}, limits: {},
+  sandbox.GSD_APP.landscapePayload = { campaign_id: '1', revision: 'r2', top_candidates: [], exposure: {}, limits: {}, lattice_who: LATTICE_WHO,
     dimension_points: [law('a', 1.2, 'flowing', { landscape_band_with_lattices: 'flowing' }),
                        law('b', 2.0, 'flowing', { landscape_band_with_lattices: 'tier2' })],
     counts: { measured_candidates: 2, refused_candidates: 4, band_candidates: { flowing: 2 } },
@@ -3049,7 +3052,7 @@ check('a resize, which a phone fires as its address bar hides on a scroll, redra
   sandbox.GSD_APP.campaign = '1';
   const points = [law('a', 1.2, 'flowing', { landscape_band_with_lattices: 'flowing' }),
                   law('b', 2.0, 'flowing', { landscape_band_with_lattices: 'tier2' })];
-  sandbox.GSD_APP.landscapePayload = { campaign_id: '1', revision: 'r839', top_candidates: [], exposure: {}, limits: {},
+  sandbox.GSD_APP.landscapePayload = { campaign_id: '1', revision: 'r839', top_candidates: [], exposure: {}, limits: {}, lattice_who: LATTICE_WHO,
     dimension_points: points,
     counts: { measured_candidates: 2, refused_candidates: 4, band_candidates: { flowing: 2 } },
     every_chain: { contract: 'landscape-every-chain-1', names: ['empty', 'random', 'cubic'],
@@ -3081,7 +3084,7 @@ check('every batch together: the toggle brings in each law at its best lattice s
   const kept = { landscape_band_with_lattices: 'einstein', settled_probes_with_lattices: ['d_s', 'd_V', 'd_B', 'd_w'],
                  law_score: { score: 17, by: 'kept', chain: 'triangular' } };
   sandbox.GSD_APP.campaign = 'study';
-  sandbox.GSD_APP.landscapePayload = { campaign_id: 'study', revision: 's1', top_candidates: [], exposure: {}, limits: {},
+  sandbox.GSD_APP.landscapePayload = { campaign_id: 'study', revision: 's1', top_candidates: [], exposure: {}, limits: {}, lattice_who: LATTICE_WHO,
     dimension_points: [law('a', '1', 1.0, kept)],
     counts: { measured_candidates: 1, band_candidates: { flowing: 1 } },
     every_chain: { contract: 'landscape-every-chain-1', names: ['empty', 'random', 'triangular'],
@@ -4047,6 +4050,45 @@ check('with a filter on, the Top 100 is the best laws the filters keep, from eve
   if (kept !== 'vu') throw new Error(`with still hidden the Top 100 reads ${kept}`);
   app.clearFilters();
   app.landscape = null;
+});
+
+check('with lattice starts ticked, a frozen or still lattice that scores is drawn at its start, as a changed or kept one', () => {
+  const app = sandbox.GSD_APP;
+  if (!LATTICE_WHO.includes('frozen') || !LATTICE_WHO.includes('still')) throw new Error(`the server's lattice set: ${LATTICE_WHO}`);
+  const law = (id, d_s, by, chain) => ({ candidate_id: id.padEnd(64, '0'), campaign_id: '1', d_s_estimate: d_s,
+    landscape_band: 'flowing', landscape_band_with_lattices: 'einstein', settled_probes: [],
+    law_score: { score: 1, by, chain, to_n: 65536 } });
+  app.campaign = '1';
+  app.landscapePayload = { campaign_id: '1', revision: 'rf', top_candidates: [], exposure: {}, limits: {}, lattice_who: LATTICE_WHO,
+    dimension_points: [law('f', null, 'frozen', 'square'), law('s', null, 'still', 'cubic'), law('k', null, 'kept', 'bcc')],
+    counts: { measured_candidates: 3, band_candidates: { flowing: 3 } },
+    every_chain: { contract: 'landscape-every-chain-1', names: ['empty', 'random', 'square', 'cubic', 'bcc'],
+      points: { square: [law('f', 2.0, 'frozen', 'square')], cubic: [law('s', 3.0, 'still', 'cubic')],
+                bcc: [law('k', 3.0, 'kept', 'bcc')] }, counts: {} } };
+  app.chooseLandLattices(true);
+  const drawn = app.landChainPoints().filter((p) => p.landscape_band === 'einstein').map((p) => p.d_s_estimate).sort();
+  app.chooseLandLattices(false);
+  if (drawn.join(',') !== '2,3,3') throw new Error(`the frozen, still and kept lattices drawn at: ${drawn}`);
+  app.landscape = null;
+});
+
+check('equal scores in the Top 100 keep one order, campaign then graph number, with or without a filter', () => {
+  const app = sandbox.GSD_APP;
+  const row = (cid, g, hash, score) => ({ candidate_id: hash.padEnd(64, '0'), campaign_id: cid, ensemble_code: `G-${g}`,
+    kind: 'ring', law_score: { score, to_n: 65536, top_n: 65536 }, settled_probes: [] });
+  const rows = [row('6', 1015, '3a', 19), row('1', 6940, 'b4', 19), row('2', 64, '99', 19), row('10', 5, '01', 19),
+                row('3', 7363, '00', 7)];
+  app.campaign = 'study';
+  app.landscape = { campaign_id: 'study', top_candidates: rows.slice(), dimension_points: rows.slice(), lattice_who: LATTICE_WHO };
+  app.clearFilters();
+  const name = (r) => `C${r.campaign_id}-${r.ensemble_code}`;
+  const plain = app.filteredTop().map(name).join(' ');
+  app.chooseFilter({ target: { dataset: { filterKind: 'still' }, checked: false } });
+  const filtered = app.filteredTop().map(name).join(' ');
+  app.clearFilters();
+  app.landscape = null;
+  const want = 'C1-G-6940 C2-G-64 C6-G-1015 C10-G-5 C3-G-7363';
+  if (plain !== want || filtered !== want) throw new Error(`plain: ${plain}; filtered: ${filtered}`);
 });
 
 checkAsync('the System page shows the groups and the system CPUs and sets them behind the admin link', async () => {

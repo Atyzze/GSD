@@ -176,6 +176,29 @@ made; a time without a Z is the operator's local time.
 
 **Delivery and the way builds are made**
 
+* **Builds delivered as archives from the sandbox, the pull request the operator's** (2026-11-25 00:47: "I'll let you
+  keep making builds here, and I'll approve the pull requests myself manually after having tested a build as delivered
+  here in the next build archive please, and also, that roadmap with planned builds to work through all current open
+  items"): 860, made from 859's archive where the session could not reach the repository.
+* **A bundle is a seed set others can join from** (2026-11-25 00:40: "for the next bundle lets generalize it so we can
+  bootstrap new studies with that seed-data set if required, so that others may easily join the study/mapping/search
+  of known zones so far"): 860, every law whole in the bundle; 861, a study started from one.
+* **The orange banner only when something is wrong** (2026-11-25 00:25: "those orange warning boxes, I'm still seeing
+  that too often to my liking please investigate its origins and fix"): 860.
+* **The lattice strips on the landscape** (2026-11-25 00:40: "I swear there used to be many more readings here with
+  the lattices included, we'd see two strips at both the 2d and 3d dimensional line"): 860, the frozen and still
+  lattices drawn again, and the finding that the score in force counts only seeds that stopped changing.
+* **Ties in the Top 100 by campaign and graph number** (2026-11-25 00:45: "when so, order by C-G number as secondary
+  sort on top of score instead of seemingly random"): 860.
+* **The fleet ladder under the filters** (2026-11-25 00:45: "if not, should we extend the data collecting/filtering
+  capability or not?"): planned (`docs/ROADMAP.md`).
+* **Regions mapped by which terms a law holds as well as how strongly** (2026-11-25 00:25: "a clean 50-50 split of
+  work between initial random blind search + exploring the parameter zones and overlaps automatically between term
+  presence and their couple-strength"; 00:40: "lets find the patterns and map the full regions"): 860 read the terms
+  against the outcomes of all 10,000 of 174's laws; the map's term axis is planned.
+* **E8 checked against its paper first** (2026-11-25 00:40: "e8 is an open question that needs further investigation
+  of the original paper to see if theres a test-able claim/data-point to reproduce in it or not"): 860 read it; its
+  number reproduces by arithmetic and it has no reading the instrument makes.
 * A context ends in a build the next can start from with nothing but the source (2026-11-24 23:00: "create 1 more
   hand-over built so the next context can make a fresh start from source alone"): 859, made on a clone of `main` and
   brought up from it alone (`docs/agent/ENVIRONMENT.md`, section 10).

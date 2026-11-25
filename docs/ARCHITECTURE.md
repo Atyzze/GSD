@@ -589,16 +589,28 @@ landscape marks each point with its kind, group, batch and region for Home's fil
 start's point as well as its law's since 859) and read by the landscape, `/api/structure` and report 28; `compact`
 carries each part's items so the landscape can band a law by its twins alone or by every start.
 
-The Top 100 (`landscape_worker.top_candidates_of`) ranks the laws by their score, then the size it reached: every law
-the chain from empty read, and every law it did not that scores above zero. Since 859 the places left empty are given to
-the laws that read nothing from empty and score 0, the deepest first, so a campaign of fewer than a hundred laws lists
-every one (the standing controls' five, their two negatives last).
+The Top 100 (`landscape_worker.top_candidates_of`) ranks the laws by their score, then (since 860) the campaign's
+number and the graph's, in one order the server and the page share (`services/api/law_order.law_rank`, the page's
+`lawOrder`, filtered or not): every law the chain from empty read, and every law it did not that scores above zero.
+Since 859 the places left empty are given to the laws that read nothing from empty and score 0, the deepest first, so
+a campaign of fewer than a hundred laws lists every one (the standing controls' five, their two negatives last).
+
+**How old Home's numbers may be** (`services/api/freshness.py`, 860). The overview is rebuilt in the API every refresh
+period (one tick) when a poll finds it due; the study's view answers with the oldest of its batches' snapshots, each
+rebuilt alone, through the API's database slots. The answer carries the age (`source_age_ms`), shown in the FRESHNESS
+tile, and the age past which the page shows the orange banner (`stale_after_ms`): twice one round of the refreshes by
+their own measured build time (`build_ms`), the refresh period, the page's poll and the slowest rebuild times the
+waves the batches need through the slots; never under three refresh periods nor over a minute. A rebuild waits 16 s
+for a slot; a batch whose rebuild failed is named in the study's answer (`last_refresh_error`, `refresh_errors`), and a
+failure shows the banner whatever the age.
 
 The landscape's bands (`services/api/landscape_worker.band_of_items`, since 784) are the score's: how many of the four
 probes settled (2 points or more) on the part the law is read by, 1 to 4, and the 5th band, `einstein`, four settled
 and the Einstein relation held at two sizes. `landscape_band` is the twins' (the chain from empty and the random start),
 `landscape_band_with_lattices` every start's; the page's one toggle, "include lattice starts", chooses, and draws the
-law at its scoring start's readings. The stability blocks of the base rungs no longer band a law.
+law at its scoring start's readings, whichever of the score's lattice names set it (changed, kept, frozen or still:
+the landscape's `lattice_who`, read from the score's own list since 860). The stability blocks of the base rungs no
+longer band a law.
 
 ## The catalogue of behaviours (`observability/catalogue.py`, gsd-catalogue-2)
 
@@ -813,7 +825,10 @@ catalog is `research/report_catalog.py`.
   `gates_ledger.json` (784); `finds.json` (795, `research/finds.py`: every law scoring above zero, its spec, its score
   with `d`, the dimension read, and every chain's values by size: the study's own data); `tables/`
   (`reporting/study_tables.py`, a row per
-  law and per law and rung, `*.ndjson.gz`, `draws.ndjson.gz` among them, and since 798 `decisions.ndjson.gz`, every decision with its inputs; each law's row carries its regime;
+  law and per law and rung, `*.ndjson.gz`, `draws.ndjson.gz` among them, and since 798 `decisions.ndjson.gz`, every decision with its inputs; each law's row carries its regime,
+  and since 860 the law whole (`spec`, its fingerprint its id) and the folder's own score of it (`law_score`, the
+  score board's entry), so a study can start from a bundle's laws (`tools/laws_of_a_bundle.py` draws an older
+  bundle's again from its design's seeds);
   since 836 `chains.ndjson.gz`, a row per seed and chain from each run's compact evidence in the folder's blob store
   (`var/blobs`), its final and peak edges and mean degree, whether it ended at the cap and the seed's peak memory, read
   by `tools/cap_reading.py`; since 841 also its moves, the moves it accepted (none means no edge changed), its work in

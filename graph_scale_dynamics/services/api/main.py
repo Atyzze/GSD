@@ -40,7 +40,7 @@ from graph_scale_dynamics.research.report_catalog import REPORT_BY_CODE, REPORT_
 from graph_scale_dynamics.scheduling.memory import admission_headroom, recorded_lease_reservations
 from graph_scale_dynamics.scheduling.runtime import observed_analysis_profile, observed_profile, predict_wall
 from graph_scale_dynamics.services.api import (
-    admin_link, admin_view, campaign_manager, dashboard_limit, landscape_inputs, readings_route, study_scope,
+    admin_link, admin_view, campaign_manager, dashboard_limit, freshness, landscape_inputs, readings_route, study_scope,
 )
 from graph_scale_dynamics.services.api.law_dynamics import law_dynamics_of
 from graph_scale_dynamics.services.api.dashboard_workers import DashboardWorkers
@@ -179,7 +179,7 @@ def build_handler(db_path: str, blobs_path: str, admin_token: str, port: int,
     def _refresh_overview_cache(key: tuple[str, bool, bool]) -> None:
         campaign_id, _include_exploration, _include_past = key
         yield_this_thread()
-        acquired = dashboard_db_slots.acquire(timeout=5.0)
+        acquired = dashboard_db_slots.acquire(timeout=freshness.REFRESH_SLOT_WAIT_SECONDS)
         if not acquired:
             with overview_cache_lock:
                 overview_refresh_errors[key] = "dashboard database capacity busy"
@@ -333,7 +333,7 @@ def build_handler(db_path: str, blobs_path: str, admin_token: str, port: int,
     study = study_scope.Scope(
         batches=workers.batches, landscape_status=_landscape_status, schedule_landscape=_schedule_landscape_refresh,
         landscape_ttl=landscape_ttl_seconds, cached_overview=_cached_overview, schedule_overview=_schedule_overview_refresh,
-        overview_ttl=overview_ttl_seconds, host_snapshot=host_snapshot,
+        overview_ttl=overview_ttl_seconds, overview_slots=dashboard_db_concurrency, host_snapshot=host_snapshot,
         incidents=lambda handler: admin_view.incidents(incidents.recent(4), handler._privileged()),
         cache_root=dashboard_cache_root, python=sys.executable, root=ROOT)
 
@@ -964,7 +964,7 @@ def build_handler(db_path: str, blobs_path: str, admin_token: str, port: int,
                     "stale": bool(stale),
                     "refreshing": bool(refreshing),
                     "source_age_ms": None if age is None else round(age * 1000.0, 1),
-                    "stale_after_ms": round(3 * ttl * 1000.0),
+                    **freshness.answer(ttl, [freshness.build_seconds(cached)], 1),
                     "retry_after_ms": 100 if stale else None,
                     "last_refresh_error": admin_view.refresh_error(refresh_error, self._privileged()),
                     "incidents": admin_view.incidents(incidents.recent(4), self._privileged()),

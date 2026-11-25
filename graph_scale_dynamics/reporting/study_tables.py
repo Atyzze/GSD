@@ -92,14 +92,23 @@ def law_regime(regime, spec_json) -> str | None:
     return dynamics_regime(spec)
 
 
+def law_score_of(board: dict, law: str, top_n) -> dict | None:
+    from graph_scale_dynamics.observability import law_score, score_board
+    if top_n is None or int(top_n) < law_score.LADDER[0]:
+        return law_score.zero(top_n)
+    return score_board.of(board, law)
+
+
 def law_rows(repo, campaign_ids, points: dict):
+    from graph_scale_dynamics.observability import score_board
     for cid in campaign_ids:
         cid = str(cid)
         after = ""
+        board = score_board.board(repo, cid)
         while True:
             rows = repo.conn.execute(
                 "SELECT c.candidate_id,c.candidate_number,c.state,c.state_reason,d.rule,d.action,d.at_n,d.next_n,"
-                "d.priority,d.reason,s.regime,CASE WHEN s.regime IS NULL THEN s.spec_json END AS spec_json "
+                "d.priority,d.reason,s.regime,s.spec_json "
                 "FROM campaign_candidates c LEFT JOIN engine_decisions_latest d "
                 "ON d.campaign_id=c.campaign_id AND d.candidate_id=c.candidate_id "
                 "LEFT JOIN candidate_specs s ON s.candidate_id=c.candidate_id "
@@ -117,7 +126,9 @@ def law_rows(repo, campaign_ids, points: dict):
                        "regime": law_regime(row["regime"], row["spec_json"]),
                        "rungs": point["rungs"], "top_n": max(point["rungs"]) if point["rungs"] else None,
                        **{key: point.get(key) for probe in PROBES for key in (probe, f"{probe}_n")},
-                       "small_world_fraction_top": point.get("small_world_fraction_top")}
+                       "small_world_fraction_top": point.get("small_world_fraction_top"),
+                       "spec": _parsed(row["spec_json"]) or None,
+                       "law_score": law_score_of(board, law, max(point["rungs"]) if point["rungs"] else None)}
             after = str(rows[-1]["candidate_id"])
 
 
@@ -275,7 +286,14 @@ def tables(repo, campaign_ids, blobs=None) -> dict:
                                             "source": "campaign_candidates, engine_decisions_latest and the rung "
                                                       "rows (the landscape's point: each probe's reading at the "
                                                       "largest rung that has one); regime from candidate_specs "
-                                                      "(dsl.dynamics_regime: zero_temperature or equilibrium)"},
+                                                      "(dsl.dynamics_regime: zero_temperature or equilibrium); the "
+                                                      "law itself (`spec`, as candidate_specs holds it: its terms, "
+                                                      "couplings and dynamics, whose fingerprint is its id), so a "
+                                                      "study can start from the bundle's laws; and the folder's own "
+                                                      "score of it (`law_score`, the score board the controller keeps "
+                                                      "under the score in force, its seeds counted only where their "
+                                                      "chain stopped changing; null where the board has not reached "
+                                                      "the law yet)"},
                          "draws.ndjson.gz": {"rows": draw_count, "one_row_per": "draw",
                                              "source": "proposal_draws, each law's stratum read from it "
                                                        "(research/strata.stratum_of): what a stratified study's "

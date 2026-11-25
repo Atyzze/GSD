@@ -95,7 +95,9 @@ def test_a_study_bundle_s_laws_carry_their_regime(isolated_postgres_schema):
         found = tables(repo, ["camp"])
         laws = {r["candidate_id"]: r for r in map(json.loads, gzip.decompress(found["laws.ndjson.gz"]).splitlines())}
         assert [laws[i]["regime"] for i in ids] == ["zero_temperature", "equilibrium", "equilibrium", "equilibrium"]
+        assert [dsl.fingerprint(laws[i]["spec"]) for i in ids] == ids, "each law is carried whole, its id its fingerprint"
+        assert all(laws[i]["law_score"] == {**laws[i]["law_score"], "score": 0} for i in ids), "unread: scored 0"
         source = json.loads(found["README.json"])["tables"]["laws.ndjson.gz"]["source"]
-        assert "regime" in source
+        assert "regime" in source and "`spec`" in source and "`law_score`" in source
     finally:
         repo.close()
