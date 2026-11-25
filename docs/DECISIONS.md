@@ -499,6 +499,19 @@ whether its let-through laws settled d_s later as often as those that went on by
 for the structure gate its own reading a rung later (`salt_next_rung_reading`), since a law with no structure settles
 d_s by construction.
 
+### A law run on by word (`decisions/by_word.py`, 864)
+
+A law a gate held is let through on the operator's word, never by a share: the folder's flag `run_on` names each law
+by campaign with the gate and the size that held it (`operations/run_on.py` writes it from a committed list, the Map
+page's "run them on"). `DecisionStore.run_on_laws` offers a named law to the decider only while it is parked, idle,
+and its latest decision is that gate's stop at that size; the decider decides it again as it would any parked law
+and, where the rules still stop it there, `by_word.run_on` turns the stop into `run_next` to the next size, rule
+`run_on`, its reason naming the word and the list, the stop it overrode kept in `facts.run_on`, and the word in the
+decision's inputs, so `decisions/replay.py` replays it. Every decision of a law the flag does not name is as before.
+The let-through ledger reads `run_on` as no verdict and skips every later decision of that law
+(`let_through.Ledger.by_word`), so a gate's held, let-through and clean counts, and the learning read from them, do
+not move. A law run on and settled again waits to be extended like any other (`observability/law_status.py`).
+
 ### 7. Labels, which decide nothing
 
 The dimensional class, the control-family match, the anchors (entered by the operator alone since 790), and **plateau, then break**

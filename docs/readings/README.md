@@ -142,6 +142,9 @@ as it was in the build that held it. A tool no longer in `tools/` is in a tools 
   and `graph_scale_dynamics/resources/readings/study_176_first_ten.json` (856): study 176, its two groups, its
   criterion committed before its first start, and the ten laws its map starts from (`tools/map_first_ten.py` on the
   baseline bundles).
+* `graph_scale_dynamics/resources/readings/study_174_run_on.json` (864): the 193 laws `starts_alike` holds at 16,384 in
+  174's bundle of 2026-11-25 09:59Z, each classed by the best reading of its starts there, and the 40 that read
+  something, all lines or rings, which the Map page's "run them on" names (`tools/held_by_a_gate.py`).
 
 ## Outside this folder
 

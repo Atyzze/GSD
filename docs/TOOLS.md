@@ -584,6 +584,20 @@ more than 1.05 steps off or past the rule's band. About 35 seconds.
 
     python3 tools/small_world_reach.py --json <file> --md <page>
 
+## tools/held_by_a_gate.py
+
+The laws a gate holds at one size, and which of them read something there (864): every law whose latest decision
+in a study's bundle stops it at the gate and size named (`starts_alike` at 16,384 by default), each classed by the
+best reading of any of its starts at that size in report 28's `every_chain` values. A chain reads where any of its
+four probes has a mean there, its d the median of those it reads; the best chain reads the most probes, the chain
+from empty first among equals, then the random start's, then the lattices in their order. Under 1.3 is a line or a
+ring, 1.3 to 2.5 the middle, above 2.5 the rest, no chain reading is nothing read. The run-on list is every held law
+that reads something; the Map page's "run them on" names those of them the folder holds (`operations/run_on.py`).
+On 174's bundle of 2026-11-25 09:59Z, in 2 s: 193 held, 40 lines or rings, none in the middle or above, 153 nothing
+read (`study_174_run_on.json`).
+
+    python3 tools/held_by_a_gate.py <bundle> [--gate starts_alike] [--at 16384] --write <file.json>
+
 ## tools/map_first_ten.py
 
 Where a study's map starts (856): the laws of one or more bundles read together by `tools/catalogue_reading.py`

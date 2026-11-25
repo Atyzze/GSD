@@ -16,7 +16,7 @@ from graph_scale_dynamics.dsl import dsl
 from graph_scale_dynamics.engine.engine import ENGINE_VERSION
 from graph_scale_dynamics.measurements.analysis import select_best_runs
 from graph_scale_dynamics.measurements.version import ANALYSIS_VERSION
-from graph_scale_dynamics.observability import live_panel as _live
+from graph_scale_dynamics.observability import law_status, live_panel as _live
 from graph_scale_dynamics.observability.rung_distribution import (
     chains_per_seed,
     live_work_candidate_ids,
@@ -1096,6 +1096,8 @@ def build_overview(repo: Repo, campaign_id: str, *,
                 "terms": entry.get("terms") or [],
                 "state": candidate["state"],
                 "state_reason": candidate.get("state_reason"),
+                "status": law_status.of_row({"state": candidate["state"], "state_reason": candidate.get("state_reason"),
+                                             "largest_n": entry.get("largest_n")}),
                 "coupling_stratum": coupling_stratum(candidate["spec"]),
                 "scaling_profile": scaling_profile(candidate["spec"]),
                 "coefficient_scales": sorted({str((term.get("coeff") or {}).get("scale") or "one") for term in (candidate["spec"].get("terms") or [])}),

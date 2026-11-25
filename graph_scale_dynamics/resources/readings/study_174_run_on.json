@@ -1,0 +1,2198 @@
+{
+ "at_n": 16384,
+ "bundle": {
+  "build": 863,
+  "built_utc": "2026-11-25T09:59:52Z",
+  "name": "study_174_2026-11-25T09-59-52Z"
+ },
+ "classes": {
+  "a line or a ring": 40,
+  "above 2.5": 0,
+  "d 1.3 to 2.5": 0,
+  "nothing read": 153
+ },
+ "contract": "gsd-held-by-a-gate-1",
+ "gate": "starts_alike",
+ "held": 193,
+ "laws": [
+  {
+   "campaign": "1",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "168738d34cb68cc8e95caf9ceeb27b07d59930ab9b344e95e49626af48fbe6a0",
+   "number": 36,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "1",
+   "chain": "empty",
+   "chains_reading": 7,
+   "class": "a line or a ring",
+   "d": 1.0,
+   "law": "1025d303a17574b6b95ddd9b3abf013cdef778139b335113492cc8fa07c4f84a",
+   "number": 202,
+   "probes": {
+    "d_B": 0.974,
+    "d_V": 0.995,
+    "d_s": 1.005,
+    "d_w": 2.031
+   },
+   "state": "PARKED"
+  },
+  {
+   "campaign": "1",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "bf04311f468888e16b9aa1229f314967230ed1509d96a0292eb325965eb477d4",
+   "number": 268,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "1",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "f655aeb38eed7dbaa7a77effb706b08184ee9a36cc78fb34bcfec465c0847068",
+   "number": 310,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "1",
+   "chain": "empty",
+   "chains_reading": 7,
+   "class": "a line or a ring",
+   "d": 1.002,
+   "law": "89b1cebb801283d513d3c74d11c4ce954b9f3bca2f307f6b94082039119e085f",
+   "number": 346,
+   "probes": {
+    "d_B": 0.98,
+    "d_V": 0.998,
+    "d_s": 1.007,
+    "d_w": 1.977
+   },
+   "state": "PARKED"
+  },
+  {
+   "campaign": "1",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "fe7edaef94560edbf9ed02f84f9900cc27107af790eb391dbf911eb4fe93dc0e",
+   "number": 421,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "1",
+   "chain": "empty",
+   "chains_reading": 7,
+   "class": "a line or a ring",
+   "d": 1.0,
+   "law": "adfd521e9aac619886c6d2994f5d74d82129cab5bb341b9f3a313fcfae83a3f4",
+   "number": 430,
+   "probes": {
+    "d_B": 0.975,
+    "d_V": 0.995,
+    "d_s": 1.005,
+    "d_w": 1.984
+   },
+   "state": "PARKED"
+  },
+  {
+   "campaign": "1",
+   "chain": "empty",
+   "chains_reading": 7,
+   "class": "a line or a ring",
+   "d": 1.023,
+   "law": "3a8f596d3c756f73c2ede994b6fb20f53e0db085c533d234f8bc7f76867d9cef",
+   "number": 432,
+   "probes": {
+    "d_B": 0.984,
+    "d_V": 1.037,
+    "d_s": 1.01,
+    "d_w": 2.003
+   },
+   "state": "PARKED"
+  },
+  {
+   "campaign": "1",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "d8bfb8123d37f084e210972ae66f5951c321bbcb2002bdcba189eae5bed86c78",
+   "number": 506,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "1",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "977c1b0f212098f40cf6332ab8ceebe9a413d7d6c1d4138707ab453659d98d89",
+   "number": 531,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "1",
+   "chain": "empty",
+   "chains_reading": 7,
+   "class": "a line or a ring",
+   "d": 1.049,
+   "law": "ed216f669b375894cf7bdd54df8e11161d0e694c407e82e88e9a079abda8180c",
+   "number": 534,
+   "probes": {
+    "d_B": 0.995,
+    "d_V": 1.069,
+    "d_s": 1.029,
+    "d_w": 2.0
+   },
+   "state": "PARKED"
+  },
+  {
+   "campaign": "1",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "1e6856c3cbde97e5d0efdfda14888abb009c598e6c4647fffa6830c0e449e3c2",
+   "number": 552,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "1",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "ca7c53dda35ea4f5f3c6d178ab75badcec7b6f1eaffa6ffaeb94e47ec6d8f743",
+   "number": 581,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "1",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "f42146ae159aeeef5889325f806c5caf15b91a9166d4bcdb78d9b57bea362b5d",
+   "number": 684,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "1",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "4ce12480316c1d072e257ba4bd3926a6d9879de93fff2e83937230cd97dd0888",
+   "number": 695,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "1",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "40cd92124fc85a51b50ca45b8437af153993d2fd1bce2f1c2255237c028efb6c",
+   "number": 738,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "1",
+   "chain": "empty",
+   "chains_reading": 7,
+   "class": "a line or a ring",
+   "d": 0.995,
+   "law": "ddebebfbfe3095a3429445e5472a1d1f786bce1cc18704461782ad904d664634",
+   "number": 828,
+   "probes": {
+    "d_B": 0.976,
+    "d_V": 0.99,
+    "d_s": 0.999,
+    "d_w": 1.971
+   },
+   "state": "PARKED"
+  },
+  {
+   "campaign": "1",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "489abe61c781885fda6d62ab1ea10481a35af7748ad036eedb4756c74937d5f2",
+   "number": 850,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "1",
+   "chain": "empty",
+   "chains_reading": 7,
+   "class": "a line or a ring",
+   "d": 0.997,
+   "law": "a2c9ce6cf604b88ea300ab702de55cdb6e6c3195761486025b149502869175ab",
+   "number": 864,
+   "probes": {
+    "d_B": 0.977,
+    "d_V": 0.996,
+    "d_s": 0.999,
+    "d_w": 1.956
+   },
+   "state": "PARKED"
+  },
+  {
+   "campaign": "2",
+   "chain": "empty",
+   "chains_reading": 7,
+   "class": "a line or a ring",
+   "d": 0.997,
+   "law": "f8b9933216b1bbcaefa4466d76646662b9f4366eee276ae6fe348fec17757afc",
+   "number": 41,
+   "probes": {
+    "d_B": 0.979,
+    "d_V": 0.992,
+    "d_s": 1.002,
+    "d_w": 2.015
+   },
+   "state": "PARKED"
+  },
+  {
+   "campaign": "2",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "fa0922ec0eb301e69cddeb7df7ea19090c484905fdbb7a2b9536c495e73ddb32",
+   "number": 94,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "2",
+   "chain": "empty",
+   "chains_reading": 7,
+   "class": "a line or a ring",
+   "d": 1.012,
+   "law": "50a0ef218a30ed417dc98f5e137796c3d7d704cc3309cd73037180010edd58ce",
+   "number": 120,
+   "probes": {
+    "d_B": 0.985,
+    "d_V": 1.013,
+    "d_s": 1.012,
+    "d_w": 1.981
+   },
+   "state": "PARKED"
+  },
+  {
+   "campaign": "2",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "8d1b0f6026327e4b657d59697a141b6f19a4f417714b91065a97c612a3a527f6",
+   "number": 123,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "2",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "0c5f6a269c35fc9baa78a80da4567594d248784e1f0f23d22c58d0d5dede906a",
+   "number": 177,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "2",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "975900efbd4b01fa4f6836dbe701eb2846d67a63de47a4ca57ff1d1fef15635f",
+   "number": 208,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "2",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "702a42e3270728ecbcfcc3cb7a675015923dc6887ff3990e381ca5bd2e4fc510",
+   "number": 215,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "2",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "a7787c833fcdd1675b25fd9e367636a1258438fd7ecd084e46560995b2065e08",
+   "number": 224,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "2",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "4b51523b4a13b397f70a9471e03e49b2ed80f281ca6604e6d9680deb74ac02c9",
+   "number": 245,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "2",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "335019404d64119bd971cac6e71b67516e8170fcb54c6a0ac5eac6b02fc5c374",
+   "number": 357,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "2",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "123156ec50789f8b1e213f15278d7dc87a74831210dfd5298e857a1ca05e9770",
+   "number": 381,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "2",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "c1b46844c8e6369bb8d1c4c528adcbc34af20b5ed7500766e0bb1b12ef31a58c",
+   "number": 391,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "2",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "253c6108d1592b2ecad2684c8a29cc636cb5d49b72b60d9817b140821783af30",
+   "number": 447,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "2",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "af169c5d43d2aa136dbd8d24a4c650c1c9e2a7916410968e5e4201f3c56f1785",
+   "number": 514,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "2",
+   "chain": "empty",
+   "chains_reading": 7,
+   "class": "a line or a ring",
+   "d": 0.991,
+   "law": "c081cba4d69652739ea8a14839d0dad0f547fa19656ae07faafa1e3b3278b450",
+   "number": 603,
+   "probes": {
+    "d_B": 0.974,
+    "d_V": 0.99,
+    "d_s": 0.992,
+    "d_w": 1.977
+   },
+   "state": "PARKED"
+  },
+  {
+   "campaign": "2",
+   "chain": "empty",
+   "chains_reading": 7,
+   "class": "a line or a ring",
+   "d": 1.052,
+   "law": "883bc312c9649c78e7dc42df062e1bf5a82fc7c846f9f471adea3f7678441b81",
+   "number": 620,
+   "probes": {
+    "d_B": 0.994,
+    "d_V": 1.088,
+    "d_s": 1.017,
+    "d_w": 1.994
+   },
+   "state": "PARKED"
+  },
+  {
+   "campaign": "2",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "ef4eb78fc142bbca22a4a18981325bc14a3c994161bf866561637b76985c6bc7",
+   "number": 656,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "2",
+   "chain": "empty",
+   "chains_reading": 7,
+   "class": "a line or a ring",
+   "d": 1.098,
+   "law": "981befe6e1367af008a35a5df8d3225c1ee9f6cd9814a54e4ab5ed96a9fa137a",
+   "number": 713,
+   "probes": {
+    "d_B": 1.034,
+    "d_V": 1.161,
+    "d_s": 1.034,
+    "d_w": 1.95
+   },
+   "state": "PARKED"
+  },
+  {
+   "campaign": "2",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "26469b7f071a266bd83cb28f7b0ac3f4f9a0fec48ab207f579781d5965d61b00",
+   "number": 737,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "2",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "0fb0c3e9bce3721ff84881d9ae7aae71700f0f6dc0d9f78dd4fcfefb4b39b558",
+   "number": 743,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "2",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "1b70613de00924e3fe8369aa0a51637079c61307d6e9da49a0f72abcca050f1e",
+   "number": 832,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "2",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "71c0fa85e6357faadc2e3b6fab629c6c88a132eb2c1821392d52f88c7aa678ac",
+   "number": 846,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "2",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "4798c8933ae44977d426ae14861bc5df430ccf1e43facc122e46918164dc857f",
+   "number": 847,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "3",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "b913654a7e2c6ca781bd1e053c1d742d7cba1b86d771e85c713dbee320cafe12",
+   "number": 24,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "3",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "46ae13d5fc6e7ec7aba03bb73af29940719ab0f42837390228c5b292119e1b25",
+   "number": 26,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "3",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "112e8b13bd7ad2290879d85e65f33d9838b279a1e5f8d56c80bc57f35e887ec1",
+   "number": 55,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "3",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "c22b2b3944de3e3caea35e861d994b332a706fd0f00c7e6fa1842dbff53e0054",
+   "number": 79,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "3",
+   "chain": "empty",
+   "chains_reading": 7,
+   "class": "a line or a ring",
+   "d": 1.064,
+   "law": "790c3a28111936815e52dd40cb59e297aa0089729f06171e82e50e656df1d0be",
+   "number": 315,
+   "probes": {
+    "d_B": 0.997,
+    "d_V": 1.098,
+    "d_s": 1.03,
+    "d_w": 2.025
+   },
+   "state": "PARKED"
+  },
+  {
+   "campaign": "3",
+   "chain": "empty",
+   "chains_reading": 7,
+   "class": "a line or a ring",
+   "d": 0.998,
+   "law": "71373be8cf1c3c1888be3a5b9c07050f4b11a01149347064e94536411073b681",
+   "number": 335,
+   "probes": {
+    "d_B": 0.975,
+    "d_V": 0.994,
+    "d_s": 1.003,
+    "d_w": 2.007
+   },
+   "state": "PARKED"
+  },
+  {
+   "campaign": "3",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "23252fedcf37ac6cf2b96f7b3114bd8b9cf8c97c3d4b56802e4048151318bdc4",
+   "number": 354,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "3",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "e0cec12e3729c89a27b7cd23091f55b166f89d533f72fed0e998e66cf7f118d7",
+   "number": 359,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "3",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "6a1976be31ebf6d925d8e5c39b392bc71e691f81d8e9f8fcb78c6353b11145ee",
+   "number": 402,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "3",
+   "chain": "empty",
+   "chains_reading": 7,
+   "class": "a line or a ring",
+   "d": 1.022,
+   "law": "47b1d40e50af8a8e1fd3a4363bb8a96f6b13fd4ae2f93a69900b93affaa8bca2",
+   "number": 433,
+   "probes": {
+    "d_B": 0.986,
+    "d_V": 1.035,
+    "d_s": 1.008,
+    "d_w": 1.963
+   },
+   "state": "PARKED"
+  },
+  {
+   "campaign": "3",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "e535a8bd472c32d00fd410c816fe4eb70f63b9c2be53f80230913e02480eab44",
+   "number": 464,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "3",
+   "chain": "empty",
+   "chains_reading": 7,
+   "class": "a line or a ring",
+   "d": 1.0,
+   "law": "889c9593b624d47fb34102e3a11085e03bb3e19af9a6f47296bd5acdb6ffd5e8",
+   "number": 488,
+   "probes": {
+    "d_B": 0.98,
+    "d_V": 0.998,
+    "d_s": 1.003,
+    "d_w": 1.978
+   },
+   "state": "PARKED"
+  },
+  {
+   "campaign": "3",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "30298965c2edac75180425aba7c70b48d27000696e7093d145a1c1ca6ea97c59",
+   "number": 501,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "3",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "6f5a8be7408200b413ef34e4aea056f4d30af84a3aa00ac61ab3c1a8526eee1f",
+   "number": 502,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "3",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "78bba56ec53f5ef0e30902611ed544faa28db687cb2f5f4aa8d3b7dce0bc9319",
+   "number": 508,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "3",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "dde929266169c79ee4a68a9d09094b2badb3432ccc6259dd132cbd043a9bd041",
+   "number": 516,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "3",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "0a556a49474f3c0e95936125f9a8ba15b68deff9ac4922b26f5be32d8e7afc47",
+   "number": 532,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "3",
+   "chain": "empty",
+   "chains_reading": 7,
+   "class": "a line or a ring",
+   "d": 1.046,
+   "law": "d6d8397e92afd9f83a11f5134b54c60c0379088c9f01ca4f71ed850d238eb264",
+   "number": 537,
+   "probes": {
+    "d_B": 0.997,
+    "d_V": 1.066,
+    "d_s": 1.027,
+    "d_w": 1.986
+   },
+   "state": "PARKED"
+  },
+  {
+   "campaign": "3",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "57bab57dd2a9ce8d1714dc9458fd874a9ffe5ebb3062682ee938a74fb838aaf1",
+   "number": 574,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "3",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "f0880e6d62186429b6b2c2c59a4ee4e50fa6354d9f27d37cda7fffc0dae9d1b0",
+   "number": 588,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "3",
+   "chain": "empty",
+   "chains_reading": 7,
+   "class": "a line or a ring",
+   "d": 1.054,
+   "law": "a8adfc8f5064e43b1a28ca59ec0af17f41889d52b7a36a72826308d780023bd2",
+   "number": 590,
+   "probes": {
+    "d_B": 0.997,
+    "d_V": 1.089,
+    "d_s": 1.019,
+    "d_w": 1.973
+   },
+   "state": "PARKED"
+  },
+  {
+   "campaign": "3",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "c70bf266e5b798383ef364b1ec88dbec5a6d3751d3be56f6998f4fe6498a7bd6",
+   "number": 594,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "3",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "8fe1008b93e500a1a4ef662d4d773fafc597ce1a130d0d03d4663e452fb9419c",
+   "number": 752,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "3",
+   "chain": "empty",
+   "chains_reading": 7,
+   "class": "a line or a ring",
+   "d": 1.0,
+   "law": "1ea6ea40d90589bb91a479f8582c4b37d3fc84b12d00b5d1d012cf4cd5253d2c",
+   "number": 821,
+   "probes": {
+    "d_B": 0.98,
+    "d_V": 0.998,
+    "d_s": 1.002,
+    "d_w": 2.0
+   },
+   "state": "PARKED"
+  },
+  {
+   "campaign": "3",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "fd45bb6dd8aad2ba332c973bbcab2b11071e777a3af978d011ffaa385fe4dbcc",
+   "number": 882,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "4",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "d1042c4deab634192493f93e9eb5c013359717b3c7381229c0b9da31ecfe43da",
+   "number": 17,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "4",
+   "chain": "empty",
+   "chains_reading": 7,
+   "class": "a line or a ring",
+   "d": 1.001,
+   "law": "93c73dcc1b6ffc6e5d74d4cff1ba9a9fc2251de7590cb1a22b38f5ad74c5cc00",
+   "number": 129,
+   "probes": {
+    "d_B": 0.98,
+    "d_V": 0.996,
+    "d_s": 1.005,
+    "d_w": 2.01
+   },
+   "state": "PARKED"
+  },
+  {
+   "campaign": "4",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "9e526650b4abdc3cfc08f3e1f1ac52236f9d6e967c1b9a0a9906efc1b340f8f0",
+   "number": 293,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "4",
+   "chain": "empty",
+   "chains_reading": 7,
+   "class": "a line or a ring",
+   "d": 0.998,
+   "law": "ef3d34d413338b5e7be620b14260f800a9a011e21817e10761a7f2ca0a3f72f3",
+   "number": 357,
+   "probes": {
+    "d_B": 0.981,
+    "d_V": 0.99,
+    "d_s": 1.005,
+    "d_w": 1.969
+   },
+   "state": "PARKED"
+  },
+  {
+   "campaign": "4",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "c55d734c7200a1b212aa0e416e909f75430d74812b0bafa029cc25d856bcc75e",
+   "number": 362,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "4",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "889d0c24c70743cc60a22b1bc14a500283701c71486c987a2b0cc0756ea0a0a5",
+   "number": 380,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "4",
+   "chain": "empty",
+   "chains_reading": 7,
+   "class": "a line or a ring",
+   "d": 1.013,
+   "law": "d2156dd7e90d54c75de59fc72a7d625e4d6155a17794f92bd11fec53efe70c3c",
+   "number": 481,
+   "probes": {
+    "d_B": 0.985,
+    "d_V": 1.015,
+    "d_s": 1.011,
+    "d_w": 2.016
+   },
+   "state": "PARKED"
+  },
+  {
+   "campaign": "4",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "e107d7dbd24fbd7d067eb5a0b2f44a7caa933869f4d026041398599b94e65d82",
+   "number": 493,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "4",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "a170b2b9eb20b04de912a12bfaa42a3f982d668d4d8e54cc9fe0b23afb63ac51",
+   "number": 595,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "4",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "4fc5363a9d0619b22bac831e01abfb58ab98b8fa5cbfa1a41780d34d8c1bdb66",
+   "number": 600,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "4",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "0e2f60de08c3a020c648d10a7f6d6590a80a582a8d25cdd838e090d27c727bc0",
+   "number": 637,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "5",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "e10dc58bf4781afdf7f4a6310fec8b6d5c167a32c938e5b398258a9a636b3a82",
+   "number": 11,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "5",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "d451df595c01c40fbd3ab6e19db86784730acb89fc74dbdf8b063b42edd36dca",
+   "number": 20,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "5",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "0d68c2af78c35ebfed1913a70d9d508e41ce886cceab997379d9d56700fc0558",
+   "number": 22,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "5",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "92cde23f13052ae46b664f97a84a06f076ebeef0581f5bbc287e63f8d1b46ebe",
+   "number": 38,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "5",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "e687bd7d6c0647d85ec380c4e9d6af26062a559e71a629f2f3300336ddf204e0",
+   "number": 57,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "5",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "ef61e3582ea5370f0626cc3172002697e0abfdca7cfbd1e99ae680e1b891c658",
+   "number": 77,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "5",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "a924f846ae4c71e5798363d7eb0503036ba13b3661fa6a5f2c40a5804a8f694d",
+   "number": 156,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "5",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "3c4715359b404141b00787c6c06b53e1a4db993137887fed26493a857c359fa1",
+   "number": 173,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "5",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "262e3b19e49bb24f6ba6c1ba8ba8b8a77bcaac218d8f8f99347c65a1868f3e0c",
+   "number": 205,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "5",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "dfeb07333d75af2c631e49f035a9f645c4a3b1d83f124342620015a914336e5d",
+   "number": 214,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "5",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "87ec4ec8c7f757e61c981956c336e2ae18abc0f95408d1db9f51acbcfb418aa2",
+   "number": 222,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "5",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "f3b52c15a8614a226313dbc6196d6104492ac5ca1a6b36d80fad33aeb2cbf416",
+   "number": 237,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "5",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "d699e9bacccc01f653793a0d352a76e612ec663324c1eb99f501e42acce060df",
+   "number": 283,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "5",
+   "chain": "empty",
+   "chains_reading": 7,
+   "class": "a line or a ring",
+   "d": 0.998,
+   "law": "62a21297343d8a3dfc8f80b45cdd0918da17674d8742e412f42fdbe396f472a1",
+   "number": 337,
+   "probes": {
+    "d_B": 0.974,
+    "d_V": 0.996,
+    "d_s": 0.999,
+    "d_w": 1.992
+   },
+   "state": "PARKED"
+  },
+  {
+   "campaign": "5",
+   "chain": "empty",
+   "chains_reading": 7,
+   "class": "a line or a ring",
+   "d": 1.0,
+   "law": "a4d9db566543d48a0b07c4edd84cce54196373ea41fedf9d45787de56b6667a3",
+   "number": 346,
+   "probes": {
+    "d_B": 0.978,
+    "d_V": 0.994,
+    "d_s": 1.006,
+    "d_w": 2.009
+   },
+   "state": "PARKED"
+  },
+  {
+   "campaign": "5",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "93bffcbc82133b5bbfb3c34c896dff127e479c65f14c7354bdb0c8205463b86d",
+   "number": 392,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "5",
+   "chain": "empty",
+   "chains_reading": 7,
+   "class": "a line or a ring",
+   "d": 1.094,
+   "law": "608ae1c9cd5243218fb1e6edec216e8327cde4f37b36e99dce871ddff953eb03",
+   "number": 441,
+   "probes": {
+    "d_B": 1.094,
+    "d_V": 1.414,
+    "d_s": 1.056
+   },
+   "state": "PARKED"
+  },
+  {
+   "campaign": "5",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "02ed2dea615505b6ad4e48c6d12419c3fcc612a13f991b2309c4d333f37e5995",
+   "number": 484,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "5",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "551166cbd1e5503dc237d148bc5f968e4212210262f29f6ffbd05cea667f9756",
+   "number": 533,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "5",
+   "chain": "empty",
+   "chains_reading": 7,
+   "class": "a line or a ring",
+   "d": 0.997,
+   "law": "2332a394ddd2bfeed1509a424c2b7620a5f8f28d28142baa747dff12b893d526",
+   "number": 591,
+   "probes": {
+    "d_B": 0.979,
+    "d_V": 0.995,
+    "d_s": 0.999,
+    "d_w": 2.04
+   },
+   "state": "PARKED"
+  },
+  {
+   "campaign": "5",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "edb0613b5d211ffb650a03db5e19d19405c554cd766ce02c09a4975f7c4c4bac",
+   "number": 596,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "5",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "0b0c14f3bea4d9232071479049fb7448b42f5c0d1dfae5a8ff34cecd6a61bdbc",
+   "number": 627,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "5",
+   "chain": "empty",
+   "chains_reading": 7,
+   "class": "a line or a ring",
+   "d": 1.027,
+   "law": "15c393b7388b57f343764ab6defb848a12c43b249ac3df9fef4e2d663b4f3923",
+   "number": 895,
+   "probes": {
+    "d_B": 0.988,
+    "d_V": 1.039,
+    "d_s": 1.015,
+    "d_w": 1.99
+   },
+   "state": "PARKED"
+  },
+  {
+   "campaign": "6",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "2cd5ea58057c78775ab1394e26e166510c9ce914367f92c87ecb395c22e93b1e",
+   "number": 37,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "6",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "eaff42e5f99d3bf06f0f81867ce204471e6bcdf7abd5adba164dd0148687e376",
+   "number": 51,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "6",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "ccd59f36317a83daa725e01e245435fbade470fee1b0d3a221bf1e10955c9b31",
+   "number": 58,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "6",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "65a1749d634bc86f1f26045e8d9417eab4dfe6369b2e8e3a56686bd69175e1d0",
+   "number": 77,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "6",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "1d233ef09dd8c9d4c3bacc26dd076fb839193966e3377beaff02bfc1bd43de6b",
+   "number": 94,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "6",
+   "chain": "empty",
+   "chains_reading": 7,
+   "class": "a line or a ring",
+   "d": 0.999,
+   "law": "98eb15a41bb5a363ab22d64abcdcf0e9ab4cd138f43081a2f0b58cabbf1e5426",
+   "number": 128,
+   "probes": {
+    "d_B": 0.978,
+    "d_V": 0.998,
+    "d_s": 1.0,
+    "d_w": 1.991
+   },
+   "state": "PARKED"
+  },
+  {
+   "campaign": "6",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "36921861693d87d4320c016b928cc5c95a2f3786c179a3f57faacb6f18e0b492",
+   "number": 153,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "6",
+   "chain": "empty",
+   "chains_reading": 7,
+   "class": "a line or a ring",
+   "d": 0.998,
+   "law": "b8b9df7b4bce634da9a3ce6648c6ffa8403724ad4ffbd652570e1a02a8353efa",
+   "number": 171,
+   "probes": {
+    "d_B": 0.982,
+    "d_V": 0.996,
+    "d_s": 1.0,
+    "d_w": 2.037
+   },
+   "state": "PARKED"
+  },
+  {
+   "campaign": "6",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "696fe4fa79e47164371368804d83d868918d755b97f4b373cf5f7c7bb3575f1d",
+   "number": 183,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "6",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "ae8d207cbe5d23f4e4d42dc8160f6ee85236674241bd54ddbdef530ac39ba32a",
+   "number": 281,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "6",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "dc65d902e040f6269cf0722a6225ca9f68ff9ebecd2b691a566ab5e9a8d5a4f3",
+   "number": 290,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "6",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "5b0376779a55e082496a6cba7d42232f1de993d7a071649d33964d588089b054",
+   "number": 308,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "6",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "d99b251393704d2345453cdd37feaf6876264a805c438b1aeab026f2492442db",
+   "number": 405,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "6",
+   "chain": "empty",
+   "chains_reading": 7,
+   "class": "a line or a ring",
+   "d": 1.001,
+   "law": "68bedd9cb57121f3c008770a094161c4374e6ac860cc64d650edbd2f957b7567",
+   "number": 449,
+   "probes": {
+    "d_B": 0.981,
+    "d_V": 0.996,
+    "d_s": 1.006,
+    "d_w": 2.034
+   },
+   "state": "PARKED"
+  },
+  {
+   "campaign": "6",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "7fb1ca8f0711e77a91d097ec0360f5ed2cead91955a51eced27e98655af72e5b",
+   "number": 533,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "6",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "079a5cb2db9fc0b4fa9794a24d0a995526d9b3f786eac80e33b64ac7f6f40f31",
+   "number": 535,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "6",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "7fd338727f0fd21abe95b91badf748c22902c8addc86aecb9487e327b08f1804",
+   "number": 602,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "6",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "2bbbf7c51e7a66076533492d675c0d0df211205532f1b505ea6860cd0afd7ede",
+   "number": 625,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "6",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "15b0c980c5f1a9f2f25d4177391f18d43f955c86b3b4543cf7765c7197ee7934",
+   "number": 632,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "6",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "c4674651ccbd6e24a0d8fe36d62fde6ca6f3d4c428dce0a3bf999379a986dda8",
+   "number": 655,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "6",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "eccfef48842d47829155f98331c4d86880c874a69b287eaad3bf0eab5493b308",
+   "number": 716,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "6",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "b52d9c202aa421fd00613d8daf565916f874063b24550c98238bcadf24ca25d6",
+   "number": 787,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "6",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "e5b488545d179084fc6e1b1ea1a6c366be2cc28ce368aa70188ee8a0ee86db9d",
+   "number": 837,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "6",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "72a1ef10ab8038f6236b9385941290a47dcdf43797677ea74f166735239ddfad",
+   "number": 838,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "7",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "2af76a7765bc1a83af9c544dab028f10bd3f9f24e8bcca8297487e8c662fb141",
+   "number": 80,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "7",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "fbace70129faaf8d629458992e73a66affbf5e60e3be5723fdbc202c62d12595",
+   "number": 93,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "7",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "70780590000cd8ef0a507a4a26a3710fb175069bdfa74a7827c52908fc9ba4ed",
+   "number": 171,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "7",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "ac3823373ae723d653ac9606c40e65de7598af67fa3b0ee1b2f0f5aaf5195b55",
+   "number": 230,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "7",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "2ddd96fcb51d7d7f1010344dd6723c178274f2983ae1ce62b52172f7af3ac511",
+   "number": 259,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "7",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "33d9b0c454b686d740fa57dfaa46d1aba799e079877a5cda3449bfbd4ed75278",
+   "number": 304,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "7",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "bf0bd91e9c1f0324bf22551eb654e9f7d48daa59911e1a49c54d2c631edbc298",
+   "number": 307,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "7",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "24bc82c3487f5fd233dfaaaf31fe90057c1490f74aa69661c96ba40474e12a6d",
+   "number": 331,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "7",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "fbbada38df4845010f5ff363cc1a6db046e327d65ba5b13bf79156444ef01554",
+   "number": 336,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "7",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "a144f4ef6e71cbd10e300f56d5944855b3dab581c2cde66500983c4c77963f9b",
+   "number": 542,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "7",
+   "chain": "empty",
+   "chains_reading": 7,
+   "class": "a line or a ring",
+   "d": 1.164,
+   "law": "be409294ff73b683ef234ce8c32c444c405fedc227d8256178ae52e77f9f661d",
+   "number": 575,
+   "probes": {
+    "d_B": 1.164,
+    "d_V": 1.465,
+    "d_s": 1.073
+   },
+   "state": "PARKED"
+  },
+  {
+   "campaign": "7",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "80d91a43e0067bab374fbeb88a9ee35e179c093e1d4af1719463f8f4491a1874",
+   "number": 925,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "8",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "6883c5ab48331a8a3a90b7e804bb2b6451507876d82cb132334a22eb2e5eaf09",
+   "number": 8,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "8",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "78b9a3120824f332edfebcaf01c79e151adc4a9325e6a5fb9f99e4253008bbc1",
+   "number": 21,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "8",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "0a7dc08cfb7d66d48c78247406aed77d115c988602247b529c07e79656528061",
+   "number": 81,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "8",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "459d9e38382f050df2ce6e3a55335c12900cedc5e26f8d04acc399cf31c80e01",
+   "number": 86,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "8",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "dec91e25b9f5b599d2a950f754fdcbb954bea9d2afceab91154805ba279bf913",
+   "number": 162,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "8",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "63017abad5a6c2355cb6fd475e603a808f41b3c53b2016ab8a7e26c09c6f5775",
+   "number": 178,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "8",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "b14dc04946af3ed0c50767ac63490f487a5656c264f0f5b13fa57f90a6bee57b",
+   "number": 226,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "8",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "30b4830b0c5cf41b48ffada85444e1ca7cbf34c814b39ada06339a991c16faa8",
+   "number": 253,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "8",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "e5486644294fb2ec9583e4614cdd0f5007d6a3fce56b80f25d3d7f85155a571a",
+   "number": 270,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "8",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "81d346df1bba1bb74b87d698f04b2504580ed43232852efeb0b8ef04daaba6e9",
+   "number": 329,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "8",
+   "chain": "empty",
+   "chains_reading": 7,
+   "class": "a line or a ring",
+   "d": 1.049,
+   "law": "e787c0e225f4496c8a9e17a39db9a3b9c9b33db2a4bee68526927b74e7c9fab1",
+   "number": 334,
+   "probes": {
+    "d_B": 0.993,
+    "d_V": 1.073,
+    "d_s": 1.025,
+    "d_w": 2.027
+   },
+   "state": "PARKED"
+  },
+  {
+   "campaign": "8",
+   "chain": "empty",
+   "chains_reading": 7,
+   "class": "a line or a ring",
+   "d": 1.0,
+   "law": "580cdffffc14fe3c74e7d51a3070521a5fe8e10bd2e648003e41c41b8761d478",
+   "number": 369,
+   "probes": {
+    "d_B": 0.982,
+    "d_V": 0.993,
+    "d_s": 1.007,
+    "d_w": 2.001
+   },
+   "state": "PARKED"
+  },
+  {
+   "campaign": "8",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "4a367adc6304fb660f780e0c4639b9388fdc1aa63851b76de5cf70df034b292c",
+   "number": 375,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "8",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "83254fc7455792186cf134b8f160ca37ca42cd2ee409515dbf856548ab7305f9",
+   "number": 423,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "8",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "09b2a99335c08f350ec984e3bdc350dae10aff13dfab0ac238b3c2f77228c8aa",
+   "number": 499,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "8",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "4a3e72f809df64712e1b19782e5fac4b6c71e290be7f033463ea3729c6a8e916",
+   "number": 550,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "8",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "c36fda798e6240effbd4697af3955ea00d775ce03d89fbc23911b976215738c6",
+   "number": 573,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "8",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "8211ed88ede6314fdd0c258ab0782d3eb6e1ec4570cdd8de352444ea47bb7dfc",
+   "number": 592,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "8",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "6926d1e812dd182fe611e8698abcd11446d3328fcb0b022d7b7504fff5b14cbb",
+   "number": 648,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "8",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "c719354b47d6a95855e473488c2fda6bce16a8b5b2435379502db730849d27b5",
+   "number": 668,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "8",
+   "chain": "empty",
+   "chains_reading": 7,
+   "class": "a line or a ring",
+   "d": 1.001,
+   "law": "d8fc45744bfacac8bdfa97eae436f11239e9eec5342b6acc6dd8e705cec5ae1f",
+   "number": 683,
+   "probes": {
+    "d_B": 0.98,
+    "d_V": 0.997,
+    "d_s": 1.006,
+    "d_w": 1.994
+   },
+   "state": "PARKED"
+  },
+  {
+   "campaign": "8",
+   "chain": "empty",
+   "chains_reading": 7,
+   "class": "a line or a ring",
+   "d": 0.998,
+   "law": "8324bac097a47ca697c40439c3dd3c8ad0211623e3ec16ff22d72b2b7685da8d",
+   "number": 751,
+   "probes": {
+    "d_B": 0.979,
+    "d_V": 0.995,
+    "d_s": 1.001,
+    "d_w": 1.959
+   },
+   "state": "PARKED"
+  },
+  {
+   "campaign": "9",
+   "chain": "empty",
+   "chains_reading": 7,
+   "class": "a line or a ring",
+   "d": 0.997,
+   "law": "ed8fa6ef6710e79f335a3340d2160aec46d2dc89a929ae5642fa2a1e607d2c0a",
+   "number": 3,
+   "probes": {
+    "d_B": 0.979,
+    "d_V": 0.989,
+    "d_s": 1.004,
+    "d_w": 1.977
+   },
+   "state": "PARKED"
+  },
+  {
+   "campaign": "9",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "7da94e804880382afa02d6f4751174d49dee00ed437ce3ed638568892bc5b8eb",
+   "number": 21,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "9",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "925d8667d960c43ff0503de2a7ef03f7cdcee61dd88da3c75def438a9979d490",
+   "number": 37,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "9",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "60e8b561fd6c61638007d134143613671528390a37d2c256764ee9caf4e5b5aa",
+   "number": 72,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "9",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "63cb65d8606d495a8a539f2c53061bf23ea121702e029dd8970fd4690d5667ad",
+   "number": 111,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "9",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "0786125a3e445a9a4e9218a1d99f23b45f12f2d72ebd1b3abb971bf3f61e374f",
+   "number": 220,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "9",
+   "chain": "empty",
+   "chains_reading": 7,
+   "class": "a line or a ring",
+   "d": 1.023,
+   "law": "7221dc6a6e590873ae40f3d1372a56fd03297fb3dc6d79d557d4b2eed001183c",
+   "number": 245,
+   "probes": {
+    "d_B": 0.99,
+    "d_V": 1.03,
+    "d_s": 1.016,
+    "d_w": 1.981
+   },
+   "state": "PARKED"
+  },
+  {
+   "campaign": "9",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "c69c4f275e86a3983bcc9c7e34a1b62fde85b44db467499ff85b50b854cfe25b",
+   "number": 246,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "9",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "6f1a156db7416e4e7118ffa708ea09667db2c419ae745c23e47d3f408805bd68",
+   "number": 256,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "9",
+   "chain": "empty",
+   "chains_reading": 7,
+   "class": "a line or a ring",
+   "d": 0.997,
+   "law": "e6c25e6b2936031c5baad1ffb9aaf59c2c1fd45c05fca4e72bbb88e1cc45c7c4",
+   "number": 299,
+   "probes": {
+    "d_B": 0.977,
+    "d_V": 0.994,
+    "d_s": 1.001,
+    "d_w": 1.996
+   },
+   "state": "PARKED"
+  },
+  {
+   "campaign": "9",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "94b51543f3f0166b8d0ded1b2ef6b39ea09ff556da82a3c040f41ac2f07c0b36",
+   "number": 310,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "9",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "2ecb26aa7249be2098a975c6fa44d6da979d2af532cd53d53421803d5d454c79",
+   "number": 337,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "9",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "7fc7e239be18092f4ba518cbf501591922882733cbbcf85ae450dc035eb0714f",
+   "number": 371,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "9",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "a58e36bdd4da153212142ad8953bcc81cfa99c5fb6eeeec1550c3155468a9510",
+   "number": 444,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "9",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "e68c37490357263e44fd8ebb7b3c43fd8ced3daf3a499f02db0c1ace12f9f260",
+   "number": 468,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "9",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "f0f75af54840014f4897fef5e18a96d4d5ae9a3a1330f7047cedf97ab2dd49bc",
+   "number": 483,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "9",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "a63cbe50142ef505be55f60a7a8c5dc0a124290713f06559b4dc8dc434f27ed0",
+   "number": 485,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "9",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "fc55963b9bd827a566d34b19c1736b08f37957eb11c14129aa17d7e575d5ed41",
+   "number": 513,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "9",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "9f4ad72d3a9b504fc19d4298f9b1228d781860973962fe109a9064b04b2468f6",
+   "number": 535,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "9",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "aa0c16823e7a56aac2455c9ff69a74f7bfafe472966d8cec5a550020132c9d1a",
+   "number": 556,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "10",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "173b50d5cc8106b91c78fc332bd3204b87676ac7452490679c3440f3659f7985",
+   "number": 34,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "10",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "6b77103167fd5f2bae96254c5b1ff73697b07a4ae81d200047665029d27b7de3",
+   "number": 47,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "10",
+   "chain": "square",
+   "chains_reading": 6,
+   "class": "a line or a ring",
+   "d": 1.02,
+   "law": "8b86005df1494939eb373949ca40b8b0dd757109b4c958d9d0255e9af8a37011",
+   "number": 115,
+   "probes": {
+    "d_B": 1.041,
+    "d_V": 1.0,
+    "d_s": 0.993,
+    "d_w": 2.004
+   },
+   "state": "PARKED"
+  },
+  {
+   "campaign": "10",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "6a3d9ba7b228034f160c008889716b7c8ba3878a022b161d08b9ff6ba2c4ca9c",
+   "number": 155,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "10",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "ef484b8346b25695a5f7f9ee803535a6c7b41f2d50ea0996586df4d3082de91d",
+   "number": 199,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "10",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "53ca04f0b97094c461404191babff05d792fabe5fa8a5d21d8689e197ca556b5",
+   "number": 280,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "10",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "4e72ba3f920c976e2c47922355276c6575361599d0a81aa45185696fefea49f2",
+   "number": 285,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "10",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "f22ca76bcd2747ab4ef46f95eb09210dbb44be189c70068c38d66058df8197f4",
+   "number": 286,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "10",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "67d90f848ebc80ad4eaca25991090af674c0c5a10b3f5d458b28551424f0d345",
+   "number": 315,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "10",
+   "chain": "empty",
+   "chains_reading": 7,
+   "class": "a line or a ring",
+   "d": 0.996,
+   "law": "7ce1e2432d4111d8dbc2f92b671f71b19995b38f2fdfe584803cfb3758b92123",
+   "number": 325,
+   "probes": {
+    "d_B": 0.979,
+    "d_V": 0.995,
+    "d_s": 0.998,
+    "d_w": 2.017
+   },
+   "state": "PARKED"
+  },
+  {
+   "campaign": "10",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "085b32597215f23b2d72007162ab6e9a530d30cfed3dec5ac05b118a3e9799ba",
+   "number": 371,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "10",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "867d36ce070d44cb6bf10d6c79572bf37d45df7d51409ac42578e443b5ffe068",
+   "number": 506,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "10",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "d1d97a058e1dd8a58e97f1b3b8724c7fae93d8d78542bd4b683b459cb891dc34",
+   "number": 583,
+   "probes": {},
+   "state": "PARKED"
+  },
+  {
+   "campaign": "10",
+   "chain": null,
+   "class": "nothing read",
+   "d": null,
+   "law": "be6896c8565e632ca56e60fc1fc87aecce5f59959721d24bd9f3a1f37ce36278",
+   "number": 585,
+   "probes": {},
+   "state": "PARKED"
+  }
+ ],
+ "rule": "a law is held when its latest decision stops it at the gate and the size named; it is classed by the best reading of any of its starts at that size in report 28's every_chain values: a chain reads where any of its four probes has a mean there, its d the median of those it reads; the best chain is the one that reads the most probes, the chain from empty first among equals, then the random start's, then the lattices in their order; d under 1.3 is a line or a ring, 1.3 to 2.5 the middle, above 2.5 the rest, and no chain reading is nothing read. The run-on list is every held law that reads something.",
+ "run_on": {
+  "by_class": {
+   "a line or a ring": 40,
+   "above 2.5": 0,
+   "d 1.3 to 2.5": 0
+  },
+  "laws": 40,
+  "sha256": "08ea54e7187fdb4cca453bebb7401bf772fb992e41cecc684789de0ec0e8d400"
+ },
+ "study": "174"
+}

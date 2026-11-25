@@ -263,6 +263,29 @@ made; a time without a Z is the operator's local time.
 * **A leaner engine** (2026-11-25 08:35: "can we not make our engines more memory efficient? Or would that sacrifice
   speed? And how close are we to the theoretical minimum memory needed"): planned after 863, profiled first
   (`docs/ROADMAP.md`).
+* **No law is done** (2026-11-25 11:06: "the extender makes it so that no law is ever 'done', its either waiting to be
+  extended or settled by gate/score/condition/gg-type ... when parking it always mention the highest N-reading that
+  settled the action/classification, to measure up against in terms of trust-worthyness of the reading/score of
+  course, because higher N = more signal/more-relevance to real physics"): 864, every page says a law's status as
+  waiting to be extended or settled, by what, at its highest reading (`observability/law_status.py`); the state stored
+  keeps its name, so every decision replays.
+* **Study 176 seeded from the map so far, its blind draw beside it** (2026-11-25 11:06: "lets design study 176 that we
+  seed with the existing top scoring ggs+overall map space so far, and then again same 10 batches of 1k laws each +
+  the control campaign (is that even needed anymore at this point though? then perhaps we can clean up the top menu
+  bar to just have 1 bar of random laws tried vs zoned-hand-picked region-laws % and counters instead of needing even
+  care about batches or controls because our own map has already become its own control"): 865.
+* **A shared effort only once one node has proven the zone mapping** (2026-11-25 11:08: "design/setup the needed
+  pipelines to turn this into a shared community effort of exploring that space together, and share the
+  results/region-details+law-range/set sustaining that configuration/transformation, but thats for later once we've
+  confirmed the auto zone mapping system works and just needs more compute to map it faster ... we keep focus on being
+  able to run a single node first before decentralizing the search effort"): `docs/ROADMAP.md`, "Unscheduled".
+* **The engines in order: Rust to its limit, then C, then assembly, each timed on the same seed** (2026-11-25 11:10:
+  "first improve the existing rust one, once we found the limits of the language, see if we can do any new neat
+  tricks with c instead, and after, same last exercise in ASM, each time comparing how fast we can iterate through the
+  search the space given the same starting seed, and once we have those numbers mapped, then we make it a community
+  effort ... it becomes an invitation to run your own node and add your own terms to the collective mapped set"):
+  the engine's diet first (`docs/ROADMAP.md`), every engine proven by replaying a study's seeds to the bit, its speed
+  read on the same seeds.
 * A context ends in a build the next can start from with nothing but the source (2026-11-24 23:00: "create 1 more
   hand-over built so the next context can make a fresh start from source alone"): 859, made on a clone of `main` and
   brought up from it alone (`docs/agent/ENVIRONMENT.md`, section 10).

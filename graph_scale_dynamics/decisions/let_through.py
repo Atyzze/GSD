@@ -8,7 +8,8 @@ from graph_scale_dynamics.decisions import gates as G
 
 CONTRACT = "gsd-let-through-ledger-1"
 NOT_A_VERDICT = frozenset({"start", "complete_rung", "longer_chain", "lane_resumed", "hold_released",
-                           "deep_lane_full", "lane_yielded", "ladder_complete", "over_budget"})
+                           "deep_lane_full", "lane_yielded", "ladder_complete", "over_budget", "run_on"})
+RUN_ON = "run_on"
 WITHHOLDING_ACTIONS = ("stop", "hold")
 CLEAN, MISSED, OPEN = "clean", "missed", "open"
 KNOWN_RESULT = "repeats_a_known_result"
@@ -51,6 +52,7 @@ class Ledger:
     seen_counted: set = field(default_factory=set)
     held: set = field(default_factory=set)
     passed: dict = field(default_factory=dict)
+    by_word: set = field(default_factory=set)
     last: str = ""
     rows: int = 0
     counts_priced: bool = False
@@ -59,6 +61,11 @@ class Ledger:
         self.rows += 1
         self.last = max(self.last, str(row.get("decision_id") or ""))
         key = (str(row.get("campaign_id")), str(row.get("candidate_id")))
+        if str(row.get("rule")) == RUN_ON:
+            self.by_word.add(key)
+            self.open.pop(key, None)
+        if key in self.by_word:
+            return
         at_n = row.get("at_n")
         if at_n is None:
             return

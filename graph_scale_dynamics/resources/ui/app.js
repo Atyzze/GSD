@@ -71,6 +71,8 @@ function lawScoreOf(x){const s=x&&x.law_score;return (s&&typeof s.score==='numbe
 function lawScoreBelow(x){const s=lawScoreOf(x);return !!(s&&s.top_n!=null&&+s.top_n<SCORE_FROM)}
 function lawScoreText(x){const s=lawScoreOf(x);if(!s)return 'not scored yet';if(!(s.score>0))return lawScoreBelow(x)?'not yet at N=16,384':'no probe settles on any start';const lattice=latticeWho().has(s.by);return `${SCORE_WHO[s.by]||s.by}${lattice&&s.chain?' ('+s.chain+')':''}: ${s.points!=null?s.points:'?'} of ${s.points_of||15} at N=${Number(s.to_n).toLocaleString('en-US')}${s.einstein?', all four agreeing by Einstein':''}${s.d!=null?`; d ${s.d}${s.d<1.5?' (a ring)':''}`:''}`}
 function scoreTitle(row){const s=lawScoreOf(row);const head=!s?'Not scored yet: the controller reads every decided law a page at a time.':s.score>0?`Score ${s.score} of 100: ${lawScoreText(row)}.`:lawScoreBelow(row)?'Score 0: not yet measured at N=16,384, the first size a probe can settle at (readings are relied on from 4,096).':'Score 0: no probe of any start settled from one size to the next from N=4,096.';return `${head}\nPoints times depth times who (784): only readings from N=4,096 on a piece of 4,096 nodes or more count. Each probe, and the Einstein relation d_s = 2 d_f / d_w as a fifth item, earns 1 when it reads at two sizes in a row, 2 when it settles between them (within the margin the calibration table\u2019s exact lattices set), 3 when it settles again at the next size: 15 at most. Each size from N=1,024 to 4,194,304 is a seventh of depth; the twin starts count 1, a lattice start that changed 0.6, one that kept its shape 0.3. Shown and ranked by; it orders the deep lane and decides nothing else.`}
+const STATE_WORDS={DONE:'waiting to be extended',PARKED:'settled',STOPPED:'settled',HELD:'waiting to be extended',EXTENDING:'running',BASE_BLOCK_RUNNING:'running',PROPOSED:'not started'};
+function lawStatusWord(x){return (x&&x.status&&x.status.word)||STATE_WORDS[String((x&&x.state)||'')]||String((x&&x.state)||'')}
 function topClass(x){const s=lawScoreOf(x);if(s&&s.score>0)return'stable';const st=String(x.state||'');if(st.startsWith('REJECTED_'))return'unstable';return'provisional'}
 
 
@@ -376,15 +378,15 @@ function leaderRow(){
       ?
         `<span class="leader-work idle" title="Nothing is queued or leased for this law right now. `
         +`The deepest rung running anywhere in the campaign is shown below for context; it is on `
-        +`a different law.">nothing is running for this law${best.state?` \u00b7 ${esc(best.state)}`:''}</span>`
+        +`a different law.">nothing is running for this law${best.state?` \u00b7 ${esc(lawStatusWord(best))}`:''}</span>`
         +`<span class="leader-work">deepest live work in the campaign is N=${esc(+other.n)} on <span class=candidate-link>${esc(candidateLabel(deepest.row))}</span><span class=muted> (a different law)</span>${progress}</span>`
-      : `<span class="leader-work idle">no rung is running right now${best.state?` \u00b7 this law is ${esc(best.state)}`:''}</span>`)+engineNote;
+      : `<span class="leader-work idle">no rung is running right now${best.state?` \u00b7 this law is ${esc(lawStatusWord(best))}`:''}</span>`)+engineNote;
   const tieNote = tied>1 ? `<span class="leader-tie">${tied} laws tie at ${esc(score)}</span>` : '';
   root.innerHTML=`<a class="leader-card" href="${candidateHref(best.candidate_id,best.campaign_id)}" title="${esc(scoreTitle(best))}">`
     +`<span class=leader-score>${esc(score)}</span>`
     +`<span class=leader-body>`
       +`<span class=candidate-link>${esc(candidateLabel(best))}</span>`
-      +`<span class=score-meta> \u00b7 ${esc(best.state||'measured')} \u00b7 ${esc(lawScoreText(best))}</span>`
+      +`<span class=score-meta> \u00b7 ${esc(best.state?lawStatusWord(best):'measured')} \u00b7 ${esc(lawScoreText(best))}</span>`
       +(best.terms?.length?TERMS.html(best.terms,{compact:true}):'')
       +`<span class=leader-lines>${workLine}${tieNote}</span>`
       +deepestRunHtml(job, own?forBest:(deepest&&deepest.row))
@@ -1067,7 +1069,7 @@ function tooltipHtml(h,{pinned=false}={}){
     +(p.stability_control_family?`control: reproduces ${esc(p.stability_control_family)} \u00b7 points withheld<br>`:'')
     +(p.small_world?`<b>small world</b>: the radius grows like ln N from N=${esc(Number((p.small_world.sizes||[])[0]).toLocaleString('en-US'))}, so no dimension to read<br>`:'')
     +(p.stability_plateau_break?plateauBreakLine(p.stability_plateau_break)+'<br>':'')
-    +`${esc(p.state||'measured')}`
+    +`${esc(p.state?lawStatusWord(p):'measured')}`
     +(p.terms?.length?'<br>'+TERMS.html(p.terms,{compact:true}):'')
     +(pinned?'<br><span class=muted>click to open · × to unpin</span>':'');
 }
@@ -1295,7 +1297,7 @@ const EXPLORER_COLS=[
   title:'the score from the landscape, 0 to 100: who built a space times how far it held (608). Blank when the landscape has no row for the law.',
   get:x=>explorerScore(x),cell:explorerScoreCell},
  {key:'state',label:'state',width:'14%',get:x=>String(x.state||''),
-  cell:x=>`<b>${esc(x.state||'\u2014')}</b><small>${esc(x.status_group||'')}</small>${x.state_reason?`<small title="${esc(x.state_reason)}">${esc(x.state_reason)}</small>`:''}`},
+  cell:x=>`<b title="${esc(x.state||'')}">${esc(lawStatusWord(x)||'\u2014')}</b><small>${esc(x.status_group||'')}</small>${(x.status||{}).text||x.state_reason?`<small title="${esc(x.state_reason||'')}">${esc((x.status||{}).text||x.state_reason)}</small>`:''}`},
  {key:'coupling',label:'coupling',width:'8%',get:x=>String(x.coupling_stratum||''),
   cell:x=>esc(humanize(x.coupling_stratum||'\u2014'))},
  {key:'scaling',label:'scaling',width:'9%',get:x=>String(x.scaling_profile||''),

@@ -27,7 +27,7 @@ from graph_scale_dynamics.dsl import dsl
 from graph_scale_dynamics.engine.engine import ENGINE_VERSION
 from graph_scale_dynamics.measurements.version import ANALYSIS_VERSION
 from graph_scale_dynamics.observability import (
-    live_panel as _live, dashboard_timing, evidence_sources, incidents, memory_ledger,
+    live_panel as _live, dashboard_timing, evidence_sources, incidents, law_status, memory_ledger,
 )
 from graph_scale_dynamics.observability.console import error as console_error, iso_utc_now
 from graph_scale_dynamics.observability.heartbeat import start_heartbeat_thread
@@ -1201,8 +1201,8 @@ def build_handler(db_path: str, blobs_path: str, admin_token: str, port: int,
                                         "ensemble_code": _ensemble_code_for(
                                             repo, campaign_id, candidate_id),
                                         "candidate_number": candidate_number_for(repo, campaign_id, candidate_id),
-                                        "fingerprint_verified":
-                                            dsl.fingerprint(candidate["spec"]) == candidate["candidate_id"]},
+                                        "status": law_status.of_law(repo, campaign_id, candidate),
+                                        "fingerprint_verified": dsl.fingerprint(candidate["spec"]) == candidate_id},
                         "law_dynamics": law_dynamics_of(candidate["spec"]),
                         "rungs": rung_payload,
                         "lineage": lineage, "identity": identity_for(repo, campaign_id, candidate_id, candidate["spec"]),
