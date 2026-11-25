@@ -72,6 +72,71 @@ def of_row(row: dict) -> dict:
                   region=row.get("region_name"))
 
 
+ONE_DIMENSION_BELOW = 1.5
+RING_DEGREE_WITHIN = 0.02
+WHOLE_AT_LEAST = 0.95
+FORMS = ("grown", "made", "ring", "small_world")
+
+
+def form_of(d, degree, giant) -> str | None:
+    if d is None:
+        return None
+    if float(d) >= ONE_DIMENSION_BELOW:
+        return f"d {float(d):.1f}"
+    if degree is not None and abs(float(degree) - 2.0) <= 2.0 * RING_DEGREE_WITHIN:
+        return "a ring" if giant is not None and float(giant) >= WHOLE_AT_LEAST else "rings"
+    return "open strings" if degree is not None and float(degree) < 2.0 else "a line"
+
+
+ONE_DIMENSIONAL = {"a ring": "ring", "rings": "ring", "open strings": "line", "a line": "line"}
+
+
+def type_of(kind, form) -> str | None:
+    if kind is None:
+        return None
+    if form is None:
+        return str(kind)
+    family = ONE_DIMENSIONAL.get(form) or (f"d {round(float(form.split()[1]))}" if form.startswith("d ") else form)
+    return f"{kind} {family}"
+
+
+def one_dimensional(found_type: str | None) -> bool:
+    return bool(found_type) and found_type.split()[-1] in set(ONE_DIMENSIONAL.values())
+
+
+KEPT_STARTS = ("frozen", "still")
+
+
+def known_from_the_table(found_type: str | None) -> bool:
+    return one_dimensional(found_type) or (bool(found_type) and found_type.split()[0] in KEPT_STARTS)
+
+
+def phenotype(chains: dict, place: dict | None = None, at_n: int | None = None) -> dict:
+    from graph_scale_dynamics.observability import catalogue as K
+    from graph_scale_dynamics.observability import law_kind
+    found = law_kind.kinds(chains or {})
+    if at_n is not None:
+        found = {n: k for n, k in found.items() if int(n) <= int(at_n)}
+    region = (place or {}).get("region")
+    if not found:
+        return {"kind": None, "name": "not read yet", "at_n": None, "form": None, "region": region,
+                "mapped": (place or {}).get("how"), "words": "not read yet" + (f" \u00b7 {region}" if region else "")}
+    n = max(found)
+    kind = found[n]
+    _views, values = law_kind.read(chains)
+    empty = (values.get("empty") or {}).get(n) or {}
+    d = K.d_of(empty)
+    form = form_of(d, empty.get("mean_degree"), empty.get("giant_fraction")) if kind in FORMS else None
+    name = K.names().get(kind, kind)
+    how = (place or {}).get("how")
+    words = f"{name}{', ' + form if form else ''} at N={n:,} \u00b7 " + (
+        f"{region} ({how})" if region else "no GG region yet")
+    return {"kind": kind, "name": name, "at_n": n, "form": form, "type": type_of(kind, form),
+            "d": None if d is None else round(float(d), 3),
+            "mean_degree": empty.get("mean_degree"), "giant": empty.get("giant_fraction"),
+            "region": region, "mapped": how, "words": words}
+
+
 def of_law(repo, campaign_id: str, candidate: dict) -> dict:
     found = repo.conn.execute(
         "SELECT rule, at_n, next_n FROM engine_decisions_latest WHERE campaign_id=? AND candidate_id=?",
@@ -81,5 +146,5 @@ def of_law(repo, campaign_id: str, candidate: dict) -> dict:
     return status(candidate.get("state"), rule=found["rule"], at_n=found["at_n"], next_n=found["next_n"])
 
 
-__all__ = ["BUDGET", "CONDITION", "GATE", "LADDER", "NOT_RUN", "RUNNING", "SETTLED", "WAITING", "of_law", "of_row",
-           "rule_of", "settled_by", "status"]
+__all__ = ["BUDGET", "CONDITION", "GATE", "LADDER", "NOT_RUN", "RUNNING", "SETTLED", "WAITING", "form_of", "of_law",
+           "known_from_the_table", "of_row", "one_dimensional", "phenotype", "rule_of", "settled_by", "status", "type_of"]

@@ -35,6 +35,7 @@
         <label class=muted>deep laws <input id=mapContenders data-admin-write type=number min=0 max=20 step=1 value="${esc((next||s).contenders)}" style="width:4em"></label>
         <label class=muted>widest ring <input id=mapOutward data-admin-write type=number min=0.1 max=0.95 step=0.05 value="${esc((next||s).outward_most)}" style="width:5em"></label>
         <label class=muted>inside a region below <input id=mapInside data-admin-write type=number min=0 max=1 step=0.05 value="${esc((next||s).inside_share)}" style="width:5em"> of its reach</label>
+        <label class=muted title="the focus takes first the law whose type is least known; a type counts as known once this many of its laws are mapped, a one-dimensional form (a ring or a line) counting one from the start">a type known after <input id=mapPerType data-admin-write type=number min=1 max=50 step=1 value="${esc((next||s).mapped_per_type??3)}" style="width:4em"> laws</label>
         <button type=button class=gsd-control data-admin-write data-map-do=settings>apply from the next law</button></div>
       ${next?`<div class=muted>the next law takes: rings ${esc(ringsText(next.radii))}, confirmed by ${esc(next.confirm_share)}, ${esc(next.contenders)} deep laws, rings to ${esc(next.outward_most)}</div>`:''}${said}`}
   function current(d){
@@ -50,13 +51,18 @@
       <div class=muted>${seedLine}</div>
       <div>${sens?`sensitive to <b>${esc(sens.on)}</b>: ${esc(sens.words)}`:'<span class=muted>sensitive to: not read yet (its seeds and the rings of 1e-3 or less)</span>'}</div>
       <div class=muted>its region reaches ${c.alike_to!=null?esc(c.alike_to):'no ring yet'} · its depth: deepest ${esc(size(depth.deepest))}, holds to ${esc(size(depth.holds_to))}${depth.invalidated_at!=null?`, <b class=warn>invalidated at ${esc(num(depth.invalidated_at))}</b>`:''}</div>
-      ${lines?`<ul class=map-lines>${lines}</ul>`:''}`}
+      ${lines?`<ul class=map-lines>${lines}</ul>`:''}${termsLine(c)}`}
+  function termsLine(e){
+    const t=Object.entries(e.terms||{});
+    if(!t.length)return '';
+    const each=t.map(([name,row])=>`${esc(name)}: ${row.load_bearing==null?'waiting':row.load_bearing?`<b>load-bearing</b> (off, it reads ${esc(row.kind)})`:'not load-bearing'}`).join(' · ');
+    return `<div class=muted>each term switched off: ${each}${e.core?` · <b>its core: ${esc(e.core.join(', ')||'none of its terms alone')}</b>`:''}</div>`}
   function rangeText(lo,hi){return lo===hi?esc(Number(lo).toPrecision(4)):`${esc(Number(lo).toPrecision(4))} to ${esc(Number(hi).toPrecision(4))}`}
   function regions(d){
     const list=(d&&d.focus&&d.focus.regions)||[];
     if(!list.length)return '<div class=empty>no region mapped yet: a region is named once its law is mapped</div>';
     const touch=((d.focus.touching)||[]).map(t=>`<li>${esc(t.regions[0])} (${esc(t.kinds[0])}) and ${esc(t.regions[1])} (${esc(t.kinds[1])}) overlap in every coupling: a boundary lies between them</li>`).join('');
-    return list.map(r=>`<div class=map-region><div><b>${esc(r.name)}</b> <span class=muted>${esc(r.kind)} · ${esc(r.members)} laws read its kind · from ${esc((r.labels||[]).join(', '))}${r.alike_to!=null?` · every ring to ${esc(r.alike_to)} alike`:''} · ${esc((r.boundaries||[]).length)} boundaries</span></div>
+    return list.map(r=>`<div class=map-region><div><b>${esc(r.name)}</b> <span class=muted>${esc(r.kind)} · ${esc(r.members)} laws read its kind · from ${esc((r.labels||[]).join(', '))}${r.alike_to!=null?` · every ring to ${esc(r.alike_to)} alike`:''} · ${esc((r.boundaries||[]).length)} boundaries${Object.keys(r.cores||{}).length?` · core terms: ${Object.entries(r.cores).map(([l,c])=>`${esc(c.join(', ')||'none alone')} (${esc(l)})`).join('; ')}`:''}${r.seeded_from?` · seeded from ${esc(r.seeded_from.bundle)}`:''}</span></div>
       <table class=map-ranges><tbody>${Object.entries(r.ranges||{}).map(([axis,[lo,hi]])=>`<tr><td>${esc(axis)}</td><td>${rangeText(lo,hi)}</td></tr>`).join('')}</tbody></table></div>`).join('')+(touch?`<ul class=map-touching>${touch}</ul>`:'')}
   function depthTable(d){
     const all=Object.entries((d&&d.focus&&d.focus.contenders)||{});
@@ -67,11 +73,16 @@
     if(!q.length)return '<div class=empty>the queue arrives with the focus’s first step</div>';
     return `<table class=map-queue><thead><tr><th></th><th>law</th><th>score</th><th>where it stands</th><th></th></tr></thead><tbody>${q.map((e,i)=>{
       const free=e.status==='waiting', back=e.status==='skipped'||!['waiting','in focus'].includes(e.status);
-      return `<tr><td class=muted>${i+1}</td><td>${esc(e.label||short(e.law))}</td><td>${esc(e.score)}</td><td>${esc(e.status)}${e.region?` · ${esc(e.region)}`:''}</td><td>${free?`<button type=button class=chip data-admin-write data-map-do=law data-map-law="${esc(e.law)}">focus now</button> <button type=button class=chip data-admin-write data-map-do=skip data-map-law="${esc(e.law)}">skip</button>`:''}${back?`<button type=button class=chip data-admin-write data-map-do=back data-map-law="${esc(e.law)}">put back</button>`:''}</td></tr>`}).join('')}</tbody></table>`}
+      return `<tr><td class=muted>${i+1}</td><td>${esc(e.label||short(e.law))}</td><td>${esc(e.score)}</td><td>${esc(e.status)}${e.region?` · ${esc(e.region)}`:''}${e.type?` <span class=muted>· ${esc(e.type)}</span>`:''}</td><td>${free?`<button type=button class=chip data-admin-write data-map-do=law data-map-law="${esc(e.law)}">focus now</button> <button type=button class=chip data-admin-write data-map-do=skip data-map-law="${esc(e.law)}">skip</button>`:''}${back?`<button type=button class=chip data-admin-write data-map-do=back data-map-law="${esc(e.law)}">put back</button>`:''}</td></tr>`}).join('')}</tbody></table>`}
   function done(d){
     const list=((d&&d.focus&&d.focus.done)||[]).slice().reverse();
     if(!list.length)return '<div class=empty>no law’s focus has ended yet</div>';
-    return `<ul class=map-done>${list.map(e=>`<li><b>${esc(e.label||short(e.law))}</b> ${esc(e.stage)}${e.region?` as ${esc(e.region)}`:''}${e.why?`: ${esc(e.why)}`:''}${e.sensitivity?` · sensitive to ${esc(e.sensitivity.on)}`:''}</li>`).join('')}</ul>`}
+    return `<ul class=map-done>${list.map(e=>`<li><b>${esc(e.label||short(e.law))}</b> ${esc(e.stage)}${e.region?` as ${esc(e.region)}`:''}${e.type?` (${esc(e.type)})`:''}${e.why?`: ${esc(e.why)}`:''}${e.sensitivity?` · sensitive to ${esc(e.sensitivity.on)}`:''}${e.core?` · core: ${esc(e.core.join(', ')||'none alone')}`:''}</li>`).join('')}</ul>`}
+  function seeds(d){
+    const f=d&&d.focus;
+    if(!f)return '<div class=empty>a seed joins a focus: start one first</div>';
+    const made=(f.seeded||[]).map(e=>`<li><b>${esc(e.bundle)}</b> <span class=muted>(study ${esc(e.study)}, built ${esc(e.built_utc||'')}): ${esc(num(e.scoring))} scoring laws, ${esc(num(e.laws_added))} new here, regions ${esc((e.regions||[]).join(', ')||'none')}${e.mismatched?`, <b class=warn>${esc(num(e.mismatched))} laws whose spec is not their id, left out</b>`:''}</span></li>`).join('');
+    return `<div class=toolbar><label class=muted>bundle on this host <input id=mapBundle data-admin-write type=text placeholder="/path/to/study_174_....tar.zst or its folder" style="width:34em"></label><button type=button class=gsd-control data-admin-write data-map-do=seed title="its scoring laws run again here in the seeded campaign and its GG regions join the map; a bundle read by another science is refused; a second seed appends">seed from a bundle</button></div>${made?`<ul class=map-done>${made}</ul>`:'<div class=empty>no seed yet: the study maps from its own laws alone</div>'}`}
   function runOn(d){
     const lists=(d&&d.run_on_lists)||[], now=d&&d.run_on;
     if(now){
@@ -84,9 +95,9 @@
     data=d||data;
     const put=(id,html)=>{const el=document.getElementById(id);if(el)el.innerHTML=html};
     const scope=document.getElementById('mapScope');if(scope)scope.textContent=data&&data.focus?`study ${data.focus.study}`:'';
-    const typing=['mapSplit','mapLaw','mapRings','mapConfirm','mapContenders','mapOutward','mapInside','mapStudy'].some(id=>{const el=document.getElementById(id);return el&&document.activeElement===el});
+    const typing=['mapSplit','mapLaw','mapRings','mapConfirm','mapContenders','mapOutward','mapInside','mapPerType','mapStudy','mapBundle'].some(id=>{const el=document.getElementById(id);return el&&document.activeElement===el});
     if(!typing)put('mapControls',controls(data));
-    put('mapCurrent',current(data));put('mapRegions',regions(data));put('mapDepth',depthTable(data));put('mapQueue',queue(data));put('mapDone',done(data));put('mapRunOn',runOn(data));
+    put('mapCurrent',current(data));put('mapRegions',regions(data));put('mapDepth',depthTable(data));put('mapQueue',queue(data));put('mapDone',done(data));put('mapRunOn',runOn(data));if(!typing)put('mapSeed',seeds(data));
     wire()}
   function value(id){const el=document.getElementById(id);return el?el.value:''}
   function bodyFor(button){
@@ -97,8 +108,9 @@
     if(what==='law')return {do:'law',law:law||value('mapLaw')};
     if(what==='skip'||what==='back')return {do:what,law};
     if(what==='run_on')return {do:'run_on',study:button.getAttribute('data-map-study')||undefined};
+    if(what==='seed')return {do:'seed',bundle:value('mapBundle')};
     if(what==='run_on_clear')return {do:'run_on',clear:true};
-    return {do:'settings',settings:{radii:parseRings(value('mapRings')),confirm_share:+value('mapConfirm'),contenders:+value('mapContenders'),outward_most:+value('mapOutward'),inside_share:+value('mapInside')}}}
+    return {do:'settings',settings:{radii:parseRings(value('mapRings')),confirm_share:+value('mapConfirm'),contenders:+value('mapContenders'),outward_most:+value('mapOutward'),inside_share:+value('mapInside'),mapped_per_type:+value('mapPerType')||3}}}
   async function act(body){
     note='';
     try{data=await SYS.postJson('/api/focus',body);note=`done: ${body.do}`}

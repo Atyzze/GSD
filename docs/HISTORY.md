@@ -279,6 +279,35 @@ made; a time without a Z is the operator's local time.
   results/region-details+law-range/set sustaining that configuration/transformation, but thats for later once we've
   confirmed the auto zone mapping system works and just needs more compute to map it faster ... we keep focus on being
   able to run a single node first before decentralizing the search effort"): `docs/ROADMAP.md`, "Unscheduled".
+* **A law's type where "DONE" stood, and every top law in the catalogue** (2026-11-25 11:58, on C2-G3187, the new
+  highest score: "I just see a ring/torus of width 1? but I could be wrong, either way, classify it and added it to our
+  pokedex ... the poke/gg-type should be visible where it says 'DONE' currently instead, nothing is ever done,
+  something is part of a phenotype/gg-group and then parked as that group its properties/regions are already mapped
+  enough y/n ... which of these candidates/regions gets explored first matter less to me actually"): 865, the law
+  page's header says the law's kind and form at its highest reading and its GG region and whether it is mapped
+  (`law_status.phenotype`, `focus.place_of`); C2-G3187 read as rings of degree 2, d 1.
+* **A type known is explored less; a law read against every known type; one lexicon** (2026-11-25 12:03: "the ranking
+  position is reset again and our other higher score one which was pos 1 has been taken over by C8-G2983 again, and
+  thats confusing behavior, thus scoring should be relative to a specific known GG-type (dammed we need to settle on
+  a lexicon/syntax lol) and explored until identified to be within a specific already known GG group or indication of
+  a new zone to explore, thus all laws should instead carry multiple scores/probabilities vs all known phenotypes and
+  how similar they are to the other phenotypes, a giant matrix 2d basically? ... that might still be needed to tell
+  what specific law the extender should be pushing to the highest N possible, and there for this ring, yeah do it a
+  few times but eventually we know the result and what it looks like early on, and frankly id rather see C8G2983
+  explored first than that ring"): 865, the Top 100 keeps each law's whole rank under the filters, and the focus
+  takes the law of the least known type first (a type known after three mapped laws, a ring, a line or a kept
+  lattice counting once from the start); the matrix of every law against every known type, and the lexicon, planned (`docs/ROADMAP.md`).
+* **Every mapped law's terms switched off, one at a time; the phenotype as the shortest description of its charts**
+  (2026-11-25 12:12: "the explorer should by default always also explore what turning any of the selected couplings
+  back to 0 does, to see is this term even relevant at all? ... to see if it was even load bearing at all, and if not,
+  note that pattern down as we've identified which term-set their setup is the core ingredient of the observed
+  behavior and the rest becomes noise ... define the phenotype as the set of math-formulas that best describe all the
+  observed shapes in our 4x4 measurement set, where it is multiplied by the sheer number of probe-readings ... should
+  roll a few dozen categories at least to map it all together under a set of groups with overlap, once we have that,
+  we'll have completed the null map and can invite to add new terms to the search space, like ricci curvature again,
+  its two variants the compared against each other"): 865, the focus switches each term of its law off (coupling 0)
+  beside its rings and records which bear the law's kind, its core; the phenotype's compression, the categories and
+  the null map's completion before new terms, planned (`docs/ROADMAP.md`).
 * **The engines in order: Rust to its limit, then C, then assembly, each timed on the same seed** (2026-11-25 11:10:
   "first improve the existing rust one, once we found the limits of the language, see if we can do any new neat
   tricks with c instead, and after, same last exercise in ASM, each time comparing how fast we can iterate through the

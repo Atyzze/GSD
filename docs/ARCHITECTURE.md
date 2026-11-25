@@ -605,6 +605,12 @@ number and the graph's, in one order the server and the page share (`services/ap
 Since 859 the places left empty are given to the laws that read nothing from empty and score 0, the deepest first, so
 a campaign of fewer than a hundred laws lists every one (the standing controls' five, their two negatives last).
 
+**The study now, one bar** (865, `resources/ui/app.js`, `renderStudyNow`): the overview's campaigns split by laws into
+blind (design kind `blind`, or a study batch with no kind) and zoned (seeded, the focus's neighbours, seeds and depth,
+a map), each side its share, laws, graphs (bought and done), scoring laws (`high_score.scoring`, from the campaign's
+cached landscape), what runs, is queued and is left; the standing controls (`campaign-standing-controls`) a tick with
+their verdict. A click reads every blind batch in the panels below; one batch is chosen in the filter panel.
+
 **How old Home's numbers may be** (`services/api/freshness.py`, 860). The overview is rebuilt in the API every refresh
 period (one tick) when a poll finds it due; the study's view answers with the oldest of its batches' snapshots, each
 rebuilt alone, through the API's database slots. The answer carries the age (`source_age_ms`), shown in the FRESHNESS
@@ -688,6 +694,15 @@ with a parameter an axis a value) and the dynamics' axes; a law mapped gives a r
 line point that read its kind, its ranges each axis's least and greatest; it takes the next number unless a region of
 the same kind overlaps it on every axis, which it then joins.
 
+**A study seeded from bundles** (865, `operations/study_seed.py`): a design with `"focus": true` begins the focus at
+its start, and a campaign of kind `seed` (hand policy, empty, its gates recording `starts_alike` and `nothing_read`)
+outside the let-through ledger and the learning batches (`db/decision_store.OUTSIDE_THE_LEDGER`, `_study_place`). The
+Map page's "seed from a bundle" (`do: seed`) reads a bundle's `study.json`, laws table and `focus.json` (a `.tar.zst`
+through `zstd`, streamed, or a folder), refuses another science hash, puts every law the bundle scores into the seeded
+campaign by its spec, and joins its GG regions to the focus's state (`seeded_from`, the holder recorded as mapped); a
+region from a newer bundle of the same study widens the one it gave, a taken number from another study moves to the
+next. The records are the state's `seeded`, on the page and in the bundle's `focus.json`.
+
 **Held laws run on** (864, `operations/run_on.py`): the Map page's last panel reads each study's committed run-on list
 (`study_<id>_run_on.json`, `tools/held_by_a_gate.py`) and offers "run them on" (`do: run_on`, the flag `run_on`, how
 the decider takes it in `docs/DECISIONS.md`, "A law run on by word"); once named, it lists each law as waiting, running
@@ -701,7 +716,11 @@ ladder, the state `DONE` stored as before, or held for a place at its next size)
 budget or a condition (the rule named; by a region, GG#n, where the focus names one), the size its highest reading
 was taken at said every time, since a reading at a larger size carries more weight; **running** to its next size; or
 **not started**. The law page's header and its first line, the explorer's state column and Home's lines read it
-(`candidate.status`, `status` on the explorer's rows); nothing stored changes, so every decision replays.
+(`candidate.status`, `status` on the explorer's rows); nothing stored changes, so every decision replays. Since 865
+the law page's header chip says the law's **type** once its chains are read (`phenotype` in `/api/structure`,
+`law_status.phenotype`): its catalogue kind at its largest size read, its form where its starts settle or agree (a
+ring or rings at degree 2 and d under 1.5, open strings or a line, else its d), and its GG region and place on the map
+(`focus.place_of`: mapped, inside and passed over, in focus now, or none yet); the status moves to its mouse-over.
 
 ## The science a bundle was read by (`reporting/science_contract.py`, 856; contract 2 at 861)
 

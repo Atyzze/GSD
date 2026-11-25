@@ -138,10 +138,11 @@ as it was in the build that held it. A tool no longer in `tools/` is in a tools 
   small world at one size is never made at a deeper one, and whether H31's region is one kind; its two numbers chosen
   on the baseline bundles and committed before the next bundle judges it (`tools/catalogue_reading.py`); the random
   reach it assumes is read by `tools/small_world_reach.py`.
-* `graph_scale_dynamics/resources/readings/study_176_design.json`, `graph_scale_dynamics/resources/readings/study_176_criterion.json`
-  and `graph_scale_dynamics/resources/readings/study_176_first_ten.json` (856): study 176, its two groups, its
-  criterion committed before its first start, and the ten laws its map starts from (`tools/map_first_ten.py` on the
-  baseline bundles).
+* `graph_scale_dynamics/resources/readings/study_176_design.json` and `graph_scale_dynamics/resources/readings/study_176_criterion.json`
+  (865, replacing 856's, which never ran): study 176, A's ten blind batches, the focus from its start and a seeded
+  campaign filled from bundles, its criterion committed before its first start;
+  `graph_scale_dynamics/resources/readings/study_176_first_ten.json` (856): the ten laws 856's map was to start from
+  (`tools/map_first_ten.py` on the baseline bundles), read now only by its test.
 * `graph_scale_dynamics/resources/readings/study_174_run_on.json` (864): the 193 laws `starts_alike` holds at 16,384 in
   174's bundle of 2026-11-25 09:59Z, each classed by the best reading of its starts there, and the 40 that read
   something, all lines or rings, which the Map page's "run them on" names (`tools/held_by_a_gate.py`).

@@ -1219,6 +1219,13 @@ function lawIdentityLine(c,idn){
   else if(idn.function_hash) line.append(' \u00b7 no other law, in any campaign, is this function');
   return line;
 }
+function fillTypeChip(chip,ph,c){
+  if(!chip||!ph||!ph.kind) return;
+  chip.textContent=ph.words;
+  chip.setAttribute('class','state type-chip '+String(c.state||''));
+  chip.setAttribute('title',[`its type: ${ph.name}${ph.form?', '+ph.form:''}, read at N=${Number(ph.at_n).toLocaleString('en-US')}, its highest reading`,
+    ph.region?`its region ${ph.region}: ${ph.mapped}`:(ph.mapped?`on the map: ${ph.mapped}`:'no GG region yet: the focus names one when it maps this law or one near it'),
+    (c.status||{}).text||'', 'state '+String(c.state||'')].filter(Boolean).join('\n')); }
 async function candidateView(id){
   let d;
   try {
@@ -1248,12 +1255,13 @@ async function candidateView(id){
   const code=candidateCode(c,d);
   const lawNumber=(c.candidate_number==null?null:c.candidate_number);
   const scoreChip=el('span',{class:'hdr-score zero',title:'the score, read from every start: reading\u2026'},'\u2026');
+  const typeChip=el('span',{class:'state '+c.state,title:((c.status||{}).text||c.state)+' \u00b7 '+c.state},(c.status||{}).word||c.state);
   const heading=el('div',{class:'hdr'},
     el('h1',{title:'content hash '+c.candidate_id},
       code?el('span',{class:'ensemble-code'},code)
           :el('code',{},c.candidate_id.slice(0,16)),
       ' ',scoreChip,
-      ' ',el('span',{class:'state '+c.state,title:((c.status||{}).text||c.state)+' \u00b7 '+c.state},(c.status||{}).word||c.state)));
+      ' ',typeChip));
   if(!code) heading.append(el('span',{class:'muted hdr-hash identity-pending',
     title:'A G-code is the position of a law\u2019s first graph in this campaign\u2019s simulation '
          +'sequence. No graph has been built for this law, so it has none.'},
@@ -1581,7 +1589,7 @@ async function candidateView(id){
   readStructure(1)
     .then(payload=>{ twoChainsHost.textContent=''; renderTwoChains(twoChainsHost,payload);
       flowHost.textContent=''; renderFlowEveryStart(flowHost,payload);
-      scoreHost.textContent=''; renderLawScore(scoreHost,payload); fillScoreChip(scoreChip,payload&&payload.score);
+      scoreHost.textContent=''; renderLawScore(scoreHost,payload); fillScoreChip(scoreChip,payload&&payload.score); fillTypeChip(typeChip,payload&&payload.phenotype,c);
       renderRungs(payload&&payload.chains||null);
       readingHost.innerHTML=''; renderEveryChainGraph(readingHost,payload,d.rungs||[]); renderCurves(readingHost,payload,structureUrl.replace('/structure-data/','/curves-data/')); renderWhatHappened(readingHost,payload); })
     .catch(e=>{ twoChainsHost.textContent=''; twoChainsHost.append(el('h2',{'data-tone':'cyan'},'the chains'),el('p',{class:'muted'},'the chains are unavailable: '+(e&&e.message)));

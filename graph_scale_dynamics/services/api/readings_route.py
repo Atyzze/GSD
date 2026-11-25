@@ -2,10 +2,11 @@ from __future__ import annotations
 
 from graph_scale_dynamics.db.repo import Repo
 from graph_scale_dynamics.measurements.version import ANALYSIS_VERSION
-from graph_scale_dynamics.observability import evidence_sources, law_score
+from graph_scale_dynamics.observability import evidence_sources, law_score, law_status
 from graph_scale_dynamics.observability.starts_reading import hold_structure, law_reading as starts_reading
 from graph_scale_dynamics.observability.space_score import space_score
 from graph_scale_dynamics.observability.two_chains import stopping_numbers, two_chains
+from graph_scale_dynamics.operations import focus
 from graph_scale_dynamics.research.what_happened import law_story
 from graph_scale_dynamics.services.api import focus_route, gate_route, study_route
 from graph_scale_dynamics.services.api.answer_cache import ANSWERS
@@ -47,6 +48,8 @@ def structure(repo, campaign_id: str, candidate_id: str) -> dict | None:
             "every_chain": every_chain(rows, chains, given_start), "given_start": given_start, "chains": chains,
             "space_score": space_score(chains, law.get("spec") if isinstance(law.get("spec"), dict) else None),
             "starts_reading": read,
+            "phenotype": law_status.phenotype(chains, focus.place_of(
+                focus.load(repo) if callable(getattr(repo, "get_flag", None)) else None, str(candidate_id))),
             "score": law_score.score(chains, read, starts=starts, first_given=law_score.given_family(
                 campaign_spec, str(candidate_id), law.get("spec")), structure=structure)}
 

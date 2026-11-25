@@ -3609,100 +3609,49 @@ check('the Explorer across the study finds a code in its own campaign and links 
   }
 });
 
-check('the study now draws every campaign of the study and marks the one shown', () => {
-  sandbox.GSD_APP.campaign = '2';
+check('the study now is one bar: the laws drawn blind against the laws the map chose, the controls a tick', () => {
+  sandbox.GSD_APP.campaign = 'study';
   const row = (id, extra) => ({ campaign_id: id, quadrant: `quadrant ${id}`, state: 'active', slots_held: 0,
-    analyses_running: 0, work_queued: 0, graphs_total: 1000, laws_total: 10, law_budget: null, ...extra });
+    analyses_running: 0, work_queued: 0, graphs_total: 100, graphs_created: 100, laws_total: 10, law_budget: null,
+    chains_per_seed: 1, ...extra });
+  const batch = (id, extra) => row(id, { design_kind: 'blind', group: 'A', study_batch: true,
+    law_budget: { law_budget: 1000, laws_held: 600 }, high_score: { score: 19, scoring: 2 }, ...extra });
   sandbox.GSD_APP.renderStudyNow({ campaigns: [
-    row('6', { quadrant: 'the controls', control_verdict: { overall: 'fail' } }),
-    row('1', { law_budget: { law_budget: 10000, laws_held: 10000 }, state: 'at its law budget', graphs_total: 78695,
-               graphs_created: 78695, deepest_n: 4194304 }),
-    row('2', { slots_held: 3, analyses_running: 1, work_queued: 12, graphs_created: 1012,
-               work_left: { core_hours_left: 21.5, hours_at_last_hours_pace: 1.4 } }),
-    row('5', { archived: true }),
+    batch('1', { slots_held: 3, work_queued: 12, graphs_created: 1012, graphs_total: 1000,
+                 work_left: { core_hours_left: 21.5, hours_at_last_hours_pace: 1.4 } }),
+    batch('2', { deepest_n: 65536 }),
+    row('11', { name: 'campaign-standing-controls', control_verdict: { overall: 'pass' }, laws_total: 5 }),
+    row('12', { design_kind: 'seed', group: 'N', laws_total: 59, high_score: { scoring: 7 } }),
+    row('13', { design_kind: 'focus', group: 'N', laws_total: 44, slots_held: 2 }),
+    row('14', { design_kind: 'focus', group: 'D', laws_total: 6 }),
+    row('5', { archived: true, design_kind: 'blind', laws_total: 999 }),
   ] });
   const html = getElementById('studyNow').innerHTML;
-  const cards = [...html.matchAll(/data-campaign="(\d+)"/g)].map((m) => m[1]);
-  if (cards.join(',') !== '1,2,6') throw new Error(`the cards are not the study's campaigns in their order: ${cards}`);
-  if (!/class="study-card current" data-campaign="2"/.test(html)) throw new Error('the campaign shown is not marked');
-  if (!html.includes('10,000 of 10,000 laws') || !html.includes('78,695 graphs')) throw new Error('a card lacks its laws');
-  if (!html.includes('1,012 graphs, 1,000 done')) throw new Error(`a card with graphs queued does not give both counts: ${html}`);
-  if (html.includes('78,695 graphs, ')) throw new Error('a campaign whose graphs are all done repeats the count');
-  if (!html.includes('running 3') || !html.includes('queued 12') || !html.includes('21.5 core-h left')) {
-    throw new Error('a card does not say what runs and what is left');
+  if ((html.match(/<button/g) || []).length !== 1 || !html.includes('data-campaign="study"')) throw new Error(`not one bar: ${html}`);
+  if (/study-card|draw-batch/.test(html)) throw new Error('a batch or a campaign still has a card of its own');
+  const blind = html.split('study-side blind')[1].split('study-side zoned')[0], zoned = html.split('study-side zoned')[1];
+  for (const want of ['1,200 laws of 2,000', '92%', '1,112 graphs, 1,100 done', '4 score', 'running 3', 'queued 12',
+                      'deepest N=65,536', 'at least 21.5 core-h left, 1.4 h at the last hour', '2 campaigns']) {
+    if (!blind.includes(want)) throw new Error(`the blind side lacks "${want}": ${blind}`);
   }
-  if (!html.includes('controls fail')) throw new Error("the controls' card does not carry their verdict");
-  if (!html.includes('at least 21.5 core-h left, 1.4 h at the last hour')) throw new Error('queued work alone is said to be at least that');
-  sandbox.GSD_APP.renderStudyNow({ campaigns: [
-    row('2', { slots_held: 3, analyses_running: 1, work_queued: 12, graphs_created: 1012,
-               work_left: { core_hours_left: 21.5, hours_at_last_hours_pace: 1.4, core_hours_expected: 60.2,
-                            hours_expected_at_last_hours_pace: 3.9 } })] });
-  const expected = getElementById('studyNow').innerHTML;
-  if (!expected.includes('about 60.2 core-h left, 3.9 h at the last hour') || !expected.includes('at least 21.5 core-hours are queued now')) {
-    throw new Error(`839: a card says the work expected, the sizes to come counted, and keeps the queued part on its mouse-over: ${expected}`);
+  for (const want of ['109 laws', '8%', '7 score', 'running 2', '3 campaigns']) {
+    if (!zoned.includes(want)) throw new Error(`the zoned side lacks "${want}": ${zoned}`);
   }
-});
-
-check('the batches of one draw are one card, and a batch is picked by its chip', () => {
-  sandbox.GSD_APP.campaign = '3';
-  const batch = (id, k, extra) => ({ campaign_id: id, quadrant: 'zero or finite temperature, drawn per law, mean degree to 16',
-    name: `study 255: the sparse region, drawn blind (${k} of 3)`, state: 'active', slots_held: 1, analyses_running: 1,
-    work_queued: 10, graphs_total: 100, graphs_created: 150, laws_total: 80,
-    law_budget: { law_budget: 10000, laws_held: 80 }, deepest_n: 256 * k,
-    work_left: { core_hours_left: 3.0, hours_at_last_hours_pace: 120 },
-    draw: { key: '155:d4c85c56a1b0', label: 'the sparse region, drawn blind', batch: k }, ...extra });
-  sandbox.GSD_APP.renderStudyNow({ campaigns: [batch('1', 1), batch('2', 2), batch('3', 3),
-    { campaign_id: '4', quadrant: 'the controls', state: 'active', slots_held: 0, analyses_running: 0, work_queued: 0,
-      graphs_total: 30, laws_total: 5, law_budget: null }] });
-  const html = getElementById('studyNow').innerHTML;
-  if ((html.match(/class="study-card study-draw/g) || []).length !== 1) throw new Error(`the batches are not one card: ${html}`);
-  for (const want of ['the sparse region, drawn blind', 'one draw in 3 batches', '240 of 30,000 laws', '450 graphs, 300 done',
-                      'running 3', 'queued 30', '9 core-h left, 120 h at the last hour', 'deepest N=768']) {
-    if (!html.includes(want)) throw new Error(`the draw's card lacks "${want}": ${html}`);
-  }
-  const chips = [...html.matchAll(/class="draw-batch( current)?" data-campaign="(\d+)"/g)];
-  if (chips.map((m) => m[2]).join(',') !== '1,2,3' || !chips[2][1]) throw new Error('a chip per batch, the one shown marked');
-  if (!/data-campaign="4"/.test(html)) throw new Error('a campaign that is no batch keeps its own card');
-});
-
-check('every batch together is the first card, and picked, the panels say so', () => {
-  sandbox.GSD_APP.campaign = 'study';
-  const row = (id, batch, extra) => ({ campaign_id: id, quadrant: 'the sparse region', state: 'active', slots_held: 1,
-    analyses_running: 0, work_queued: 0, graphs_total: 100, graphs_created: 100, laws_total: 50,
-    law_budget: batch ? { law_budget: 10000, laws_held: 50 } : null, study_batch: batch, deepest_n: 4096, ...extra });
-  sandbox.GSD_APP.renderStudyNow({ campaigns: [row('1', true), row('2', true), row('3', true),
-    row('6', true, { law_budget: { law_budget: 10000, laws_held: 9 }, study_design: { arm: 'natural units' } }),
-    row('7', false)] });
-  const html = getElementById('studyNow').innerHTML;
-  const first = html.split('<button')[1] || '';
-  if (!first.includes('data-campaign="study"') || !first.includes('All batches')) throw new Error(`not the first card: ${html}`);
-  for (const want of ['4 batches', 'C1, C2, C3, C6', '159 of 40,000 laws', '400 graphs', 'study-all current']) {
-    if (!html.includes(want)) throw new Error(`the card of every batch lacks "${want}": ${html}`);
-  }
-  const all = html.split('data-campaign="study"')[1].split('</button>')[0];
-  if (!all.includes('C6') || all.includes('C7')) throw new Error(`the pilot arm is a batch, the controls are not: ${all}`);
-  if (!/data-campaign="6"/.test(html) || !/data-campaign="7"/.test(html)) throw new Error('the arm and the controls keep their cards');
+  if (!/study-split-blind style="width:91\.7%/.test(html)) throw new Error('the bar is not split by the laws on each side');
+  if (!html.includes('known answers: pass') || html.includes('999')) throw new Error('the controls are not a tick, or an archived batch counts');
+  if (!/class="study-split current"/.test(html)) throw new Error('the bar is not marked while the panels read every batch');
   sandbox.GSD_APP.paintCampaignScope();
   if (getElementById('landScope').textContent !== 'all batches') throw new Error('the landscape does not say it reads every batch');
-  sandbox.GSD_APP.renderStudyNow({ campaigns: [row('1', true), row('7', false)] });
-  if (getElementById('studyNow').innerHTML.includes('data-campaign="study"')) throw new Error('one batch needs no card of all');
-});
-
-check('a queue with no price yet is not called nothing left to run', () => {
-  sandbox.GSD_APP.campaign = '11';
-  const row = (id, extra) => ({ campaign_id: id, quadrant: 'campaign-standing-controls', state: 'active', slots_held: 0,
-    analyses_running: 0, graphs_total: 22, graphs_created: 30, laws_total: 5, law_budget: null, ...extra });
-  sandbox.GSD_APP.renderStudyNow({ campaigns: [
-    row('11', { work_queued: 8, work_left: { core_hours_left: 0, graphs_queued: 8, unpriced_rungs: [256] } }),
-    row('12', { work_queued: 0, work_left: { core_hours_left: 0, graphs_queued: 0, unpriced_rungs: [] } }),
-  ] });
-  const html = getElementById('studyNow').innerHTML;
-  const card = (id) => (html.split(`data-campaign="${id}"`)[1] || '').split('</button>')[0];
-  if (!card('11').includes('queued 8 · time left not known yet (no seed at N=256 has ended here)')) {
-    throw new Error(`a queue with no price reads as nothing: ${card('11')}`);
+  sandbox.GSD_APP.renderStudyNow({ campaigns: [row('11', { name: 'campaign-standing-controls', work_queued: 8,
+    work_left: { core_hours_left: 0, graphs_queued: 8, unpriced_rungs: [256] } })] });
+  const alone = getElementById('studyNow').innerHTML;
+  if (!alone.includes('known answers: not read yet') || !alone.includes('0 laws')) throw new Error(`a folder with only its controls: ${alone}`);
+  sandbox.GSD_APP.renderStudyNow({ campaigns: [batch('1', { work_queued: 8, high_score: null,
+    work_left: { core_hours_left: 0, graphs_queued: 8, unpriced_rungs: [256] } })] });
+  const unpriced = getElementById('studyNow').innerHTML;
+  if (!unpriced.includes('queued 8 · time left not known yet (no seed at N=256 has ended here)') || unpriced.includes('nothing left to run · 1 campaign')) {
+    throw new Error(`a queue with no price reads as nothing: ${unpriced}`);
   }
-  if (card('11').includes('nothing left to run')) throw new Error('queued work is called nothing left to run');
-  if (!card('12').includes('nothing left to run')) throw new Error('a campaign with nothing queued does not say so');
 });
 
 check('the candidate column sorts by G-code, smallest first', () => {

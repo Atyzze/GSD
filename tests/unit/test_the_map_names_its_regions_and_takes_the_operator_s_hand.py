@@ -168,3 +168,44 @@ def test_the_study_s_best_laws_are_ordered_by_score_then_campaign_and_graph_numb
     monkeypatch.setattr(focus, "graph_number", lambda repo, campaign, law: graphs.get((campaign, law)))
     ranked = focus.best(None, "174")
     assert [e["label"] for e in ranked] == ["C1-G6940", "C2-G64", "C10-G5", "C1-G7363"]
+
+
+def test_a_law_s_place_on_the_map_is_said_for_its_page():
+    from graph_scale_dynamics.operations import focus
+    state = {"current": {"law": "now"}, "region_of": {"held": 2}, "inside": {"near": {"region": "GG#2"}},
+             "done": [{"law": "gone", "stage": "unconfirmed"}]}
+    assert focus.place_of(state, "now") == {"region": None, "how": "in focus now"}
+    assert focus.place_of(state, "held") == {"region": "GG#2", "how": "mapped"}
+    assert focus.place_of(state, "near") == {"region": "GG#2", "how": "inside, passed over"}
+    assert focus.place_of(state, "gone") == {"region": None, "how": "unconfirmed"}
+    assert focus.place_of(state, "else") is None and focus.place_of(None, "now") is None
+
+
+def test_the_focus_takes_the_law_of_the_least_known_type_first_a_form_the_table_holds_known_once(monkeypatch):
+    from graph_scale_dynamics.operations import focus
+    state = {"study": "1", "done": [{"law": "m1", "stage": "mapped", "type": "grown d 2"}], "inside": {}, "types": {},
+             "plan": {"next": {"mapped_per_type": 3}, "neighbourhood": {"read_n": 16384}}}
+    ranked = [{"candidate_id": "ring", "campaign": "1", "score": 38},
+              {"candidate_id": "lattice", "campaign": "1", "score": 27},
+              {"candidate_id": "sheet", "campaign": "1", "score": 20}]
+    types = {"ring": "grown ring", "lattice": "rewired", "sheet": "grown d 2"}
+    monkeypatch.setattr(focus, "type_of", lambda repo, state, campaign, law: types[law])
+    monkeypatch.setattr(focus, "inside", lambda repo, state, entry: None)
+    assert focus._chosen(None, state, None, ranked)["candidate_id"] == "lattice", (
+        "a type nobody mapped goes before a ring, which the table already knows, and a type mapped once")
+    state["done"].append({"law": "m2", "stage": "mapped", "type": "rewired"})
+    assert focus._chosen(None, state, None, ranked)["candidate_id"] == "ring", "known alike, the score decides"
+    state["plan"]["next"]["mapped_per_type"] = 1
+    state["done"] += [{"law": "m3", "stage": "mapped", "type": "rewired"}] * 3
+    assert focus._chosen(None, state, None, ranked)["candidate_id"] == "ring", "every type known enough: the score"
+    assert focus.known_types(state, ["grown ring", "frozen"]) == {"grown ring": 1, "frozen": 1, "rewired": 4,
+                                                                "grown d 2": 1}
+
+
+def test_a_type_names_its_kind_and_its_form_family():
+    from graph_scale_dynamics.observability import law_status as L
+    assert L.type_of("grown", "a ring") == L.type_of("grown", "rings") == "grown ring"
+    assert L.type_of("grown", "open strings") == "grown line" and L.type_of("made", "d 2.1") == "made d 2"
+    assert L.type_of("rewired", None) == "rewired" and L.type_of(None, "a ring") is None
+    assert L.one_dimensional("grown ring") and not L.one_dimensional("made d 2") and not L.one_dimensional(None)
+    assert L.known_from_the_table("still") and L.known_from_the_table("made line") and not L.known_from_the_table("rewired")

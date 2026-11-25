@@ -161,20 +161,31 @@ own build, in this order; a planned build takes its number when it is made:
    far outside its bulk (a criterion committed first; in 174, d_w over about 3.5 and d_V over about 3, where 99% read
    under 2.87 and 2.24), its own seeds and tiny rings telling a lucky strike (one seed, not repeated) from a region
    (its neighbours repeat it), a new region given the next GG number and a later outlier inside it joining it.
-5. **865, study 176, designed again: seeded from the map so far, the blind draw beside it, one bar** (09:42: "the
-   triple mapper in place from the start"; 11:06: "seed with the existing top scoring ggs+overall map space so far,
-   and then again same 10 batches of 1k laws each"; "1 bar of random laws tried vs zoned-hand-picked region-laws %
-   and counters"): a new design file (176's committed one never ran): A, the ten blind batches of 1,000 on the seeds
-   176 drew at 2026-11-24 17:00; the focus (N, S, D) begun with the study, so it maps from its first scoring law; and
-   **a seed from any bundle of the same science** (the Map page's "seed from a bundle", a path on the host, appended,
-   never replacing): the bundle's scoring laws run again in a seeded campaign and queued first for the focus, its
-   GG regions known with their numbers, ranges and kinds so a scoring law inside one is passed over and every blind
-   law that lands inside one is a prediction the map makes and its reading judges (the map as its own control). Its
-   gates are 174's unless the 40 run on say otherwise before it starts (recommended: `starts_alike` at 16,384 acting
-   only where the starts' shared end reads no dimension). **Home's top**: one bar, laws drawn blind against laws
-   zoned (seeded, neighbours, seeds, depth), each with its share, its laws, graphs, scoring laws and work running;
-   batches move into the filter panel; the standing controls a tick on the bar, not a card (question below).
-6. **866, the engine's diet** (08:35: "can we not make our engines more memory efficient? Or would that sacrifice speed?"),
+5. **865, made: study 176 designed again, seeded from the map so far, Home's top one bar** (09:42, 11:06;
+   `docs/build_notes/BUILD865_NOTES.md`): A's ten blind batches on 176's seeds, the focus begun by the study's start,
+   an empty seeded campaign the Map page's "seed from a bundle" fills from any bundle of the same science (its scoring
+   laws run again, its GG regions joined with their numbers, a newer bundle of the same study widening its regions);
+   "The study now" one bar, blind against zoned, the standing controls a tick. Its gates are 174's until the 40 run
+   on say otherwise (the questions above).
+   **Then, the lexicon and every law against every known type** (12:03: "all laws should instead carry multiple
+   scores/probabilities vs all known phenotypes and how similar they are to the other phenotypes, a giant matrix 2d"):
+   a law's name is its type (the catalogue's kind, how its starts end, and its form, what was grown: a ring, a line,
+   d 2) and its GG region where it sits; a table of laws by known types, each cell how near the law reads to that
+   type (its d, degree, largest piece, curvature and reach's growth, against the type's laws, in the units of the
+   table's own spread), a law near none of them the sign of a new zone; Home's Top 100 and the filters read it, the
+   single score kept for what the extender pushes deepest. Its known answers first: the table's families each read
+   as their own type.
+   **Then the phenotype as the shortest description of a law's sixteen charts** (12:12): each of the 4x4 law page's
+   quantities over N, every start, fitted by the fewest forms that describe it (a constant, a power of N, a log), each
+   weighted by how many probe readings it rests on, a law's phenotype the set of those forms and a new law read
+   against the set already seen; a few dozen categories, overlapping, from them, judged first on the calibration
+   table's families. With every term's load read (865's terms switched off), that is the null map complete; then new
+   terms join the pool, the curvature first in its two forms, the exact one and today's formula, compared by outcome
+   and by speed.
+   **866, the pages' and reports' build numbers in words** (10:00): every citation of a build in what the pages and
+   the reports say (863's notes: about 90 in the code, 27 in the pages) checked against today's code and said
+   plainly, anything worth keeping folded into `docs/HISTORY.md`; a decision's reason keeps its words.
+6. **867, the engine's diet, Rust first** (08:35: "can we not make our engines more memory efficient? Or would that sacrifice speed?"),
    profiled first (the profile in "Unscheduled"): by the code, a seed at 65,536 nodes and mean degree 29 holds every
    finished chain's edges as Python tuples (about 120 bytes an edge, eight chains, about 0.9 of the 1.46 GiB
    C1-G6940's seed peaked at) and saves them as JSON (19 s); the Rust graph holds about 40 to 150 bytes an edge (both
@@ -187,7 +198,7 @@ own build, in this order; a planned build takes its number when it is made:
    seeds, results should remain identical, but simply grown faster with less memory"): its seeds run again from
    scratch on the new engine, every chain and reading the same to the bit (`tools/two_runs.py`), the time and memory
    each took compared; D's ceiling then rises by itself as memory admission allows.
-7. **The study after 174, its gates revisited and seeded from 174** (now item 5) (07:33: "when we modify that, then its also time
+7. **The study after 174, its gates revisited and seeded from 174** (865 made the seed and 176; the gates wait on the 40) (07:33: "when we modify that, then its also time
    for a new study, but we can still seed it with the best-scorers and more specifically their phenotype map of
    behaviors so that we dont lose that and already have regions to start probing/mapping straight away"): the gates
    chosen on the question above, the study started from 174's last bundle whose science hash is the folder's (what

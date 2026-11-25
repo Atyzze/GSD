@@ -10,7 +10,7 @@ from pathlib import Path
 DESIGN_CONTRACT = "gsd-study-design-1"
 STARTS_READING_KEYS = ("hold_structure", "lattice_chains_meet")
 DESIGNS = Path("graph_scale_dynamics") / "resources" / "readings"
-BLIND, AROUND, PERTURB, MAP = "blind", "around", "perturb", "map"
+BLIND, AROUND, PERTURB, MAP, SEED = "blind", "around", "perturb", "map", "seed"
 NUDGE = 1.5
 SIGNIFICANT_FIGURES = 4
 TRIES = 50
@@ -227,7 +227,7 @@ def campaign_spec(design: dict, base: dict, entry: dict, index: int) -> dict:
         spec["study_design"]["arm"] = str(entry["arm"])
     if entry.get("group"):
         spec["study_design"]["group"] = str(entry["group"])
-    if entry["kind"] in (AROUND, PERTURB, MAP):
+    if entry["kind"] in (AROUND, PERTURB, MAP, SEED):
         spec["proposer"] = {"pool_min": 1}
         spec["search_policy"] = {"contract": "gsd-hand-1", "kind": "hand"}
     return spec
@@ -296,9 +296,14 @@ def start(repo, design: dict, spec: dict, *, var=None, tree=None, search_seed=No
         if index in (made or {}):
             continue
         log(f"created Campaign {campaign_id} ({entry['label']}), study {design['study']}: "
-            + (f"{len(laws):,} laws around the design's holders" if laws else f"drawn blind, law budget {laws_budget:,}")
+            + (f"{len(laws):,} laws around the design's holders" if laws else
+               "empty until a bundle seeds it (the Map page)" if entry["kind"] == SEED else
+               f"drawn blind, law budget {laws_budget:,}")
             + f"; {', '.join(f'{k} {v}' for k, v in design['axes'].items())}; to N={campaign['budgets']['max_n']:,}; "
             + (f"chains from empty, {', '.join(start['name'] for start in design['starts'])}"
                if design.get("starts") else "each law with a chain from a shape at the atlas's degree")
             + f"; search seed {seed}")
+    if design.get("focus"):
+        from graph_scale_dynamics.operations import focus
+        focus.begin(repo, str(design["study"]), tree=tree)
     return str(first)

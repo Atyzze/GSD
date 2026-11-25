@@ -34,3 +34,26 @@ def test_a_row_without_its_decision_reads_the_rule_from_its_reason_and_its_size_
     found = L.of_row({"state": "PARKED", "state_reason": "decision engine: starts_alike", "largest_n": 16384})
     assert (found["rule"], found["at_n"], found["by"]) == ("starts_alike", 16384, L.GATE)
     assert L.rule_of("something else") is None
+
+
+def test_a_law_s_form_says_ring_line_or_its_dimension():
+    assert L.form_of(1.004, 2.0001, 0.96) == "a ring"
+    assert L.form_of(1.0, 2.0, 0.61) == "rings"
+    assert L.form_of(1.05, 1.7, 0.4) == "open strings"
+    assert L.form_of(1.1, 2.6, 1.0) == "a line"
+    assert L.form_of(2.04, 4.0, 1.0) == "d 2.0"
+    assert L.form_of(None, 2.0, 1.0) is None
+
+
+def test_the_law_page_s_type_is_its_kind_at_its_highest_reading_and_its_place_on_the_map():
+    import gzip
+    import json
+    from pathlib import Path
+    payload = json.loads(gzip.open(Path(__file__).resolve().parents[1] / "fixtures" / "law_page_of_eight_chains.json.gz")
+                         .read().decode("utf-8"))
+    found = L.phenotype(payload["chains"], {"region": "GG#2", "how": "mapped"})
+    assert found["kind"] and found["at_n"] == max(int(r["n"]) for r in payload["chains"]["rungs"])
+    assert found["words"].endswith("· GG#2 (mapped)") and f"at N={found['at_n']:,}" in found["words"]
+    alone = L.phenotype(payload["chains"], None)
+    assert alone["region"] is None and alone["words"].endswith("no GG region yet")
+    assert L.phenotype({}, None)["words"] == "not read yet"

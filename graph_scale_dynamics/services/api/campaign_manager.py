@@ -131,7 +131,9 @@ def high_score(cache_root, campaign_id: str) -> dict | None:
         return None
     return {"score": None if found is None else int(score), "candidate_id": best.get("candidate_id"),
             "by": (found or {}).get("by"), "to_n": (found or {}).get("to_n"),
-            "generated_utc": payload.get("generated_utc"), "max": 100}
+            "generated_utc": payload.get("generated_utc"), "max": 100,
+            "scoring": sum(1 for row in top if isinstance(row, dict)
+                           and int(((row.get("law_score") or {}).get("score") or 0)) > 0)}
 
 
 def _slow_scan(repo) -> dict:
@@ -353,6 +355,8 @@ def _campaign_row(repo, campaign: dict, scan: dict, actives: int,
         "term_pool": term_pool if hand_fed and set(term_pool) != set(terms) else None,
         "control_verdict": (scan.get("control_verdicts") or {}).get(campaign_id),
         "draw": draw_of(spec),
+        "group": (spec.get("study_design") or {}).get("group"),
+        "design_kind": (spec.get("study_design") or {}).get("kind"),
         "grid": (spec.get("search_policy") or {}).get("grid"),
         "complexity_budget": spec.get("complexity_budget"),
         "ladder_declared": [int(n) for n in (spec.get("ladder") or [])],
