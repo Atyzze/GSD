@@ -385,6 +385,14 @@ def _science() -> tuple[dict, bytes | None]:
         return {"contract": science_contract.CONTRACT, "unavailable": f"{type(exc).__name__}: {str(exc)[:200]}"}, None
 
 
+def _focus(repo) -> dict | None:
+    from graph_scale_dynamics.operations import focus
+    try:
+        return focus.load(repo)
+    except Exception as exc:  # noqa: BLE001
+        return {"unavailable": f"{type(exc).__name__}: {str(exc)[:200]}"}
+
+
 def _map_and_groups(repo) -> tuple[dict | None, dict | None]:
     from graph_scale_dynamics.operations import study_map
     from graph_scale_dynamics.scheduling import work_groups
@@ -440,6 +448,7 @@ def build(base: Path, repo, campaign_ids: list[str], *, request_id: str | None =
                 **({"fleet_resumed_utc": resumed_utc} if resumed_utc else {})}
 
     the_map, groups = _map_and_groups(repo)
+    the_focus = _focus(repo)
     science, table = _science()
 
     def front_page(links: dict) -> bytes:
@@ -483,6 +492,10 @@ def build(base: Path, repo, campaign_ids: list[str], *, request_id: str | None =
                   **({"unavailable": finds["unavailable"]} if finds.get("unavailable") else {})},
         **({"map": {"file": "map.json", "contract": the_map.get("contract"),
                     "regions": len(the_map.get("regions") or {})}} if the_map else {}),
+        **({"focus": {"file": "focus.json", "contract": the_focus.get("contract"),
+                      "campaigns": the_focus.get("campaigns"), "done": len(the_focus.get("done") or []),
+                      **{key: (the_focus.get("current") or {}).get(key) for key in ("law", "label", "stage")}}}
+           if the_focus else {}),
         "work_groups": groups,
         "science": science,
         "advice": _advice_summary(advice), "front_page": "index.html", "gate_trees": "gate_trees.html",
@@ -508,6 +521,8 @@ def build(base: Path, repo, campaign_ids: list[str], *, request_id: str | None =
         yield f"{stem}/finds.json", _compact(finds)
         if the_map:
             yield f"{stem}/map.json", _compact(the_map)
+        if the_focus:
+            yield f"{stem}/focus.json", _compact(the_focus)
         if table is not None:
             yield f"{stem}/{science_contract.TABLE_IN_BUNDLE}", table
         for name in sorted(study_tables):

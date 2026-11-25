@@ -1,4 +1,4 @@
-# Where we are, at build 860
+# Where we are, at build 861
 
 The whole project on one page, in plain words; the detail is in `docs/agent/HANDOFF.md`.
 
@@ -35,7 +35,8 @@ What the instrument reads on known answers (1, 2). **No data from a study before
 
 ## What is running
 
-Studies 174 (on 859, its bundle of 2026-11-25 00:19 read at 860) and 175, each in a folder of its own. Since
+Study 174 (its bundle of 2026-11-25 06:26Z read at 861), with 861's focus beside its blind draw once you start it;
+175 to be paused (its bundle of 06:43Z on 860 reads the same science, and 3 of its 35 holders score now). Since
 2026-11-24 16:34 the project rests on two of their bundles and the calibration table, nothing older: 174's of 14:22Z
 (the blind draw, 8,131 laws read) and 175's of 08:35Z (595 variants around 174's 35 settled laws).
 `docs/paper/GSD_PAPER.md` is the working draft that rests on them alone. Study 176 waits for your start.
@@ -46,42 +47,43 @@ Most blind laws empty the graph (3,202), fill it to the cap (996) or melt the la
 54 now score 1, their best chain a lattice the law barely changed: what settles is mostly a start remembered. Ten laws
 settle a probe from empty or random, all one dimensional: five open strings, four loops with a few shortcuts, one
 chain of small cliques. Two laws whose starts agree, H31 and fdc563a72c98, are small worlds: their reach stays within
-twice a random graph's of their degree and their d rises with N, so not a space of d 4. One law, de7ab4a85198, is
-frozen to 4,096 and changes at 16,384. The still call held on every chain: its criterion passed, and since 856 a still
-lattice scores 1. **Read again at 860**: those counts came from a reading that counts every seed; the folder's own
-score, which counts only seeds that stopped changing, gives 46 laws on 174's newest bundle, and five of 176's first
-ten score 0 there. Both are read again before 176 starts.
+twice a random graph's of their degree and their d rises with N, so not a space of d 4. **Read again at 860**: those
+counts count every seed; the folder's score counts only seeds that stopped changing: 46 laws on 174's bundle of 23:19Z,
+59 on 06:26Z's (four rings at 19, a lattice at 18), and five of 176's first ten score 0. Its d_w readings of 4 to 8.6
+are one seed of three at small sizes, on graphs in pieces or trees the next sizes refuse: drawn faint since 861.
 
 **The trap from empty** (an outside review, and 854's own run): P1, whose lowest energy is the square lattice, gets
 68% to 81% of the way there from empty, worse as N grows. Until a known law grows its geometry from empty, "nothing
 grows from empty" cannot be told from "nothing can get there under these moves".
 
-## What 800 to 860 changed
+## What 800 to 861 changed
 
 The probes locked and your table installed (800 to 805); no clock decides and the evidence judged again on the final
 code (806 to 843); 844 the stable build with study 174; 845 to 853 Home's batches, study 175, the score of 848, the
 catalogue; 854 the baseline and the paper's draft; 855 `CLAUDE.md` and the ledger; 856 study 176 and a science hash
 in every bundle; 857 Home's filters; 858 and 859 the handovers. 860: the orange banner only when Home falls behind,
-the lattice strips back, the Top 100 in one order, every law of a bundle whole.
+the lattice strips back, the Top 100 in one order, every law of a bundle whole. 861: the focus, the best laws one at a
+time beside the blind draw, their neighbours, seeds and depth.
 
 ## What comes next
 
-Study 176, on your start: A draws 10,000 laws blind; B maps the ten best laws not yet known, and takes the next. Then
-(`docs/ROADMAP.md`): a study seeded from an earlier bundle, which others can join; the reader scoring as the folder
-does; the fleet ladder under the filters; the map's term axis; group D, the best law as deep as memory allows; the
-consolidation. Each takes its number when it is made.
+The focus on 174 (`python3 main.py focus --study 174`, once). Then (`docs/ROADMAP.md`): 862 the Map page and a GG
+number for every mapped region; 863 the outliers' queue, once every scoring law is mapped; the study after 174, its
+gates revisited and seeded from 174's laws and regions; the reader scoring as the folder does; the fleet ladder under
+the filters; the map's term axis; the depth past 262,144; the consolidation. Each takes its number when it is made.
 
 ## The decision in front of you
 
-1. **Study 176's first ten chosen again by the folder's score** (recommended; send 175's newest bundle), then start
-   it (`uv run python main.py run --study 176`, a new folder).
+1. **Start the focus on 174 and pause 175** (recommended): `main.py focus --study 174`; and whether to let 65 of the 165
+   laws `starts_alike` holds at 16,384 run on (about 300 core-hours), to measure what the gate withholds before the
+   next study's gates are chosen.
 2. **Whether a known law must grow its geometry from empty first** (recommended, before more compute from empty):
    parallel tempering is the cheapest remedy, an engine change of about a build, its known answers read again after.
 3. **Where the archive of the older data goes public** (the consolidation), so a reader can see nothing was dropped selectively.
 
 ## Words you will see
 
-**group**: A draws laws blind, B maps the best. **small world**: starts agree on a graph whose reach grows as log N.
+**group**: A draws laws blind, B maps the best, N and D the focus's neighbours and depth. **small world**: starts agree on a graph whose reach grows as log N.
 **law**: energy terms and dynamics. **rung**: one graph size (N). **cap**: the mean degree above which a graph is not
 studied. **d_s**: the dimension a random walk feels. **start**: what a law is grown from: empty, random, square,
 triangular, cubic, bcc, fcc, tesseract (4D). **chain**: a law's run from one start, the Markov chain of graphs it grows. **twin starts**: empty and random. **budget**: a seed's work, as the engines count it, the same on any machine.

@@ -1,46 +1,50 @@
-# The next build is 861
+# The next build is 862
 
 This file names the next build and says how to make it. `tests/unit/test_next_build_is_named.py` parses its first line,
 which must read exactly `# The next build is <N>`, one above `BUILD_NUMBER`.
 
-## Where to begin: 861 seeds a study from an earlier bundle
+## Where to begin: 862 is the Map page
 
 **Starting from nothing but the repository** (the operator, 2026-11-24 23:00): clone `main` and bring it up by
 `docs/agent/ENVIRONMENT.md`, section 10, "From the repository"; 859 was made that way. Then `docs/WHERE_WE_ARE.md`,
 `docs/agent/HANDOFF.md` and this page, in that order, and `CLAUDE.md`'s rules for a shared repository.
 
-**What 855 to 860 left** (`docs/build_notes/BUILD855_NOTES.md` to `BUILD860_NOTES.md`): 855, `CLAUDE.md` (every
+**What 855 to 861 left** (`docs/build_notes/BUILD855_NOTES.md` to `BUILD861_NOTES.md`): 855, `CLAUDE.md` (every
 build a pull request the operator merges), the calibration ledger and its first appended probe group, the quantum walk.
-856, study 176 designed and committed (groups A, the blind draw, and B, the map of the ten best, half the work slots
-each), the still lattice at 1 (gsd-law-score-9), the small-world kind (gsd-catalogue-2, `small_world_criterion_1.json`
-waiting on the next bundle), the system's CPUs on the System page, a science hash and the table in every bundle. 857,
-Home's filter panel. 858, a consolidation. 859, the handover and the start from the repository alone. 860, made in the
-sandbox from 859's archive and delivered as an archive (the session could not reach the repository; the operator
-opens the pull request after testing it): the orange banner only when the refreshes fall behind, the frozen and still
-lattices back on the landscape, the Top 100 in one order, and every law of a bundle whole (`spec` and `law_score` in
-the laws table; `tools/laws_of_a_bundle.py` for an older bundle). The baseline is still 174's bundle of 2026-11-24
-14:22Z and 175's of 08:35Z; 174's of 23:19Z was read at 860.
+856, study 176 designed and committed (groups A and B), the still lattice at 1 (gsd-law-score-9), the small-world kind,
+the system's CPUs, a science hash and the table in every bundle. 857, Home's filter panel. 858, a consolidation. 859,
+the handover. 860, Home says what is true (the orange banner, the lattice strips, the Top 100's order, every law of a
+bundle whole). 861, the focus (`operations/focus.py`): the study's best laws one at a time inside its own folder and
+beside its blind draw, their rings from 1e-9 to 0.4 (group N, campaign N), their seeds read alone and three fresh
+ones (group N, campaign S), the top five to 262,144 (group D); the reports late, not offline; a reading one seed of
+three gave drawn faint; the science hash over the table's cells. 860 and 861 were made in a sandbox from the archive
+before and delivered as archives, the pull requests opened from there for the operator to merge after testing. The
+baseline is still 174's bundle of 2026-11-24 14:22Z and 175's of 08:35Z; 174's of 2026-11-25 06:26Z was read at 861.
 
-**What 861 makes** (the operator, 2026-11-24 18:04 and 2026-11-25 00:40, `docs/HISTORY.md`): a study started from an
-earlier bundle whose science hash (`study.json`, `science`) is the folder's own, so others can join the search from
-it: the bundle's laws taken whole (its laws table since 860, or `tools/laws_of_a_bundle.py` for an older one), its map
-(`map.json`) loaded, its known regions known from the start and its mapping regions taken up again, so B starts where
-the last study stopped; and A's grid leaning toward the regions least explored, the lean drawn and recorded, never
-chosen by hand. A bundle of another science is refused, saying which part of the hash differs
-(`science_contract.same`). The map's holders are chosen by the folder's own score (`law_score` in the bundle), not by
-an offline reading that counts seeds that never stopped (860's notes).
+**What 862 makes** (the operator, 2026-11-25 08:10: "we probably need a new box or page added to show the neighbor
+hood fleet data to keep some visual oversight over how our map is going and being currently explored, see the
+parameter ranges grow for every GG"): a page of its own, Map, beside Home and read from the folder's state alone (the
+flags `study_focus` and `study_map`): the law in focus, its rings by radius filling in (alike, other, waiting), its
+seeds read alone and its verdict (its seeds, its exact parameters, robust), the depth's laws climbing to 262,144, the
+laws passed over and the region they lie in; and every mapped region named GG#1, GG#2 and so on in the order it was
+mapped, kept in the focus's state and the bundle, with its kind, each parameter's range over the laws that read its
+kind, its boundaries and the laws it holds, and two regions that touch or overlap said so (two of one kind whose
+ranges meet become one, the lower number kept). The numbers are new names, never the graph's G codes.
 
-**Where it will press**: `main.py` stands at 129,396 bytes against its ratchet of 130,000
-(`tests/unit/test_size_ratchet.py`), so a new flag of `run` is a line there and its work a module's, as 856's
-`workload` went to `work_groups.command`.
+**Where it will press**: `main.py` stands at 129,976 bytes against its ratchet of 130,000
+(`tests/unit/test_size_ratchet.py`): the page needs no new command. `resources/ui/app.js` is large; a page of its own
+may be a script of its own beside it, as `term_visual.js` is.
 
-**Acceptance** of 861: a folder started from a bundle reads the same laws and map the bundle holds; a bundle of
-another science is refused; no score, kind or decision moves (`tools/outputs_of_a_law.py --against` 860's record,
-written first on the untouched tree); the full lane green.
+**Acceptance** of 862: the smoke draws the Map page from a focus state with a region in each stage; a region's ranges
+widen as its laws are read; the GG numbers survive a restart and go into the bundle; no score, kind or decision moves
+(`tools/outputs_of_a_law.py --against` 861's record, written first on the untouched tree with its calibration table
+copied in: a worktree lacks the ignored `calibration/probe_calibration.json`, and without it every lattice's fate
+reads unreferenced); the full lane green.
 
-**Then** the builds of `docs/ROADMAP.md`, "Planned builds", in order: the reader that scores as the folder does, the
-fleet ladder under the filters, the map's term axis, group D, the consolidation. A planned build takes its number when
-it is made.
+**Then** the builds of `docs/ROADMAP.md`, "Planned builds", in order: 863, the outliers' queue; the study after 174,
+its gates revisited and seeded from 174; the reader that scores as the folder does, the fleet ladder under the
+filters, the map's term axis, the depth past 262,144, the consolidation. A planned build takes its number when it is
+made.
 
 **When study 176 sends its first bundle**: `tools/catalogue_reading.py` judges `small_world_criterion_1.json` (W1,
 W2), and the map's regions are read from `map.json` against `study_176_criterion.json` (P1, P2 judged; P3 to P5

@@ -1,4 +1,4 @@
-# Handoff: the state of GSD at build 860
+# Handoff: the state of GSD at build 861
 
 What is true now, for a context that has just opened this archive. Each fact has one home; the last section says
 where. **Think from the data, not from this page**: where the data and a document disagree, the data wins and the
@@ -22,6 +22,19 @@ by campaign and graph number (`services/api/law_order.py`), and every law of a b
 and `law_score`; `tools/laws_of_a_bundle.py` draws an older bundle's laws again from its design's seeds: all 10,005 of
 174's). 860 was made from 859's archive in a session that could not reach the repository: the operator tests the
 archive and opens the pull request.
+
+**What 861 changed** (the operator, 2026-11-25 07:33 to 08:10; `docs/build_notes/BUILD861_NOTES.md`): the focus
+(`operations/focus.py`), the study's best laws by the folder's score one at a time inside its own folder and beside its
+blind draw, started once by `main.py focus --study 174` and stepped by the controller: three campaigns kept from law
+to law (N, each law's rings from 1e-9 to 0.4 to 16,384; S, the law on six seeds, each seed read alone; D, the law and
+the study's best five to 262,144), groups N and D beside A, outside the let-through ledger and the gates' learning; a
+law confirmed by two thirds of its ring at 0.1 alike, then mapped by rings outward or by lines halved toward each
+neighbour of another kind, or ended unconfirmed or invalidated; its sensitivity read as its seeds, its exact
+parameters, or robust; a scoring law inside a mapped region passed over. Also: the reports late, not offline, while a
+bundle is made; a reading one seed of three gave drawn faint with what the larger sizes said (174's d_w of 4 to 8.6
+are such); the science hash over the table's cells (contract 2), so bundles whose tables differ only in their
+adoption times read as one science. 175 is to be paused, compute back to 174 (07:44). Next: 862 the Map page with a
+GG number for every mapped region, 863 the outliers' queue (`docs/ROADMAP.md`).
 
 **A correction the next builds carry** (860's reading of 174's bundle of 2026-11-24 23:19Z): the score in force counts
 a seed only where its chain stopped changing, and the folder scores 46 laws on that bundle. The counts below ("83

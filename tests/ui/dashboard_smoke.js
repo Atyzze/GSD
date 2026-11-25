@@ -3977,6 +3977,57 @@ checkAsync('the System page sets the worker count and hands it back to the ramp'
   }
 });
 
+checkAsync('the reports page says late, not offline, while the API is busy, and offline once it stays silent', async () => {
+  const app = sandbox.GSD_APP, original = sandbox.fetch;
+  let status = 200;
+  const answer = (code, body) => Promise.resolve({ ok: code === 200, status: code, json: () => Promise.resolve(body),
+                                                   text: () => Promise.resolve(JSON.stringify(body)) });
+  sandbox.fetch = (url) => (/\/api\/reports\/status\//.test(String(url)) && status !== 200
+    ? answer(status, status === 503 ? { error: 'api temporarily unavailable', detail: 'TimeoutError' } : { error: 'boom' })
+    : answer(200, /\/api\/reports\/status\//.test(String(url)) ? QUIET_STATUS() : {}));
+  const badge = () => getElementById('reportsBadge').textContent;
+  const failure = () => getElementById('reportFailure').innerHTML;
+  try {
+    app.campaign = '1';
+    await app.refreshReports(true);
+    if (!(app.reportsAnsweredAt > 0)) throw new Error('an answered status is not remembered');
+    status = 503;
+    await app.refreshReports(true);
+    if (badge() !== 'reports late') throw new Error(`a busy API reads "${badge()}"`);
+    if (/report-error-box/.test(failure()) || !/report-late-line/.test(failure())) {
+      throw new Error(`a busy API shows: ${failure()}`);
+    }
+    app.reportsAnsweredAt = Date.now() - 61000;
+    await app.refreshReports(true);
+    if (badge() !== 'reports offline' || !/report-error-box/.test(failure())) {
+      throw new Error(`a minute of silence reads "${badge()}": ${failure()}`);
+    }
+    status = 200;
+    await app.refreshReports(true);
+    status = 500;
+    await app.refreshReports(true);
+    if (badge() !== 'reports offline') throw new Error(`a failing status (HTTP 500) reads "${badge()}"`);
+  } finally {
+    sandbox.fetch = original;
+    app.reportsAnsweredAt = 0;
+  }
+});
+
+check('a reading one seed of three gave is drawn faint and says what the larger sizes said', () => {
+  const lone = { n: 256, seeds: 1, of: 3, refused_above: [[1024, 'NO_SCALING_WINDOW'], [4096, 'EXPONENTIAL_GROWTH']] };
+  const app = sandbox.GSD_APP;
+  if (!app.oneSeedReading(lone)) throw new Error('one seed of three is not a lone reading');
+  if (app.oneSeedReading(Object.assign({}, lone, { seeds: 2 }))) throw new Error('two seeds of three read as lone');
+  if (app.oneSeedReading({ n: 64, seeds: 1, of: 1 })) throw new Error('a law run on one seed reads as lone');
+  const line = app.readingFromLine(lone);
+  for (const want of ['read on 1 of 3 seeds at N=256', 'drawn faint', '1,024 (no scaling window)', '4,096 (exponential growth)']) {
+    if (!line.includes(want)) throw new Error(`the tooltip line lacks "${want}": ${line}`);
+  }
+  const point = { candidate_id: 'f1307c3a2c'.padEnd(64, '0'), landscape_band: 'flowing', d_w_estimate: 8.588,
+                  readings_from: { d_w: lone }, law_score: { score: 0, to_n: null, top_n: 4096 } };
+  sandbox.GSD_APP.drawLandscape([point]);
+});
+
 check('one set of filters picks the laws of the landscape and the Top 100 by kind, map region, group, batch and settling', () => {
   const app = sandbox.GSD_APP;
   const point = (id, kind, group, batch, score, region, settled) => ({

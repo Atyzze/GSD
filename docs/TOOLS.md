@@ -21,6 +21,9 @@ The command line of the instrument; with no subcommand it is `run`.
     python3 main.py extend-only <id> --on | --off
     python3 main.py workload [--split A=1,B=1] [--system-cpus 0,1]
                                                # the work groups' shares and the CPUs the system keeps (856)
+    python3 main.py focus --study <id> [--law <id prefix>] [--show]
+                                               # the study's best laws one at a time beside its blind draw: their
+                                               # neighbours, seeds and depth (groups N and D, 861)
     python3 main.py proposal status
     python3 main.py benchmark                  # the analyzer's battery, which `campaign start` needs: four cells
                                                # of the table read through the analyzer, held to the table's rule

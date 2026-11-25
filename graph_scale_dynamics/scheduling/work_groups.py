@@ -7,7 +7,9 @@ CONTRACT = "gsd-work-groups-1"
 SHARES_FLAG = "work_groups"
 SYSTEM_FLAG = "system_cores"
 BLIND, MAP = "A", "B"
-GROUP_NAMES = {BLIND: "the blind draw", MAP: "the map of the best"}
+NEIGHBOURS, DEPTH = "N", "D"
+GROUP_NAMES = {BLIND: "the blind draw", MAP: "the map of the best", NEIGHBOURS: "the focus law's neighbourhood",
+               DEPTH: "the focus law's depth"}
 
 
 def parse_shares(text) -> dict[str, float]:
@@ -182,7 +184,7 @@ def in_shares(allocation: list[dict], given: dict[str, float]) -> list[dict] | N
         return None
     groups: dict[str | None, list[dict]] = {}
     for row in allocation:
-        group = row.get("work_group")
+        group = row.get("work_group") or BLIND
         groups.setdefault(group if group in given else None, []).append(row)
 
     def working(rows: list[dict]) -> bool:

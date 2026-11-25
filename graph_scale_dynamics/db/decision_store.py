@@ -144,7 +144,10 @@ def let_through_campaigns(conn) -> frozenset:
     out = set()
     for row in conn.execute("SELECT campaign_id, spec_json FROM campaigns").fetchall():
         try:
-            if Policy.from_spec(json.loads(row["spec_json"] or "{}")).let_through_rule:
+            spec = json.loads(row["spec_json"] or "{}")
+            if isinstance(spec, dict) and (spec.get("study_design") or {}).get("kind") == "focus":
+                continue
+            if Policy.from_spec(spec).let_through_rule:
                 out.add(str(row["campaign_id"]))
         except (TypeError, ValueError):
             continue

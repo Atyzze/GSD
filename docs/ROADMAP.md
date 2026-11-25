@@ -77,11 +77,22 @@ Open, from 860 (`docs/build_notes/BUILD860_NOTES.md`), the first two before stud
   is wanted), before 176 starts; the design is committed and not yet run, so this is a new design file.
 * **The counts the pages and the paper's draft give** ("83 laws score, 54 of them 1", from 14:22Z): recommended, read
   again by the folder's score (the reader's build above) and restated, the old figure kept in the history beside why.
-* **Group D's law**: the best by score is C1-G6940, a ring (d 1.06 from empty, 19 points); the best that holds more
-  than a line is C3-G7363 (d 3.13 from the fcc start, 7 points). Recommended: the best by score, as asked, and the best
-  lattice-holder second if the first stops early.
+* **Group D's law**: answered 2026-11-25 07:33 and 07:47, the study's best laws one at a time and the top five's
+  depth, made at 861 (the focus).
 * **E8**: recommended, no study at a cap of 240 or 1,024: the probes refuse E8 at every size the host holds (860's
   notes); its cells appended to the table as refusals instead ("Unscheduled").
+
+Open, from 861 (`docs/build_notes/BUILD861_NOTES.md`):
+
+* **The gates of the next study** (07:33: "perhaps its also time to revisit the gates"; 860's reading of 174's bundle
+  of 06:26Z): `starts_alike` at 16,384 is the costly one: 2 of the 23 it let through score 19, the top score, and
+  of the 165 it holds, 53 are lines or rings, 12 read d 1.3 to 2.5 and 100 read nothing; the fact gates,
+  `starts_alike` at 4,096 and `nothing_read` at 16,384 lost nothing a let-through found. Recommended for the next
+  study: `starts_alike` at 16,384 to act only where the starts' shared end reads no dimension, the rest as in 174.
+  Recommended now, in 174: let 65 of the 165 held at 16,384 run on (about 300 core-hours), to measure what the gate
+  withholds before the next study is designed on it.
+* **Which law first**: recommended the folder's order (C1-G6940, then the other rings at 19, then C3-G7363 at 18);
+  `main.py focus --law` takes another at any time, 175's H12 (aba936bffa) the one to tell seeds from digits on.
 
 Open, none waiting:
 
@@ -108,11 +119,42 @@ Open, none waiting:
 **After 859** (the operator, 2026-11-24 17:51 to 18:32 and 2026-11-25 00:25 to 00:47, `docs/HISTORY.md`), each its
 own build, in this order; a planned build takes its number when it is made:
 
+**After 860** (the operator, 2026-11-25 07:33 to 08:10, `docs/HISTORY.md`), each its own build, in this order:
+
+1. **861, made**: the focus (`docs/build_notes/BUILD861_NOTES.md`): the study's best laws one at a time inside its own
+   folder and beside its blind draw (groups N and D, nothing to switch), each law's rings from 1e-9 to 0.4, its seeds
+   read alone and three fresh ones (its seeds, its exact parameters, or robust), the top five to 262,144, confirmed,
+   then rings outward or boundaries halved, a scoring law inside a mapped region passed over; the reports late, not
+   offline, while a bundle is made; a reading one seed of three gave drawn faint (174's d_w outliers near 4 to 8.6);
+   the science hash over the table's cells.
+2. **862, the Map page and a GG number for every mapped region** (08:10: "Calls for a dedicated page, titled phase
+   map? Or just map rather... Cause that's what we're really doing, exploring the map, initially blind, afterwards,
+   walk its borders and find potentially overlapping regions"): a page of its own beside Home, read from the focus's
+   state and 176's map: the law in focus and its rings filling in, its seeds and its verdict, the depth climbing, every
+   mapped region named GG#1, GG#2 and so on in the order it was mapped, with each parameter's range so far and its
+   boundaries, and where two regions touch or overlap (two regions of one kind whose ranges meet become one, the
+   lower number kept). The bundle carries the regions with their numbers.
+3. **863, the outliers' queue** (08:04: "any outlier should automatically be added to the list of potential zones to
+   investigate its area"; 08:07: "But only if all the top scorers are already done being mapped"): once every scoring
+   law is mapped or inside a mapped region, the focus takes the study's outliers, strongest first: a probe's reading
+   far outside its bulk (a criterion committed first; in 174, d_w over about 3.5 and d_V over about 3, where 99% read
+   under 2.87 and 2.24), its own seeds and tiny rings telling a lucky strike (one seed, not repeated) from a region
+   (its neighbours repeat it), a new region given the next GG number and a later outlier inside it joining it.
+4. **The study after 174, its gates revisited and seeded from 174** (07:33: "when we modify that, then its also time
+   for a new study, but we can still seed it with the best-scorers and more specifically their phenotype map of
+   behaviors so that we dont lose that and already have regions to start probing/mapping straight away"): the gates
+   chosen on the question above, the study started from 174's last bundle whose science hash is the folder's (what
+   was planned for 861 below, item 2): its laws taken whole, its focus's regions and GG numbers known from the start,
+   the best laws not yet mapped queued for the focus.
+
+**After 859** (the operator, 2026-11-24 17:51 to 18:32 and 2026-11-25 00:25 to 00:47), as planned then; items 2 and 6
+are taken up above:
+
 1. **860, made**: Home says what is true (`docs/build_notes/BUILD860_NOTES.md`): the orange banner only when the
    refreshes fall behind (00:25: "I'm still seeing that too often"), the frozen and still lattices back on the
    landscape (00:40), the Top 100 in one order (00:45), every law of a bundle whole (00:40: "generalize it so we can
    bootstrap new studies with that seed-data set").
-2. **Next, a study seeded from an earlier bundle**, the bundle a seed set others can join from: any bundle whose
+2. **A study seeded from an earlier bundle** (now item 4 above), the bundle a seed set others can join from: any bundle whose
    science hash (`study.json`, `science`) is the folder's, its laws taken whole, its map's regions and known kinds
    loaded, so B starts where the last one stopped and A's grid can lean toward the regions least explored (the lean
    drawn and recorded, never chosen by hand) (`docs/agent/NEXT_BUILD.md`).
@@ -133,7 +175,7 @@ own build, in this order; a planned build takes its number when it is made:
    boundary recorded once. About a region's cost again (16 to 30 more laws a holder, by its terms); the split with A
    stays half and half.
 6. **Group D** (2026-11-24 18:06; 00:27: "our auto extender to seek out the memory boundary for our current top
-   scoring candidate"): one core takes the study's best law up the ladder past 65,536 until memory admission refuses
+   scoring candidate"; to 262,144 at 861, the rest here): one core takes the study's best law up the ladder past 65,536 until memory admission refuses
    the next size, the size it stops at recorded in the bundle as the host's limit. From 174's bundle: C1-G6940's seed
    peaked at 1.46 GiB at 65,536 (its random and lattice starts at mean degree 29; 266 MiB at 16,384), so about 7 GiB
    at 262,144, 30 to 45 GiB at 1,048,576 and 150 GiB or more at 4,194,304 against the single job's ceiling of 60% of

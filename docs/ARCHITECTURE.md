@@ -652,12 +652,29 @@ among the ten go to the best laws of the study by the score boards, above 1 and 
 region; a law of another campaign is not run again, its points are run in B. The bundle carries the state as
 `map.json`.
 
-## The science a bundle was read by (`reporting/science_contract.py`, 856)
+## The focus (`operations/focus.py`, `resources/readings/focus_plan_1.json`, 861)
+
+The study's best laws by the folder's score, one at a time, inside the study's own folder and beside its blind draw.
+`main.py focus --study` makes three campaigns once, each of the study's own design, its laws chosen (a hand search
+policy) and outside the let-through ledger and the gates' learning batches: **N**, each law's neighbours (rings of
+1e-9 to 0.4, every parameter moved at once, `research/perturb.variants`) to 16,384; **S**, the law itself on twice the
+design's seeds to 16,384, each seed read alone (`seed_kinds`) beside its own campaign's; **D**, the law in focus and the
+study's best five to 262,144, its learning gates recording only. N and S are work group N, D group D, beside A, the
+blind draw (an ungrouped campaign is A when the shares name A). Its state is the flag `study_focus`. At the end of every
+controller pass, at most once a minute (`step`): the rings' tallies at 16,384 against the law's kind, the law's
+sensitivity (its seeds, its exact parameters, or robust), D's kinds against the law's own campaign's at each whole
+size; then confirmed (two thirds of the ring of 0.1) or ended unconfirmed, rings outward to 0.8 or lines halved four
+times toward each neighbour of another kind from 0.01 out, D reading another kind ending it invalidated; an ended law's
+summary kept in `done`, and the next law by score begun, passing over one inside a mapped region. The bundle carries
+the state as `focus.json`.
+
+## The science a bundle was read by (`reporting/science_contract.py`, 856; contract 2 at 861)
 
 `study.json`'s `science`: the analysis version, the estimator's and the starts' fingerprints, the score's and the
-catalogue's contracts, the engine crate, the calibration table's SHA-256 and one SHA-256 over them all; the table
-itself is in the bundle (`calibration/probe_calibration.json`). Two bundles with one science hash were read the same
-way on the same table; `science_contract.same` names what differs.
+catalogue's contracts, the engine crate, the calibration table's cells' SHA-256 (its analysis version, estimator
+fingerprint and cells; not its adoption times) and one SHA-256 over them all; the table itself is in the bundle
+(`calibration/probe_calibration.json`), its file's own SHA-256 beside the hash. Two bundles with one science hash were
+read the same way on the same table; `science_contract.same` names what differs.
 
 ## The stability blocks (`research/stability_score.py`, gsd-stability-score-14)
 
