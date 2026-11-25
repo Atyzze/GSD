@@ -71,6 +71,7 @@ REQUIRED_RELEASE_PATHS = {
     "graph_scale_dynamics/resources/ui/system.js",
     "graph_scale_dynamics/resources/ui/term_visual.js",
     "graph_scale_dynamics/resources/ui/map.js",
+    "graph_scale_dynamics/resources/ui/selection.js",
     "graph_scale_dynamics/resources/explorer/explorer.js",
     "graph_scale_dynamics/resources/explorer/explorer.css",
     "graph_scale_dynamics/scheduling/limits.py",

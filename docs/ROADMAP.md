@@ -71,14 +71,10 @@ Open, from 864 (2026-11-25 11:06):
 
 Open, from 871 (`docs/build_notes/BUILD871_NOTES.md`):
 
-* **A let-go law's own runs.** Unticking a bundle and synchronizing takes its laws out of the focus and the depth
-  seeker and its regions off the map; each law's ladder in the seeded campaign, and any depth run already queued, go on
-  to their gates. 1. Let them run (recommended): a tick takes them back at once with their readings, and the cost is
-  what those ladders still hold. 2. Hold them by word, as `run_on` releases by word: a `decisions/` change, about a
-  build, every decision of 174 replayed after it.
-* **871's pull request**: the session that made it was refused push access to `github.com/Atyzze/GSD`. 1. Open it
-  from the archive yourself (a branch `build-871` on `main`, one commit "Build 871"). 2. Give the next session push
-  access, and it opens it.
+* **A let-go law's own runs**: decided 2026-11-25 23:25, let them run (the recommendation); a tick takes them back.
+* **871's and 872's pull requests**: the session that made them was refused push access to `github.com/Atyzze/GSD`.
+  1. Open them from the archives yourself (a branch a build, each on the one before). 2. Give the next session push
+  access, and it opens them.
 
 Answered 2026-11-24 10:22 (`docs/HISTORY.md`): study 175 runs to its end; the study after it looks for laws whose
 different starts arrive at the same d and mean degree; a lattice that does not change scores lowest; every behaviour
@@ -149,11 +145,8 @@ made. The blocks after this one are the plans as they were made, kept for their 
 
 1. **871, made** (`docs/build_notes/BUILD871_NOTES.md`): the seeded laws in the focus on their bundle's score, a
    bundle read twice refused, the seeds as a selection, every law named SnCnGn, the Map page's line, the ladder's header.
-2. **872, Home's four boxes as one** (14:24, 14:29, 16:19): the study bar in core-hours in four parts (blind, the
-   focus's neighbours and seeds, the depth seeker, the system's own use) and a second bar of memory held over time in
-   the same parts; the filters lead as "which laws"; the landscape and the Top 100
-   read that selection; the fleet ladder in two, the selection size by size and the fleet's work size by size; a test
-   recomputing the selection's ladder from a bundle's tables, matching to the law.
+2. **872, made** (`docs/build_notes/BUILD872_NOTES.md`): Home's study bar in core-hours and memory held, four parts;
+   "Which laws" leading; the fleet ladder in two, the selection's checked against a bundle's tables law by law.
 3. **873, the depth seeker to the memory limit** (13:11; item 5's text below).
 4. **The neighbours read at a law's earliest identification** (13:11), once 866's early call says the early size
    agrees with 16,384 often enough; the rule is the operator's to choose on that reading.

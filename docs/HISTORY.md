@@ -381,6 +381,9 @@ made; a time without a Z is the operator's local time.
   multiple builds"): 176's bundle of 15:09Z read (no stall; the focus idle until a seeded law scored here); 90% focus
   recommended; a law's code SnCnGn over its fingerprint; 871 the codes and the seeds, 872 the bars, both planned in the
   handover (870). 871 made at their word of 17:12 ("make the next build please"), #15 to #17 merged by then.
+* **The let-go laws run on; build to the roadmap's end** (2026-11-25 23:25: "Can continue with the recommendation,
+  keep building til you're finished with the road map"): a let-go law's own runs go on (871's recommendation), and the
+  planned builds are made one after another from 872, each through the gate.
 * **The engines in order: Rust to its limit, then C, then assembly, each timed on the same seed** (2026-11-25 11:10:
   "first improve the existing rust one, once we found the limits of the language, see if we can do any new neat
   tricks with c instead, and after, same last exercise in ASM, each time comparing how fast we can iterate through the

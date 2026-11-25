@@ -1,4 +1,4 @@
-# Handoff: the state of GSD at build 871
+# Handoff: the state of GSD at build 872
 
 What is true now, for a context that has just opened this archive. Each fact has one home; the last section says
 where. **Think from the data, not from this page**: where the data and a document disagree, the data wins and the
@@ -44,11 +44,19 @@ seeker, regions off the map, readings kept; its own ladder goes on). Every law i
 (`operations/law_code.py`): the study, the campaign, its first graph; on every page, in the Explorer's search and in
 `tables/laws`. The Map page opens on one line saying what the focus does; the fleet ladder's header is whole numbers.
 
-**Open threads at 871**, each with its home:
+**What 872 changed** (the operator, 14:24 to 16:20; `docs/build_notes/BUILD872_NOTES.md`): "The study now" opens on
+two bars, core-hours and memory held (GiB-hours), each in four parts, A, N, D and the system's own use from the host's
+telemetry less the workers' (`observability/study_hours.py`); the filters lead Home as "Which laws" with scoring only
+and deepest size at least, one line saying what is chosen; the fleet ladder is two tables, "The selection, size by
+size" (`observability/selection_ladder.py`, the same facts from the live folder and from a bundle's `tables/laws`,
+counted by the page's `selection.js` for the laws the filters keep) and "The fleet's work, size by size" (the machine's).
+The operator decided at 23:25: a let-go law's own runs go on, and the builds go on to the roadmap's end.
 
-* **Pull requests**: 864 to 870 (#11 to #17) merged by the operator. 871's was not opened: the session that made it
-  was refused push access to `github.com/Atyzze/GSD`; its archive `GSD871.tar.zst` is the delivery, its tree for a
-  branch `build-871` on `main` with one commit "Build 871" and the notes' opening as the description.
+**Open threads at 872**, each with its home:
+
+* **Pull requests**: 864 to 870 (#11 to #17) merged by the operator. 871's and 872's were not opened: the session that
+  made them was refused push access to `github.com/Atyzze/GSD`; their archives are the delivery, each tree a branch
+  (`build-871` on `main`, `build-872` on it) with one commit, the notes' opening its description.
 * **Study 176 runs** in its own folder (`/data/projects/GSD/176/main` on the operator's host) since about 15:00, on 867
   and then 869, seeded at 14:14Z from 174's bundle of 13:04Z (72 laws) and again at 14:56Z (nothing new). Its bundle
   of 15:09Z: the seeded laws on their ladder, none held; the focus idle until a seeded law scored here (C11-G79, 1).
@@ -271,10 +279,8 @@ again after the paper's three studies, on the final probes, with a criterion wri
 
 ## What waits on the operator
 
-* **871's pull request**: theirs to open from the archive (or to give the session push access) and to merge.
-* **Study 176's next bundle**, on 871 after one synchronize: whether the focus stands on its seeded best law.
-* **A let-go law's own runs**: let them run (recommended; a tick takes them back), or a hold by word, a
-  `decisions/` change (`docs/ROADMAP.md`, "Questions for the operator").
+* **871's and 872's pull requests**: theirs to open from the archives (or to give the session push access) and merge.
+* **Study 176's next bundle**, on 871 or later after one synchronize: whether the focus stands on its seeded best law.
 * **Study 176's standing controls**: kept as a tick (recommended; `docs/ROADMAP.md`, "Questions for the operator").
 * **Study 174's 40 held laws**: 40 rings; running them on (the Map page's "run them on") is no longer recommended.
 * **Where the older data's archive goes public** (the consolidation): the review asks for a public archive (Zenodo or a tag) so a

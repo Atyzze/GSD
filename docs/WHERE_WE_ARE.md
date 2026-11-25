@@ -1,4 +1,4 @@
-# Where we are, at build 871
+# Where we are, at build 872
 
 The whole project on one page, in plain words; the detail is in `docs/agent/HANDOFF.md`.
 
@@ -55,7 +55,7 @@ are one seed of three at small sizes, on graphs in pieces or trees the next size
 68% to 81% of the way there from empty, worse as N grows. Until a known law grows its geometry from empty, "nothing
 grows from empty" cannot be told from "nothing can get there under these moves".
 
-## What 800 to 871 changed
+## What 800 to 872 changed
 
 The probes locked and your table installed (800 to 805); no clock decides and the evidence judged again on the final
 code (806 to 843); 844 the stable build with study 174; 845 to 853 Home's batches, study 175, the score of 848, the
@@ -66,17 +66,17 @@ time beside the blind draw. 862: the Map page steers it, and names regions GG#n.
 run on, the law page a 4x4 grid. 865: study 176 seeded from bundles, Home's one bar, a law's type. 866: a slider, two
 ordered lists, one depth worker. 867 and 868: the law page in plain words. 869: an import folder. 870: a handover.
 871: the seeded laws in the focus on their bundle's score, the seeds a selection, every law named S176C11G79.
+872: Home's study bar in core-hours and memory held, four parts; "Which laws" leads; the fleet ladder in two.
 
 ## What comes next
 
-872 Home's four boxes as one, the study bar in core-hours and a second in memory; 873 the depth seeker; the
-engines in order, Rust, C, assembly, each timed on 176's seeds; a shared effort once one node has proven the mapping
-(`docs/ROADMAP.md`).
+873 the depth seeker to the memory limit; then the neighbours at the earliest identification; the engines in
+order, Rust, C, assembly; a shared effort once one node has proven the mapping (`docs/ROADMAP.md`).
 
 ## The decision in front of you
 
-1. **Apply 871 to 176's folder and press synchronize once** (recommended), then set the slider to 90% focus: 174
-   tested the gates; the blind draw keeps finding types beside it. 871's pull request is yours to open and merge.
+1. **Apply 872 to 176's folder, press synchronize once** (recommended), set the slider to 90% focus. 871's and
+   872's pull requests are yours to open and merge.
 2. **Whether a known law must grow its geometry from empty first** (recommended, before more compute from empty):
    parallel tempering is the cheapest remedy, an engine change of about a build, its known answers read again after.
 3. **Where the archive of the older data goes public** (the consolidation), so a reader can see nothing was dropped selectively.

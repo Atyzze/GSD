@@ -189,6 +189,7 @@ function check(label, fn) {
 check('load system.js', () => load('system.js'));
 check('load term_visual.js', () => load('term_visual.js'));
 check('load map.js', () => load('map.js'));
+check('load selection.js', () => load('selection.js'));
 check('load app.js', () => load('app.js'));
 
 if (bootPath !== '/') {
@@ -1256,7 +1257,7 @@ check('the CPU tile carries temperature and power', () => {
   }
 });
 
-check('the landscape is never shorter than the plot floor plus its chrome, the filters below it included', () => {
+check('the landscape is never shorter than the plot floor plus its chrome, the filters above the row (872)', () => {
   for (const viewport of [1720, 1100, 700]) {
     const variables = rootVariables(viewport);
     const selector = viewport > 1250 ? '.hero' : '.herocol>.land-panel';
@@ -1277,7 +1278,7 @@ check('the landscape is never shorter than the plot floor plus its chrome, the f
         if (!Number.isFinite(resolved) || resolved <= 0) {
           throw new Error(`${selector} height "${declared}" does not resolve to a length at ${viewport}px`);
         }
-        const beside = viewport > 1250 ? filterHeight + resolveLength(variables['--gsd-hero-gap'], variables) : 0;
+        const beside = 0;
         if (resolved - beside - chrome < floor) {
           throw new Error(
             `${selector} is ${resolved}px at a ${headerHeight}px header and ${filterHeight}px of filters, leaving `
@@ -1292,12 +1293,12 @@ check('the landscape is never shorter than the plot floor plus its chrome, the f
   }
 });
 
-check('the row grows by the height of the filters, so the Top 100 beside it grows the same', () => {
+check('the filters lead above the row, so the landscape and the Top 100 beside it keep their height (872)', () => {
   const variables = rootVariables(1720);
   const row = winning('.hero', 'height', 1720);
   const short = resolveLength(row, { ...variables, '--gsd-filter-h': '100px' });
   const tall = resolveLength(row, { ...variables, '--gsd-filter-h': '160px' });
-  if (tall - short !== 60) throw new Error(`the row moved ${tall - short}px for 60px more of filters`);
+  if (tall !== short) throw new Error(`the row moved ${tall - short}px for 60px more of filters above it`);
   if (winning('.heroaside>.panel', 'height', 1720) !== '100%') throw new Error('the Top 100 does not fill the row');
   const panel = getElementById('filterPanel');
   panel.getBoundingClientRect = () => ({ width: 1300, height: 141, left: 0, top: 0 });
@@ -1912,8 +1913,8 @@ check('the whole ladder fits the operator\u2019s screen, and no cell is wider th
                        parked_by_rule: { starts_alike: Math.round(left / 2), starts_apart_twice: 7 } }); }) };
   sandbox.GSD_APP.rungLadderRow();
   const html = getElementById('rungLadder').innerHTML;
-  if (!/>gated</.test(html) || !/>total</.test(html) || /does not close|still here/.test(html)) {
-    throw new Error('the ladder measured for its width is the one with the gated laws, the budget and the total, and no closing check');
+  if (!/>budget</.test(html) || !/>total</.test(html) || /does not close|still here|>gated</.test(html)) {
+    throw new Error('the fleet\u2019s work measured for its width has the budget and the total, and no law column (872)');
   }
   const widths = [...html.matchAll(/<col style="width:(\d+)px">/g)].map((m) => +m[1]);
   const total = widths.reduce((a, b) => a + b, 0);
@@ -1949,125 +1950,6 @@ check('a ladder with no rungs and only analysis says which', () => {
   const html = getElementById('rungLadder').innerHTML;
   if (!/working the analysis backlog/.test(html)) {
     throw new Error(`an all-analysis frame does not say so: ${html}`);
-  }
-});
-
-check('gated, priced and the total stand after the stops, plain numbers with no check beside them', () => {
-  const rows = [
-    { n: 64, laws: 300, graphs: 900, completed: 900, stopped: 0, stopped_by_rule: {}, left: 0, left_by_rule: {},
-      parked_by_rule: {}, still_here: 0 },
-    { n: 256, laws: 300, graphs: 900, completed: 900, stopped: 74,
-      stopped_by_rule: { empty: 49, too_dense: 23, over_budget: 2 }, left: 74,
-      left_by_rule: { empty: 49, too_dense: 23, over_budget: 2 }, parked_by_rule: {}, still_here: 0 },
-    { n: 1024, laws: 226, graphs: 678, completed: 678, stopped: 126,
-      stopped_by_rule: { empty: 56, too_dense: 45, disconnected: 24, over_budget: 1 }, left: 126,
-      left_by_rule: { empty: 56, too_dense: 45, disconnected: 24, over_budget: 1 }, parked_by_rule: {}, still_here: 0 },
-    { n: 4096, laws: 100, graphs: 300, completed: 297, stopped: 84,
-      stopped_by_rule: { starts_alike: 41, disconnected: 27, too_dense: 9, empty: 4, starts_apart_by_history: 3 },
-      left: 84, left_by_rule: { starts_alike: 41, disconnected: 27, too_dense: 9, empty: 4,
-                                starts_apart_by_history: 3 },
-      parked_by_rule: { starts_alike: 41, starts_apart_by_history: 3 }, still_here: 1 },
-    { n: 16384, laws: 15, graphs: 45, completed: 30, stopped: 8,
-      stopped_by_rule: { starts_apart_twice: 5, too_dense: 2, starts_alike: 2 }, left: 9,
-      left_by_rule: { starts_apart_twice: 5, too_dense: 2, starts_alike: 2 },
-      parked_by_rule: { starts_apart_twice: 5, starts_alike: 2 }, still_here: 0 },
-    { n: 65536, laws: 7, graphs: 21, completed: 21, stopped: 2, stopped_by_rule: { disconnected: 1, empty: 1 },
-      left: 7, left_by_rule: { ladder_complete: 5, disconnected: 1, empty: 1 }, parked_by_rule: {}, still_here: 0 }];
-  sandbox.GSD_APP.overviewPayload = { active: [], analysis_backlog: 0, compute_utilization: {},
-    rung_distribution: rows };
-  sandbox.GSD_APP.rungLadderRow();
-  const html = getElementById('rungLadder').innerHTML;
-  const heads = [...html.matchAll(/<th[^>]*>([^<]*)</g)].map(m => m[1].trim());
-  const at = name => heads.indexOf(name);
-  if (!(at('discon') >= 0 && at('gated') === at('discon') + 1 && at('priced') === at('gated') + 1
-        && at('total') === at('priced') + 1)) {
-    throw new Error(`gated and priced come after the stops and total closes them: ${heads.join(' | ')}`);
-  }
-  if (heads.includes('stopped cut')) throw new Error('no law is stopped by the cut gate here, so its stop column is not drawn');
-  if (!/<td class="num g-stop">44<\/td>/.test(html)) throw new Error('the parks at 4,096 are one plain number, 44');
-  if (/does not close|still here|title=/.test(html.replace(/<thead>[\s\S]*?<\/thead>/, ''))) {
-    throw new Error('787: the rows close by construction on the server, so the page carries no check and no mouse-over');
-  }
-  delete rows[4].left;
-  sandbox.GSD_APP.overviewPayload = { active: [], rung_distribution: [{ n: 64, laws: 3, graphs: 9, stopped: 0,
-    stopped_by_rule: {} }] };
-  sandbox.GSD_APP.rungLadderRow();
-  const older = getElementById('rungLadder').innerHTML;
-  if (/>gated</.test(older) || /still here/.test(older)) throw new Error('a ladder recorded before the counts shows none');
-});
-
-check('the stops are the three fact gates, gated, priced and the total, and stopped cut where a design lets the cut gate stop a law; the structure gate counts under gated and a failure only in the total (792, 839, 841)', () => {
-  const rows = [
-    { n: 4096, laws: 1855, graphs: 44520, completed: 44000, stopped: 1169, left: 1169, budget_ended_laws: 25,
-      stopped_by_rule: { empty: 21, too_dense: 21, disconnected: 21, failed: 1, starts_alike: 442, nothing_read: 416,
-                         starts_apart_by_history: 196, kept_shape: 2, over_budget: 27, cut: 22 },
-      parked_by_rule: { starts_alike: 442, nothing_read: 416, starts_apart_by_history: 196, kept_shape: 2,
-                        over_budget: 27, cut: 22 },
-      still_here: 237 },
-    { n: 65536, laws: 103, graphs: 2472, completed: 1032, stopped: 12, left: 12,
-      stopped_by_rule: { no_finite_dimension: 3, no_giant_component: 7, failed: 1, starts_alike: 1 },
-      parked_by_rule: { starts_alike: 1 }, still_here: 71 }];
-  sandbox.GSD_APP.overviewPayload = { active: [], rung_distribution: rows };
-  sandbox.GSD_APP.rungLadderRow();
-  const html = getElementById('rungLadder').innerHTML;
-  const heads = [...html.match(/<thead>[\s\S]*?<\/thead>/)[0].split('</tr>')[1].matchAll(/<th[^>]*>([^<]*)<\/th>/g)]
-    .map((m) => m[1].trim());
-  const stopHeads = [...html.match(/<thead>[\s\S]*?<\/thead>/)[0].split('</tr>')[1].matchAll(/<th class="[^"]*g-stop[^"]*"[^>]*>([^<]*)<\/th>/g)]
-    .map((m) => m[1].trim());
-  if (stopHeads.join('|') !== 'empty|dense|discon|gated|stopped cut|priced|total') {
-    throw new Error(`the stops are empty, dense, discon, gated, stopped cut, priced and total, nothing else: ${stopHeads.join(' | ')}`);
-  }
-  const evolveHeads = [...html.match(/<thead>[\s\S]*?<\/thead>/)[0].split('</tr>')[1].matchAll(/<th class="[^"]*g-evolve[^"]*"[^>]*>([^<]*)<\/th>/g)]
-    .map((m) => m[1].trim());
-  if (!evolveHeads.includes('cut') || !evolveHeads.includes('budget')) {
-    throw new Error(`a cut law goes on unless a design stops it: the evolving group keeps its budget and its cut column: ${evolveHeads.join(' | ')}`);
-  }
-  const cutHead = (html.match(/<th class="[^"]*g-evolve[^"]*"[^>]*title="([^"]*)"[^>]*>cut<\/th>/) || [])[1] || '';
-  if (!/before it settled/.test(cutHead) || !/records it and the law goes on/.test(cutHead)) {
-    throw new Error(`the evolving cut header says the gate records it and the law goes on: ${cutHead}`);
-  }
-  const at = (name) => heads.indexOf(name);
-  const body = html.slice(html.indexOf('<tbody>'), html.indexOf('</tbody>'));
-  const cells = (body.match(/<tr>[\s\S]*?<\/tr>/g) || []).map((row) => row.match(/<td[^>]*>[\s\S]*?<\/td>/g) || []);
-  const text = (cell) => (cell || '').split(/<small/)[0].replace(/<[^>]*>/g, '');
-  const stopsAt = (row) => ['gated', 'stopped cut', 'priced', 'total'].map((name) => text(cells[row][heads.indexOf(name, heads.indexOf('discon'))])).join(' / ');
-  if (stopsAt(0) !== '1056 / 22 / 27 / 1169') {
-    throw new Error(`4,096 gates 1056, the cut gate stops 22, 27 are priced over their budget and 1169 stop, its failure in the total: ${stopsAt(0)}`);
-  }
-  if (stopsAt(1) !== '11 / 0 / 0 / 12') {
-    throw new Error(`65,536 parks 1 and the structure gate stops 10, 11 under gated, none cut or priced, 12 in all: ${stopsAt(1)}`);
-  }
-  const foot = (html.match(/<tr class=ladder-total>[\s\S]*?<\/tr>/) || [''])[0].match(/<td[^>]*>[\s\S]*?<\/td>/g) || [];
-  const stopAt = (name) => heads.indexOf(name, heads.indexOf('discon'));
-  if (!/<b>1067<\/b>/.test(foot[stopAt('gated')]) || !/<b>22<\/b>/.test(foot[stopAt('stopped cut')]) || !/<b>27<\/b>/.test(foot[stopAt('priced')])
-      || !/<b[^>]*>1181<\/b>/.test(foot[stopAt('total')])) {
-    throw new Error(`the foot adds the gated to 1067, the cut to 22, the priced to 27 and the stops to 1181: ${foot[stopAt('gated')]} / ${foot[stopAt('stopped cut')]} / ${foot[stopAt('priced')]} / ${foot[stopAt('total')]}`);
-  }
-  const evolveCut = heads.indexOf('cut');
-  if (text(cells[0][evolveCut]) !== '25' || text(cells[1][evolveCut]) !== '0') {
-    throw new Error(`the evolving cut column counts the laws with a cut seed, 25 at 4,096 and none at 65,536: ${text(cells[0][evolveCut])} / ${text(cells[1][evolveCut])}`);
-  }
-  const gatedHead = (html.match(/<th[^>]*title="([^"]*)"[^>]*>gated<\/th>/) || [])[1] || '';
-  if (!/structure gate/.test(gatedHead)) throw new Error(`the gated header names the structure gate: ${gatedHead}`);
-  const stopHead = (name) => (html.match(new RegExp(`<th class="[^"]*g-stop[^"]*"[^>]*title="([^"]*)"[^>]*>${name}<\\/th>`)) || [])[1] || '';
-  if (!/over_budget/.test(stopHead('priced')) || !/before a run/.test(stopHead('priced'))) {
-    throw new Error(`the priced header names the rule and says it stops a law before a run: ${stopHead('priced')}`);
-  }
-  if (!/cut gate/.test(stopHead('stopped cut')) || !/before it settled/.test(stopHead('stopped cut')) || !/design/.test(stopHead('stopped cut'))) {
-    throw new Error(`the stopped cut header names the gate, what it reads and that a design lets it stop: ${stopHead('stopped cut')}`);
-  }
-  const older = [{ n: 4096, laws: 9, graphs: 216, stopped: 5, left: 5, stopped_by_rule: { over_budget: 3, starts_alike: 2 },
-                   parked_by_rule: { starts_alike: 2 }, still_here: 0 }];
-  sandbox.GSD_APP.overviewPayload = { active: [], rung_distribution: older };
-  sandbox.GSD_APP.rungLadderRow();
-  const olderHtml = getElementById('rungLadder').innerHTML;
-  const olderCells = (olderHtml.slice(olderHtml.indexOf('<tbody>'), olderHtml.indexOf('</tbody>')).match(/<td[^>]*>[\s\S]*?<\/td>/g) || []);
-  const olderHeads = [...olderHtml.match(/<thead>[\s\S]*?<\/thead>/)[0].split('</tr>')[1].matchAll(/<th[^>]*>([^<]*)<\/th>/g)]
-    .map((m) => m[1].trim());
-  const olderAt = (name) => olderHeads.indexOf(name, olderHeads.indexOf('discon'));
-  if (olderHeads.includes('stopped cut')) throw new Error('with no law stopped by the cut gate its stop column is not drawn');
-  if (text(olderCells[olderAt('gated')]) !== '2' || text(olderCells[olderAt('priced')]) !== '3') {
-    throw new Error(`a law over_budget that no park recorded still counts under priced and not under gated: ${text(olderCells[olderAt('gated')])} / ${text(olderCells[olderAt('priced')])}`);
   }
 });
 
@@ -2176,9 +2058,9 @@ check('the ladder panel answers how many graphs are in each bracket', () => {
   }
   if (!/7\.3s?[\/<]/.test(html)) throw new Error(`the curvature probe's median did not render: ${html}`);
   for (const h of ['>d_s<', '>d_V<', '>d_B<', '>d_w<', '>curv<', '>etime<', '>ptime<', '>running<',
-                   '>queue<', '>total<', '>time per seed<', '>budget<', '>cut<', '>sum<', '>laws stopped by rule<',
-                   '>empty<', '>dense<', '>discon<', '>evolving laws \u00b7 a law at a size = 3 seeds \u00d7 8 starts = 24 graphs<', '>probing laws \u00b7 a law at a size = 3 seeds \u00d7 8 starts = 24 graphs<',
-                   '>laws<', '>graphs<', '>memory<', '>ratio<',
+                   '>queue<', '>total<', '>time per seed<', '>budget<', '>cut<', '>sum<',
+                   '>evolving laws \u00b7 a law at a size = 3 seeds \u00d7 8 starts = 24 graphs<', '>probing laws \u00b7 a law at a size = 3 seeds \u00d7 8 starts = 24 graphs<',
+                   '>graphs<', '>memory<', '>ratio<',
                    '>evolving laws \u00b7 a law at a size = 3 seeds \u00d7 8 starts = 24 graphs<', '>probing laws \u00b7 a law at a size = 3 seeds \u00d7 8 starts = 24 graphs<', '>totals<']) {
     if (!html.includes(h)) throw new Error(`ladder is missing the ${h} column: ${html}`);
   }
@@ -2267,11 +2149,8 @@ check('the ladder panel answers how many graphs are in each bracket', () => {
   if (!/13h14m<small class=ladder-share>89\.0%<\/small>/.test(html)) {
     throw new Error(`the per-rung all-runs cell did not render its sum and share: ${html}`);
   }
-  if (!/<b>2<\/b>/.test(footCells[columnAt['discon']])) {
-    throw new Error(`the stop-rule columns do not total their rules: ${footCells[columnAt['discon']]}`);
-  }
-  if (!/<b>0<\/b>/.test(footCells[columnAt['empty']]) || columnAt['failed'] !== undefined) {
-    throw new Error('a rule nobody met is not a zero column, or failed has a column with no failure');
+  if (columnAt['discon'] !== undefined || columnAt['empty'] !== undefined) {
+    throw new Error('the stops by rule are the selection\u2019s ladder now, not the fleet\u2019s work (872)');
   }
   if (/halted/.test(html) || /run before the interruption/.test(html)) {
     throw new Error(`the graphs cell carries no halted note since 791, nor a cell seconds in a hover: ${html}`);
@@ -2313,16 +2192,13 @@ check('the ladder panel answers how many graphs are in each bracket', () => {
       throw new Error(`${name} is not under evolving the graph: ${headerCells[columnAt[name]]}`);
     }
   }
-  for (const name of ['empty', 'dense', 'discon']) {
-    if (!/g-stop/.test(headerCells[columnAt[name]])) throw new Error(`${name} is not under stopped by rule`);
-  }
   if (columnAt['evolve:etime'] + 1 !== columnAt['probe:running'] || columnAt['probe:ptime'] + 1 !== columnAt['total']) {
     throw new Error('each phase does not end on its own sum');
   }
-  if (columnAt['graphs'] + 1 !== columnAt['empty'] || columnAt['discon'] >= columnAt['evolve:running']) {
-    throw new Error('the stop rules do not follow the candidates');
+  if (columnAt['graphs'] + 1 !== columnAt['evolve:running']) {
+    throw new Error('the evolving work follows the graphs (872)');
   }
-  if (!/<th class="g-total" colspan=1>totals<\/th>/.test(html) || !/<th class="g-stop" colspan=\d+>laws stopped by rule<\/th>/.test(html)) {
+  if (!/<th class="g-total" colspan=1>totals<\/th>/.test(html) || !/<th class="g-cand" colspan=2>work<\/th>/.test(html)) {
     throw new Error(`the group headers do not span their columns: ${html}`);
   }
   const firstBodyRow = (bodyOnlyRows.match(/<tr>[\s\S]*?<\/tr>/) || [''])[0];
@@ -2338,7 +2214,7 @@ check('the ladder panel answers how many graphs are in each bracket', () => {
         + 'a cell landed under the wrong header, which is build 425\'s defect');
     }
   }
-  if (!html.includes('7418')) throw new Error('the measured count is not shown');
+  if (html.includes('7418')) throw new Error('the laws reached are the selection\u2019s ladder now (872)');
   if (!/<td class="num g-cand">12<\/td>/.test(html) || html.includes('11205')) {
     throw new Error('the ladder does not show graphs where it showed attempts');
   }
@@ -2386,15 +2262,7 @@ check('the ladder closes: stopped total, done on the laws number, the budget and
     .map(row => row.match(/<td[^>]*>.*?<\/td>/g) || []);
   const foot = (html.match(/<tr class=ladder-total>[\s\S]*?<\/tr>/) || [''])[0].match(/<td[^>]*>.*?<\/td>/g) || [];
   const last = bodyRows[1];
-  if (!/>18<\/td>/.test(last[at['stop:total']])) {
-    throw new Error(`the last rung's stopped total must be its 18 stopped laws, no share under it (2026-11-14 14:33): ${last[at['stop:total']]}`);
-  }
-  if (!/>58<\/td>/.test(last[at['cand:laws']])) {
-    throw new Error(`the last rung's laws are a plain number: ${last[at['cand:laws']]}`);
-  }
-  if (!/<b[^>]*>115<\/b><\/td>/.test(foot[at['stop:total']])) {
-    throw new Error(`the foot's stopped total is not the laws stopped with their share of all laws: ${foot[at['stop:total']]}`);
-  }
+  if (at['stop:total'] !== undefined || at['cand:laws'] !== undefined) throw new Error('the laws and their stops are the selection\u2019s ladder now (872)');
   if (at['evolve:budget'] !== at['evolve:time per seed'] + 1) throw new Error('the budget does not stand beside the per-seed band');
   const first = bodyRows[0][at['evolve:budget']], top = last[at['evolve:budget']];
   if (!/>7\.5 T<\/td>/.test(first) || !/>90 T<\/td>/.test(top) || /title=|units|\u2248/.test(first + top)) {
@@ -3194,10 +3062,10 @@ check('the gates box counts what each gate let through that scored, over every b
 
 check('the fleet ladder counts chains that are still running', () => {
   sandbox.GSD_APP.renderHome({ active: [], campaigns: [], runtime_counts: {}, compute_utilization: {},
-    rung_distribution: [{ n: 1048576, running: 3, laws: 2, running_seconds: 5400, measured: 0, attempts: 0,
+    rung_distribution: [{ n: 1048576, running: 3, running_laws: 2, laws: 2, running_seconds: 5400, measured: 0, attempts: 0,
                           simulation_seconds_total: 0, rung_seconds_total: 0 }] });
   const html = getElementById('rungLadder').innerHTML;
-  if (!/>2</.test(html)) throw new Error(`a rung with only running laws shows no laws: ${html}`);
+  if (!/<b>2<\/b>/.test(html)) throw new Error(`a rung with only running laws shows none running: ${html}`);
   if (!/1h30m</.test(html)) throw new Error(`running time is not counted: ${html}`);
 });
 
@@ -4167,7 +4035,7 @@ check('one set of filters picks the laws of the landscape and the Top 100 by kin
   app.renderFilters(points);
   const drawn = getElementById('homeFilters').innerHTML;
   if (layoutDump) layoutDump.set('homeFilters', [drawn]);
-  for (const want of ['still lattice 1', 'small world 1', 'not read yet 1', 'B, map', 'C11', '5 of 5 laws shown']) {
+  for (const want of ['still lattice 1', 'small world 1', 'not read yet 1', 'B, map', 'C11', '<b>5</b> of 5 laws: every law of the study']) {
     if (!drawn.includes(want)) throw new Error(`the panel does not show "${want}": ${drawn}`);
   }
   const keep = () => points.filter((p) => app.homeFilterPasses(p)).map((p) => p.candidate_id[0]).join('');
@@ -4185,31 +4053,56 @@ check('one set of filters picks the laws of the landscape and the Top 100 by kin
   app.chooseFilter({ target: { id: 'filterBatch', value: '2', dataset: {} } });
   if (keep() !== 'e') throw new Error(`batch 2, not settled, kept ${keep()}`);
   app.renderFilters(points);
-  if (!getElementById('homeFilters').innerHTML.includes('1 of 5 laws shown')) throw new Error('the count does not follow the filters');
+  if (!getElementById('homeFilters').innerHTML.includes('<b>1</b> of 5 laws: batch C2, not settled')) throw new Error('the line does not say what is chosen');
   app.clearFilters();
   if (app.homeFilter.off.size || app.homeFilter.kind) throw new Error('clear left a filter on');
 });
 
-check('with a filter on, the fleet ladder says how deep the laws it keeps went and leaves its live counts whole', () => {
+check('with a filter on, the selection\u2019s ladder counts the laws the filters keep and the fleet\u2019s work stays whole (872)', () => {
   const app = sandbox.GSD_APP;
-  const row = (id, kind, top) => ({ candidate_id: id.padEnd(64, '0'), campaign_id: '1', kind,
-    law_score: { score: 3, to_n: top, top_n: top }, settled_probes: [] });
+  const id = (c) => c.padEnd(64, '0');
+  const row = (c, kind, top) => ({ candidate_id: id(c), campaign_id: '1', kind, law_score: { score: 3, to_n: top, top_n: top }, settled_probes: [] });
   app.campaign = '1';
   app.landscape = { campaign_id: '1', top_candidates: [],
                     dimension_points: [row('a', 'still', 16384), row('b', 'made', 65536), row('c', 'made', 16384)] };
   app.overviewPayload = { active: [], rung_distribution: [{ n: 4096, running: 3, queued: 0, measured: 313, graphs: 939 }] };
+  app.selectionData = { campaign: '1', facts: [
+    ['1', id('a'), [64, 4096, 16384], 'settled', 'starts_alike', 16384, null, 3, 16384],
+    ['1', id('b'), [64, 4096, 16384, 65536], 'waiting', null, 65536, null, 3, 65536],
+    ['1', id('c'), [64, 4096, 16384], 'under way', null, 4096, 65536, 3, 16384],
+    ['1', id('d'), [64], 'settled', 'empty', 64, null, 0, null]] };
   app.clearFilters();
-  app.rungLadderRow();
-  if (/ladderFiltered/.test(getElementById('rungLadder').innerHTML)) throw new Error('no filter, yet the ladder says one is on');
-  app.chooseFilter({ target: { id: 'filterKind', value: 'made', dataset: {} } });
-  app.rungLadderRow();
-  const html = getElementById('rungLadder').innerHTML;
-  if (!/the laws the filters keep, by their deepest size: N=16,384 1 \u00b7 N=65,536 1/.test(html)) {
-    throw new Error(`the ladder does not say what the filters keep: ${html.slice(0, 400)}`);
+  app.renderSelection();
+  let html = getElementById('selectionLadder').innerHTML;
+  for (const want of ['>settled: starts_alike<', '>settled: empty<', '>waiting to be extended<', '>running or queued<', '>scoring<', 'N=65,536']) {
+    if (!html.includes(want)) throw new Error(`the selection\u2019s ladder lacks ${want}: ${html.slice(0, 500)}`);
   }
-  if (!/ladder-table/.test(html)) throw new Error('the ladder table left the ladder');
+  const reached = (h, n) => (h.match(new RegExp(`N=${n}</code></td><td class=num>(?:<b>)?(\\d+)`)) || [])[1];
+  if (reached(html, '64') !== '4' || reached(html, '16,384') !== '3') throw new Error(`every law reached 64 and three 16,384: ${html}`);
+  app.chooseFilter({ target: { id: 'filterKind', value: 'made', dataset: {} } });
+  app.renderSelection();
+  html = getElementById('selectionLadder').innerHTML;
+  if (reached(html, '64') !== '2' || /settled: starts_alike/.test(html)) throw new Error(`the made laws alone: ${html}`);
+  if (!/ladder-table/.test(getElementById('rungLadder').innerHTML)) throw new Error('the fleet\u2019s work left its panel');
+  app.chooseFilter({ target: { id: 'filterScoring', checked: true, dataset: {} } });
+  app.chooseFilter({ target: { id: 'filterDeepest', value: '65536', dataset: {} } });
+  app.renderSelection();
+  html = getElementById('selectionLadder').innerHTML;
+  if (reached(html, '64') !== '1') throw new Error(`scoring, made and read to 65,536: one law: ${html}`);
   app.clearFilters();
   app.landscape = null;
+  app.selectionData = null;
+});
+
+check('the study bar counts core-hours and memory held in four parts, whole numbers (872)', () => {
+  const sel = sandbox.GSD_SELECTION;
+  const html = sel.hours({ core_hours: { A: 1234.4, N: 300.6, D: 80.2, system: 40.9 }, memory_gib_hours: { A: 900, N: 120, D: 500, system: 64 },
+                           host_read: true, host_cores: 32, since: '2026-11-25T15:00:00Z', names: {} });
+  for (const want of ['<b>blind</b> 1,234 core-h', '<b>focus</b> 301 core-h', '<b>depth</b> 80 core-h', '<b>system</b> 41 core-h',
+                      '1,656 core-h in all', '<b>depth</b> 500 GiB-h', 'hours-system']) {
+    if (!html.includes(want)) throw new Error(`the bars lack ${want}: ${html}`);
+  }
+  if (/\d\.\d/.test(html.replace(/style="[^"]*"/g, '').replace(/title="[^"]*"/g, ''))) throw new Error('a decimal on the bars');
 });
 
 check('with a filter on, the Top 100 is the best laws the filters keep, from every point of the landscape', () => {

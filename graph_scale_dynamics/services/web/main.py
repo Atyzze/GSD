@@ -393,8 +393,8 @@ def build_handler(*, api_host: str, api_port: int, bind_host: str,
                 self._serve_ui_asset("app.js", "text/javascript; charset=utf-8")
             elif path == "/assets/term_visual.js":
                 self._serve_ui_asset("term_visual.js", "text/javascript; charset=utf-8")
-            elif path == "/assets/map.js":
-                self._serve_ui_asset("map.js", "text/javascript; charset=utf-8")
+            elif path in ("/assets/map.js", "/assets/selection.js"):
+                self._serve_ui_asset(path.rsplit("/", 1)[1], "text/javascript; charset=utf-8")
             elif path.startswith("/candidate-data/"):
                 access_counter.record(path, self.headers.get("Referer"), self.headers.get("X-GSD-Page"))
                 parts = [p for p in path.split("/") if p]

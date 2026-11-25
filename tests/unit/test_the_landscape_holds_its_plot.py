@@ -44,8 +44,8 @@ def test_the_check_finds_the_plot_857_cut_off(tmp_path):
     shutil.copytree(UI_DIR, scratch)
     css = scratch / "system.css"
     source = css.read_text(encoding="utf-8")
-    row = "--gsd-hero-h:calc(var(--gsd-land-h) + var(--gsd-filter-h) + var(--gsd-hero-gap))"
+    row = "--gsd-hero-h:var(--gsd-land-h)}"
     assert row in source, "the row's height changed; update this test"
-    css.write_text(source.replace(row, "--gsd-hero-h:var(--gsd-land-h)"), encoding="utf-8")
+    css.write_text(source.replace(row, "--gsd-hero-h:calc(var(--gsd-land-h) - 220px)}"), encoding="utf-8")
     result = _check(scratch, dump)
     assert result.returncode == 1 and "cuts off" in result.stdout, result.stdout[-2000:]
