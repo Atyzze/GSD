@@ -349,6 +349,16 @@ made; a time without a Z is the operator's local time.
   between cycles of feature expansion and complexity consolidation ... everything can always be reabased/reanchored
   around the main table"): 176 needs no build (its design stands: the 40 held laws are 40 rings, not run on; its own
   ledger confirms its gates); 869 Home's fleet ladder, landscape, Top 100 and filters read as one, from the table.
+* **Study 176 started; an import folder, not a path** (2026-11-25 15:08: "this isnt user friendly, just let me upload it
+  through the browser interface or at least be found in the root folder ... perhaps a dedicated folder for all these
+  blobs/archives to import/read/start-from?"; 15:11: "can the archive be retro-actively applied? ... these ... input(??)
+  fields at the top are confusing as hell ... just list the blobs found in a specific folder and ask them to be moved
+  there manually and then the system picks up on it and you can tick which data sets to include"; 15:13: "import folder
+  would do think, next to var/calibration/instance, ... same level where the main.py is ... the folder is clearly
+  listed with a button that opens an explorer there"; 15:18: "the now researching should have an extra colum or marker
+  somewhere so we can see the split between which ones are coming from the blind draw vs the focused group"): the
+  operator started 176 on 867 at about 15:00; a seed joins at any time; 869 the import folder, the settings folded, each
+  running law's group; 174's and 176's gates are the same, word for word.
 * **The engines in order: Rust to its limit, then C, then assembly, each timed on the same seed** (2026-11-25 11:10:
   "first improve the existing rust one, once we found the limits of the language, see if we can do any new neat
   tricks with c instead, and after, same last exercise in ASM, each time comparing how fast we can iterate through the

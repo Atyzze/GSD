@@ -1,6 +1,6 @@
 (function(){
   const SYS=window.GSD_SYSTEM, esc=SYS.esc;
-  let data=null, busy=false, note='', wired=false;
+  let data=null, busy=false, note='', wired=false, settingsOpen=false;
   const num=v=>Number(v).toLocaleString('en-US');
   const size=v=>v==null?'not yet':num(v);
   const radiusText=r=>{const x=Number(r);return x<1e-3?x.toExponential(0):String(x)};
@@ -31,6 +31,14 @@
     return `<div class=muted>study <b>${esc(f.study)}</b> · ${f.stopped?'<b class=warn>the focus is off</b>':'the focus runs'} · shares: ${shares}</div>
       <div class="toolbar map-lean"><span>random draw</span><input id=mapLean data-admin-write type=range min=0 max=100 step=5 value="${esc(Math.round(100*lean))}" title="the share of the workers the focus's neighbours and seeds take against the blind draw; the depth seeker always holds one worker; at 0 the focus is off" style="width:22em"><span>in focus</span><b id=mapLeanValue>${esc(100-Math.round(100*lean))}% random · ${esc(Math.round(100*lean))}% focus · depth 1 worker</b></div>
       <div class=muted>${workText}</div>
+      <details class=map-settings id=mapSettings${settingsOpen?' open':''}><summary>the focus’s settings: how it maps a law (rarely changed; a change applies from the next law)</summary>
+      <ul class="muted map-settings-words">
+        <li><b>rings</b>: how far from the law its neighbours are drawn, and how many on each ring: <code>0.1:8</code> is 8 laws whose couplings differ by up to 10%.</li>
+        <li><b>confirm at 0.1 by</b>: the share of the 0.1 ring that must read the law’s own kind before its kind counts as confirmed.</li>
+        <li><b>deep laws</b>: how many of the best laws the depth seeker takes to larger sizes.</li>
+        <li><b>widest ring</b>: the farthest the rings go out when a region is mapped outward.</li>
+        <li><b>inside a region below</b>: a law closer than this share of a mapped region’s reach to it counts as inside it, and is not focused on again.</li>
+        <li><b>a type known after</b>: how many laws of a type must be mapped before the focus prefers types it knows less.</li></ul>
       <div class=toolbar><label class=muted>rings <input id=mapRings data-admin-write type=text value="${esc(ringsText((next||s).radii))}" style="width:26em"></label>
         <label class=muted>confirm at ${esc(radiusText(s.confirm_radius))} by <input id=mapConfirm data-admin-write type=number min=0.5 max=1 step=0.01 value="${esc((next||s).confirm_share)}" style="width:5em"></label>
         <label class=muted>deep laws <input id=mapContenders data-admin-write type=number min=0 max=20 step=1 value="${esc((next||s).contenders)}" style="width:4em"></label>
@@ -38,7 +46,7 @@
         <label class=muted>inside a region below <input id=mapInside data-admin-write type=number min=0 max=1 step=0.05 value="${esc((next||s).inside_share)}" style="width:5em"> of its reach</label>
         <label class=muted title="the focus takes first the law whose type is least known; a type counts as known once this many of its laws are mapped, a one-dimensional form (a ring or a line) counting one from the start">a type known after <input id=mapPerType data-admin-write type=number min=1 max=50 step=1 value="${esc((next||s).mapped_per_type??3)}" style="width:4em"> laws</label>
         <button type=button class=gsd-control data-admin-write data-map-do=settings>apply from the next law</button></div>
-      ${next?`<div class=muted>the next law takes: rings ${esc(ringsText(next.radii))}, confirmed by ${esc(next.confirm_share)}, ${esc(next.contenders)} deep laws, rings to ${esc(next.outward_most)}</div>`:''}${said}`}
+      ${next?`<div class=muted>the next law takes: rings ${esc(ringsText(next.radii))}, confirmed by ${esc(next.confirm_share)}, ${esc(next.contenders)} deep laws, rings to ${esc(next.outward_most)}</div>`:''}</details>${said}`}
   function leanOf(f,w){const sh=(w&&w.shares)||{};if(f&&f.stopped)return 0;if(f&&f.lean&&f.lean.focus!=null)return +f.lean.focus;const a=+sh.A||0,n=+sh.N||0;return a+n>0?n/(a+n):0.5}
   function listTable(d,which){
     const rows=((d&&d.focus&&d.focus.lists)||{})[which]||[];
@@ -86,11 +94,23 @@
     const list=((d&&d.focus&&d.focus.done)||[]).slice().reverse();
     if(!list.length)return '<div class=empty>no law’s focus has ended yet</div>';
     return `<ul class=map-done>${list.map(e=>`<li><b>${esc(e.label||short(e.law))}</b> ${esc(e.stage)}${e.region?` as ${esc(e.region)}`:''}${e.type?` (${esc(e.type)})`:''}${e.why?`: ${esc(e.why)}`:''}${e.sensitivity?` · sensitive to ${esc(e.sensitivity.on)}`:''}${e.core?` · core: ${esc(e.core.join(', ')||'none alone')}`:''}</li>`).join('')}</ul>`}
+  function bytesText(n){n=+n||0;const u=['B','KiB','MiB','GiB','TiB'];let i=0;while(n>=1024&&i<u.length-1){n/=1024;i++}return `${n<10&&i?n.toFixed(1):Math.round(n)} ${u[i]}`}
+  function importRow(b){
+    const seeded=b.seeded?`<span class=good>seeded ${esc(String(b.seeded.at||'').replace('T',' ').slice(0,16))}</span>`:'';
+    if(!b.readable)return `<tr class=map-import-unread><td></td><td><code>${esc(b.name)}</code></td><td colspan=6 class=muted>not readable yet${b.why?`: ${esc(b.why)}`:''} (still being copied?)</td></tr>`;
+    const same=b.science_same?'<span class=good>same</span>':`<b class=warn title="${esc((b.science_differ||[]).join(', '))}">another science: refused</b>`;
+    return `<tr><td><input type=checkbox class=map-import-tick data-admin-write data-import-name="${esc(b.name)}" ${b.science_same?'':'disabled'}></td><td><code>${esc(b.name)}</code></td><td>study ${esc(b.study)}</td><td>${b.build!=null?`build ${esc(b.build)}`:'<span class=muted>-</span>'}</td><td>${esc(String(b.built_utc||'').replace('T',' ').replace('Z',' UTC'))}</td><td>${esc(bytesText(b.bytes))}</td><td>${esc(num(b.scoring))} scoring laws of ${esc(num(b.laws))}, ${esc(num(b.regions))} regions</td><td>${same} ${seeded}</td></tr>`}
   function seeds(d){
-    const f=d&&d.focus;
-    if(!f)return '<div class=empty>a seed joins a focus: start one first</div>';
-    const made=(f.seeded||[]).map(e=>`<li><b>${esc(e.bundle)}</b> <span class=muted>(study ${esc(e.study)}, built ${esc(e.built_utc||'')}): ${esc(num(e.scoring))} scoring laws, ${esc(num(e.laws_added))} new here, regions ${esc((e.regions||[]).join(', ')||'none')}${e.mismatched?`, <b class=warn>${esc(num(e.mismatched))} laws whose spec is not their id, left out</b>`:''}</span></li>`).join('');
-    return `<div class=toolbar><label class=muted>bundle on this host <input id=mapBundle data-admin-write type=text placeholder="/path/to/study_174_....tar.zst or its folder" style="width:34em"></label><button type=button class=gsd-control data-admin-write data-map-do=seed title="its scoring laws run again here in the seeded campaign and its GG regions join the map; a bundle read by another science is refused; a second seed appends">seed from a bundle</button></div>${made?`<ul class=map-done>${made}</ul>`:'<div class=empty>no seed yet: the study maps from its own laws alone</div>'}`}
+    const f=d&&d.focus, im=(d&&d.imports)||{};
+    const made=((f&&f.seeded)||[]).map(e=>`<li><b>${esc(e.bundle)}</b> <span class=muted>(study ${esc(e.study)}, built ${esc(e.built_utc||'')}): ${esc(num(e.scoring))} scoring laws, ${esc(num(e.laws_added))} new here, regions ${esc((e.regions||[]).join(', ')||'none')}${e.mismatched?`, <b class=warn>${esc(num(e.mismatched))} laws whose spec is not their id, left out</b>`:''}</span></li>`).join('');
+    const where=im.folder?`<div class="toolbar map-import-where"><span>the import folder:</span> <code id=mapImportFolder>${esc(im.folder)}</code><button type=button class=gsd-control data-admin-write data-map-do=open_import title="open this folder in the file manager of the machine GSD runs on">open the folder</button><button type=button class=chip data-map-copy="${esc(im.folder)}" title="copy the folder's path">copy the path</button></div>
+      <div class=muted>Put a study bundle into it, its <code>.tar.zst</code> as downloaded or its unpacked folder; it is listed below within a few seconds. Nothing in the folder is changed.</div>`
+      :`<div class=empty>${esc(im.why||'no import folder')}</div>`;
+    const list=(im.bundles||[]);
+    const table=list.length?`<table class=map-imports><thead><tr><th></th><th>bundle</th><th>study</th><th>build</th><th>built</th><th>size</th><th>its laws</th><th>science</th></tr></thead><tbody>${list.map(importRow).join('')}</tbody></table>
+      <div class=toolbar><button type=button class=gsd-control data-admin-write data-map-do=seed ${f?'':'disabled'} title="the ticked bundles' scoring laws run again here in the seeded campaign and their GG regions join the map; seeding the same bundle again adds only what is new">seed from the ticked</button>${f?'':'<span class=muted>a seed joins a focus: start one first</span>'}</div>`
+      :(im.folder?'<div class=empty>no study bundle in the import folder yet</div>':'');
+    return `${where}${table}${made?`<div class=muted>seeded so far:</div><ul class=map-done>${made}</ul>`:(f?'<div class=empty>no seed yet: the study maps from its own laws alone</div>':'')}`}
   function runOn(d){
     const lists=(d&&d.run_on_lists)||[], now=d&&d.run_on;
     if(now){
@@ -103,9 +123,12 @@
     data=d||data;
     const put=(id,html)=>{const el=document.getElementById(id);if(el)el.innerHTML=html};
     const scope=document.getElementById('mapScope');if(scope)scope.textContent=data&&data.focus?`study ${data.focus.study}`:'';
-    const typing=['mapLean','mapRings','mapConfirm','mapContenders','mapOutward','mapInside','mapPerType','mapStudy','mapBundle'].some(id=>{const el=document.getElementById(id);return el&&document.activeElement===el});
+    const typing=['mapLean','mapRings','mapConfirm','mapContenders','mapOutward','mapInside','mapPerType','mapStudy'].some(id=>{const el=document.getElementById(id);return el&&document.activeElement===el});
+    const ticked=new Set([...document.querySelectorAll('.map-import-tick')].filter(t=>t.checked).map(t=>t.getAttribute('data-import-name')));
+    const box=document.getElementById('mapSettings');if(box)settingsOpen=!!box.open;
     if(!typing)put('mapControls',controls(data));
-    put('mapCurrent',current(data));put('mapRegions',regions(data));put('mapDepth',depthTable(data));put('mapQueue',queue(data));put('mapFocusList',listTable(data,'focus'));put('mapDepthList',listTable(data,'depth'));put('mapDone',done(data));put('mapRunOn',runOn(data));if(!typing)put('mapSeed',seeds(data));
+    put('mapCurrent',current(data));put('mapRegions',regions(data));put('mapDepth',depthTable(data));put('mapQueue',queue(data));put('mapFocusList',listTable(data,'focus'));put('mapDepthList',listTable(data,'depth'));put('mapDone',done(data));put('mapRunOn',runOn(data));put('mapSeed',seeds(data));
+    document.querySelectorAll('.map-import-tick').forEach(t=>{if(ticked.has(t.getAttribute('data-import-name')))t.checked=true});
     wire()}
   function value(id){const el=document.getElementById(id);return el?el.value:''}
   function bodyFor(button){
@@ -116,7 +139,8 @@
     if(what==='law')return {do:'law',law:law||value('mapLaw')};
     if(what==='skip'||what==='back')return {do:what,law};
     if(what==='run_on')return {do:'run_on',study:button.getAttribute('data-map-study')||undefined};
-    if(what==='seed')return {do:'seed',bundle:value('mapBundle')};
+    if(what==='seed')return {do:'seed',bundles:[...document.querySelectorAll('.map-import-tick')].filter(t=>t.checked).map(t=>t.getAttribute('data-import-name'))};
+    if(what==='open_import')return {do:'open_import'};
     if(what==='order')return {do:'order',list:button.getAttribute('data-map-list'),law:law||'',move:button.getAttribute('data-map-move')};
     if(what==='run_on_clear')return {do:'run_on',clear:true};
     return {do:'settings',settings:{radii:parseRings(value('mapRings')),confirm_share:+value('mapConfirm'),contenders:+value('mapContenders'),outward_most:+value('mapOutward'),inside_share:+value('mapInside'),mapped_per_type:+value('mapPerType')||3}}}
@@ -129,6 +153,7 @@
     if(wired)return;const root=document.getElementById('gsdMap');if(!root)return;wired=true;
     root.addEventListener('click',e=>{
       const reload=e.target.closest&&e.target.closest('#mapReload');if(reload){refresh(true);return}
+      const copy=e.target.closest&&e.target.closest('[data-map-copy]');if(copy){const text=copy.getAttribute('data-map-copy');Promise.resolve(navigator.clipboard&&navigator.clipboard.writeText(text)).then(()=>{copy.textContent='copied'}).catch(()=>{});return}
       const button=e.target.closest&&e.target.closest('[data-map-do]');if(!button)return;
       let body;try{body=bodyFor(button)}catch(err){note=String(err.message||err);render(data);return}
       act(body)});

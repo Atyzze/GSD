@@ -43,7 +43,7 @@ function graphOrdinal(row){
 }
 
 function candidateHref(id,camp){let c=camp??campaign;if(String(c)==='study')c=null;let raw=SYS.route('/candidate'),parts=raw.split('#'),u=parts[0]+'?candidate='+encodeURIComponent(id);if(c)u+='&campaign='+encodeURIComponent(c);return u+(parts[1]?'#'+parts[1]:'')}
-function normalizePage(){const p=location.pathname;for(const page of ['campaigns','explorer','reports','calibration','system'])if(p===routePath(page))return page;return'home'}
+function normalizePage(){const p=location.pathname;for(const page of ['map','campaigns','explorer','reports','calibration','system'])if(p===routePath(page))return page;return'home'}
 function landingPage(page){return pageMap[page]?page:'home'}
 function navigate(page,href,push=true){page=landingPage(page);if(!push&&page!=='home'&&location.pathname!==routePath(page)){try{history.replaceState?.({page},'',SYS.route(pagePath[page]))}catch(_){}}currentPage=page;window.GSD_ACTIVE_PAGE=page;Object.entries(pageMap).forEach(([k,id])=>{const e=document.getElementById(id);if(e)e.hidden=k!==page});window.GSD_SET_ACTIVE_PAGE?.(page);document.title=`${page==='home'?'Research Runtime':page[0].toUpperCase()+page.slice(1)} · Build ${cfg.buildNumber}`;if(push&&location.pathname!==routePath(page))history.pushState({page},'',href||SYS.route(pagePath[page]));window.scrollTo({top:0,behavior:'instant'});if(page==='explorer'&&!explorerLoaded)loadExplorer();if(page==='reports')refreshReports(true);if(page==='calibration')refreshCalibration(true);if(page==='campaigns')refreshCampaigns(true);if(page==='map')window.GSD_MAP?.refresh(true);if(page==='system'&&last)renderSystem(last)}
 let reportTick=0,reportStatus={},reportBusy=false,reportAdmin=false,reportTriggerError=null,bundleBusy=false,quietAskedAt=0;
@@ -705,6 +705,17 @@ function liveMakeLease(lease, animate){
                      cells.typicalEl, cells.budgetEl]) el.appendChild(cell);
   return Object.assign({el, bornAt:Date.now(), animate}, cells);
 }
+const LAW_GROUPS={A:['A','blind','drawn blind by the study\u2019s batches'],N:['N','neighbour','a neighbour of the law in focus, or a term of it switched off (group N)'],
+  S:['S','seeds','a law in focus run on more seeds (group N)'],D:['D','depth','one of the best laws taken deeper (group D)'],
+  E:['E','seeded','a law seeded from another study\u2019s bundle'],C:['C','control','a standing control of known answer'],'?':['?','other','a campaign outside the study\u2019s groups']};
+function lawGroup(cid){return lawGroupOf((studyNow||{}).campaigns||[],cid)}
+function lawGroupOf(rows,cid){const r=(rows||[]).find(x=>String(x.campaign_id)===String(cid));if(!r)return LAW_GROUPS['?'];
+  if(isStandingControls(r))return LAW_GROUPS.C;if(r.design_kind==='seed')return LAW_GROUPS.E;
+  if(r.focus_part&&LAW_GROUPS[r.focus_part])return LAW_GROUPS[r.focus_part];if(isBlind(r))return LAW_GROUPS.A;
+  return LAW_GROUPS[r.group]||LAW_GROUPS['?']}
+function paintLiveGroups(counts){const el=document.getElementById('liveGroups');if(!el)return;
+  const parts=Object.keys(LAW_GROUPS).filter(k=>counts[k]).map(k=>`<span class="live-group live-group-${esc(k)}" title="${esc(LAW_GROUPS[k][2])}">${esc(LAW_GROUPS[k][1])}</span> ${esc(counts[k])}`);
+  el.innerHTML=parts.length?parts.join(' \u00b7 '):''}
 function renderLive(d){
   const root=document.getElementById('live');
   registerLiveRegion(root);
@@ -754,7 +765,7 @@ function renderLive(d){
     groups.get(id).push(seen);
   }
   const current=new Map((d.active||[]).map(a=>[String(a.candidate_id), a]));
-  const keepLaws=new Set();
+  const keepLaws=new Set(), groupCount={};
   let lawIndex=0;
   for(const [id, seens] of groups){
     keepLaws.add(id);
@@ -782,7 +793,9 @@ function renderLive(d){
     const moved=started===undefined?'':(score!=null&&started!=null&&score!==started)
       ?`<span class="score-move ${score>started?'up':'down'}">${score>started?'\u25b2':'\u25bc'}${esc(Math.abs(score-started))}</span>`
       :(score!=null&&started==null?'<span class="score-move up">first</span>':'');
-    livePatch(law.idCell, 'html', `<a class=candidate-link href="${candidateHref(id)}" title="${candidateTitle(row)}">${candidateLabel(row)}</a>`, v=>{ law.idCell.innerHTML=v; });
+    const grp=lawGroup(row.campaign_id??campaign);
+    groupCount[grp[0]]=(groupCount[grp[0]]||0)+1;
+    livePatch(law.idCell, 'html', `<span class="live-group live-group-${esc(grp[0])}" title="${esc(grp[2])}">${esc(grp[1])}</span> <a class=candidate-link href="${candidateHref(id)}" title="${candidateTitle(row)}">${candidateLabel(row)}</a>`, v=>{ law.idCell.innerHTML=v; });
     livePatch(law.termsCell, 'html', row.terms?.length?TERMS.html(row.terms,{compact:true}):`<span class=muted>${esc(row.law||'')}</span>`, v=>{ law.termsCell.innerHTML=v; });
     livePatch(law.scoreCell, 'html', (score==null?liveScoreEmpty():`<span class=live-score>${esc(score)}</span>`)
       +(moved?'<wbr>'+moved:''), v=>{ law.scoreCell.innerHTML=v; });
@@ -816,6 +829,7 @@ function renderLive(d){
     for(const [key, node] of law.leases) if(!keep.has(key)){ node.el.remove(); law.leases.delete(key); }
   }
   for(const [id, law] of dom.laws) if(!keepLaws.has(id)){ law.el.remove(); dom.laws.delete(id); }
+  paintLiveGroups(groupCount);
   for(const law of dom.laws.values()) if(law.enteringAt&&law.el.style.maxHeight==='0px')
     requestAnimationFrame(()=>{ if(law.enteringAt) law.el.style.maxHeight=`${law.el.scrollHeight||0}px`; });
   dom.painted=true;
@@ -2448,7 +2462,7 @@ document.getElementById('campaignsReload')?.addEventListener('click',()=>refresh
 document.getElementById('campaignsNew')?.addEventListener('click',()=>{
   const rows=(campaignsData&&campaignsData.campaigns)||[];
   if(rows.length)openCampaignAuthor(rows[0].campaign_id)});
-window.GSD_APP_READY=true; window.GSD_APP={renderWorkerCount,setWorkerCount,renderWorkload,setWorkload,renderFilters,chooseFilter,clearFilters,measureFilterHeight,homeFilterPasses,filteredTop,get homeFilter(){return homeFilter;},setUpFolds,toggleFold,chooseLandLattices,landChainPoints,loadExplorer,atlasEinstein,calibMarginBands,markHomeLoading,candidateHref,renderStudyBundles,renderStudyNow,sideOf,isStandingControls,paintCampaignScope,explorerStudy,mergeFilterOptions,set homeLoading(v){homeLoading=v;},get homeLoading(){return homeLoading;},set landWaiting(v){landWaiting=v;},set studyBundles(v){studyBundles=v;},set reportStatusForTest(v){reportStatus=v;},refreshReports,oneSeedReading,readingFromLine,set reportsAnsweredAt(v){reportsAnsweredAt=v;},get reportsAnsweredAt(){return reportsAnsweredAt;},refreshCampaigns,drawLandscape,drawExplorer,explorerSortBy,set explorerRows(v){explorerRows=v||[];explorerLoaded=true;},get explorerRows(){return explorerRows;},set landscape(v){landscape=v;},get landscape(){return landscape;},set campaign(v){campaign=v;},get campaign(){return campaign;},get explorerSort(){return explorerSort;},set explorerSort(v){explorerSort=v;},renderHome,renderLive,renderSystem,renderStranded,reportQuietHtml,set reportAdmin(v){reportAdmin=!!v;},memoryAdmissionRow,renderReports,renderCalibration,renderGate,refreshGate,landingPage,renderCampaigns,refreshCampaigns,renderCampaignPanel,renderCampaignAuthor,openCampaignAuthor,set authorGrid(v){authorGrid=v||{};},get authorGrid(){return authorGrid;},set authorWindow(v){authorWindow=v||null;},get authorWindow(){return authorWindow;},set authorCheck(v){authorCheck=v||null;},set campaignsData(v){campaignsData=v||null;},get campaignsData(){return campaignsData;},renderProbeAtlas,renderTop,leaderRow,budgetText,rungLadderRow,get hitPoints(){return hitPoints;},get bandLayout(){return bandLayout;},get labelHits(){return labelHits;},set channelCounts(v){channelCounts=v||{};},get channelCounts(){return channelCounts;},
+window.GSD_APP_READY=true; window.GSD_APP={lawGroupOf,paintLiveGroups,LAW_GROUPS,renderWorkerCount,setWorkerCount,renderWorkload,setWorkload,renderFilters,chooseFilter,clearFilters,measureFilterHeight,homeFilterPasses,filteredTop,get homeFilter(){return homeFilter;},setUpFolds,toggleFold,chooseLandLattices,landChainPoints,loadExplorer,atlasEinstein,calibMarginBands,markHomeLoading,candidateHref,renderStudyBundles,renderStudyNow,sideOf,isStandingControls,paintCampaignScope,explorerStudy,mergeFilterOptions,set homeLoading(v){homeLoading=v;},get homeLoading(){return homeLoading;},set landWaiting(v){landWaiting=v;},set studyBundles(v){studyBundles=v;},set reportStatusForTest(v){reportStatus=v;},refreshReports,oneSeedReading,readingFromLine,set reportsAnsweredAt(v){reportsAnsweredAt=v;},get reportsAnsweredAt(){return reportsAnsweredAt;},refreshCampaigns,drawLandscape,drawExplorer,explorerSortBy,set explorerRows(v){explorerRows=v||[];explorerLoaded=true;},get explorerRows(){return explorerRows;},set landscape(v){landscape=v;},get landscape(){return landscape;},set campaign(v){campaign=v;},get campaign(){return campaign;},get explorerSort(){return explorerSort;},set explorerSort(v){explorerSort=v;},renderHome,renderLive,renderSystem,renderStranded,reportQuietHtml,set reportAdmin(v){reportAdmin=!!v;},memoryAdmissionRow,renderReports,renderCalibration,renderGate,refreshGate,landingPage,renderCampaigns,refreshCampaigns,renderCampaignPanel,renderCampaignAuthor,openCampaignAuthor,set authorGrid(v){authorGrid=v||{};},get authorGrid(){return authorGrid;},set authorWindow(v){authorWindow=v||null;},get authorWindow(){return authorWindow;},set authorCheck(v){authorCheck=v||null;},set campaignsData(v){campaignsData=v||null;},get campaignsData(){return campaignsData;},renderProbeAtlas,renderTop,leaderRow,budgetText,rungLadderRow,get hitPoints(){return hitPoints;},get bandLayout(){return bandLayout;},get labelHits(){return labelHits;},set channelCounts(v){channelCounts=v||{};},get channelCounts(){return channelCounts;},
 set landscapePayload(v){landscape=v?{campaign_id:campaign,...v}:null;} ,get landscapePayload(){return landscape;},set overviewPayload(v){last=v||null;},get overviewPayload(){return last;}};const stale=document.getElementById('gsdClientFailure');if(stale)stale.remove();const copyRaw=document.getElementById('copyRawJson');if(copyRaw)copyRaw.onclick=async()=>{const raw=document.getElementById('raw'),text=raw?.dataset.copyText||raw?.textContent||'';const prior=copyRaw.textContent;try{const ok=await copyText(text);copyRaw.textContent=ok?'copied':'copy failed'}catch(_){copyRaw.textContent='copy failed'}setTimeout(()=>{copyRaw.textContent=prior},1200)};
 let filterHeight=0;
 function measureFilterHeight(host){const el=host||document.getElementById('filterPanel');if(!el)return filterHeight;const box=typeof el.getBoundingClientRect==='function'?el.getBoundingClientRect():null;const measured=Math.ceil((box&&box.height)||el.offsetHeight||0);if(!(measured>0)||measured===filterHeight)return filterHeight;filterHeight=measured;document.documentElement.style.setProperty('--gsd-filter-h',measured+'px');try{window.dispatchEvent(new CustomEvent('rr:hero-metrics',{detail:{filterHeight:measured}}))}catch(_){}return measured}

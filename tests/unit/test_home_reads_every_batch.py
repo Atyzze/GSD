@@ -135,6 +135,37 @@ def test_the_batches_are_the_campaigns_with_a_law_budget_the_arm_among_them():
     assert workers.batches() == ["2", "6", "10"], "the pilot arm in (654); the hand-fed control and an archived batch out"
 
 
+def test_the_focus_s_and_the_seed_s_campaigns_of_the_study_join_its_batches_on_home():
+    import threading
+
+    from graph_scale_dynamics.services.api.dashboard_workers import DashboardWorkers
+
+    design = lambda study, kind=None: json.dumps({"study_design": dict({"study": study}, **({"kind": kind} if kind else {}))})
+    campaigns = [{"campaign_id": "1", "status": "active", "spec_json": design("176", "blind")},
+                 {"campaign_id": "2", "status": "active", "spec_json": design("176", "blind")},
+                 {"campaign_id": "11", "status": "active", "spec_json": "{}"},
+                 {"campaign_id": "12", "status": "active", "spec_json": design("176", "focus")},
+                 {"campaign_id": "13", "status": "active", "spec_json": design("176", "focus")},
+                 {"campaign_id": "14", "status": "active", "spec_json": design("176", "seed")},
+                 {"campaign_id": "15", "status": "active", "spec_json": design("175", "focus")},
+                 {"campaign_id": "16", "status": "archived", "spec_json": design("176", "focus")}]
+    budgets = [{"key": f"law_budget:{cid}"} for cid in ("1", "2")]
+
+    class Repo:
+        class conn:
+            @staticmethod
+            def execute(sql, params=()):
+                rows = budgets if "FROM control" in sql else campaigns
+                return type("Rows", (), {"fetchall": staticmethod(lambda: rows)})()
+
+        def close(self):
+            pass
+
+    workers = DashboardWorkers(Repo, threading.BoundedSemaphore(1))
+    assert workers.batches() == ["1", "2", "12", "13", "14"], (
+        "the study's focus and seed campaigns beside its batches; the controls, another study's focus and an archived one out")
+
+
 def test_a_batch_that_never_arrives_and_a_failing_merge_say_why_and_wait(tmp_path, monkeypatch):
     missing = tmp_path / "landscape-2.json"
     body = tmp_path / "landscape-1.json"

@@ -24,6 +24,8 @@ calibration/probe_calibration.json
 # folder-local PostgreSQL cluster and its socket.
 var/
 instance/
+# The folder a study bundle is put into to seed a study from it (869): the operator's files, never the build's.
+import/
 # The PostgreSQL slice tests' own folders (`tests/integration/test_postgres_native.py`, `test_operator_path.py`),
 # removed when they pass, and tools/study_twice.py's two folders, removed when it ends.
 .pytest_slice_var_*/

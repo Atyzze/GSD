@@ -1,4 +1,4 @@
-# Where we are, at build 868
+# Where we are, at build 869
 
 The whole project on one page, in plain words; the detail is in `docs/agent/HANDOFF.md`.
 
@@ -56,7 +56,7 @@ are one seed of three at small sizes, on graphs in pieces or trees the next size
 68% to 81% of the way there from empty, worse as N grows. Until a known law grows its geometry from empty, "nothing
 grows from empty" cannot be told from "nothing can get there under these moves".
 
-## What 800 to 868 changed
+## What 800 to 869 changed
 
 The probes locked and your table installed (800 to 805); no clock decides and the evidence judged again on the final
 code (806 to 843); 844 the stable build with study 174; 845 to 853 Home's batches, study 175, the score of 848, the
@@ -65,18 +65,18 @@ every bundle; 857 Home's filters; 858 and 859 the handovers. 860: the orange ban
 lattice strips back, the Top 100 in one order, every law of a bundle whole. 861: the focus, the best laws one at a
 time beside the blind draw. 862: the Map page steers it, and names regions GG#n. 863: a handover. 864: 40 held laws
 run on, the law page a 4x4 grid. 865: study 176 seeded from bundles, Home's one bar, a law's type. 866: a slider, two
-ordered lists, one depth worker. 867: the law page in one pass, one table. 868: plain words behind every plot.
+ordered lists, one depth worker. 867 and 868: the law page in one pass, in plain words. 869: an import folder.
 
 ## What comes next
 
-869 Home's four boxes as one; 870 the depth seeker to the memory limit; the pages' build numbers in words; the engines in order, Rust, C,
+870 Home's four boxes as one; 871 the depth seeker to the memory limit; the pages' build numbers in words; the engines in order, Rust, C,
 assembly, each proven by replaying 176's seeds and timed on the same seed; a shared effort only after one node has
 proven the mapping, a node's bundle seeding another's as 865's seed does (`docs/ROADMAP.md`).
 
 ## The decision in front of you
 
-1. **Start 176 tonight** (recommended): a bundle of 174, 174 paused, 176 as designed in its own folder, seeded from
-   174's bundle; the 40 held laws are 40 rings and need not run. Or 174's three clean gates in 176's design first.
+1. **Seed 176** (it runs since 15:00): apply 869, copy 174's bundle into the `import/` folder, tick it on Map. The
+   40 held laws of 174 are 40 rings and need not run.
 2. **Whether a known law must grow its geometry from empty first** (recommended, before more compute from empty):
    parallel tempering is the cheapest remedy, an engine change of about a build, its known answers read again after.
 3. **Where the archive of the older data goes public** (the consolidation), so a reader can see nothing was dropped selectively.
