@@ -56,6 +56,7 @@
     if(f.settled)said.push(f.settled==='settled'?'settled':'not settled');
     if(f.scoring)said.push('scoring only');
     if(f.deepest)said.push(`deepest size at least N=${num(f.deepest)}`);
+    if(f.known)said.push(`known type ${f.known}`);
     return `<b>${esc(num(kept))}</b> of ${esc(num(total))} laws: ${said.length?esc(said.join(', ')):'every law of the study'}`;
   }
   window.GSD_SELECTION={ladder,render,hours,bar,chosen,deepest};

@@ -1,4 +1,4 @@
-# Handoff: the state of GSD at build 877
+# Handoff: the state of GSD at build 878
 
 What is true now, for a context that has just opened this archive. Each fact has one home; the last section says
 where. **Think from the data, not from this page**: where the data and a document disagree, the data wins and the
@@ -84,9 +84,15 @@ degree anchors) inside the C engine's boundary, registered as `asm` with its cov
 lane runs each engine on what it covers, a refusal outside it an expected failure. The engines of the roadmap's item 6 are made; Rust in process stays the
 default.
 
-**Open threads at 877**, each with its home:
+**What 878 changed** (the operator, 12:03; `docs/build_notes/BUILD878_NOTES.md`): the lexicon
+(`resources/catalogue/lexicon.json`, `observability/lexicon.py`): 24 known types from the calibration table's 27
+families, and every law's distance to each, in the type's own spreads, from the four d's, the mean degree and the
+giant piece at the law's deepest size; a law further than 3 from all is near none, a new zone. Home's Top 100 shows
+each law's nearest type and the filters choose by it; `tools/lexicon_reading.py` writes a bundle's matrix.
 
-* **Pull requests**: 864 to 870 (#11 to #17) merged by the operator. 871's to 877's were not opened: the session that
+**Open threads at 878**, each with its home:
+
+* **Pull requests**: 864 to 870 (#11 to #17) merged by the operator. 871's to 878's were not opened: the session that
   made them was refused push access to `github.com/Atyzze/GSD`; their archives are the delivery, each tree a branch
   (`build-871` on `main`, each next on the one before) with one commit, the notes' opening its description.
 * **Study 176 runs** in its own folder (`/data/projects/GSD/176/main` on the operator's host) since about 15:00, on 867
@@ -311,7 +317,7 @@ again after the paper's three studies, on the final probes, with a criterion wri
 
 ## What waits on the operator
 
-* **871's to 877's pull requests**: theirs to open from the archives (or to give the session push access) and merge.
+* **871's to 878's pull requests**: theirs to open from the archives (or to give the session push access) and merge.
 * **Study 176's next bundle**, on 871 or later after one synchronize: whether the focus stands on its seeded best law.
 * **Study 176's standing controls**: kept as a tick (recommended; `docs/ROADMAP.md`, "Questions for the operator").
 * **Study 174's 40 held laws**: 40 rings; running them on (the Map page's "run them on") is no longer recommended.

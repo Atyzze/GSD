@@ -72,7 +72,7 @@ Open, from 864 (2026-11-25 11:06):
 Open, from 871 (`docs/build_notes/BUILD871_NOTES.md`):
 
 * **A let-go law's own runs**: decided 2026-11-25 23:25, let them run (the recommendation); a tick takes them back.
-* **871's to 877's pull requests**: the session that made them was refused push access to `github.com/Atyzze/GSD`.
+* **871's to 878's pull requests**: the session that made them was refused push access to `github.com/Atyzze/GSD`.
   1. Open them from the archives yourself (a branch a build, each on the one before). 2. Give the next session push
   access, and it opens them.
 
@@ -161,7 +161,8 @@ made. The blocks after this one are the plans as they were made, kept for their 
    to the bit. **877, made** (`docs/build_notes/BUILD877_NOTES.md`): the assembly engine (R4), its kernel's five
    terms declared and every parity case inside them to the bit; the next terms and a finished chain's edges packed
    come after.
-7. **The lexicon and every law against every known type** (12:03; item 5's text below), then **the phenotype as the
+7. **The lexicon and every law against every known type** (12:03; item 5's text below; **878, made**,
+   `docs/build_notes/BUILD878_NOTES.md`), then **the phenotype as the
    shortest description of a law's sixteen charts**, the null map complete, and new terms, the Ricci curvature in its
    two forms first (12:12).
 8. **Study 177, on the gates 174 and 176 teach** (a reading of their two ledgers: the clean gates confirmed, the two

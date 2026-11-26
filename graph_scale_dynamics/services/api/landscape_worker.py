@@ -287,6 +287,17 @@ def top_candidates_of(scored: list[dict], refused: list[dict], deepest: dict, li
     return listed + [scored_refusal(row) for row in unscored[:max(room, 0)]]
 
 
+def known_type_of(top: dict, table: dict) -> dict | None:
+    from graph_scale_dynamics.observability import lexicon
+    if not table or top.get("n") is None:
+        return None
+    found = lexicon.reading(lexicon.features_of_summary(top.get("summary")), int(top["n"]), table)
+    if found.get("nearest") is None:
+        return None
+    return {"type": found["type"], "nearest": found["nearest"], "spreads": found["spreads"], "new_zone": found["new_zone"],
+            "n": found["n"]}
+
+
 def scored_refusal(row: dict) -> dict:
     return {"candidate_id": row["candidate_id"], "state": row.get("state"), "law": row.get("law"),
             "ensemble_code": row.get("ensemble_code"), "terms": row.get("terms") or [],
@@ -295,7 +306,7 @@ def scored_refusal(row: dict) -> dict:
             "d_s_estimate": None, "d_s_source": None, "d_s_estimate_n": None, "d_v_estimate": None,
             "d_v_source": None, "d_b_estimate": None, "d_b_source": None, "d_w_estimate": None, "d_w_source": None,
             "unfiltered": bool(row.get("unfiltered")), "mean_degree": row.get("mean_degree"),
-            "limit_hits": row.get("limit_hits") or [], "small_world_fraction": None,
+            "limit_hits": row.get("limit_hits") or [], "small_world_fraction": None, "known_type": row.get("known_type"),
             "stability_contracting_probes": [], "stability_contracting_tier": 0,
             "contracting_band": False, "landscape_band": NO_READING_FROM_EMPTY,
             "law_score": row.get("law_score")}
@@ -498,6 +509,8 @@ def build_landscape(repo: Repo, campaign_id: str) -> dict:
     points: list[dict] = []
     scored: list[dict] = []
     refused: list[dict] = []
+    from graph_scale_dynamics.observability import lexicon as _lexicon
+    known_types = _lexicon.table_profiles()
     for cid in sorted(by_id):
         entry = by_id[cid]
         ds, ds_source, ds_n = _latest_dimension(entry, "d_s")
@@ -508,6 +521,7 @@ def build_landscape(repo: Repo, campaign_id: str) -> dict:
         top_summary = top.get("summary") or {}
         mean_degree = ((top_summary.get("mean_degree") or {}).get("mean")
                        if isinstance(top_summary.get("mean_degree"), dict) else None)
+        known_type = known_type_of(top, known_types)
         limit_hits = sorted({
             int(r["n"]) for r in entry.get("rungs") or []
             if str(_classification(r.get("summary"), _spec_limits) or "") in LIMIT_TERMINALS})
@@ -527,6 +541,7 @@ def build_landscape(repo: Repo, campaign_id: str) -> dict:
                 "unfiltered": bool((candidate_meta.get(cid) or {}).get("unfiltered")),
                 "mean_degree": mean_degree,
                 "limit_hits": limit_hits,
+                "known_type": known_type,
                 "top_classification": _classification(top_summary, _spec_limits),
             })
             continue
@@ -555,6 +570,7 @@ def build_landscape(repo: Repo, campaign_id: str) -> dict:
             "unfiltered": bool((candidate_meta.get(cid) or {}).get("unfiltered")),
             "mean_degree": mean_degree,
             "limit_hits": limit_hits,
+            "known_type": known_type,
             "small_world_fraction": top_summary.get("small_world_fraction"),
             "readings_from": {probe: reading_support(entry, metric, n) for probe, metric, n in (
                 ("d_s", "d_s", ds_n), ("d_V", "d_V", dh_n), ("d_B", "d_B", db_n), ("d_w", "d_w", dw_n))
