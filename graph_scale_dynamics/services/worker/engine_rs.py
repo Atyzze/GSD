@@ -20,24 +20,56 @@ def _terms_for_rust(ctx) -> list[dict]:
     return terms
 
 
-def _state_from_rust(n: int, spec_ops, out: dict) -> GraphState:
+def _pairs(raw, n: int) -> list:
+    if raw and type(raw[0]) is tuple:
+        return raw
+    ids = list(range(int(n)))
+    return [(ids[u], ids[v]) for u, v in raw]
+
+
+def _whole_state(n: int, spec_ops, rows, edge_list) -> GraphState:
     state = GraphState(n)
     state.require_ops(spec_ops)
-    adj = out["adj"]
-    state.adj = [set(neighbours) for neighbours in adj]
-    edge_list = [(int(u), int(v)) for u, v in out["edge_list"]]
+    state.adj = [set(neighbours) for neighbours in rows]
     state.edge_list = edge_list
     state.edges = set(edge_list)
     state.edge_index = {e: i for i, e in enumerate(edge_list)}
-    state.non_degree = [n - 1 - len(neighbours) for neighbours in adj]
+    state.non_degree = [n - 1 - len(neighbours) for neighbours in rows]
     state._non_degree_tree = _Fenwick(state.non_degree)
-    for key, value in (out.get("ledgers") or {}).items():
-        state.ledgers[key] = float(value)
-    state.non_edge_fast_path_hits = int(out["non_edge_fast_path_hits"])
-    state.non_edge_exact_fallbacks = int(out["non_edge_exact_fallbacks"])
-    if out.get("structural_summary") is not None:
-        state.structural_summary_cache = dict(out["structural_summary"])
     return state
+
+
+class RanInRust(GraphState):
+    def __init__(self, n: int, spec_ops, out: dict):
+        ledgers = dict(GraphState(1).ledgers)
+        for key, value in (out.get("ledgers") or {}).items():
+            ledgers[key] = float(value)
+        rows = out["adj"]
+        self.__dict__.update({
+            "n": int(n), "edge_list": _pairs(out["edge_list"], n),
+            "degrees": [len(neighbours) for neighbours in rows], "ledgers": ledgers,
+            "required_ops": frozenset(op for op in spec_ops if op in ledgers),
+            "non_edge_fast_path_hits": int(out["non_edge_fast_path_hits"]),
+            "non_edge_exact_fallbacks": int(out["non_edge_exact_fallbacks"]),
+            "_rows": rows, "_ops": spec_ops})
+        if out.get("structural_summary") is not None:
+            self.__dict__["structural_summary_cache"] = dict(out["structural_summary"])
+
+    def whole(self) -> GraphState:
+        rows = self.__dict__.pop("_rows", None)
+        if rows is not None:
+            whole = _whole_state(self.n, self.__dict__.pop("_ops"), rows, self.edge_list)
+            self.__dict__.update({key: value for key, value in whole.__dict__.items() if key not in self.__dict__})
+        return self
+
+    def __getattr__(self, name):
+        if "_rows" not in self.__dict__:
+            raise AttributeError(name)
+        return getattr(self.whole(), name)
+
+
+def _state_from_rust(n: int, spec_ops, out: dict) -> GraphState:
+    return RanInRust(n, spec_ops, out)
 
 
 def _init_random_graph_through(door, ctx, rng, state, energy, target_edges):
@@ -56,7 +88,9 @@ def _init_random_graph_through(door, ctx, rng, state, energy, target_edges):
 
 def _init_declared_through(door, ctx, edges, state, energy):
     out = door("init_declared", {
-        "n": int(ctx.n), "terms": _terms_for_rust(ctx), "edges": [(int(u), int(v)) for u, v in edges],
+        "n": int(ctx.n), "terms": _terms_for_rust(ctx),
+        "edges": edges if type(edges) is list and (not edges or type(edges[0]) is tuple) else [
+            (int(u), int(v)) for u, v in edges],
         "energy": float(energy), "energy_is_int": isinstance(energy, int) and not isinstance(energy, bool)})
     new_state = _state_from_rust(ctx.n, ctx.spec_ops, out)
     final_energy = int(out["energy"]) if out["energy_is_int"] else float(out["energy"])
@@ -80,7 +114,7 @@ def _run_chain_through(door, ctx, rng, state, energy, points, *, start_move=0,
     cap_edges = None
     if enforce_limits and ctx.mean_degree_cap is not None:
         cap_edges = int(_engine.math.floor(float(ctx.mean_degree_cap) * ctx.n / 2.0))
-    edge_list = [(int(u), int(v)) for u, v in state.edge_list]
+    edge_list = state.edge_list if type(state.edge_list) is list else [(int(u), int(v)) for u, v in state.edge_list]
     prior_trajectory = list(trajectory or [])
     out = door("run_chain", {
         "n": int(ctx.n), "terms": _terms_for_rust(ctx), "beta": float(ctx.beta), "p_add": float(ctx.p_add),
@@ -151,7 +185,7 @@ class DeferredRustState(GraphState):
         if deferred is None:
             raise AttributeError(name)
         door, ctx, chain, stop_file = deferred
-        self.__dict__.update(_rebuilt_now_through(door, ctx, chain, stop_file=stop_file).__dict__)
+        self.__dict__.update(_rebuilt_now_through(door, ctx, chain, stop_file=stop_file).whole().__dict__)
         return getattr(self, name)
 
 

@@ -618,6 +618,16 @@ specs are the law ledger's of report 28; `--as-carried` reads the scores the bun
 
     python3 tools/top_laws_alike.py <bundle> --md <page> --json <file>
 
+## tools/engine_diet.py
+
+One seed of a law, each in a process of its own, on the installed Rust engine: its peak memory, its wall and processor
+time, its moves a second and a digest of every chain (edges, energy, trajectory, the work counted), so two engines or
+two builds are compared on the same seeds. The laws are `anchor` (the sparse anchor law), `overlaps` (square and
+triangle edge overlap) and `curvature` (Ollivier), grown from the eight starts of study 176's design. 875's notes hold
+the rows it measured before and after the diet.
+
+    python3 tools/engine_diet.py --law anchor --law overlaps --law curvature --n 65536 [--seed 0] [--json <file>]
+
 ## tools/outputs_of_a_law.py
 
 What this tree puts out for one law: the sparse anchor law grown from five of the eight starts on both engines (64

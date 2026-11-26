@@ -161,16 +161,16 @@ pub struct Deltas {
 pub struct GraphState {
     pub n: usize,
     pub adj: Vec<Vec<u32>>,
+    slots: Vec<Vec<u32>>,
     pub edge_list: Vec<Edge>,
-    edge_index: HashMap<Edge, usize>,
     pub non_degree: Vec<i64>,
     tree: Fenwick,
     pub non_edge_fast_path_hits: u64,
     pub non_edge_exact_fallbacks: u64,
     pub ledgers: [f64; LEDGERS],
-    edge_square_counts: HashMap<Edge, i64>,
+    edge_square_counts: Vec<i64>,
     required: [bool; LEDGERS],
-    edge_cycles: HashMap<Edge, [i64; 3]>,
+    edge_cycles: Vec<[i64; 3]>,
     last_curvature: Option<((u32, u32, bool), HashMap<Edge, [i64; 3]>, [i64; 3])>,
     mark: Vec<u32>,
     stamp: u32,
@@ -194,16 +194,16 @@ impl GraphState {
         GraphState {
             n,
             adj: vec![Vec::new(); n],
+            slots: vec![Vec::new(); n],
             edge_list: Vec::new(),
-            edge_index: HashMap::new(),
             tree: Fenwick::new(&non_degree),
             non_degree,
             non_edge_fast_path_hits: 0,
             non_edge_exact_fallbacks: 0,
             ledgers: [0.0; LEDGERS],
-            edge_square_counts: HashMap::new(),
+            edge_square_counts: Vec::new(),
             required,
-            edge_cycles: HashMap::new(),
+            edge_cycles: Vec::new(),
             last_curvature: None,
             mark: vec![0; n],
             stamp: 0,
@@ -283,6 +283,37 @@ impl GraphState {
             (v, u)
         };
         self.adj[a as usize].contains(&b)
+    }
+
+    #[inline]
+    fn slot_of(&self, u: u32, v: u32) -> Option<usize> {
+        let (a, b) = if self.adj[u as usize].len() <= self.adj[v as usize].len() {
+            (u, v)
+        } else {
+            (v, u)
+        };
+        self.adj[a as usize].iter().position(|&x| x == b).map(|i| self.slots[a as usize][i] as usize)
+    }
+
+    #[inline]
+    fn squares_at(&self, e: Edge) -> i64 {
+        if !self.required[6] {
+            return 0;
+        }
+        self.slot_of(e.0, e.1).map_or(0, |s| self.edge_square_counts[s])
+    }
+
+    #[inline]
+    fn cycles_at(&self, e: Edge) -> [i64; 3] {
+        if !self.required[9] {
+            return [0, 0, 0];
+        }
+        self.slot_of(e.0, e.1).map_or([0, 0, 0], |s| self.edge_cycles[s])
+    }
+
+    fn reslot(&mut self, a: u32, b: u32, slot: u32) {
+        let at = self.adj[a as usize].iter().position(|&x| x == b).expect("a moved edge is in its lists");
+        self.slots[a as usize][at] = slot;
     }
 
     fn next_stamp(&mut self) -> u32 {
@@ -382,14 +413,14 @@ impl GraphState {
         if adding {
             let mut delta = (s * (s - 1) / 2) as f64;
             for (e, &m) in multiplicity {
-                let q = *self.edge_square_counts.get(e).unwrap_or(&0);
+                let q = self.squares_at(*e);
                 delta += (m * q) as f64 + (m * (m - 1) / 2) as f64;
             }
             delta
         } else {
             let mut delta = -((s * (s - 1) / 2) as f64);
             for (e, &m) in multiplicity {
-                let q = *self.edge_square_counts.get(e).unwrap_or(&0);
+                let q = self.squares_at(*e);
                 delta += (-m * q) as f64 + (m * (m + 1) / 2) as f64;
             }
             delta
@@ -504,7 +535,7 @@ impl GraphState {
         let mut delta: i64 = 0;
         for e in &affected {
             let (a, b) = *e;
-            let before = self.edge_cycles.get(e).copied().unwrap_or([0, 0, 0]);
+            let before = self.cycles_at(*e);
             let moved = changes.get(e).copied().unwrap_or([0, 0, 0]);
             delta += scaled_curvature(before[0] + moved[0], before[1] + moved[1], before[2] + moved[2],
                                       after(a), after(b));
@@ -519,22 +550,13 @@ impl GraphState {
         (delta, changes, own)
     }
 
-    fn update_edge_cycles(&mut self, u: u32, v: u32, adding: bool, changes: &HashMap<Edge, [i64; 3]>,
-                          own: [i64; 3]) {
+    fn update_edge_cycles(&mut self, changes: &HashMap<Edge, [i64; 3]>) {
         for (e, moved) in changes {
-            let before = self.edge_cycles.get(e).copied().unwrap_or([0, 0, 0]);
-            let now = [before[0] + moved[0], before[1] + moved[1], before[2] + moved[2]];
-            if now != [0, 0, 0] {
-                self.edge_cycles.insert(*e, now);
-            } else {
-                self.edge_cycles.remove(e);
-            }
-        }
-        let toggled = edge(u, v);
-        if adding && own != [0, 0, 0] {
-            self.edge_cycles.insert(toggled, own);
-        } else {
-            self.edge_cycles.remove(&toggled);
+            let slot = self.slot_of(e.0, e.1).expect("a cycle's edge is an edge");
+            let cycles = &mut self.edge_cycles[slot];
+            cycles[0] += moved[0];
+            cycles[1] += moved[1];
+            cycles[2] += moved[2];
         }
     }
 
@@ -667,32 +689,21 @@ impl GraphState {
                 &owned
             }
         };
-        let toggled = edge(u, v);
-        if adding {
-            for (e, &m) in multiplicity {
-                *self.edge_square_counts.entry(*e).or_insert(0) += m;
-            }
-            if !paths.is_empty() {
-                self.edge_square_counts.insert(toggled, paths.len() as i64);
-            } else {
-                self.edge_square_counts.remove(&toggled);
-            }
-            return;
-        }
         for (e, &m) in multiplicity {
-            let value = self.edge_square_counts.get(e).copied().unwrap_or(0) - m;
-            if value > 0 {
-                self.edge_square_counts.insert(*e, value);
+            let slot = self.slot_of(e.0, e.1).expect("a square's edge is an edge");
+            let count = &mut self.edge_square_counts[slot];
+            if adding {
+                *count += m;
             } else {
-                self.edge_square_counts.remove(e);
+                *count = (*count - m).max(0);
             }
         }
-        self.edge_square_counts.remove(&toggled);
     }
 
     pub fn apply(&mut self, u: u32, v: u32, adding: bool, deltas: &Deltas) {
         self.spend(1);
         self.add(PART_CHANGES, 1);
+        let mut own_cycles = [0i64; 3];
         if self.required[9] {
             let cached = self.last_curvature.take();
             let (changes, own) = match cached {
@@ -702,51 +713,78 @@ impl GraphState {
                     (changes, own)
                 }
             };
-            self.update_edge_cycles(u, v, adding, &changes, own);
+            self.update_edge_cycles(&changes);
+            own_cycles = own;
         }
         self.last_curvature = None;
+        let mut own_squares = 0i64;
         if self.required[6] {
-            if self.last_square_key == Some((u, v, adding)) {
+            let paths = if self.last_square_key == Some((u, v, adding)) {
                 let paths = std::mem::take(&mut self.last_square_paths);
                 let mult = self.last_square_multiplicity.take();
                 self.update_square_edge_counts(u, v, adding, &paths, mult.as_ref());
+                paths
             } else {
                 let paths = self.square_paths(u, v);
                 self.update_square_edge_counts(u, v, adding, &paths, None);
-            }
+                paths
+            };
+            own_squares = paths.len() as i64;
         }
         self.last_square_key = None;
         self.last_square_paths.clear();
         self.last_square_multiplicity = None;
         let e = edge(u, v);
         if adding {
+            let slot = self.edge_list.len() as u32;
             self.adj[u as usize].push(v);
+            self.slots[u as usize].push(slot);
             self.adj[v as usize].push(u);
+            self.slots[v as usize].push(slot);
             self.non_degree[u as usize] -= 1;
             self.non_degree[v as usize] -= 1;
             self.tree.add(u as usize, -1);
             self.tree.add(v as usize, -1);
-            self.edge_index.insert(e, self.edge_list.len());
             self.edge_list.push(e);
+            if self.required[6] {
+                self.edge_square_counts.push(own_squares);
+            }
+            if self.required[9] {
+                self.edge_cycles.push(own_cycles);
+            }
             if let Some((added, removed)) = self.late.as_mut() {
                 if !removed.remove(&e) {
                     added.insert(e);
                 }
             }
         } else {
-            remove_from(&mut self.adj[u as usize], v);
-            remove_from(&mut self.adj[v as usize], u);
+            let index = self.slot_of(u, v).expect("edge index");
+            remove_from(&mut self.adj[u as usize], &mut self.slots[u as usize], v);
+            remove_from(&mut self.adj[v as usize], &mut self.slots[v as usize], u);
             self.non_degree[u as usize] += 1;
             self.non_degree[v as usize] += 1;
             self.tree.add(u as usize, 1);
             self.tree.add(v as usize, 1);
-            let index = self.edge_index.remove(&e).expect("edge index");
-            let last = *self.edge_list.last().expect("edge list");
-            if index != self.edge_list.len() - 1 {
+            let last_index = self.edge_list.len() - 1;
+            if index != last_index {
+                let last = self.edge_list[last_index];
                 self.edge_list[index] = last;
-                self.edge_index.insert(last, index);
+                self.reslot(last.0, last.1, index as u32);
+                self.reslot(last.1, last.0, index as u32);
+                if self.required[6] {
+                    self.edge_square_counts[index] = self.edge_square_counts[last_index];
+                }
+                if self.required[9] {
+                    self.edge_cycles[index] = self.edge_cycles[last_index];
+                }
             }
             self.edge_list.pop();
+            if self.required[6] {
+                self.edge_square_counts.pop();
+            }
+            if self.required[9] {
+                self.edge_cycles.pop();
+            }
             if let Some((added, removed)) = self.late.as_mut() {
                 if !added.remove(&e) {
                     removed.insert(e);
@@ -880,7 +918,7 @@ impl GraphState {
     }
 
     pub fn edge_cycles_of(&self, u: u32, v: u32) -> [i64; 3] {
-        self.edge_cycles.get(&edge(u, v)).copied().unwrap_or([0, 0, 0])
+        self.cycles_at(edge(u, v))
     }
 }
 
@@ -953,8 +991,9 @@ pub fn scaled_curvature(t: i64, s: i64, p: i64, da: i64, db: i64) -> i64 {
         - (t * high - t * low).max(low * high - (1 + t + s + p) * low - high)
 }
 
-fn remove_from(list: &mut Vec<u32>, value: u32) {
+fn remove_from(list: &mut Vec<u32>, slots: &mut Vec<u32>, value: u32) {
     if let Some(pos) = list.iter().position(|&x| x == value) {
         list.swap_remove(pos);
+        slots.swap_remove(pos);
     }
 }

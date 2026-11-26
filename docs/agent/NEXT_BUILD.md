@@ -1,37 +1,38 @@
-# The next build is 875
+# The next build is 876
 
 This file names the next build and says how to make it. `tests/unit/test_next_build_is_named.py` parses its first line,
 which must read exactly `# The next build is <N>`, one above `BUILD_NUMBER`.
 
-## Where to begin: 875 is the engines' diet, Rust first
+## Where to begin: 876 is the C engine
 
 **Starting from nothing but the repository** (the operator, 2026-11-24 23:00): clone `main` and bring it up by
 `docs/agent/ENVIRONMENT.md`, section 10, "From the repository". Then `docs/WHERE_WE_ARE.md`, `docs/agent/HANDOFF.md`
-and this page, in that order, and `CLAUDE.md`'s rules for a shared repository. 871 to 874 are made
-(`docs/build_notes/BUILD871_NOTES.md` to `BUILD874_NOTES.md`); if their pull requests are not on `main` yet, branch from
+and this page, in that order, and `CLAUDE.md`'s rules for a shared repository. 871 to 875 are made
+(`docs/build_notes/BUILD871_NOTES.md` to `BUILD875_NOTES.md`); if their pull requests are not on `main` yet, branch from
 the newest. The operator said at 23:25 to keep building to the roadmap's end.
 
-**Why 875 is this one**: the roadmap's next after 874 ("From 870", item 6); the neighbours at the earliest
-identification still wait on a reading of 866's early call in a study's bundle and the operator's rule on it.
+**Why 876 is this one**: the roadmap's next after 875 ("From 870", item 6: Rust, then C, then x86-64 assembly, each
+proven to the bit and timed on the same seeds). 875 made Rust's diet; the neighbours at the earliest identification
+still wait on a reading of 866's early call in a study's bundle and the operator's rule on it.
 
-**What 875 makes** (the operator, 2026-11-25 08:35: "can we not make our engines more memory efficient? Or would that
-sacrifice speed?"; 09:42: "replay the seeds, results should remain identical, but simply grown faster with less
-memory"; `docs/ROADMAP.md`, "After 860", item 6): the Rust engine's graph holds fewer bytes an edge at no cost in speed.
-Profile first, on the engine as it is: the bytes an edge at 65,536 nodes and mean degree near 29, by structure (both
-adjacency lists, the edge list, the hash index of edges, the per-term caches). Then the caches as flat arrays by edge
-slot where they are hash maps, and whatever else the profile shows, each change kept only where every chain is the same
-to the bit. The save is already packed (873).
+**What 876 makes** (`docs/agent/APPEND_ONLY_PLAN.md`, "The reference set of four", R3): `engine_c/`, a port of
+`engine_rs/src` to C99 with the same Mersenne Twister stream and the same order of floating-point operations, built
+as a shared library and driven through the same boundary as the Rust engine (`engine/boundary.through_the_c_abi`:
+`gsd_engine_call`, `gsd_engine_free`, `gsd_engine_version`, JSON in and out), registered in
+`services/worker/engine_registry.ENGINES` beside Python and Rust with its door `c_abi`, and its science version the
+Rust engine's (`[package.metadata.gsd] science`, 875) while it computes the same chains. It keeps 875's layout from
+the start: slots beside each node's neighbours, the caches as arrays by slot.
 
-**Acceptance**: every chain the same to the bit before and after, on the engine's own tests and on
-`tools/outputs_of_a_law.py --against` 870's record (0 outputs changed); the bytes an edge and the time a sweep takes,
-before and after, measured on the same seeds and written in the notes; the full lane green. The science hash moves with
-`rust_source_version`: say in the notes what that means for a folder seeded from a bundle of the build before.
+**Acceptance**: every parity test of `tests/scientific/test_engine_parity.py` passes on the C engine as it does on Rust
+(the tests take every non-reference engine and door); `tools/engine_diet.py` gains `--engine` and times the three
+laws of 875 on Python's chains, Rust and C, the same digest on all three, written in the notes; the full lane green.
+The default engine stays Rust.
 
-**Then**, in `docs/ROADMAP.md`, "From 870": C, then x86-64 assembly; the lexicon and the matrix, the phenotype and the
-null map, study 177, the outliers' queue, the shared effort; the neighbours at the earliest identification when its
-reading and the operator's rule are in.
+**Then**, in `docs/ROADMAP.md`, "From 870": x86-64 assembly (R4, grown term by term with its coverage declared); the
+lexicon and the matrix, the phenotype and the null map, study 177, the outliers' queue, the shared effort; the
+neighbours at the earliest identification when its reading and the operator's rule are in.
 
-**Waiting on the operator** (`docs/ROADMAP.md`, "Questions for the operator"): 871's to 874's pull requests (the
+**Waiting on the operator** (`docs/ROADMAP.md`, "Questions for the operator"): 871's to 875's pull requests (the
 session that made them could not push); 176's standing controls (keep, as a tick, recommended); the split (90% focus
 recommended); the rule for the earliest identification, on a bundle's reading.
 

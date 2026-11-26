@@ -98,6 +98,21 @@ def rust_extension_path(name: str = DEFAULT_ENGINE) -> Path | None:
     return None
 
 
+def rust_science_version(root: Path | None = None, name: str = DEFAULT_ENGINE) -> str | None:
+    import re
+    path = (Path(root) if root is not None else _TREE) / str(ENGINES[name].version_file)
+    try:
+        text = path.read_text(encoding="utf-8")
+    except OSError:
+        return None
+    if "[package.metadata.gsd]" in text:
+        found = re.search(r'^science\s*=\s*"([^"]+)"', text.split("[package.metadata.gsd]", 1)[1].split("\n[", 1)[0],
+                          re.MULTILINE)
+        if found:
+            return found.group(1)
+    return rust_source_version(root, name)
+
+
 def rust_source_version(root: Path | None = None, name: str = DEFAULT_ENGINE) -> str | None:
     import re
     path = (Path(root) if root is not None else _TREE) / str(ENGINES[name].version_file)

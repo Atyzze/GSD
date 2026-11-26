@@ -1,10 +1,10 @@
 {
- "baseline_build": 874,
+ "baseline_build": 875,
  "contract": "gsd-science-freeze-1",
  "files": {
   "engine_rs/src/accounting.rs": "7d634e295021c1338b4b3077877218eb6df9484621bde53ea3c89aa08e88d78a",
-  "engine_rs/src/graph.rs": "82ca9538fb19675e40b1ffde22e5be9eab798c9a16a9757e83ddc01479b3ceab",
-  "engine_rs/src/lib.rs": "bce0026ed3084cb24953eed5190baecb6f26adc4967c78e6ec1d327d8dcbd59a",
+  "engine_rs/src/graph.rs": "829b9ecf92c32f26e31998113f88fceeca804a756f8f0fbf66eae47adae5c4b9",
+  "engine_rs/src/lib.rs": "347bce48466f921901c6aca8bd46b2fe2f1c3ed7d081ad079f3a2fcb27cc57f8",
   "engine_rs/src/mt.rs": "43eed95452cd769690ddfaf363d20d5f59593e8e957df30912c15d3f197adccb",
   "engine_rs/src/value.rs": "7ca96141e281fc65d72b859a5e8e693c74fa3c8b42ad9d8117e2bd387ef26c76",
   "graph_scale_dynamics/calibration/finite_size.py": "d53e66e285096911f1b811af4024a91a61ade6fe244669dfff2ae17d5b14208c",
@@ -32,7 +32,7 @@
   "graph_scale_dynamics/dsl/dsl.py": "9a32806778ada65314d85a8c7211f70e3ec51083c3393b6169e2531e1f610675",
   "graph_scale_dynamics/engine/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   "graph_scale_dynamics/engine/boundary.py": "5887b80598d1530c858f9b07e9ed9887cc4f99c62acd97e76c247921839a5182",
-  "graph_scale_dynamics/engine/chains.py": "c8039866ca7355c586202270723746bbe5955b938191dbccdc2978ca860847a4",
+  "graph_scale_dynamics/engine/chains.py": "1f0995795148e4a8e4c615d64ff923b9703371b47a3db825a7349f33fb1013b8",
   "graph_scale_dynamics/engine/checkpoint.py": "fa699f5ff7bc8974ca6abf5457496f6e2e9a1049ded0700f753a201e1eaa14ce",
   "graph_scale_dynamics/engine/engine.py": "af3e743e27a83af7f6cbe385ca8c9c374708ca1ec1f7698292f3ae4c9c0203fc",
   "graph_scale_dynamics/engine/summaries.py": "9a082c6dd5b8a7a23ba055bc3e1884b376523d2d06884042fed2d3bbd529ad60",
@@ -78,7 +78,7 @@
   "graph_scale_dynamics/scaleflow/flow.py": "a3f8375526ff5635db3a6927484889d6bfe7168cdc32ba294fc4aac6b7a07862",
   "graph_scale_dynamics/scaleflow/ladder.py": "c54f069f8c5cdd2b3312fcfb2634c68da70a3bb23fcdd9df795bd0ffd84e97b7",
   "graph_scale_dynamics/scaleflow/observables.py": "701fd1680e350b6bd4c60881e2398432d63c7576e1d05fdd9ecafa6dd676de8e",
-  "graph_scale_dynamics/scaleflow/one_shot.py": "9cf63e0638c0787fbc8d98ac65231fd7cece2b8f5ee66243f602200ca19e0e0e",
+  "graph_scale_dynamics/scaleflow/one_shot.py": "afc147e7eb71f91f9c255bf9f5750d8f776a8195879da3ec8ac6843e4bdde234",
   "graph_scale_dynamics/scaleflow/probes.py": "255e8a0f94ec8524f97e597763d7a7b8b5458978d53192ca6a0c6996573ae1ee"
  },
  "note": "Re-anchored whenever science sources change deliberately."

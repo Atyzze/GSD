@@ -17,6 +17,13 @@ class StopRequested(Exception):
     pass
 
 
+def shared_numbers(edges, n: int):
+    if not edges:
+        return edges
+    ids = list(range(int(n)))
+    return [(ids[u], ids[v]) for u, v in edges]
+
+
 def starts_of_the_chunk(more_given: list, checkpoint, n: int, seed: int) -> list[dict]:
     from graph_scale_dynamics.measurements.calibration import control_family_edges
     running = {block.get("start") for block in (checkpoint or {}).get("chains") or []}
@@ -25,7 +32,7 @@ def starts_of_the_chunk(more_given: list, checkpoint, n: int, seed: int) -> list
         given = {"name": str(start["name"]), "family": str(start["family"]),
                  **({"kernel": str(start["kernel"])} if start.get("kernel") else {})}
         if given["name"] not in running:
-            given["edges"] = control_family_edges(given["family"], int(n), seed=int(seed))
+            given["edges"] = shared_numbers(control_family_edges(given["family"], int(n), seed=int(seed)), n)
             if given["edges"] is None:
                 raise ValueError(f"the start {given['name']!r} ({given['family']}) cannot be built at N={n}")
         out.append(given)
@@ -42,7 +49,7 @@ def given_start_of_the_chunk(given_start, checkpoint, n: int, seed: int):
     edges = control_family_edges(str(given_start["family"]), int(n), seed=int(seed))
     if edges is None:
         raise ValueError(f"given_start family {given_start['family']!r} cannot be built at N={n}")
-    return {"family": str(given_start["family"]), "edges": edges, **kernel}
+    return {"family": str(given_start["family"]), "edges": shared_numbers(edges, n), **kernel}
 
 
 def run_one_shot(candidate_spec: dict, n: int, seed: int, *, one_shot: dict,
