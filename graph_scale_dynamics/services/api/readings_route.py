@@ -8,11 +8,11 @@ from graph_scale_dynamics.observability.space_score import space_score
 from graph_scale_dynamics.observability.two_chains import stopping_numbers, two_chains
 from graph_scale_dynamics.operations import focus
 from graph_scale_dynamics.research.what_happened import law_story
-from graph_scale_dynamics.services.api import focus_route, gate_route, study_route
+from graph_scale_dynamics.services.api import focus_route, gate_route, selection_route, study_route
 from graph_scale_dynamics.services.api.answer_cache import ANSWERS
 
 PREFIXES = (["api", "structure"], ["api", "gate"], ["api", "study-bundles"], ["api", "runtime-imports"],
-            ["api", "curves"], ["api", "focus"])
+            ["api", "curves"], ["api", "focus"], ["api", "selection-ladder"], ["api", "study-hours"])
 BLOBS_ROOT = None
 CURVES_MAX_BYTES = 64 * 1024 * 1024
 
@@ -155,6 +155,10 @@ def get(handler, db_path: str, parts: list[str]) -> None:
         return gate_route.get(handler, db_path, parts)
     if parts[1] == "focus":
         return focus_route.get(handler, db_path, parts)
+    if parts[1] == "selection-ladder":
+        return selection_route.get(handler, db_path, parts)
+    if parts[1] == "study-hours":
+        return selection_route.hours(handler, db_path, parts)
     if parts[1] == "runtime-imports":
         return runtime_imports(handler, db_path, publish=False)
     if parts[1] == "curves":

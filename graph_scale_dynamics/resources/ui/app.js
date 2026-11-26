@@ -127,7 +127,7 @@ function rungLadderRow(){
   if(deferrableRedraw(root,()=>rungLadderRow()))return;
   const rows=(last&&last.rung_distribution)||[];
   if(!rows.length){root.innerHTML='<div class=empty>no rung has been declared or measured yet</div>';return}
-  const depths=filteredDepths(),kept=depths?`<div class=muted id=ladderFiltered title="the fleet's live counts below are every law's: running, queued and analysing work is not tied to a law's kind until it is read">the laws the filters keep, by their deepest size: ${Object.keys(depths).length?Object.entries(depths).sort((a,b)=>a[0]-b[0]).map(([n,c])=>`N=${(+n).toLocaleString()} ${c}`).join(' \u00b7 '):'none'}</div>`:'';
+  const kept='';
   const live=rows.reduce((t,r)=>t+(+r.running||0),0);
   const queued=rows.reduce((t,r)=>t+(+r.queued||0),0);
   const sum=k=>rows.reduce((a,r)=>a+(+r[k]||0),0);
@@ -249,12 +249,9 @@ function rungLadderRow(){
   const COLS=[
     {g:'cand', head:'rung', title:'The graph size N, in nodes; every law starts at the smallest and climbs while the engine keeps it.',
      cell:r=>`<code>N=${esc(+r.n)}</code>`, foot:()=>'<b>all</b>'},
-    {g:'cand', head:'laws', title:'Laws with a graph at this N. Read down the column: laws fall away as rules stop them.',
-     cell:r=>{const n=+(r.laws!=null?r.laws:r.measured)||0;return n?esc(n):em;}, foot:()=>''},
     {g:'cand', head:'graphs', title:'Graphs grown at this N: every seed of every law here, each seed growing one graph from each start.',
      cell:r=>{const g=+r.graphs||0,k=+r.chains_per_seed||1,c=+r.chains||g*k;return g?esc(c):em;},
      foot:()=>`<b>${esc(sum('chains')||sum('graphs'))}</b>`},
-    ...stopRuleColumns(rows, em),
     {g:'evolve', head:'running', w:56, title:'Laws with a seed being evolved at this N right now, one worker a seed; a law here is up to 3 seeds, 24 graphs.',
      cell:r=>lawsCell(r,'running_laws',true)+bar(r.running,maxEvolve,'live'), foot:()=>`<b>${esc(sum('running_laws'))}</b>`},
     {g:'evolve', head:'queue', title:'Laws with a seed waiting for a worker at this N.',
@@ -309,7 +306,7 @@ function rungLadderRow(){
   const widths=COLS.map(fit);
   const colgroup='<colgroup>'+widths.map(w=>`<col style="width:${w}px">`).join('')+'</colgroup>';
   const seedWords=ladderPerLaw(rows);
-  const GROUPS={cand:'candidates', stop:'laws stopped by rule', evolve:'evolving laws'+seedWords, probe:'probing laws'+seedWords, total:'totals'};
+  const GROUPS={cand:'work', evolve:'evolving laws'+seedWords, probe:'probing laws'+seedWords, total:'totals'};
   let groupRow='<tr class=ladder-groups>', i=0;
   while(i<COLS.length){
     const g=COLS[i].g||null; let span=0;
@@ -430,11 +427,6 @@ function unitsText(units){
   return `${Math.round(u)}`;
 }
 function budgetText(seconds){const s=Math.max(0,Math.round(Number(seconds)||0)),h=Math.floor(s/3600),m=Math.floor(s%3600/60),r=s%60;return [h?`${h}h`:'',m?`${m}m`:'',r||(!h&&!m)?`${r}s`:''].join('')}
-const STOP_RULES=[['empty','empty','Laws stopped here because their mean degree stayed at the empty threshold.'],
-  ['too_dense','dense','Laws stopped here because their mean degree reached the cap.'],
-  ['disconnected','discon','Laws stopped here because their largest component fell under the connectivity floor.']];
-const STRUCTURE_STOPS=['no_finite_dimension','no_giant_component'];
-const BUDGET_STOPS=['over_budget','cut'];
 function ladderSpan(rows,key){const lo=[],hi=[];for(const r of rows||[]){const a=+r[key],b=+(r[key+'_most']??r[key]);if(a>0)lo.push(Math.round(a));if(b>0)hi.push(Math.round(b))}return lo.length?[Math.min(...lo),Math.max(...hi,...lo)]:null}
 function ladderPerLaw(rows){
   const seeds=ladderSpan(rows,'seeds_per_law'),starts=ladderSpan(rows,'chains_per_seed');
@@ -462,31 +454,6 @@ function textChars(html){
     .replace(/&[a-z0-9#]+;/gi,'x').length;
 }
 const LADDER_HEAD_CHAR_PX=7, LADDER_HEAD_PAD_PX=13;
-function stopRuleColumns(rows,em){
-  const rules=STOP_RULES.slice();
-  const total=rule=>rows.reduce((a,r)=>a+(+((r.stopped_by_rule||{})[rule])||0),0);
-  const columns=rules.map(([rule,head,title])=>({g:'stop', head, title,
-    cell:r=>{const n=+((r.stopped_by_rule||{})[rule])||0;return n?esc(n):((+r.graphs||0)?'<span class=muted>0</span>':em);},
-    foot:()=>`<b>${esc(total(rule))}</b>`}));
-  if(!rows.some(r=>r.left!=null))return columns;
-  const none=r=>(+r.graphs||0)?'<span class=muted>0</span>':em;
-  const parkedOf=r=>Object.values(r.parked_by_rule||{}).reduce((a,v)=>a+(+v||0),0)
-    +STRUCTURE_STOPS.reduce((a,rule)=>a+Math.max(0,(+((r.stopped_by_rule||{})[rule])||0)-(+((r.parked_by_rule||{})[rule])||0)),0);
-  const stoppedOf=r=>r.stopped!=null?(+r.stopped||0):Math.max(0,(+r.left||0)-(+r.done||0));
-  const byRule=(r,rule)=>+((r.parked_by_rule||{})[rule])||+((r.stopped_by_rule||{})[rule])||0;
-  const cutOf=r=>byRule(r,'cut'), pricedOf=r=>byRule(r,'over_budget');
-  const gatedOf=r=>Math.max(0,parkedOf(r)-BUDGET_STOPS.reduce((a,rule)=>a+(+((r.parked_by_rule||{})[rule])||0),0));
-  const sumOf=key=>rows.reduce((a,r)=>a+(key==='gated'?gatedOf(r):key==='cut'?cutOf(r):key==='priced'?pricedOf(r):stoppedOf(r)),0);
-  columns.push({g:'stop', head:'gated', title:'Laws parked here by a gate that reads the probes or the starts, or stopped by the structure gate; a park stops a law too.',
-    cell:r=>{const n=gatedOf(r);return n?esc(n):none(r);}, foot:()=>`<b>${esc(sumOf('gated'))}</b>`});
-  if(rows.some(r=>cutOf(r)>0)) columns.push({g:'stop', head:'stopped cut', title:'Laws stopped here by the cut gate, where a design lets it stop a law: a seed ran out of its work budget before it settled.',
-    cell:r=>{const n=cutOf(r);return n?esc(n):none(r);}, foot:()=>`<b>${esc(sumOf('cut'))}</b>`});
-  columns.push({g:'stop', head:'priced', title:'Laws stopped over_budget here, before a run: the next one, a larger size or a longer chain, is priced above its budget from the law\u2019s own seeds.',
-    cell:r=>{const n=pricedOf(r);return n?esc(n):none(r);}, foot:()=>`<b>${esc(sumOf('priced'))}</b>`});
-  columns.push({g:'stop', head:'total', title:'Every law stopped here, by any rule, including rules without a column of their own.',
-    cell:r=>{const n=stoppedOf(r);return n?esc(n):none(r);}, foot:()=>`<b>${esc(sumOf('total'))}</b>`});
-  return columns;
-}
 function snapshotStagesText(cycle){const by={};for(const st of (cycle&&cycle.snapshot_stages)||[]){const k=String(st.stage||'').replace(/^peer_/,'peers\u2019 ').replace(/_/g,' ');if(!k||k==='done')continue;by[k]=(by[k]||0)+(+st.seconds||0)}
   return Object.entries(by).sort((a,b)=>b[1]-a[1]).slice(0,3).filter(([,v])=>v>=0.5).map(([k,v])=>`${k} ${Math.round(v)}s`).join(' \u00b7 ')}
 function durationText(seconds){const s=Math.max(0,Number(seconds)||0);if(s<60)return `${s.toFixed(1)}s`;const m=Math.floor(s/60),r=(s%60).toFixed(1).padStart(4,'0');if(m<60)return `${m}m${r}s`;const h=Math.floor(m/60),rm=m%60;return `${h}h${String(rm).padStart(2,'0')}m${String(Math.floor(s%60)).padStart(2,'0')}s`}
@@ -1191,13 +1158,14 @@ function renderGatesBox(){
   const key=g?`${shown.revision||''}|${shown.generated_utc||''}|${g.decisions_read||0}`:'none';
   if(key===gatesKey)return;gatesKey=key;root.innerHTML=gatesBoxHtml(g||null);
 }
-const CAMPAIGN_SCOPE_IDS=['landScope','topScope','ladderScope','liveScope','reportScope','gateScope','workScope'];
+const CAMPAIGN_SCOPE_IDS=['landScope','topScope','ladderScope','selectionScope','filterScope','liveScope','reportScope','gateScope','workScope'];
 function liveCampaignRows(){return (SYS.campaignRows||[]).filter(r=>r.status!=='archived')}
 function oneCampaign(){if(String(campaign)!=='study')return campaign;const rows=((studyNow||{}).campaigns||[]).filter(r=>r.study_batch).map(r=>String(r.campaign_id)).sort(NATSORT.compare);return rows[0]||(SYS.campaignRows||[])[0]?.campaign_id||campaign}
 function paintCampaignScope(){const id=campaign==null?'':String(campaign),all=id==='study';for(const key of CAMPAIGN_SCOPE_IDS){const el=document.getElementById(key);if(!el)continue;el.textContent=all?'all batches':(id?`C${id}`:'');el.title=all?'this panel reads every batch of the study together (652); a batch alone is a card in The study now, on Home':(id?`this panel reads campaign ${id} alone; pick another in The study now, on Home`:'')}const one=document.getElementById('explorerScopeOne');if(one)one.textContent=all?'all batches':(id?`campaign ${id}`:'this campaign');
   const others=document.getElementById('explorerScopeOthers');if(others){const ids=liveCampaignRows().map(r=>String(r.campaign_id)).filter(x=>x!==id).sort((a,b)=>NATSORT.compare(a,b));others.innerHTML=ids.map(x=>`<option value="c:${esc(x)}">campaign ${esc(x)}</option>`).join('');others.hidden=!ids.length}}
-let studyNow=null,studyNowAt=0;
-async function refreshStudyNow(force=false){if(!force&&Date.now()-studyNowAt<15000){renderStudyNow(studyNow);return}studyNowAt=Date.now();try{studyNow=await get('/api/campaigns/overview')}catch(e){return}renderStudyNow(studyNow)}
+let studyNow=null,studyNowAt=0,studyHours=null;
+async function refreshStudyNow(force=false){if(!force&&Date.now()-studyNowAt<15000){renderStudyNow(studyNow);return}studyNowAt=Date.now();try{studyNow=await get('/api/campaigns/overview')}catch(e){return}try{studyHours=await get('/api/study-hours/study')}catch(e){}renderStudyNow(studyNow)}
+function hoursShare(h,parts){if(!h||!h.core_hours)return null;const all=['A','N','D','system'].reduce((t,k)=>t+(+h.core_hours[k]||0),0),mine=parts.reduce((t,k)=>t+(+h.core_hours[k]||0),0);return `${Math.round(mine).toLocaleString('en-US')} core-h, ${all>0?Math.round(100*mine/all):0}%`}
 function notPriced(rungs){const ns=[...new Set((rungs||[]).map(Number).filter(n=>n>0))].sort((a,b)=>a-b);return ` · time left not known yet${ns.length?` (no seed at N=${ns.map(n=>fmt(n)).join(', ')} has ended here)`:''}`}
 function workLeftText(queuedHours,queuedPace,expectedHours,expectedPace){
   const pace=h=>h>0?`, ${fmt(Math.round(h*10)/10)} h at the last hour's pace`:'';
@@ -1215,7 +1183,7 @@ function sideOf(rows){const s={laws:0,budget:0,waiting:0,graphs:0,done:0,running
     if(+w.core_hours_left>0){s.left+=+w.core_hours_left;s.expected+=Math.max(+w.core_hours_left,+w.core_hours_expected||0);if(+w.hours_at_last_hours_pace>0)s.pace+=+w.core_hours_left/+w.hours_at_last_hours_pace}}
   s.rest=s.left>0?workLeftText(Math.round(s.left*10)/10,s.pace>0?s.left/s.pace:0,s.expected,s.pace>0?s.expected/s.pace:0):(s.queued>0||s.unpriced.length?notPriced(s.unpriced):(s.campaigns?' · nothing left to run':''));return s}
 function sideText(name,s,share,tip){const graphs=s.graphs>s.done?`${fmt(s.graphs)} graphs, ${fmt(s.done)} done`:`${fmt(s.graphs)} graphs`;
-  return `<span class="study-side-head"><b>${esc(name)}</b> ${share==null?'':`<span class=study-share>${esc(share)}%</span>`}</span><span title="${esc(tip)}">${fmt(s.laws)} laws${s.budget?` of ${fmt(s.budget)}`:''}${s.waiting?`, ${fmt(s.waiting)} waiting`:''} · ${graphs} · ${fmt(s.scoring)} score</span><small>running ${fmt(s.running)} · analysing ${fmt(s.analysing)} · queued ${fmt(s.queued)}${s.deep?` · deepest N=${fmt(s.deep)}`:''}${s.rest} · ${fmt(s.campaigns)} campaign${s.campaigns===1?'':'s'}</small>`}
+  return `<span class="study-side-head"><b>${esc(name)}</b> ${share==null?'':`<span class=study-share>${esc(share)}</span>`}</span><span title="${esc(tip)}">${fmt(s.laws)} laws${s.budget?` of ${fmt(s.budget)}`:''}${s.waiting?`, ${fmt(s.waiting)} waiting`:''} · ${graphs} · ${fmt(s.scoring)} score</span><small>running ${fmt(s.running)} · analysing ${fmt(s.analysing)} · queued ${fmt(s.queued)}${s.deep?` · deepest N=${fmt(s.deep)}`:''}${s.rest} · ${fmt(s.campaigns)} campaign${s.campaigns===1?'':'s'}</small>`}
 function renderStudyNow(d){const root=document.getElementById('studyNow');if(!root||!d)return;registerLiveRegion(root);if(deferrableRedraw(root,()=>renderStudyNow(d)))return;const rows=(d.campaigns||[]).filter(r=>!r.archived).sort((a,b)=>NATSORT.compare(String(a.campaign_id),String(b.campaign_id)));
   if(!rows.length){root.innerHTML='<div class=empty>no campaign in this study yet</div>';return}
   const controls=rows.filter(isStandingControls),study=rows.filter(r=>!isStandingControls(r));
@@ -1225,7 +1193,9 @@ function renderStudyNow(d){const root=document.getElementById('studyNow');if(!ro
   const cur=String(campaign)==='study'||blind.some(r=>String(r.campaign_id)===String(campaign));
   const each=controls.flatMap(r=>((r.control_verdict||{}).laws||[]).map(l=>`${l.label}: ${l.verdict}${l.why?' ('+l.why+')':''}`));
   const tick=controls.length?`<span class="study-controls" title="the standing controls: laws of known answer run in this folder, the check that the instrument on this build and host reads right (campaign ${controls.map(r=>esc(String(r.campaign_id))).join(', ')}); the map checks itself by its neighbours, seeds and depth${each.length?esc('\n'+each.join('\n')):''}">known answers: ${esc(verdict||'not read yet')}${each.length?` <span class=muted>(${esc(each.filter(t=>/: fail/.test(t)).map(t=>t.split(':')[0]).join(', ')||'')})</span>`:''}</span>`:'';
-  root.innerHTML=`<button type=button class="study-split${cur?' current':''}" data-campaign="study" title="the panels below read every blind batch together; a batch alone is chosen in the filters (batch)"><span class=study-split-track><span class=study-split-blind style="width:${bw.toFixed(1)}%"></span><span class=study-split-zoned style="width:${(100-bw).toFixed(1)}%"></span></span><span class=study-sides><span class="study-side blind">${sideText('blind',b,pct(b.laws),'laws drawn at random from the whole space, group A: the unbiased sample every rate is read from')}</span><span class="study-side zoned">${sideText('zoned',z,pct(z.laws),'laws chosen by the map: seeded from earlier bundles, each mapped law’s neighbours and seeds, and the best laws taken deeper')}</span></span></button>${tick}`}
+  const SEL=window.GSD_SELECTION,bars=SEL&&studyHours&&studyHours.core_hours?SEL.hours(studyHours):`<span class=study-split-track><span class=study-split-blind style="width:${bw.toFixed(1)}%"></span><span class=study-split-zoned style="width:${(100-bw).toFixed(1)}%"></span></span>`;
+  const bShare=hoursShare(studyHours,['A'])??`${pct(b.laws)}% of the laws`,zShare=hoursShare(studyHours,['N','D'])??`${pct(z.laws)}% of the laws`;
+  root.innerHTML=`<button type=button class="study-split${cur?' current':''}" data-campaign="study" title="the panels below read every blind batch together; a batch alone is chosen in the filters (batch)">${bars}<span class=study-sides><span class="study-side blind">${sideText('blind',b,bShare,'laws drawn at random from the whole space, group A: the unbiased sample every rate is read from')}</span><span class="study-side zoned">${sideText('zoned',z,zShare,'laws chosen by the map: seeded from earlier bundles, each mapped law’s neighbours and seeds (group N), and the best laws taken deeper (group D)')}</span></span></button>${tick}`}
 function lawsWaitingOf(r){return +((r.laws_by_state||{}).PROPOSED)||0}
 function cardLawsText(held,budget,waiting){return `${fmt(held)}${budget?` of ${fmt(budget)}`:''} laws drawn`+(waiting?`, ${fmt(waiting)} waiting to start`:'')}
 const LAWS_WAITING_TIP='laws drawn counts every law drawn into the batches, those still waiting in the proposer\u2019s pool among them (32 a batch at most); the fleet ladder counts a law from the size where its seeds run, so its first rung shows the drawn laws less the waiting ones. The graph count here is read by a slower scan than the ladder\u2019s, so while the fleet runs it trails the ladder a little';
@@ -1233,16 +1203,19 @@ function kindOf(p){return (p&&p.kind)||NOT_READ}
 function regionOf(p){return p&&p.region?p.region.state:'new'}
 const KIND_NAMES={grown:'settled from empty or random',small_world:'small world',made:'made',ring:'ring or chain made',empty:'empty',full:'full',frozen:'frozen lattice',still:'still lattice',rewired:'rewired lattice',moved:'melted lattice',broken:'broken',apart:'apart',unread:'nothing read'};
 const KIND_ORDER=Object.keys(KIND_NAMES),NOT_READ='not read yet';
-let homeFilter={off:new Set(),kind:'',group:'',batch:'',region:'',settled:''};
+let homeFilter={off:new Set(),kind:'',group:'',batch:'',region:'',settled:'',scoring:false,deepest:''};
 function batchOf(p){return String(p&&(p.batch??p.campaign_id)!=null?(p.batch??p.campaign_id):'')}
-function homeFilterActive(){const f=homeFilter;return !!(f.off.size||f.kind||f.group||f.batch||f.region||f.settled)}
+function homeFilterActive(){const f=homeFilter;return !!(f.off.size||f.kind||f.group||f.batch||f.region||f.settled||f.scoring||f.deepest)}
 function homeFilterPasses(p){const f=homeFilter,k=kindOf(p);
   if(f.kind){if(k!==f.kind)return false}else if(f.off.has(k))return false;
   if(f.group&&String(p&&p.group||'')!==f.group)return false;
   if(f.batch&&batchOf(p)!==f.batch)return false;
   if(f.region&&regionOf(p)!==f.region)return false;
   const settled=settledOf(p).length>0;if(f.settled==='settled'&&!settled)return false;if(f.settled==='unsettled'&&settled)return false;
+  if(f.scoring&&!(+((p&&p.law_score||{}).score||0)>0))return false;
+  if(f.deepest&&!(deepestOf(p)>=+f.deepest))return false;
   return true}
+function deepestOf(p){return p&&p.deepest!=null?+p.deepest:+((p&&p.law_score||{}).top_n||0)}
 function lawNumber(text){const m=/(\d+)\s*$/.exec(String(text??''));return m?+m[1]:Infinity}
 function lawOrder(a,b){const scoreOf=p=>+((p.law_score||{}).score||0),c=p=>/^\d+$/.test(String(p.campaign_id??''))?+p.campaign_id:Infinity;
   return scoreOf(b)-scoreOf(a)||c(a)-c(b)||lawNumber(a.ensemble_code)-lawNumber(b.ensemble_code)||String(a.candidate_id).localeCompare(String(b.candidate_id))}
@@ -1268,15 +1241,31 @@ function renderFilters(points){const host=document.getElementById('homeFilters')
   <label title="A: the blind draw; B: the map of the best">group <select id=filterGroup>${opt('','every group',f.group)}${o.groups.map(g=>opt(g,g==='A'?'A, blind':g==='B'?'B, map':g,f.group)).join('')}</select></label>
   <label>batch <select id=filterBatch>${opt('','every batch',f.batch)}${o.batches.map(b=>opt(b,'C'+b,f.batch)).join('')}</select></label>
   <label title="settled: at least one probe settled under the score">settled <select id=filterSettled>${opt('','settled or not',f.settled)}${opt('settled','settled',f.settled)}${opt('unsettled','not settled',f.settled)}</select></label>
-  <button type=button class=gsd-control id=filterClear${homeFilterActive()?'':' disabled'}>clear</button><span class=muted id=filterCount>${esc(kept.toLocaleString())} of ${esc(points.length.toLocaleString())} laws shown</span></div>`}
+  <label title="only the laws with a score above zero"><input type=checkbox id=filterScoring${f.scoring?' checked':''}> scoring only</label>
+  <label title="only the laws read at this size or deeper">deepest size at least <select id=filterDeepest>${opt('','any size',f.deepest)}${deepestSizes().map(n=>opt(n,'N='+(+n).toLocaleString(),f.deepest)).join('')}</select></label>
+  <button type=button class=gsd-control id=filterClear${homeFilterActive()?'':' disabled'}>clear</button></div>
+  <div class=filter-chosen id=filterCount>${chosenLine(points,kept)}</div>`}
+function deepestSizes(){const seen=new Set();for(const row of (selectionData&&selectionData.facts)||[])for(const n of row[2]||[])seen.add(+n);for(const p of landChainPoints()){const n=+((p.law_score||{}).top_n||0);if(n)seen.add(n)}return [...seen].sort((a,b)=>a-b)}
+function chosenLine(points,kept){const SEL=window.GSD_SELECTION;if(!SEL)return `${esc(kept.toLocaleString())} of ${esc(points.length.toLocaleString())} laws shown`;
+  const facts=(selectionData&&selectionData.facts)||null;if(!facts)return SEL.chosen(homeFilter,kept,points.length,KIND_NAMES);
+  const keep=selectionKeep();return SEL.chosen(homeFilter,keep?keep.size:facts.length,facts.length,KIND_NAMES)}
+let selectionData=null,selectionAt=0,selectionFor=null;
+async function refreshSelection(force=false){const c=String(campaign??'');if(!c)return;if(!force&&selectionFor===c&&Date.now()-selectionAt<60000){renderSelection();return}selectionAt=Date.now();selectionFor=c;try{selectionData=await get(`/api/selection-ladder/${encodeURIComponent(c)}`)}catch(e){return}renderSelection()}
+function factPoint(row,points){const p=points.get(row[0]+'|'+row[1]),deepest=window.GSD_SELECTION?window.GSD_SELECTION.deepest(row):null;
+  return p?Object.assign({},p,{deepest}):{campaign_id:row[0],candidate_id:row[1],group:lawGroup(row[0])||'',batch:row[0],law_score:{score:row[7],top_n:row[8]},deepest}}
+function selectionKeep(){if(!selectionData||!homeFilterActive())return null;const pts=new Map(landChainPoints().map(p=>[String(p.campaign_id??campaign)+'|'+p.candidate_id,p]));const keep=new Set();
+  for(const row of selectionData.facts||[])if(homeFilterPasses(factPoint(row,pts)))keep.add(row[0]+'|'+row[1]);return keep}
+function renderSelection(){const host=document.getElementById('selectionLadder'),SEL=window.GSD_SELECTION;if(!host||!SEL)return;registerLiveRegion(host);if(deferrableRedraw(host,()=>renderSelection()))return;
+  if(!selectionData||String(selectionData.campaign)!==String(campaign)){host.innerHTML='<div class=empty>the selection\u2019s ladder arrives with the laws</div>';return}
+  host.innerHTML=SEL.render(SEL.ladder(selectionData.facts,selectionKeep()),{empty:homeFilterActive()?'no law the filters keep has a reading yet':'no law has a reading yet'})}
 function chooseFilter(ev){const t=ev.target;if(!t)return;const f=homeFilter;
   if(t.dataset&&t.dataset.filterKind!=null){const k=t.dataset.filterKind;if(t.checked)f.off.delete(k);else f.off.add(k)}
   else if(t.id==='filterKind')f.kind=t.value;else if(t.id==='filterRegion')f.region=t.value;else if(t.id==='filterGroup')f.group=t.value;
-  else if(t.id==='filterBatch')f.batch=t.value;else if(t.id==='filterSettled')f.settled=t.value;else return;
+  else if(t.id==='filterBatch')f.batch=t.value;else if(t.id==='filterSettled')f.settled=t.value;
+  else if(t.id==='filterScoring')f.scoring=!!t.checked;else if(t.id==='filterDeepest')f.deepest=t.value;else return;
   if(t.blur)t.blur();landMetaKey=null;if(last)renderHome(last)}
-function clearFilters(){homeFilter={off:new Set(),kind:'',group:'',batch:'',region:'',settled:''};landMetaKey=null;if(last)renderHome(last)}
-function filteredDepths(){if(!homeFilterActive())return null;const by={};for(const p of landChainPoints().filter(homeFilterPasses)){const n=+((p.law_score||{}).top_n||0);if(n)by[n]=(by[n]||0)+1}return by}
-function renderHome(d){last=d;markHomeLoading();renderLive(d);renderTop();rungLadderRow();renderGatesBox();refreshStudyNow();const use=landscape&&String(landscape.campaign_id)===String(campaign),pts=use?landChainPoints():[];if(use){const c=landChainCounts(),e=landscape.exposure||{},model=landscape.score_model||{},parts=model.components||{};channelCounts={d_s:c.d_s_estimates,d_V:c.d_V_estimates,d_B:c.d_B_estimates,d_w:c.d_w_estimates};
+function clearFilters(){homeFilter={off:new Set(),kind:'',group:'',batch:'',region:'',settled:'',scoring:false,deepest:''};landMetaKey=null;if(last)renderHome(last)}
+function renderHome(d){last=d;markHomeLoading();renderLive(d);renderTop();rungLadderRow();renderGatesBox();refreshStudyNow();refreshSelection();const use=landscape&&String(landscape.campaign_id)===String(campaign),pts=use?landChainPoints():[];if(use){const c=landChainCounts(),e=landscape.exposure||{},model=landscape.score_model||{},parts=model.components||{};channelCounts={d_s:c.d_s_estimates,d_V:c.d_V_estimates,d_B:c.d_B_estimates,d_w:c.d_w_estimates};
 const metaHtml=`<span>${fmt(c.measured_candidates)} measured candidates</span><span title="laws with no dimension estimate on any probe. Open the Explorer and filter Estimates to \u2018refused\u2019 to list them.">${fmt(c.refused_candidates)} refused</span><span title="laws whose measurement landed outside a declared limit: at or above the mean-degree cap, or out of seed budget. A standing property of the measurements, true of history the moment it can be read \u2014 not a count of filter actions.">${fmt(c.limit_hit_candidates)} at a limit</span><span class="${(c.band_candidates?.contracting||0)+(c.band_candidates?.tier2||0)+(c.band_candidates?.tier3||0)+(c.band_candidates?.tier4||0)+(c.band_candidates?.einstein||0)?'good':''}" title="Laws in each band, by how many of the four probes settled under the score (784: between two sizes from N=4,096, on a piece of 4,096 nodes or more): 1 probe, 2, 3 and 4, as the chart's bands are labelled, and the 5th band, all four settled and the Einstein relation d_s = 2 d_f / d_w held at two sizes. More than one settled is a stronger claim than one: two channels that fail differently agreeing is the cheapest available check on a single probe's false positives; build 274 measured 78 of 104 CONVERGED blocks as probes still drifting. Zero is the expected reading on a young campaign and is a finding, not a fault.">${fmt(c.band_candidates?.contracting||0)} at 1 probe \u00b7 ${fmt(c.band_candidates?.tier2||0)} at 2 \u00b7 ${fmt(c.band_candidates?.tier3||0)} at 3 \u00b7 ${fmt(c.band_candidates?.tier4||0)} at 4 \u00b7 ${fmt(c.band_candidates?.einstein||0)} by Einstein</span>${landChainPicker()}<span title="cartography revision ${esc(landscape.revision||'current')} \u00b7 changes when the landscape is recomputed">${fmt(e.opportunities)} proposal opportunities</span>`;const metaKey=`${campaign}|${landscape.revision||''}|${landscape.generated_utc||''}|${landLattices}`;if(metaKey!==landMetaKey){document.getElementById('landMeta').innerHTML=metaHtml;landMetaKey=metaKey}renderFilters(pts);if(currentPage==='home'){drawLandscape(pts.filter(homeFilterPasses))}}else{document.getElementById('landMeta').innerHTML='<span>complete landscape warming independently; operational UI remains live</span>';landMetaKey=null}}
 let homeLoading=null;
 let landLattices=false;
@@ -2467,7 +2456,7 @@ document.getElementById('campaignsReload')?.addEventListener('click',()=>refresh
 document.getElementById('campaignsNew')?.addEventListener('click',()=>{
   const rows=(campaignsData&&campaignsData.campaigns)||[];
   if(rows.length)openCampaignAuthor(rows[0].campaign_id)});
-window.GSD_APP_READY=true; window.GSD_APP={ladderPerLaw,lawCode,lawCodeQuery,lawGroupOf,paintLiveGroups,LAW_GROUPS,renderWorkerCount,setWorkerCount,renderWorkload,setWorkload,renderFilters,chooseFilter,clearFilters,measureFilterHeight,homeFilterPasses,filteredTop,get homeFilter(){return homeFilter;},setUpFolds,toggleFold,chooseLandLattices,landChainPoints,loadExplorer,atlasEinstein,calibMarginBands,markHomeLoading,candidateHref,renderStudyBundles,renderStudyNow,sideOf,isStandingControls,paintCampaignScope,explorerStudy,mergeFilterOptions,set homeLoading(v){homeLoading=v;},get homeLoading(){return homeLoading;},set landWaiting(v){landWaiting=v;},set studyBundles(v){studyBundles=v;},set reportStatusForTest(v){reportStatus=v;},refreshReports,oneSeedReading,readingFromLine,set reportsAnsweredAt(v){reportsAnsweredAt=v;},get reportsAnsweredAt(){return reportsAnsweredAt;},refreshCampaigns,drawLandscape,drawExplorer,explorerSortBy,set explorerRows(v){explorerRows=v||[];explorerLoaded=true;},get explorerRows(){return explorerRows;},set landscape(v){landscape=v;},get landscape(){return landscape;},set campaign(v){campaign=v;},get campaign(){return campaign;},get explorerSort(){return explorerSort;},set explorerSort(v){explorerSort=v;},renderHome,renderLive,renderSystem,renderStranded,reportQuietHtml,set reportAdmin(v){reportAdmin=!!v;},memoryAdmissionRow,renderReports,renderCalibration,renderGate,refreshGate,landingPage,renderCampaigns,refreshCampaigns,renderCampaignPanel,renderCampaignAuthor,openCampaignAuthor,set authorGrid(v){authorGrid=v||{};},get authorGrid(){return authorGrid;},set authorWindow(v){authorWindow=v||null;},get authorWindow(){return authorWindow;},set authorCheck(v){authorCheck=v||null;},set campaignsData(v){campaignsData=v||null;},get campaignsData(){return campaignsData;},renderProbeAtlas,renderTop,leaderRow,budgetText,rungLadderRow,get hitPoints(){return hitPoints;},get bandLayout(){return bandLayout;},get labelHits(){return labelHits;},set channelCounts(v){channelCounts=v||{};},get channelCounts(){return channelCounts;},
+window.GSD_APP_READY=true; window.GSD_APP={ladderPerLaw,lawCode,lawCodeQuery,lawGroupOf,paintLiveGroups,LAW_GROUPS,renderWorkerCount,setWorkerCount,renderWorkload,setWorkload,renderFilters,chooseFilter,clearFilters,measureFilterHeight,homeFilterPasses,filteredTop,get homeFilter(){return homeFilter;},setUpFolds,toggleFold,chooseLandLattices,landChainPoints,loadExplorer,atlasEinstein,calibMarginBands,markHomeLoading,candidateHref,renderStudyBundles,renderStudyNow,sideOf,isStandingControls,paintCampaignScope,explorerStudy,mergeFilterOptions,set homeLoading(v){homeLoading=v;},get homeLoading(){return homeLoading;},set landWaiting(v){landWaiting=v;},set studyBundles(v){studyBundles=v;},set reportStatusForTest(v){reportStatus=v;},refreshReports,oneSeedReading,readingFromLine,set reportsAnsweredAt(v){reportsAnsweredAt=v;},get reportsAnsweredAt(){return reportsAnsweredAt;},refreshCampaigns,drawLandscape,drawExplorer,explorerSortBy,set explorerRows(v){explorerRows=v||[];explorerLoaded=true;},get explorerRows(){return explorerRows;},set landscape(v){landscape=v;},set selectionData(v){selectionData=v;},get selectionData(){return selectionData;},set studyHours(v){studyHours=v;},renderSelection,selectionKeep,renderStudyNow,get landscape(){return landscape;},set campaign(v){campaign=v;},get campaign(){return campaign;},get explorerSort(){return explorerSort;},set explorerSort(v){explorerSort=v;},renderHome,renderLive,renderSystem,renderStranded,reportQuietHtml,set reportAdmin(v){reportAdmin=!!v;},memoryAdmissionRow,renderReports,renderCalibration,renderGate,refreshGate,landingPage,renderCampaigns,refreshCampaigns,renderCampaignPanel,renderCampaignAuthor,openCampaignAuthor,set authorGrid(v){authorGrid=v||{};},get authorGrid(){return authorGrid;},set authorWindow(v){authorWindow=v||null;},get authorWindow(){return authorWindow;},set authorCheck(v){authorCheck=v||null;},set campaignsData(v){campaignsData=v||null;},get campaignsData(){return campaignsData;},renderProbeAtlas,renderTop,leaderRow,budgetText,rungLadderRow,get hitPoints(){return hitPoints;},get bandLayout(){return bandLayout;},get labelHits(){return labelHits;},set channelCounts(v){channelCounts=v||{};},get channelCounts(){return channelCounts;},
 set landscapePayload(v){landscape=v?{campaign_id:campaign,...v}:null;} ,get landscapePayload(){return landscape;},set overviewPayload(v){last=v||null;},get overviewPayload(){return last;}};const stale=document.getElementById('gsdClientFailure');if(stale)stale.remove();const copyRaw=document.getElementById('copyRawJson');if(copyRaw)copyRaw.onclick=async()=>{const raw=document.getElementById('raw'),text=raw?.dataset.copyText||raw?.textContent||'';const prior=copyRaw.textContent;try{const ok=await copyText(text);copyRaw.textContent=ok?'copied':'copy failed'}catch(_){copyRaw.textContent='copy failed'}setTimeout(()=>{copyRaw.textContent=prior},1200)};
 let filterHeight=0;
 function measureFilterHeight(host){const el=host||document.getElementById('filterPanel');if(!el)return filterHeight;const box=typeof el.getBoundingClientRect==='function'?el.getBoundingClientRect():null;const measured=Math.ceil((box&&box.height)||el.offsetHeight||0);if(!(measured>0)||measured===filterHeight)return filterHeight;filterHeight=measured;document.documentElement.style.setProperty('--gsd-filter-h',measured+'px');try{window.dispatchEvent(new CustomEvent('rr:hero-metrics',{detail:{filterHeight:measured}}))}catch(_){}return measured}

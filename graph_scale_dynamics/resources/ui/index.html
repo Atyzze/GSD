@@ -2,14 +2,15 @@
 <div id="gsdSystemHeader"></div>
 <main id="gsdHome" class="gsd-app-page" data-page="home">
   <section class="panel study-now-panel"><h2 title="the laws drawn blind against the laws the map chose, each with its share; a click reads every blind batch in the panels below, and a batch alone is chosen in the filters">The study now</h2><div id="studyNow" class="study-now"><div class="empty">every campaign of the study, loading…</div></div></section>
+  <section id="filterPanel" class="panel filter-panel"><h2 title="one choice of laws read by the landscape, the Top 100 and the selection's ladder below; the fleet's work and Now researching are the machine's, not filtered">Which laws <span id="filterScope" class="campaign-scope"></span></h2><div id="homeFilters"><div class="empty">the filters arrive with the landscape</div></div></section>
   <div class="hero">
     <div class="herocol">
     <section class="panel land-panel"><h2>Macroscopic landscape <span id="landScope" class="campaign-scope"></span></h2><div id="landMeta" class="home-meta"><span>authoritative landscape warming…</span></div><div class="canvaswrap"><canvas id="land"></canvas><div id="landTip" class="canvas-tooltip"></div></div></section>
-    <section id="filterPanel" class="panel filter-panel"><h2 title="one set of filters for the landscape, the Top 100 and the fleet ladder; the Now researching box is not filtered">Filters <span id="filterScope" class="campaign-scope"></span></h2><div id="homeFilters"><div class="empty">the filters arrive with the landscape</div></div></section>
     </div>
     <aside class="heroaside"><section class="panel top100-panel"><h2>Top 100 <span id="topScope" class="campaign-scope"></span></h2><div id="best" class="top100-scroll"><div class="empty">ranking warms with the landscape…</div></div></section></aside>
   </div>
-  <section class="panel ladder-panel"><h2>Fleet ladder <span id="ladderScope" class="campaign-scope"></span></h2><div id="rungLadder"><div class="empty">waiting for the first poll</div></div></section>
+  <section class="panel ladder-panel selection-panel"><h2 title="the laws chosen above, size by size: how many reached each size, are running or queued there, were settled there by each gate, wait there to be extended, or were scored there">The selection, size by size <span id="selectionScope" class="campaign-scope"></span></h2><div id="selectionLadder"><div class="empty">the selection’s ladder arrives with the laws</div></div></section>
+  <section class="panel ladder-panel"><h2 title="the machine's work at each size, every law's: graphs, time, budgets, memory and the probes">The fleet’s work, size by size <span id="ladderScope" class="campaign-scope"></span></h2><div id="rungLadder"><div class="empty">waiting for the first poll</div></div></section>
   <section class="panel gates-panel"><h2>The gates <span class="campaign-scope" title="every gate's counters are read from the decisions of every batch of this study together">this study, every batch</span></h2><div id="gatesBox"><div class="empty">the gates' counters arrive with the landscape</div></div></section>
   <section class="panel"><h2>Now researching <span id="liveScope" class="campaign-scope"></span> <span id="liveGroups" class="live-groups" title="the laws running now, by where they come from: the blind draw or the focus's groups"></span></h2><div id="live" class="live-unbounded"><div class="empty">live research warming…</div></div></section>
 </main>
@@ -99,5 +100,5 @@ window.GSD_UI_CONFIG={basePath:__GSD_BASE_PATH_JSON__,buildNumber:"__GSD_BUILD_N
   setTimeout(()=>{if(!window.GSD_APP_READY)showClientFailure('application startup watchdog expired; UI assets may be missing, stale, or incompatible')},5000);
 })();
 </script>
-<script src="assets/system.js?v=__GSD_BUILD_NUMBER__"></script><script src="assets/term_visual.js?v=__GSD_BUILD_NUMBER__"></script><script src="assets/map.js?v=__GSD_BUILD_NUMBER__"></script><script src="assets/app.js?v=__GSD_BUILD_NUMBER__"></script>
+<script src="assets/system.js?v=__GSD_BUILD_NUMBER__"></script><script src="assets/term_visual.js?v=__GSD_BUILD_NUMBER__"></script><script src="assets/map.js?v=__GSD_BUILD_NUMBER__"></script><script src="assets/selection.js?v=__GSD_BUILD_NUMBER__"></script><script src="assets/app.js?v=__GSD_BUILD_NUMBER__"></script>
 </body></html>

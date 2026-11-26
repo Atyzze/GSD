@@ -718,6 +718,17 @@ each region that names it alone in `sources` and that no law mapped here joined 
 in each newly ticked one (`study_seed.seed` from the import folder, or `study_seed.choose` from its record, which
 brings its regions back). A let-go law stays in the seeded campaign and its runs go on: nothing measured is rewritten.
 
+**Home's selection and hours** (872). `observability/selection_ladder.py` makes one fact a law (`FIELDS`: its
+campaign and id, the sizes it has a reading at, `under way`, `waiting`, `settled` or `not started` from
+`law_status.of_row`, the rule and size of its latest decision, its next size, its score and the size it was scored
+at), from the live folder (`facts`) or from a bundle's `tables/laws` rows (`facts_of_rows`), and `ladder(facts, keep)`
+counts them by size; `GET /api/selection-ladder/<campaign or study>` (`services/api/selection_route.py`, the study's
+blind batches and its focus and seeded campaigns) answers the facts, and `resources/ui/selection.js` counts the ones
+Home's filters keep with the same function. `observability/study_hours.py` (`GET /api/study-hours/study`) adds each
+campaign's attempts (wall seconds, and peak bytes times wall seconds) into the parts A, N and D by
+`study_design.group` (blind A, seeded N), and the system's part as the host's from `resource_telemetry` (CPU share times
+seconds times cores; memory in use times seconds) less the workers'.
+
 **A law's code** (871, `operations/law_code.py`): `S<study>C<campaign>G<graph>`, the study of the campaign's design,
 the campaign and the number of the law's first graph in it (`MIN(graph_ordinal)`, as the ensemble code); where no
 graph has run, `S<study>C<campaign>-<the id's first 8>`; a campaign with no study keeps `C<campaign>-G<graph>`. Its

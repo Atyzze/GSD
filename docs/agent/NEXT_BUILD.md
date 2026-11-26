@@ -1,55 +1,38 @@
-# The next build is 872
+# The next build is 873
 
 This file names the next build and says how to make it. `tests/unit/test_next_build_is_named.py` parses its first line,
 which must read exactly `# The next build is <N>`, one above `BUILD_NUMBER`.
 
-## Where to begin: 872 is Home's four boxes as one
+## Where to begin: 873 is the depth seeker to the memory limit
 
 **Starting from nothing but the repository** (the operator, 2026-11-24 23:00): clone `main` and bring it up by
 `docs/agent/ENVIRONMENT.md`, section 10, "From the repository". Then `docs/WHERE_WE_ARE.md`, `docs/agent/HANDOFF.md`
-and this page, in that order, and `CLAUDE.md`'s rules for a shared repository. 871 put the seeded laws in the focus on
-their bundle's score, made the seeds a selection and named every law SnCnGn (`docs/build_notes/BUILD871_NOTES.md`);
-if 871's pull request is not on `main` yet, branch from `build-871` as 869 did from 868.
+and this page, in that order, and `CLAUDE.md`'s rules for a shared repository. 871 and 872 are made
+(`docs/build_notes/BUILD871_NOTES.md`, `BUILD872_NOTES.md`); if their pull requests are not on `main` yet, branch from
+the newest of them, as 869 did from 868. The operator said at 23:25 to keep building to the roadmap's end.
 
-**What 872 makes** (the operator, 2026-11-25 14:24, 14:29, 16:19 and 16:20, `docs/HISTORY.md`):
+**What 873 makes** (the operator, 2026-11-25 13:11: "always just 1 worker thread responsible for always pushing the
+memory limit to the system max (+ its free buffer zone ofc) but automatically testing how far N is feasible/safe to run
+without getting oom killed"):
 
-1. **The study bar counted in core-hours, not laws**, in four parts: the blind draw (A), the focus's neighbours and
-   seeds (N), the depth seeker (D), and the system's own use beside the science; each part's hours from the jobs'
-   attempts, the system's from the host's total less the workers'.
-2. **A second bar of memory held over time** (GiB-hours) in the same parts, where the depth seeker, one worker, may
-   hold half.
-3. **The filters lead, as "which laws"** (kinds, group, batch, region, settled, scoring only, deepest size at least),
-   one line saying what is chosen; the landscape and the Top 100 read that selection.
-4. **The fleet ladder in two**: "the selection, size by size" (laws that reached each size, running or queued there,
-   settled there by each gate, waiting to be extended, scoring there), drawn from the selection, and "the fleet's work,
-   size by size" (core time, memory, probe seconds, budgets), the machine's. 871's header (whole numbers, a range where
-   merged campaigns differ) carries over to both.
+1. **The depth campaign's ladder open past 262,144**: its sizes go on doubling by four while a size fits.
+2. **A size priced from the law's own peak growth** (`memory.own_earlier_seed_bytes`) and bought only when it fits the
+   host's reach (`scheduling/memory_hold.reach`) less the free 10 GiB; else the law is settled at its memory ceiling,
+   with the size it reached and the bytes the next would need, said on the Map page's depth table.
+3. **The seed's save at 1,048,576** (about 5 minutes against the stop's 120 s grace) met first: a law at that size
+   must not lose its seed to a stop.
 
-**Where it will press**: `app.js` (263 KB) holds Home; a new box goes into a module of its own as `map.js` did. `main.py`
-at 129,976 bytes of its 130,000; `build_handler` at 1,146 lines of its 1,160 since 871 moved the campaigns list out.
+**Acceptance**: a test prices the next size from a law's own earlier peaks and refuses it past the reach less 10 GiB;
+the depth campaign's ladder past 262,144 in its spec; the save at 1,048,576 inside the grace, or the grace widened for
+it; no score, kind or decision of a blind law moves (`tools/outputs_of_a_law.py --against` 872's record).
 
-**Acceptance** of 872: a test recomputes the selection's ladder from a bundle's `tables/` for the same filters and
-matches it to the law; the four parts' core-hours add to the folder's total; no score,
-kind or decision moves (`tools/outputs_of_a_law.py --against` 871's record); the full lane green.
+**Then**, in `docs/ROADMAP.md`, "From 870": the neighbours read at the earliest identification (waits on a reading of
+866's early call in a bundle and the operator's rule), the build numbers in words, the engines' diet, the lexicon and
+the matrix, the phenotype and the null map, study 177, the outliers' queue, the shared effort.
 
-**Then 873, the depth seeker to the memory limit** (13:11): its ladder open past 262,144; a size priced from the law's
-own peak growth (`memory.own_earlier_seed_bytes`) and bought only when it fits the host's reach
-(`scheduling/memory_hold.reach`) less the free 10 GiB, else the law settled at its memory ceiling with the size it
-reached and the bytes the next would need; the seed's save at 1,048,576 (about 5 minutes against the stop's 120 s grace)
-met first.
-
-**Then**, in `docs/ROADMAP.md`, "From 870": the neighbours read at the earliest identification, the build numbers in
-words, the engines' diet, the lexicon and the matrix, the phenotype and the null map, study 177, the shared effort.
-
-**Waiting on the operator** (`docs/ROADMAP.md`, "Questions for the operator"): 871's pull request (the session that
-made it could not push); a let-go law's own runs (let them run, recommended); 176's standing controls (keep, as a tick,
-recommended); the split (90% focus recommended).
-
-**When study 176 sends its next bundle**: `focus.json`'s `current` should stand on its bundle's score
-(`standing: bundle`, 871); then `tools/catalogue_reading.py` judges `small_world_criterion_1.json` (W1, W2), and
-`study_176_criterion.json` is read on it (P1 by `tools/perturb_reading.py`'s run-again line on the seeded laws against
-their source bundle, P2 from `focus.json`'s seed records; P3 to P5 reported); 174's or 175's next bundle judges the
-small-world criterion too.
+**Waiting on the operator** (`docs/ROADMAP.md`, "Questions for the operator"): 871's and 872's pull requests (the
+session that made them could not push); 176's standing controls (keep, as a tick, recommended); the split (90% focus
+recommended). Decided at 23:25: a let-go law's own runs go on.
 
 ## Reading a study's bundle
 
