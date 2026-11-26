@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 
 from graph_scale_dynamics.decisions.by_word import run_on
+from graph_scale_dynamics.decisions.memory_ceiling import settle as memory_settle
 from graph_scale_dynamics.decisions.engine import (
     Decision, Policy, Rung, Seed, decide, in_today_s_fields, policy_fingerprint,
 )
@@ -55,11 +56,14 @@ def replay(inputs: dict, order=None) -> Decision:
         chains = {EMPTY: rungs, **{name: rungs_from_inputs(recorded[name]) for name in names}}
         from graph_scale_dynamics.decisions.every_chain import STRONGER_FIRST_FROM
         stronger_first = int(inputs.get("rules_revision") or 0) >= STRONGER_FIRST_FROM
-        return run_on(decide_every_chain(str(inputs["law"]), chains, policy,
-                                         starts_reading=inputs.get("starts_reading"), stronger_first=stronger_first,
-                                         last_rung_completes=bool(inputs.get("last_rung_completes")), **context),
-                      inputs.get("run_on"), policy)
-    return run_on(decide(str(inputs["law"]), rungs, policy, **context), inputs.get("run_on"), policy)
+        return memory_settle(run_on(decide_every_chain(str(inputs["law"]), chains, policy,
+                                                       starts_reading=inputs.get("starts_reading"),
+                                                       stronger_first=stronger_first,
+                                                       last_rung_completes=bool(inputs.get("last_rung_completes")),
+                                                       **context), inputs.get("run_on"), policy),
+                             inputs.get("memory_ceiling"), policy)
+    return memory_settle(run_on(decide(str(inputs["law"]), rungs, policy, **context), inputs.get("run_on"), policy),
+                         inputs.get("memory_ceiling"), policy)
 
 
 FACTS_SHOWN = 4

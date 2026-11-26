@@ -55,10 +55,12 @@
   },
   "depth": {
     "beyond": [
-      262144
+      262144,
+      1048576,
+      4194304
     ],
     "contenders": 5,
-    "why": "the focus law and the study's best five by score, each run again from 64 to one size past the study's 65,536 (the operator, 2026-11-14 19:58: one size at a time, 262,144 first). A seed's save is JSON of its chains' edges, 19 s at 65,536 and mean degree 32, so about 76 s at 262,144, inside the 120 s a stop waits for it, and about 5 min at 1,048,576, outside it: 1,048,576 waits on the save"
+    "why": "the focus law and the study's best five by score, each run again from 64 to one size past the study's 65,536 (the operator, 2026-11-14 19:58: one size at a time, 262,144 first). A seed's save is JSON of its chains' edges, 19 s at 65,536 and mean degree 32, so about 76 s at 262,144, inside the 120 s a stop waits for it, and about 5 min at 1,048,576, outside it: 1,048,576 waits on the save. Since 873 (the operator, 2026-11-25 13:11: \"always just 1 worker thread responsible for always pushing the memory limit to the system max (+ its free buffer zone ofc) but automatically testing how far N is feasible/safe to run without getting oom killed\") the ladder is open to 4,194,304: each next size is priced from the law's own peak memory at the two sizes below (growth between linear and quadratic, 10% kept over) and bought only when it fits the host's reach with its free 10 GiB kept, else the law is settled at its memory ceiling (operations/depth_reach.py, decisions/memory_ceiling.py); a seed's save holds its chains' edges packed, so 1,048,576's save fits the stop's grace"
   },
   "groups": {
     "A": 2,

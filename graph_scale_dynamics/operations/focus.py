@@ -1092,10 +1092,14 @@ def step(repo, *, now: float | None = None, force: bool = False) -> dict | None:
     if not force and clock - _LAST.get(state["study"], -1e18) < INTERVAL_SECONDS:
         return None
     _LAST[state["study"]] = clock
+    renew_depth(repo, state)
     ranked = best(repo, state["study"])
     added = len(contenders(repo, state, ranked))
     state["depths"] = {law: dict(depth_of(repo, state, law, entry["of"]), label=entry["label"])
                        for law, entry in state["contenders"].items()}
+    for law, entry in depth_ceilings(repo, state).items():
+        if law in state["depths"]:
+            state["depths"][law]["ceiling"] = entry
     current = state.get("current")
     if current is not None and current["stage"] not in ENDED:
         added += advance(repo, state)
@@ -1111,6 +1115,45 @@ def step(repo, *, now: float | None = None, force: bool = False) -> dict | None:
     state["events"] = state["events"][-200:]
     save(repo, state)
     return {"stage": (current or {}).get("stage"), "added": added, "label": (current or {}).get("label")}
+
+
+def depth_ladder(repo, campaign_id: str) -> list[int]:
+    return [int(n) for n in (((repo.campaign(str(campaign_id)) or {}).get("spec") or {}).get("ladder") or [])]
+
+
+def depth_ceilings(repo, state: dict) -> dict[str, dict]:
+    from graph_scale_dynamics.operations import depth_reach
+    campaign_id = state["campaigns"][DEPTH]
+    try:
+        depth_reach.keep(repo, campaign_id, sorted(state.get("contenders") or {}), depth_ladder(repo, campaign_id))
+    except Exception as exc:  # noqa: BLE001
+        state["events"].append({"at": utc_now(), "depth_reach_unread": f"{type(exc).__name__}: {exc}"[:200]})
+    return depth_reach.ceilings(repo, campaign_id)
+
+
+def renew_depth(repo, state: dict, tree=None) -> str | None:
+    from graph_scale_dynamics import PROJECT_ROOT
+    from graph_scale_dynamics.operations import campaign_control as control
+    tree = Path(tree) if tree is not None else Path(PROJECT_ROOT)
+    wanted = max(int(n) for n in plan(tree)["depth"]["beyond"])
+    old = state["campaigns"][DEPTH]
+    if max(depth_ladder(repo, old), default=0) >= wanted:
+        return None
+    anchor = next(iter(own_campaigns(repo, state["study"])), None)
+    if anchor is None:
+        return None
+    spec = campaign_specs(repo, state["study"], anchor, plan(tree), tree)[DEPTH]
+    made = str(control.create_campaign(repo, spec, search_seed=_seed(state["study"], DEPTH, wanted),
+                                       reason=f"study {state['study']}'s focus: the depth seeker's ladder open to "
+                                              f"N={wanted:,}")["campaign_id"])
+    control.pause(repo, old, reason=f"the depth seeker moved to campaign {made}, its ladder open to N={wanted:,}")
+    control.set_workers(repo, made, DEPTH_WORKERS, reason="the depth seeker holds one worker")
+    state["campaigns"][DEPTH] = made
+    state.setdefault("depth_before", []).append({"campaign": old, "until": utc_now()})
+    for law, entry in sorted((state.get("contenders") or {}).items()):
+        _insert(repo, made, _spec_of(repo, entry["of"], law))
+    state["events"].append({"at": utc_now(), "depth_renewed": made, "from": old, "to_n": wanted})
+    return made
 
 
 def work_of(repo, state: dict | None) -> dict[str, dict]:

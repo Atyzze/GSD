@@ -55,6 +55,13 @@
    "why_not": "a seed that cannot start is not let through: the budget is the design's, fixed before the study"
   },
   {
+   "name": "memory_ceiling",
+   "stage": "operational",
+   "reads": "a depth law's next size, priced from its own peak memory at the sizes below, would not fit the host's reach with its free memory kept: settled at its memory ceiling, everything it measured kept (873)",
+   "salted": false,
+   "why_not": "a size that cannot fit is not let through: the host's memory is the limit"
+  },
+  {
    "name": "cut",
    "stage": "operational",
    "reads": "a seed of the law ran out of its budget in work before it settled, at the size the law is at: parked there, on a design's cut_gate (841)",
@@ -335,6 +342,13 @@
    "action": "stop",
    "rule": "over_budget",
    "means": "the law's first chunk at the next size, predicted from its own seeds a size below, would not fit that size's budget in work (806)",
+   "audit": false,
+   "gate": true
+  },
+  {
+   "action": "stop",
+   "rule": "memory_ceiling",
+   "means": "a depth law's next size, priced from its own peak memory at the sizes below, would not fit the host's reach with its free memory kept: settled at its memory ceiling, everything it measured kept (873)",
    "audit": false,
    "gate": true
   },

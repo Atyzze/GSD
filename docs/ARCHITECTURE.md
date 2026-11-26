@@ -718,6 +718,18 @@ each region that names it alone in `sources` and that no law mapped here joined 
 in each newly ticked one (`study_seed.seed` from the import folder, or `study_seed.choose` from its record, which
 brings its regions back). A let-go law stays in the seeded campaign and its runs go on: nothing measured is rewritten.
 
+**The depth seeker's reach** (873). The focus's depth campaign climbs a ladder open to 4,194,304
+(`focus_plan_1.json`'s `depth.beyond`; `focus.renew_depth` moves an older focus to a new depth campaign once, the old
+paused). At each step `focus.depth_ceilings` asks `operations/depth_reach.py` to price each contender's next size from
+its own peaks there (`peaks`, the attempts' `peak_rss_bytes` by size; `price`, the growth between its two largest
+sizes as a power of N between 1 and 2, times 1.1) and to write the ones past `memory_hold.reach`'s `reach_bytes` into
+the flag `memory_ceiling` (`decisions/memory_ceiling.py`, contract `gsd-memory-ceiling-1`), once a law. The decider
+reads the entries for its campaign (`DecisionStore.memory_ceilings`), records the one it applies in the decision's
+inputs, and `memory_ceiling.settle` turns a decision buying that size or past it into `stop memory_ceiling`
+(`PARKING_RULES`, an operational gate, not salted); `decisions/replay.py` applies it from the inputs. A saved seed
+(`artifact_store/resume_state.py`) writes every list of 4,096 or more whole numbers or pairs of them packed
+(`packed`, `unpacked`: base64 of a 32- or 64-bit array inside the gzip JSON, marked `__gsd_packed__`).
+
 **Home's selection and hours** (872). `observability/selection_ladder.py` makes one fact a law (`FIELDS`: its
 campaign and id, the sizes it has a reading at, `under way`, `waiting`, `settled` or `not started` from
 `law_status.of_row`, the rule and size of its latest decision, its next size, its score and the size it was scored

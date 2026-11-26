@@ -34,6 +34,10 @@ GATES = (
     Gate("over_budget", "operational", "the law's first chunk at the next size, predicted from its own seeds a size "
                                        "below, would not fit that size's budget in work (806)", False,
          "a seed that cannot start is not let through: the budget is the design's, fixed before the study"),
+    Gate("memory_ceiling", "operational", "a depth law's next size, priced from its own peak memory at the sizes "
+                                          "below, would not fit the host's reach with its free memory kept: settled "
+                                          "at its memory ceiling, everything it measured kept (873)", False,
+         "a size that cannot fit is not let through: the host's memory is the limit"),
     Gate("cut", "operational", "a seed of the law ran out of its budget in work before it settled, at the size "
                                "the law is at: parked there, on a design's cut_gate (841)", True),
     Gate("empty", "final verdict", "mean degree at most the empty line at every rung, from 256; on a design's "
@@ -87,7 +91,7 @@ KINDS = (("fact", ("empty", "too_dense", "disconnected")),
          ("settling", ("reading_lost", "no_reading", "unsettled_twice", "no_second_rung", "unsettled")),
          ("depth", ("not_promising", "no_plateau", "deep_lane_full")),
          ("structure", ("no_finite_dimension", "no_giant_component", "early_stage")),
-         ("operational", ("failed", "over_budget", "cut")))
+         ("operational", ("failed", "over_budget", "cut", "memory_ceiling")))
 KIND_OF = {name: kind for kind, names in KINDS for name in names}
 
 

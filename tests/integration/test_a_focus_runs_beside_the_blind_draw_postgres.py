@@ -41,7 +41,7 @@ def test_a_focus_takes_one_law_of_study_174_into_its_neighbours_its_seeds_and_it
         assert set(specs) == set(batches) | set(made.values())
         assert {name: specs[cid]["study_design"]["group"] for name, cid in made.items()} == {"N": "N", "S": "N", "D": "D"}
         assert specs[made["N"]]["ladder"][-1] == specs[made["S"]]["ladder"][-1] == 16384
-        assert specs[made["D"]]["ladder"][-2:] == [65536, 262144]
+        assert specs[made["D"]]["ladder"][-4:] == [65536, 262144, 1048576, 4194304], "open to the memory limit (873)"
         assert specs[made["S"]]["default_seeds"] == 2 * specs[made["N"]]["default_seeds"] == 6
         assert specs[made["D"]]["engine"]["policy"]["let_through_from"] > 262144
         assert set(let_through_campaigns(repo.conn)) == set(batches), "a focus's chosen laws stay out of the ledger"

@@ -33,7 +33,7 @@ def test_the_streams_are_declared_once_and_the_engine_writes_exactly_them():
     from graph_scale_dynamics.decisions import gates as G
     model = gates_map.model()
     assert model["written_but_not_declared"] == [] and model["declared_but_not_written"] == [], model
-    assert len({(s.action, s.rule) for s in G.STREAMS}) == len(G.STREAMS) == 39
+    assert len({(s.action, s.rule) for s in G.STREAMS}) == len(G.STREAMS) == 40
     for gate in G.GATES:
         stream = [s for s in G.STREAMS if s.rule == gate.name]
         assert (stream == [] if gate.action is None else stream == [G.Stream(gate.action, gate.name, gate.reads)])
