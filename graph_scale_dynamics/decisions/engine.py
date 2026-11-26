@@ -14,7 +14,7 @@ PARKING_RULES = frozenset({"reading_lost", "no_diffusive_window", "unsettled_twi
                            "starts_alike", "starts_apart_twice",
                            "starts_apart_by_history", "not_promising",
                            "starts_shape_unread", "nothing_read", "repeats_a_known_result", "kept_shape",
-                           "no_steady_chain", "over_budget", "cut"})
+                           "no_steady_chain", "over_budget", "cut", "memory_ceiling"})
 RULES_REVISION = 782
 PROBES = ("d_s", "d_V", "d_B", "d_w")
 

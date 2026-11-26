@@ -36,7 +36,8 @@ def _rungs(cut_at=256, cut_seeds=(0, 2), sizes=(64, 256), chunk=20):
 
 def test_the_gate_is_a_named_operational_gate_and_a_design_asks_for_it():
     gate = G.BY_NAME["cut"]
-    assert dict(G.KINDS)["operational"] == ("failed", "over_budget", "cut") and gate.stage == "operational" and gate.salted
+    assert dict(G.KINDS)["operational"] == ("failed", "over_budget", "cut", "memory_ceiling") and gate.stage == "operational"
+    assert gate.salted and not G.BY_NAME["memory_ceiling"].salted, "873: the memory ceiling is a limit, not a verdict"
     assert "cut" in G.LET_THROUGH_GATES and "cut" in PARKING_RULES
     assert Policy().cut_gate is False and not Policy().asks_for("cut") and Policy().asks_for("empty")
     assert RULE.live_share("cut", 4096) == G.RECORD_ONLY == Ledger().share("cut", 4096, RULE), "172's: no cut gate"

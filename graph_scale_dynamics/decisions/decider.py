@@ -6,6 +6,7 @@ from dataclasses import asdict
 from typing import Protocol
 
 from graph_scale_dynamics.decisions.by_word import run_on
+from graph_scale_dynamics.decisions.memory_ceiling import settle as memory_settle
 from graph_scale_dynamics.decisions.engine import (
     DONE, ENGINE_VERSION, HOLD, LANE_AUDIT, LANE_FAMILY, LANE_ORDER, PARKING_RULES, RUN_NEXT, STOP,
     Decision, Policy, Seed, decide, policy_fingerprint, rules_revision)
@@ -384,6 +385,8 @@ def decide_pass(store: Store, campaign_id: str, policy: Policy = Policy(), *, ho
         tally[("rules_changed", rules)] += len(again_now)
     named = getattr(store, "run_on_laws", None)
     by_word = dict(named(campaign_id) or {}) if callable(named) else {}
+    ceilinged = getattr(store, "memory_ceilings", None)
+    ceilings = dict(ceilinged(campaign_id) or {}) if callable(ceilinged) else {}
     parked_redo |= set(by_word)
     order = again + [law for law in by_word if law not in again]
     order += [law for law in awaiting if law not in order]
@@ -440,6 +443,9 @@ def decide_pass(store: Store, campaign_id: str, policy: Policy = Policy(), *, ho
             if str(law) in by_word:
                 inputs["run_on"] = by_word[str(law)]
                 decision = run_on(decision, by_word[str(law)], policy)
+            if str(law) in ceilings:
+                inputs["memory_ceiling"] = ceilings[str(law)]
+                decision = memory_settle(decision, ceilings[str(law)], policy)
             if decision.action == RUN_NEXT and lanes.get(decision.next_n) is not None:
                 lanes[decision.next_n] += 1
             if decision.action == RUN_NEXT and decision.rule == "gate_audit":

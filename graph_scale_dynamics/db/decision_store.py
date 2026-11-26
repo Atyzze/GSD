@@ -866,6 +866,10 @@ class DecisionStore:
                 if str(row["rule"]) == str(named[str(row["candidate_id"])]["gate"])
                 and row["at_n"] is not None and int(row["at_n"]) == int(named[str(row["candidate_id"])]["at_n"])}
 
+    def memory_ceilings(self, campaign_id: str) -> dict[str, dict]:
+        from graph_scale_dynamics.decisions import memory_ceiling
+        return memory_ceiling.entries_of(self.repo.get_flag(memory_ceiling.FLAG, ""), str(campaign_id))
+
     def law_starts_reading(self, campaign_id: str, law: str) -> dict:
         from graph_scale_dynamics.observability import starts_reading, two_chains
         starts = ((self.spec or {}).get("sampling_contract") or {}).get("given_starts")

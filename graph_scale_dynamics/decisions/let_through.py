@@ -8,7 +8,8 @@ from graph_scale_dynamics.decisions import gates as G
 
 CONTRACT = "gsd-let-through-ledger-1"
 NOT_A_VERDICT = frozenset({"start", "complete_rung", "longer_chain", "lane_resumed", "hold_released",
-                           "deep_lane_full", "lane_yielded", "ladder_complete", "over_budget", "run_on"})
+                           "deep_lane_full", "lane_yielded", "ladder_complete", "over_budget", "run_on",
+                           "memory_ceiling"})
 RUN_ON = "run_on"
 WITHHOLDING_ACTIONS = ("stop", "hold")
 CLEAN, MISSED, OPEN = "clean", "missed", "open"

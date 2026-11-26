@@ -17,7 +17,7 @@ OUT_SVG = ROOT / "docs" / "diagrams" / "gates_and_streams.svg"
 PACKAGE = ROOT / "graph_scale_dynamics"
 ENGINE_SOURCES = ("decisions/engine.py", "decisions/decider.py", "decisions/starts_rule.py",
                   "decisions/depth.py", "decisions/nothing_read.py", "decisions/known_result.py",
-                  "decisions/steady_chain.py", "decisions/cut.py")
+                  "decisions/steady_chain.py", "decisions/cut.py", "decisions/memory_ceiling.py")
 ACTIONS = {"RUN_NEXT": "run_next", "HOLD": "hold", "STOP": "stop", "DONE": "done"}
 EVIDENCE_TABLES = ("campaigns", "proposal_draws", "campaign_candidates", "jobs", "attempts", "artifacts",
                    "analysis_queue", "analysis_attempts", "measurements", "rung_summaries", "rung_diagnostics",

@@ -72,7 +72,7 @@ Open, from 864 (2026-11-25 11:06):
 Open, from 871 (`docs/build_notes/BUILD871_NOTES.md`):
 
 * **A let-go law's own runs**: decided 2026-11-25 23:25, let them run (the recommendation); a tick takes them back.
-* **871's and 872's pull requests**: the session that made them was refused push access to `github.com/Atyzze/GSD`.
+* **871's to 873's pull requests**: the session that made them was refused push access to `github.com/Atyzze/GSD`.
   1. Open them from the archives yourself (a branch a build, each on the one before). 2. Give the next session push
   access, and it opens them.
 
@@ -147,7 +147,8 @@ made. The blocks after this one are the plans as they were made, kept for their 
    bundle read twice refused, the seeds as a selection, every law named SnCnGn, the Map page's line, the ladder's header.
 2. **872, made** (`docs/build_notes/BUILD872_NOTES.md`): Home's study bar in core-hours and memory held, four parts;
    "Which laws" leading; the fleet ladder in two, the selection's checked against a bundle's tables law by law.
-3. **873, the depth seeker to the memory limit** (13:11; item 5's text below).
+3. **873, made** (`docs/build_notes/BUILD873_NOTES.md`): the depth seeker's ladder open to 4,194,304, each size priced
+   from the law's own peak memory and bought only where it fits; a seed's save packed to fit the stop's grace.
 4. **The neighbours read at a law's earliest identification** (13:11), once 866's early call says the early size
    agrees with 16,384 often enough; the rule is the operator's to choose on that reading.
 5. **The pages' and reports' build numbers in words** (10:00; item 5's "866" below).

@@ -1,10 +1,14 @@
 from __future__ import annotations
 
+import base64
 import gzip
+import itertools
 import json
 import os
 import re
+import sys
 import time
+from array import array
 from pathlib import Path
 
 from graph_scale_dynamics.scaleflow.one_shot import RESUME_CONTRACT
@@ -35,10 +39,67 @@ def resume_path(blob_root: str | Path | None, job_id: str) -> Path | None:
     return Path(blob_root) / RESUME_DIR / f"{job_id}.json.gz"
 
 
+PACKED = "__gsd_packed__"
+PACK_FROM = 4096
+
+
+def _flat(items) -> array | None:
+    for typecode in ("i", "q"):
+        try:
+            return array(typecode, items())
+        except OverflowError:
+            continue
+    return None
+
+
+def _pack_list(value):
+    kinds = set(map(type, value))
+    if kinds == {int}:
+        kind, count, data = "ints", len(value), _flat(lambda: value)
+    elif kinds <= {list, tuple} and set(map(len, value)) == {2} \
+            and set(map(type, itertools.chain.from_iterable(value))) == {int}:
+        kind, count, data = "pairs", len(value), _flat(lambda: itertools.chain.from_iterable(value))
+    else:
+        return None
+    if data is None:
+        return None
+    return {PACKED: kind, "type": data.typecode, "order": sys.byteorder, "count": int(count),
+            "data": base64.b64encode(data.tobytes()).decode("ascii")}
+
+
+def packed(value):
+    if isinstance(value, dict):
+        return {key: packed(item) for key, item in value.items()}
+    if isinstance(value, (list, tuple)):
+        if len(value) >= PACK_FROM:
+            found = _pack_list(value)
+            if found is not None:
+                return found
+        return [packed(item) for item in value]
+    return value
+
+
+def unpacked(value):
+    if isinstance(value, dict):
+        if PACKED in value and "data" in value:
+            data = array(str(value["type"]))
+            data.frombytes(base64.b64decode(value["data"]))
+            if value.get("order") != sys.byteorder:
+                data.byteswap()
+            if value[PACKED] == "ints":
+                return data.tolist()
+            pairs = iter(data.tolist())
+            return [[a, b] for a, b in zip(pairs, pairs, strict=True)]
+        return {key: unpacked(item) for key, item in value.items()}
+    if isinstance(value, list):
+        return [unpacked(item) for item in value]
+    return value
+
+
 def save_resume_state(path: Path, state: dict, *, execution_spec_hash: str) -> None:
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
-    body = dict(state, execution_spec_hash=str(execution_spec_hash), saved_utc=time.strftime(
+    body = dict(packed(state), execution_spec_hash=str(execution_spec_hash), saved_utc=time.strftime(
         "%Y-%m-%dT%H:%M:%SZ", time.gmtime()))
     temporary = path.with_name(f"{path.name}.{os.getpid()}.tmp")
     with gzip.open(temporary, "wt", encoding="utf-8", compresslevel=1) as handle:
@@ -72,7 +133,7 @@ def load_resume_state(path: Path, *, execution_spec_hash: str) -> tuple[dict | N
         return None, "no saved state"
     try:
         with gzip.open(path, "rt", encoding="utf-8") as handle:
-            state = json.load(handle)
+            state = unpacked(json.load(handle))
     except (OSError, ValueError, EOFError) as exc:
         return None, f"unreadable ({type(exc).__name__})"
     if not isinstance(state, dict) or state.get("contract") != RESUME_CONTRACT:
