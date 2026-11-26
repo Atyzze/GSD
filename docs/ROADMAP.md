@@ -72,7 +72,7 @@ Open, from 864 (2026-11-25 11:06):
 Open, from 871 (`docs/build_notes/BUILD871_NOTES.md`):
 
 * **A let-go law's own runs**: decided 2026-11-25 23:25, let them run (the recommendation); a tick takes them back.
-* **871's to 879's pull requests**: the session that made them was refused push access to `github.com/Atyzze/GSD`.
+* **871's to 880's pull requests**: the session that made them was refused push access to `github.com/Atyzze/GSD`.
   1. Open them from the archives yourself (a branch a build, each on the one before). 2. Give the next session push
   access, and it opens them.
 
@@ -167,7 +167,7 @@ made. The blocks after this one are the plans as they were made, kept for their 
    curvature in its two forms first (12:12).
 8. **Study 177, on the gates 174 and 176 teach** (a reading of their two ledgers: the clean gates confirmed, the two
    leaking at 4,096 read again), seeded from 176's last bundle.
-9. **The outliers' queue** (08:04; item 4 below), if the focus's lists have not taken it in by then.
+9. **The outliers' queue** (08:04; item 4 below): **880, made** (`docs/build_notes/BUILD880_NOTES.md`).
 10. **The shared effort** (11:08, 11:10): an invitation to run one's own node and add one's own terms, once one node
     has proven the zone mapping and the engines are timed.
 

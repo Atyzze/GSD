@@ -198,7 +198,11 @@ def test_the_next_law_by_score_is_passed_over_when_it_lies_inside_a_mapped_regio
     state["done"].append({"law": "other_kind", "stage": focus.UNCONFIRMED})
     assert focus._chosen(None, state, None)["candidate_id"] == "far"
     state["done"].append({"law": "far", "stage": focus.MAPPED})
-    assert focus._chosen(None, state, None) is None, "every scoring law mapped or inside: the outliers' turn (862)"
+    from graph_scale_dynamics.operations import outliers
+    asked = []
+    monkeypatch.setattr(outliers, "next_outlier", lambda *a, **k: asked.append(1))
+    assert focus._chosen(None, state, None) is None and asked == [1], (
+        "every scoring law mapped or inside: the outliers' turn (862), none here")
     assert "passed over: C2-near, inside the region of C3-G1" in focus.words(
         dict(focus.reading_of(state), contenders={}))
 

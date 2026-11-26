@@ -1,4 +1,4 @@
-# Handoff: the state of GSD at build 879
+# Handoff: the state of GSD at build 880
 
 What is true now, for a context that has just opened this archive. Each fact has one home; the last section says
 where. **Think from the data, not from this page**: where the data and a document disagree, the data wins and the
@@ -96,9 +96,16 @@ a constant, a power of N and a line in log N, a law's phenotype the set of them 
 N^(1/2), d near 2"), read against the phenotypes already seen; 20 geometries of the table take the forms they
 predict. `tools/phenotype_reading.py` writes a bundle's.
 
-**Open threads at 879**, each with its home:
+**What 880 changed** (the operator, 08:04 and 08:07; `docs/build_notes/BUILD880_NOTES.md`): the outliers' queue
+(`operations/outliers.py`, its criterion `resources/readings/outliers_1.json`): with every scoring law mapped, inside
+a region or skipped, the focus takes the strongest outlier next (d_w over 3.5 or d_V over 3.0 on a seed from 1,024
+nodes, strongest as a multiple of its line), passes over a lucky strike one seed shows (`state["lucky"]`) and joins
+one inside a mapped region to it. The roadmap's items from 870 that need nothing from outside are made; the rest wait
+on the operator's next bundles (`docs/agent/NEXT_BUILD.md`).
 
-* **Pull requests**: 864 to 870 (#11 to #17) merged by the operator. 871's to 879's were not opened: the session that
+**Open threads at 880**, each with its home:
+
+* **Pull requests**: 864 to 870 (#11 to #17) merged by the operator. 871's to 880's were not opened: the session that
   made them was refused push access to `github.com/Atyzze/GSD`; their archives are the delivery, each tree a branch
   (`build-871` on `main`, each next on the one before) with one commit, the notes' opening its description.
 * **Study 176 runs** in its own folder (`/data/projects/GSD/176/main` on the operator's host) since about 15:00, on 867
@@ -323,7 +330,7 @@ again after the paper's three studies, on the final probes, with a criterion wri
 
 ## What waits on the operator
 
-* **871's to 879's pull requests**: theirs to open from the archives (or to give the session push access) and merge.
+* **871's to 880's pull requests**: theirs to open from the archives (or to give the session push access) and merge.
 * **Study 176's next bundle**, on 871 or later after one synchronize: whether the focus stands on its seeded best law.
 * **Study 176's standing controls**: kept as a tick (recommended; `docs/ROADMAP.md`, "Questions for the operator").
 * **Study 174's 40 held laws**: 40 rings; running them on (the Map page's "run them on") is no longer recommended.
