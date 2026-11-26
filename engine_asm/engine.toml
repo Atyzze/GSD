@@ -1,0 +1,7 @@
+[package]
+name = "gsd_engine_asm"
+version = "0.877.0"
+
+[package.metadata.gsd]
+science = "0.840.0"
+covers = ["edge_count", "degree_square_sum", "wedge_count", "degree_anchor", "degree_anchor_abs"]

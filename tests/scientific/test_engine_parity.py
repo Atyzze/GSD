@@ -7,7 +7,7 @@ import pytest
 
 from graph_scale_dynamics.domain import chain_list as CL
 from graph_scale_dynamics.services.worker.engine_registry import (
-    ENGINES, available_engines, resolve_engine, simulate_of)
+    ENGINES, available_engines, covers, resolve_engine, simulate_of)
 from graph_scale_dynamics.scaleflow import engine_door
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -19,8 +19,20 @@ EVERY_OTHER_ENGINE = [(name, door) for name, engine in ENGINES.items() if not en
 
 @pytest.fixture(params=EVERY_OTHER_ENGINE, ids=lambda found: f"{found[0]}-{found[1]}")
 def other(request):
+    from graph_scale_dynamics.engine.boundary import OutsideCoverage
     name, door = request.param
-    return simulate_of(name, door)
+    simulate = simulate_of(name, door)
+    if ENGINES[name].covers is None:
+        return simulate
+
+    def within(*args, **kwargs):
+        try:
+            return simulate(*args, **kwargs)
+        except OutsideCoverage as refused:
+            ops = {term["op"] for term in args[0]["terms"]}
+            assert not covers(name, ops), f"{name} refused a law it covers: {refused}"
+            pytest.xfail(f"{name} refuses by name a law outside what it covers: {refused}")
+    return within
 
 
 VOLATILE = {"resource_usage", "engine", "wall_seconds", "wall_seconds_so_far", "elapsed_seconds", "started_utc",
@@ -79,6 +91,9 @@ LAWS |= {
                                cooling={"from_beta": 0.25, "over_sweeps": 10}),
     "cooled_local": _dynamics(_law([_term("edge_count", 0.2), _term("triangle_count", -0.3)]), locality=0.6,
                               cooling={"from_beta": 0.1, "over_sweeps": 7}),
+    "cooled_cheap": _dynamics(_law([_term("edge_count", 0.3), _term("wedge_count", -0.02),
+                                    _term("degree_anchor_abs", 0.4, k=3)], mix=(0.4, 0.4, 0.2)),
+                              cooling={"from_beta": 0.25, "over_sweeps": 10}),
     "cooled_past_the_run": _dynamics(_law([_term("degree_anchor", 0.5, k=6), _term("ollivier_curvature", -0.05),
                                            _term("triangle_count", 0.4)], mix=(0.4, 0.4, 0.2)),
                                      cooling={"from_beta": 0.5, "over_sweeps": 1000}),

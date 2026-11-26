@@ -105,6 +105,7 @@ void graph_scan(Graph *g, size_t entries);
 void graph_counted(const Graph *g, uint64_t out[PARTS + 1]);
 int graph_sample_non_edge(Graph *g, Mt *rng, uint32_t *u, uint32_t *v, const char **why);
 int graph_op_deltas(Graph *g, uint32_t u, uint32_t v, int adding, Deltas *out);
+void graph_evaluated(Graph *g);
 int graph_apply(Graph *g, uint32_t u, uint32_t v, int adding, const Deltas *deltas);
 void graph_structural_summary(const Graph *g, double *connected, size_t *components, double *cycle_density,
                               double *two_core);

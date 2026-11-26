@@ -1,6 +1,6 @@
 [package]
 name = "gsd_engine_c"
-version = "0.876.0"
+version = "0.877.0"
 
 [package.metadata.gsd]
 science = "0.840.0"

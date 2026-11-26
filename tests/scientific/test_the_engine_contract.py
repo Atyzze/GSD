@@ -16,6 +16,9 @@ pytestmark = [pytest.mark.scientific]
 TERMS = [{"op": "edge_count", "coeff": -0.4, "k": 0, "scale": "one", "params_k": None},
          {"op": "triangle_count", "coeff": -0.3, "k": 0, "scale": "one", "params_k": None},
          {"op": "degree_anchor", "coeff": 0.2, "k": 4, "scale": "one", "params_k": 4}]
+COVERED = [{"op": "edge_count", "coeff": -0.4, "k": 0, "scale": "one", "params_k": None},
+           {"op": "wedge_count", "coeff": 0.01, "k": 0, "scale": "one", "params_k": None},
+           {"op": "degree_anchor_abs", "coeff": 0.2, "k": 4, "scale": "one", "params_k": 4}]
 
 
 def _mt():
@@ -58,11 +61,23 @@ def test_the_registry_is_the_one_place_an_engine_is_named():
 
 
 @pytest.mark.parametrize("operation", boundary.OPERATIONS)
-def test_every_door_of_every_engine_answers_every_operation_alike(operation):
+@pytest.mark.parametrize("terms", [TERMS, COVERED], ids=["every_term", "the_assembly_s_terms"])
+def test_every_door_of_every_engine_answers_every_operation_alike(operation, terms):
     require_rust_engine()
-    answers = [(f"{name}:{door}", _plain(R.door_of(name, door)(operation, _requests()[operation])))
-               for name, engine in R.ENGINES.items() if not engine.reference for door in engine.doors]
+    request = dict(_requests()[operation], terms=terms)
+    answers, refused = [], []
+    for name, engine in R.ENGINES.items():
+        if engine.reference:
+            continue
+        for door in engine.doors:
+            if not R.covers(name, {term["op"] for term in terms}):
+                with pytest.raises(boundary.OutsideCoverage, match="triangle_count"):
+                    R.door_of(name, door)(operation, request)
+                refused.append(name)
+                continue
+            answers.append((f"{name}:{door}", _plain(R.door_of(name, door)(operation, request))))
     assert len(answers) >= 3, "Rust through both doors and C through its one"
+    assert refused == (["asm"] if terms is TERMS else []), "an engine refuses by name what it does not cover"
     for label, answer in answers[1:]:
         assert answer == answers[0][1], (label, operation)
         assert json.dumps(answer, sort_keys=True) == json.dumps(answers[0][1], sort_keys=True), (label, operation)
