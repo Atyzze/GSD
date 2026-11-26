@@ -72,7 +72,7 @@ Open, from 864 (2026-11-25 11:06):
 Open, from 871 (`docs/build_notes/BUILD871_NOTES.md`):
 
 * **A let-go law's own runs**: decided 2026-11-25 23:25, let them run (the recommendation); a tick takes them back.
-* **871's to 875's pull requests**: the session that made them was refused push access to `github.com/Atyzze/GSD`.
+* **871's to 876's pull requests**: the session that made them was refused push access to `github.com/Atyzze/GSD`.
   1. Open them from the archives yourself (a branch a build, each on the one before). 2. Give the next session push
   access, and it opens them.
 
@@ -156,8 +156,9 @@ made. The blocks after this one are the plans as they were made, kept for their 
 6. **The engines' diet: Rust, then C, then x86-64 assembly** (08:35, 09:42, 11:10; item 6 below), each proven by
    replaying the same seeds to the bit and timed on them, so each engine is compared by how fast it moves through the
    same search. **875, made** (`docs/build_notes/BUILD875_NOTES.md`): Rust's, a seed in about half the memory and
-   less time, the same chains; a finished chain's edges packed is its next step. Then the C engine (R3 of
-   `docs/agent/APPEND_ONLY_PLAN.md`), then assembly (R4).
+   less time, the same chains; a finished chain's edges packed is its next step. **876, made**
+   (`docs/build_notes/BUILD876_NOTES.md`): the C engine (R3 of `docs/agent/APPEND_ONLY_PLAN.md`), every parity case
+   to the bit. Then assembly (R4).
 7. **The lexicon and every law against every known type** (12:03; item 5's text below), then **the phenotype as the
    shortest description of a law's sixteen charts**, the null map complete, and new terms, the Ricci curvature in its
    two forms first (12:12).

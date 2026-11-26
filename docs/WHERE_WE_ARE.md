@@ -1,4 +1,4 @@
-# Where we are, at build 875
+# Where we are, at build 876
 
 The whole project on one page, in plain words; the detail is in `docs/agent/HANDOFF.md`.
 
@@ -55,7 +55,7 @@ are one seed of three at small sizes, on graphs in pieces or trees the next size
 68% to 81% of the way there from empty, worse as N grows. Until a known law grows its geometry from empty, "nothing
 grows from empty" cannot be told from "nothing can get there under these moves".
 
-## What 800 to 875 changed
+## What 800 to 876 changed
 
 The probes locked and your table installed (800 to 805); no clock decides and the evidence judged again on the final
 code (806 to 843); 844 the stable build with study 174; 845 to 853 Home's batches, study 175, the score of 848, the
@@ -63,20 +63,20 @@ catalogue; 854 the baseline and the paper's draft; 855 `CLAUDE.md` and the ledge
 every bundle; 857 Home's filters; 858, 859 handovers. 860: Home says what is true, every law of a bundle whole. 861:
 the focus, the best laws one at a time beside the blind draw. 862: the Map page steers it, and names regions GG#n. 863:
 a handover. 864: 40 held laws run on, the law page a 4x4 grid. 865: study 176 seeded from bundles, Home's one bar, a
-law's type. 866: a slider, two ordered lists, one depth worker. 867, 868: the law page in plain words. 869: an import
-folder. 870: a handover. 871: seeded laws in the focus on their bundle's score, the seeds a selection, laws named
-S176C11G79. 872: Home's study bar in core-hours and memory; "Which laws" leads; the ladder in two. 873: the depth
-seeker to the memory limit. 874: build numbers in words. 875: a seed in half the memory, the same chains.
+law's type. 866: a slider, one depth worker. 867, 868: the law page in plain words. 869: an import folder. 870: a
+handover. 871: seeded laws in the focus, laws named S176C11G79. 872: Home's study bar in core-hours and memory; "Which
+laws" leads; the ladder in two. 873: the depth seeker to the memory limit. 874: build numbers in words. 875: a seed in
+half the memory, the same chains. 876: the C engine.
 
 ## What comes next
 
-876 the C engine, then assembly; the neighbours at the earliest
+877 the assembly engine; the neighbours at the earliest
 identification on a bundle's reading; a shared effort once one node has proven the mapping (`docs/ROADMAP.md`).
 
 ## The decision in front of you
 
-1. **Apply 875 to 176's folder, rebuild the engine, press synchronize once** (recommended), slider at 90% focus.
-   871's to 875's pull requests are yours to open and merge.
+1. **Apply 876 to 176's folder, rebuild the engine, press synchronize once** (recommended), slider at 90% focus.
+   871's to 876's pull requests are yours to open and merge.
 2. **Whether a known law must grow its geometry from empty first** (recommended, before more compute from empty):
    parallel tempering is the cheapest remedy, an engine change of about a build, its known answers read again after.
 3. **Where the archive of the older data goes public** (the consolidation), so a reader can see nothing was dropped selectively.

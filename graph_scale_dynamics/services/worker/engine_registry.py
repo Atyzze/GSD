@@ -19,12 +19,15 @@ class Engine:
     extension: str | None = None
     version_file: str | None = None
     doors: tuple[str, ...] = ()
+    library: str | None = None
 
 
 ENGINES = {
     "python": Engine(name="python", reference=True, sources=("graph_scale_dynamics/engine/*.py",)),
     "rust": Engine(name="rust", reference=False, sources=("engine_rs/src/*.rs",), extension="gsd_engine_rs",
                    version_file="engine_rs/Cargo.toml", doors=("in_process", "c_abi")),
+    "c": Engine(name="c", reference=False, sources=("engine_c/*.c", "engine_c/*.h"), version_file="engine_c/engine.toml",
+                doors=("c_abi",), library="libgsd_engine_c"),
 }
 REFERENCE = next(name for name, engine in ENGINES.items() if engine.reference)
 DEFAULT_ENGINE = "rust"
@@ -60,7 +63,41 @@ def _extension(name: str = DEFAULT_ENGINE):
     return importlib.import_module(str(ENGINES[name].extension))
 
 
+def library_path(name: str, *, build: bool = True) -> Path | None:
+    import shutil
+    import subprocess
+    import tempfile
+    engine = ENGINES[name]
+    files = _source_files(engine)
+    if not files:
+        return None
+    digest = hashlib.sha256(b"".join(path.name.encode() + b"\0" + path.read_bytes() for path in files)).hexdigest()[:16]
+    built = _TREE / "var" / "engines" / f"{engine.library}-{digest}.so"
+    if built.is_file() or not build:
+        return built if built.is_file() else None
+    compiler = shutil.which(os.environ.get("CC") or "cc") or shutil.which("gcc")
+    if compiler is None:
+        return None
+    built.parent.mkdir(parents=True, exist_ok=True)
+    version = rust_source_version(None, name) or "0.0.0"
+    with tempfile.TemporaryDirectory(dir=built.parent) as scratch:
+        made = Path(scratch) / built.name
+        done = subprocess.run([compiler, "-std=gnu99", "-O2", "-fPIC", "-shared", "-ffp-contract=off",
+                               f'-DGSD_ENGINE_C_VERSION="{version}"', "-o", str(made),
+                               *[str(path) for path in files if path.suffix == ".c"], "-lm"],
+                              capture_output=True, text=True)
+        if done.returncode != 0:
+            raise RuntimeError(f"the {name} engine did not compile: {done.stderr.strip()[:2000]}")
+        made.replace(built)
+    return built
+
+
 def _rust_available(name: str = DEFAULT_ENGINE) -> bool:
+    if ENGINES[name].library:
+        try:
+            return library_path(name) is not None
+        except RuntimeError:
+            return False
     try:
         extension = _extension(name)
     except ImportError:
@@ -69,6 +106,9 @@ def _rust_available(name: str = DEFAULT_ENGINE) -> bool:
 
 
 def _rust_fingerprint(name: str = DEFAULT_ENGINE) -> str:
+    if ENGINES[name].library:
+        built = library_path(name)
+        return f"{name}:{rust_source_version(None, name)}+{hashlib.sha256(built.read_bytes()).hexdigest()[:16]}"
     version = str(getattr(_extension(name), "FINGERPRINT", "unknown"))
     origin = rust_extension_path(name)
     if origin is None:
@@ -125,6 +165,8 @@ def rust_source_version(root: Path | None = None, name: str = DEFAULT_ENGINE) ->
 
 
 def stale_rust_engine(root: Path | None = None, name: str = DEFAULT_ENGINE) -> str | None:
+    if ENGINES[name].library:
+        return None
     declared = rust_source_version(root, name)
     if declared is None or not _rust_available(name):
         return None
@@ -168,7 +210,10 @@ def door_of(name: str = DEFAULT_ENGINE, door: str | None = None) -> Callable:
         if door == boundary.IN_PROCESS:
             _DOORS[(name, door)] = boundary.in_process(_extension(name))
         else:
-            _DOORS[(name, door)] = boundary.through_the_c_abi(rust_extension_path(name))
+            found = library_path(name) if engine.library else rust_extension_path(name)
+            if found is None:
+                raise ValueError(f"engine {name!r} is not built on this host and cannot be: no C compiler")
+            _DOORS[(name, door)] = boundary.through_the_c_abi(found)
     return _DOORS[(name, door)]
 
 
@@ -177,6 +222,8 @@ def simulate_of(name: str, door: str | None = None) -> Callable:
     if ENGINES[name].reference:
         return engine_door.run_simulation
     from graph_scale_dynamics.services.worker import engine_rs
+    if door is None and ENGINES[name].doors and "in_process" not in ENGINES[name].doors:
+        door = ENGINES[name].doors[0]
     if door is None and not os.environ.get(DOOR_ENV):
         return engine_rs.run_simulation
     return engine_rs.simulation_through(door_of(name, door))

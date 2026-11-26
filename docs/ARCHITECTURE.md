@@ -339,7 +339,7 @@ its own and in the page's own order, empty, random, triangular, square, cubic, b
 (named in `engine_rs/src/lib.rs`), held equal by `tests/scientific/test_engine_parity.py`, priced in `dsl/dsl.py`, and
 known to `research/hamiltonian_preflight.py` and the pages' short names.
 
-## The engines (`engine/`, `engine_rs/`)
+## The engines (`engine/`, `engine_rs/`, `engine_c/`)
 
 **One list of chains** (775). `engine/engine.py`'s `run_simulation` sets a seed's chunk up (the law's energy model,
 the context, the checkpoint's identity) and `engine/chains.py` runs its chains in one list and one code path: the chain
@@ -439,6 +439,19 @@ state. The parity lane runs every comparison over every engine the registry list
 the reference (`tests/scientific/test_engine_parity.py`), and both doors give every operation the same answer
 (`tests/scientific/test_the_engine_contract.py`). The curvature probe calls the crate on its own until the
 recalibration, its source being in the calibration table's key.
+
+**The C engine** (876, `engine_c/`): the Rust engine ported to C, the second of the reference set
+(`docs/agent/APPEND_ONLY_PLAN.md`, R3), answering through the C door only. The registry compiles it the first time it
+is asked for (`engine_registry.library_path`: `cc -std=gnu99 -O2 -ffp-contract=off`, into `var/engines/` under the
+hash of its sources) and reports it unavailable on a host with no C compiler. Its version and science version are in
+`engine_c/engine.toml`, read as the crate's are; while it computes the same chains its science version is Rust's, and
+the parity lane and the contract hold it to that. The default engine stays Rust in process.
+
+**The engines' memory** (875): the Rust graph keeps each edge's slot beside its ends' neighbour lists and its square
+and cycle counts in arrays by slot, no hash map per edge; the in-process door shares one Python number per node; a
+run's Python state (`engine_rs.RanInRust`) keeps its edges and degrees and builds the rest only if asked. The crate's
+version moves with its code and its science version (`engine_rs/Cargo.toml`, `[package.metadata.gsd] science`) only
+when a chain can come out different; the science hash reads the second.
 
 **The same bits on both engines.** The Rust crate (`engine_rs/src`, built by `tools/build_engine.sh`) owns the move
 loop (`run_chain`), the checkpoint rebuild (`rebuild_graph`) and the two initialisers (`init_random_graph`,
