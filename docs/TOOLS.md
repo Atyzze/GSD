@@ -629,6 +629,15 @@ the rows it measured before and after the diet.
 
     python3 tools/engine_diet.py --law anchor --law overlaps --law curvature --n 65536 [--engine rust --engine c] [--seed 0] [--json <file>]
 
+## tools/lexicon_reading.py
+
+Every law of a bundle against every known type (878, `observability/lexicon.py`): each law at its deepest size, its
+distance to each of the lexicon's types in the type's own spreads, its nearest type or "a new zone", the count of laws
+by type and the best-scoring laws with their nearest two. The types are read from the bundle's own calibration table,
+else this tree's (`--table` names another).
+
+    python3 tools/lexicon_reading.py <bundle> [--md <page>] [--json <file>] [--top 100]
+
 ## tools/outputs_of_a_law.py
 
 What this tree puts out for one law: the sparse anchor law grown from five of the eight starts on both engines (64

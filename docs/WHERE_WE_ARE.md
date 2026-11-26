@@ -1,4 +1,4 @@
-# Where we are, at build 877
+# Where we are, at build 878
 
 The whole project on one page, in plain words; the detail is in `docs/agent/HANDOFF.md`.
 
@@ -55,7 +55,7 @@ are one seed of three at small sizes, on graphs in pieces or trees the next size
 68% to 81% of the way there from empty, worse as N grows. Until a known law grows its geometry from empty, "nothing
 grows from empty" cannot be told from "nothing can get there under these moves".
 
-## What 800 to 877 changed
+## What 800 to 878 changed
 
 The probes locked and your table installed (800 to 805); no clock decides and the evidence judged again on the final
 code (806 to 843); 844 the stable build with study 174; 845 to 853 Home's batches, study 175, the score of 848, the
@@ -66,17 +66,17 @@ a handover. 864: 40 held laws run on, the law page a 4x4 grid. 865: study 176 se
 law's type. 866: a slider, one depth worker. 867, 868: the law page in plain words. 869: an import folder. 870: a
 handover. 871: seeded laws in the focus, laws named S176C11G79. 872: Home's study bar in core-hours and memory; "Which
 laws" leads; the ladder in two. 873: the depth seeker to the memory limit. 874: build numbers in words. 875: a seed in
-half the memory, the same chains. 876, 877: the C and assembly engines.
+half the memory, the same chains. 876, 877: the C and assembly engines. 878: every law against every known type.
 
 ## What comes next
 
-878 the lexicon and every law against every known type; the neighbours at the earliest
+879 the phenotype, the shortest description of a law's charts; the neighbours at the earliest
 identification on a bundle's reading; a shared effort once one node has proven the mapping (`docs/ROADMAP.md`).
 
 ## The decision in front of you
 
-1. **Apply 877 to 176's folder, rebuild the engine, press synchronize once** (recommended), slider at 90% focus.
-   871's to 877's pull requests are yours to open and merge.
+1. **Apply 878 to 176's folder, rebuild the engine, press synchronize once** (recommended), slider at 90% focus.
+   871's to 878's pull requests are yours to open and merge.
 2. **Whether a known law must grow its geometry from empty first** (recommended, before more compute from empty):
    parallel tempering is the cheapest remedy, an engine change of about a build, its known answers read again after.
 3. **Where the archive of the older data goes public** (the consolidation), so a reader can see nothing was dropped selectively.
