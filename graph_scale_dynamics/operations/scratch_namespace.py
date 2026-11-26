@@ -433,8 +433,8 @@ def refusal(result: dict) -> str | None:
     return "\n".join([
         f"refusing to start: no room for this folder's RAM scratch ({reason.partition(': ')[2] or reason}).",
         *(f"  {line}" for line in others),
-        "This folder ends no other folder's scratch (634). A fleet that stops with its scratch empty ends its holder "
-        "itself (778); from 790 a holder that no process has joined for "
+        "This folder ends no other folder's scratch. A fleet that stops with its scratch empty ends its holder "
+        "itself; a holder that no process has joined for "
         f"{_minutes(IDLE_GRACE_SECONDS)} moves its files to its folder's disk and ends (each line above says when). "
         "A holder started by an earlier build ends only when its folder is deleted, or with `kill <pid>` once "
         "nothing in it is needed. Then start again."])

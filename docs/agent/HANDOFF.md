@@ -1,4 +1,4 @@
-# Handoff: the state of GSD at build 873
+# Handoff: the state of GSD at build 874
 
 What is true now, for a context that has just opened this archive. Each fact has one home; the last section says
 where. **Think from the data, not from this page**: where the data and a document disagree, the data wins and the
@@ -58,9 +58,15 @@ peak memory (`operations/depth_reach.py`) and a size past the host's reach less 
 (the flag `memory_ceiling`), which the decider turns into `stop memory_ceiling` (`decisions/memory_ceiling.py`,
 replayed from its inputs); a seed's save packs its edges, so 1,048,576 saves inside the stop's grace.
 
-**Open threads at 873**, each with its home:
+**What 874 changed** (the operator, 10:00; `docs/build_notes/BUILD874_NOTES.md`): the pages and the reports say what
+a build number stood for, in words; what the numbers stood for is in `docs/HISTORY.md` ("Reports, pages and papers").
+`tests/unit/test_the_pages_and_reports_say_no_build_number.py` keeps it so: a new page or report text says the rule,
+not the build that made it. A decision's recorded reason keeps its numbers (it replays word for word), and so do four
+values in a law's or a report's own outputs, and the documents' claims, which quote the docs; the docs keep theirs.
 
-* **Pull requests**: 864 to 870 (#11 to #17) merged by the operator. 871's to 873's were not opened: the session that
+**Open threads at 874**, each with its home:
+
+* **Pull requests**: 864 to 870 (#11 to #17) merged by the operator. 871's to 874's were not opened: the session that
   made them was refused push access to `github.com/Atyzze/GSD`; their archives are the delivery, each tree a branch
   (`build-871` on `main`, each next on the one before) with one commit, the notes' opening its description.
 * **Study 176 runs** in its own folder (`/data/projects/GSD/176/main` on the operator's host) since about 15:00, on 867
@@ -285,7 +291,7 @@ again after the paper's three studies, on the final probes, with a criterion wri
 
 ## What waits on the operator
 
-* **871's to 873's pull requests**: theirs to open from the archives (or to give the session push access) and merge.
+* **871's to 874's pull requests**: theirs to open from the archives (or to give the session push access) and merge.
 * **Study 176's next bundle**, on 871 or later after one synchronize: whether the focus stands on its seeded best law.
 * **Study 176's standing controls**: kept as a tick (recommended; `docs/ROADMAP.md`, "Questions for the operator").
 * **Study 174's 40 held laws**: 40 rings; running them on (the Map page's "run them on") is no longer recommended.

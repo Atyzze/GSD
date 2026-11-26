@@ -243,7 +243,7 @@ def build_ledger(service_pids: dict[str, list[int]], *, scratch_root: Path | Non
          "note": "volatile scratch; pages are RAM until retention deletes the files"},
         {"key": "other_folders_scratch", "bytes": other_folders_bytes, "reclaimable": False,
          "note": f"{len(other_folders)} other folder(s)' RAM scratch, each in its own namespace; "
-                 "tools/scratch_holders.py names them; none is ended from here (634)"},
+                 "tools/scratch_holders.py names them; none is ended from here"},
         {"key": "other_shmem", "bytes": other_shmem, "reclaimable": False,
          "note": "shared memory outside the scratch root (other tmpfs, SysV/POSIX shm)"},
         {"key": "page_cache", "bytes": page_cache, "reclaimable": True, "note": "file cache and buffers; reclaimable"},

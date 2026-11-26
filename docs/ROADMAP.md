@@ -72,7 +72,7 @@ Open, from 864 (2026-11-25 11:06):
 Open, from 871 (`docs/build_notes/BUILD871_NOTES.md`):
 
 * **A let-go law's own runs**: decided 2026-11-25 23:25, let them run (the recommendation); a tick takes them back.
-* **871's to 873's pull requests**: the session that made them was refused push access to `github.com/Atyzze/GSD`.
+* **871's to 874's pull requests**: the session that made them was refused push access to `github.com/Atyzze/GSD`.
   1. Open them from the archives yourself (a branch a build, each on the one before). 2. Give the next session push
   access, and it opens them.
 
@@ -151,7 +151,8 @@ made. The blocks after this one are the plans as they were made, kept for their 
    from the law's own peak memory and bought only where it fits; a seed's save packed to fit the stop's grace.
 4. **The neighbours read at a law's earliest identification** (13:11), once 866's early call says the early size
    agrees with 16,384 often enough; the rule is the operator's to choose on that reading.
-5. **The pages' and reports' build numbers in words** (10:00; item 5's "866" below).
+5. **874, made** (`docs/build_notes/BUILD874_NOTES.md`): the pages' and reports' build numbers in words, what they
+   stood for kept in `docs/HISTORY.md`; a decision's reason keeps its words.
 6. **The engines' diet: Rust, then C, then x86-64 assembly** (08:35, 09:42, 11:10; item 6 below), each proven by
    replaying 176's seeds to the bit and timed on the same seeds, so each engine is compared by how fast it moves
    through the same search.

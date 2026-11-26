@@ -16,6 +16,6 @@ def test_the_reading_says_every_gate_at_every_size_and_no_carried_ledger(tmp_pat
     assert reading["gates_ledger"]["gates"]["empty"]["256"]["clean"] == 880 and "salt" not in reading
     assert "salt_ledger" not in reading["study"]
     text = R.render(reading)
-    assert "every gate at every size, from this study's own decisions (784)" in text
+    assert "every gate at every size, from this study's own decisions:" in text
     assert "empty: N=256 900 through, 880 clean (870), 3 missed, 17 open: records only" in text
     assert "known results: 1 of 2 signatures" in text and "the next new study's let-through" not in text

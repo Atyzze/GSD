@@ -1732,6 +1732,24 @@ made; a time without a Z is the operator's local time.
   and requesting for feedback of others their readings"): `docs/paper/GSD_PAPER.md` (854) rests on the baseline alone,
   lists the criteria that failed by their own rule as fails, offers each reading with its alternatives, keeps the
   musings in a section of their own, and asks readers for theirs.
+* **The pages and the reports say what a build number stood for, in words** (2026-11-25 10:00, made at 874): the
+  dashboard and the reports' builders cited builds, "(841)", "since 835", "before 578", where a reader needed the
+  rule. What the numbers stood for, kept here: 513 the meeting of the chains read per seed; 521 the depth audit; 523
+  the structure thresholds committed; 524 the second contract of an attempt's cost; 526 and 528 the structure gate's
+  rule 8 on both chains; 529 the reset thresholds read from each observable's own spread (before, a fixed limit); 532
+  the measured bands; 542 the standing controls; 544 the curvature read and the memory ceiling's give-back, 621 and
+  625 its later rescues; 545 every campaign's report cycle at once, 548 a report in place, 555 one report at a time
+  beside a running fleet; 552 the let-through ledger; 554 the per-gate shares (a campaign before it lets 10% through);
+  563 d_s as a flow; 566 the mean-degree window as a stop rule; 578 the gate trees as pages, not pictures; 592 the
+  controls read nothing the study asks; 600 the salt renamed the let-through; 603 the starts decided against d_s's
+  rule; 608 the law score; 623 every chain's means per size; 629 the finite-size tolerance; 634 a folder ends no other
+  folder's scratch, 778 and 790 its holder's end; 636 the deep calibration sample; 648's review, its finding L19 the
+  controls' half-percent; 769 a design lists its starts; 780 a chain's sweeps counted its own; 784 the gates learned
+  from the study's own decisions; 785 every design on the let-through rule; 808 and 819 the final probes and the
+  starts' known answers; 834 a law decides at a size once no earlier law can change it; 835 a running report joined
+  rather than another started; 836 and 841 the bundle's peaks and a frozen lattice; 861 a file's own sha256 in the
+  science contract. A decision's recorded reason keeps its numbers, since decisions replay word for word, and so do
+  four values in a law's or a report's own outputs and the documents' claims, which quote the docs.
 * Reports run only when asked, never while work is in flight; a bundle covers every campaign of the folder (September
   2026); a report is a page, not a picture (2026-10-03 12:29: "I prefer dynamic html pages for reports").
 * A campaign is never edited; the Campaigns page deletes, guarded, and never archives; a share is a floor, not a fence

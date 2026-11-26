@@ -146,5 +146,5 @@ def build_graphs_by_rung(seeds: dict | None, measurements: list[dict] | None, de
                         "the graph's law went from the rung (in_progress: it has not finished the rung yet). The "
                         "medians are over the graphs; d_s_readable_share and given_agrees_share over the measured "
                         "ones (a second graph agrees at mean degree within 10% and giant share within 0.05). median_curvature is the "
-                        "median of the graphs' mean Ollivier curvature per edge (544), over the curvature_read "
+                        "median of the graphs' mean Ollivier curvature per edge, over the curvature_read "
                         "graphs that carry it.")}

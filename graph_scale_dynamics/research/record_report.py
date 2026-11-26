@@ -105,7 +105,7 @@ def _depth_audit(record: dict) -> dict:
     audited = record.get("audited") or []
     if not audited:
         return {"audited_decisions": 0, "why": ("no law has been let through past a park or hold yet (rule 7: the "
-                                                "depth audit from 521, each gate's own tenth since 533)")}
+                                                "depth audit, each gate's own tenth)")}
     by_law = defaultdict(list)
     for row in record.get("after_audit") or []:
         by_law[row["candidate_id"]].append(row)
@@ -176,7 +176,7 @@ def _costs(record: dict) -> dict:
     newest = sorted(out)[-1]
     return {"attempts": len(record.get("costs") or []), "by_contract": out, "contract_read": newest,
             "by_rung": out[newest]["by_rung"],
-            "note": "by_rung is the newest contract's; attempt-cost-2 (524) is the first whose bookkeeping "
+            "note": "by_rung is the newest contract's; attempt-cost-2 is the first whose bookkeeping "
                     "excludes the child. PostgreSQL's own writes for an attempt are in its backends and not "
                     "split per attempt; tools/collect_disk_writes.py attributes them"}
 
@@ -311,8 +311,8 @@ def _structure(measurements: list[dict]) -> dict:
                                                                "the local d_s agrees", "all three agree")},
                                "all_three_agree": three_agree[:50],
                                "rule": "research/structure_reading.three_readings"},
-            "rule": "research/structure_reading.py, thresholds committed at 523: the rule the structure gate "
-                    "decides with since 528 (rule 8), on both chains (526's (b)); what it "
+            "rule": "research/structure_reading.py, its thresholds committed in resources/calibration/structure_thresholds.json: "
+                    "the rule the structure gate decides with (rule 8), on both chains; what it "
                     "decided is `structure_gate`"}
 
 

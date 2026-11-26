@@ -322,7 +322,7 @@ def run(args) -> int:
 
 
 def main(argv=None) -> int:
-    parser = argparse.ArgumentParser(description="every campaign's report cycle at once (545)")
+    parser = argparse.ArgumentParser(description="every campaign's report cycle at once")
     parser.add_argument("--db", required=True)
     parser.add_argument("--base", required=True)
     parser.add_argument("--request-id", default="manual")
@@ -336,7 +336,7 @@ def main(argv=None) -> int:
     parser.add_argument("--workers", type=int, default=1)
     parser.add_argument("--memory-budget", type=int)
     parser.add_argument("--gentle", action="store_true",
-                        help="one report at a time, niced: a cycle beside a running fleet (555)")
+                        help="one report at a time, niced: a cycle beside a running fleet")
     args = parser.parse_args(argv)
     return run_worker(args) if args.worker else run(args)
 

@@ -75,15 +75,15 @@ def campaign_spec(criterion: dict, base: dict | None = None) -> dict:
     spec["max_active_candidates"] = len(known)
     spec["controls_criterion"] = criterion["contract"]
     spec["description"] = criterion.get("campaign_description") or (
-        "The standing controls (542): laws whose answer is known, each with a chain started at the answer, at "
+        "The standing controls: laws whose answer is known, each with a chain started at the answer, at "
         "every size of the survey's ladder, three seeds, the audit sample at 100% below 16,384 and the deep salt's "
-        "0.5% from it (the build 648 review's L19), no proposals; every probe reads "
+        "0.5% from it (a review's finding L19), no proposals; every probe reads "
         "both chains. The criterion, committed before any run: graph_scale_dynamics/resources/readings/controls_criterion_2.json; judge it "
         "with tools/positive_control.py check <bundle>.")
     if criterion.get("capped_at"):
         spec["controls_capped_at"] = int(criterion["capped_at"])
         spec["description"] += (f" In this study to N={int(criterion['capped_at']):,}, its own top: past it the controls "
-                                "read nothing the study asks (592).")
+                                "read nothing the study asks.")
     return spec
 
 
@@ -141,7 +141,7 @@ def _insert_laws(repo, campaign_id: str, spec: dict, criterion: dict, *, only_mi
 def ensure(repo, *, criterion: dict | None = None, say=print, var=None) -> dict:
     criterion = capped(criterion if criterion is not None else load_criterion(), study_top(repo))
     return ensure_control_campaign(repo, criterion, contract=STANDING_CONTROLS_CONTRACT,
-                                   reason="the standing controls (542)", search_seed=542, say=say, render=render,
+                                   reason="the standing controls", search_seed=542, say=say, render=render,
                                    var=var)
 
 

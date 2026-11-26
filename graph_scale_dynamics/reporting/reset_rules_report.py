@@ -167,8 +167,8 @@ def _structural(measurements: list[dict]) -> dict:
                                      reading="recorded and not compared: at zero temperature the certificate "
                                              "reads the chains at rest, not these gaps"),
             "reading": "finite-temperature seeds, where the thresholds decide. spread: 3 times the observable's own "
-                       "spread set it; floor: the floor did; absolute: no spread could be read, so the limit before "
-                       "529 did"}
+                       "spread set it; floor: the floor did; absolute: no spread could be read, so the fixed limit the "
+                       "thresholds replaced did"}
 
 
 def _wiring(measurements: list[dict]) -> dict:
@@ -252,7 +252,7 @@ def _spectral(measurements: list[dict]) -> dict:
                                  "why": (None if totals else "no analysis records the whole-range comparison yet")},
             "reading": "margins are AICc(gap decay) - AICc(power law); a dimension needs more than 2. The +38 and -2 "
                        "lines of margin_bands_by_rung are the estimator's comment, which the calibration families "
-                       "do not bear out (532): against_the_measured_bands reads the same margins against theirs"}
+                       "do not bear out: against_the_measured_bands reads the same margins against theirs"}
 
 
 def reset_sections(record: dict | None, measurements: list[dict] | None) -> dict:

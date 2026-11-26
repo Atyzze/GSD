@@ -8,7 +8,7 @@ RECOVERY_CONTRACT = "gsd-lifecycle-recovery-1"
 DECISION_WAIT_ALERT_SECONDS = 600.0
 
 
-LEARNING_TEXT = ("A law decides at a size once no law numbered before it can still change what it learns there (834): "
+LEARNING_TEXT = ("A law decides at a size once no law numbered before it can still change what it learns there: "
                  "a gate's share, or a known result repeats_a_known_result acts on. These wait for such laws, which own the work.")
 
 

@@ -94,13 +94,13 @@ function renderEveryChainGraph(app,payload,fallbackRungs){
         +(st.implied_spectral_dimension!=null?` · the gap implies d_s ≈ ${(+st.implied_spectral_dimension).toFixed(2)}`:''))); });
     app.append(verdicts);
     const th=(read.map(c=>c.structure.thresholds).find(x=>x&&x.gap_exponent_at_most!=null))||null;
-    if(th) app.append(el('p',{class:'muted ec-rule'},`the rule, for every chain: gap exponent ≤ ${th.gap_exponent_at_most} and diameter exponent ≥ ${th.diameter_exponent_at_least}, committed from the fifteen calibration families before any law was read (523; the gate that reads it is 524)`));
+    if(th) app.append(el('p',{class:'muted ec-rule'},`the rule, for every chain: gap exponent ≤ ${th.gap_exponent_at_most} and diameter exponent ≥ ${th.diameter_exponent_at_least}, committed from the fifteen calibration families before any law was read (the structure gate reads it)`));
   }
   renderStructureCensus(app,counted);
 }
 const KAPPA_NOTE='\u03ba is the Ollivier curvature of an edge (Kelly, Trugenberger and Biancalana), read on the giant '
   +'component from 544: 0 on every edge of a flat grid (the square torus, the cubic lattice), -2(d-2)/d on a d-regular '
-  +'graph with no short cycles (-4/3 at degree 6). A reading, never a gate; n/a on a rung measured before 544.';
+  +'graph with no short cycles (-4/3 at degree 6). A reading, never a gate; n/a on a rung measured before the curvature was read.';
 function kappaCells(r,m){
   const mean=m(r,'kappa_mean'), pos=m(r,'kappa_positive_share'), w=m(r,'kappa_weighted');
   return [el('td',{class:'kappa',title:w==null?'':`degree-weighted mean ${w.toFixed(4)}`},mean==null?'n/a':mean.toFixed(4)),
@@ -825,7 +825,7 @@ function renderStartsReading(reading,explain){
     +'the fewest in which every two chains met. A lattice start is read against its own start, read the same way: it holds, is partly '
     +'kept, unmoved, changed (its degree moved), stretched (it reaches more than twice as far), melted, fell apart or went dense; only one '
     +'that holds is a shape. A law is read at its largest size two chains read. In a campaign decided chain by chain this decides its '
-    +'depth from the last base rung (602): a shape buys the next size, every start alike parks it, the starts apart get the next size once.'));
+    +'depth from the last base rung: a shape buys the next size, every start alike parks it, the starts apart get the next size once.'));
   if(!reading.references) box.append(el('p',{class:'muted fs-norefs'},'the lattice starts’ own readings were measured by other sources '
     +'than this build’s: no lattice’s fate is read until they are measured again'));
   if(!reading.rungs.length){ box.append(el('p',{class:'muted fs-none'},`the starts against each other: no size of N=${tcNFull(reading.from_n)} or more read yet`)); return box; }
@@ -852,7 +852,7 @@ function lsWords(found){
   return `${LS_WHO[found.by]||found.by}${lattice&&found.chain?' ('+found.chain+')':''}: ${found.points!=null?found.points:'?'} of ${found.points_of||15} at N=${lsN(found.to_n)}${found.einstein?', all four agreeing by Einstein':''}`; }
 function lsTitle(found){
   return (found?`score ${found.score} of 100: ${lsWords(found)}.`:'the score is not read yet.')
-    +'\n\nPoints times depth times who (784): only readings from N=4,096 on a piece of 4,096 nodes or more count. Each '
+    +'\n\nPoints times depth times who: only readings from N=4,096 on a piece of 4,096 nodes or more count. Each '
     +'probe, and the Einstein relation d_s = 2 d_f / d_w as a fifth item, earns 1 when it reads at two sizes in a row '
     +'(4,096 and 16,384 first), 2 when it settles between them (its step within the margin the calibration table’s '
     +'exact lattices set), 3 when it settles again at the next size: 15 at most. Each size from N=1,024 to N=4,194,304 '
@@ -885,7 +885,7 @@ function renderLawScore(app,payload){
   if(!score){ app.append(el('p',{class:'muted'},'not read: the score reads every start’s measurements')); return; }
   app.append(el('div',{class:'ls-head',title:lsTitle(score)},el('span',{class:'ls-value'},String(score.score)),
     el('span',{class:'muted'},' of 100 · '),el('span',{class:'ls-words'},lsWords(score))));
-  app.append(el('p',{class:'muted ls-rule'},'Points times depth times who (784). Only readings from N=4,096 count, and only on '
+  app.append(el('p',{class:'muted ls-rule'},'Points times depth times who. Only readings from N=4,096 count, and only on '
     +'a piece of 4,096 nodes or more: a reading under it is pilot data for the decisions. Each probe, and the Einstein '
     +'relation d_s = 2 d_f / d_w (d_f read by d_V and by d_B alike) as a fifth item, earns 1 when it reads at two sizes '
     +'in a row, the larger at least three times the smaller (4,096 and 16,384 first); 2 when it settles between them, '
@@ -1274,7 +1274,7 @@ function meetingReadingText(t){
   if(!t||!t.reading) return 'not read';
   return MEETING_READING_WORDS[t.reading]||String(t.reading);}
 function meetingReadingTitle(t){
-  if(!t||!t.counts) return 'this rung was analysed before 513, which added the reading';
+  if(!t||!t.counts) return 'this rung was analysed before the meeting of the chains was read';
   return Object.entries(t.counts).filter(([,v])=>v).map(([k,v])=>`${v} seed(s) ${MEETING_READING_WORDS[k]||k}`).join(', ')
     +': agreeing = within noise; converging = the gap halved while both move (out of budget, not stuck); '
     +'frozen = a chain does not move and they differ (the result depends on the start); '
@@ -1734,7 +1734,7 @@ async function candidateView(id){
           ];
         const flags=side&&side.log_diameter?{log_diameter_flags:side.log_diameter.raised,log_diameter_false:side.log_diameter.false,
           log_diameter_unknown:side.log_diameter.unknown}:(key==='empty'?s:null);
-        const logDiam=el('td',{title:'the log-diameter flag per seed, in three states (521): yes (a logarithmic diameter, certified), '
+        const logDiam=el('td',{title:'the log-diameter flag per seed, in three states: yes (a logarithmic diameter, certified), '
             +'no (the diameter is too long for a logarithm), unknown (no bound decides it); this chain’s own'},
             flags?logDiamText(flags):'—');
         rt.append(el('tr',{class:i?'rung-chain':'rung-chain ec-first'},...lead,chainCell,...read,...tail,logDiam)); }); });

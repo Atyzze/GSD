@@ -1,34 +1,37 @@
-# The next build is 874
+# The next build is 875
 
 This file names the next build and says how to make it. `tests/unit/test_next_build_is_named.py` parses its first line,
 which must read exactly `# The next build is <N>`, one above `BUILD_NUMBER`.
 
-## Where to begin: 874 is the pages' and reports' build numbers in words
+## Where to begin: 875 is the engines' diet, Rust first
 
 **Starting from nothing but the repository** (the operator, 2026-11-24 23:00): clone `main` and bring it up by
 `docs/agent/ENVIRONMENT.md`, section 10, "From the repository". Then `docs/WHERE_WE_ARE.md`, `docs/agent/HANDOFF.md`
-and this page, in that order, and `CLAUDE.md`'s rules for a shared repository. 871 to 873 are made
-(`docs/build_notes/BUILD871_NOTES.md` to `BUILD873_NOTES.md`); if their pull requests are not on `main` yet, branch from
+and this page, in that order, and `CLAUDE.md`'s rules for a shared repository. 871 to 874 are made
+(`docs/build_notes/BUILD871_NOTES.md` to `BUILD874_NOTES.md`); if their pull requests are not on `main` yet, branch from
 the newest. The operator said at 23:25 to keep building to the roadmap's end.
 
-**Why 874 is this one**: the roadmap's next, the neighbours read at a law's earliest identification, waits on a
-reading of 866's early call in a study's bundle (how often the early size agrees with 16,384) and on the operator's
-rule on it; no bundle of 176 is in the tree. So the next that needs nothing from outside goes first.
+**Why 875 is this one**: the roadmap's next after 874 ("From 870", item 6); the neighbours at the earliest
+identification still wait on a reading of 866's early call in a study's bundle and the operator's rule on it.
 
-**What 874 makes** (the operator, 2026-11-25 10:00, `docs/HISTORY.md`): every citation of a build in what the pages and
-the reports say, "(841)", "since 835", "before 578" (863's notes: about 90 in the code, 27 in the pages), checked
-against today's code and said plainly: the rule or the reason the number stood for, in words. What is worth keeping of
-the history it named goes into `docs/HISTORY.md`. A decision's reason keeps its words (the decision engine's recorded
-reasons replay word for word), and the docs keep their build numbers (they are the history).
+**What 875 makes** (the operator, 2026-11-25 08:35: "can we not make our engines more memory efficient? Or would that
+sacrifice speed?"; 09:42: "replay the seeds, results should remain identical, but simply grown faster with less
+memory"; `docs/ROADMAP.md`, "After 860", item 6): the Rust engine's graph holds fewer bytes an edge at no cost in speed.
+Profile first, on the engine as it is: the bytes an edge at 65,536 nodes and mean degree near 29, by structure (both
+adjacency lists, the edge list, the hash index of edges, the per-term caches). Then the caches as flat arrays by edge
+slot where they are hash maps, and whatever else the profile shows, each change kept only where every chain is the same
+to the bit. The save is already packed (873).
 
-**Acceptance**: a test finds no build number in a page's or a report's text (the dashboard's `resources/ui/` and the
-reports' builders), the decisions' reasons untouched; no score, kind or decision moves; the full lane green.
+**Acceptance**: every chain the same to the bit before and after, on the engine's own tests and on
+`tools/outputs_of_a_law.py --against` 870's record (0 outputs changed); the bytes an edge and the time a sweep takes,
+before and after, measured on the same seeds and written in the notes; the full lane green. The science hash moves with
+`rust_source_version`: say in the notes what that means for a folder seeded from a bundle of the build before.
 
-**Then**, in `docs/ROADMAP.md`, "From 870": the engines' diet, the lexicon and the matrix, the phenotype and the null
-map, study 177, the outliers' queue, the shared effort; the neighbours at the earliest identification when its reading
-and the operator's rule are in.
+**Then**, in `docs/ROADMAP.md`, "From 870": C, then x86-64 assembly; the lexicon and the matrix, the phenotype and the
+null map, study 177, the outliers' queue, the shared effort; the neighbours at the earliest identification when its
+reading and the operator's rule are in.
 
-**Waiting on the operator** (`docs/ROADMAP.md`, "Questions for the operator"): 871's to 873's pull requests (the
+**Waiting on the operator** (`docs/ROADMAP.md`, "Questions for the operator"): 871's to 874's pull requests (the
 session that made them could not push); 176's standing controls (keep, as a tick, recommended); the split (90% focus
 recommended); the rule for the earliest identification, on a bundle's reading.
 

@@ -159,7 +159,7 @@ def verify_and_adopt(document: dict, *, sample: int = 2, tolerance: float = 1e-9
         f"{len(picked)} cell(s) re-measured; worst deviation {report['worst_deviation']:.2e} "
         f"against tolerance {tolerance:.0e}, worst run-to-run spread on this host "
         f"{report['worst_host_spread']:.2e}; remaining cells re-stamped, not re-run",
-        f"sample is the cheapest cells per family and its largest up to {DEEP_SAMPLE_TO:,} nodes (636): a change "
+        f"sample is the cheapest cells per family and its largest up to {DEEP_SAMPLE_TO:,} nodes: a change "
         "biting only above that would not have been caught by it",
     ])
     document["estimator_fingerprint"] = current
