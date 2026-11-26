@@ -215,7 +215,7 @@ def render(result: dict) -> list[str]:
                      "analysis(es) that failed for the fleet (interruptions, workers that died, the storage)")
     if result.get("memory_given_back"):
         lines.append(f"repair: {result['memory_given_back']:,} analysis(es) stopped at the memory ceiling given back "
-                     "once, with the deepest rung's ceiling (544, 621)")
+                     "once, with the deepest rung's ceiling")
     if result.get("laws_reinstated"):
         lines.append(f"repair: {len(result['laws_reinstated'])} law(s) stopped `failed` for those alone are running "
                      f"again: {_named(result['laws_reinstated'])}")

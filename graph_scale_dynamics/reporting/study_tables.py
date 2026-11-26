@@ -319,9 +319,9 @@ def tables(repo, campaign_ids, blobs=None) -> dict:
                     "cap and why it ended; its moves, the moves it accepted (each one changes an edge: a chain with "
                     "none changed nothing), its work in the campaign's unit and the six counts the unit weighs "
                     "(`work_parts`), all counted from the chain's first move across its chunks, and its seconds in "
-                    "the engine (841); the seed's peak memory as report 28 reads it (the last finished attempt "
+                    "the engine; the seed's peak memory as report 28 reads it (the last finished attempt "
                     "that was not interrupted: PSS, else USS, else RSS); a run whose evidence cannot be read is one "
-                    "row with `evidence` saying why (836)")
+                    "row with `evidence` saying why")
     if blobs is not None:
         from graph_scale_dynamics.artifact_store.blobstore import BlobStore
         try:

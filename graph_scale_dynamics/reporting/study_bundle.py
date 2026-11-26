@@ -516,8 +516,8 @@ def build(base: Path, repo, campaign_ids: list[str], *, request_id: str | None =
         "reading": ("One folder is one study. index.html is its front page: what the study found, what deserves a "
                     "closer look (advice.json) and what a law costs. explorer.html is every law at every rung, "
                     "filtered, drawn and listed; gate_trees.html every campaign's report 28 gate tree, rung by rung "
-                    "(578); each a page with its data inside it. gates_ledger.json is every gate at every size, "
-                    "learned from this study's own decisions (784). tables/ holds one "
+                    "; each a page with its data inside it. gates_ledger.json is every gate at every size, "
+                    "learned from this study's own decisions. tables/ holds one "
                     "row per law, one per law and rung and one per draw, read from the folder's rows (tables/README.json). Each "
                     "campaign's part is its whole report bundle, after the study's own files."),
     }

@@ -207,7 +207,7 @@ def campaign_spec(design: dict, base: dict, entry: dict, index: int) -> dict:
     for key in ("given_start", "given_start_by_law", "given_start_rule", "given_starts"):
         sampling.pop(key, None)
     if not design.get("starts"):
-        raise ValueError(f"study {design.get('study')}'s design names no starts: a design lists its starts since 769, "
+        raise ValueError(f"study {design.get('study')}'s design names no starts: a design lists its starts, "
                          "and the start read from the null atlas left at 786")
     sampling["given_starts"] = [dict(start) for start in design["starts"]]
     for key in STARTS_READING_KEYS:
@@ -257,7 +257,7 @@ def start(repo, design: dict, spec: dict, *, var=None, tree=None, search_seed=No
     from graph_scale_dynamics.operations.study import budget_once
     tree = Path(tree) if tree is not None else Path(PROJECT_ROOT)
     if not fresh(design):
-        raise ValueError(f"study {design['study']}'s design does not run on the let-through rule: since 785 every "
+        raise ValueError(f"study {design['study']}'s design does not run on the let-through rule: every "
                          "design learns its gates from its own laws alone (engine.let_through_rule)")
     spec = without_terms(design, spec, log=log)
     planned = []

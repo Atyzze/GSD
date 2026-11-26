@@ -7,15 +7,15 @@ from graph_scale_dynamics.domain.model import utc_now
 MEMORY_CEILING_CLASS = "memory_hard_cap"
 GIVEN_BACK_CLASS = "memory_given_back"
 EVENT_TOPIC = "analysis_memory_given_back"
-GIVEN_BACK_NOTE = ("given back once after the memory ceiling stopped it (544, E1): it runs with the deepest rung's "
+GIVEN_BACK_NOTE = ("given back once after the memory ceiling stopped it (E1): it runs with the deepest rung's "
                    "ceiling, and a second stop there is the law's")
 KIND_MEMORY, KIND_RESCUE, KIND_REPLAYED = "memory", "rescue", "replayed"
 RAW_LOST_TEXT = "TRANSIENT_RAW_LOST"
 NOTES = {
     KIND_MEMORY: GIVEN_BACK_NOTE,
-    KIND_RESCUE: ("given back once more (621): its give-back lost the deepest ceiling on a later attempt (544's rule), "
+    KIND_RESCUE: ("given back once more: its give-back lost the deepest ceiling on a later attempt (the give-back's rule), "
                   "so it runs again with the ceiling, and a stop now is the law's"),
-    KIND_REPLAYED: ("given back once more (625): its simulation was given back, its raw output was then lost and the "
+    KIND_REPLAYED: ("given back once more: its simulation was given back, its raw output was then lost and the "
                     "job run again, and the replay's analysis ran without the ceiling; it runs with it now, and a "
                     "stop now is the law's"),
 }

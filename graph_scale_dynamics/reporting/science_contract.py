@@ -44,7 +44,7 @@ def science(root: Path | None = None) -> tuple[dict, bytes | None]:
             "table": TABLE_IN_BUNDLE if raw is not None else None,
             "reading": ("two bundles whose sha256 is the same were read by the same probes, starts' reading, score, "
                         "catalogue and engine, on the same calibration table's cells, which the bundle carries (the "
-                        "file's own sha256 beside it, its adoption times not in the hash: since 861); a different "
+                        "file's own sha256 beside it, its adoption times not in the hash); a different "
                         "sha256 says which of these differs")}, raw
 
 

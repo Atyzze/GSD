@@ -400,7 +400,7 @@ def request(repo, campaign_id: str, action: str = "start", *, report_base=None, 
         if current and current.get("stage") in ACTIVE_STAGES and not current.get("only"):
             return {"quiet_report": current, "already": True,
                     "note": ("the study bundle is already being made; a second ask joins it "
-                             "rather than starting another (since 835)")}, 202
+                             "rather than starting another")}, 202
         outcome = start(repo, campaign_id, report_base=report_base, db=db, api_base=api_base)
         if not outcome["ok"]:
             return {"error": outcome["problem"]}, outcome["code"]

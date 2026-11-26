@@ -227,7 +227,7 @@
         + `Capacity verdict: ${bottleneck.state || 'warming'}.`
         + (bottleneck.explanation ? `\n${bottleneck.explanation}` : '')
         + '\nThe full verdict and its storage attribution are on the System page.'
-        + '\nThe core-hours below are every campaign of this folder, as GRAPHS is (575).';
+        + '\nThe core-hours below are every campaign of this folder, as GRAPHS is.';
     }
     setText('gsdDisk', r.disk_write_bytes_per_second==null ? '—' : `W ${mbps(r.disk_write_bytes_per_second)}`);
     const iowait = d.io_summary?.cpu_iowait_percent;

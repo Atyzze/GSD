@@ -172,12 +172,12 @@ def every_chain_section(snapshot: dict) -> dict:
                             "classes. earned_by: the decisions a given chain took for its law where every chain is decided "
                             "alike (decisions/every_chain.py), and the lattice that held where the "
                             "starts bought a size the chain from empty would not have (decisions/starts_rule.py). "
-                            "starts_decided (603): what the starts decided against what d_s's rule would "
-                            "have, as its own reading says. score (608): each law's score, observability/law_score.py: "
+                            "starts_decided: what the starts decided against what d_s's rule would "
+                            "have, as its own reading says. score: each law's score, observability/law_score.py: "
                             "100 times weight times depth, the weight 1 for the chain from empty, 0.6 for the random "
                             "start, 0.3 for a lattice start, the depth the largest size it was a geometry at on the "
                             "ladder 1,024 to 4,194,304, a seventh a size; by: who built it; scores: the section's "
-                            "count and the laws that score most. values (623): each chain's means at each size, "
+                            "count and the laws that score most. values: each chain's means at each size, "
                             "in value_columns' order, for readings of other rules made from a bundle.")}
     except Exception as exc:  # noqa: BLE001
         return {"contract": CONTRACT, "error": f"{type(exc).__name__}: {exc}"}

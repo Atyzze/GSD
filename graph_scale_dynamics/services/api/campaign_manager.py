@@ -598,7 +598,7 @@ SPEC_FIELD_READINGS = {
     "complexity_budget": "the most a law's terms may cost together",
     "max_active_candidates": "how many laws may be in their base block at once",
     "proposer": "pool_min: how many proposed laws are kept waiting",
-    "limits": "stop rules: the connectivity floor, and the mean-degree window set above (566)",
+    "limits": "stop rules: the connectivity floor, and the mean-degree window set above",
     "policy": "the decision rules and their thresholds",
     "engine": "the decision engine contract and its rung sizes",
     "base_block": "how the first rungs are measured",

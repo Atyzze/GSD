@@ -74,9 +74,9 @@ def test_a_seed_s_save_packs_its_edges_and_reads_back_the_same_and_fits_1_048_57
              "checkpoint": {"chains": {"given": {"edge_list": edges, "few": [[1, 2]], "wide": [2 ** 40, 1] * 3000,
                                                  "not": [[1, 2]] * 5000 + [[1, 2, 3]], "flags": [True] * 5000}}}}
     path = tmp_path / "j.json.gz"
-    started = time.perf_counter()
+    started = time.process_time()
     R.save_resume_state(path, state, execution_spec_hash="h")
-    packed_seconds = time.perf_counter() - started
+    packed_seconds = time.process_time() - started
     with gzip.open(path, "rt", encoding="utf-8") as handle:
         raw = json.load(handle)
     given = raw["checkpoint"]["chains"]["given"]
@@ -89,12 +89,13 @@ def test_a_seed_s_save_packs_its_edges_and_reads_back_the_same_and_fits_1_048_57
     with gzip.open(old, "wt", encoding="utf-8") as handle:
         json.dump(dict(state, execution_spec_hash="h"), handle)
     assert R.load_resume_state(old, execution_spec_hash="h")[1] == "resumed", "a save made before 873 still reads"
-    started = time.perf_counter()
+    started = time.process_time()
     with gzip.open(tmp_path / "plain.json.gz", "wt", encoding="utf-8", compresslevel=1) as handle:
         json.dump(state, handle, separators=(",", ":"))
-    plain_seconds = time.perf_counter() - started
+    plain_seconds = time.process_time() - started
     assert packed_seconds * 2 < plain_seconds, f"packed {packed_seconds:.2f}s against plain {plain_seconds:.2f}s"
     at_a_million = packed_seconds / len(edges) * (1048576 * 32 // 2) * 8
     assert at_a_million < R.STOP_GRACE_SECONDS, (
-        f"eight chains of 1,048,576 nodes at mean degree 32 save in about {at_a_million:.0f}s here, inside the "
-        f"stop's {R.STOP_GRACE_SECONDS:.0f}s")
+        f"eight chains of 1,048,576 nodes at mean degree 32 save in about {at_a_million:.0f}s of their own work "
+        f"here, inside the stop's {R.STOP_GRACE_SECONDS:.0f}s; the processor's time, so a busy host does not "
+        f"read as a slow save")

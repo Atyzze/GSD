@@ -77,4 +77,4 @@ def chains_meeting(measurements: list[dict], split_z: float = 3.0) -> dict:
             "reading": ("finite: from how many sweeps every later check found the chains within their noise (split z at "
                         "or under the limit); zero_temperature: from how many sweeps every later check found both "
                         "chains at rest (they need not meet). never: seeds whose last check did not. share_of_the_run: "
-                        "those sweeps over the sweeps at the last check. readings: the meeting reading per seed (513).")}
+                        "those sweeps over the sweeps at the last check. readings: the meeting reading per seed.")}

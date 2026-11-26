@@ -3257,7 +3257,7 @@ check("578: a study bundle row links the gate trees' page, and no maps beside an
   const [, newRow, oldRow] = html.split('<tr class=study-row><td>');
   const page = /<a class=chip href="([^"]*)"[^>]*title="([^"]*)">gate trees</.exec(newRow || '');
   if (!page || !/study_252_new\.gate_trees\.html$/.test(page[1])) throw new Error(`no gate trees page link: ${newRow}`);
-  if (!/578/.test(page[2]) || /picture/.test(page[2])) throw new Error(`the gate trees' page is titled as a picture: ${page[2]}`);
+  if (!/explorer/.test(page[2]) || /picture|\b5\d\d\b/.test(page[2])) throw new Error(`the gate trees' page is titled as a picture or by a build: ${page[2]}`);
   if (/\.svg"/.test(newRow || '') || />maps</.test(newRow || '')) throw new Error(`a bundle since 578 links a picture: ${newRow}`);
   const order = ['>front page<', '>gate trees<', '>study explorer<'].map((s) => (newRow || '').indexOf(s));
   if (order.some((i) => i < 0) || order.join() !== [...order].sort((a, b) => a - b).join()) throw new Error(`the pages are not front page, gate trees, explorer: ${newRow}`);

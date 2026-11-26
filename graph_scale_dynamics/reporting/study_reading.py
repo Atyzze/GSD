@@ -670,7 +670,7 @@ def render(reading: dict) -> str:
                 lines.append(f"  {name}: " + "; ".join(cells))
     gates = reading.get("gates_ledger") or {}
     if gates.get("gates"):
-        lines.append(f"every gate at every size, from this study's own decisions (784): let through, clean one size up "
+        lines.append(f"every gate at every size, from this study's own decisions: let through, clean one size up "
                      f"(same gate), missed, open; confirmed after {gates.get('confirm_after')} clean in a row; below "
                      f"N={gates.get('from_n'):,} every verdict recorded and every law on:")
         for name, by_size in sorted(gates["gates"].items()):
@@ -682,7 +682,7 @@ def render(reading: dict) -> str:
         lines.append(f"the gates' ledger was not read: {gates['unavailable']}")
     ledger = (reading.get("study") or {}).get("salt_ledger") or {}
     if ledger:
-        lines.append("the let-through ledger (552), every law let through to its end, and the label 554's rule gives the gate:")
+        lines.append("the let-through ledger, every law let through to its end, and the label its rule gives the gate:")
         for name, costs in ledger.items():
             lines.append(f"  {name}: " + "; ".join(
                 f"{cost} {v['clean']} clean, {v['missed']} missed, {v.get('ended_untested', 0)} ended untested, "
@@ -691,7 +691,7 @@ def render(reading: dict) -> str:
     from graph_scale_dynamics.research.d_s_shape_reading import render as render_shape
     shapes = [line for c in campaigns for line in render_shape(c.get("d_s_shape") or {}, c.get("short") or "")]
     if shapes:
-        lines.append("d_s as a flow (563): whether its error covers its seeds, per rung, and how flat it is")
+        lines.append("d_s as a flow: whether its error covers its seeds, per rung, and how flat it is")
         lines += shapes
     for missing in reading.get("missing") or []:
         lines.append(f"campaign {missing.get('campaign_id')} is missing from the bundle: {missing.get('why')}")
@@ -730,7 +730,7 @@ def _render_537(campaigns: list[dict]) -> list[str]:
         if campaign.get("longer_chains"):
             lines.append(f"  longer chains (B2): {campaign['longer_chains']}")
         if campaign.get("curvature"):
-            lines.append("  curvature (544), the median graph's mean kappa: " + ", ".join(
+            lines.append("  curvature, the median graph's mean kappa: " + ", ".join(
                 f"N={int(n):,} {cell['median']:+.3f} ({cell['graphs']})"
                 for n, cell in campaign["curvature"].items() if cell.get("median") is not None))
     table: dict = defaultdict(lambda: [0, 0])
