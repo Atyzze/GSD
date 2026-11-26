@@ -1,0 +1,33 @@
+{
+  "contract": "gsd-phenotype-1",
+  "about": "A law's phenotype is the shortest description of its quantities over N (the operator, 2026-11-25 12:12): each quantity of the law page, on each start, described by the fewest of three forms that hold it, a constant, a power of N or a straight line in log N, each weighted by how many readings it rests on. A constant holds when the readings stay within constant_within of their weighted mean, relative; otherwise the power and the log are each fitted, weighted, and the one whose relative residuals are smaller describes it. The forms the calibration table's geometries predict are its known answers, committed below before any law was read: a lattice's or a fractal's reach grows as N to the power one over its dimension, a ring's as N, a random tree's as the square root of N, an expander's and a balanced tree's as log N.",
+  "forms": ["constant", "power", "log"],
+  "constant_within": 0.05,
+  "least_sizes": 3,
+  "from_n": 256,
+  "exponent_within": 0.06,
+  "quantities": ["mean_degree", "giant_fraction", "d_s", "d_V", "d_B", "d_w", "reach", "kappa", "energy_per_node", "triangles_per_node", "squares_per_node"],
+  "reach_bands": [[0.0, 0.15, "reach nearly flat in N"], [0.15, 0.29, "reach as N^(1/4) or slower, d 4 or more"], [0.29, 0.4, "reach as N^(1/3), d near 3"], [0.4, 0.58, "reach as N^(1/2), d near 2"], [0.58, 0.8, "reach as N^(2/3), d between 1 and 2"], [0.8, 1.2, "reach as N, a line or a ring"]],
+  "known_answers": {
+    "periodic_ring": ["power", 1.0],
+    "periodic_square_lattice": ["power", 0.5],
+    "periodic_triangular_lattice": ["power", 0.5],
+    "periodic_honeycomb_lattice": ["power", 0.5],
+    "periodic_cubic_lattice": ["power", 0.3333],
+    "periodic_cubic_quotient": ["power", 0.3333],
+    "periodic_body_centred_cubic_lattice": ["power", 0.3333],
+    "periodic_face_centred_cubic_lattice": ["power", 0.3333],
+    "periodic_hypercubic_lattice_4d": ["power", 0.25],
+    "periodic_tesseract_quotient": ["power", 0.25],
+    "sierpinski_gasket": ["power", 0.6309],
+    "sierpinski_carpet": ["power", 0.5283],
+    "uniform_random_tree": ["power", 0.5],
+    "balanced_binary_tree": ["log", null],
+    "random_3_regular": ["log", null],
+    "random_4_regular": ["log", null],
+    "erdos_renyi_degree_6": ["log", null],
+    "erdos_renyi_dense": ["log", null],
+    "erdos_renyi_mid": ["log", null],
+    "hyperbolic_triangle_tiling": ["log", null]
+  }
+}

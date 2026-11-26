@@ -1,33 +1,36 @@
-# The next build is 879
+# The next build is 880
 
 This file names the next build and says how to make it. `tests/unit/test_next_build_is_named.py` parses its first line,
 which must read exactly `# The next build is <N>`, one above `BUILD_NUMBER`.
 
-## Where to begin: 879 is the phenotype as the shortest description of a law's sixteen charts
+## Where to begin: 880 is the outliers' queue
 
 **Starting from nothing but the repository** (the operator, 2026-11-24 23:00): clone `main` and bring it up by
 `docs/agent/ENVIRONMENT.md`, section 10, "From the repository". Then `docs/WHERE_WE_ARE.md`, `docs/agent/HANDOFF.md`
-and this page, in that order, and `CLAUDE.md`'s rules for a shared repository. 871 to 878 are made
-(`docs/build_notes/BUILD871_NOTES.md` to `BUILD878_NOTES.md`); if their pull requests are not on `main` yet, branch from
+and this page, in that order, and `CLAUDE.md`'s rules for a shared repository. 871 to 879 are made
+(`docs/build_notes/BUILD871_NOTES.md` to `BUILD879_NOTES.md`); if their pull requests are not on `main` yet, branch from
 the newest. The operator said at 23:25 to keep building to the roadmap's end.
 
-**Why 879 is this one**: the roadmap's next after the lexicon ("From 870", item 7, its second part); the neighbours at
-the earliest identification still wait on a reading of 866's early call in a study's bundle and the operator's rule.
+**Why 880 is this one**: of the roadmap's items left ("From 870"), the null map complete and the new terms need every
+term's load read on a study's bundle, and study 177 needs 174's and 176's ledgers read and 176's last bundle: all wait
+on the operator's next bundles. The outliers' queue (item 9) needs nothing from outside.
 
-**What 879 makes** (the operator, 2026-11-25 12:12; `docs/ROADMAP.md`, "After 860", item 6's second "Then"): each of
-the 4x4 law page's quantities over N, every start, fitted by the fewest forms that describe it (a constant, a power of
-N, a log), each weighted by how many probe readings it rests on; a law's phenotype is the set of those forms, and a new
-law is read against the set already seen; a few dozen categories, overlapping, from them.
+**What 880 makes** (the operator, 2026-11-25 08:04: "any outlier should automatically be added to the list of
+potential zones to investigate its area"; 08:07: "But only if all the top scorers are already done being mapped";
+`docs/ROADMAP.md`, "After 860", item 4): once every scoring law is mapped or inside a mapped region, the focus takes
+the study's outliers, strongest first: a probe's reading far outside its bulk (the criterion committed first; in 174,
+d_w over about 3.5 and d_V over about 3, where 99% read under 2.87 and 2.24), its own seeds and tiny rings telling a
+lucky strike (one seed, not repeated) from a region (its neighbours repeat it), a new region given the next GG number
+and a later outlier inside it joining it.
 
-**Acceptance**: judged first on the calibration table's families (each family's quantities over N fitted by the forms
-its geometry predicts: a lattice's d a constant, a tree's reach a log), committed before any law is read; no score,
-kind or decision moves; the full lane green.
+**Acceptance**: the criterion in a file before any law is read by it; on a folder whose scoring laws are all mapped,
+the focus's next law is the strongest outlier; an outlier one seed of three read is called a lucky strike and its
+region is not opened; no score, kind or decision of a blind law moves; the full lane green.
 
-**Then**, in `docs/ROADMAP.md`, "From 870": the null map complete and the new terms (the Ricci curvature in its two
-forms first), study 177, the outliers' queue, the shared effort; the neighbours at the earliest identification when
-its reading and the operator's rule are in.
+**Then**, in `docs/ROADMAP.md`, "From 870": the null map and the new terms, study 177, the shared effort; the
+neighbours at the earliest identification when its reading and the operator's rule are in.
 
-**Waiting on the operator** (`docs/ROADMAP.md`, "Questions for the operator"): 871's to 878's pull requests (the
+**Waiting on the operator** (`docs/ROADMAP.md`, "Questions for the operator"): 871's to 879's pull requests (the
 session that made them could not push); 176's standing controls (keep, as a tick, recommended); the split (90% focus
 recommended); the rule for the earliest identification, on a bundle's reading.
 
