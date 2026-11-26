@@ -60,22 +60,23 @@ def digest(envelope: dict) -> str:
     return hashlib.sha256(json.dumps(kept, sort_keys=True, default=str).encode("utf-8")).hexdigest()
 
 
-def one(name: str, n: int, seed: int) -> dict:
+def one(name: str, n: int, seed: int, engine: str = "rust", door: str | None = None) -> dict:
     from graph_scale_dynamics.scaleflow.one_shot import run_one_shot
     from graph_scale_dynamics.services.worker.engine_registry import rust_source_version, simulate_of
     law = law_of(name)
     policy = policy_of(law, n)
     before = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
     wall, cpu = time.monotonic(), time.process_time()
-    envelope = run_one_shot(law, n, seed, one_shot=policy, record_points=40, simulate=simulate_of("rust"))
+    envelope = run_one_shot(law, n, seed, one_shot=policy, record_points=40, simulate=simulate_of(engine, door))
     wall, cpu = time.monotonic() - wall, time.process_time() - cpu
     chains = (envelope.get("sampling_checkpoint") or {}).get("chains") or []
     edges = sum(len(c.get("edge_list") or []) for c in chains)
     peak = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss * 1024
     moves = sum(sum((c.get("attempted") or {}).values()) for c in chains)
     import gsd_engine_rs
-    return {"law": name, "n": n, "seed": seed, "engine": rust_source_version(),
-            "engine_installed": str(gsd_engine_rs.FINGERPRINT), "chains": len(chains),
+    return {"law": name, "n": n, "seed": seed, "engine": engine, "door": door or "default",
+            "version": rust_source_version(None, engine),
+            "rust_installed": str(gsd_engine_rs.FINGERPRINT), "chains": len(chains),
             "edges_at_the_end": edges, "peak_bytes": peak, "peak_before_bytes": before * 1024,
             "bytes_an_edge": round((peak - before * 1024) / max(1, edges), 1), "wall_seconds": round(wall, 2),
             "cpu_seconds": round(cpu, 2), "moves": moves,
@@ -88,19 +89,22 @@ def main(argv=None) -> int:
     parser.add_argument("--law", choices=sorted(LAWS), action="append")
     parser.add_argument("--n", type=int, action="append")
     parser.add_argument("--seed", type=int, default=0)
+    parser.add_argument("--engine", action="append", help="rust (the default), c, or rust:c_abi for a door")
     parser.add_argument("--json", type=Path)
     parser.add_argument("--one", action="store_true", help=argparse.SUPPRESS)
     args = parser.parse_args(argv)
     if args.one:
-        print(json.dumps(one(args.law[0], args.n[0], args.seed)))
+        engine, _, door = (args.engine or ["rust"])[0].partition(":")
+        print(json.dumps(one(args.law[0], args.n[0], args.seed, engine, door or None)))
         return 0
     rows = []
     for name in args.law or ["anchor"]:
         for n in args.n or [16384]:
-            done = subprocess.run([sys.executable, __file__, "--one", "--law", name, "--n", str(n), "--seed",
-                                   str(args.seed)], capture_output=True, text=True, check=True)
-            rows.append(json.loads(done.stdout.strip().splitlines()[-1]))
-            print(json.dumps(rows[-1]), flush=True)
+            for engine in args.engine or ["rust"]:
+                done = subprocess.run([sys.executable, __file__, "--one", "--law", name, "--n", str(n), "--seed",
+                                       str(args.seed), "--engine", engine], capture_output=True, text=True, check=True)
+                rows.append(json.loads(done.stdout.strip().splitlines()[-1]))
+                print(json.dumps(rows[-1]), flush=True)
     if args.json:
         args.json.write_text(json.dumps({"contract": CONTRACT, "rows": rows}, indent=1) + "\n", encoding="utf-8")
     return 0

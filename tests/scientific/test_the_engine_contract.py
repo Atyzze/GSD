@@ -47,7 +47,9 @@ def _requests():
 
 def test_the_registry_is_the_one_place_an_engine_is_named():
     assert R.REFERENCE == "python" and R.DEFAULT_ENGINE in R.ENGINES
-    assert all(engine.doors == ("in_process", "c_abi") for engine in R.ENGINES.values() if not engine.reference)
+    assert R.ENGINES[R.DEFAULT_ENGINE].doors == ("in_process", "c_abi")
+    assert all("c_abi" in engine.doors for engine in R.ENGINES.values() if not engine.reference), (
+        "every compiled engine answers through the C ABI, the one boundary any language can stand behind")
     named = re.compile(r"import gsd_engine_rs|gsd_engine_rs\.")
     found = sorted(str(path.relative_to(ROOT)) for path in (ROOT / "graph_scale_dynamics").rglob("*.py")
                    if named.search(path.read_text(encoding="utf-8")))
@@ -56,26 +58,27 @@ def test_the_registry_is_the_one_place_an_engine_is_named():
 
 
 @pytest.mark.parametrize("operation", boundary.OPERATIONS)
-def test_both_doors_of_every_engine_answer_every_operation_alike(operation):
+def test_every_door_of_every_engine_answers_every_operation_alike(operation):
     require_rust_engine()
-    for name, engine in R.ENGINES.items():
-        if engine.reference:
-            continue
-        answers = [_plain(R.door_of(name, door)(operation, _requests()[operation])) for door in engine.doors]
-        assert answers[0] == answers[1], (name, operation)
-        assert json.dumps(answers[0], sort_keys=True) == json.dumps(answers[1], sort_keys=True)
+    answers = [(f"{name}:{door}", _plain(R.door_of(name, door)(operation, _requests()[operation])))
+               for name, engine in R.ENGINES.items() if not engine.reference for door in engine.doors]
+    assert len(answers) >= 3, "Rust through both doors and C through its one"
+    for label, answer in answers[1:]:
+        assert answer == answers[0][1], (label, operation)
+        assert json.dumps(answer, sort_keys=True) == json.dumps(answers[0][1], sort_keys=True), (label, operation)
 
 
 def test_a_fault_comes_back_through_either_door_as_the_same_error():
     require_rust_engine()
     request = dict(_requests()["run_chain"], locality=1.5)
-    for door in boundary.DOORS:
+    for name, door in [(name, door) for name, engine in R.ENGINES.items() if not engine.reference
+                       for door in engine.doors]:
         with pytest.raises(ValueError, match="locality must lie in"):
-            R.door_of(R.DEFAULT_ENGINE, door)("run_chain", request)
-        with pytest.raises(KeyError):
-            R.door_of(R.DEFAULT_ENGINE, door)("rebuild_graph", {"n": 4, "terms": TERMS})
+            R.door_of(name, door)("run_chain", request)
+        with pytest.raises(KeyError, match="the request has no 'edge_list'"):
+            R.door_of(name, door)("rebuild_graph", {"n": 4, "terms": TERMS})
         with pytest.raises(boundary.UnknownOperation):
-            R.door_of(R.DEFAULT_ENGINE, door)("grow", {})
+            R.door_of(name, door)("grow", {})
 
 
 def test_a_float_crosses_the_c_door_to_the_last_bit():

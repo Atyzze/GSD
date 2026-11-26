@@ -34,6 +34,7 @@ REQUIRED_ROOT_FILES = ROOT_FILES - OPTIONAL_ROOT_FILES
 ROOT_DIRS = {
     "graph_scale_dynamics",
     "engine_rs",
+    "engine_c",
     "tests",
     "tools",
     "docs",
@@ -52,6 +53,7 @@ EXCLUDED_NAMES = {".coverage", ".env.postgres", "probe_calibration.json"}
 REQUIRED_RELEASE_PATHS = {
     "engine_rs/Cargo.toml", "engine_rs/pyproject.toml", "engine_rs/src/lib.rs",
     "engine_rs/src/graph.rs", "engine_rs/src/mt.rs", "tools/build_engine.sh",
+    "engine_c/engine.toml", "engine_c/engine.c", "engine_c/graph.c", "engine_c/value.c", "engine_c/accounting.c",
     "README.md",
     "docs/agent/ENVIRONMENT.md",
     "tools/prepare_environment.sh",

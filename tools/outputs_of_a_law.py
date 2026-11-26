@@ -17,7 +17,8 @@ CONTRACT = "gsd-outputs-of-a-law-1"
 LAW = "graph_scale_dynamics/resources/configs/candidate_sparse_anchor.json"
 DESIGN = "tests/fixtures/a_design_of_four_starts.json"
 WRITTEN_ON = ("study", "design")
-SIZES = {name: (64,) if engine.reference else (64, 256, 1024) for name, engine in ENGINES.items()}
+RECORDED = ("python", "rust")
+SIZES = {name: (64,) if ENGINES[name].reference else (64, 256, 1024) for name in RECORDED}
 SEEDS = (0, 1)
 RECORD_POINTS = 40
 MAX_SWEEPS_MULTIPLIER = 2
@@ -158,7 +159,7 @@ def law_outputs(law: dict, spec: dict, rows: list[dict]) -> dict:
             **decision(law, spec, rows)}
 
 
-def outputs(engines=tuple(ENGINES), sizes: dict | None = None) -> dict:
+def outputs(engines=RECORDED, sizes: dict | None = None) -> dict:
     law = json.loads((ROOT / LAW).read_text(encoding="utf-8"))
     spec = campaign_spec()
     out = {"contract": CONTRACT, "law": LAW, "design": DESIGN, "seeds": list(SEEDS), "engines": {}}
