@@ -638,6 +638,14 @@ else this tree's (`--table` names another).
 
     python3 tools/lexicon_reading.py <bundle> [--md <page>] [--json <file>] [--top 100]
 
+## tools/phenotype_reading.py
+
+Every law's phenotype in a bundle (879, `observability/phenotype.py`): its mean degree, giant piece, four d's and
+reach over N from `tables/rungs`, each described by the fewest of a constant, a power of N and a line in log N; the
+categories those make, counted over the laws; and the calibration geometry whose phenotype each law shares most.
+
+    python3 tools/phenotype_reading.py <bundle> [--table <calibration table>] [--json <file>]
+
 ## tools/outputs_of_a_law.py
 
 What this tree puts out for one law: the sparse anchor law grown from five of the eight starts on both engines (64
