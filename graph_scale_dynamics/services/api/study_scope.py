@@ -109,6 +109,9 @@ def revision_of(revisions: list) -> str:
     return hashlib.sha256("|".join(str(r) for r in revisions).encode("utf-8")).hexdigest()[:20]
 
 
+_LADDER_RANGE = frozenset({"seeds_per_law", "chains_per_seed"})
+
+
 def merge_ladder(ladders: list[list[dict]]) -> list[dict]:
     by_n: dict = {}
     for rows in ladders:
@@ -125,6 +128,9 @@ def merge_ladder(ladders: list[list[dict]]) -> list[dict]:
                        if isinstance(v, (int, float)) and not isinstance(v, bool)]
             if key in _LADDER_ADDS or key.endswith("_total"):
                 merged[key] = sum(v for v, _w in numbers) if numbers else None
+            elif key in _LADDER_RANGE:
+                merged[key] = min((v for v, _w in numbers), default=None)
+                merged[f"{key}_most"] = max((v for v, _w in numbers), default=None)
             elif key in _LADDER_MAX:
                 merged[key] = max((v for v, _w in numbers), default=None)
             elif key in _LADDER_MIN:

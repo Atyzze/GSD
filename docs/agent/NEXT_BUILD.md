@@ -1,76 +1,55 @@
-# The next build is 871
+# The next build is 872
 
 This file names the next build and says how to make it. `tests/unit/test_next_build_is_named.py` parses its first line,
 which must read exactly `# The next build is <N>`, one above `BUILD_NUMBER`.
 
-## Where to begin: 871 is the seeded laws in the focus, the seeds as a selection, and every law named SnCnGn
+## Where to begin: 872 is Home's four boxes as one
 
 **Starting from nothing but the repository** (the operator, 2026-11-24 23:00): clone `main` and bring it up by
 `docs/agent/ENVIRONMENT.md`, section 10, "From the repository". Then `docs/WHERE_WE_ARE.md`, `docs/agent/HANDOFF.md`
-and this page, in that order, and `CLAUDE.md`'s rules for a shared repository. 870 is the handover of the context that
-made 864 to 869 (`docs/build_notes/BUILD870_NOTES.md`: what it read, the operator's words of the day, how it worked).
-176's bundle of 15:09Z showed the seeded laws running, none held; what it showed missing is item 1.
+and this page, in that order, and `CLAUDE.md`'s rules for a shared repository. 871 put the seeded laws in the focus on
+their bundle's score, made the seeds a selection and named every law SnCnGn (`docs/build_notes/BUILD871_NOTES.md`);
+if 871's pull request is not on `main` yet, branch from `build-871` as 869 did from 868.
 
-**What 871 makes** (the operator, 2026-11-25 16:02 to 16:22, `docs/HISTORY.md`):
+**What 872 makes** (the operator, 2026-11-25 14:24, 14:29, 16:19 and 16:20, `docs/HISTORY.md`):
 
-1. **The seeded laws in the focus.** `focus.best` takes only laws that score in this folder; a seeded law stands on its
-   bundle's score (recorded per law at the seed, with the bundle's name) until this folder reads it at 16,384, so the
-   focus and the depth seeker start on the seeded laws at once. The lists say "38 in study 174's bundle" beside it.
-2. **A bundle read already is refused** with its reason (16:12: "the second import attempt should have been rejected
-   due to identicalhash/no-viable/compatible seeds found"), and shown as one row.
-3. **The seeds as a selection** (16:02: "let the ticks be whether or not to include its seed set in our map ...
-   'synchronize/read-from'"): one list of the `import/` folder's bundles, each tick meaning its laws and regions are in
-   this study's map; "synchronize" reads in what is newly ticked and lets go of what is unticked: its laws no longer
-   focused on or taken deeper, its regions off the map, the readings already taken kept (nothing measured is
-   rewritten). A line under the list: a merged set is a new bundle, made on Reports.
-4. **Every law named SnCnGn** (16:15 to 16:34; the operator, 16:34: "going with S/study perhaps makes more sense
-   actually as build numbers can arbitrarily change trivial/nothing in the code ... whereas study is very different
-   and can contain multiple builds"): the study, the campaign and the graph, for example S176C11G79, its fingerprint
-   the identity underneath. Campaign numbers restart in each folder and a study is one folder, so the study keeps every
-   code unique across folders and bundles; within one study's pages the short C11-G79 still reads. A seeded law shows
-   its origin's code beside its own (S174C2G3187, 38 there) and links to it; the law page's title, the Top 100, Now
-   researching and every label on the Map page (in focus, both lists, the depth table) carry the code and link to the
-   law page, the Explorer finds a law by it, and the bundle carries each law's code in `tables/laws`.
-5. **The Map page says what the focus is doing and why**, one line at its top (in focus, idle because no law scores
-   here, waiting on a size); the refresh button goes (the page reads itself every 4 s) and so does "depth 1 worker"
-   beside the slider (the depth seeker is always one). The seed map stays behind the admin token (`POST /api/focus`).
-6. **The fleet ladder's header in whole numbers** (16:19, 16:20): "a law at a size = 3 seeds x 8 starts = 24 graphs",
-   a range where the merged campaigns differ ("3 to 9 seeds"), never their mean unrounded.
+1. **The study bar counted in core-hours, not laws**, in four parts: the blind draw (A), the focus's neighbours and
+   seeds (N), the depth seeker (D), and the system's own use beside the science; each part's hours from the jobs'
+   attempts, the system's from the host's total less the workers'.
+2. **A second bar of memory held over time** (GiB-hours) in the same parts, where the depth seeker, one worker, may
+   hold half.
+3. **The filters lead, as "which laws"** (kinds, group, batch, region, settled, scoring only, deepest size at least),
+   one line saying what is chosen; the landscape and the Top 100 read that selection.
+4. **The fleet ladder in two**: "the selection, size by size" (laws that reached each size, running or queued there,
+   settled there by each gate, waiting to be extended, scoring there), drawn from the selection, and "the fleet's work,
+   size by size" (core time, memory, probe seconds, budgets), the machine's. 871's header (whole numbers, a range where
+   merged campaigns differ) carries over to both.
 
-**Where it will press**: `main.py` at 129,976 bytes of its 130,000 and `build_handler` at its 1,160 lines (a route goes
-through `services/api/focus_route.py` or `readings_route.py`). Any change to `decisions/` says why in the notes; every
-decision of 174 replays.
+**Where it will press**: `app.js` (263 KB) holds Home; a new box goes into a module of its own as `map.js` did. `main.py`
+at 129,976 bytes of its 130,000; `build_handler` at 1,146 lines of its 1,160 since 871 moved the campaigns list out.
 
-**Acceptance** of 871: a folder seeded from a bundle focuses on its best seeded law at its next step (a Postgres test
-like `test_study_176_starts_its_blind_draw_its_seed_and_its_focus_postgres.py`); a bundle seeded twice is refused the
-second time; a bundle unticked and synchronized leaves the focus's lists and the map, its readings kept; every law's
-code read the same on every page and in the bundle; no score, kind or decision of a blind law moves
-(`tools/outputs_of_a_law.py --against` 865's record); the full lane green.
+**Acceptance** of 872: a test recomputes the selection's ladder from a bundle's `tables/` for the same filters and
+matches it to the law; the four parts' core-hours add to the folder's total; no score,
+kind or decision moves (`tools/outputs_of_a_law.py --against` 871's record); the full lane green.
 
-**Then 872, Home's four boxes as one** (14:24, 14:29, 16:19): the study bar counted in core-hours, not laws, in
-three parts (the blind draw, the focus's neighbours and seeds, the depth seeker) and a fourth, the system's own use
-beside the science; a second bar of memory held over time (GiB-hours) in the same parts, where the depth seeker,
-one worker, may hold half; the filters lead, as "which laws" (kinds, group, batch, region,
-settled, scoring only, deepest size at least), one line saying what is chosen; the landscape and the Top 100 read that
-selection; the fleet ladder in two, "the selection, size by size" (laws that reached each size, running or queued
-there, settled there by each gate, waiting to be extended, scoring there), drawn from the selection, and "the fleet's
-work, size by size" (core time, memory, probe seconds, budgets), the machine's; a test recomputes the selection's
-ladder from a bundle's `tables/` for the same filters and matches it to the law. **Then 873, the depth seeker to the
-memory limit** (13:11): its ladder open past 262,144; a size priced from the law's own peak growth
-(`memory.own_earlier_seed_bytes`) and bought only when it fits the host's reach (`scheduling/memory_hold.reach`) less
-the free 10 GiB, else the law settled at its memory ceiling with the size it reached and the bytes the next would need;
-the seed's save at 1,048,576 (about 5 minutes against the stop's 120 s grace) met first.
+**Then 873, the depth seeker to the memory limit** (13:11): its ladder open past 262,144; a size priced from the law's
+own peak growth (`memory.own_earlier_seed_bytes`) and bought only when it fits the host's reach
+(`scheduling/memory_hold.reach`) less the free 10 GiB, else the law settled at its memory ceiling with the size it
+reached and the bytes the next would need; the seed's save at 1,048,576 (about 5 minutes against the stop's 120 s grace)
+met first.
 
 **Then**, in `docs/ROADMAP.md`, "From 870": the neighbours read at the earliest identification, the build numbers in
 words, the engines' diet, the lexicon and the matrix, the phenotype and the null map, study 177, the shared effort.
 
-**Waiting on the operator** (`docs/ROADMAP.md`, "Questions for the operator"): 176's standing controls (keep, as a tick, recommended); the split (90% focus recommended); pull
-requests #15 to #17.
+**Waiting on the operator** (`docs/ROADMAP.md`, "Questions for the operator"): 871's pull request (the session that
+made it could not push); a let-go law's own runs (let them run, recommended); 176's standing controls (keep, as a tick,
+recommended); the split (90% focus recommended).
 
-**When study 176 sends its first bundle**: `tools/catalogue_reading.py` judges `small_world_criterion_1.json` (W1,
-W2), and `study_176_criterion.json` is read on it (P1 by `tools/perturb_reading.py`'s run-again line on the seeded
-laws against their source bundle, P2 from `focus.json`'s seed records; P3 to P5 reported); 174's or 175's next bundle
-judges the small-world criterion too.
+**When study 176 sends its next bundle**: `focus.json`'s `current` should stand on its bundle's score
+(`standing: bundle`, 871); then `tools/catalogue_reading.py` judges `small_world_criterion_1.json` (W1, W2), and
+`study_176_criterion.json` is read on it (P1 by `tools/perturb_reading.py`'s run-again line on the seeded laws against
+their source bundle, P2 from `focus.json`'s seed records; P3 to P5 reported); 174's or 175's next bundle judges the
+small-world criterion too.
 
 ## Reading a study's bundle
 

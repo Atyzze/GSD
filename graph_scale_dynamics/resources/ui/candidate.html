@@ -1348,10 +1348,22 @@ function renderChainMixing(app,rows){
   app.append(mt);
 }
 
+function studyOfPage(d){
+  const s=((((d||{}).reproduction||{}).campaign||{}).spec||{}).study_design||{};
+  return s.study==null||s.study===''?null:String(s.study);
+}
+function codeOf(study,camp,ordinal){return study?`S${study}C${camp}G${ordinal}`:`C${camp}-G${ordinal}`}
 function candidateCode(c,d){
   const camp=String((d&&d.campaign_id)||(c&&c.campaign_id)||currentCampaign||'');
   const m=/^G-?(\d+)$/.exec(String((c&&c.ensemble_code)||''));
-  return m&&camp?`C${camp}-G${m[1]}`:((c&&c.ensemble_code)||null);
+  return m&&camp?codeOf(studyOfPage(d),camp,m[1]):((c&&c.ensemble_code)||null);
+}
+function fillOrigin(host,payload){
+  const o=payload&&payload.origin;
+  if(!host||!o||!o.code) return;
+  host.textContent='';
+  host.append(' ',el('span',{class:'muted law-origin',title:`seeded from ${o.bundle||'a bundle'}: its code and its score in study ${o.study||'?'}${o.standing==='bundle'?'; it stands on that score in this study\u2019s focus until this folder reads it at 16,384':''}`},
+    `from ${o.code}, ${o.score} there`));
 }
 function lawIdentityLine(c,idn){
   if(!idn) return null;
@@ -1364,7 +1376,7 @@ function lawIdentityLine(c,idn){
   const sameAs=idn.same_function||[];
   if(sameAs.length){ line.append(' \u00b7 the same function as ');
     sameAs.forEach((t,i)=>{ const m=/^G-?(\d+)$/.exec(String(t.ensemble_code||''));
-      line.append(i?', ':'',link(t.candidate_id,t.campaign_id,m?`C${t.campaign_id}-G${m[1]}`:`C${t.campaign_id} law ${String(t.candidate_id).slice(0,10)}`)); });
+      line.append(i?', ':'',link(t.candidate_id,t.campaign_id,t.code||(m?`C${t.campaign_id}-G${m[1]}`:`C${t.campaign_id} law ${String(t.candidate_id).slice(0,10)}`))); });
     if((idn.same_function_count||0)>sameAs.length) line.append(` and ${idn.same_function_count-sameAs.length} more`); }
   else if(idn.function_hash) line.append(' \u00b7 no other law, in any campaign, is this function');
   return line;
@@ -1403,15 +1415,17 @@ async function candidateView(id){
     compute:d.compute, active_work:d.active_work
   };
   const code=candidateCode(c,d);
+  if(code) document.title=`${code} · GSD law`;
   const lawNumber=(c.candidate_number==null?null:c.candidate_number);
   const scoreChip=el('span',{class:'hdr-score zero',title:'the score, read from every start: reading\u2026'},'\u2026');
   const typeChip=el('span',{class:'state '+c.state,title:((c.status||{}).text||c.state)+' \u00b7 '+c.state},(c.status||{}).word||c.state);
+  const originHost=el('span',{class:'law-origin-host'});
   const heading=el('div',{class:'hdr'},
     el('h1',{title:'content hash '+c.candidate_id},
       code?el('span',{class:'ensemble-code'},code)
           :el('code',{},c.candidate_id.slice(0,16)),
       ' ',scoreChip,
-      ' ',typeChip));
+      ' ',typeChip,originHost));
   if(!code) heading.append(el('span',{class:'muted hdr-hash identity-pending',
     title:'A G-code is the position of a law\u2019s first graph in this campaign\u2019s simulation '
          +'sequence. No graph has been built for this law, so it has none.'},
@@ -1773,7 +1787,7 @@ async function candidateView(id){
   readStructure(1)
     .then(payload=>{ twoChainsHost.textContent=''; renderTwoChains(twoChainsHost,payload,structureUrl.replace('/structure-data/','/curves-data/'),relabel);
       flowHost.textContent=''; renderFlowEveryStart(flowHost,payload);
-      scoreHost.textContent=''; renderLawScore(scoreHost,payload); fillScoreChip(scoreChip,payload&&payload.score); fillTypeChip(typeChip,payload&&payload.phenotype,c);
+      scoreHost.textContent=''; renderLawScore(scoreHost,payload); fillScoreChip(scoreChip,payload&&payload.score); fillTypeChip(typeChip,payload&&payload.phenotype,c); fillOrigin(originHost,payload);
       renderRungs(payload&&payload.chains||null);
       readingHost.innerHTML=''; renderEveryChainGraph(readingHost,payload,d.rungs||[]); renderWhatHappened(readingHost,payload); relabel(); })
     .catch(e=>{ twoChainsHost.textContent=''; twoChainsHost.append(el('h2',{'data-tone':'cyan'},'the chains'),el('p',{class:'muted'},'the chains are unavailable: '+(e&&e.message)));

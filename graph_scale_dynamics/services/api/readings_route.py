@@ -43,15 +43,29 @@ def structure(repo, campaign_id: str, candidate_id: str) -> dict | None:
     campaign_spec = (repo.campaign(str(campaign_id)) or {}).get("spec")
     structure = hold_structure(campaign_spec)
     read = starts_reading(chains, starts, structure=structure)
-    return {"campaign_id": campaign_id, "candidate_id": candidate_id,
+    state = focus.load(repo) if callable(getattr(repo, "get_flag", None)) else None
+    return {"campaign_id": campaign_id, "candidate_id": candidate_id, **_named(repo, state, campaign_id, candidate_id),
             "what_happened": law_story(rows, latest),
             "every_chain": every_chain(rows, chains, given_start), "given_start": given_start, "chains": chains,
             "space_score": space_score(chains, law.get("spec") if isinstance(law.get("spec"), dict) else None),
             "starts_reading": read,
-            "phenotype": law_status.phenotype(chains, focus.place_of(
-                focus.load(repo) if callable(getattr(repo, "get_flag", None)) else None, str(candidate_id))),
+            "phenotype": law_status.phenotype(chains, focus.place_of(state, str(candidate_id))),
             "score": law_score.score(chains, read, starts=starts, first_given=law_score.given_family(
                 campaign_spec, str(candidate_id), law.get("spec")), structure=structure)}
+
+
+def _named(repo, state: dict | None, campaign_id: str, candidate_id: str) -> dict:
+    from graph_scale_dynamics.operations import law_code, study_seed
+    if getattr(repo, "conn", None) is None:
+        return {}
+    out = {"code": law_code.of(repo, campaign_id, candidate_id)}
+    if state and str(study_seed.campaign_of(state)) == str(campaign_id):
+        origin = study_seed.origin_of(state, str(candidate_id))
+        if origin:
+            standing = study_seed.standing(state).get(str(candidate_id)) is not None and str(candidate_id) not in (
+                focus.read_here(repo, campaign_id, int(state["plan"]["neighbourhood"]["read_n"])))
+            out["origin"] = dict(origin, standing="bundle" if standing else "here")
+    return out
 
 
 def _stopping_policy(repo, campaign_id: str) -> dict:

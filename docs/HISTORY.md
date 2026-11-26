@@ -380,7 +380,7 @@ made; a time without a Z is the operator's local time.
   trivial/nothing in the code and thus we shouldnt link it to that, whereas study is very different and can contain
   multiple builds"): 176's bundle of 15:09Z read (no stall; the focus idle until a seeded law scored here); 90% focus
   recommended; a law's code SnCnGn over its fingerprint; 871 the codes and the seeds, 872 the bars, both planned in the
-  handover (870).
+  handover (870). 871 made at their word of 17:12 ("make the next build please"), #15 to #17 merged by then.
 * **The engines in order: Rust to its limit, then C, then assembly, each timed on the same seed** (2026-11-25 11:10:
   "first improve the existing rust one, once we found the limits of the language, see if we can do any new neat
   tricks with c instead, and after, same last exercise in ASM, each time comparing how fast we can iterate through the

@@ -8,6 +8,7 @@ from pathlib import Path
 
 from graph_scale_dynamics.domain.model import utc_now
 from graph_scale_dynamics.operations import focus_regions as R
+from graph_scale_dynamics.operations import law_code as LC
 
 CONTRACT = "gsd-focus-1"
 FLAG = "study_focus"
@@ -44,7 +45,31 @@ def load(repo) -> dict | None:
         state = json.loads(repo.get_flag(FLAG, "") or "null")
     except (TypeError, ValueError):
         return None
-    return state if isinstance(state, dict) and state.get("contract") == CONTRACT else None
+    return coded(state) if isinstance(state, dict) and state.get("contract") == CONTRACT else None
+
+
+def coded(state: dict) -> dict:
+    study = state.get("study")
+
+    def put(entry) -> None:
+        if isinstance(entry, dict) and entry.get("label") is not None:
+            entry["label"] = LC.upgraded(entry["label"], study)
+
+    put(state.get("current"))
+    for name in ("contenders", "depths", "inside", "skipped"):
+        for entry in (state.get(name) or {}).values():
+            put(entry)
+    for entry in list(state.get("done") or []) + list(state.get("queue") or []):
+        put(entry)
+    for rows in (state.get("lists") or {}).values():
+        for entry in rows or []:
+            put(entry)
+    for region in list(state.get("regions") or []) + list(state.get("regions_let_go") or []):
+        if not region.get("seeded_from") and "labels" in region:
+            region["labels"] = [LC.upgraded(label, study) for label in region["labels"] or []]
+        if not region.get("seeded_from") and "cores" in region:
+            region["cores"] = {LC.upgraded(k, study): v for k, v in (region["cores"] or {}).items()}
+    return state
 
 
 def save(repo, state: dict) -> None:
@@ -58,9 +83,8 @@ def graph_number(repo, campaign_id: str, law: str) -> int | None:
     return None if row is None or row["g"] is None else int(row["g"])
 
 
-def label(repo, campaign_id: str, law: str) -> str:
-    found = graph_number(repo, campaign_id, law)
-    return f"C{campaign_id}-G{found}" if found is not None else f"C{campaign_id}-{str(law)[:8]}"
+def label(repo, campaign_id: str, law: str, known: dict | None = None) -> str:
+    return LC.code(LC.study_of(repo, campaign_id, known), campaign_id, graph_number(repo, campaign_id, law), law)
 
 
 def own_campaigns(repo, study: str) -> list[str]:
@@ -76,17 +100,41 @@ def _number(text) -> float:
     return float(text) if str(text).isdigit() else float("inf")
 
 
-def best(repo, study: str) -> list[dict]:
+def read_here(repo, campaign_id: str, read_n: int) -> set[str]:
+    return {str(row["candidate_id"]) for row in repo.conn.execute(
+        "SELECT candidate_id FROM engine_decisions_latest WHERE campaign_id=? AND at_n>=?",
+        (str(campaign_id), int(read_n))).fetchall()}
+
+
+def best(repo, study: str, state: dict | None = None) -> list[dict]:
     from graph_scale_dynamics.observability import score_board
+    from graph_scale_dynamics.operations import study_seed
+    if state is None and callable(getattr(repo, "get_flag", None)):
+        state = load(repo)
+    standing, gone = study_seed.standing(state), study_seed.let_go(state)
+    seeded_in = study_seed.campaign_of(state)
     found = []
     for campaign_id in own_campaigns(repo, study):
         for law, score in (score_board.board(repo, campaign_id).get("scores") or {}).items():
-            if int(score.get("score") or 0) > 0:
-                found.append({"candidate_id": str(law), "campaign": campaign_id, "score": int(score["score"])})
+            if int(score.get("score") or 0) <= 0 or (campaign_id == seeded_in and str(law) in gone):
+                continue
+            entry = {"candidate_id": str(law), "campaign": campaign_id, "score": int(score["score"])}
+            if campaign_id == seeded_in and str(law) in standing:
+                entry["origin"] = standing[str(law)]
+            found.append(entry)
+    if standing and seeded_in is not None:
+        here = {e["candidate_id"] for e in found if e["campaign"] == seeded_in}
+        read_n = int(((state or {}).get("plan") or plan())["neighbourhood"]["read_n"])
+        read = read_here(repo, seeded_in, read_n)
+        for law, origin in standing.items():
+            if law not in here and law not in read and law not in gone:
+                found.append({"candidate_id": law, "campaign": seeded_in, "score": int(origin.get("score") or 0),
+                              "origin": origin, "standing": "bundle"})
+    known: dict = {}
     for entry in found:
         entry["graph"] = graph_number(repo, entry["campaign"], entry["candidate_id"])
-        entry["label"] = (f"C{entry['campaign']}-G{entry['graph']}" if entry["graph"] is not None
-                          else f"C{entry['campaign']}-{entry['candidate_id'][:8]}")
+        entry["label"] = LC.code(LC.study_of(repo, entry["campaign"], known), entry["campaign"], entry["graph"],
+                                 entry["candidate_id"])
     return sorted(found, key=lambda e: (-e["score"], _number(e["campaign"]),
                                         e["graph"] if e["graph"] is not None else float("inf"), e["candidate_id"]))
 
@@ -268,7 +316,11 @@ def _add(repo, state: dict, current: dict, points: list[dict]) -> int:
 
 
 def contenders(repo, state: dict, ranked: list | None = None) -> list[str]:
+    from graph_scale_dynamics.operations import study_seed
     ranked = best(repo, state["study"]) if ranked is None else ranked
+    gone, seeded_in = study_seed.let_go(state), study_seed.campaign_of(state)
+    for law in [law for law, e in state["contenders"].items() if law in gone and str(e.get("of")) == str(seeded_in)]:
+        state["contenders"].pop(law)
     wanted = depth_order(state, ranked)[:int(state["plan"]["depth"]["contenders"])]
     current = state.get("current") or {}
     if current.get("law") and all(e["candidate_id"] != current["law"] for e in wanted):
@@ -280,7 +332,8 @@ def contenders(repo, state: dict, ranked: list | None = None) -> list[str]:
         _insert(repo, state["campaigns"][DEPTH], _spec_of(repo, entry["campaign"], entry["candidate_id"]))
         state["contenders"][entry["candidate_id"]] = {"of": entry["campaign"], "score": entry.get("score"),
                                                       "label": label(repo, entry["campaign"], entry["candidate_id"]),
-                                                      "joined_utc": utc_now()}
+                                                      "joined_utc": utc_now(),
+                                                      **({"origin": entry["origin"]} if entry.get("origin") else {})}
         added.append(entry["candidate_id"])
     return added
 
@@ -301,9 +354,10 @@ def inside(repo, state: dict, entry: dict) -> dict | None:
     from graph_scale_dynamics.research import neighbourhood as N
     read_n = int(state["plan"]["neighbourhood"]["read_n"])
     share = float(state["plan"]["next"]["inside_share"])
-    kind, spec = None, None
+    from graph_scale_dynamics.operations import study_seed
+    kind, spec, off = None, None, study_seed.bundles_let_go(state)
     for done in state["done"]:
-        if done.get("stage") != MAPPED or not done.get("alike_to"):
+        if done.get("stage") != MAPPED or not done.get("alike_to") or done.get("seeded") in off:
             continue
         if spec is None:
             spec = _spec_of(repo, entry["campaign"], entry["candidate_id"])
@@ -394,7 +448,9 @@ def lists_of(repo, state: dict, ranked: list[dict]) -> dict[str, list[dict]]:
                 "identified_from": (state.get("identified") or {}).get(law),
                 "placed": law in ((state.get("order") or {}).get(FOCUS_LIST) or [])
                 or law in ((state.get("order") or {}).get(DEPTH_LIST) or []),
-                "in_depth": law in state.get("contenders", {})}
+                "in_depth": law in state.get("contenders", {}),
+                **({"origin": entry["origin"]} if entry.get("origin") else {}),
+                **({"standing": entry["standing"]} if entry.get("standing") else {})}
     return {FOCUS_LIST: [row(e) for e in suggested(repo, state, free_laws(repo, state, ranked))[:LIST_SHOWN]],
             DEPTH_LIST: [row(e) for e in depth_order(state, ranked)[:LIST_SHOWN]]}
 
@@ -474,7 +530,8 @@ def _chosen(repo, state: dict, law: str | None, ranked: list | None = None) -> d
         if not free:
             return None
         return suggested(repo, state, free)[0]
-    found = next((e for e in ranked if e["candidate_id"].startswith(str(law)) or e.get("label") == str(law)), None)
+    found = next((e for e in ranked if e["candidate_id"].startswith(str(law)) or e.get("label") == str(law)
+                  or LC.same(e.get("label"), law)), None)
     if found is not None:
         return found
     for campaign_id in own_campaigns(repo, state["study"]):
@@ -499,7 +556,9 @@ def start_next(repo, state: dict, law: str | None = None, chosen: dict | None = 
     radii = [[float(r), int(c)] for r, c in state["plan"]["neighbourhood"]["radii"]]
     current = {"law": holder, "of": campaign_id, "label": label(repo, campaign_id, holder),
                "score": chosen.get("score"), "kind": verdict(repo, campaign_id, holder, read_n),
-               "stage": NEIGHBOURHOOD, "began_utc": utc_now(), "points": {}, "lines": {}, "radii": radii}
+               "stage": NEIGHBOURHOOD, "began_utc": utc_now(), "points": {}, "lines": {}, "radii": radii,
+               **({"origin": chosen["origin"]} if chosen.get("origin") else {}),
+               **({"standing": chosen["standing"]} if chosen.get("standing") else {})}
     state["current"] = current
     type_of(repo, state, campaign_id, holder)
     current["identified_from"] = (state.get("identified") or {}).get(holder)
@@ -587,7 +646,9 @@ def depth_of(repo, state: dict, law: str, campaign_id: str) -> dict:
     found = kinds(repo, state["campaigns"][DEPTH], law, whole=int(state["seeds"]))
     own = own_kinds(repo, state, law, campaign_id)
     read = {n: k for n, k in sorted(found.items()) if n >= read_n}
-    against = [n for n, k in read.items() if k != expected(own, n)]
+    from graph_scale_dynamics.operations import study_map
+    whole = study_map.decided(repo, campaign_id, law) if own else False
+    against = [n for n, k in read.items() if (whole or (own and n <= max(own))) and k != expected(own, n)]
     return {"kinds": {str(n): k for n, k in sorted(found.items())}, "deepest": max(found) if found else None,
             "own": {str(n): k for n, k in sorted(own.items())},
             "holds_to": max((n for n in read if n not in against), default=None),
@@ -691,7 +752,8 @@ def _summary(current: dict) -> dict:
                                "why": line.get("why")} for p, line in (current.get("lines") or {}).items()},
             "began_utc": current.get("began_utc"), "ended_utc": current.get("ended_utc"),
             "terms": current.get("terms"), "core": current.get("core"), "terms_kept": current.get("terms_kept"),
-            "identified_from": current.get("identified_from"), "early_call": current.get("early_call")}
+            "identified_from": current.get("identified_from"), "early_call": current.get("early_call"),
+            "origin": current.get("origin"), "standing": current.get("standing")}
 
 
 def _end(state: dict, current: dict, stage: str, why: str) -> None:
@@ -718,6 +780,8 @@ def advance(repo, state: dict) -> int:
     current = state["current"]
     p = state["plan"]["neighbourhood"]
     read_n = int(p["read_n"])
+    if current.get("kind") is None:
+        current["kind"] = verdict(repo, current["of"], current["law"], read_n)
     verdicts = current.setdefault("read", {})
     for law in current["points"]:
         if law not in verdicts:
@@ -733,6 +797,8 @@ def advance(repo, state: dict) -> int:
         current["seeds"] = seeds_of(repo, state, current)
     current["sensitivity"] = sensitivity(state["plan"], current["tally"], current["seeds"])
     current["alike_to"] = alike_to(state["plan"], current["tally"])
+    if current["kind"] is None:
+        return 0
     if current["depth"]["invalidated_at"] is not None:
         at = int(current["depth"]["invalidated_at"])
         _end(state, current, INVALIDATED, f"at N={at:,} its run in the depth campaign read "
@@ -819,7 +885,9 @@ def queue_of(state: dict, ranked: list[dict]) -> list[dict]:
         else:
             status = "waiting"
         out.append({"law": law, "campaign": entry["campaign"], "label": entry.get("label"), "score": entry["score"],
-                    "status": status, "region": R.name_of(state, law), "type": (state.get("types") or {}).get(law)})
+                    "status": status, "region": R.name_of(state, law), "type": (state.get("types") or {}).get(law),
+                    **({"origin": entry["origin"]} if entry.get("origin") else {}),
+                    **({"standing": entry["standing"]} if entry.get("standing") else {})})
     return out
 
 
@@ -843,7 +911,7 @@ def resolve(state: dict, given: str) -> str:
         known.setdefault(law, entry.get("label"))
     if state.get("current"):
         known[state["current"]["law"]] = state["current"].get("label")
-    found = sorted(law for law, name in known.items() if law.startswith(given) or name == given)
+    found = sorted(law for law, name in known.items() if law.startswith(given) or name == given or LC.same(name, given))
     if len(found) != 1:
         raise ValueError(f"{given!r} names {len(found)} of the focus's laws; give more of its id")
     return found[0]
@@ -1068,16 +1136,55 @@ def reading(repo) -> dict | None:
     return None if state is None else reading_of(state)
 
 
+STAGE_WORDS = {NEIGHBOURHOOD: "reading its neighbourhood", BOUNDARIES: "halving its boundaries"}
+
+
+def origin_words(origin: dict | None) -> str | None:
+    if not origin:
+        return None
+    return f"{origin.get('score')} in study {origin.get('study')}'s bundle"
+
+
+def doing_of(state: dict) -> str:
+    current, read_n = state.get("current"), int(state["plan"]["neighbourhood"]["read_n"])
+    deep = state.get("depths") or state.get("contenders") or {}
+    deepest = max((int(e["deepest"]) for e in deep.values() if e.get("deepest")), default=None)
+    depth = (f"; the depth seeker on {len(deep)} law{'' if len(deep) == 1 else 's'}"
+             + (f", deepest N={deepest:,}" if deepest else ", none past its first size yet")) if deep else ""
+    if state.get("stopped"):
+        return "off: the focus's campaigns are paused and the blind draw has every worker"
+    if current and current.get("stage") not in ENDED:
+        said = f"in focus: {current.get('label')}, {STAGE_WORDS.get(current.get('stage'), current.get('stage'))}"
+        if current.get("standing") == "bundle":
+            said += (f", on its bundle's score ({origin_words(current.get('origin'))}) until this folder reads it at "
+                     f"N={read_n:,}")
+        if current.get("kind") is None:
+            said += f"; its neighbours wait for its own kind at N={read_n:,}"
+        return said + depth
+    queue = state.get("queue") or []
+    if not queue:
+        return (f"idle: no law scores in this folder yet and no seeded law stands on a bundle's score; a law joins the "
+                f"focus once it scores here at N={read_n:,} or a bundle is seeded" + depth)
+    if not any(entry.get("status") == "waiting" for entry in queue):
+        return "idle: every scoring law is mapped, inside a mapped region or skipped" + depth
+    return "waiting for the focus's next step (once a minute)" + depth
+
+
 def reading_of(state: dict) -> dict:
+    from graph_scale_dynamics.operations import study_seed
     current = state.get("current")
-    return {"contract": CONTRACT, "study": state["study"], "campaigns": state["campaigns"],
+    return {"contract": CONTRACT, "study": state["study"], "campaigns": state["campaigns"], "doing": doing_of(state),
             "current": _summary(current) if current else None,
             "points": len((current or {}).get("points") or {}), "lines": len((current or {}).get("lines") or {}),
             "contenders": state.get("depths") or {law: dict(e) for law, e in state["contenders"].items()},
             "done": state["done"], "inside": state.get("inside") or {}, "stopped": bool(state.get("stopped")),
             "skipped": state.get("skipped") or {}, "queue": state.get("queue") or [],
             "regions": state.get("regions") or [], "touching": R.touching(state.get("regions") or []),
-            "seeded": state.get("seeded") or [], "lists": state.get("lists") or {}, "lean": state.get("lean"),
+            "seeded": [{k: v for k, v in r.items() if k != "laws"} | {"laws_standing": len(r.get("laws") or {}),
+                                                                      "selected": study_seed.selected(r),
+                                                                      "laws_recorded": r.get("laws") is not None}
+                       for r in study_seed.records(state)],
+            "lists": state.get("lists") or {}, "lean": state.get("lean"),
             "order": state.get("order") or {}, "identified": state.get("identified") or {},
             "settings": settings_of(state["plan"]),
             "next_settings": settings_of(state["next_plan"]) if state.get("next_plan") else None,
@@ -1090,9 +1197,11 @@ def words(found: dict | None) -> str:
     current = found.get("current")
     c = found["campaigns"]
     lines = [f"study {found['study']}'s focus: neighbours in campaign {c[NEIGHBOURS]} and more seeds in {c[SEEDS]} "
-             f"(group N), the depth in {c[DEPTH]} (group D)"]
+             f"(group N), the depth in {c[DEPTH]} (group D)"] + ([f"  {found['doing']}"] if found.get("doing") else [])
     if current:
-        lines.append(f"  {current['label']} (score {current['score']}), its kind at the read: {current['kind']}: "
+        lines.append(f"  {current['label']} (score {current['score']}"
+                     + (f", {origin_words(current.get('origin'))}" if current.get("origin") else "")
+                     + f"), its kind at the read: {current['kind']}: "
                      f"{current['stage']}" + (f" ({current['why']})" if current.get("why") else "")
                      + f"; {found['points']} laws, {found['lines']} boundary lines")
         for radius, row in sorted((current.get("radii") or {}).items(), key=lambda kv: float(kv[0])):

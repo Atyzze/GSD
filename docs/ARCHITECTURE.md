@@ -684,7 +684,8 @@ times toward each neighbour of another kind from 0.01 out, D reading another kin
 summary kept in `done`, and the next law by score begun, passing over one inside a mapped region or skipped. The bundle
 carries the state as `focus.json`.
 
-**The Map page** (862, `resources/ui/map.js`, `services/api/focus_route.py`): `GET /api/focus` answers the focus's
+**The Map page** (862, `resources/ui/map.js`, `services/api/focus_route.py`): one line at its top says what the focus
+does and why (`focus.doing_of`, 871), and the page reads itself every 4 s; `GET /api/focus` answers the focus's
 state as read (one flag), the folder's studies and the work groups; `POST /api/focus`, behind the admin capability,
 takes `do`: start (or start again after a stop), law (focus one now, by label or id), skip, back (put back), stop
 (pause the three campaigns), settings (the next law's rings, confirming share, deep laws, widest ring and inside
@@ -702,6 +703,28 @@ through `zstd`, streamed, or a folder), refuses another science hash, puts every
 campaign by its spec, and joins its GG regions to the focus's state (`seeded_from`, the holder recorded as mapped); a
 region from a newer bundle of the same study widens the one it gave, a taken number from another study moves to the
 next. The records are the state's `seeded`, on the page and in the bundle's `focus.json`.
+
+**The seeds as a selection, and a seeded law on its bundle's score** (871). A seed record is one per bundle
+(`study_seed.records` merges any written twice) and holds each scoring law's bundle score and code (`laws`), the laws
+table's sha256 and whether it is ticked (`selected`). `focus.best` takes a ticked bundle's law on its bundle's score
+(`origin`, `standing: bundle`) until the seeded campaign holds a decision on it at the plan's `read_n` or past
+(`focus.read_here`), then on the folder's own score, and leaves out a law whose every bundle is unticked
+(`study_seed.let_go`). A law in focus without its own kind at `read_n` waits for it before its neighbours are judged,
+and `depth_of` compares only the sizes its own campaign read, or every size once it is decided. A seed is refused when
+the bundle is ticked already, when a ticked bundle has the same laws table, or when it adds no law and no region.
+`imports.synchronize` (the Map page's `do: synchronize`, the ticked bundles' names) lets go of a ticked bundle no
+longer ticked first (`study_seed.release`: out of the focus's lists and the depth seeker, the law in focus set aside,
+each region that names it alone in `sources` and that no law mapped here joined moved to `regions_let_go`), then reads
+in each newly ticked one (`study_seed.seed` from the import folder, or `study_seed.choose` from its record, which
+brings its regions back). A let-go law stays in the seeded campaign and its runs go on: nothing measured is rewritten.
+
+**A law's code** (871, `operations/law_code.py`): `S<study>C<campaign>G<graph>`, the study of the campaign's design,
+the campaign and the number of the law's first graph in it (`MIN(graph_ordinal)`, as the ensemble code); where no
+graph has run, `S<study>C<campaign>-<the id's first 8>`; a campaign with no study keeps `C<campaign>-G<graph>`. Its
+fingerprint is the identity underneath. The focus's labels, `/api/structure`'s `code` (with a seeded law's `origin`),
+`/api/campaigns`' `study` (which `system.js`'s `lawCode` and `lawCodeQuery` read for Home, the Explorer and the law
+page) and the bundle's `tables/laws` (`code`, `graph`) all make it the same way; `law_code.parse` and `same` read
+S176C11G79, s176-c11-g79 and C11-G79 alike.
 
 **Held laws run on** (864, `operations/run_on.py`): the Map page's last panel reads each study's committed run-on list
 (`study_<id>_run_on.json`, `tools/held_by_a_gate.py`) and offers "run them on" (`do: run_on`, the flag `run_on`, how

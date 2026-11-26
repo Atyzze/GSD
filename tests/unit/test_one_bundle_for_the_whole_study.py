@@ -263,7 +263,8 @@ def test_a_folder_s_focus_goes_into_its_bundle_whole_and_named_on_the_study_s_pa
     entry = B.build(base, repo, ["1"], request_id="r-2")
     stem = entry["filename"][:-len(".tar.zst")]
     members = _members(B.bundles_dir(base) / entry["filename"])
-    assert json.loads(members[f"{stem}/focus.json"]) == state
+    named = dict(state, current=dict(state["current"], label="SGSD533C3G7363"))
+    assert json.loads(members[f"{stem}/focus.json"]) == named, "whole, every law named by its study, campaign and graph"
     assert json.loads(members[f"{stem}/study.json"])["focus"] == {
         "file": "focus.json", "contract": focus.CONTRACT, "campaigns": state["campaigns"], "done": 1, "regions": ["GG#1"],
-        "law": "ab" * 32, "label": "C3-G7363", "stage": focus.BOUNDARIES}
+        "law": "ab" * 32, "label": "SGSD533C3G7363", "stage": focus.BOUNDARIES}

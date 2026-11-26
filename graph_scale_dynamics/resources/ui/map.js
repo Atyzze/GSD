@@ -1,10 +1,14 @@
 (function(){
   const SYS=window.GSD_SYSTEM, esc=SYS.esc;
-  let data=null, busy=false, note='', wired=false, settingsOpen=false;
+  let data=null, busy=false, note='', wired=false, settingsOpen=false, pendingTicks={};
   const num=v=>Number(v).toLocaleString('en-US');
   const size=v=>v==null?'not yet':num(v);
   const radiusText=r=>{const x=Number(r);return x<1e-3?x.toExponential(0):String(x)};
   const short=id=>String(id||'').slice(0,10);
+  function lawHref(law,camp){const raw=SYS.route('/candidate'),parts=raw.split('#');let u=parts[0]+'?candidate='+encodeURIComponent(law||'');if(camp!=null&&camp!=='')u+='&campaign='+encodeURIComponent(camp);return u+(parts[1]?'#'+parts[1]:'')}
+  function originText(o){return o?`<span class="muted map-origin" title="seeded from ${esc(o.bundle||'its bundle')}: its code and score in study ${esc(o.study||'?')}">from ${esc(o.code||'?')}, ${esc(o.score)} there</span>`:''}
+  function lawLink(law,camp,label,origin){return `<a class="candidate-link map-law" href="${esc(lawHref(law,camp))}" title="the law page of ${esc(law||'')}">${esc(label||short(law))}</a>${origin?' '+originText(origin):''}`}
+  function scoreText(e){return e&&e.standing==='bundle'&&e.origin?`${esc(e.score)} <span class=muted title="it stands on its bundle's score until this folder reads it at 16,384">in study ${esc(e.origin.study||'?')}'s bundle</span>`:esc(e&&e.score)}
   function ringsText(rings){return (rings||[]).map(([r,c])=>`${radiusText(r)}:${c}`).join(', ')}
   function parseRings(text){
     const rings=String(text||'').split(',').map(part=>part.trim()).filter(Boolean).map(part=>{
@@ -28,8 +32,9 @@
     const camps=f.campaigns||{};
     const lean=leanOf(f,w), work=(d&&d.work)||{};
     const workText=[['N','neighbours'],['S','seeds'],['D','depth']].map(([k,name])=>{const r=work[k]||{};return `${name} (C${esc(r.campaign||camps[k]||'?')}): running ${esc(num(r.running||0))}, queued ${esc(num(r.queued||0))}, ${esc(num(r.done||0))} done${r.deepest?`, deepest N=${esc(num(r.deepest))}`:''}`}).join(' · ');
-    return `<div class=muted>study <b>${esc(f.study)}</b> · ${f.stopped?'<b class=warn>the focus is off</b>':'the focus runs'} · shares: ${shares}</div>
-      <div class="toolbar map-lean"><span>random draw</span><input id=mapLean data-admin-write type=range min=0 max=100 step=5 value="${esc(Math.round(100*lean))}" title="the share of the workers the focus's neighbours and seeds take against the blind draw; the depth seeker always holds one worker; at 0 the focus is off" style="width:22em"><span>in focus</span><b id=mapLeanValue>${esc(100-Math.round(100*lean))}% random · ${esc(Math.round(100*lean))}% focus · depth 1 worker</b></div>
+    return `<div class=map-doing id=mapDoing title="what the focus does now and why, read every 4 s"><b>${esc(f.doing||'the focus waits for its first step')}</b></div>
+      <div class=muted>study <b>${esc(f.study)}</b> · ${f.stopped?'<b class=warn>the focus is off</b>':'the focus runs'} · shares: ${shares}</div>
+      <div class="toolbar map-lean"><span>random draw</span><input id=mapLean data-admin-write type=range min=0 max=100 step=5 value="${esc(Math.round(100*lean))}" title="the share of the workers the focus's neighbours and seeds take against the blind draw; the depth seeker always holds one worker; at 0 the focus is off" style="width:22em"><span>in focus</span><b id=mapLeanValue>${esc(100-Math.round(100*lean))}% random · ${esc(Math.round(100*lean))}% focus</b></div>
       <div class=muted>${workText}</div>
       <details class=map-settings id=mapSettings${settingsOpen?' open':''}><summary>the focus’s settings: how it maps a law (rarely changed; a change applies from the next law)</summary>
       <ul class="muted map-settings-words">
@@ -51,7 +56,7 @@
   function listTable(d,which){
     const rows=((d&&d.focus&&d.focus.lists)||{})[which]||[];
     if(!rows.length)return `<div class=empty>${which==='focus'?'no scoring law waits for the focus':'no law to take deeper yet'}</div>`;
-    return `<table class=map-queue><thead><tr><th></th><th>law</th><th>score</th><th>type</th><th>identified from</th><th></th></tr></thead><tbody>${rows.map((e,i)=>`<tr><td class=muted>${i+1}</td><td>${esc(e.label||short(e.law))}${e.placed?' <span class=muted title="placed by hand">\u2022</span>':''}</td><td>${esc(e.score)}</td><td>${esc(e.type||'not read yet')}</td><td>${e.identified_from?`N=${esc(num(e.identified_from))}`:'<span class=muted>not yet</span>'}</td><td><button type=button class=chip data-admin-write data-map-do=order data-map-list="${which}" data-map-move=up data-map-law="${esc(e.law)}" ${i?'':'disabled'}>\u2191</button> <button type=button class=chip data-admin-write data-map-do=order data-map-list="${which}" data-map-move=down data-map-law="${esc(e.law)}" ${i<rows.length-1?'':'disabled'}>\u2193</button>${which==='focus'?` <button type=button class=chip data-admin-write data-map-do=skip data-map-law="${esc(e.law)}">skip</button>`:(e.in_depth?' <span class=muted>in the depth campaign</span>':'')}</td></tr>`).join('')}</tbody></table><div class=toolbar><button type=button class=chip data-admin-write data-map-do=order data-map-list="${which}" data-map-move=reset title="forget the order set by hand and take the suggested one">the suggested order</button></div>`}
+    return `<table class=map-queue><thead><tr><th></th><th>law</th><th>score</th><th>type</th><th>identified from</th><th></th></tr></thead><tbody>${rows.map((e,i)=>`<tr><td class=muted>${i+1}</td><td>${lawLink(e.law,e.campaign,e.label,e.origin)}${e.placed?' <span class=muted title="placed by hand">\u2022</span>':''}</td><td>${scoreText(e)}</td><td>${esc(e.type||'not read yet')}</td><td>${e.identified_from?`N=${esc(num(e.identified_from))}`:'<span class=muted>not yet</span>'}</td><td><button type=button class=chip data-admin-write data-map-do=order data-map-list="${which}" data-map-move=up data-map-law="${esc(e.law)}" ${i?'':'disabled'}>\u2191</button> <button type=button class=chip data-admin-write data-map-do=order data-map-list="${which}" data-map-move=down data-map-law="${esc(e.law)}" ${i<rows.length-1?'':'disabled'}>\u2193</button>${which==='focus'?` <button type=button class=chip data-admin-write data-map-do=skip data-map-law="${esc(e.law)}">skip</button>`:(e.in_depth?' <span class=muted>in the depth campaign</span>':'')}</td></tr>`).join('')}</tbody></table><div class=toolbar><button type=button class=chip data-admin-write data-map-do=order data-map-list="${which}" data-map-move=reset title="forget the order set by hand and take the suggested one">the suggested order</button></div>`}
   function current(d){
     const c=d&&d.focus&&d.focus.current;
     if(!c)return `<div class=empty>${d&&d.focus?'no law is in focus now: every scoring law is mapped, inside a mapped region, or skipped':'no focus in this folder'}</div>`;
@@ -61,7 +66,7 @@
     const lines=Object.entries(c.boundaries||{}).map(([p,b])=>`<li>toward ${esc(short(p))}: between ${esc(b.between[0])} and ${esc(b.between[1])} of the line, ${esc(b.kinds[0])} to ${esc(b.kinds[1])}${b.why?` (${esc(b.why)})`:''}</li>`).join('');
     const depth=c.depth||{};
     const early=c.early_call;
-    return `<div class=toolbar><b>${esc(c.label)}</b><span class=muted>score ${esc(c.score)} · its kind at 16,384: ${esc(c.kind)}${c.identified_from?`, read so from N=${esc(num(c.identified_from))}`:''} · ${esc(stageText(c.stage))}${c.why?` (${esc(c.why)})`:''}</span><button type=button class=gsd-control data-admin-write data-map-do=skip data-map-law="${esc(c.law)}">skip this law</button></div>
+    return `<div class=toolbar><b>${lawLink(c.law,c.of,c.label,c.origin)}</b><span class=muted>score ${scoreText(c)} · its kind at 16,384: ${esc(c.kind??'not read here yet')}${c.identified_from?`, read so from N=${esc(num(c.identified_from))}`:''} · ${esc(stageText(c.stage))}${c.why?` (${esc(c.why)})`:''}</span><button type=button class=gsd-control data-admin-write data-map-do=skip data-map-law="${esc(c.law)}">skip this law</button></div>
       ${early?`<div class=muted title="each neighbour's kind at the size this law is identified from, against its kind at 16,384: how far a smaller read would have called it">the call at N=${esc(num(early.at_n))} agrees with 16,384 on ${esc(num(early.agreed))} of ${esc(num(early.of))} neighbours read</div>`:''}
       <table class=map-rings><thead><tr><th>ring</th><th>laws</th><th>alike</th><th>other</th><th>waiting</th><th></th></tr></thead><tbody>${rows||'<tr><td colspan=6 class=muted>no ring yet</td></tr>'}</tbody></table>
       <div class=muted>${seedLine}</div>
@@ -83,34 +88,41 @@
   function depthTable(d){
     const all=Object.entries((d&&d.focus&&d.focus.contenders)||{});
     if(!all.length)return '<div class=empty>no law is being taken deeper yet</div>';
-    return `<table class=map-depth><thead><tr><th>law</th><th>deepest</th><th>holds its kind to</th><th>invalidated at</th><th>its kinds in the depth campaign</th></tr></thead><tbody>${all.map(([law,e])=>`<tr><td>${esc(e.label||short(law))}</td><td>${esc(size(e.deepest))}</td><td>${esc(size(e.holds_to))}</td><td>${e.invalidated_at!=null?`<b class=warn>${esc(num(e.invalidated_at))}</b>`:'no'}</td><td class=muted>${Object.entries(e.kinds||{}).map(([n,k])=>`${esc(num(n))} ${esc(k)}`).join(' · ')}</td></tr>`).join('')}</tbody></table>`}
+    return `<table class=map-depth><thead><tr><th>law</th><th>deepest</th><th>holds its kind to</th><th>invalidated at</th><th>its kinds in the depth campaign</th></tr></thead><tbody>${all.map(([law,e])=>`<tr><td>${lawLink(law,e.of,e.label,e.origin)}</td><td>${esc(size(e.deepest))}</td><td>${esc(size(e.holds_to))}</td><td>${e.invalidated_at!=null?`<b class=warn>${esc(num(e.invalidated_at))}</b>`:'no'}</td><td class=muted>${Object.entries(e.kinds||{}).map(([n,k])=>`${esc(num(n))} ${esc(k)}`).join(' · ')}</td></tr>`).join('')}</tbody></table>`}
   function queue(d){
     const q=(d&&d.focus&&d.focus.queue)||[];
     if(!q.length)return '<div class=empty>the queue arrives with the focus’s first step</div>';
     return `<table class=map-queue><thead><tr><th></th><th>law</th><th>score</th><th>where it stands</th><th></th></tr></thead><tbody>${q.map((e,i)=>{
       const free=e.status==='waiting', back=e.status==='skipped'||!['waiting','in focus'].includes(e.status);
-      return `<tr><td class=muted>${i+1}</td><td>${esc(e.label||short(e.law))}</td><td>${esc(e.score)}</td><td>${esc(e.status)}${e.region?` · ${esc(e.region)}`:''}${e.type?` <span class=muted>· ${esc(e.type)}</span>`:''}</td><td>${free?`<button type=button class=chip data-admin-write data-map-do=skip data-map-law="${esc(e.law)}">skip</button>`:''}${back?`<button type=button class=chip data-admin-write data-map-do=back data-map-law="${esc(e.law)}">put back</button>`:''}</td></tr>`}).join('')}</tbody></table>`}
+      return `<tr><td class=muted>${i+1}</td><td>${lawLink(e.law,e.campaign,e.label,e.origin)}</td><td>${scoreText(e)}</td><td>${esc(e.status)}${e.region?` · ${esc(e.region)}`:''}${e.type?` <span class=muted>· ${esc(e.type)}</span>`:''}</td><td>${free?`<button type=button class=chip data-admin-write data-map-do=skip data-map-law="${esc(e.law)}">skip</button>`:''}${back?`<button type=button class=chip data-admin-write data-map-do=back data-map-law="${esc(e.law)}">put back</button>`:''}</td></tr>`}).join('')}</tbody></table>`}
   function done(d){
     const list=((d&&d.focus&&d.focus.done)||[]).slice().reverse();
     if(!list.length)return '<div class=empty>no law’s focus has ended yet</div>';
-    return `<ul class=map-done>${list.map(e=>`<li><b>${esc(e.label||short(e.law))}</b> ${esc(e.stage)}${e.region?` as ${esc(e.region)}`:''}${e.type?` (${esc(e.type)})`:''}${e.why?`: ${esc(e.why)}`:''}${e.sensitivity?` · sensitive to ${esc(e.sensitivity.on)}`:''}${e.core?` · core: ${esc(e.core.join(', ')||'none alone')}`:''}</li>`).join('')}</ul>`}
+    return `<ul class=map-done>${list.map(e=>`<li><b>${lawLink(e.law,e.of,e.label,e.origin)}</b> ${esc(e.stage)}${e.region?` as ${esc(e.region)}`:''}${e.type?` (${esc(e.type)})`:''}${e.why?`: ${esc(e.why)}`:''}${e.sensitivity?` · sensitive to ${esc(e.sensitivity.on)}`:''}${e.core?` · core: ${esc(e.core.join(', ')||'none alone')}`:''}</li>`).join('')}</ul>`}
   function bytesText(n){n=+n||0;const u=['B','KiB','MiB','GiB','TiB'];let i=0;while(n>=1024&&i<u.length-1){n/=1024;i++}return `${n<10&&i?n.toFixed(1):Math.round(n)} ${u[i]}`}
+  function seedState(b){
+    const m=b.seeded;
+    if(m&&m.selected)return `<span class=good>in the map since ${esc(String(m.at||'').replace('T',' ').slice(0,16))}</span>${m.laws_recorded===false?' <span class=muted title="read before its laws were recorded one by one: synchronize reads it again for each law\u2019s score and code">(synchronize to read its scores)</span>':` <span class=muted>${esc(num(m.laws_standing||0))} laws, regions ${esc((m.regions||[]).join(', ')||'none')}</span>`}`;
+    if(m)return `<span class=muted>let go ${esc(String(m.let_go_utc||'').replace('T',' ').slice(0,16))}; its readings kept</span>`;
+    if(b.identical_to)return `<b class=warn>identical to ${esc(b.identical_to)}: refused</b>`;
+    return '<span class=muted>not in the map</span>'}
   function importRow(b){
-    const seeded=b.seeded?`<span class=good>seeded ${esc(String(b.seeded.at||'').replace('T',' ').slice(0,16))}</span>`:'';
     if(!b.readable)return `<tr class=map-import-unread><td></td><td><code>${esc(b.name)}</code></td><td colspan=6 class=muted>not readable yet${b.why?`: ${esc(b.why)}`:''} (still being copied?)</td></tr>`;
     const same=b.science_same?'<span class=good>same</span>':`<b class=warn title="${esc((b.science_differ||[]).join(', '))}">another science: refused</b>`;
-    return `<tr><td><input type=checkbox class=map-import-tick data-admin-write data-import-name="${esc(b.name)}" ${b.science_same?'':'disabled'}></td><td><code>${esc(b.name)}</code></td><td>study ${esc(b.study)}</td><td>${b.build!=null?`build ${esc(b.build)}`:'<span class=muted>-</span>'}</td><td>${esc(String(b.built_utc||'').replace('T',' ').replace('Z',' UTC'))}</td><td>${esc(bytesText(b.bytes))}</td><td>${esc(num(b.scoring))} scoring laws of ${esc(num(b.laws))}, ${esc(num(b.regions))} regions</td><td>${same} ${seeded}</td></tr>`}
+    const on=!!(b.seeded&&b.seeded.selected), can=b.science_same&&!b.identical_to&&(b.in_folder!==false||b.seeded);
+    const where=b.in_folder===false?' <span class=muted title="read from its path or no longer in the import folder">(not in the folder)</span>':'';
+    return `<tr><td><input type=checkbox class=map-import-tick data-admin-write data-import-name="${esc(b.bundle||b.name)}" ${on?'checked ':''}${can?'':'disabled'}></td><td><code>${esc(b.name)}</code>${where}</td><td>study ${esc(b.study)}</td><td>${b.build!=null?`build ${esc(b.build)}`:'<span class=muted>-</span>'}</td><td>${esc(String(b.built_utc||'').replace('T',' ').replace('Z',' UTC'))}</td><td>${b.bytes!=null?esc(bytesText(b.bytes)):'<span class=muted>-</span>'}</td><td>${esc(num(b.scoring||0))} scoring laws${b.laws!=null?` of ${esc(num(b.laws))}`:''}${b.regions!=null?`, ${esc(num(b.regions))} region${+b.regions===1?'':'s'}`:''}</td><td>${same} ${seedState(b)}</td></tr>`}
   function seeds(d){
     const f=d&&d.focus, im=(d&&d.imports)||{};
-    const made=((f&&f.seeded)||[]).map(e=>`<li><b>${esc(e.bundle)}</b> <span class=muted>(study ${esc(e.study)}, built ${esc(e.built_utc||'')}): ${esc(num(e.scoring))} scoring laws, ${esc(num(e.laws_added))} new here, regions ${esc((e.regions||[]).join(', ')||'none')}${e.mismatched?`, <b class=warn>${esc(num(e.mismatched))} laws whose spec is not their id, left out</b>`:''}</span></li>`).join('');
     const where=im.folder?`<div class="toolbar map-import-where"><span>the import folder:</span> <code id=mapImportFolder>${esc(im.folder)}</code><button type=button class=gsd-control data-admin-write data-map-do=open_import title="open this folder in the file manager of the machine GSD runs on">open the folder</button><button type=button class=chip data-map-copy="${esc(im.folder)}" title="copy the folder's path">copy the path</button></div>
       <div class=muted>Put a study bundle into it, its <code>.tar.zst</code> as downloaded or its unpacked folder; it is listed below within a few seconds. Nothing in the folder is changed.</div>`
       :`<div class=empty>${esc(im.why||'no import folder')}</div>`;
     const list=(im.bundles||[]);
-    const table=list.length?`<table class=map-imports><thead><tr><th></th><th>bundle</th><th>study</th><th>build</th><th>built</th><th>size</th><th>its laws</th><th>science</th></tr></thead><tbody>${list.map(importRow).join('')}</tbody></table>
-      <div class=toolbar><button type=button class=gsd-control data-admin-write data-map-do=seed ${f?'':'disabled'} title="the ticked bundles' scoring laws run again here in the seeded campaign and their GG regions join the map; seeding the same bundle again adds only what is new">seed from the ticked</button>${f?'':'<span class=muted>a seed joins a focus: start one first</span>'}</div>`
+    const table=list.length?`<table class=map-imports><thead><tr><th title="ticked: its laws and regions are in this study's map">in the map</th><th>bundle</th><th>study</th><th>build</th><th>built</th><th>size</th><th>its laws</th><th>science and state</th></tr></thead><tbody>${list.map(importRow).join('')}</tbody></table>
+      <div class=toolbar><button type=button class=gsd-control data-admin-write data-map-do=synchronize ${f?'':'disabled'} title="read in what is newly ticked and let go of what is unticked: its laws no longer focused on or taken deeper, its regions off the map; the readings already taken are kept">synchronize</button>${f?'':'<span class=muted>a seed joins a focus: start one first</span>'}</div>
+      <div class="muted map-merge-line">A merged set is a new bundle, made on Reports.</div>`
       :(im.folder?'<div class=empty>no study bundle in the import folder yet</div>':'');
-    return `${where}${table}${made?`<div class=muted>seeded so far:</div><ul class=map-done>${made}</ul>`:(f?'<div class=empty>no seed yet: the study maps from its own laws alone</div>':'')}`}
+    return `${where}${table}${!list.length&&f?'<div class=empty>no seed yet: the study maps from its own laws alone</div>':''}`}
   function runOn(d){
     const lists=(d&&d.run_on_lists)||[], now=d&&d.run_on;
     if(now){
@@ -124,11 +136,10 @@
     const put=(id,html)=>{const el=document.getElementById(id);if(el)el.innerHTML=html};
     const scope=document.getElementById('mapScope');if(scope)scope.textContent=data&&data.focus?`study ${data.focus.study}`:'';
     const typing=['mapLean','mapRings','mapConfirm','mapContenders','mapOutward','mapInside','mapPerType','mapStudy'].some(id=>{const el=document.getElementById(id);return el&&document.activeElement===el});
-    const ticked=new Set([...document.querySelectorAll('.map-import-tick')].filter(t=>t.checked).map(t=>t.getAttribute('data-import-name')));
     const box=document.getElementById('mapSettings');if(box)settingsOpen=!!box.open;
     if(!typing)put('mapControls',controls(data));
     put('mapCurrent',current(data));put('mapRegions',regions(data));put('mapDepth',depthTable(data));put('mapQueue',queue(data));put('mapFocusList',listTable(data,'focus'));put('mapDepthList',listTable(data,'depth'));put('mapDone',done(data));put('mapRunOn',runOn(data));put('mapSeed',seeds(data));
-    document.querySelectorAll('.map-import-tick').forEach(t=>{if(ticked.has(t.getAttribute('data-import-name')))t.checked=true});
+    document.querySelectorAll('.map-import-tick').forEach(t=>{const k=t.getAttribute('data-import-name');if(k in pendingTicks)t.checked=!!pendingTicks[k]});
     wire()}
   function value(id){const el=document.getElementById(id);return el?el.value:''}
   function bodyFor(button){
@@ -139,30 +150,36 @@
     if(what==='law')return {do:'law',law:law||value('mapLaw')};
     if(what==='skip'||what==='back')return {do:what,law};
     if(what==='run_on')return {do:'run_on',study:button.getAttribute('data-map-study')||undefined};
-    if(what==='seed')return {do:'seed',bundles:[...document.querySelectorAll('.map-import-tick')].filter(t=>t.checked).map(t=>t.getAttribute('data-import-name'))};
+    if(what==='synchronize')return {do:'synchronize',ticked:[...document.querySelectorAll('.map-import-tick')].filter(t=>t.checked).map(t=>t.getAttribute('data-import-name'))};
     if(what==='open_import')return {do:'open_import'};
     if(what==='order')return {do:'order',list:button.getAttribute('data-map-list'),law:law||'',move:button.getAttribute('data-map-move')};
     if(what==='run_on_clear')return {do:'run_on',clear:true};
     return {do:'settings',settings:{radii:parseRings(value('mapRings')),confirm_share:+value('mapConfirm'),contenders:+value('mapContenders'),outward_most:+value('mapOutward'),inside_share:+value('mapInside'),mapped_per_type:+value('mapPerType')||3}}}
+  function doneNote(body,d){
+    if(body.do!=='synchronize'||!d)return `done: ${body.do}`;
+    const parts=[];
+    (d.read_in||[]).forEach(r=>parts.push(`read in ${r.bundle}${r.read_again?' again':''}: ${num(r.laws_added||0)} laws new, ${num(r.laws_standing||0)} standing on its scores`));
+    (d.let_go||[]).forEach(r=>parts.push(`let go of ${r.bundle}`));
+    (d.refused||[]).forEach(r=>parts.push(`refused ${r.name}: ${r.why}`));
+    return parts.length?parts.join(' · '):'synchronized: nothing changed'}
   async function act(body){
     note='';
-    try{data=await SYS.postJson('/api/focus',body);note=`done: ${body.do}`}
+    try{data=await SYS.postJson('/api/focus',body);note=doneNote(body,data);if(body.do==='synchronize')pendingTicks={}}
     catch(e){note=String((e&&e.message)||e)}
     render(data)}
   function wire(){
     if(wired)return;const root=document.getElementById('gsdMap');if(!root)return;wired=true;
     root.addEventListener('click',e=>{
-      const reload=e.target.closest&&e.target.closest('#mapReload');if(reload){refresh(true);return}
       const copy=e.target.closest&&e.target.closest('[data-map-copy]');if(copy){const text=copy.getAttribute('data-map-copy');Promise.resolve(navigator.clipboard&&navigator.clipboard.writeText(text)).then(()=>{copy.textContent='copied'}).catch(()=>{});return}
       const button=e.target.closest&&e.target.closest('[data-map-do]');if(!button)return;
       let body;try{body=bodyFor(button)}catch(err){note=String(err.message||err);render(data);return}
       act(body)});
-    root.addEventListener('input',e=>{if(e.target&&e.target.id==='mapLean'){const v=+e.target.value,out=document.getElementById('mapLeanValue');if(out)out.textContent=`${100-v}% random \u00b7 ${v}% focus \u00b7 depth 1 worker`}});
-    root.addEventListener('change',e=>{if(e.target&&e.target.id==='mapLean')act({do:'lean',focus:(+e.target.value)/100})})}
+    root.addEventListener('input',e=>{if(e.target&&e.target.id==='mapLean'){const v=+e.target.value,out=document.getElementById('mapLeanValue');if(out)out.textContent=`${100-v}% random \u00b7 ${v}% focus`}});
+    root.addEventListener('change',e=>{if(e.target&&e.target.classList&&e.target.classList.contains('map-import-tick'))pendingTicks[e.target.getAttribute('data-import-name')]=!!e.target.checked;if(e.target&&e.target.id==='mapLean')act({do:'lean',focus:(+e.target.value)/100})})}
   async function refresh(force){
     if(busy&&!force)return;busy=true;
     try{data=await SYS.getJson('/api/focus')}
     catch(e){note=String((e&&e.message)||e)}
     finally{busy=false;render(data)}}
-  window.GSD_MAP={refresh,render,act,bodyFor,parseRings,ringsText,get data(){return data},set data(v){data=v},get note(){return note}};
+  window.GSD_MAP={refresh,render,act,bodyFor,parseRings,ringsText,lawHref,doneNote,get data(){return data},set data(v){data=v},get note(){return note},get pendingTicks(){return pendingTicks}};
 })();

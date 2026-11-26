@@ -101,10 +101,12 @@ def law_score_of(board: dict, law: str, top_n) -> dict | None:
 
 def law_rows(repo, campaign_ids, points: dict):
     from graph_scale_dynamics.observability import score_board
+    from graph_scale_dynamics.operations import law_code
     for cid in campaign_ids:
         cid = str(cid)
         after = ""
         board = score_board.board(repo, cid)
+        study, graphs = law_code.study_of(repo, cid), law_code.graphs(repo, cid)
         while True:
             rows = repo.conn.execute(
                 "SELECT c.candidate_id,c.candidate_number,c.state,c.state_reason,d.rule,d.action,d.at_n,d.next_n,"
@@ -120,6 +122,7 @@ def law_rows(repo, campaign_ids, points: dict):
                 law = str(row["candidate_id"])
                 point = points.get((cid, law)) or {"rungs": []}
                 yield {"campaign_id": cid, "candidate_id": law, "candidate_number": row["candidate_number"],
+                       "code": law_code.code(study, cid, graphs.get(law), law), "graph": graphs.get(law),
                        "state": row["state"], "state_reason": row["state_reason"],
                        "decision": {"rule": row["rule"], "action": row["action"], "at_n": row["at_n"],
                                     "next_n": row["next_n"], "priority": row["priority"], "reason": row["reason"]},
@@ -287,6 +290,9 @@ def tables(repo, campaign_ids, blobs=None) -> dict:
                                                       "rows (the landscape's point: each probe's reading at the "
                                                       "largest rung that has one); regime from candidate_specs "
                                                       "(dsl.dynamics_regime: zero_temperature or equilibrium); the "
+                                                      "law's code (`code`, SnCnGn: the study, the campaign and its "
+                                                      "first graph's number, `graph`; the study and the campaign and "
+                                                      "the start of its id where no graph has run); the "
                                                       "law itself (`spec`, as candidate_specs holds it: its terms, "
                                                       "couplings and dynamics, whose fingerprint is its id), so a "
                                                       "study can start from the bundle's laws; and the folder's own "

@@ -356,6 +356,8 @@ def _campaign_row(repo, campaign: dict, scan: dict, actives: int,
         "control_verdict": (scan.get("control_verdicts") or {}).get(campaign_id),
         "draw": draw_of(spec),
         "group": (spec.get("study_design") or {}).get("group"),
+        "study": (None if (spec.get("study_design") or {}).get("study") in (None, "")
+                  else str(spec["study_design"]["study"])),
         "design_kind": (spec.get("study_design") or {}).get("kind"),
         "focus_part": ((spec.get("study_design") or {}).get("focus") or {}).get("part"),
         "grid": (spec.get("search_policy") or {}).get("grid"),
@@ -388,6 +390,20 @@ def _campaign_row(repo, campaign: dict, scan: dict, actives: int,
         "archived": campaign.get("status") == "archived",
         "controls": _controls(repo, campaign, actives),
     }
+
+
+def campaign_list(repo) -> list[dict]:
+    payload = []
+    for row in repo.conn.execute(
+            "SELECT campaign_id,status,created_utc,spec_json FROM campaigns ORDER BY created_utc").fetchall():
+        spec = json.loads(row["spec_json"])
+        link = repo.campaign_link(row["campaign_id"])
+        design = spec.get("study_design") or {}
+        payload.append({"campaign_id": row["campaign_id"], "status": row["status"], "created_utc": row["created_utc"],
+                        "mode": spec.get("mode", "bounded"), "name": spec.get("name"),
+                        "parent_campaign_id": link and link["parent_campaign_id"], "channel": link and link["channel"],
+                        "study": None if design.get("study") in (None, "") else str(design["study"])})
+    return payload
 
 
 def overview(repo, cache_root=None, *, slow: dict | None = None, campaigns: list | None = None) -> dict:

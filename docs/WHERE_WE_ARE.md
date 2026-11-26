@@ -1,4 +1,4 @@
-# Where we are, at build 870
+# Where we are, at build 871
 
 The whole project on one page, in plain words; the detail is in `docs/agent/HANDOFF.md`.
 
@@ -35,11 +35,10 @@ What the instrument reads on known answers (1, 2). **No data from a study before
 
 ## What is running
 
-Study 174 (its bundle of 2026-11-25 09:59Z read at 864: every batch at its law budget), with the focus beside its
-blind draw once you start it, and 40 held laws to run on; 175 to be paused. Since
-2026-11-24 16:34 the project rests on two of their bundles and the calibration table, nothing older: 174's of 14:22Z
-(the blind draw, 8,131 laws read) and 175's of 08:35Z (595 variants around 174's 35 settled laws).
-`docs/paper/GSD_PAPER.md` is the working draft that rests on them alone. Study 176 is designed (865), not started.
+Study 176 in its own folder since 2026-11-25 15:00, seeded from 174's bundle of 13:04Z; on 871 its focus takes the
+bundle's best law at once (press synchronize once). Study 174 beside it, its focus on C8-G2983; 175 to be paused.
+The project rests on two bundles and the calibration table, nothing older (2026-11-24 16:34): 174's of 14:22Z (the
+blind draw, 8,131 laws read) and 175's of 08:35Z (595 variants around 174's 35 settled laws), the paper's draft on them.
 
 ## What they show
 
@@ -56,7 +55,7 @@ are one seed of three at small sizes, on graphs in pieces or trees the next size
 68% to 81% of the way there from empty, worse as N grows. Until a known law grows its geometry from empty, "nothing
 grows from empty" cannot be told from "nothing can get there under these moves".
 
-## What 800 to 870 changed
+## What 800 to 871 changed
 
 The probes locked and your table installed (800 to 805); no clock decides and the evidence judged again on the final
 code (806 to 843); 844 the stable build with study 174; 845 to 853 Home's batches, study 175, the score of 848, the
@@ -66,17 +65,18 @@ lattice strips back, the Top 100 in one order, every law of a bundle whole. 861:
 time beside the blind draw. 862: the Map page steers it, and names regions GG#n. 863: a handover. 864: 40 held laws
 run on, the law page a 4x4 grid. 865: study 176 seeded from bundles, Home's one bar, a law's type. 866: a slider, two
 ordered lists, one depth worker. 867 and 868: the law page in plain words. 869: an import folder. 870: a handover.
+871: the seeded laws in the focus on their bundle's score, the seeds a selection, every law named S176C11G79.
 
 ## What comes next
 
-871 the seeded laws in the focus and every law named SnCnGn; 872 Home's four boxes as one; 873 the depth seeker; the
+872 Home's four boxes as one, the study bar in core-hours and a second in memory; 873 the depth seeker; the
 engines in order, Rust, C, assembly, each timed on 176's seeds; a shared effort once one node has proven the mapping
 (`docs/ROADMAP.md`).
 
 ## The decision in front of you
 
-1. **Set the slider to 90% focus** (recommended): 174 tested the gates; the blind draw keeps finding types beside it.
-   Merge #15 to #17 in order. 871 names every law SnCnGn: study, campaign, graph.
+1. **Apply 871 to 176's folder and press synchronize once** (recommended), then set the slider to 90% focus: 174
+   tested the gates; the blind draw keeps finding types beside it. 871's pull request is yours to open and merge.
 2. **Whether a known law must grow its geometry from empty first** (recommended, before more compute from empty):
    parallel tempering is the cheapest remedy, an engine change of about a build, its known answers read again after.
 3. **Where the archive of the older data goes public** (the consolidation), so a reader can see nothing was dropped selectively.

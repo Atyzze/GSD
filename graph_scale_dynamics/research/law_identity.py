@@ -102,7 +102,11 @@ def identity_for(repo, campaign_id: str, candidate_id: str, spec: dict | None, *
         by_n = {int(r["n"]): int(r["ordinal"]) for r in repo.conn.execute(
             "SELECT n,MIN(graph_ordinal) AS ordinal FROM jobs WHERE campaign_id=? AND candidate_id=? "
             "AND kind='simulate' AND graph_ordinal IS NOT NULL GROUP BY n", (c, law))}
-        same_function.append({"campaign_id": c, "candidate_id": law, "ensemble_code": ensemble_code(by_n)})
+        from graph_scale_dynamics.operations import law_code
+        found = ensemble_code(by_n)
+        same_function.append({"campaign_id": c, "candidate_id": law, "ensemble_code": found,
+                              "code": law_code.code(law_code.study_of(repo, c), c,
+                                                    int(found.split("-")[1]) if found else None, law)})
     return {"law_hash": str(candidate_id), "function_hash": fn,
             "same_law_in": sorted((str(c) for c in same_law), key=_campaign_order),
             "same_function": same_function, "same_function_count": len(others),
