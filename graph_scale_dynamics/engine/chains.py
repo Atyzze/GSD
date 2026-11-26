@@ -55,8 +55,10 @@ def stream_of(chain: dict, stream_context: tuple) -> tuple:
 
 
 def final_of(state, energy, peak: int, n: int) -> dict:
-    degrees = [len(neighbours) for neighbours in state.adj]
-    return {"edge_count": len(state.edges), "peak_edge_count": peak, "mean_degree": 2 * len(state.edges) / n,
+    lean = vars(state).get("degrees")
+    degrees = lean if lean is not None else [len(neighbours) for neighbours in state.adj]
+    edges = len(state.edge_list) if lean is not None else len(state.edges)
+    return {"edge_count": edges, "peak_edge_count": peak, "mean_degree": 2 * edges / n,
             "max_degree": max(degrees) if degrees else 0, "min_degree": min(degrees) if degrees else 0,
             "isolated_vertices": sum(1 for degree in degrees if degree == 0), "energy": energy,
             "ledgers": {op: (value if op in state.required_ops else None) for op, value in state.ledgers.items()}}

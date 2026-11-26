@@ -1,11 +1,14 @@
 [package]
 name = "gsd_engine_rs"
-version = "0.840.0"
+version = "0.875.0"
 edition = "2021"
 
 [lib]
 name = "gsd_engine_rs"
 crate-type = ["cdylib"]
+
+[package.metadata.gsd]
+science = "0.840.0"
 
 [dependencies]
 pyo3 = { version = "0.23", features = ["extension-module"] }

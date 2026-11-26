@@ -1150,7 +1150,31 @@ fn value_from_py(item: &Bound<'_, PyAny>) -> PyResult<Value> {
         "a request is plain data: {} is not", item.get_type().name()?)))
 }
 
+const SHARED_NUMBERS: usize = 1 << 26;
+
+struct Numbers(Vec<Option<PyObject>>);
+
+impl Numbers {
+    fn of(&mut self, py: Python<'_>, value: u32) -> PyResult<PyObject> {
+        let at = value as usize;
+        if at >= SHARED_NUMBERS {
+            return Ok(value.into_pyobject(py)?.into_any().unbind());
+        }
+        if at >= self.0.len() {
+            self.0.resize_with(at + 1, || None);
+        }
+        if self.0[at].is_none() {
+            self.0[at] = Some(value.into_pyobject(py)?.into_any().unbind());
+        }
+        Ok(self.0[at].as_ref().expect("a number just kept").clone_ref(py))
+    }
+}
+
 fn value_to_py(py: Python<'_>, value: Value) -> PyResult<PyObject> {
+    to_py(py, value, &mut Numbers(Vec::new()))
+}
+
+fn to_py(py: Python<'_>, value: Value, numbers: &mut Numbers) -> PyResult<PyObject> {
     Ok(match value {
         Value::Null => py.None(),
         Value::Bool(v) => v.into_pyobject(py)?.to_owned().into_any().unbind(),
@@ -1161,19 +1185,35 @@ fn value_to_py(py: Python<'_>, value: Value) -> PyResult<PyObject> {
         Value::List(items) => {
             let list = PyList::empty(py);
             for item in items {
-                list.append(value_to_py(py, item)?)?;
+                list.append(to_py(py, item, numbers)?)?;
             }
             list.into_any().unbind()
         }
         Value::Map(items) => {
             let d = PyDict::new(py);
             for (k, v) in items {
-                d.set_item(k, value_to_py(py, v)?)?;
+                d.set_item(k, to_py(py, v, numbers)?)?;
             }
             d.into_any().unbind()
         }
-        Value::Pairs(v) => v.into_pyobject(py)?.into_any().unbind(),
-        Value::Lists(v) => v.into_pyobject(py)?.into_any().unbind(),
+        Value::Pairs(v) => {
+            let mut pairs = Vec::with_capacity(v.len());
+            for (a, b) in v {
+                pairs.push(PyTuple::new(py, [numbers.of(py, a)?, numbers.of(py, b)?])?);
+            }
+            PyList::new(py, pairs)?.into_any().unbind()
+        }
+        Value::Lists(v) => {
+            let mut lists = Vec::with_capacity(v.len());
+            for row in v {
+                let mut kept = Vec::with_capacity(row.len());
+                for x in row {
+                    kept.push(numbers.of(py, x)?);
+                }
+                lists.push(PyList::new(py, kept)?);
+            }
+            PyList::new(py, lists)?.into_any().unbind()
+        }
         Value::Words(v) => v.into_pyobject(py)?.into_any().unbind(),
         Value::Sizes(v) => v.into_pyobject(py)?.into_any().unbind(),
     })

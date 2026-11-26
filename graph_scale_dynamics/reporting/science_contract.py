@@ -14,12 +14,12 @@ def parts(root: Path | None = None) -> tuple[dict, bytes | None]:
     from graph_scale_dynamics.calibration import fingerprint as F
     from graph_scale_dynamics.calibration import start_reading as S
     from graph_scale_dynamics.observability import catalogue, law_score
-    from graph_scale_dynamics.services.worker.engine_registry import rust_source_version
+    from graph_scale_dynamics.services.worker.engine_registry import rust_science_version
     table = Path(durable_artifact_path(root))
     raw = table.read_bytes() if table.is_file() else None
     found = {"analysis_version": F.analysis_version(), "estimator_fingerprint": F.estimator_fingerprint(),
              "starts_fingerprint": S.fingerprint(), "score": law_score.CONTRACT, "catalogue": catalogue.CONTRACT,
-             "engine": rust_source_version(), "calibration_cells_sha256": cells_sha256(raw)}
+             "engine": rust_science_version(), "calibration_cells_sha256": cells_sha256(raw)}
     return found, raw
 
 

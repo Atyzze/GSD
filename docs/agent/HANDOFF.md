@@ -1,4 +1,4 @@
-# Handoff: the state of GSD at build 874
+# Handoff: the state of GSD at build 875
 
 What is true now, for a context that has just opened this archive. Each fact has one home; the last section says
 where. **Think from the data, not from this page**: where the data and a document disagree, the data wins and the
@@ -64,9 +64,17 @@ a build number stood for, in words; what the numbers stood for is in `docs/HISTO
 not the build that made it. A decision's recorded reason keeps its numbers (it replays word for word), and so do four
 values in a law's or a report's own outputs, and the documents' claims, which quote the docs; the docs keep theirs.
 
-**Open threads at 874**, each with its home:
+**What 875 changed** (the operator, 08:35 and 09:42; `docs/build_notes/BUILD875_NOTES.md`): a seed takes about half
+the memory and less time, every chain the same to the bit. The Rust graph keeps each edge's slot beside its ends'
+neighbour lists and its square and cycle counts in arrays by slot, not hash maps; the in-process door and a seed's
+starts share one number object per node; a run's Python state (`services/worker/engine_rs.RanInRust`) holds its
+edges and degrees and builds its sets only if asked. The crate is 0.875.0 and its science version 0.840.0
+(`engine_rs/Cargo.toml`, `[package.metadata.gsd]`), which the science hash reads: it moves only when a chain can come
+out different. `tools/engine_diet.py` measures a seed's peak memory, time and chains' digest on either engine.
 
-* **Pull requests**: 864 to 870 (#11 to #17) merged by the operator. 871's to 874's were not opened: the session that
+**Open threads at 875**, each with its home:
+
+* **Pull requests**: 864 to 870 (#11 to #17) merged by the operator. 871's to 875's were not opened: the session that
   made them was refused push access to `github.com/Atyzze/GSD`; their archives are the delivery, each tree a branch
   (`build-871` on `main`, each next on the one before) with one commit, the notes' opening its description.
 * **Study 176 runs** in its own folder (`/data/projects/GSD/176/main` on the operator's host) since about 15:00, on 867
@@ -291,7 +299,7 @@ again after the paper's three studies, on the final probes, with a criterion wri
 
 ## What waits on the operator
 
-* **871's to 874's pull requests**: theirs to open from the archives (or to give the session push access) and merge.
+* **871's to 875's pull requests**: theirs to open from the archives (or to give the session push access) and merge.
 * **Study 176's next bundle**, on 871 or later after one synchronize: whether the focus stands on its seeded best law.
 * **Study 176's standing controls**: kept as a tick (recommended; `docs/ROADMAP.md`, "Questions for the operator").
 * **Study 174's 40 held laws**: 40 rings; running them on (the Map page's "run them on") is no longer recommended.
