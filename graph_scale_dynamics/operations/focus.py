@@ -528,7 +528,8 @@ def _chosen(repo, state: dict, law: str | None, ranked: list | None = None) -> d
             state["inside"][entry["candidate_id"]] = dict(found, label=label(repo, entry["campaign"],
                                                                                 entry["candidate_id"]))
         if not free:
-            return None
+            from graph_scale_dynamics.operations import outliers as OUT
+            return OUT.next_outlier(repo, state, rows_of=_rows, inside=inside, label=label)
         return suggested(repo, state, free)[0]
     found = next((e for e in ranked if e["candidate_id"].startswith(str(law)) or e.get("label") == str(law)
                   or LC.same(e.get("label"), law)), None)

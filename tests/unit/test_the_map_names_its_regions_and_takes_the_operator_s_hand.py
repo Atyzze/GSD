@@ -93,7 +93,9 @@ def test_a_skipped_law_in_focus_is_set_aside_and_a_skipped_law_waits_until_put_b
     assert set(state["skipped"]) == {"c" * 64, "e" * 64}
     ranked = [{"candidate_id": "c" * 64, "campaign": "1", "score": 19, "label": "C1-G6940"},
               {"candidate_id": "e" * 64, "campaign": "6", "score": 19, "label": "C6-G1015"}]
-    assert focus._chosen(None, state, None, ranked) is None, "nothing left that is not skipped or done"
+    from graph_scale_dynamics.operations import outliers
+    monkeypatch.setattr(outliers, "next_outlier", lambda *a, **k: None)
+    assert focus._chosen(None, state, None, ranked) is None, "nothing left that is not skipped or done, no outlier"
     state = focus.back(repo, "C6-G1015")
     assert set(state["skipped"]) == {"c" * 64}
     monkeypatch.setattr(focus, "inside", lambda repo, state, entry: None)

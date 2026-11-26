@@ -1,0 +1,7 @@
+{
+  "contract": "gsd-outliers-1",
+  "about": "The study's outliers the focus takes once every scoring law is mapped or inside a mapped region (the operator, 2026-11-25 08:04: \"any outlier should automatically be added to the list of potential zones to investigate its area\"; 08:07: \"But only if all the top scorers are already done being mapped\"). A law is an outlier at a size from from_n when a probe reads over its line on any chain of a seed: the lines are where 174's bulk ends (99% of its laws read d_w under 2.87 and d_V under 2.24; d_w over about 3.5 and d_V over about 3 stood out). Its strength is its highest reading over the line, as a multiple of the line; the strongest is taken first. A reading that fewer than repeated_by_seeds_at_least seeds of the law show is a lucky strike: kept, and its region not opened. An outlier inside a region already mapped joins that region.",
+  "lines": {"d_w": 3.5, "d_V": 3.0},
+  "from_n": 1024,
+  "repeated_by_seeds_at_least": 2
+}

@@ -20,6 +20,7 @@ MAY_NAME = {
     "reporting/reset_rules_report.py": "reads `metrics` and names the text only for a row that has no `metrics`",
     "research/report_pipeline.py": "the collector names the columns it parses (checked below)",
     "reporting/study_tables.py": "the study's tables read rung summaries from the database a page at a time",
+    "operations/outliers.py": "the outliers' queue reads rung summaries from the database",
 }
 
 
