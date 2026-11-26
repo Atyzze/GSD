@@ -623,7 +623,7 @@ specs are the law ledger's of report 28; `--as-carried` reads the scores the bun
 One seed of a law, each in a process of its own, on the installed Rust engine: its peak memory, its wall and processor
 time, its moves a second and a digest of every chain (edges, energy, trajectory, the work counted), so two engines or
 two builds are compared on the same seeds. `--engine` names the engine and its door: `rust` (in process, the
-default), `rust:c_abi`, `c` (876). The laws are `anchor` (the sparse anchor law), `overlaps` (square and
+default), `rust:c_abi`, `c` (876), `asm` (877, for a law it covers). The laws are `anchor` (the sparse anchor law), `overlaps` (square and
 triangle edge overlap) and `curvature` (Ollivier), grown from the eight starts of study 176's design. 875's notes hold
 the rows it measured before and after the diet.
 

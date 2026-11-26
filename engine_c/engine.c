@@ -37,10 +37,27 @@ typedef struct {
 } Term;
 
 typedef struct {
+    int64_t op;
+    double coeff;
+    int64_t k;
+} AsmTerm;
+
+typedef struct {
     Term *terms;
     size_t n;
     int has_node_terms;
+    AsmTerm *asm_terms;
 } Model;
+
+#ifdef GSD_ASM
+int gsd_asm_accept(Mt *rng, double beta, double delta_h, double log_ratio);
+double gsd_asm_energy(const AsmTerm *terms, size_t n, int64_t du, int64_t dv, int adding, double *ledger);
+
+static int covered(Op op) {
+    return op == OP_EDGE_COUNT || op == OP_DEGREE_SQUARE_SUM || op == OP_WEDGE_COUNT || op == OP_DEGREE_ANCHOR
+        || op == OP_DEGREE_ANCHOR_ABS;
+}
+#endif
 
 typedef struct {
     uint64_t add, del, swap;
@@ -72,6 +89,7 @@ static size_t next_clock_stride(size_t stride, double elapsed, double tick) {
 static void model_free(Model *m) {
     for (size_t i = 0; i < m->n; i++) free(m->terms[i].scale);
     free(m->terms);
+    free(m->asm_terms);
     memset(m, 0, sizeof *m);
 }
 
@@ -95,6 +113,11 @@ static int parse_terms(const Value *value, Model *m, Fault *f) {
         Term *t = &m->terms[m->n];
         t->op = op_parse(name);
         if (t->op == OP_UNKNOWN) return fault(f, "ValueError", "unknown op %s", name);
+#ifdef GSD_ASM
+        if (!covered(t->op))
+            return fault(f, "OutsideCoverage", "the assembly engine covers edge_count, degree_square_sum, wedge_count, "
+                         "degree_anchor and degree_anchor_abs, not %s", name);
+#endif
         v = value_present(item, "coeff");
         if (!v) return fault(f, "KeyError", "term %s has no 'coeff'", name);
         if (as_f64(v, &t->coeff, f)) return -1;
@@ -113,6 +136,13 @@ static int parse_terms(const Value *value, Model *m, Fault *f) {
         }
         if (op_is_node(t->op)) m->has_node_terms = 1;
         m->n++;
+    }
+    m->asm_terms = calloc(m->n ? m->n : 1, sizeof *m->asm_terms);
+    if (!m->asm_terms) return fault(f, "RuntimeError", "out of memory");
+    for (size_t i = 0; i < m->n; i++) {
+        m->asm_terms[i].op = m->terms[i].op;
+        m->asm_terms[i].coeff = m->terms[i].coeff;
+        m->asm_terms[i].k = m->terms[i].k;
     }
     return 0;
 }
@@ -143,6 +173,14 @@ static double exact_zero(double change, double magnitude) {
 
 static int apply_edge(const Model *m, Graph *g, uint32_t u, uint32_t v, int adding, Deltas *deltas, double *dh,
                       Fault *f) {
+#ifdef GSD_ASM
+    graph_evaluated(g);
+    for (int i = 3; i < LEDGERS; i++) deltas->ledger[i] = 0.0;
+    *dh = gsd_asm_energy(m->asm_terms, m->n, (int64_t)graph_degree(g, u) - (adding ? 0 : 1),
+                         (int64_t)graph_degree(g, v) - (adding ? 0 : 1), adding, deltas->ledger);
+    (void)f;
+    return 0;
+#endif
     if (graph_op_deltas(g, u, v, adding, deltas)) return fault(f, "RuntimeError", "out of memory");
     double node_energy = 0.0, node_magnitude = 0.0;
     if (m->has_node_terms) {
@@ -464,7 +502,11 @@ static int local_toggle(Run *r, uint32_t u, uint32_t v, int adding, double beta,
     else if (r->zero_temperature)
         took = dh <= 0.0;
     else
+#ifdef GSD_ASM
+        took = gsd_asm_accept(r->rng, beta, dh, log(reverse / forward));
+#else
         took = log(mt_random(r->rng) + 1e-300) < -beta * dh + log(reverse / forward);
+#endif
     if (took) {
         if (graph_apply(r->g, u, v, adding, &d)) return fault(f, "RuntimeError", "out of memory");
         *r->energy += dh;
@@ -492,7 +534,11 @@ static double beta_at(const Acceptance *a, size_t mv) {
 
 static int accept(const Acceptance *a, Mt *rng, double delta_h, double log_ratio, size_t mv) {
     if (a->zero_temperature) return delta_h <= 0.0;
+#ifdef GSD_ASM
+    return gsd_asm_accept(rng, beta_at(a, mv), delta_h, log_ratio);
+#else
     return log(mt_random(rng) + 1e-300) < -beta_at(a, mv) * delta_h + log_ratio;
+#endif
 }
 
 static int run_swap(Run *r, const Acceptance *a, const EdgeKey e[4], size_t mv, int scope, Fault *f) {

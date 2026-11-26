@@ -46,6 +46,9 @@ between hosts is filed as an attestation and compared by roots.
 
 ## The reference set of four
 
+Made so far: R3, the C engine, at 876; R4, the assembly engine, begun at 877 with five terms and its coverage
+declared (`docs/build_notes/BUILD876_NOTES.md`, `BUILD877_NOTES.md`).
+
 The engines are the other half of "full hash in the shared datablob": a chain is a function of the law, N and the seed,
 so any implementation that runs the same chain to the bit is a reference, and any that does not is not.
 

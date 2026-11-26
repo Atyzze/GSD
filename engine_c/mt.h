@@ -12,6 +12,15 @@ typedef struct {
     size_t mti;
 } Mt;
 
+#ifdef GSD_ASM
+uint32_t gsd_asm_mt_u32(Mt *r);
+double gsd_asm_mt_random(Mt *r);
+uint64_t gsd_asm_mt_below(Mt *r, uint64_t n);
+
+static inline uint32_t mt_u32(Mt *r) { return gsd_asm_mt_u32(r); }
+static inline double mt_random(Mt *r) { return gsd_asm_mt_random(r); }
+static inline uint64_t mt_below(Mt *r, uint64_t n) { return gsd_asm_mt_below(r, n); }
+#else
 static inline uint32_t mt_u32(Mt *r) {
     if (r->mti >= MT_N) {
         uint32_t *mt = r->mt;
@@ -64,6 +73,8 @@ static inline uint64_t mt_below(Mt *r, uint64_t n) {
     while (x >= n) x = mt_bits(r, k);
     return x;
 }
+
+#endif
 
 static inline size_t mt_range(Mt *r, size_t n) { return (size_t)mt_below(r, (uint64_t)n); }
 

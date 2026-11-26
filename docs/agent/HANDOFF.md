@@ -1,4 +1,4 @@
-# Handoff: the state of GSD at build 876
+# Handoff: the state of GSD at build 877
 
 What is true now, for a context that has just opened this archive. Each fact has one home; the last section says
 where. **Think from the data, not from this page**: where the data and a document disagree, the data wins and the
@@ -77,9 +77,16 @@ engine ported to C (the reference set's R3), registered as `c` with the C door o
 `var/engines/` and held to every parity case and the engine contract; its science version is Rust's while its chains
 are. Through the same door it is 10% to 15% faster than Rust; Rust in process stays the default.
 
-**Open threads at 876**, each with its home:
+**What 877 changed** (`docs/build_notes/BUILD877_NOTES.md`): `engine_asm/kernel.S`, the reference set's R4, an x86-64
+kernel (the Mersenne Twister, the acceptance, the energy change of edge count, degree square sum, wedges and the two
+degree anchors) inside the C engine's boundary, registered as `asm` with its coverage declared
+(`engine_registry.Engine.covers`); a law outside it is refused by name (`boundary.OutsideCoverage`), and the parity
+lane runs each engine on what it covers, a refusal outside it an expected failure. The engines of the roadmap's item 6 are made; Rust in process stays the
+default.
 
-* **Pull requests**: 864 to 870 (#11 to #17) merged by the operator. 871's to 876's were not opened: the session that
+**Open threads at 877**, each with its home:
+
+* **Pull requests**: 864 to 870 (#11 to #17) merged by the operator. 871's to 877's were not opened: the session that
   made them was refused push access to `github.com/Atyzze/GSD`; their archives are the delivery, each tree a branch
   (`build-871` on `main`, each next on the one before) with one commit, the notes' opening its description.
 * **Study 176 runs** in its own folder (`/data/projects/GSD/176/main` on the operator's host) since about 15:00, on 867
@@ -304,7 +311,7 @@ again after the paper's three studies, on the final probes, with a criterion wri
 
 ## What waits on the operator
 
-* **871's to 876's pull requests**: theirs to open from the archives (or to give the session push access) and merge.
+* **871's to 877's pull requests**: theirs to open from the archives (or to give the session push access) and merge.
 * **Study 176's next bundle**, on 871 or later after one synchronize: whether the focus stands on its seeded best law.
 * **Study 176's standing controls**: kept as a tick (recommended; `docs/ROADMAP.md`, "Questions for the operator").
 * **Study 174's 40 held laws**: 40 rings; running them on (the Map page's "run them on") is no longer recommended.

@@ -557,6 +557,15 @@ static void update_edge_cycles(Graph *g, const EdgeMap *changes) {
     }
 }
 
+void graph_evaluated(Graph *g) {
+    spend(g, 1);
+    part(g, PART_EVALUATIONS, 1);
+    g->has_last_curvature = 0;
+    g->has_square_key = 0;
+    g->sq_paths_n = 0;
+    g->has_square_multiplicity = 0;
+}
+
 int graph_op_deltas(Graph *g, uint32_t u, uint32_t v, int adding, Deltas *out) {
     spend(g, 1);
     part(g, PART_EVALUATIONS, 1);

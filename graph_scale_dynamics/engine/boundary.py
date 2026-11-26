@@ -8,12 +8,18 @@ CONTRACT = "gsd-engine-boundary-1"
 OPERATIONS = ("init_random_graph", "init_declared", "run_chain", "rebuild_graph")
 IN_PROCESS, C_ABI = "in_process", "c_abi"
 DOORS = (IN_PROCESS, C_ABI)
-FAULTS = {"ValueError": ValueError, "KeyError": KeyError, "FloatingPointError": FloatingPointError,
-          "RuntimeError": RuntimeError}
 
 
 class UnknownOperation(ValueError):
     pass
+
+
+class OutsideCoverage(ValueError):
+    pass
+
+
+FAULTS = {"ValueError": ValueError, "KeyError": KeyError, "FloatingPointError": FloatingPointError,
+          "RuntimeError": RuntimeError, "OutsideCoverage": OutsideCoverage}
 
 
 def _asked(operation: str) -> str:

@@ -1,37 +1,36 @@
-# The next build is 877
+# The next build is 878
 
 This file names the next build and says how to make it. `tests/unit/test_next_build_is_named.py` parses its first line,
 which must read exactly `# The next build is <N>`, one above `BUILD_NUMBER`.
 
-## Where to begin: 877 is the assembly engine, grown term by term
+## Where to begin: 878 is the lexicon and every law against every known type
 
 **Starting from nothing but the repository** (the operator, 2026-11-24 23:00): clone `main` and bring it up by
 `docs/agent/ENVIRONMENT.md`, section 10, "From the repository". Then `docs/WHERE_WE_ARE.md`, `docs/agent/HANDOFF.md`
-and this page, in that order, and `CLAUDE.md`'s rules for a shared repository. 871 to 876 are made
-(`docs/build_notes/BUILD871_NOTES.md` to `BUILD876_NOTES.md`); if their pull requests are not on `main` yet, branch from
+and this page, in that order, and `CLAUDE.md`'s rules for a shared repository. 871 to 877 are made
+(`docs/build_notes/BUILD871_NOTES.md` to `BUILD877_NOTES.md`); if their pull requests are not on `main` yet, branch from
 the newest. The operator said at 23:25 to keep building to the roadmap's end.
 
-**Why 877 is this one**: the roadmap's engines in order ("From 870", item 6): Rust's diet (875), C (876), then x86-64
-assembly; the neighbours at the earliest identification still wait on a reading of 866's early call in a study's
-bundle and the operator's rule on it.
+**Why 878 is this one**: the roadmap's next after the engines ("From 870", item 7); the neighbours at the earliest
+identification still wait on a reading of 866's early call in a study's bundle and the operator's rule on it.
 
-**What 877 makes** (`docs/agent/APPEND_ONLY_PLAN.md`, "The reference set of four", R4, and its first question's
-default: grown term by term with its coverage declared, x86-64 only): `engine_asm/`, an engine registered beside C
-whose move loop is x86-64 assembly (System V) for what it covers first, the Mersenne Twister, the global add and
-delete moves with their acceptance rule, and the cheapest terms (edge count, degree square sum, wedges), the rest of
-the boundary (the JSON, the accounting, the records) shared with `engine_c/`. Its coverage is declared in the
-registry; a request outside it is refused with a fault that names what is not covered, and the parity lane runs each
-engine on the cases its coverage holds (R2's coverage, the start of R1's vectors).
+**What 878 makes** (the operator, 2026-11-25 12:03: "all laws should instead carry multiple scores/probabilities vs
+all known phenotypes and how similar they are to the other phenotypes, a giant matrix 2d"; `docs/ROADMAP.md`, "After
+860", item 6's "Then"): a law's name is its type (the catalogue's kind, how its starts end, and its form, what was
+grown: a ring, a line, d 2) and its GG region where it sits; a table of laws by known types, each cell how near the law
+reads to that type (its d, degree, largest piece, curvature and reach's growth, against the type's laws, in the units
+of the table's own spread), a law near none of them the sign of a new zone; Home's Top 100 and the filters read it,
+the single score kept for what the extender pushes deepest.
 
-**Acceptance**: every parity case inside the assembly engine's coverage passes on it, to the bit; a case outside is
-refused by name, never run wrong; `tools/engine_diet.py --engine asm` times the anchor-free law it covers beside Rust
-and C; the default stays Rust; the full lane green.
+**Acceptance**: its known answers first, committed before any law is read: the calibration table's families each read
+nearest their own type; then the matrix for a bundle's laws from `tables/laws`, the same from the live folder; no
+score, kind or decision moves; the full lane green.
 
-**Then**, in `docs/ROADMAP.md`, "From 870": the lexicon and the matrix, the phenotype and the null map, study 177,
-the outliers' queue, the shared effort; the neighbours at the earliest identification when its reading and the
-operator's rule are in.
+**Then**, in `docs/ROADMAP.md`, "From 870": the phenotype and the null map, study 177, the outliers' queue, the shared
+effort; the neighbours at the earliest identification when its reading and the operator's rule are in; the engines'
+next steps (a finished chain's edges packed, the assembly kernel's next terms).
 
-**Waiting on the operator** (`docs/ROADMAP.md`, "Questions for the operator"): 871's to 876's pull requests (the
+**Waiting on the operator** (`docs/ROADMAP.md`, "Questions for the operator"): 871's to 877's pull requests (the
 session that made them could not push); 176's standing controls (keep, as a tick, recommended); the split (90% focus
 recommended); the rule for the earliest identification, on a bundle's reading.
 

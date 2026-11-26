@@ -339,7 +339,7 @@ its own and in the page's own order, empty, random, triangular, square, cubic, b
 (named in `engine_rs/src/lib.rs`), held equal by `tests/scientific/test_engine_parity.py`, priced in `dsl/dsl.py`, and
 known to `research/hamiltonian_preflight.py` and the pages' short names.
 
-## The engines (`engine/`, `engine_rs/`, `engine_c/`)
+## The engines (`engine/`, `engine_rs/`, `engine_c/`, `engine_asm/`)
 
 **One list of chains** (775). `engine/engine.py`'s `run_simulation` sets a seed's chunk up (the law's energy model,
 the context, the checkpoint's identity) and `engine/chains.py` runs its chains in one list and one code path: the chain
@@ -446,6 +446,12 @@ is asked for (`engine_registry.library_path`: `cc -std=gnu99 -O2 -ffp-contract=o
 hash of its sources) and reports it unavailable on a host with no C compiler. Its version and science version are in
 `engine_c/engine.toml`, read as the crate's are; while it computes the same chains its science version is Rust's, and
 the parity lane and the contract hold it to that. The default engine stays Rust in process.
+
+**The assembly engine** (877, `engine_asm/kernel.S`): x86-64 (System V) for the Mersenne Twister, `random()`,
+`randbelow`, the acceptance and the energy change of the terms it covers, inside the C engine's boundary built with
+`GSD_ASM`. An engine that covers part of the terms declares which (`Engine.covers`, `engine_asm/engine.toml`), refuses
+the rest by name through the C door's `OutsideCoverage` fault, and the parity lane and the contract run it on what it
+covers (the plan's R2, coverage by declaration).
 
 **The engines' memory** (875): the Rust graph keeps each edge's slot beside its ends' neighbour lists and its square
 and cycle counts in arrays by slot, no hash map per edge; the in-process door shares one Python number per node; a

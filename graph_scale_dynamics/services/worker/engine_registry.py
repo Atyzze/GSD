@@ -20,6 +20,8 @@ class Engine:
     version_file: str | None = None
     doors: tuple[str, ...] = ()
     library: str | None = None
+    defines: tuple[str, ...] = ()
+    covers: tuple[str, ...] | None = None
 
 
 ENGINES = {
@@ -28,6 +30,10 @@ ENGINES = {
                    version_file="engine_rs/Cargo.toml", doors=("in_process", "c_abi")),
     "c": Engine(name="c", reference=False, sources=("engine_c/*.c", "engine_c/*.h"), version_file="engine_c/engine.toml",
                 doors=("c_abi",), library="libgsd_engine_c"),
+    "asm": Engine(name="asm", reference=False, sources=("engine_c/*.c", "engine_c/*.h", "engine_asm/*.S"),
+                  version_file="engine_asm/engine.toml", doors=("c_abi",), library="libgsd_engine_asm",
+                  defines=("GSD_ASM",), covers=("edge_count", "degree_square_sum", "wedge_count", "degree_anchor",
+                                                "degree_anchor_abs")),
 }
 REFERENCE = next(name for name, engine in ENGINES.items() if engine.reference)
 DEFAULT_ENGINE = "rust"
@@ -83,13 +89,18 @@ def library_path(name: str, *, build: bool = True) -> Path | None:
     with tempfile.TemporaryDirectory(dir=built.parent) as scratch:
         made = Path(scratch) / built.name
         done = subprocess.run([compiler, "-std=gnu99", "-O2", "-fPIC", "-shared", "-ffp-contract=off",
-                               f'-DGSD_ENGINE_C_VERSION="{version}"', "-o", str(made),
-                               *[str(path) for path in files if path.suffix == ".c"], "-lm"],
+                               f'-DGSD_ENGINE_C_VERSION="{version}"', *[f"-D{name}" for name in engine.defines],
+                               "-o", str(made), *[str(path) for path in files if path.suffix in (".c", ".S")], "-lm"],
                               capture_output=True, text=True)
         if done.returncode != 0:
             raise RuntimeError(f"the {name} engine did not compile: {done.stderr.strip()[:2000]}")
         made.replace(built)
     return built
+
+
+def covers(name: str, ops) -> bool:
+    found = ENGINES[name].covers
+    return found is None or set(ops) <= set(found)
 
 
 def _rust_available(name: str = DEFAULT_ENGINE) -> bool:

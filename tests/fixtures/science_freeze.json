@@ -1,5 +1,5 @@
 {
- "baseline_build": 876,
+ "baseline_build": 877,
  "contract": "gsd-science-freeze-1",
  "files": {
   "engine_rs/src/accounting.rs": "7d634e295021c1338b4b3077877218eb6df9484621bde53ea3c89aa08e88d78a",
@@ -31,7 +31,7 @@
   "graph_scale_dynamics/dsl/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   "graph_scale_dynamics/dsl/dsl.py": "9a32806778ada65314d85a8c7211f70e3ec51083c3393b6169e2531e1f610675",
   "graph_scale_dynamics/engine/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-  "graph_scale_dynamics/engine/boundary.py": "5887b80598d1530c858f9b07e9ed9887cc4f99c62acd97e76c247921839a5182",
+  "graph_scale_dynamics/engine/boundary.py": "f5b8be5d594250b9ae91ca47a97e09e8ea98e41a88a91e333fc35770fc3c9bc0",
   "graph_scale_dynamics/engine/chains.py": "1f0995795148e4a8e4c615d64ff923b9703371b47a3db825a7349f33fb1013b8",
   "graph_scale_dynamics/engine/checkpoint.py": "fa699f5ff7bc8974ca6abf5457496f6e2e9a1049ded0700f753a201e1eaa14ce",
   "graph_scale_dynamics/engine/engine.py": "af3e743e27a83af7f6cbe385ca8c9c374708ca1ec1f7698292f3ae4c9c0203fc",

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "gsd"
-version = "876"
+version = "877"
 description = "Graph Scale Dynamics: operator-space finite-size flow in stochastic graph ensembles"
 readme = "README.md"
 license = {file = "LICENSE"}
