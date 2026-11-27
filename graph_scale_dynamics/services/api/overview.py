@@ -662,10 +662,12 @@ def build_fast_overview(repo: Repo, campaign_id: str) -> dict:
         rung_spend, rung_medians = timing["rung_spend"], _eta.population_median_by_rung(timing["rung_spend"])
         compute_by_id = timing.get("compute_by_candidate") or {}
         campaign_row_spec = (repo.campaign(str(campaign_id)) or {}).get("spec") or {}
+        rung_seeds = timing.get("rung_seeds") or {}
         for rr in rows:
             by_id[rr["candidate_id"]]["rungs"].append(
                 {"n": int(rr["n"]),
-                 "elapsed_s": round(rung_spend.get((str(rr["candidate_id"]), int(rr["n"])), 0.0), 1)}
+                 "elapsed_s": round(rung_spend.get((str(rr["candidate_id"]), int(rr["n"])), 0.0), 1),
+                 "seeds": rung_seeds.get((str(rr["candidate_id"]), int(rr["n"])))}
             )
         current_by_id = timing["current_by_candidate"]
         committing = committing_jobs(repo)

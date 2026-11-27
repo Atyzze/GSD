@@ -137,6 +137,8 @@ function rungLadderRow(){
   const live=rows.reduce((t,r)=>t+(+r.running||0),0);
   const queued=rows.reduce((t,r)=>t+(+r.queued||0),0);
   const sum=k=>rows.reduce((a,r)=>a+(+r[k]||0),0);
+  const boughtChains=r=>+r.chains||(+r.graphs||0)*(+r.chains_per_seed||1);
+  const grownChains=r=>r.completed==null?boughtChains(r):(+r.completed||0)*(+r.chains_per_seed||1);
   const maxEvolve=Math.max(1,...rows.map(r=>+r.running||0));
   const maxProbe=Math.max(1,...rows.map(r=>+r.analysing||0));
   const bar=(v,max,cls)=>`<span class="run-bar ${v?cls:'unknown'}" style="width:${Math.round(100*(+v||0)/max)}%">`
@@ -265,10 +267,12 @@ function rungLadderRow(){
      cell:r=>sel?plain(selOf(r,'waiting')):em, foot:()=>sel?`<b>${esc(sel.reduce((t,x)=>t+(+x.waiting||0),0))}</b>`:em},
     {g:'cand', head:'scoring', title:'Laws of the selection whose score was read at this N.',
      cell:r=>sel?plain(selOf(r,'scoring')):em, foot:()=>sel?`<b>${esc(sel.reduce((t,x)=>t+(+x.scoring||0),0))}</b>`:em},
-    {g:'cand', head:'graphs', title:'Graphs grown at this N, a graph a start of every seed; with a + the graphs being grown now.',
-     cell:r=>{const g=+r.graphs||0,k=+r.chains_per_seed||1,c=+r.chains||g*k,now=+r.running_graphs||0;
-       return g?esc(c)+(now?`<small class=ladder-share>+${esc(now)} now</small>`:''):(now?`${esc(now)}+`:em);},
-     foot:()=>`<b>${esc(sum('chains')||sum('graphs'))}</b>`+(sum('running_graphs')?`<small class=ladder-share>+${esc(sum('running_graphs'))}</small>`:'')},
+    {g:'cand', head:'graphs', title:'Graphs grown at this N, a start of every finished seed, of those bought here, with a + those being grown now.',
+     cell:r=>{const c=grownChains(r),all=boughtChains(r),now=+r.running_graphs||0;
+       const of=all>c?`<small class=ladder-share>of ${esc(all)}</small>`:'';
+       return c||of?esc(c)+of+(now?`<small class=ladder-share>+${esc(now)} now</small>`:''):(now?`${esc(now)}+`:em);},
+     foot:()=>{const c=rows.reduce((a,r)=>a+grownChains(r),0),all=rows.reduce((a,r)=>a+boughtChains(r),0);
+       return `<b>${esc(c)}</b>`+(all>c?`<small class=ladder-share>of ${esc(all)}</small>`:'')+(sum('running_graphs')?`<small class=ladder-share>+${esc(sum('running_graphs'))}</small>`:'')}},
     ...rules.map(g=>({g:'stop', head:ruleShort(g), title:`Laws of the selection settled at this N by ${g}: the rule stopped them here.`,
      cell:r=>plain((selOf(r,'settled')||{})[g]), foot:()=>`<b>${esc(ruleCount.get(g))}</b>`})),
     ...(rules.length?[{g:'stop', head:'total', title:'Laws of the selection stopped at this N by any rule.',

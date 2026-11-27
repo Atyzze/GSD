@@ -1,40 +1,41 @@
-# The next build is 898
+# The next build is 899
 
 This file names the next build and says how to make it. `tests/unit/test_next_build_is_named.py` parses its first line,
 which must read exactly `# The next build is <N>`, one above `BUILD_NUMBER`.
 
-## Where to begin: 898 is a resumed seed in a fresh seed's memory, measured first
+## Where to begin: 899 is the operator's two answers of 2026-11-27 18:26
 
 **Starting from nothing but the repository** (the operator, 2026-11-24 23:00): clone `main` and bring it up by
 `docs/agent/ENVIRONMENT.md`, section 10, "From the repository". Then `docs/WHERE_WE_ARE.md`, `docs/agent/HANDOFF.md`,
-`docs/agent/ZONE_MAP.md` and this page, in that order, and `CLAUDE.md`'s rules for a shared repository. 871 to 897 are
-made (`docs/build_notes/BUILD871_NOTES.md` to `BUILD897_NOTES.md`); 871 to 896 are on `main` (#18 to #38), 897 in its
-pull request: branch from the newest that `main` holds and take the rest from its branch.
+`docs/agent/ZONE_MAP.md` and this page, in that order, and `CLAUDE.md`'s rules for a shared repository. 871 to 898 are
+made (`docs/build_notes/BUILD871_NOTES.md` to `BUILD898_NOTES.md`); 871 to 897 are on `main` (#18 to #39), 898 in its
+pull request: branch from the newest that `main` holds.
 
-**What 898 makes** (`docs/ROADMAP.md`, "Next, in order", item 1). 178's bundle of 2026-11-27 14:28Z (897's notes): at
-262,144 the two seeds of G73 that were stopped and resumed peaked at 3.05 and 3.19 GiB, the 14 that ran through at
-1.47 to 1.53; at 1,048,576 the 4 running seeds were all resumed and sat at 9.0 to 9.4 GiB where a fresh one should be
-near 6. Measure before changing anything:
+**What 899 makes** (`docs/ROADMAP.md`, "Next, in order", item 1; the operator, 18:26: "agree with both
+recommendations"). Both need a restart of the fleet, so they go together:
 
-1. In the sandbox, one seed of G73 (its spec in the bundle's `tables/laws.ndjson.gz`, law 8addbb0c) at 65,536 run
-   through, then the same seed stopped after a chunk and resumed (`services/worker/child.py`, `stop_file`), each
-   child's peak resident and proportional memory read every half second; and the same at 262,144 under a memory limit
-   if the sandbox's 7 GB allow it. The criterion first, in the notes: the resumed child's peak within 10% of the fresh
-   one's after the change, its chains identical to the bit (`tools/outputs_of_a_law.py --against`).
-2. Where the resumed child holds the saved state (`artifact_store/resume_state.load_resume_state`, the `resume` dict
-   `run_one_shot` and its caller keep for the whole run, `whole_chunk_of`'s envelope) beside the engine's own graph,
-   let it go once the engine has it; if a fresh child also keeps a checkpoint of every chain's edges between chunks,
-   say what it costs an edge.
-3. Nothing under `engine/` or `engine_rs/` moves in 898; `scaleflow/` moves only with the reason in the notes.
+1. **A pushed seed held closer.** For a seed of a push campaign (`push_ladder.is_push` on its campaign's spec) the
+   admission asks 1.1 times its price grown from the law's own whole runs (`push_ladder.price`'s `grown_bytes`,
+   already 1.1 times the typical peak grown to the size), where every other law keeps
+   `memory.predicted_claim_peak_bytes` with its 1.35; once it runs, its reservation settles at 1.1 times its peak, not
+   `SETTLED_RESERVATION_SLACK`'s 1.5 (`services/worker/main.restate_reservation`, `memory.settled_reservation_bytes`).
+   The host's floor (10 GiB) and the hard stop at 60% of the host hold for every seed. `push_ladder.price` then reads
+   the same numbers, so the forecast and the admission stay one. The test: a push campaign's seed of 1,048,576 on 178's
+   numbers (typical 1.49 GiB at 262,144, 54 GiB of reach) is asked about 6.6 GiB and held at 1.1 times its peak, five
+   seeds at 9.8 GiB admitted where three were; a blind campaign's seed as before.
+2. **A bundle beside the N-push.** `operations/quiet_report.py` pauses every campaign but the push's; the report says
+   which seeds ran beside it (the bundle's `focus.json`, `push_now`, already lists them), and their wall-clock in that
+   bundle reads a few minutes of the report's CPU. The test: a quiet bundle with a push seed leased leaves it leased and
+   its child running.
 
-**Then**: the two questions of 897 (`docs/ROADMAP.md`, "Questions for the operator", "Open, from 897") decide 899; a
-consolidation after the N-push's fixes; the zone map's road once the push list empties.
+**Then**: 900, a resumed seed in a fresh seed's memory, measured first (`docs/ROADMAP.md`, item 2); a consolidation; the
+zone map's road once the push list empties.
 
-**Acceptance**: the measurement and its criterion in the notes; a test that runs a resumed child and holds its peak
-to the fresh one's; `outputs_of_a_law --against` the record before it unchanged; the full lane green.
+**Acceptance**: the two tests above, `tools/outputs_of_a_law.py --against` the record before unchanged, the full lane
+green.
 
-**Waiting on the operator**: 897 applied to study 178 with a restart (the 8 unread seeds of 262,144 are probed at the
-start, G73 ends at 1,048,576); 178's next bundle once G73's 1,048,576 is read; the two questions of 897.
+**Waiting on the operator**: 898 merged and applied with a restart of the dashboard alone; 178's next
+bundle once G73's 1,048,576 is read (after 899, a bundle no longer stops it).
 
 ## Reading a study's bundle
 
