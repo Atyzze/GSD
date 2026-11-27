@@ -424,6 +424,9 @@ def build_handler(*, api_host: str, api_port: int, bind_host: str,
             elif path == "/reports" or path.startswith("/reports/"):
                 access_counter.record(path, self.headers.get("Referer"), self.headers.get("X-GSD-Page"))
                 self._serve_report(path)
+            elif path == "/api/events":
+                streaming.relay_events(self, lambda: http.client.HTTPConnection(
+                    api_host, api_port, timeout=streaming.EVENTS_TIMEOUT_SECONDS), {"Host": f"{api_host}:{api_port}"})
             elif path == "/api" or path.startswith("/api/"):
                 access_counter.record(path, self.headers.get("Referer"), self.headers.get("X-GSD-Page"))
                 self._proxy()

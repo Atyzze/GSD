@@ -96,6 +96,15 @@ def test_the_list_s_first_law_is_pushed_and_moving_or_taking_it_off_stops_its_ru
     assert any(r.get("memory_now") == 3 * G and r.get("memory_peak") == 4 * G for r in found["slot"]["running"])
     assert found["mode"]["mode"] == modes.PUSH and found["law"]["ladder"]["rungs"][0]["n"] == 64
     assert found["law"]["ladder"]["workers"] == 4 and found["slot"]["order"][0]["law"] == laws["held"]
+    home = {laws[k]: camps[k] for k in laws}
+    assert found["law"]["campaign"] == camps["held"] and found["now"]["campaign"] == camps["held"], (
+        "894: the law is named and linked as it was pushed, not by its code in the push campaign")
+    assert found["now"]["pushed_in"] == pushed and found["law"]["label"] == found["now"]["label"]
+    assert all(r["of"] == home[r["law"]] for r in found["slot"]["running"])
+    from graph_scale_dynamics.services.api.overview import _pushed_as
+    rows = [{"candidate_id": laws["held"]}, {"candidate_id": "f" * 64}]
+    _pushed_as(repo, repo.campaign(pushed)["spec"], rows)
+    assert rows[0]["pushed_as"] == {"campaign": camps["held"], "label": found["law"]["label"]} and "pushed_as" not in rows[1]
 
 
 def test_the_law_held_when_893_came_in_is_put_first_once_and_891_s_central_laws_join_the_end(folder):
@@ -157,3 +166,20 @@ def test_a_pushed_law_whose_every_seed_of_a_size_failed_leaves_the_list_and_says
     state = focus.load(repo)
     assert push.laws(state) == [laws["steered"]] and state["pushed_done"][-1]["rule"] == "failed"
     assert state["events"][-1]["why"] == "every seed of N=64 failed"
+
+
+def test_the_map_names_the_n_push_s_runs_as_the_law_was_pushed(folder):
+    from graph_scale_dynamics.operations import push_ladder, zone_live
+    from graph_scale_dynamics.services.api import focus_route
+    repo, W, focus, camps, laws = folder
+    focus_route.act(repo, {"do": "push", "law": laws["held"], "campaign": camps["held"]})
+    push_ladder.tick(repo, force=True)
+    assert W.claim_simulation_for_owner(repo, "executor-1-1") is not None
+    state = focus.load(repo)
+    pushed = str(state["campaigns"][push_ladder.PUSH])
+    found = zone_live.reading(repo, state)
+    run = next(r for r in found["running"] if r["campaign"] == pushed)
+    label = next(e["label"] for e in state["pushed"] if e["law"] == laws["held"])
+    assert run["role"] == zone_live.PUSHED and run["label"] == label and run["home"] == camps["held"]
+    assert run["part"] == "the first pushed law, its ladder again from 64"
+    assert next(r for r in found["laws"] if r["law"] == laws["held"])["home"] == camps["held"]

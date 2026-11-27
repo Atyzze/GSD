@@ -20,6 +20,7 @@ from urllib.parse import parse_qs, urlparse
 from graph_scale_dynamics import PROJECT_ROOT
 from graph_scale_dynamics.db.connection import DatabaseOperationalError
 from graph_scale_dynamics.db.repo import Repo
+from graph_scale_dynamics.services.api.answer_cache import ANSWERS
 from graph_scale_dynamics.domain.cadence import ticks
 from graph_scale_dynamics.domain.model import POLICY_RULE_VERSION as RULE_VERSION, candidate_number_for
 from graph_scale_dynamics.domain.version import BUILD_NUMBER, environment_fingerprint, runtime_fingerprint
@@ -40,8 +41,8 @@ from graph_scale_dynamics.research.report_catalog import REPORT_BY_CODE, REPORT_
 from graph_scale_dynamics.scheduling.memory import admission_headroom, recorded_lease_reservations
 from graph_scale_dynamics.scheduling.runtime import observed_analysis_profile, observed_profile, predict_wall
 from graph_scale_dynamics.services.api import (
-    admin_link, admin_view, campaign_manager, dashboard_limit, freshness, landscape_inputs, law_elsewhere, readings_route,
-    study_scope,
+    admin_link, admin_view, campaign_manager, dashboard_limit, events, freshness, landscape_inputs, law_elsewhere,
+    readings_route, study_scope,
 )
 from graph_scale_dynamics.services.api.law_dynamics import law_dynamics_of
 from graph_scale_dynamics.services.api.dashboard_workers import DashboardWorkers
@@ -716,6 +717,9 @@ def build_handler(db_path: str, blobs_path: str, admin_token: str, port: int,
                 return self._json(self._access_payload())
             if readings_route.handles(parts):
                 return readings_route.get(self, db_path, parts)
+            if parts == events.PARTS:
+                return events.stream(self, lambda: Repo(db_path), on_readings=lambda: [
+                    ANSWERS.forget(kind, db_path) for kind in ("structure", "curves")])
             if path in ("/", "/index.html", "/calibration") or path == "/reports" or path.startswith("/reports/"):
                 self._json({"error": "web assets are served by the separate web process"}, 404)
                 return
@@ -1048,7 +1052,7 @@ def build_handler(db_path: str, blobs_path: str, admin_token: str, port: int,
                                         "failed_seconds": 0.0, "max_attempt_seconds": None,
                                         "cumulative_core_seconds": 0.0})}
                                     for row in rung_rows]
-                    rung_payload += law_elsewhere.rungs(repo, candidate_id, campaign_id, {row["n"] for row in rung_rows})
+                    rung_payload = law_elsewhere.richer(repo, candidate_id, campaign_id, rung_payload)
                     ladder = campaign_row["spec"].get("ladder") or []
                     lineage = None
                     depth = campaign_row["spec"].get("depth_continuation") or {}
@@ -1190,6 +1194,7 @@ def build_handler(db_path: str, blobs_path: str, admin_token: str, port: int,
                                         "fingerprint_verified": dsl.fingerprint(candidate["spec"]) == candidate_id},
                         "law_dynamics": law_dynamics_of(candidate["spec"]),
                         "rungs": rung_payload,
+                        "pushed_as": law_elsewhere.pushed_as(repo, campaign_row["spec"], candidate_id),
                         "lineage": lineage, "identity": identity_for(repo, campaign_id, candidate_id, candidate["spec"]),
                         "four_rung_phenotype": (phenotype_row or {}).get("phenotype"),
                         "locality_audit": (locality_audit_row or {}).get("result"),

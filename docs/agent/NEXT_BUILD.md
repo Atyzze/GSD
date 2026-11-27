@@ -1,15 +1,24 @@
-# The next build is 894
+# The next build is 895
 
 This file names the next build and says how to make it. `tests/unit/test_next_build_is_named.py` parses its first line,
 which must read exactly `# The next build is <N>`, one above `BUILD_NUMBER`.
 
-## Where to begin: 894 is read from study 178's first zones and its first N-push
+## Where to begin: 895 is the handover, then 896 is read from study 178's first zones and its first N-push
 
 **Starting from nothing but the repository** (the operator, 2026-11-24 23:00): clone `main` and bring it up by
 `docs/agent/ENVIRONMENT.md`, section 10, "From the repository". Then `docs/WHERE_WE_ARE.md`, `docs/agent/HANDOFF.md`,
-**`docs/agent/ZONE_MAP.md`** and this page, in that order, and `CLAUDE.md`'s rules for a shared repository. 871 to 893
-are made (`docs/build_notes/BUILD871_NOTES.md` to `BUILD893_NOTES.md`); 871 to 891 are on `main` (#18 to #33), 892
-(#34) and 893 in their pull requests, 893 made on 892: branch from 893 if they are not merged yet.
+**`docs/agent/ZONE_MAP.md`** and this page, in that order, and `CLAUDE.md`'s rules for a shared repository. 871 to 894
+are made (`docs/build_notes/BUILD871_NOTES.md` to `BUILD894_NOTES.md`); 871 to 893 are on `main` (#18 to #35), 894
+in its pull request: branch from it if it is not merged yet.
+
+**895 is a handover** (the operator, 2026-11-27 13:00: "we are probably due for a hand over build afterwards"), as 863,
+870 and 886 were: only pages change, no code. What the context that made 886 to 894 knows goes into the pages it
+belongs in: `docs/agent/HANDOFF.md` rewritten for a context that opens the archive cold (the builds since 886 in a
+paragraph, the three modes, the N-push and its ladder, the zone search and its look-ahead, the pages' event stream,
+what waits on the operator); `docs/WHERE_WE_ARE.md` and `docs/agent/ZONE_MAP.md` brought to what is true;
+`docs/ROADMAP.md` pruned of what is made; `docs/ARCHITECTURE.md` checked against the code, section by section, for
+889 to 894. Its acceptance: the pages' cross-references resolve, no code moves, `outputs_of_a_law --against` 894's
+record unchanged, the full lane green.
 
 **What comes first, when the operator sends 178's bundle or dex**: read the dex's check, the zones and their searches.
 On a bundle, `focus.json`'s `dex_check` and `zone_chosen` as at 889 (`passed_over` since 891); `zones` (891): each
@@ -20,7 +29,7 @@ criterion (`study_178_criterion.json`): P1 to P4 as before; P5 reported. Then re
 method's 3.2 core-hours on the same zone (`docs/build_notes/BUILD890_NOTES.md`): core-hours, hours, how many edges
 held at 16,384.
 
-**What 894 makes**, chosen by that reading (`docs/ROADMAP.md`, "Still open from 884 to 893"):
+**What 896 makes**, chosen by that reading (`docs/ROADMAP.md`, "Still open from 884 to 894"):
 
 1. **If the search's hours are still the slow part** with 893's look-ahead (a zone's lines took many times the ring
    method's hours for about its core-hours): the members' readings and the edges at 16,384 run ahead on the free
@@ -30,10 +39,10 @@ held at 16,384.
 3. **If an edge did not hold**: the line's points judged at 16,384 along that parameter, the rest at 4,096.
 
 **Acceptance**: the choice and its reading in the notes; the change tested on a law of known answer as 890's search
-is; `outputs_of_a_law --against` 893's record unchanged; the full lane green.
+is; `outputs_of_a_law --against` the record before it unchanged; the full lane green.
 
-**Waiting on the operator**: 892's and 893's pull requests; study 178 on 893 (`docs/build_notes/BUILD893_NOTES.md`,
-"For the folders"). On 178's next bundle, read too the N-push: the flag `fleet_mode` and its `since`, the
+**Waiting on the operator**: 894's pull request; study 178 on 894
+(`docs/build_notes/BUILD893_NOTES.md` and `BUILD894_NOTES.md`, "For the folders"). On 178's next bundle, read too the N-push: the flag `fleet_mode` and its `since`, the
 attempts of class `preempted_fleet_mode`, the push campaign's rungs (seeds, at once, passes) against its forecast
 (`push_ladder.forecast`: each rung's hours and end, the break-points), each pushed law's last size and why it ended,
 the points the zone's lines ran ahead (`search.ahead`, the steps marked `ahead`) and how many it needed, and the hours

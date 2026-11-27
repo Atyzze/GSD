@@ -4117,6 +4117,7 @@ check('the Top page lists the pushed laws, the law being pushed with its ladder 
     slot: { campaign: '17', running: Array.from({ length: 7 }, (_, i) => ({ law, label: 'S178-C15-G133', n: 16384, seed: i + 9, since: '2026-11-27T10:28:00Z', memory_now: 0.5 * G, memory_peak: 0.55 * G, elapsed: 120 })),
             order: [{ law, label: 'S178-C15-G133', queued: 2 }], waiting: [] } });
   const pushed = getElementById('topPushed').innerHTML, one = getElementById('topLaw').innerHTML, list = getElementById('topList').innerHTML;
+  if (/two passes<\/text>|one worker \u00b7 N=1,048,576<\/text>[\s\S]*two passes \u00b7/.test(getElementById('topLaw').innerHTML)) throw new Error('894: two marks at one size are one label');
   for (const want of ['the fleet is in <b>the N-push</b>', 'S178-C15-G133 is first on the push list', 'the N-push runs 7 seeds of', 'holding 3.5 GiB between them',
                       'top-runs', '0.50 GiB', 'being pushed now', '65,536', 'data-top-do=unpush', 'stop pushing', 'from N=64, in a campaign of its own']) {
     if (!pushed.includes(want)) throw new Error(`the push list lacks "${want}": ${pushed.slice(0, 700)}`);
@@ -4124,6 +4125,7 @@ check('the Top page lists the pushed laws, the law being pushed with its ladder 
   for (const want of ['its ladder again from N=64, 16 workers', '46.0 GiB', 'N=4,194,304 would need 153.6 GiB', 'ends near 22:00 UTC', '35 h 30 min from now',
                       'fewer than the 16 workers at once from N=262,144 (4 at once, 4 seeds)', 'two passes from N=1,048,576', 'one worker from N=1,048,576',
                       'top-timeline', 'top-rung-all', 'top-rung-fewer', 'top-rung-one', 'top-rung-now', 'top-mark', 'all 16 workers at once', 'one worker</span>',
+                      'two passes, one worker \u00b7 N=1,048,576</text>',
                       '<b>under way</b>', '16 of 16', '16, 9 left', '9.6 GiB priced', '10:30 UTC to 10:40 UTC', 'top-chart', 'top-reach', "the host's reach"]) {
     if (!one.includes(want)) throw new Error(`the pushed law lacks "${want}": ${one.slice(0, 900)}`);
   }

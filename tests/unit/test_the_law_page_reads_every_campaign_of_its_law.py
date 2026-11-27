@@ -38,8 +38,8 @@ def test_the_sizes_a_law_read_in_another_campaign_are_drawn_on_its_page_and_its_
     alone = readings_route.structure(_repo(spec, {"1": rows}), "1", "law")
     both = readings_route.structure(_repo(spec, {"1": rows, "2": rows[:1] + deeper[:1], "3": deeper}), "1", "law")
     assert alone["read_elsewhere"] == [] and [r["n"] for r in alone["chains"]["rungs"]] == [64]
-    assert both["read_elsewhere"] == [{"n": 256, "campaign": "3", "rows": 3}], (
-        "a size missing here is taken from the campaign with the most readings of it, never one this campaign has")
+    assert both["read_elsewhere"] == [{"n": 256, "campaign": "3", "rows": 3, "here": 0}], (
+        "a size missing here is taken from the campaign with the most readings of it")
     assert [r["n"] for r in both["chains"]["rungs"]] == [64, 256], "its curves reach the deeper size"
     assert json.dumps(both["score"], sort_keys=True) == json.dumps(alone["score"], sort_keys=True), (
         "the score on the page reads this campaign's own sizes")
@@ -57,3 +57,27 @@ def test_the_rung_table_takes_each_missing_size_from_the_campaign_with_the_most_
     assert [(r["n"], r["read_in"], r["summary"]["seeds"]) for r in found] == [(65536, "17", 16), (262144, "17", 3)]
     assert all("summary_json" not in r for r in found) and found[0]["compute"]["read_in"] == "17"
     assert law_elsewhere.rungs(repo, "law", "15", {16384, 65536, 262144}) == [], "nothing this campaign already holds"
+
+
+def test_a_size_read_on_more_seeds_in_another_campaign_is_drawn_from_there(five_chains):
+    from graph_scale_dynamics.services.api import readings_route
+    spec, rows = five_chains
+    pushed = rows + [dict(r, seed=int(r["seed"]) + 3) for r in rows]
+    alone = readings_route.structure(_repo(spec, {"15": rows[:1]}), "15", "law")
+    both = readings_route.structure(_repo(spec, {"15": rows[:1], "17": pushed}), "15", "law")
+    assert both["read_elsewhere"] == [{"n": 64, "campaign": "17", "rows": 6, "here": 1}], (
+        "the push's six seeds at 64 against the one read here: the page draws the six")
+    assert json.dumps(both["score"], sort_keys=True) == json.dumps(alone["score"], sort_keys=True)
+    same = readings_route.structure(_repo(spec, {"15": rows, "17": rows[:2]}), "15", "law")
+    assert same["read_elsewhere"] == [], "fewer seeds elsewhere: its own readings stay"
+
+
+def test_the_rung_table_takes_a_size_from_the_campaign_with_more_seeds_than_here():
+    from graph_scale_dynamics.services.api import law_elsewhere
+
+    def rung(n, seeds):
+        return {"n": n, "summary": {"seeds": seeds}, "summary_json": "{}"}
+    repo = _repo({}, {"15": [], "17": []}, {"17": [rung(16384, 16), rung(64, 2)]})
+    own = [dict(rung(64, 3), channels=[]), dict(rung(16384, 3), channels=[])]
+    found = law_elsewhere.richer(repo, "law", "15", own)
+    assert [(r["n"], r.get("read_in"), r["summary"]["seeds"]) for r in found] == [(64, None, 3), (16384, "17", 16)]

@@ -6,8 +6,8 @@ from datetime import datetime, timedelta, timezone
 from graph_scale_dynamics.operations import law_code as LC
 
 CONTRACT = "gsd-zone-now-1"
-ZONE, ZONE_SEEDS, DEPTH, DEX, BLIND, OTHER = "zone", "zone seeds", "depth", "Dex laws", "blind", "other"
-ROLES = (ZONE, ZONE_SEEDS, DEPTH, DEX, BLIND, OTHER)
+PUSHED, ZONE, ZONE_SEEDS, DEPTH, DEX, BLIND, OTHER = "the N-push", "zone", "zone seeds", "depth", "Dex laws", "blind", "other"
+ROLES = (PUSHED, ZONE, ZONE_SEEDS, DEPTH, DEX, BLIND, OTHER)
 WINDOW_HOURS = 6
 RECENT_SECONDS = 3600.0
 RUNNING = "running"
@@ -80,7 +80,7 @@ def roles_of(repo, state: dict) -> dict[str, str]:
         kind = design.get("kind")
         if kind == F.KIND:
             part = (design.get("focus") or {}).get("part")
-            role = {F.NEIGHBOURS: ZONE, F.SEEDS: ZONE_SEEDS, F.DEPTH: DEPTH, "E": ZONE}.get(part, OTHER)
+            role = {F.NEIGHBOURS: ZONE, F.SEEDS: ZONE_SEEDS, F.DEPTH: DEPTH, "E": ZONE, "P": PUSHED}.get(part, OTHER)
         else:
             role = {"seed": DEX, "blind": BLIND}.get(kind, OTHER)
         out[str(campaign["campaign_id"])] = role
@@ -111,6 +111,9 @@ def part_of(state: dict, role: str, campaign: str, law: str) -> str:
         return "on a line to a boundary"
     if role == ZONE_SEEDS:
         return "the law in focus, on more seeds" if law == current.get("law") else "an earlier law, on more seeds"
+    if role == PUSHED:
+        now = (state.get("depth_now") or {}).get("law")
+        return "the first pushed law, its ladder again from 64" if law == now else "a pushed law, its runs kept"
     if role == DEPTH:
         now = (state.get("depth_now") or {}).get("law")
         return "the depth worker's law" if law == now else "an earlier depth law"
@@ -193,7 +196,7 @@ def law_rows(repo, rows: list[dict], medians_of) -> list[dict]:
             now = sorted({int(r["n"]) for r in running})
             starts = [r.get("started_utc") for r in running if r.get("started_utc")]
             out.append({"role": role, "part": running[0]["part"], "campaign": campaign, "law": law,
-                        "label": running[0].get("label"), "sizes": sizes, "seeds": seeds, "planned": planned,
+                        "label": running[0].get("label"), "home": running[0].get("home") or campaign, "sizes": sizes, "seeds": seeds, "planned": planned,
                         "done": done, "running": len(running),
                         "queued": sum(_count(cells.get(n) or {}, "queued") for n in sizes),
                         "now": [{"n": n, "seeds": sorted(int(r["seed"]) for r in running if int(r["n"]) == n)}
@@ -367,17 +370,20 @@ def reading(repo, state: dict | None, *, now: datetime | None = None) -> dict | 
     fleet = dict(found.get("fleet") or {})
     zone_medians = dict(fleet, **(found.get("zone") or {}))
     labels = _labels(repo, sorted({(str(r["campaign_id"]), str(r["candidate_id"])) for r in running}))
+    from graph_scale_dynamics.operations import push
     rows = []
     for row in running:
         campaign, law = str(row["campaign_id"]), str(row["candidate_id"])
         role = roles.get(campaign, OTHER)
         at = row.get("started_utc") or row.get("updated_utc")
-        medians = zone_medians if role in (ZONE, ZONE_SEEDS, DEPTH) else fleet
+        medians = zone_medians if role in (PUSHED, ZONE, ZONE_SEEDS, DEPTH) else fleet
+        home = push.home_of(state, law) if role == PUSHED else None
         rows.append({"role": role, "part": part_of(state, role, campaign, law), "campaign": campaign, "law": law,
-                     "label": labels.get((campaign, law)), "n": int(row["n"]), "seed": int(row["seed"]),
+                     "label": (home or {}).get("label") or labels.get((campaign, law)),
+                     "home": (home or {}).get("campaign") or campaign, "n": int(row["n"]), "seed": int(row["seed"]),
                      "started_utc": at, "seconds": seconds_since(at, now), "typical": medians.get(str(int(row["n"])))})
     rows.sort(key=lambda r: (ROLES.index(r["role"]), -(r["seconds"] or 0.0)))
-    laws = law_rows(repo, rows, lambda role: zone_medians if role in (ZONE, ZONE_SEEDS, DEPTH) else fleet)
+    laws = law_rows(repo, rows, lambda role: zone_medians if role in (PUSHED, ZONE, ZONE_SEEDS, DEPTH) else fleet)
     workers = Counter(r["role"] for r in rows)
     found_analyses = repo.conn.execute(
         "SELECT SUM(CASE WHEN status='leased' THEN 1 ELSE 0 END) AS running, "
@@ -414,6 +420,6 @@ def safe(repo, state: dict | None) -> dict | None:
 
 
 __all__ = ["BEING_READ", "BLIND", "CONTRACT", "DECIDED", "DECIDER", "DEPTH", "DEX", "FAILED", "HELD", "JUDGED",
-           "NEXT_DUE", "NOT_STARTED", "OTHER", "QUEUED", "READ", "ROLES", "RUNNING", "STAGES", "ZONE",
+           "NEXT_DUE", "NOT_STARTED", "OTHER", "QUEUED", "READ", "PUSHED", "ROLES", "RUNNING", "STAGES", "ZONE",
            "ZONE_SEEDS", "law_rows", "order", "pace", "part_of", "planned_of", "reached", "reading", "rings_of",
            "roles_of", "safe", "seconds_since", "typical", "when", "where"]

@@ -867,7 +867,27 @@ the runs under way with the memory each holds now and at most from the executor'
 `push._memory_of`), the list with who put each law there and its order buttons, the laws waiting and those done, the
 law's ladder as a timeline with its break-points marked, the rung table and its memory over N against the reach, and
 the study's laws by the deepest N any run of theirs has finished (`push.deepest`). The focus's depth campaign (part
-D) takes no law since 893; its readings are kept.
+D) takes no law since 893; its readings are kept. **A pushed law keeps the code it was pushed with** (894,
+`push.home_of`): the Top page, Home's live rows (`overview._pushed_as`, `pushed_as`) and the push campaign's law page
+(`law_elsewhere.pushed_as`) name it and link it by the label and campaign it was pushed from, not by its code in the
+push campaign.
+
+**The law page reads every campaign of its law** (893, 894, `services/api/law_elsewhere.py`): each size is drawn
+from the campaign of the law with the most seeds there (`measurements` for the chains and the curves at a size,
+`richer` for the rung table, each row marked `read_in`), the page's own campaign keeping a size no other has more of;
+the score on the page reads its own campaign's seeds (`read_elsewhere` says which sizes came from where).
+
+**The pages are told of every change of the work** (894, `services/api/events.py`). Postgres notifies `gsd_work` on
+every change of a run, a probe and a rung summary rebuilt (the triggers of `schema.sql`, which also wake the workers).
+`/api/events` is a Server-Sent Events stream: for each page that follows, the API listens on a connection of its own,
+gathers what came within `GATHER_SECONDS` (`gathered`: the tables and statuses, `readings` when a probe or a rebuild
+is done, `runs` when a run is done, failed or queued), sends it as an event `work`, and a ping every `PING_SECONDS`;
+a reading drops the cached structure and curves answers (`ANSWERS.forget`). At most `MOST` (8) pages follow at once;
+a ninth is answered 503 and polls. The web service relays the stream as it is written (`streaming.relay_events`,
+`read1`). In the browser `GSD_SYSTEM.followEvents` opens one `EventSource` a page and `onWork` calls each page's
+handler after `WORK_GATHER_MS`: the header's overview at once (its poll every 15 seconds while the stream is open,
+every 4 without it), the Top and Map pages, Home's selection and landscape on a reading, and the law page
+(`followLaw`, at most every 15 seconds, keeping the scroll, not while a tooltip is pinned or the tab is hidden).
 
 **A zone's search** (890, `operations/zone_search.py`, `observability/likeness.py`). A law taken into focus by the zone
 rule (887) is searched instead of ringed: `focus.start_next` calls `zone_search.begin`, and `focus.advance` hands each

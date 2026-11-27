@@ -148,6 +148,13 @@ check('the heading names the law C<campaign>-G<n>, and the identity line its has
                       'the same function as C1-G17', 'and 2 more']) {
     if (!text.includes(want)) throw new Error(`the identity line lacks "${want}": ${text}`);
   }
+  const as = { campaign: '15', label: 'S178-C15-G73' };
+  if (sandbox.candidateCode({ ensemble_code: 'G-1', campaign_id: '17' }, { campaign_id: '17', pushed_as: as }) !== 'S178-C15-G73') {
+    throw new Error('894: a law the N-push runs again keeps the code it was pushed with');
+  }
+  const pushed = String(sandbox.lawIdentityLine({ candidate_id: '8addbb0c', campaign_id: '17' },
+    { law_hash: '8addbb0c', same_law_in: ['13', '15'], same_function: [] }, as).textContent || '');
+  if (!pushed.includes('run again by the N-push in campaign 17; its home S178-C15-G73')) throw new Error(`the push campaign's page does not say its home: ${pushed}`);
   const alone = String(sandbox.lawIdentityLine({ candidate_id: 'x' }, { law_hash: 'x', function_hash: 'f', same_law_in: [], same_function: [] }).textContent || '');
   if (!alone.includes('no other law, in any campaign, is this function')) throw new Error(`an unmatched function is not said: ${alone}`);
 });

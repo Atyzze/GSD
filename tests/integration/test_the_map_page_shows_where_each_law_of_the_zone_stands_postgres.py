@@ -88,7 +88,7 @@ def test_the_map_page_says_where_each_law_of_the_zone_stands_who_runs_now_and_ho
         assert state["typical"]["zone"]["64"] == 2.0 and state["typical"]["zone"]["4096"] == 30.0
         found = zone_live.reading(repo, state, now=now)
 
-        assert found["workers"] == {"zone": 1, "zone seeds": 0, "depth": 0, "Dex laws": 1, "blind": 1, "other": 0}
+        assert found["workers"] == {"the N-push": 0, "zone": 1, "zone seeds": 0, "depth": 0, "Dex laws": 1, "blind": 1, "other": 0}
         roles = [(r["role"], r["part"], r["n"]) for r in found["running"]]
         assert roles[0][0] == "zone" and roles[0][1].startswith("ring ") and roles[0][2] == 4096, roles
         assert ("Dex laws", "a Dex law, read again here", 1024) in roles and ("blind", "drawn blind", 64) in roles
