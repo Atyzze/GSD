@@ -1,4 +1,4 @@
-# Handoff: the state of GSD at build 895
+# Handoff: the state of GSD at build 896
 
 What is true now, for a context that has just opened this archive. Each fact has one home; the last section says
 where. **Think from the data, not from this page**: where the data and a document disagree, the data wins and the
@@ -45,6 +45,8 @@ in `docs/HISTORY.md`):
   search's look-ahead on free slots.
 * 894: one code for a pushed law on every page; each size of a law page from the campaign with the most seeds; the
   pages told of every change of the work (`services/api/events.py`, our own stack: the operator, 13:00).
+* 895: the handover. 896: in the N-push the slots split by the push's own runs and probes (893 had read the waiting
+  zone's queue); the law page says which sizes are being read (a run done is not a reading until its probes end).
 
 **Before that, 871 to 885** (the handover of 886 read them):
 
@@ -75,7 +77,7 @@ the calibration table) and what it shows: `docs/WHERE_WE_ARE.md` and `docs/paper
 **Open threads at 895**, each with its home:
 
 * **Pull requests**: 864 to 893 (#11 to #35) merged by the operator, #34 and #35 at 2026-11-27 11:21Z; `main` holds
-  893. Open: 894 (#36) and 895's, made on it; merged in that order.
+  893. Open: 894 (#36), 895 (#37) and 896's, each made on the one before; merged in that order.
 * **Study 178** (`/data/projects/GSD/178/main`, `study_178_design.json`, criterion `study_178_criterion.json`) runs
   on 893 since 2026-11-27 about 11:20Z. 177's dex of 19:33Z was read in at its start (C15) and checked: 192 laws
   confirmed, 1 unmatched, at 07:18Z; the first zone (S178-C15-G2302, 177's S176-C12-G100, G79's family) was chosen at
@@ -88,7 +90,7 @@ the calibration table) and what it shows: `docs/WHERE_WE_ARE.md` and `docs/paper
 * **Study 177** (`/data/projects/GSD/177/main`) and its dex of 19:33Z (193 laws, 76 term sets, 26,366 chains) are the
   operator's; 178 read that dex in.
 * **Studies 176 and 174** stopped or the operator's; their bundles were read at 881 and 865.
-* **Open questions** (`docs/ROADMAP.md`, "Questions for the operator", and "Still open from 884 to 894"): the zone
+* **Open questions** (`docs/ROADMAP.md`, "Questions for the operator", and "Still open from 884 to 896"): the zone
   search's slots still idle while its members are read or its edges at 16,384; a size started before any run below it
   has finished; a topology probe; 176's standing controls.
 
@@ -251,8 +253,8 @@ again after the paper's three studies, on the final probes, with a criterion wri
 
 ## What waits on the operator
 
-* **894's and 895's pull requests** (#36 and the next): theirs to merge, in that order (895 is made on 894).
-* **Study 178 on 895**: applied to its folder (`docs/build_notes/BUILD894_NOTES.md`, "For the folders"); its next
+* **894's, 895's and 896's pull requests** (#36, #37 and the next): theirs to merge, in that order.
+* **Study 178 on 896**: applied to its folder (`docs/build_notes/BUILD896_NOTES.md`, "For the folders"); its next
   bundle or dex once the N-push reaches 4,194,304 or a zone is mapped, read by `docs/agent/NEXT_BUILD.md`.
 * **The push list's order** on the Top page: "first", "up", "stop pushing"; any law page's "push to the N limit".
 * **Study 176's standing controls**: kept as a tick (recommended; `docs/ROADMAP.md`, "Questions for the operator").

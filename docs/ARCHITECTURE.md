@@ -832,7 +832,10 @@ list, keeping `since` while the mode holds. Every claim keeps to it: a run is cl
 (`worker.claim_simulation_for_owner`, `worker.in_mode`), a probe likewise (`analyzer.claim_analysis_for_owner`,
 `repo.claim_analysis_job(campaigns=)`), and a run under way of another mode is stopped within two seconds, its seed
 saved, and given back to the queue (`lane_yield.mode_yield_reason`, class `preempted_fleet_mode`), to go on when its
-mode comes back. Within a mode the fleet's order (`work_groups.ordered`) still decides which campaign's run goes first.
+mode comes back. Within a mode the fleet's order (`work_groups.ordered`) still decides which campaign's run goes first,
+and the executor's split of its slots between runs and probes reads the mode's own work (896,
+`repo.mode_campaigns`: `simulation_work_counts` and `analysis_backlog_tiers` take the mode's campaigns, so a waiting
+mode's queue does not take the probes' slots).
 In the zone search the slots its work leaves free (`zone_search.free_runs`: the worker count less the mode's queued and
 running runs) run its lines ahead (`zone_search._look_ahead`, `ahead`): while a line's step is read, the two points it
 may need next are made (marked `ahead`), three runs a point, and the line reads the one it comes to without a new law
@@ -876,7 +879,10 @@ push campaign.
 **The law page reads every campaign of its law** (893, 894, `services/api/law_elsewhere.py`): each size is drawn
 from the campaign of the law with the most seeds there (`measurements` for the chains and the curves at a size,
 `richer` for the rung table, each row marked `read_in`), the page's own campaign keeping a size no other has more of;
-the score on the page reads its own campaign's seeds (`read_elsewhere` says which sizes came from where).
+the score on the page reads its own campaign's seeds (`read_elsewhere` says which sizes came from where). A size whose
+runs are done and whose probes are queued or under way is said on the page (896, `law_elsewhere.being_read`: runs
+done of runs, read, being probed, waiting, the time a probe takes there and the next reading due); a run done is not a
+reading until its probes end.
 
 **The pages are told of every change of the work** (894, `services/api/events.py`). Postgres notifies `gsd_work` on
 every change of a run, a probe and a rung summary rebuilt (the triggers of `schema.sql`, which also wake the workers).

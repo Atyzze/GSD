@@ -1,16 +1,16 @@
-# The next build is 896
+# The next build is 897
 
 This file names the next build and says how to make it. `tests/unit/test_next_build_is_named.py` parses its first line,
 which must read exactly `# The next build is <N>`, one above `BUILD_NUMBER`.
 
-## Where to begin: 896 is read from study 178's first N-push and its first zones
+## Where to begin: 897 is read from study 178's first N-push and its first zones
 
 **Starting from nothing but the repository** (the operator, 2026-11-24 23:00): clone `main` and bring it up by
 `docs/agent/ENVIRONMENT.md`, section 10, "From the repository". Then `docs/WHERE_WE_ARE.md`, `docs/agent/HANDOFF.md`
 (rewritten by the handover of 895), **`docs/agent/ZONE_MAP.md`** and this page, in that order, and `CLAUDE.md`'s rules
-for a shared repository. 871 to 895 are made (`docs/build_notes/BUILD871_NOTES.md` to `BUILD895_NOTES.md`); 871 to
-893 are on `main` (#18 to #35), 894 (#36) and 895 in their pull requests, 895 made on 894: branch from 895 if they are
-not merged yet.
+for a shared repository. 871 to 896 are made (`docs/build_notes/BUILD871_NOTES.md` to `BUILD896_NOTES.md`); 871 to
+893 are on `main` (#18 to #35), 894 (#36), 895 (#37) and 896 in their pull requests, each made on the one before:
+branch from 896 if they are not merged yet.
 
 **The check the operator named** (13:06): "once we have our first workers pushing the 4M size, we'll have confirmed the
 N-pusher is working fully as intended". On 178's next bundle read first the N-push: the flag `fleet_mode` and its
@@ -28,7 +28,7 @@ criterion (`study_178_criterion.json`): P1 to P4 as before; P5 reported. Then re
 method's 3.2 core-hours on the same zone (`docs/build_notes/BUILD890_NOTES.md`): core-hours, hours, how many edges
 held at 16,384.
 
-**What 896 makes**, chosen by that reading (`docs/ROADMAP.md`, "Still open from 884 to 894"), after any fix the N-push's
+**What 897 makes**, chosen by that reading (`docs/ROADMAP.md`, "Still open from 884 to 896"), after any fix the N-push's
 reading calls for:
 
 1. **If the search's hours are still the slow part** with 893's look-ahead (a zone's lines took many times the ring
@@ -41,7 +41,7 @@ reading calls for:
 **Acceptance**: the choice and its reading in the notes; the change tested on a law of known answer as 890's search
 is; `outputs_of_a_law --against` the record before it unchanged; the full lane green.
 
-**Waiting on the operator**: 894's and 895's pull requests; study 178 on 895
+**Waiting on the operator**: 894's, 895's and 896's pull requests; study 178 on 896
 (`docs/build_notes/BUILD894_NOTES.md`, "For the folders"); its next bundle once a worker runs 4,194,304 or a zone is
 mapped.
 

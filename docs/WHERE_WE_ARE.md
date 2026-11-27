@@ -1,4 +1,4 @@
-# Where we are, at build 895
+# Where we are, at build 896
 
 The whole project on one page, in plain words; the detail is in `docs/agent/HANDOFF.md`.
 
@@ -56,7 +56,7 @@ are one seed of three at small sizes, on graphs in pieces or trees the next size
 68% to 81% of the way there from empty, worse as N grows. Until a known law grows its geometry from empty, "nothing
 grows from empty" cannot be told from "nothing can get there under these moves".
 
-## What 800 to 895 changed
+## What 800 to 896 changed
 
 The probes locked and your table installed (800 to 805); the evidence judged again on the final code (806 to 843); 844
 study 174; 845 to 853 study 175; 854 the paper's draft; 855 the ledger; 856 study 176; 857 to 870 Home, the focus, the
@@ -65,16 +65,16 @@ study 177. 882: the dex. 883 to 885: the zone unblocked, live, one at a time. 88
 verified first, the first zone chosen. 888: the dex read again to 4,096, law by law. 889: a law pushed to the N limit.
 890: a zone searched by stepping and halving. 891: zones one after another. 892: a pushed law holds the host.
 893: three modes, never mixed; the N-push its own ladder from 64. 894: one code a law, pages told of each change.
-895: a handover.
+895: a handover. 896: the N-push's probes get its slots; the law page says what is being read.
 
 ## What comes next
 
-896 is read from 178's first N-push (confirmed once a worker runs 4,194,304) and its first zones: each pushed rung
+897 is read from 178's first N-push (confirmed once a worker runs 4,194,304) and its first zones: each pushed rung
 against its forecast, the searches' cost against the ring method's, whether the edges at 4,096 held at 16,384.
 
 ## The decision in front of you
 
-1. **Merge 894 and 895 in order and apply 895 to study 178**: the N-push runs on, named as you pushed it, the pages
+1. **Merge 894 to 896 in order and apply 896 to study 178**: the N-push runs on, named as you pushed it, the pages
    updating as readings land. Send 178's bundle once a worker runs 4,194,304 or a zone is mapped.
 2. **The push list's order** on the Top page: "first", "up", "stop pushing"; any law page's "push to the N limit".
 3. **Whether a known law must grow its geometry from empty first** (recommended, before more compute from empty):

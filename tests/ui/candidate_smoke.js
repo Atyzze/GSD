@@ -155,6 +155,13 @@ check('the heading names the law C<campaign>-G<n>, and the identity line its has
   const pushed = String(sandbox.lawIdentityLine({ candidate_id: '8addbb0c', campaign_id: '17' },
     { law_hash: '8addbb0c', same_law_in: ['13', '15'], same_function: [] }, as).textContent || '');
   if (!pushed.includes('run again by the N-push in campaign 17; its home S178-C15-G73')) throw new Error(`the push campaign's page does not say its home: ${pushed}`);
+  const reading = String(sandbox.beingReadLine([{ n: 262144, campaign: '17', runs: 16, done: 14, running: 2, read: 0, probing: 4, waiting: 10,
+    probe_seconds: 986, first_due_utc: '2026-11-27T13:52:00Z' }, { n: 65536, campaign: '17', runs: 16, done: 16, read: 16, probing: 0, waiting: 0 }]).textContent || '');
+  for (const want of ['being read: ', 'N=262,144 in campaign 17: 14 of 16 runs done, 0 read, 4 being probed and 10 waiting for a probe',
+                      'a probe takes about 16 min at this size', 'the next reading due about 13:52 UTC']) {
+    if (!reading.includes(want)) throw new Error(`896: the size being read is not said: ${reading}`);
+  }
+  if (reading.includes('65,536') || sandbox.beingReadLine([]) !== null) throw new Error('a size fully read is not being read');
   const alone = String(sandbox.lawIdentityLine({ candidate_id: 'x' }, { law_hash: 'x', function_hash: 'f', same_law_in: [], same_function: [] }).textContent || '');
   if (!alone.includes('no other law, in any campaign, is this function')) throw new Error(`an unmatched function is not said: ${alone}`);
 });
