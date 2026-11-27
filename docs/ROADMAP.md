@@ -120,19 +120,26 @@ its own campaign and verified first, the first zone chosen to confirm fast; 888 
 law from the start, "Working now" by law, a new dex on a find; 889 a law pushed to the N limit from its page and the
 Top page; 890 the first zone searched by stepping and halving each parameter, a law alike by its locked-in curves, its
 central law pushed, benchmarked against the ring method; 891 the zones one after another, the dex a list of zones
-with their central laws, a zone read in not searched again, the lucky hits kept to revisit.
+with their central laws, a zone read in not searched again, the lucky hits kept to revisit; 892 the push list holding
+the host in the operator's order; 893 the fleet in one of three modes (the N-push, the zone search, the blind ladder),
+the N-push its own ladder again from 64 on every worker with its break-points forecast, the law page reading every
+campaign of its law.
 
-**Still open from 884 to 892**, each its own build, the first two waiting on study 178's first zones:
+**Still open from 884 to 893**, each its own build, the first two waiting on study 178's first zones:
 
-1. **The search's hours** (890's benchmark): a line's steps follow one another, each a ladder to 4,096; if 178 shows
-   them as the slow part, each line's next two points at once, the one not needed dropped when the first reads.
+1. **The search's hours** (890's benchmark): a line's steps follow one another, each a ladder to 4,096; since 893 the
+   free slots run each line's two possible next points ahead (item 6), the one not needed left unread.
 2. **A law taken by its score searched as a zone is** (884's "a smarter zone"): once the zones run out the focus goes
    back to the score and draws rings (861); the search would judge it the same way, its members the laws already read
    near it. Recommended once 178's benchmark is read.
 3. **Each term set to 0 beside switched off** (884, law space's faces).
-4. **Several sizes of a pushed law at once** (the operator, 09:19; 892's notes): a speculative rung priced from the
-   forecast, its seeds started beside the size below while the reach holds them, in the decision engine (`decisions/`,
-   frozen): the operator's word first. With it, starting a pushed law at the size it has read rather than from 64.
+4. **Several sizes of a pushed law at once** (the operator, 09:19; 892's notes): since 893 the N-push buys its own
+   rungs (`push_ladder.step`, outside the decision engine), the next once the size below has one finished run, and
+   every slot not taken by the rung below runs the next. Open: starting a size before any run below it has finished,
+   priced from the forecast alone, the price corrected as the size below reads.
+6. **The zone search's idle slots** (893; the operator, 11:37: "those free slots should be used to speed up the zoning
+   mapping"): its lines run their two possible next points on the free slots since 893. Its members' readings and its
+   edges at 16,384 could use them too, read from 178's next bundle.
 5. **A topology probe** (886; "Questions for the operator"), if a zone reads d near 2.
 
 **From 881** (the operator, 2026-11-26 11:55: "can we just start a new study from scratch first without any prior

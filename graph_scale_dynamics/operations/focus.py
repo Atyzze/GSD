@@ -741,7 +741,7 @@ def own_kinds(repo, state: dict, law: str, campaign_id: str) -> dict[int, str]:
 
 def depth_of(repo, state: dict, law: str, campaign_id: str) -> dict:
     read_n = int(state["plan"]["neighbourhood"]["read_n"])
-    found = kinds(repo, state["campaigns"][DEPTH], law, whole=int(state["seeds"]))
+    found = kinds(repo, state["campaigns"][SEEDS], law, whole=int(state["seeds"]))
     own = own_kinds(repo, state, law, campaign_id)
     read = {n: k for n, k in sorted(found.items()) if n >= read_n}
     from graph_scale_dynamics.operations import study_map
@@ -932,8 +932,8 @@ def needs(state: dict, current: dict) -> list[dict]:
     depth = current.get("depth") or {}
     out.append(_need("its depth", depth.get("holds_to") is not None,
                      f"holds its kind to N={int(depth['holds_to']):,}" if depth.get("holds_to") is not None
-                     else f"the depth worker has read it to N={int(depth['deepest']):,}; it must reach N={read_n:,}"
-                     if depth.get("deepest") else f"the depth worker must read it to N={read_n:,}"))
+                     else f"its seeds have read it to N={int(depth['deepest']):,}; it must reach N={read_n:,}"
+                     if depth.get("deepest") else f"its seeds must read it to N={read_n:,}"))
     seeds = current.get("seeds")
     out.append(_need("its seeds", seeds is not None,
                      ("reproduced" if seeds.get("reproduced") else "not reproduced at the sizes both read")
@@ -1159,6 +1159,8 @@ def stop(repo) -> dict:
     state["stopped"] = True
     state["events"].append({"at": utc_now(), "stopped": True})
     save(repo, state)
+    from graph_scale_dynamics.operations import modes
+    modes.keep(repo, state)
     return state
 
 
@@ -1555,72 +1557,15 @@ def depth_line(state: dict, ranked: list[dict]) -> list[str]:
     return push.front(state, line, held)
 
 
-def _ended(repo, campaign_id: str, law: str) -> dict:
-    row = repo.conn.execute("SELECT action,rule,at_n FROM engine_decisions_latest WHERE campaign_id=? AND "
-                            "candidate_id=?", (str(campaign_id), str(law))).fetchone()
-    found = dict(row) if row is not None else {}
-    return {"campaign": str(campaign_id), "action": found.get("action"), "rule": found.get("rule"),
-            "at_n": None if found.get("at_n") is None else int(found["at_n"]), "ended_utc": utc_now()}
-
-
 def depth_next(repo, state: dict, ranked: list[dict]) -> str | None:
-    from graph_scale_dynamics.operations import push
+    from graph_scale_dynamics.operations import modes, push, push_ladder
     push.adopt_central(state)
     if not state.get(push.ADOPTED):
         push.adopt_now(state)
         state[push.ADOPTED] = utc_now()
-    found = _depth_next(repo, state, ranked)
-    push.keep_order(repo, state)
-    return found
-
-
-def _depth_next(repo, state: dict, ranked: list[dict]) -> str | None:
-    from graph_scale_dynamics.operations import push, study_map
-    campaign_id = str(state["campaigns"][DEPTH])
-    done = state.setdefault("depth_done", {})
-    waiting = state.setdefault("depth_waiting", [])
-    let_go = set(state.get(push.LET_GO) or [])
-    now = state.get("depth_now")
-    if now and str(now.get("campaign")) == campaign_id:
-        gone = now["law"] not in (state.get("contenders") or {}) or now["law"] in let_go
-        if gone or not study_map.decided(repo, campaign_id, now["law"]):
-            first = push.ahead(state, done)
-            if not gone and (first is None or first == now["law"]):
-                return None
-            if gone:
-                done[now["law"]] = dict(_ended(repo, campaign_id, now["law"]), label=now.get("label"),
-                                        since=now.get("since"), left="taken off the push list"
-                                        if now["law"] in let_go else "no longer a contender")
-            elif now["law"] in push.laws(state) and now["law"] not in waiting:
-                waiting.insert(0, now["law"])
-            state["events"].append({"at": utc_now(), "depth_left" if gone else "depth_waits": now.get("label"),
-                                    "for": first})
-        else:
-            done[now["law"]] = dict(_ended(repo, campaign_id, now["law"]), label=now.get("label"),
-                                    since=now.get("since"))
-            push.ended(state, now["law"], done[now["law"]])
-            state["events"].append({"at": utc_now(), "depth_ended": now.get("label"),
-                                    "rule": done[now["law"]]["rule"], "at_n": done[now["law"]]["at_n"]})
-    state["depth_now"] = None
-    state["depth_waiting"] = waiting = [law for law in waiting if law in push.laws(state)]
-    held = {str(r["candidate_id"]) for r in repo.conn.execute(
-        "SELECT candidate_id FROM campaign_candidates WHERE campaign_id=?", (campaign_id,)).fetchall()}
-    for law in depth_line(state, ranked):
-        if law in done or law in let_go:
-            continue
-        entry = state["contenders"][law]
-        if law in held and study_map.decided(repo, campaign_id, law):
-            done[law] = dict(_ended(repo, campaign_id, law), label=entry.get("label"), since=None)
-            push.ended(state, law, done[law])
-            continue
-        if law not in held:
-            _insert(repo, campaign_id, _spec_of(repo, entry["of"], law))
-        if law in waiting:
-            waiting.remove(law)
-        state["depth_now"] = {"law": law, "label": entry.get("label"), "campaign": campaign_id, "since": utc_now()}
-        state["events"].append({"at": utc_now(), "depth_began": entry.get("label"), "campaign": campaign_id})
-        return law
-    return None
+    done = push_ladder.step(repo, state)
+    modes.keep(repo, state)
+    return (done or {}).get("law") if (done or {}).get("queued") else None
 
 
 def work_of(repo, state: dict | None) -> dict[str, dict]:
@@ -1662,20 +1607,11 @@ def origin_words(origin: dict | None) -> str | None:
 
 def depth_words(state: dict) -> str:
     now = state.get("depth_now")
-    done = state.get("depth_done") or {}
+    done = state.get("pushed_done") or []
+    many = f"{len(done)} law{'' if len(done) == 1 else 's'} pushed to their limit"
     if now:
-        deep = ((state.get("depths") or {}).get(now["law"]) or {}).get("deepest")
-        said = (f"; the depth seeker on {now.get('label')}, one seed, "
-                + (f"read to N={int(deep):,}" if deep else "from its first size"))
-        return said + (f", {len(done)} law{'' if len(done) == 1 else 's'} pushed before it" if done else "")
-    deep = state.get("depths") or state.get("contenders") or {}
-    if not deep:
-        return ""
-    if "depth_done" in state:
-        return f"; the depth seeker idle, {len(done)} law{'' if len(done) == 1 else 's'} pushed to their ceiling"
-    deepest = max((int(e["deepest"]) for e in deep.values() if e.get("deepest")), default=None)
-    return (f"; the depth seeker on {len(deep)} law{'' if len(deep) == 1 else 's'}"
-            + (f", deepest N={deepest:,}" if deepest else ", none past its first size yet"))
+        return f"; the N-push on {now.get('label') or str(now.get('law'))[:12]}" + (f", {many} before it" if done else "")
+    return f"; {many}" if done else ""
 
 
 def failing_words(found: dict | None) -> str | None:

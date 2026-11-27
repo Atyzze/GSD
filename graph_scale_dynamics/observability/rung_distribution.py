@@ -63,6 +63,24 @@ def rung_fallback_reservation_bytes(spec: dict | None):
     return fallback
 
 
+def live_memory(repo) -> dict[tuple[str, str], dict]:
+    import json
+    out: dict[tuple[str, str], dict] = {}
+    try:
+        rows = repo.conn.execute("SELECT service, detail_json FROM service_heartbeats").fetchall()
+    except Exception:  # noqa: BLE001
+        return out
+    for row in rows:
+        try:
+            detail = json.loads(row["detail_json"] or "{}")
+        except (TypeError, ValueError):
+            continue
+        if isinstance(detail, dict) and detail.get("job"):
+            peak = detail.get("pss") or detail.get("rss") or detail.get("pss_now")
+            out[(str(row["service"]), str(detail["job"]))] = {"now": detail.get("pss_now") or peak, "peak": peak}
+    return out
+
+
 def rung_distribution_for(repo, campaign_id: str, duration_samples=None, spec: dict | None = None) -> list[dict]:
     by_n: dict[int, dict] = {}
     if spec is None:
@@ -128,12 +146,20 @@ def rung_distribution_for(repo, campaign_id: str, duration_samples=None, spec: d
 
     from graph_scale_dynamics.domain.model import interrupted_sql
     interrupted_runs = repo.interrupted_run_seconds(str(campaign_id))
+    beating = live_memory(repo)
     for row in repo.conn.execute(
-            "SELECT j.n,j.job_id,a.started_utc FROM jobs j JOIN attempts a ON a.job_id=j.job_id "
+            "SELECT j.n,j.job_id,j.lease_owner,a.started_utc FROM jobs j JOIN attempts a ON a.job_id=j.job_id "
             "WHERE j.campaign_id=? AND j.kind='simulate' AND j.status='leased' "
             "AND a.finished_utc IS NULL", (str(campaign_id),)):
         entry, age = bucket(row["n"]), age_seconds(row["started_utc"])
         entry["running_seconds"] = round(entry["running_seconds"] + age, 1)
+        held = beating.get((str(row["lease_owner"] or ""), str(row["job_id"])))
+        if held:
+            entry["running_graphs"] = entry.get("running_graphs", 0) + chains
+            entry["running_memory_bytes"] = int(entry.get("running_memory_bytes") or 0) + int(held.get("now") or 0)
+            entry["running_peak_bytes"] = max(int(entry.get("running_peak_bytes") or 0), int(held.get("peak") or 0))
+        else:
+            entry["running_graphs"] = entry.get("running_graphs", 0) + chains
         unfinished(entry, age + max(float(resumed_seconds_of(row["job_id"], row["started_utc"]) or 0.0),
                                     interrupted_runs.get(str(row["job_id"]), 0.0)))
     for row in repo.conn.execute(

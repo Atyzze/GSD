@@ -33,10 +33,9 @@ def _run(repo, campaign: str, law: str, n: int, seed: int, peak: int | None = No
                        4 * n))
 
 
-def test_a_law_pushed_on_its_page_goes_first_to_the_depth_worker_while_nothing_is_in_focus(isolated_postgres_schema,
-                                                                                             monkeypatch):
+def test_a_law_pushed_on_its_page_is_pushed_at_once_while_nothing_is_in_focus(isolated_postgres_schema, monkeypatch):
     from graph_scale_dynamics.db.repo import Repo, init_db
-    from graph_scale_dynamics.operations import depth_reach, focus, push, study_map
+    from graph_scale_dynamics.operations import focus, modes, push, push_ladder, study_map
     from graph_scale_dynamics.operations import study_design as SD
     from graph_scale_dynamics.services.api import focus_route
     init_db(isolated_postgres_schema.dsn)
@@ -46,17 +45,20 @@ def test_a_law_pushed_on_its_page_goes_first_to_the_depth_worker_while_nothing_i
                         if c["spec"]["study_design"]["kind"] == "blind"), key=int)
         first = study_map._insert(repo, blind[2], _law(0.19))
         second = study_map._insert(repo, blind[5], _law(0.31))
-        state = focus.load(repo)
-        depth = str(state["campaigns"][focus.DEPTH])
+        monkeypatch.setattr(push_ladder, "reach", lambda repo: 46 * G)
+        from graph_scale_dynamics.scheduling import worker_count
+        repo.set_flag(worker_count.MOST_FLAG, "32")
+        repo.set_flag(worker_count.FLAG, "16")
         focus.step(repo, force=True)
         assert focus.load(repo)["current"] is None and not focus.load(repo).get("depth_now"), "nothing scores"
 
         done = focus_route.act(repo, {"do": "push", "law": first, "campaign": blind[2]})
-        assert done["pushed"] == [first] and repo.campaign(depth)["workers_target"] == 1
+        assert done["pushed"] == [first] and modes.here(repo)["mode"] == modes.PUSH
         focus.step(repo, force=True)
         state = focus.load(repo)
+        depth = str(state["campaigns"][push_ladder.PUSH])
         assert state["current"] is None and state["depth_now"]["law"] == first, (
-            "a pushed law needs no score and no law in focus: the depth worker takes it")
+            "a pushed law needs no score and no law in focus: the N-push takes it")
         held = {r["candidate_id"] for r in repo.conn.execute(
             "SELECT candidate_id FROM campaign_candidates WHERE campaign_id=?", (depth,)).fetchall()}
         assert first in held
@@ -65,21 +67,18 @@ def test_a_law_pushed_on_its_page_goes_first_to_the_depth_worker_while_nothing_i
         focus.step(repo, force=True)
         state = focus.load(repo)
         assert [e["law"] for e in state["pushed"]] == [first, second] and state["depth_now"]["law"] == first, (
-            "the law the depth worker runs is finished first; the next pushed waits")
-        assert focus.depth_line(state, [])[:2] == [first, second]
+            "the law the N-push runs is finished first; the next pushed waits")
 
         focus.act(repo, {"do": "unpush", "law": first, "campaign": blind[2]})
         focus.step(repo, force=True)
         state = focus.load(repo)
         assert [e["law"] for e in state["pushed"]] == [second] and state["depth_now"]["law"] == second, (
-            "taken off the list, it is no longer a contender: the depth worker turns to the next pushed")
-        depth = str(state["depth_now"]["campaign"])
+            "taken off the list, it is no longer pushed: the N-push turns to the next")
 
         for n, peak in ((16384, 2 * G), (65536, 8 * G)):
             for seed in range(3):
                 _run(repo, depth, second, n, seed, peak)
         _run(repo, blind[0], study_map._insert(repo, blind[0], _law(0.41)), 4096, 0)
-        monkeypatch.setattr(depth_reach, "room_for", lambda repo, campaign_id: depth_reach.room_of_share(0.5, 92 * G))
         found = focus_route.top(repo)
         assert found["focus"] is True and [e["law"] for e in found["pushed"]] == [second]
         assert found["top"][0]["law"] == second and found["top"][0]["deepest"] == 65536 and found["top"][0]["running"]
@@ -87,10 +86,14 @@ def test_a_law_pushed_on_its_page_goes_first_to_the_depth_worker_while_nothing_i
         law = found["law"]
         assert law["law"] == second and [s["n"] for s in law["sizes"]] == [16384, 65536]
         assert law["sizes"][1]["peak_bytes"] == 8 * G and law["sizes"][1]["runs"] == 3
-        f = law["forecast"]
-        assert f["reach_bytes"] == 46 * G and f["ahead"][0]["n"] == 262144 and f["ahead"][0]["fits"]
-        assert f["limit"]["n"] == 1048576 and f["limit"]["short_bytes"] == f["limit"]["needs_bytes"] - 46 * G
-        assert f["words"].startswith("N=1,048,576 would need") and "more than the 46.0 GiB" in f["words"]
+        f = law["ladder"]
+        assert f["reach_bytes"] == 46 * G and [r["state"] for r in f["rungs"] if r["n"] in (16384, 65536)] == ["done", "done"]
+        ahead = next(r for r in f["rungs"] if r["n"] == 262144)
+        assert ahead["state"] == "ahead" and abs(ahead["needs_bytes"] - 1.1 * 32 * G) < 2 and ahead["at_once"] == 1, (
+            "priced from its own peaks, growing as N^1, with 881's safety of 1.1")
+        assert f["limit"]["n"] == 1048576 and abs(f["limit"]["needs_bytes"] - 1.1 * 128 * G) < 2
+        assert f["marks"]["one_worker"]["n"] == f["marks"]["two_passes"]["n"] == 262144 and f["workers"] == 16
+        assert next(r for r in f["rungs"] if r["n"] == 64)["at_once"] == 16, "the first rung on every worker"
 
         with pytest.raises(ValueError, match="name the law"):
             push.toggle(repo, "")

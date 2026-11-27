@@ -89,10 +89,11 @@ def test_runs_go_to_the_zone_then_the_dex_laws_then_the_blind_draw_and_earlier_l
     assert priority[jobs["earlier"]] >= work_groups.BEHIND > priority[jobs["point"]]
     now = work_groups.now_on([dict(r) for r in repo.worker_allocation()])
     assert now["name"] == "the zone of the law in focus" and now["queued"]["earlier laws' leftovers"] == 1
-    taken = [W.claim_simulation_for_owner(repo, f"executor-{i}")["job_id"] for i in range(4)]
-    assert taken == [jobs["point"], jobs["dex"], jobs["blind"], jobs["earlier"]], (
+    taken = [W.claim_simulation_for_owner(repo, f"executor-{i}")["job_id"] for i in range(3)]
+    assert taken == [jobs["point"], jobs["dex"], jobs["earlier"]], (
         "the zone's own run first though it is the largest; the base half takes no earlier law's run before it")
-    assert W.claim_simulation_for_owner(repo, "executor-9") is None
+    assert W.claim_simulation_for_owner(repo, "executor-9") is None, (
+        "in the zone search the blind run waits: one mode at a time (893)")
 
 
 def test_probes_are_read_in_the_same_order_and_their_slots_follow_the_first_work(folder):

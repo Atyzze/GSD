@@ -31,7 +31,7 @@ function measure({ filters, meta }) {
     floor: parseFloat(getComputedStyle(wrap).minHeight),
     topHeight: box(top).height,
     heroHeight: box(hero).height,
-    filterBottom: box(panel).bottom,
+    filterTop: box(panel).top,
     heroBottom: box(hero).bottom,
   };
 }
@@ -75,7 +75,7 @@ function measure({ filters, meta }) {
       if (m.wrapHeight + 1 < m.floor) problems.push(`${where}: the plot is ${m.wrapHeight}px, under its ${m.floor}px floor`);
       if (width <= 1250) continue;
       if (Math.abs(m.topHeight - m.heroHeight) > 1) problems.push(`${where}: the Top 100 is ${m.topHeight}px in a ${m.heroHeight}px row`);
-      if (m.filterBottom > m.heroBottom + 1) problems.push(`${where}: the filters run ${m.filterBottom - m.heroBottom}px past the row`);
+      if (m.filterTop + 1 < m.heroBottom) problems.push(`${where}: the filters start ${m.heroBottom - m.filterTop}px inside the row, not below it (893)`);
     }
   }
   await browser.close();

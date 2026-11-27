@@ -74,7 +74,7 @@ def test_the_zones_are_searched_one_after_another_the_first_s_laws_passed_over_a
             dict(row, source="study 178's folder") for row in recorded if row["law"] in wanted])
         assert dex_check.keep(repo, var.parent, blobs=None, force=True)["chosen"] == "S176-C12-G2"
         from graph_scale_dynamics.scheduling import work_groups
-        assert work_groups.verifying(repo) is None, "the check done, the Dex laws run past its level again"
+        assert work_groups.verifying(repo) == 4096, "the Dex laws run to their level only: deeper is the N-push's"
 
         def kind(campaign, law, n):
             spec = (repo.candidate(law, campaign) or {}).get("spec") or {}

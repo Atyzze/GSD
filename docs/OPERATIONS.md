@@ -589,15 +589,22 @@ the zone's workers now; the next, who runs now against the zone's share. In the 
 "not started" have no run yet. "every law of the zone" (folded) gives each law where it stands and for how long, its
 kind so far against the law's; Working now lists every running simulation with its clock, its bar amber past the
 typical time of one seed at its size. A neighbour is read only at 16,384, so the "read" column jumps late: the
-"between sizes" and "alike so far" columns are the progress before it. There is no share to set (885): the fleet
-takes runs and probes in one order, the zone of the law in focus, the Dex laws read again (only to the level they are
-verified at while a dex is checked, 892), the blind draw, earlier laws' leftovers, each only when the ones before it
-have nothing queued; the Map page's first panel says which step it is on and what each has queued. The depth worker is
-not in that order (892): while the Top page's push list holds a law, every slot runs that law's seeds, the rest stopped
-with their seeds saved, until not one seed of its next size fits the host's memory, then the next law in the list's
-order; with the list empty the depth worker pushes its own pick (the law in focus) on one slot of its own above the
-worker count. A zone whose ring at 0.1 is not two thirds alike stands at ring 0.01 if
-that one is; else the law is a lucky hit, its readings kept.
+"between sizes" and "alike so far" columns are the progress before it. **The fleet is in one of three modes**
+(893), named on Home beside Now researching and on the Top page: the N-push while the Top page's push list holds a
+law, else the zone search while a zone has work (a dex being checked, a law in focus, a zone chosen), else the blind
+ladder with its gates. It never mixes them: a run of another mode stops within two seconds, its seed saved, and goes
+on when its mode comes back. In the zone search the slots its work leaves free run its lines ahead: the two points
+each line may need next, the one it needs read when it comes to it (marked + on the Map page). Within a mode there is no share to set (885):
+the fleet takes runs and probes in one order, in the zone search the zone of the law in focus, then the Dex laws read
+again (only to the level they are verified at, since 893 also after the check: deeper is the N-push's), then earlier
+laws' leftovers; the Map page's first panel says which step it is on and what each has queued. **The N-push** runs
+the first law of the push list in a campaign of its own: its whole ladder again from N=64, as many seeds a rung as
+the worker count, all at once; when memory binds, fewer at once and fewer seeds, down to 3, then in passes, on two
+workers, then on one; when not one seed of the next size fits the host's memory, the law is done and the next is
+pushed. Take the first law off, or move another above it, and its runs stop at once, saved. The Top page plots its
+ladder ahead with the break-points marked (fewer at once than workers, two passes, one worker) and when it ends,
+read again with every finished run. A zone whose ring at 0.1 is not two thirds alike stands at ring 0.01 if that one
+is; else the law is a lucky hit, its readings kept.
 
 **If `uv run` fails building `gsd-engine-rs`** with `rustc: symbol lookup error: .../librustc_driver-*.so: undefined
 symbol ... version LLVM_...`, the system's `rustc` and its LLVM libraries are from different updates (`which -a

@@ -15,7 +15,8 @@ STUDY = "study"
 CONTRACT = "gsd-study-scope-1"
 TOP = 100
 _LADDER_ADDS = ("abandoned", "analysing", "attempts", "chains", "completed", "done_without_artifact", "graphs",
-                "interrupted", "budget_ended_seeds", "budget_ended_laws", "running_laws", "queued_laws",
+                "interrupted", "budget_ended_seeds", "budget_ended_laws", "running_laws", "queued_laws", "running_graphs",
+                "running_memory_bytes",
                 "analysing_laws", "queued_analyses_laws",
                 "interrupted_seconds", "kappa_timed_measurements", "laws", "measured", "memory_timed_attempts",
                 "probe_timed_measurements", "queued", "queued_analyses", "running", "running_seconds", "simulations",
@@ -23,7 +24,7 @@ _LADDER_ADDS = ("abandoned", "analysing", "attempts", "chains", "completed", "do
                 "d_s_timed", "d_V_timed", "d_B_timed", "d_w_timed")
 _LADDER_COUNTS_BY_RULE = ("stopped_by_rule", "left_by_rule", "parked_by_rule", "done_by_rule")
 _LADDER_MAX = ("max_seconds", "work_budget", "budget_seconds", "fallback_reservation_bytes", "peak_bytes_max",
-               "longest_unfinished_seconds")
+               "longest_unfinished_seconds", "running_peak_bytes")
 _LADDER_MIN = ("min_seconds", "peak_bytes_min")
 
 

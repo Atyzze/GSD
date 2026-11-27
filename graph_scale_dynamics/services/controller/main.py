@@ -12,7 +12,7 @@ from graph_scale_dynamics.decisions.engine import is_engine_campaign
 from graph_scale_dynamics.domain.model import TERMINAL_CANDIDATE_STATES, utc_now
 from graph_scale_dynamics.measurements.version import ANALYSIS_VERSION
 from graph_scale_dynamics.observability.log import Log
-from graph_scale_dynamics.operations import auto_extend, focus, study_map
+from graph_scale_dynamics.operations import auto_extend, focus, push_ladder, study_map
 from graph_scale_dynamics.services.controller.engine_campaign import run_engine_campaign
 
 TERMINAL = TERMINAL_CANDIDATE_STATES
@@ -97,6 +97,14 @@ def finish_pass(repo: Repo, log: Log, active: list[dict], *, root: Path | None =
         focused = None
     if focused and focused["added"]:
         log.write("study_focus", law=focused["label"], stage=focused["stage"], added=focused["added"])
+    try:
+        pushed = push_ladder.tick(repo)
+    except (ValueError, KeyError, TypeError, IndexError) as exc:
+        log.write("push_ladder_failed", error=f"{type(exc).__name__}: {exc}"[:400])
+        pushed = None
+    if pushed and (pushed.get("queued") or pushed.get("ended")):
+        log.write("push_ladder", **{k: v for k, v in pushed.items() if k in ("law", "queued", "seeds", "at_once",
+                                                                              "passes", "ended")})
     dex_pass(repo, log, root, blobs)
     return extended
 
@@ -136,6 +144,8 @@ def main(argv=None) -> int:
                 started = time.monotonic()
                 for campaign in active:
                     campaign_id = str(campaign["campaign_id"])
+                    if push_ladder.is_push(campaign["spec"]):
+                        continue
                     if not is_engine_campaign(campaign["spec"]):
                         if campaign_id not in refused:
                             refused.add(campaign_id)

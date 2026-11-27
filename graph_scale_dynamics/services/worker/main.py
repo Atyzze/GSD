@@ -18,7 +18,7 @@ from graph_scale_dynamics.db.repo import (
 )
 from graph_scale_dynamics.db.connection import DatabaseOperationalError
 from graph_scale_dynamics.db.write_outcome import job_commit_landed
-from graph_scale_dynamics.db.lane_yield import depth_yield_reason, lane_yield_reason, release_defer_seconds
+from graph_scale_dynamics.db.lane_yield import lane_yield_reason, mode_yield_reason, release_defer_seconds
 from graph_scale_dynamics.artifact_store.blobstore import BlobStore
 from graph_scale_dynamics.artifact_store.envelope import RAW_ENVELOPE_SCHEMA
 from graph_scale_dynamics.observability import attempt_cost, oom_evidence
@@ -386,7 +386,7 @@ def run_one(repo: Repo, blobs: BlobStore, log: Log, owner: str, job: dict, *,
                 last_preempt_check = now
                 stop_reason = unless_the_database_is_away(
                     lambda: paused_reason(repo, job.get("campaign_id")) or lane_yield_reason(repo, job)
-                    or depth_yield_reason(repo, job))
+                    or mode_yield_reason(repo, job))
                 stopped = stop_reason is not None
                 preempt = None if stopped else unless_the_database_is_away(
                     lambda: repo.preempt_reason(job) or memory_shed_reason(repo.conn, job, saved_at=lambda jid: resume_saved_at(blobs.volatile_root, jid)))
@@ -974,8 +974,8 @@ def offers(allocation: list[dict], shares: dict | None = None,
 
 
 def claim_depth_for_owner(repo: Repo, owner: str) -> dict | None:
-    from graph_scale_dynamics.operations import push
-    order = push.order_here(repo)
+    from graph_scale_dynamics.operations import modes
+    order = modes.pushing(repo)
     if order is None:
         return None
     campaign = str(order["campaign"])
@@ -993,16 +993,29 @@ def claim_depth_for_owner(repo: Repo, owner: str) -> dict | None:
     return None
 
 
+def in_mode(offered: list, allowed: tuple[str, ...]) -> list:
+    return [(allowed if campaigns is None else tuple(c for c in campaigns if c in allowed), under, bounds)
+            for campaigns, under, bounds in offered]
+
+
 def claim_simulation_for_owner(repo: Repo, owner: str) -> dict | None:
-    from graph_scale_dynamics.operations import push
-    held_by = push.holds_host(repo)
-    if held_by is not None:
+    from graph_scale_dynamics.operations import modes
+    mode = modes.here(repo)
+    allowed = None if mode is None else tuple(str(c) for c in mode["campaigns"])
+    if allowed is not None:
         hold = memory_hold.active(getattr(repo, "conn", None))
-        if hold is not None and str(hold.get("campaign_id")) != str(held_by["campaign"]):
-            memory_hold.end(repo.conn, str(hold["job_id"]), "the push list holds the host")
+        if hold is not None and str(hold.get("campaign_id")) not in allowed:
+            memory_hold.end(repo.conn, str(hold["job_id"]), f"the fleet is in {modes.NAMES[mode['mode']]}")
+    if mode is not None and mode["mode"] == modes.PUSH:
         return claim_depth_for_owner(repo, owner)
-    offered_in_order = offers(repo.worker_allocation(claimable=True), work_groups.shares(repo),
-                              work_groups.verifying(repo))
+    allocation = repo.worker_allocation(claimable=True)
+    if allowed is not None:
+        allocation = [row for row in allocation if str(row["campaign_id"]) in allowed]
+        if not allocation:
+            return None
+    offered_in_order = offers(allocation, work_groups.shares(repo), work_groups.verifying(repo))
+    if allowed is not None:
+        offered_in_order = in_mode(offered_in_order, allowed)
     held = memory_hold.active(getattr(repo, "conn", None))
     below = None
     while True:

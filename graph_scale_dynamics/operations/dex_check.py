@@ -259,7 +259,7 @@ def keep(repo, root: Path | None, *, blobs: Path | None, now: float | None = Non
     elif added:
         state["events"].append({"at": utc_now(), "dex_checked": added, "owed": check["counts"]["owed"]})
     from graph_scale_dynamics.scheduling import work_groups
-    repo.set_flag(work_groups.VERIFYING_FLAG, "" if state.get(ZONE) else str(check.get("verify_to") or ""))
+    repo.set_flag(work_groups.VERIFYING_FLAG, str(check.get("verify_to") or ""))
     focus.save(repo, state)
     return {"checked": added, "owed": check["counts"]["owed"], "chosen": (chosen or {}).get("code"),
             "none": chosen is not None and chosen.get("chosen") is None}

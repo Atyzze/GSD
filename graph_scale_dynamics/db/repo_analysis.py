@@ -686,7 +686,7 @@ class AnalysisStore:
     def claim_analysis_job(self, owner: str, analysis_version: str, lease_seconds: int = 120,
                            campaign_id: str | None = None, max_n: int | None = None,
                            min_n: int | None = None, order: str = "priority",
-                           tier_at_most: int | None = None) -> dict | None:
+                           tier_at_most: int | None = None, campaigns: tuple[str, ...] | None = None) -> dict | None:
         from graph_scale_dynamics.scheduling.work_groups import BEHIND, LEFTOVER_TIER, TIER_SQL
         expires_utc = time.strftime("%Y-%m-%dT%H:%M:%SZ",
                                     time.gmtime(time.time() + lease_seconds))
@@ -697,6 +697,11 @@ class AnalysisStore:
         if campaign_id is not None:
             claim_clause += " AND q.campaign_id=?"
             params.append(campaign_id)
+        if campaigns is not None:
+            if not campaigns:
+                return None
+            claim_clause += f" AND q.campaign_id IN ({','.join('?' for _ in campaigns)})"
+            params.extend(str(c) for c in campaigns)
         if max_n is not None:
             claim_clause += " AND q.n<=?"
             params.append(int(max_n))

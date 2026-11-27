@@ -7,18 +7,18 @@ CONTRACT = "gsd-work-groups-1"
 SHARES_FLAG = "work_groups"
 SYSTEM_FLAG = "system_cores"
 BLIND, MAP = "A", "B"
-NEIGHBOURS, DEPTH = "N", "D"
+NEIGHBOURS, DEPTH, PUSHED = "N", "D", "P"
 LAWS_IN_KINDS = ("seed",)
 FOCUS_KIND = "focus"
 ZONE_PARTS = ("N", "S", "E")
 BEHIND = 10_000_000_000
 ZONE_TIER, DEPTH_TIER, DEX_TIER, BLIND_TIER, LEFTOVER_TIER = range(5)
-TIER_NAMES = ("the zone of the law in focus", "the depth worker", "the Dex laws read again", "the blind draw",
+TIER_NAMES = ("the zone of the law in focus", "the N-push", "the Dex laws read again", "the blind draw",
               "earlier laws' leftovers")
 TIER_SQL = ("CASE WHEN (c.spec_json::jsonb #>> '{study_design,kind}')='focus' "
             "AND (c.spec_json::jsonb #>> '{study_design,focus,part}') IN ('N','S','E') THEN 0 "
             "WHEN (c.spec_json::jsonb #>> '{study_design,kind}')='focus' "
-            "AND (c.spec_json::jsonb #>> '{study_design,focus,part}')='D' THEN 1 "
+            "AND (c.spec_json::jsonb #>> '{study_design,focus,part}') IN ('D','P') THEN 1 "
             "WHEN (c.spec_json::jsonb #>> '{study_design,kind}')='seed' THEN 2 ELSE 3 END")
 GROUP_NAMES = {BLIND: "the blind draw", MAP: "the map of the best", NEIGHBOURS: "the focus law's neighbourhood",
                DEPTH: "the focus law's depth"}
@@ -219,7 +219,7 @@ def claim_bounds(tier: int, verifying_to: int | None = None) -> list[dict]:
 def tier_of(row: dict) -> int:
     kind, part = row.get("design_kind"), row.get("focus_part")
     if kind == FOCUS_KIND:
-        return ZONE_TIER if part in ZONE_PARTS else DEPTH_TIER if part == DEPTH else BLIND_TIER
+        return ZONE_TIER if part in ZONE_PARTS else DEPTH_TIER if part in (DEPTH, PUSHED) else BLIND_TIER
     if kind in LAWS_IN_KINDS:
         return DEX_TIER
     return BLIND_TIER
@@ -304,13 +304,13 @@ def reading(repo) -> dict:
             "split": ",".join(f"{group}={share:g}" for group, share in sorted(given.items())),
             "shares_a_core": {str(cpu): mates for cpu, mates in shared.items()},
             "order": list(TIER_NAMES),
-            "words": ("in a folder with a focus the fleet takes its work in one order, runs and probes alike: the zone "
-                      "of the law in focus, the Dex laws read again (only to the level they are verified at while a "
-                      "dex is checked), the blind draw, earlier laws' leftovers; each takes a worker only when the ones "
-                      "before it have nothing queued, and a run under way is never stopped for one before it. While the "
-                      "Top page's push list holds a law, every slot runs it alone and every other run is stopped with its "
-                      "seed saved; with the list empty the depth worker runs on a slot of its own above the worker "
-                      "count. Elsewhere each group with work is given slots "
+            "words": ("in a folder with a focus the fleet is in one of three modes, never mixed: the N-push while the "
+                      "Top page's push list holds a law (every slot on its ladder, every other run stopped with its "
+                      "seed saved), else the zone search while a zone has work, else the blind ladder. Within a mode it "
+                      "takes its work in one order, runs and probes alike: the zone of the law in focus, the Dex laws "
+                      "read again (only to the level they are verified at), the blind draw, earlier laws' leftovers; "
+                      "each takes a worker only when the ones before it have nothing queued, and a run under way is "
+                      "never stopped for one before it. Elsewhere each group with work is given slots "
                       "toward its share. Every simulation and analysis runs only on the work CPUs, never on the "
                       "system's, a running one moved off them within five seconds of a change")}
 

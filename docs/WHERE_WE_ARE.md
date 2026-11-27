@@ -1,4 +1,4 @@
-# Where we are, at build 892
+# Where we are, at build 893
 
 The whole project on one page, in plain words; the detail is in `docs/agent/HANDOFF.md`.
 
@@ -56,7 +56,7 @@ are one seed of three at small sizes, on graphs in pieces or trees the next size
 68% to 81% of the way there from empty, worse as N grows. Until a known law grows its geometry from empty, "nothing
 grows from empty" cannot be told from "nothing can get there under these moves".
 
-## What 800 to 892 changed
+## What 800 to 893 changed
 
 The probes locked and your table installed (800 to 805); the evidence judged again on the final code (806 to 843); 844
 study 174; 845 to 853 study 175; 854 the paper's draft; 855 the ledger; 856 study 176; 857 to 870 Home, the focus, the
@@ -64,17 +64,17 @@ Map page, an import folder. 871 to 880: law codes, the depth seeker, the C and a
 study 177. 882: the dex. 883 to 885: the zone unblocked, live, one at a time. 886: the zone map. 887: study 178, a dex
 verified first, the first zone chosen. 888: the dex read again to 4,096, law by law. 889: a law pushed to the N limit.
 890: a zone searched by stepping and halving. 891: zones one after another. 892: a pushed law holds the host.
+893: three modes, never mixed (the N-push, the zone search, the blind ladder); the N-push its own ladder from 64.
 
 ## What comes next
 
-893 is read from study 178's first zones: their searches' cost and hours against the ring method's, and whether the
-edges called at 4,096 held at 16,384, say whether a line steps two points at once or a law taken by its score is
-searched as a zone is.
+894 is read from study 178's first zones and its first N-push: the searches' cost against the ring method's, whether
+the edges called at 4,096 held at 16,384, and each pushed rung's hours against its forecast.
 
 ## The decision in front of you
 
-1. **Apply 892 to study 178**: the Top page's list holds the host, G2302 first, every slot on its seeds until not one
-   fits; take it off or move another first and its run stops, saved. Merge 892's pull request, and send 178's
+1. **Apply 893 to study 178** (after 892's pull request): the fleet goes into the N-push, G2302's ladder again from 64
+   on every worker until not one seed fits; the Top page plots when memory binds and when it ends. Send 178's
    bundle or dex once a zone is mapped.
 2. **The push list's order** on the Top page: "first", "up", "stop pushing"; any law page's "push to the N limit".
 3. **Whether a known law must grow its geometry from empty first** (recommended, before more compute from empty):
@@ -83,7 +83,7 @@ searched as a zone is.
 
 ## Words you will see
 
-**group**: A draws laws blind; N is the zone worker (the law in focus's neighbours and seeds), D the depth worker. **small world**: starts agree on a graph whose reach grows as log N.
+**group**: A draws laws blind; N is the zone worker (the law in focus's neighbours and seeds), P the N-push. **small world**: starts agree on a graph whose reach grows as log N.
 **law**: energy terms and dynamics. **rung**: one graph size (N). **cap**: the mean degree above which a graph is not
 studied. **d_s**: the dimension a random walk feels. **start**: what a law is grown from: empty, random, square,
 triangular, cubic, bcc, fcc, tesseract (4D). **chain**: a law's run from one start, the Markov chain of graphs it grows. **twin starts**: empty and random. **budget**: a seed's work, as the engines count it, the same on any machine.

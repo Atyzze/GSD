@@ -820,35 +820,54 @@ folder's dex is written every hour, and between the hours when `dex.news` finds 
 here not in it, a zone mapped since, more of the dex verified here), looked at once a minute and never two within ten
 minutes; the `dex_written` flag keeps why, and the ids of the laws it held.
 
-**A law pushed to the N limit** (889, `operations/push.py`; the push list holding the host, 892). The focus state's
-`pushed` is the operator's queue: a law pushed from its page or the Top page joins the end, as does a zone's central
-law when its zone is mapped (`zone_search._central`, `push.add`); the law the depth worker held when 892 came in was put
-first once (`push.adopt_now`, `push_list_adopted`). `focus.depth_next` holds the first law of the list that has not
-reached its limit (`push.ahead`); taken off (`unpush`, kept in `let_go`, not taken again until pushed again) or moved
-below another (`push_move`), the law it held leaves, waiting in `depth_waiting` with its runs if still on the list; a
-law that reaches its limit leaves the list for `pushed_done` (`push.ended`). With the list empty it takes its own pick
-(the law in focus, then the depth list), kept off the list. The order goes to the flag `focus_depth_order`
-(`push.keep_order`, at every focus step and every change of the list): the first law, the laws begun and still on
-the list, and `host`, true while the list holds a law. **While the list holds the host** (`push.holds_host`) every
-slot claims only the first law's runs, smallest first, a later law's only below 16,384 (`worker.claim_simulation_for_owner`
-calls `claim_depth_for_owner`, memory admission as for every run, a memory hold of another campaign ended), the
-analyzers probe only the depth campaign (`analyzer.claim_analysis_for_owner`), every other run is stopped within two
-seconds, saved and given back (`lane_yield.depth_yield_reason`, class `preempted_depth_order`, as is a depth run
-whose law is no longer first, or one past 16,384 of a law below the first), and the depth campaign's sizes are priced
-against the host's reach (`depth_reach.room_for` returns `memory_hold.reach`) instead of its `memory_share`. **The
-depth slot** is one executor above the worker count: `worker_count.tick` starts it, at the slot numbered the most the
-host offers, once the order flag is set, and no worker count or ramp stops it; its role `depth`
-(`executor._depth_once`) runs the depth worker's own pick and probes its campaign while the list is empty, and stands
-idle while the list holds the host. The fleet's own slots never take the depth campaign's work outside a push
-(`work_groups.ordered` leaves it out, the last offer names every other campaign). The Top page (`/top`, `GSD_TOP` in
-`map.js`) reads `/api/focus/top` (`push.reading`): the list with who put each law there and its order buttons, the run
-under way with its memory now and at most from the executor's heartbeat (`push.slot`), the laws waiting and those
-done, the law being pushed with its peak memory, time a run and edges per size from its attempts (`push.sizes`), the
-sizes ahead priced by `depth_reach.price` with the seeds that fit at once, the time a run priced from the law's own two
-deepest sizes (`push.run_seconds`), the hours a size, the last size one seed fits and about when the push ends
-(`push.forecast`), and the study's laws by the deepest N any run of theirs has finished (`push.deepest`). While a dex
-is checked (`dex_check.keep` sets `dex_verifying_to`, `work_groups.verifying`), the Dex tier's claims stop at the
-level it is verified at and the last offer leaves the Dex campaign out.
+**The fleet's three modes** (893, `operations/modes.py`, the flag `fleet_mode`). The fleet is always in exactly one
+mode and never mixes them: **the N-push** while the Top page's push list holds a law, else **the zone search** while
+a zone has work (`modes.zone_work`: the dex read in being checked, a law in focus not ended, a zone chosen and not yet
+taken), else **the blind ladder** with its gates. `modes.compute` names the mode, why, and the campaigns it runs:
+the push campaign alone for the N-push; the focus's parts N, S and E and the Dex campaign for the zone search; every
+other active campaign (the blind batches, the standing controls) for the blind ladder (`modes.kind_of`, by each
+campaign's design). `modes.keep` writes the flag at every focus step, every ladder tick and every change of the push
+list, keeping `since` while the mode holds. Every claim keeps to it: a run is claimed only from the mode's campaigns
+(`worker.claim_simulation_for_owner`, `worker.in_mode`), a probe likewise (`analyzer.claim_analysis_for_owner`,
+`repo.claim_analysis_job(campaigns=)`), and a run under way of another mode is stopped within two seconds, its seed
+saved, and given back to the queue (`lane_yield.mode_yield_reason`, class `preempted_fleet_mode`), to go on when its
+mode comes back. Within a mode the fleet's order (`work_groups.ordered`) still decides which campaign's run goes first.
+In the zone search the slots its work leaves free (`zone_search.free_runs`: the worker count less the mode's queued and
+running runs) run its lines ahead (`zone_search._look_ahead`, `ahead`): while a line's step is read, the two points it
+may need next are made (marked `ahead`), three runs a point, and the line reads the one it comes to without a new law
+(`_put`, `_take`; its last step out counted by the steps read).
+While a dex is checked its laws run only to the level it is verified at, and since 893 also after the check
+(`dex_check.keep` keeps `dex_verifying_to`, `work_groups.verifying`): a Dex law deeper is the N-push's.
+
+**A law pushed to the N limit** (889, `operations/push.py`; its own ladder, 893, `operations/push_ladder.py`). The
+focus state's `pushed` is the operator's queue: a law pushed from its page or the Top page joins the end, as does a
+zone's central law when its zone is mapped (`zone_search._central`, `push.add`); the law the depth worker held when
+892 came in was put first once (`push.adopt_now`, `push_list_adopted`). The first law of the list that has not
+reached its limit (`push.ahead`) is pushed; taken off (`unpush`, kept in `let_go`, not taken again until pushed
+again) or moved below another (`push_move`), its runs under way stop at once, saved, and the next law is pushed; a
+law moved down keeps its runs and goes on where it was when it is first again. **The push ladder** runs in a
+campaign of its own, part P (`push_ladder.campaign`, a copy of the focus's depth spec, its ladder from 64 to
+4,194,304), which the controller's decision engine leaves alone (`push_ladder.is_push`): the ladder buys its own
+rungs. `push_ladder.step`, every 5 seconds in the controller (`push_ladder.tick`) and at every focus step
+(`focus.depth_next`), holds the law in the campaign (`EXTENDING`, "pushed to the N limit") and redoes its whole
+ladder from N=64: a rung's seeds are bought once the rung below has a finished run, each priced from the law's own
+peaks below (`depth_reach.price`) against the host's reach (`push_ladder.reach`, `depth_reach.room_now`), by
+`push_ladder.plan`: as many seeds as there are workers (the worker count), all at once, while they fit; when memory
+binds, as many at once as fit, and the rung takes that many seeds, never fewer than `LEAST_SEEDS` (3), then in passes;
+when not one seed of the next size fits, the law is done (`push.ended`, `pushed_done`, rule `memory`, or `ladder` at
+its top) and the next law is pushed. Its runs are claimed by every slot (`worker.claim_depth_for_owner`: the first
+law's queued runs, smallest first, a later law's only below 16,384; memory admission as for every run) and probed as
+any run; the evidence rebuild writes its rung summaries. `push_ladder.forecast` reads the ladder rung by rung: done,
+under way (its seeds left) and ahead, each with its seeds, how many at once, its passes, the memory a seed needs (its
+peak, or priced), the time a run takes (its mean, or priced from the law's two deepest sizes by `push.run_seconds`),
+the hours the rung takes and when it starts and ends from now; the break-points (`marks`: the first rung with fewer
+at once than workers, the first with two passes, the first on one worker), the size past the host's reach (`limit`)
+and the end. The Top page (`/top`, `GSD_TOP` in `map.js`) reads `/api/focus/top` (`push.reading`): the mode and why,
+the runs under way with the memory each holds now and at most from the executor's heartbeat (`push.slot`,
+`push._memory_of`), the list with who put each law there and its order buttons, the laws waiting and those done, the
+law's ladder as a timeline with its break-points marked, the rung table and its memory over N against the reach, and
+the study's laws by the deepest N any run of theirs has finished (`push.deepest`). The focus's depth campaign (part
+D) takes no law since 893; its readings are kept.
 
 **A zone's search** (890, `operations/zone_search.py`, `observability/likeness.py`). A law taken into focus by the zone
 rule (887) is searched instead of ringed: `focus.start_next` calls `zone_search.begin`, and `focus.advance` hands each
@@ -883,9 +902,8 @@ the next zone with what they pass over.
 **The focus's choices** (882). `focus._chosen` records why it took a law (`chosen_by`: score, bundle, outlier,
 operator), said on the Map page's line. An outlier is taken only once the study has a scoring law and every one is
 mapped, inside a region or skipped; an outlier in focus (or a law of score 0 taken before 882 with no reason
-recorded) is set aside the moment a scoring law is free (`set_aside`, kept in the state's `set_aside`), and the depth
-worker leaves a law that is no longer a contender; since 892 it keeps its depth campaign, the law's run under way
-stopped and saved by the depth slot's order (882 to 891 began a new depth campaign, `depth_restart`).
+recorded) is set aside the moment a scoring law is free (`set_aside`, kept in the state's `set_aside`); since 893 the
+depth worker takes no law of its own (a law goes deeper only on the push list, in the N-push's own ladder).
 
 **What the zone worker waits for** (883). The depth list (`focus.contenders`) holds the study's scoring laws and
 the law in focus only. A law's kind at 16,384 is read in its own campaign, else in its seeds' campaign once that has

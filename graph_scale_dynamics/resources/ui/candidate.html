@@ -1115,6 +1115,8 @@ function renderTwoChains(app,payload,curvesUrl,after){
   const key=el('div',{class:'tc-key'},...TC_CHAINS.map(ch=>el('span',{class:'tc-key-item',title:names[ch.key]},
     el('span',{class:'tc-swatch',style:`border-top:2px ${ch.dash?'dashed':'solid'} ${ch.color}`}),TC_SHORT[ch.key]||ch.key)));
   app.append(key);
+  const elsewhere=(payload&&payload.read_elsewhere)||[];
+  if(elsewhere.length) app.append(el('p',{class:'muted tc-elsewhere'},'read in another campaign of this law: '+elsewhere.map(e=>`N=${Number(e.n).toLocaleString('en-US')} in campaign ${e.campaign} (${e.rows} readings)`).join(', ')+'. Its curves are drawn here with the rest; its score on this page reads this campaign\u2019s own sizes.'));
   const explain=el('details',{class:'tc-explain'},el('summary',{},'explanation: how the chains are run, read against each other and stopped'));
   explain.append(el('p',{class:'muted tc-intro'},every?`Every seed runs this law ${every.length===2?'twice':every.length+' times'}, from ${count} starts: the same law, `
     +'the same temperature, every chain alike, and each can earn the law its next size. Where the chains end in the same place the start did not matter; '
@@ -1724,7 +1726,7 @@ async function candidateView(id){
       const span={rowspan:String(keys.length)};
       keys.forEach((key,i)=>{
         const side=chains?sideOf(chains,r.n,key):null;
-        const lead=i?[]:[el('td',span,'N='+String(r.n)), el('td',span,statusCell(r.n,true)), el('td',span,String(s.seeds)),
+        const lead=i?[]:[el('td',r.read_in?{...span,title:'read in campaign '+r.read_in+' of this law: the score on this page reads this campaign\u2019s own rungs'}:span,'N='+String(r.n)+(r.read_in?' (campaign '+r.read_in+')':'')), el('td',span,statusCell(r.n,true)), el('td',span,String(s.seeds)),
           el('td',{...span,title:'distinct simulation jobs / all attempts including retries; interrupted attempts were stopped by a pause or a restart, not by the law'},
             `${cpt.jobs||0} / ${cpt.attempts||0}`+((+cpt.interrupted_attempts||0)?` (${cpt.interrupted_attempts} interrupted)`:'')),
           el('td',{...span,title:`successful ${fmtDur(cpt.successful_seconds)} · failed/retried ${fmtDur(cpt.failed_seconds)}`+((+cpt.interrupted_seconds||0)?` · interrupted by a pause or restart ${fmtDur(cpt.interrupted_seconds)}`:'')},fmtDur(cpt.core_seconds)),
@@ -1773,7 +1775,7 @@ async function candidateView(id){
       const screen=eq?eq.screen_passed:null, channels=rungChannels(r);
       const evidence=screen===true&&channels.some(c=>(+c.valid_fraction||0)>0)?'decision-eligible':screen===false?'provisional':screen===true?'no estimator':'unscreened';
       const low=keys.filter(k=>{ const side=sideOf(chains,r.n,k); return side&&side.giant_fraction&&side.giant_fraction.mean!=null&&connFloor!=null&&+side.giant_fraction.mean<connFloor; });
-      rt.append(el('tr',{class:'rung-row'},el('td',{},'N='+String(r.n)),el('td',{},statusCell(r.n,true)),el('td',{},String(s.seeds)),
+      rt.append(el('tr',{class:'rung-row'},el('td',r.read_in?{title:'read in campaign '+r.read_in+' of this law'}:{},'N='+String(r.n)+(r.read_in?' (campaign '+r.read_in+')':'')),el('td',{},statusCell(r.n,true)),el('td',{},String(s.seeds)),
         el('td',{title:'distinct simulation jobs / all attempts including retries; interrupted attempts were stopped by a pause or a restart, not by the law'},
           `${cpt.jobs||0} / ${cpt.attempts||0}`+((+cpt.interrupted_attempts||0)?` (${cpt.interrupted_attempts} interrupted)`:'')),
         el('td',{title:`successful ${fmtDur(cpt.successful_seconds)} · failed/retried ${fmtDur(cpt.failed_seconds)}`+((+cpt.interrupted_seconds||0)?` · interrupted by a pause or restart ${fmtDur(cpt.interrupted_seconds)}`:'')},fmtDur(cpt.core_seconds)),
