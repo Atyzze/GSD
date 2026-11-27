@@ -8,9 +8,8 @@ which must read exactly `# The next build is <N>`, one above `BUILD_NUMBER`.
 **Starting from nothing but the repository** (the operator, 2026-11-24 23:00): clone `main` and bring it up by
 `docs/agent/ENVIRONMENT.md`, section 10, "From the repository". Then `docs/WHERE_WE_ARE.md`, `docs/agent/HANDOFF.md`,
 `docs/agent/ZONE_MAP.md` and this page, in that order, and `CLAUDE.md`'s rules for a shared repository. 871 to 897 are
-made (`docs/build_notes/BUILD871_NOTES.md` to `BUILD897_NOTES.md`); 871 to 893 are on `main` (#18 to #35), 894 (#36),
-895 (#37) and 896 in their pull requests; 897 was delivered as an archive only (its session could not attach the
-repository), made on 896's: branch from 897's tree, rebased onto `main` once 894 to 896 are merged.
+made (`docs/build_notes/BUILD871_NOTES.md` to `BUILD897_NOTES.md`); 871 to 896 are on `main` (#18 to #38), 897 in its
+pull request: branch from the newest that `main` holds and take the rest from its branch.
 
 **What 898 makes** (`docs/ROADMAP.md`, "Next, in order", item 1). 178's bundle of 2026-11-27 14:28Z (897's notes): at
 262,144 the two seeds of G73 that were stopped and resumed peaked at 3.05 and 3.19 GiB, the 14 that ran through at

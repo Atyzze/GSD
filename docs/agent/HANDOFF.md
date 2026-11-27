@@ -84,10 +84,8 @@ the calibration table) and what it shows: `docs/WHERE_WE_ARE.md` and `docs/paper
 
 **Open threads at 897**, each with its home:
 
-* **Pull requests**: 864 to 893 (#11 to #35) merged by the operator, #34 and #35 at 2026-11-27 11:21Z; `main` holds
-  893. Open: 894 (#36), 895 (#37) and 896's, each made on the one before; merged in that order. 897 went to the
-  operator as an archive only: its session was refused the repository; its pull request is opened by the next context
-  that has it, on 896's.
+* **Pull requests**: 864 to 896 (#11 to #38) merged by the operator; `main` holds 896. 897's pull request is open on
+  it (its archive went to the operator first, its session having been refused the repository at the time).
 * **Study 178** (`/data/projects/GSD/178/main`, `study_178_design.json`, criterion `study_178_criterion.json`) runs
   on 893 since 2026-11-27 about 11:20Z. 177's dex of 19:33Z was read in at its start (C15) and checked: 192 laws
   confirmed, 1 unmatched, at 07:18Z; the first zone (S178-C15-G2302, 177's S176-C12-G100, G79's family) was chosen at
@@ -267,7 +265,7 @@ again after the paper's three studies, on the final probes, with a criterion wri
 
 ## What waits on the operator
 
-* **894's, 895's and 896's pull requests** (#36, #37 and the next): theirs to merge, in that order; 897's to be opened.
+* **897's pull request**: theirs to merge.
 * **Study 178 on 897**: applied with a restart (`docs/build_notes/BUILD897_NOTES.md`, "For the folders"); its next
   bundle once G73's 1,048,576 is read, read by `docs/agent/NEXT_BUILD.md`.
 * **The push list's order** on the Top page: "first", "up", "past N=1,048,576", "stop pushing"; any law page's "push
