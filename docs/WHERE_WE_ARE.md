@@ -1,4 +1,4 @@
-# Where we are, at build 899
+# Where we are, at build 900
 
 The whole project on one page, in plain words; the detail is in `docs/agent/HANDOFF.md`.
 
@@ -55,7 +55,7 @@ are one seed of three at small sizes, on graphs in pieces or trees the next size
 68% to 81% of the way there from empty, worse as N grows. Until a known law grows its geometry from empty, "nothing
 grows from empty" cannot be told from "nothing can get there under these moves".
 
-## What 800 to 899 changed
+## What 800 to 900 changed
 
 The probes locked and your table installed (800 to 805); the evidence judged again on the final code (806 to 843); 844
 study 174; 845 to 853 study 175; 854 the paper's draft; 855 the ledger; 856 study 176; 857 to 870 Home, the focus, the
@@ -65,17 +65,17 @@ verified first, the first zone chosen. 888: the dex read again to 4,096, law by 
 890: a zone searched by stepping and halving. 891: zones one after another. 892: a pushed law holds the host.
 893: three modes; the N-push its own ladder from 64. 894: one code a law, pages told of each change. 895: a handover.
 896: the N-push's probes get its slots. 897: every seed it buys read, priced as admitted, stopped at 1,048,576.
-898: the fleet ladder counts graphs grown, not bought. 899: a pushed seed held at 1.1 times its peak; bundles beside it.
+898: the ladder counts graphs grown. 899: a pushed seed held at 1.1 times its peak. 900: the push at 3 seeds a rung.
 
 ## What comes next
 
-900: a resumed seed in a fresh seed's memory, measured first. Then a consolidation and the zone map's road, which
+901: a resumed seed in a fresh seed's memory, measured first. Then a consolidation and the zone map's road, which
 waits on zone 1's benchmark: G133 off the push list until then is recommended.
 
 ## The decision in front of you
 
-1. **Merge 898 and 899; apply 899 to study 178 with a restart of the fleet**: about 5 seeds of 1,048,576 at once
-   where 3 ran. Send 178's bundle once G73's 1M rung is read; it no longer stops the N-push.
+1. **Merge 900; apply 898 to 900 to study 178 with one restart of the fleet**: G73's 1,048,576 keeps its 3 seeds
+   running, one pass. Send 178's bundle once that rung is read; it no longer stops the N-push.
 2. **The push list's order** on the Top page: "first", "up", "past N=1,048,576", "stop pushing".
 3. **Whether a known law must grow its geometry from empty first** (recommended, before more compute from empty):
    parallel tempering is the cheapest remedy, an engine change of about a build, its known answers read again after.

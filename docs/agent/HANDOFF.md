@@ -1,4 +1,4 @@
-# Handoff: the state of GSD at build 899
+# Handoff: the state of GSD at build 900
 
 What is true now, for a context that has just opened this archive. Each fact has one home; the last section says
 where. **Think from the data, not from this page**: where the data and a document disagree, the data wins and the
@@ -14,8 +14,8 @@ before any build from 887.
 them though the N-push is the natural end-station of the zoned-searched"): the fleet is always in one of three modes
 (`operations/modes.py`, the flag `fleet_mode`), named on Home beside Now researching and on the Top page. **The
 N-push** while the Top page's push list holds a law: the first law runs its whole ladder again from N=64 in a
-campaign of its own (part P, `operations/push_ladder.py`), as many seeds a rung as the worker count, all at once; as
-memory binds, fewer at once and fewer seeds, down to 3, then in passes, on two workers, then on one; when not one
+campaign of its own (part P, `operations/push_ladder.py`), 3 seeds a rung as every law's ladder runs (900), all at
+once while memory holds them, else in passes; when not one
 seed of the next size fits the host's memory, or at N=1,048,576 unless the operator pushed the law past it (897; the
 operator, 2026-11-27 15:47), the law leaves the list and the next is pushed. A seed is priced as the admission holds
 it (897: what it asks to start, 1.5 times its peak once running, whole runs' peaks only) and the Top page says how
@@ -61,6 +61,9 @@ in `docs/HISTORY.md`):
 * 899: a pushed seed is asked 1.1 times its law's own typical whole-run peak grown to its size (a resumed one its own
   peak) and held at 1.1 times its peak, every other law as before; a quiet bundle leaves the N-push running (the
   operator's answers of 18:26). A restart of the fleet.
+* 900: the N-push runs 3 seeds a rung (the operator, 19:52), a rung holding more keeping its done and running seeds
+  up to 3 and letting its other queued seeds go (G73's 1,048,576: 3 running kept, 5 queued let go); a rung done says
+  how many ran at once, its passes, its time and when.
 
 **Before that, 871 to 885** (the handover of 886 read them):
 
@@ -88,10 +91,9 @@ and 862 the focus and the Map page; 864 to 869 no law done, study 176 seeded fro
 `import/` folder; 870 a handover. The baseline the paper rests on (174's bundle of 2026-11-24 14:22Z, 175's of 08:35Z,
 the calibration table) and what it shows: `docs/WHERE_WE_ARE.md` and `docs/paper/GSD_PAPER.md`.
 
-**Open threads at 899**, each with its home:
+**Open threads at 900**, each with its home:
 
-* **Pull requests**: 864 to 897 (#11 to #39) merged by the operator; `main` holds 897. Open: 898 (#40) and 899's,
-  899 made on 898; merged in that order.
+* **Pull requests**: 864 to 899 (#11 to #41) merged by the operator; `main` holds 899. Open: 900's.
 * **Study 178** (`/data/projects/GSD/178/main`, `study_178_design.json`, criterion `study_178_criterion.json`) runs
   on 893 since 2026-11-27 about 11:20Z. 177's dex of 19:33Z was read in at its start (C15) and checked: 192 laws
   confirmed, 1 unmatched, at 07:18Z; the first zone (S178-C15-G2302, 177's S176-C12-G100, G79's family) was chosen at
@@ -271,8 +273,7 @@ again after the paper's three studies, on the final probes, with a criterion wri
 
 ## What waits on the operator
 
-* **898's and 899's pull requests** (#40 and the next): theirs to merge, in that order; 899 applied with a
-  restart of the fleet.
+* **900's pull request**: theirs to merge; 898 to 900 applied to the folders with one restart of the fleet.
 * **G133 off the push list until zone 1 is benchmarked?** (`docs/ROADMAP.md`, "Questions for the operator"): recommended.
 * **Study 178 on 897**, G73's 1,048,576 under way (3 seeds at about 17:26Z, none finished); 898
   applies with a restart of the dashboard alone; its next bundle once G73's 1,048,576 is read.

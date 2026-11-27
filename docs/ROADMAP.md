@@ -143,22 +143,23 @@ priced as the admission holds a seed with the rung under way said, the push stop
 pushed past it (the operator, 2026-11-27 15:47), the bundle carrying the N-push (`focus.json`'s `push_now`); 898 the
 fleet ladder's graphs those grown, of those bought (1,048,576 read 64 with none finished), and a seed's rough time over
 the seeds its law ran at the size below (it read 34 h 44 min for about 6.5 h); 899 a pushed seed asked and held at
-1.1 times its own peak, and a bundle that leaves the N-push running (the operator's answers of 18:26).
+1.1 times its own peak, and a bundle that leaves the N-push running (the operator's answers of 18:26); 900 the push at
+3 seeds a rung (the operator, 19:52), a rung holding more keeping 3, and its rungs done saying how they ran.
 
 **Next, in order** (laid out for the operator with 897, reordered with 898; each its own build):
 
-1. **900: a resumed seed in a fresh seed's memory.** In 178 the two seeds of G73's 262,144 that were stopped and
+1. **901: a resumed seed in a fresh seed's memory.** In 178 the two seeds of G73's 262,144 that were stopped and
    resumed peaked at 3.05 and 3.19 GiB, the 14 that ran through at 1.47 to 1.53; the 4 seeds running at 1,048,576 were
    all resumed (1 to 3 stops each, the restart for 896 and the bundle of 14:27Z) and sit at 9.0 to 9.4 GiB, where a
    fresh one should be near 6 (about 190 bytes an edge at 65,536 and 262,144). The child keeps the saved state it
    resumed from (`artifact_store/resume_state.py`, `scaleflow/one_shot.run_one_shot`'s `resume`) beside the engine's
    graph. Measured first in the sandbox (a seed of 65,536 run through, and stopped and resumed: both peaks, the chains
    identical to the bit), then the state let go once the engine holds it. The admission's ask falls with it (it grows
-   from the doubled peak). Gain at 1,048,576, with 899's hold: a resumed seed near 6.6 GiB held instead of about 10.8,
-   so about 8 at once instead of about 5; a restart or a bundle stops costing memory.
+   from the doubled peak). Since 900 the push runs 3 seeds a rung, so 1,048,576's three fit at once either way; the
+   gain is at a size where three resumed seeds would not, and the host's room for everything beside them.
    It touches `scaleflow/`, named why; no engine change; `tools/outputs_of_a_law.py --against` unchanged. Then the
    unscheduled "Is the Rust engine as lean as it can be" profile, the bytes an edge against a plain adjacency list.
-2. **A consolidation**: 42 builds since 858's; no behaviour changes; after the N-push's fixes, never in the middle of
+2. **A consolidation**: 43 builds since 858's; no behaviour changes; after the N-push's fixes, never in the middle of
    one.
 3. **The zone map's road**, once the push list empties (G73 ends at 1,048,576, then G133): "Still open from 884 to
    896" below, the zone search's hours and idle slots read from 178's first mapped zone first.
@@ -175,7 +176,8 @@ the seeds its law ran at the size below (it read 34 h 44 min for about 6.5 h); 8
    rungs (`push_ladder.step`, outside the decision engine), the next once the size below has one finished run, and
    every slot not taken by the rung below runs the next. Open: starting a size before any run below it has finished,
    priced from the forecast alone, the price corrected as the size below reads. Since 897 the push stops at
-   1,048,576, so this matters below it.
+   1,048,576, so this matters below it; since 900 a rung is 3 seeds, so the next size starts while two seeds below
+   still run.
 6. **The zone search's idle slots** (893; the operator, 11:37: "those free slots should be used to speed up the zoning
    mapping"): its lines run their two possible next points on the free slots since 893. Its members' readings and its
    edges at 16,384 could use them too, read from 178's next bundle.
