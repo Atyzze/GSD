@@ -68,7 +68,7 @@ def test_the_list_s_first_law_is_pushed_and_moving_or_taking_it_off_stops_its_ru
     state = focus.load(repo)
     pushed = str(state["campaigns"][push_ladder.PUSH])
     assert push.laws(state) == [laws["held"], laws["steered"], laws["later"]]
-    assert state["depth_now"]["law"] == laws["held"] and _first_rung(repo, pushed, laws["held"]) == [(64, 4)]
+    assert state["depth_now"]["law"] == laws["held"] and _first_rung(repo, pushed, laws["held"]) == [(64, 3)]
     run = {"kind": "simulate", "campaign_id": pushed, "candidate_id": laws["held"], "n": 262144}
     assert mode_yield_reason(repo, run) is None
 
@@ -77,11 +77,11 @@ def test_the_list_s_first_law_is_pushed_and_moving_or_taking_it_off_stops_its_ru
     assert mode_yield_reason(repo, run) == MODE_YIELD_REASON, "moved down, its run under way stops, its seed saved"
     push_ladder.tick(repo, force=True)
     state = focus.load(repo)
-    assert state["depth_now"]["law"] == laws["steered"] and _first_rung(repo, pushed, laws["steered"]) == [(64, 4)]
-    assert _first_rung(repo, pushed, laws["held"]) == [(64, 4)], "the law moved down keeps its rung, to go on later"
-    taken = [W.claim_simulation_for_owner(repo, f"executor-{i}-1") for i in range(5)]
-    assert [j["candidate_id"] for j in taken[:4]] == [laws["steered"]] * 4 and taken[4] is None, (
-        "the first law's seeds only; the law moved down waits")
+    assert state["depth_now"]["law"] == laws["steered"] and _first_rung(repo, pushed, laws["steered"]) == [(64, 3)]
+    assert _first_rung(repo, pushed, laws["held"]) == [(64, 3)], "the law moved down keeps its rung, to go on later"
+    taken = [W.claim_simulation_for_owner(repo, f"executor-{i}-1") for i in range(4)]
+    assert [j["candidate_id"] for j in taken[:3]] == [laws["steered"]] * 3 and taken[3] is None, (
+        "the first law's 3 seeds only; the law moved down waits")
 
     focus_route.act(repo, {"do": "unpush", "law": laws["steered"], "campaign": camps["steered"]})
     assert mode_yield_reason(repo, dict(run, candidate_id=laws["steered"], n=64)) == MODE_YIELD_REASON, (
@@ -221,9 +221,9 @@ def test_in_the_n_push_the_slots_are_split_by_the_push_s_own_runs_and_probes_not
         _probe(repo, pushed, laws["held"], 64, seed)
     found = repo.refresh_scheduler_state(analysis_version=ANALYSIS_VERSION, total_slots=4, max_analyzers=4)
     assert found["analysis_slots"] >= 2, (
-        "896: the push's six probes against its four runs, not the waiting zone's forty runs and no probe")
+        "896: the push's six probes against its three runs (900), not the waiting zone's forty runs and no probe")
     assert repo.mode_campaigns() == (pushed,)
     _probe(repo, pushed, laws["held"], 64, 6, status="leased")
     reading = law_elsewhere.being_read(repo, laws["held"])
     row = next(r for r in reading if r["campaign"] == pushed and r["n"] == 64)
-    assert (row["runs"], row["read"], row["probing"], row["waiting"]) == (4, 0, 1, 6)
+    assert (row["runs"], row["read"], row["probing"], row["waiting"]) == (3, 0, 1, 6)

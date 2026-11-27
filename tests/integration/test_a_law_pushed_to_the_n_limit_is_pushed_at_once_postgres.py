@@ -93,7 +93,7 @@ def test_a_law_pushed_on_its_page_is_pushed_at_once_while_nothing_is_in_focus(is
             "priced from its own peaks, growing as N^1, with 881's safety of 1.1")
         assert f["limit"]["n"] == 1048576 and abs(f["limit"]["needs_bytes"] - 1.1 * 128 * G) < 2
         assert f["marks"]["one_worker"]["n"] == f["marks"]["two_passes"]["n"] == 262144 and f["workers"] == 16
-        assert next(r for r in f["rungs"] if r["n"] == 64)["at_once"] == 16, "the first rung on every worker"
+        assert next(r for r in f["rungs"] if r["n"] == 64)["at_once"] == 3, "the first rung's 3 seeds at once"
 
         with pytest.raises(ValueError, match="name the law"):
             push.toggle(repo, "")

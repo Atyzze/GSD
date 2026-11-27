@@ -110,10 +110,10 @@ def test_the_fleet_is_in_one_mode_at_a_time_and_takes_only_its_runs(folder, monk
     push_ladder.tick(repo, force=True)
     queued = repo.conn.execute("SELECT n, COUNT(*) AS c FROM jobs WHERE campaign_id=? AND status='queued' GROUP BY n",
                                (pushed,)).fetchall()
-    assert [(int(r["n"]), int(r["c"])) for r in queued] == [(64, 16)], "the ladder from 64, a seed for every worker"
-    taken = [W.claim_simulation_for_owner(repo, f"executor-{i}-2") for i in range(17)]
-    assert all(job and job["campaign_id"] == pushed for job in taken[:16]) and taken[16] is None, (
-        "every worker on the pushed law, all sixteen seeds at once, nothing else")
+    assert [(int(r["n"]), int(r["c"])) for r in queued] == [(64, 3)], "the ladder from 64, 3 seeds a rung (900)"
+    taken = [W.claim_simulation_for_owner(repo, f"executor-{i}-2") for i in range(4)]
+    assert all(job and job["campaign_id"] == pushed for job in taken[:3]) and taken[3] is None, (
+        "the pushed law's three seeds at once, and nothing else on the other workers")
     probe = _job(repo, zone, neighbour, 4096, seed=9)
     repo.conn.execute("UPDATE jobs SET status='done', result_artifact='art-zone' WHERE job_id=?", (probe,))
     repo.conn.execute("INSERT INTO artifacts(artifact_hash,size_bytes,media_type,producer_job,meta_json,created_utc) "
@@ -150,9 +150,8 @@ def test_a_pushed_law_climbs_its_own_ladder_on_every_worker_until_not_one_seed_f
         if top == 16384:
             seen = push_ladder.forecast(repo, pushed, laws["pushed"], now=0.0)
         _finish(repo, pushed, laws["pushed"], top)
-    assert seeds == {64: 16, 256: 16, 1024: 16, 4096: 16, 16384: 16, 65536: 6, 262144: 3}, (
-        "every worker while memory holds them; then as many as fit, never fewer than three, each running seed held "
-        "as the admission holds a pushed one, at 1.1 times its peak (899)")
+    assert seeds == {64: 3, 256: 3, 1024: 3, 4096: 3, 16384: 3, 65536: 3, 262144: 3}, (
+        "3 seeds a rung, as every law's ladder runs (900); as many at once as memory holds")
     done = focus.load(repo)["pushed_done"][-1]
     assert done["law"] == laws["pushed"] and done["at_n"] == 262144 and done["rule"] == "memory"
     assert push.laws(focus.load(repo)) == [] and modes.here(repo)["mode"] != modes.PUSH, (
@@ -162,12 +161,14 @@ def test_a_pushed_law_climbs_its_own_ladder_on_every_worker_until_not_one_seed_f
 
     marks, rows = seen["marks"], {r["n"]: r for r in seen["rungs"]}
     assert rows[64]["state"] == "done" and rows[16384]["state"] == "running" and rows[65536]["state"] == "ahead"
-    assert marks["fewer"]["n"] == 65536 and marks["fewer"]["at_once"] in (5, 6), (
-        "the first break: fewer seeds than workers, priced before 16,384 is measured, so one more step of margin")
+    assert marks["fewer"]["n"] == 262144 and marks["fewer"]["at_once"] == 1, (
+        "the first break: fewer at once than its 3 seeds, where memory binds")
     assert marks["two_passes"]["n"] == 262144 and marks["one_worker"]["n"] == 262144
     assert rows[262144]["seeds"] == 3 and rows[262144]["passes"] == 3 and rows[262144]["at_once"] == 1
     assert seen["limit"]["n"] == 1048576 and seen["end"]["n"] == 262144 and seen["end"]["hours"] > 0
-    assert rows[65536]["hours"] == pytest.approx(rows[65536]["seconds"] / 3600, abs=1e-3), "six at once: one pass"
+    assert rows[65536]["hours"] == pytest.approx(rows[65536]["seconds"] / 3600, abs=1e-3), "three at once: one pass"
+    assert rows[64]["at_once"] == 3 and rows[64]["passes"] == 1 and rows[64]["starts_utc"] and rows[64]["hours"] >= 0, (
+        "a rung done says how many of its seeds ran at once, its passes and when it ran")
     assert rows[262144]["hours"] == pytest.approx(3 * rows[262144]["seconds"] / 3600, abs=1e-3), "three passes"
     spec = repo.campaign(pushed)["spec"]
     assert push_ladder.is_push(spec) and spec["ladder"][0] == 64

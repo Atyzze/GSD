@@ -599,11 +599,11 @@ each line may need next, the one it needs read when it comes to it (marked + on 
 the fleet takes runs and probes in one order, in the zone search the zone of the law in focus, then the Dex laws read
 again (only to the level they are verified at, since 893 also after the check: deeper is the N-push's), then earlier
 laws' leftovers; the Map page's first panel says which step it is on and what each has queued. **The N-push** runs
-the first law of the push list in a campaign of its own: its whole ladder again from N=64, as many seeds a rung as
-the worker count, all at once; when memory binds, fewer at once and fewer seeds, down to 3, then in passes, on two
-workers, then on one; when not one seed of the next size fits the host's memory, the law is done and the next is
-pushed. Take the first law off, or move another above it, and its runs stop at once, saved. The Top page plots its
-ladder ahead with the break-points marked (fewer at once than workers, two passes, one worker) and when it ends,
+the first law of the push list in a campaign of its own: its whole ladder again from N=64, 3 seeds a rung as every
+law's ladder runs (900), the next size bought once a run below it finishes; when memory binds, fewer of the 3 at once,
+in passes; at N=1,048,576, or when not one seed of the next size fits the host's memory, the law is done and the next
+is pushed. Take the first law off, or move another above it, and its runs stop at once, saved. The Top page plots its
+ladder ahead with the break-points marked (fewer at once than its seeds, two passes, one at a time) and when it ends,
 read again with every finished run. A zone whose ring at 0.1 is not two thirds alike stands at ring 0.01 if that one
 is; else the law is a lucky hit, its readings kept. **The pages follow the fleet** (894): each page opens one event
 stream (`/api/events`) and reads again when the work changes; an open law page brings a new reading within seconds of

@@ -1,17 +1,18 @@
-# The next build is 900
+# The next build is 901
 
 This file names the next build and says how to make it. `tests/unit/test_next_build_is_named.py` parses its first line,
 which must read exactly `# The next build is <N>`, one above `BUILD_NUMBER`.
 
-## Where to begin: 900 is a resumed seed in a fresh seed's memory, measured first
+## Where to begin: 901 is a resumed seed in a fresh seed's memory, measured first
 
 **Starting from nothing but the repository** (the operator, 2026-11-24 23:00): clone `main` and bring it up by
 `docs/agent/ENVIRONMENT.md`, section 10, "From the repository". Then `docs/WHERE_WE_ARE.md`, `docs/agent/HANDOFF.md`,
-`docs/agent/ZONE_MAP.md` and this page, in that order, and `CLAUDE.md`'s rules for a shared repository. 871 to 899 are
-made (`docs/build_notes/BUILD871_NOTES.md` to `BUILD899_NOTES.md`); 871 to 897 are on `main` (#18 to #39), 898 and 899
-in their pull requests, 899 made on 898: branch from the newest that `main` holds.
+`docs/agent/ZONE_MAP.md` and this page, in that order, and `CLAUDE.md`'s rules for a shared repository. 871 to 900 are
+made (`docs/build_notes/BUILD871_NOTES.md` to `BUILD900_NOTES.md`); 871 to 899 are on `main` (#18 to #41), 900 in its
+pull request: branch from the newest that `main` holds.
 
-**What 900 makes** (`docs/ROADMAP.md`, "Next, in order", item 1). 178's bundle of 2026-11-27 14:28Z (897's notes): at
+**What 901 makes** (`docs/ROADMAP.md`, "Next, in order", item 1). Since 900 the push runs 3 seeds a rung, so the gain
+is less pressing at 1,048,576 on this host; it is still every resumed seed's memory, and so the room left beside it. 178's bundle of 2026-11-27 14:28Z (897's notes): at
 262,144 the two seeds of G73 that were stopped and resumed peaked at 3.05 and 3.19 GiB, the 14 that ran through at
 1.47 to 1.53; at 1,048,576 the running seeds were all resumed and sat at 9.0 to 9.8 GiB where a fresh one should be
 near 6. Measure before changing anything:
@@ -25,7 +26,7 @@ near 6. Measure before changing anything:
    `run_one_shot` and its caller keep for the whole run, `whole_chunk_of`'s envelope) beside the engine's own graph,
    let it go once the engine has it; if a fresh child also keeps a checkpoint of every chain's edges between chunks,
    say what it costs an edge.
-3. Nothing under `engine/` or `engine_rs/` moves in 900; `scaleflow/` moves only with the reason in the notes.
+3. Nothing under `engine/` or `engine_rs/` moves in 901; `scaleflow/` moves only with the reason in the notes.
 
 **Then**: a consolidation; the zone map's road once the push list empties (the question "G133 off the push list until
 zone 1 is benchmarked?").
@@ -33,7 +34,7 @@ zone 1 is benchmarked?").
 **Acceptance**: the measurement and its criterion in the notes; a test that runs a resumed child and holds its peak
 to the fresh one's; `outputs_of_a_law --against` the record before it unchanged; the full lane green.
 
-**Waiting on the operator**: 898 and 899 merged, 899 applied with a restart of the fleet; the question of 899 (G133);
+**Waiting on the operator**: 900 merged, 898 to 900 applied with one restart of the fleet; the question of 899 (G133);
 178's next bundle once G73's 1,048,576 is read (since 899 a bundle leaves it running).
 
 ## Reading a study's bundle

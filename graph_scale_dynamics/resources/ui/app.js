@@ -704,7 +704,7 @@ function liveMakeLease(lease, animate){
 }
 const LAW_GROUPS={A:['A','blind','the blind draw: a law drawn at random by the study\u2019s batches (group A)'],N:['N','zone','the zone worker: a neighbour of the law in focus, or the law with one term switched off, read to see whether its kind holds around it (group N)'],
   S:['S','zone seeds','the zone worker: the law in focus run again on more seeds, a lucky hit told from a law that holds (group N)'],D:['D','depth','a depth campaign of the focus: it takes no law of its own now, its readings kept (group D)'],
-  P:['P','pushed','the N-push: the first law of the Top page\u2019s push list, its ladder again from N=64 on every worker, as many seeds a rung as there are workers, until not one seed of the next size fits the host\u2019s memory'],
+  P:['P','pushed','the N-push: the first law of the Top page\u2019s push list, its ladder again from N=64, 3 seeds a rung, the next size bought once a run below it finishes, to N=1,048,576 or until not one seed of the next size fits the host\u2019s memory'],
   E:['E','zone edges','the zone\u2019s search: a step along one parameter from the zone\u2019s centre, read to N=4,096 to find where the zone ends'],
   X:['X','seeded','a law seeded from another study\u2019s bundle'],C:['C','control','a standing control of known answer'],'?':['?','other','a campaign outside the study\u2019s groups']};
 function lawGroup(cid){return lawGroupOf((studyNow||{}).campaigns||[],cid)}

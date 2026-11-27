@@ -11,7 +11,7 @@ CONTRACT = "gsd-push-ladder-2"
 CEILING_RULE = "ceiling"
 PUSHED_SLACK = 1.1
 PUSH = "P"
-LEAST_SEEDS = 3
+SEEDS = 3
 EVERY_SECONDS = 5.0
 NOW = "depth_now"
 _LAST: dict[str, float] = {}
@@ -61,11 +61,9 @@ def reach(repo) -> int:
 def plan(priced: dict | None, reach_bytes: int, workers_now: int) -> dict:
     if priced is not None and not priced["fits"]:
         return {"fits": False, "at_once": 0, "seeds": 0, "passes": 0}
-    at_once = int(workers_now) if priced is None else min(int(workers_now), int(priced["at_once"]))
-    at_once = max(1, at_once)
-    seeds = max(LEAST_SEEDS, at_once)
-    at_once = min(at_once, seeds)
-    return {"fits": True, "at_once": at_once, "seeds": seeds, "passes": math.ceil(seeds / at_once)}
+    fit = int(workers_now) if priced is None else min(int(workers_now), int(priced["at_once"]))
+    at_once = max(1, min(SEEDS, fit))
+    return {"fits": True, "at_once": at_once, "seeds": SEEDS, "passes": math.ceil(SEEDS / at_once)}
 
 
 def rungs(repo, campaign_id: str, law: str) -> dict[int, dict]:
@@ -73,7 +71,7 @@ def rungs(repo, campaign_id: str, law: str) -> dict[int, dict]:
     out: dict[int, dict] = {}
     for row in repo.conn.execute(
             "SELECT n, status, COUNT(*) AS c FROM jobs WHERE campaign_id=? AND candidate_id=? AND kind='simulate' "
-            "GROUP BY n, status", (str(campaign_id), str(law))).fetchall():
+            "AND status<>'cancelled' GROUP BY n, status", (str(campaign_id), str(law))).fetchall():
         held = out.setdefault(int(row["n"]), {"queued": 0, "leased": 0, "done": 0, "failed": 0, "seeds": 0})
         key = str(row["status"]) if str(row["status"]) in held else "failed"
         held[key] += int(row["c"])
@@ -84,9 +82,10 @@ def rungs(repo, campaign_id: str, law: str) -> dict[int, dict]:
         whole = [p for r in mine for p in r["whole"]]
         cut = [p for r in mine for p in r["cut"]]
         walls = [r["wall"] for r in mine if r["done"] and r["wall"] > 0]
+        spans = [span for r in mine for span in r["spans"]]
         held.update(peak_bytes=max(whole) if whole else None, typical_bytes=int(median(whole)) if whole else None,
                     cut_bytes=max(cut) if cut else None,
-                    seconds=round(sum(walls) / len(walls), 1) if walls else None)
+                    seconds=round(sum(walls) / len(walls), 1) if walls else None, **_ran(spans))
     for n, live in running(repo, campaign_id, law).items():
         if n in out:
             out[n].update(live)
@@ -96,16 +95,57 @@ def rungs(repo, campaign_id: str, law: str) -> dict[int, dict]:
 def _runs(repo, campaign_id: str, law: str) -> dict[str, dict]:
     runs: dict[str, dict] = {}
     for row in repo.conn.execute(
-            "SELECT j.job_id AS job, j.n AS n, a.exit_code AS code, a.peak_rss_bytes AS peak, a.wall_seconds AS wall "
-            "FROM jobs j JOIN attempts a ON a.job_id=j.job_id WHERE j.campaign_id=? AND j.candidate_id=? "
-            "AND j.kind='simulate'", (str(campaign_id), str(law))).fetchall():
-        run = runs.setdefault(str(row["job"]), {"n": int(row["n"]), "whole": [], "cut": [], "wall": 0.0, "done": False})
+            "SELECT j.job_id AS job, j.n AS n, a.exit_code AS code, a.peak_rss_bytes AS peak, a.wall_seconds AS wall, "
+            "a.started_utc AS began, a.finished_utc AS ended FROM jobs j JOIN attempts a ON a.job_id=j.job_id "
+            "WHERE j.campaign_id=? AND j.candidate_id=? AND j.kind='simulate'", (str(campaign_id), str(law))).fetchall():
+        run = runs.setdefault(str(row["job"]), {"n": int(row["n"]), "whole": [], "cut": [], "wall": 0.0, "done": False,
+                                                "spans": []})
+        if row["began"] and row["ended"]:
+            run["spans"].append((str(row["began"]), str(row["ended"])))
         whole = row["code"] is not None and int(row["code"]) == 0
         if row["peak"]:
             run["whole" if whole else "cut"].append(int(row["peak"]))
         run["wall"] += float(row["wall"] or 0.0)
         run["done"] = run["done"] or whole
     return runs
+
+
+def _ran(spans: list[tuple[str, str]]) -> dict:
+    if not spans:
+        return {"began_utc": None, "ended_utc": None, "most_at_once": None}
+    events = sorted([(began, 1) for began, _ in spans] + [(ended, -1) for _, ended in spans],
+                    key=lambda e: (e[0], e[1]))
+    now = most = 0
+    for _at, step in events:
+        now += step
+        most = max(most, now)
+    return {"began_utc": min(b for b, _ in spans), "ended_utc": max(e for _, e in spans), "most_at_once": most}
+
+
+def _seconds_between(began: str | None, ended: str | None) -> float | None:
+    from datetime import datetime
+    if not began or not ended:
+        return None
+    def read(stamp: str):
+        return datetime.fromisoformat(str(stamp).replace("Z", "+00:00"))
+    return max(0.0, (read(ended) - read(began)).total_seconds())
+
+
+def trim(repo, campaign_id: str, law: str) -> int:
+    from graph_scale_dynamics.domain.model import utc_now
+    cut = 0
+    for n in {int(r["n"]) for r in repo.conn.execute(
+            "SELECT n FROM jobs WHERE campaign_id=? AND candidate_id=? AND kind='simulate' AND status='queued'",
+            (str(campaign_id), str(law))).fetchall()}:
+        jobs = repo.conn.execute(
+            "SELECT job_id, status FROM jobs WHERE campaign_id=? AND candidate_id=? AND kind='simulate' AND n=? "
+            "AND status IN ('queued','leased','done') ORDER BY CASE status WHEN 'done' THEN 0 WHEN 'leased' THEN 1 "
+            "ELSE 2 END, seed", (str(campaign_id), str(law), int(n))).fetchall()
+        extra = [str(row["job_id"]) for row in jobs[SEEDS:] if str(row["status"]) == "queued"]
+        for job_id in extra:
+            cut += repo.conn.execute("UPDATE jobs SET status='cancelled', updated_utc=? WHERE job_id=? AND "
+                                     "status='queued'", (utc_now(), job_id)).rowcount or 0
+    return cut
 
 
 def running(repo, campaign_id: str, law: str) -> dict[int, dict]:
@@ -253,6 +293,10 @@ def step(repo, state: dict) -> dict | None:
     now = state.get(NOW) or {}
     if now.get("law") != first:
         state[NOW] = now = {"law": first, "label": entry.get("label"), "campaign": camp, "since": utc_now()}
+    trimmed = trim(repo, camp, first)
+    if trimmed:
+        state.setdefault("events", []).append({"at": utc_now(), "law": entry.get("label"), "trimmed": trimmed,
+                                               "why": f"{SEEDS} seeds a rung: {trimmed} queued seed(s) let go"})
     found = rungs(repo, camp, first)
     whole = _ladder(repo, camp)
     ceiling = push.ceiling_of(state, first)
@@ -313,9 +357,14 @@ def forecast(repo, campaign_id: str, law: str, *, workers_now: int | None = None
             break
         r = found.get(n)
         if r and r["done"] and not (r["queued"] or r["leased"]):
+            took = _seconds_between(r.get("began_utc"), r.get("ended_utc"))
+            most = r.get("most_at_once")
             rows.append({"n": n, "state": "done", "seeds": r["seeds"], "done": r["done"], "failed": r["failed"],
                          "peak_bytes": r.get("peak_bytes"), "typical_bytes": r.get("typical_bytes"),
-                         "seconds": r.get("seconds")})
+                         "seconds": r.get("seconds"), "at_once": most,
+                         "passes": math.ceil(r["seeds"] / most) if most else None,
+                         "hours": None if took is None else round(took / 3600, 3),
+                         "starts_utc": r.get("began_utc"), "ends_utc": r.get("ended_utc")})
             continue
         priced = price(repo, campaign_id, law, found, n, room, typical=typical)
         chosen = _plan_of(priced, room, cores)
@@ -364,9 +413,9 @@ def forecast(repo, campaign_id: str, law: str, *, workers_now: int | None = None
         found_row = next((row for row in ahead if test(row)), None)
         return None if found_row is None else {"n": found_row["n"], "at_utc": found_row["starts_utc"],
                                                "at_once": found_row["at_once"], "seeds": found_row["seeds"]}
-    marks = {"fewer": first(lambda row: row["at_once"] < cores),
-             "two_passes": first(lambda row: row["passes"] >= 2 and row["at_once"] < cores),
-             "one_worker": first(lambda row: row["at_once"] == 1 < cores)}
+    marks = {"fewer": first(lambda row: row["at_once"] < min(cores, row["seeds"])),
+             "two_passes": first(lambda row: row["passes"] >= 2),
+             "one_worker": first(lambda row: row["at_once"] == 1 < row["seeds"])}
     timed = all(row.get("hours") is not None for row in ahead)
     end = None if not ahead or not timed else {"n": ahead[-1]["n"], "ends_utc": ahead[-1].get("ends_utc"),
                                                "hours": round((at - clock) / 3600, 2)}
@@ -412,6 +461,6 @@ def tick(repo, *, now: float | None = None, force: bool = False) -> dict | None:
     return done
 
 
-__all__ = ["CEILING_RULE", "CONTRACT", "EVERY_SECONDS", "LEAST_SEEDS", "NOW", "PUSH", "PUSHED_SLACK", "asked", "campaign",
-           "claim_bytes", "forecast", "is_push", "plan", "price", "pushed", "pushed_ask", "reach", "rungs", "running",
-           "step", "tick", "typical_peaks", "workers"]
+__all__ = ["CEILING_RULE", "CONTRACT", "EVERY_SECONDS", "NOW", "PUSH", "PUSHED_SLACK", "SEEDS", "asked", "campaign",
+           "claim_bytes", "forecast", "is_push", "plan", "price", "pushed", "pushed_ask", "reach", "rungs",
+           "running", "step", "tick", "trim", "typical_peaks", "workers"]

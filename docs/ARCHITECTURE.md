@@ -863,9 +863,11 @@ rungs. `push_ladder.step`, every 5 seconds in the controller (`push_ladder.tick`
 (`focus.depth_next`), holds the law in the campaign (`EXTENDING`, "pushed to the N limit") and redoes its whole
 ladder from N=64: a rung's seeds are bought once the rung below has a finished run, each priced from the law's own
 peaks below (`depth_reach.price`) against the host's reach (`push_ladder.reach`, `depth_reach.room_now`), by
-`push_ladder.plan`: as many seeds as there are workers (the worker count), all at once, while they fit; when memory
-binds, as many at once as fit, and the rung takes that many seeds, never fewer than `LEAST_SEEDS` (3), then in passes;
-when not one seed of the next size fits, the law is done (`push.ended`, `pushed_done`, rule `memory`, or `ladder` at
+`push_ladder.plan`: `SEEDS` (3) a rung, as every law's ladder runs (900; the operator, 2026-11-27 19:52: "might as well
+stick to the usual 3"; 893 to 899 bought as many as there were workers), all at once while they fit, else as many at
+once as fit, in passes; a rung that holds more (896's G73 bought 8 at 1,048,576) keeps 3 at the next step, the done and
+the running first, its other queued seeds let go (`push_ladder.trim`, status `cancelled`, an event `trimmed`); when
+not one seed of the next size fits, the law is done (`push.ended`, `pushed_done`, rule `memory`, or `ladder` at
 its top) and the next law is pushed. **A seed is priced as the admission will hold it** (897, `push_ladder.price`):
 the peaks are those of whole runs only (exit 0; a run cut short by a restart or a bundle says nothing of a whole run's
 peak), a size grown from the sizes below by their typical (median) whole-run peak (`depth_reach.price`, which still

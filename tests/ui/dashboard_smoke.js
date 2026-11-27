@@ -4121,29 +4121,29 @@ check('the Top page lists the pushed laws, the law being pushed with its ladder 
           { law: other, campaign: '4', label: 'S178-C4-G7', deepest: 4096, runs: 12, pushed: false, running: false }],
     law: { law, campaign: '15', label: 'S178-C15-G133', running: true, pushed: true, deepest: 65536,
            ladder: { contract: 'gsd-push-ladder-1', workers: 16, reach_bytes: 46 * G, now_utc: '2026-11-27T10:30:00Z',
-             rungs: [{ n: 64, state: 'done', seeds: 16, done: 16, failed: 0, peak_bytes: 0.05 * G, seconds: 2 },
-                     { n: 16384, state: 'running', seeds: 16, left: 9, at_once: 16, passes: 1, needs_bytes: 0.6 * G, seconds: 600, hours: 0.17, starts_utc: '2026-11-27T10:30:00Z', ends_utc: '2026-11-27T10:40:00Z' },
-                     { n: 65536, state: 'ahead', seeds: 16, left: 16, at_once: 16, passes: 1, needs_bytes: 2.4 * G, seconds: 2400, hours: 0.67, starts_utc: '2026-11-27T10:40:00Z', ends_utc: '2026-11-27T11:20:00Z' },
-                     { n: 262144, state: 'ahead', seeds: 4, left: 4, at_once: 4, passes: 1, needs_bytes: 9.6 * G, seconds: 9600, hours: 2.67, starts_utc: '2026-11-27T11:20:00Z', ends_utc: '2026-11-27T14:00:00Z' },
+             rungs: [{ n: 64, state: 'done', seeds: 3, done: 3, failed: 0, peak_bytes: 0.05 * G, seconds: 2, at_once: 3, passes: 1, hours: 0.001, starts_utc: '2026-11-27T10:00:00Z', ends_utc: '2026-11-27T10:00:04Z' },
+                     { n: 16384, state: 'running', seeds: 3, left: 2, at_once: 3, passes: 1, needs_bytes: 0.6 * G, seconds: 600, hours: 0.17, starts_utc: '2026-11-27T10:30:00Z', ends_utc: '2026-11-27T10:40:00Z' },
+                     { n: 65536, state: 'ahead', seeds: 3, left: 3, at_once: 3, passes: 1, needs_bytes: 2.4 * G, seconds: 2400, hours: 0.67, starts_utc: '2026-11-27T10:40:00Z', ends_utc: '2026-11-27T11:20:00Z' },
+                     { n: 262144, state: 'ahead', seeds: 3, left: 3, at_once: 2, passes: 2, needs_bytes: 9.6 * G, seconds: 9600, hours: 2.67, starts_utc: '2026-11-27T11:20:00Z', ends_utc: '2026-11-27T14:00:00Z' },
                      { n: 1048576, state: 'ahead', seeds: 3, left: 3, at_once: 1, passes: 3, needs_bytes: 38.4 * G, seconds: 38400, hours: 32, starts_utc: '2026-11-27T14:00:00Z', ends_utc: '2026-11-28T22:00:00Z' }],
              limit: { n: 4194304, needs_bytes: 153.6 * G, reach_bytes: 46 * G },
-             marks: { fewer: { n: 262144, at_utc: '2026-11-27T11:20:00Z', at_once: 4, seeds: 4 },
+             marks: { fewer: { n: 262144, at_utc: '2026-11-27T11:20:00Z', at_once: 2, seeds: 3 },
                       two_passes: { n: 1048576, at_utc: '2026-11-27T14:00:00Z', at_once: 1, seeds: 3 },
                       one_worker: { n: 1048576, at_utc: '2026-11-27T14:00:00Z', at_once: 1, seeds: 3 } },
              end: { n: 1048576, ends_utc: '2026-11-28T22:00:00Z', hours: 35.5 } } },
     slot: { campaign: '17', running: Array.from({ length: 7 }, (_, i) => ({ law, label: 'S178-C15-G133', n: 16384, seed: i + 9, since: '2026-11-27T10:28:00Z', memory_now: 0.5 * G, memory_peak: 0.55 * G, elapsed: 120 })),
             order: [{ law, label: 'S178-C15-G133', queued: 2 }], waiting: [] } });
   const pushed = getElementById('topPushed').innerHTML, one = getElementById('topLaw').innerHTML, list = getElementById('topList').innerHTML;
-  if (/two passes<\/text>|one worker \u00b7 N=1,048,576<\/text>[\s\S]*two passes \u00b7/.test(getElementById('topLaw').innerHTML)) throw new Error('894: two marks at one size are one label');
+  if (/two passes<\/text>|one at a time \u00b7 N=1,048,576<\/text>[\s\S]*two passes \u00b7/.test(getElementById('topLaw').innerHTML)) throw new Error('894: two marks at one size are one label');
   for (const want of ['the fleet is in <b>the N-push</b>', 'S178-C15-G133 is first on the push list', 'the N-push runs 7 seeds of', 'holding 3.5 GiB between them',
                       'top-runs', '0.50 GiB', 'being pushed now', '65,536', 'data-top-do=unpush', 'stop pushing', 'from N=64, in a campaign of its own']) {
     if (!pushed.includes(want)) throw new Error(`the push list lacks "${want}": ${pushed.slice(0, 700)}`);
   }
   for (const want of ['its ladder again from N=64, 16 workers', '46.0 GiB', 'N=4,194,304 would need 153.6 GiB', 'ends near 22:00 UTC', '35 h 30 min from now',
-                      'fewer than the 16 workers at once from N=262,144 (4 at once, 4 seeds)', 'two passes from N=1,048,576', 'one worker from N=1,048,576',
-                      'top-timeline', 'top-rung-all', 'top-rung-fewer', 'top-rung-one', 'top-rung-now', 'top-mark', 'all 16 workers at once', 'one worker</span>',
-                      'two passes, one worker \u00b7 N=1,048,576</text>',
-                      '<b>under way</b>', '16 of 16', '16, 9 left', '9.6 GiB priced', '10:30 UTC to 10:40 UTC', 'top-chart', 'top-reach', "the host's reach"]) {
+                      'fewer than its 3 seeds at once from N=262,144 (2 at once)', 'two passes from N=1,048,576', 'one seed at a time from N=1,048,576',
+                      'top-timeline', 'top-rung-all', 'top-rung-fewer', 'top-rung-one', 'top-rung-now', 'top-mark', 'its seeds all at once', 'one seed at a time</span>',
+                      'two passes, one at a time \u00b7 N=1,048,576</text>', '10:00 UTC to 10:00 UTC',
+                      '<b>under way</b>', '3 of 3', '3, 2 left', '9.6 GiB priced', '10:30 UTC to 10:40 UTC', 'top-chart', 'top-reach', "the host's reach"]) {
     if (!one.includes(want)) throw new Error(`the pushed law lacks "${want}": ${one.slice(0, 900)}`);
   }
   for (const want of ['412 laws have read at least one size', 'S178-C4-G7', '4,096', 'data-top-do=push', 'push to the N limit', 'top-running']) {
