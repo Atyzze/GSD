@@ -19,9 +19,11 @@ from graph_scale_dynamics.db.write_outcome import give_back_unseen_claims
 from graph_scale_dynamics.measurements.version import ANALYSIS_VERSION
 from graph_scale_dynamics.domain.version import DEPLOYMENT_FENCE_EXIT_CODE, DeploymentProvenanceFence
 from graph_scale_dynamics.observability.log import Log
+from graph_scale_dynamics.scheduling import worker_count
 
 
 _STOP_REQUESTED = threading.Event()
+DEPTH_ROLE = worker_count.DEPTH_ROLE
 
 
 def _terminate_children() -> None:
@@ -43,12 +45,12 @@ def _scratch_short(log: Log, kind: str, reason: str | None) -> None:
         log.write("scratch_short", kind=kind, reason=str(reason or "")[:200])
 
 
-def _run_simulation_once(repo: Repo, blobs: BlobStore, log: Log, owner: str) -> bool:
+def _run_simulation_once(repo: Repo, blobs: BlobStore, log: Log, owner: str, claim=None) -> bool:
     fits, reason = scratch_room(blobs.volatile_root, kind="simulation")
     if not fits:
         _scratch_short(log, "simulation", reason)
         return False
-    job = worker.claim_simulation_for_owner(repo, owner)
+    job = (claim or worker.claim_simulation_for_owner)(repo, owner)
     if job is None:
         return False
     if _STOP_REQUESTED.is_set():
@@ -73,9 +75,34 @@ def _analysis_once(repo: Repo, blobs: BlobStore, log: Log, owner: str) -> bool:
     return bool(analyzer.process_new(repo, blobs, log, owner, max_jobs=1, stop_requested=_STOP_REQUESTED.is_set))
 
 
-def _role(snapshot: dict, slot: int) -> str | None:
+def _depth_once(repo: Repo, blobs: BlobStore, log: Log, owner: str) -> bool:
+    from graph_scale_dynamics.operations import push
+    if push.holds_host(repo) is not None:
+        return False
+    if _run_simulation_once(repo, blobs, log, owner, claim=worker.claim_depth_for_owner):
+        return True
+    order = push.order_here(repo)
+    if order is None:
+        return False
+    fits, reason = scratch_room(blobs.volatile_root, kind="analysis")
+    if not fits:
+        _scratch_short(log, "analysis", reason)
+        return False
+    return bool(analyzer.process_new(repo, blobs, log, owner, max_jobs=1, stop_requested=_STOP_REQUESTED.is_set,
+                                     claim=analyzer.claim_analysis_in(str(order["campaign"]))))
+
+
+def _depth_slot(repo: Repo) -> int | None:
+    getter = getattr(repo, "get_flag", None)
+    raw = str(getter(worker_count.MOST_FLAG, "") or "") if callable(getter) else ""
+    return int(raw) if raw.isdigit() else None
+
+
+def _role(snapshot: dict, slot: int, depth_slot: int | None = None) -> str | None:
     if snapshot.get("paused"):
         return None
+    if depth_slot is not None and slot == depth_slot:
+        return DEPTH_ROLE
     analysis_slots = int(snapshot.get("analysis_slots", 0))
     simulation_slots = int(snapshot.get("simulation_slots", 0))
     if slot < analysis_slots:
@@ -108,6 +135,7 @@ def main(argv=None) -> int:
               max_analyzers=args.max_analyzers, analysis_version=ANALYSIS_VERSION)
 
     unseen = False
+    depth_slot = _depth_slot(repo)
     try:
         while not _STOP_REQUESTED.is_set():
             try:
@@ -120,7 +148,7 @@ def main(argv=None) -> int:
                 if snapshot is None:
                     repo.wait_for_work(0.5)
                     continue
-                role = _role(snapshot, args.slot)
+                role = _role(snapshot, args.slot, depth_slot)
                 did_work = False
                 detail = {"slot": args.slot, "role": role or "idle",
                           "allocation": snapshot}
@@ -130,6 +158,8 @@ def main(argv=None) -> int:
                     did_work = _analysis_once(repo, blobs, log, owner)
                     if not did_work and int(snapshot.get("queued_simulations", 0)) > 0:
                         did_work = _run_simulation_once(repo, blobs, log, owner)
+                elif role == DEPTH_ROLE:
+                    did_work = _depth_once(repo, blobs, log, owner)
                 elif role == "simulation":
                     did_work = _run_simulation_once(repo, blobs, log, owner)
                     if not did_work and int(snapshot.get("analysis_backlog", 0)) > 0:

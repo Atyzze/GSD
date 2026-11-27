@@ -37,7 +37,7 @@ function saveJsonPortable(payload,filename){
   document.body.append(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url),1200);
 }
 function pushButton(law,campaign){
-  const b=el('button',{class:'push-toggle',title:'push this law to the N limit: the depth worker takes it before the zone\u2019s laws, on one worker, one seed after another, each size bought while it fits half the host\u2019s memory (the Top page shows it)'},'push to the N limit');
+  const b=el('button',{class:'push-toggle',title:'push this law to the N limit: it joins the end of the push list, which the depth slot, one worker above the worker count, takes in order, one seed after another, each size bought while it fits half the host\u2019s memory (the Top page shows the order and lets you change it)'},'push to the N limit');
   let on=false;
   const show=v=>{on=!!v;b.textContent=on?'pushed: stop pushing':'push to the N limit';b.classList.toggle('pushed',on)};
   b.onclick=async()=>{ b.disabled=true;

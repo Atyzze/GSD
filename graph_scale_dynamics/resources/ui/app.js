@@ -678,11 +678,12 @@ function liveMakeLease(lease, animate){
   return Object.assign({el, bornAt:Date.now(), animate}, cells);
 }
 const LAW_GROUPS={A:['A','blind','the blind draw: a law drawn at random by the study\u2019s batches (group A)'],N:['N','zone','the zone worker: a neighbour of the law in focus, or the law with one term switched off, read to see whether its kind holds around it (group N)'],
-  S:['S','zone seeds','the zone worker: the law in focus run again on more seeds, a lucky hit told from a law that holds (group N)'],D:['D','depth','the depth worker: one law at a time, the law in focus first, pushed up its ladder until the next size would need more than half the host\u2019s memory (group D)'],
-  E:['E','seeded','a law seeded from another study\u2019s bundle'],C:['C','control','a standing control of known answer'],'?':['?','other','a campaign outside the study\u2019s groups']};
+  S:['S','zone seeds','the zone worker: the law in focus run again on more seeds, a lucky hit told from a law that holds (group N)'],D:['D','pushed','the depth slot: one worker above the worker count, the Top page\u2019s push list in its order, each law pushed up its ladder one seed after another until the next size would need more than half the host\u2019s memory (group D)'],
+  E:['E','zone edges','the zone\u2019s search: a step along one parameter from the zone\u2019s centre, read to N=4,096 to find where the zone ends'],
+  X:['X','seeded','a law seeded from another study\u2019s bundle'],C:['C','control','a standing control of known answer'],'?':['?','other','a campaign outside the study\u2019s groups']};
 function lawGroup(cid){return lawGroupOf((studyNow||{}).campaigns||[],cid)}
 function lawGroupOf(rows,cid){const r=(rows||[]).find(x=>String(x.campaign_id)===String(cid));if(!r)return LAW_GROUPS['?'];
-  if(isStandingControls(r))return LAW_GROUPS.C;if(r.design_kind==='seed')return LAW_GROUPS.E;
+  if(isStandingControls(r))return LAW_GROUPS.C;if(r.design_kind==='seed')return LAW_GROUPS.X;
   if(r.focus_part&&LAW_GROUPS[r.focus_part])return LAW_GROUPS[r.focus_part];if(isBlind(r))return LAW_GROUPS.A;
   return LAW_GROUPS[r.group]||LAW_GROUPS['?']}
 function paintLiveGroups(counts){const el=document.getElementById('liveGroups');if(!el)return;

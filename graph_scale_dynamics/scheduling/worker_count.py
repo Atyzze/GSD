@@ -8,6 +8,10 @@ FLAG = "compute_worker_target"
 
 MOST_FLAG = "compute_worker_most"
 
+DEPTH_ROLE = "depth"
+
+DEPTH_ORDER_FLAG = "focus_depth_order"
+
 CONTRACT = "gsd-worker-count-1"
 
 
@@ -112,6 +116,14 @@ def tick(repo, *, services: list, state: dict, most: int, paused: bool, launch, 
                  if record.get("group") == "compute" and not record.get("disabled")
                  and (slot := executor_slot(record)) is not None}
     _reap(repo, executors, now)
+    depth = int(most)
+    if repo.get_flag(DEPTH_ORDER_FLAG, "") and depth not in executors and state.get("depth_slot") is None:
+        spawn(depth, start=not paused)
+        state["depth_slot"] = depth
+        repo.emit("depth_slot", {"contract": CONTRACT, "slot": depth, "most": int(most)})
+        (say or (lambda text: print(text, flush=True)))(
+            f"the depth slot: executor slot {depth} started above the worker count, for the depth worker alone")
+    executors.pop(depth, None)
     held = {slot for slot, record in executors.items() if record.get("held")}
     exiting = {slot for slot in held if executors[slot].get("proc") is not None}
     steps = plan(target, live=set(executors) - held, held=held, exiting=exiting, spawned=int(state["spawned"]))

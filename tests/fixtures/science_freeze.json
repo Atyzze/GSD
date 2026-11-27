@@ -1,5 +1,5 @@
 {
- "baseline_build": 891,
+ "baseline_build": 892,
  "contract": "gsd-science-freeze-1",
  "files": {
   "engine_rs/src/accounting.rs": "7d634e295021c1338b4b3077877218eb6df9484621bde53ea3c89aa08e88d78a",

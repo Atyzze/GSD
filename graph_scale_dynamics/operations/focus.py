@@ -20,7 +20,8 @@ NEIGHBOURHOOD, BOUNDARIES, MAPPED, UNCONFIRMED, INVALIDATED = (
     "neighbourhood", "boundaries", "mapped", "unconfirmed", "invalidated")
 ENDED = (MAPPED, UNCONFIRMED, INVALIDATED)
 ROBUST, ITS_SEEDS, ITS_DIGITS = "robust", "its seeds", "its exact parameters"
-DOS = ("start", "law", "skip", "back", "stop", "settings", "split", "run_on", "seed", "lean", "order", "push", "unpush")
+DOS = ("start", "law", "skip", "back", "stop", "settings", "split", "run_on", "seed", "lean", "order", "push", "unpush",
+       "push_move")
 QUEUE_LENGTH = 100
 FOCUS_LIST, DEPTH_LIST = "focus", "depth"
 LIST_SHOWN = 10
@@ -1264,6 +1265,9 @@ def act(repo, body: dict, *, tree=None) -> dict:
         lean(repo, body.get("focus"))
     elif do == "order":
         reorder(repo, str(body.get("list") or ""), str(body.get("law") or ""), str(body.get("move") or ""))
+    elif do == "push_move":
+        from graph_scale_dynamics.operations import push
+        return {"ok": True, "did": do, **push.move(repo, str(body.get("law") or ""), int(body.get("to") or 0))}
     elif do in ("push", "unpush"):
         from graph_scale_dynamics.operations import push
         return {"ok": True, "did": do, **push.toggle(repo, str(body.get("law") or ""),
@@ -1559,57 +1563,60 @@ def _ended(repo, campaign_id: str, law: str) -> dict:
             "at_n": None if found.get("at_n") is None else int(found["at_n"]), "ended_utc": utc_now()}
 
 
-def depth_restart(repo, state: dict, why: str, tree=None) -> str | None:
-    from graph_scale_dynamics import PROJECT_ROOT
-    from graph_scale_dynamics.operations import campaign_control as control
-    tree = Path(tree) if tree is not None else Path(PROJECT_ROOT)
-    anchor = next(iter(own_campaigns(repo, state["study"])), None)
-    if anchor is None:
-        return None
-    found_plan = plan(tree)
-    wanted = depth_wanted(found_plan)
-    old = str(state["campaigns"][DEPTH])
-    spec = campaign_specs(repo, state["study"], anchor, found_plan, tree)[DEPTH]
-    made = str(control.create_campaign(
-        repo, spec, search_seed=_seed(state["study"], DEPTH, wanted["top"], len(depth_campaigns(repo, state["study"]))),
-        reason=f"study {state['study']}'s focus: the depth seeker begins again, {why}")["campaign_id"])
-    control.pause(repo, old, reason=f"the depth seeker moved to campaign {made}: {why}")
-    control.set_workers(repo, made, DEPTH_WORKERS, reason="the depth seeker holds one worker")
-    state["campaigns"][DEPTH] = made
-    state.setdefault("depth_before", []).append({"campaign": old, "until": utc_now(), "why": why})
-    state["depth_now"] = None
-    state["events"].append({"at": utc_now(), "depth_restarted": made, "from": old, "why": why})
-    save(repo, state)
-    return made
-
-
 def depth_next(repo, state: dict, ranked: list[dict]) -> str | None:
-    from graph_scale_dynamics.operations import study_map
+    from graph_scale_dynamics.operations import push
+    push.adopt_central(state)
+    if not state.get(push.ADOPTED):
+        push.adopt_now(state)
+        state[push.ADOPTED] = utc_now()
+    found = _depth_next(repo, state, ranked)
+    push.keep_order(repo, state)
+    return found
+
+
+def _depth_next(repo, state: dict, ranked: list[dict]) -> str | None:
+    from graph_scale_dynamics.operations import push, study_map
     campaign_id = str(state["campaigns"][DEPTH])
     done = state.setdefault("depth_done", {})
+    waiting = state.setdefault("depth_waiting", [])
+    let_go = set(state.get(push.LET_GO) or [])
     now = state.get("depth_now")
-    if now and str(now.get("campaign")) == campaign_id and now["law"] not in (state.get("contenders") or {}):
-        done[now["law"]] = dict(_ended(repo, campaign_id, now["law"]), label=now.get("label"), since=now.get("since"),
-                                left="no longer a contender")
-        campaign_id = str(depth_restart(repo, state, f"{now.get('label')} is no longer a contender") or campaign_id)
-        now = None
     if now and str(now.get("campaign")) == campaign_id:
-        if not study_map.decided(repo, campaign_id, now["law"]):
-            return None
-        done[now["law"]] = dict(_ended(repo, campaign_id, now["law"]), label=now.get("label"), since=now.get("since"))
-        state["events"].append({"at": utc_now(), "depth_ended": now.get("label"), "rule": done[now["law"]]["rule"],
-                                "at_n": done[now["law"]]["at_n"]})
+        gone = now["law"] not in (state.get("contenders") or {}) or now["law"] in let_go
+        if gone or not study_map.decided(repo, campaign_id, now["law"]):
+            first = push.ahead(state, done)
+            if not gone and (first is None or first == now["law"]):
+                return None
+            if gone:
+                done[now["law"]] = dict(_ended(repo, campaign_id, now["law"]), label=now.get("label"),
+                                        since=now.get("since"), left="taken off the push list"
+                                        if now["law"] in let_go else "no longer a contender")
+            elif now["law"] in push.laws(state) and now["law"] not in waiting:
+                waiting.insert(0, now["law"])
+            state["events"].append({"at": utc_now(), "depth_left" if gone else "depth_waits": now.get("label"),
+                                    "for": first})
+        else:
+            done[now["law"]] = dict(_ended(repo, campaign_id, now["law"]), label=now.get("label"),
+                                    since=now.get("since"))
+            push.ended(state, now["law"], done[now["law"]])
+            state["events"].append({"at": utc_now(), "depth_ended": now.get("label"),
+                                    "rule": done[now["law"]]["rule"], "at_n": done[now["law"]]["at_n"]})
     state["depth_now"] = None
+    state["depth_waiting"] = waiting = [law for law in waiting if law in push.laws(state)]
     held = {str(r["candidate_id"]) for r in repo.conn.execute(
         "SELECT candidate_id FROM campaign_candidates WHERE campaign_id=?", (campaign_id,)).fetchall()}
     for law in depth_line(state, ranked):
-        if law in done:
+        if law in done or law in let_go:
             continue
         entry = state["contenders"][law]
         if law in held and study_map.decided(repo, campaign_id, law):
             done[law] = dict(_ended(repo, campaign_id, law), label=entry.get("label"), since=None)
+            push.ended(state, law, done[law])
             continue
-        _insert(repo, campaign_id, _spec_of(repo, entry["of"], law))
+        if law not in held:
+            _insert(repo, campaign_id, _spec_of(repo, entry["of"], law))
+        if law in waiting:
+            waiting.remove(law)
         state["depth_now"] = {"law": law, "label": entry.get("label"), "campaign": campaign_id, "since": utc_now()}
         state["events"].append({"at": utc_now(), "depth_began": entry.get("label"), "campaign": campaign_id})
         return law

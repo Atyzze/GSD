@@ -1,15 +1,15 @@
-# The next build is 892
+# The next build is 893
 
 This file names the next build and says how to make it. `tests/unit/test_next_build_is_named.py` parses its first line,
 which must read exactly `# The next build is <N>`, one above `BUILD_NUMBER`.
 
-## Where to begin: 892 is read from study 178's first zones
+## Where to begin: 893 is read from study 178's first zones
 
 **Starting from nothing but the repository** (the operator, 2026-11-24 23:00): clone `main` and bring it up by
 `docs/agent/ENVIRONMENT.md`, section 10, "From the repository". Then `docs/WHERE_WE_ARE.md`, `docs/agent/HANDOFF.md`,
-**`docs/agent/ZONE_MAP.md`** and this page, in that order, and `CLAUDE.md`'s rules for a shared repository. 871 to 891
-are made (`docs/build_notes/BUILD871_NOTES.md` to `BUILD891_NOTES.md`); 871 to 887 are on `main`, 888 to 891 in pull
-requests #30, #31 and those after, each on the one before: branch from the newest not yet merged.
+**`docs/agent/ZONE_MAP.md`** and this page, in that order, and `CLAUDE.md`'s rules for a shared repository. 871 to 892
+are made (`docs/build_notes/BUILD871_NOTES.md` to `BUILD892_NOTES.md`); 871 to 891 are on `main` (#18 to #33), 892 in
+its pull request: branch from it if it is not merged yet.
 
 **What comes first, when the operator sends 178's bundle or dex**: read the dex's check, the zones and their searches.
 On a bundle, `focus.json`'s `dex_check` and `zone_chosen` as at 889 (`passed_over` since 891); `zones` (891): each
@@ -20,7 +20,7 @@ criterion (`study_178_criterion.json`): P1 to P4 as before; P5 reported. Then re
 method's 3.2 core-hours on the same zone (`docs/build_notes/BUILD890_NOTES.md`): core-hours, hours, how many edges
 held at 16,384.
 
-**What 892 makes**, chosen by that reading (`docs/ROADMAP.md`, "Still open from 884 to 889"):
+**What 893 makes**, chosen by that reading (`docs/ROADMAP.md`, "Still open from 884 to 892"):
 
 1. **If the search's hours are the slow part** (a zone's lines took many times the ring method's hours for about its
    core-hours): each line's next two points at once (the step out and the one after it, or both halves' midpoints),
@@ -30,10 +30,12 @@ held at 16,384.
 3. **If an edge did not hold**: the line's points judged at 16,384 along that parameter, the rest at 4,096.
 
 **Acceptance**: the choice and its reading in the notes; the change tested on a law of known answer as 890's search
-is; `outputs_of_a_law --against` 891's record unchanged; the full lane green.
+is; `outputs_of_a_law --against` 892's record unchanged; the full lane green.
 
-**Waiting on the operator**: #30, #31 and the pull requests after them; study 178 on 891; whether the central law goes
-before the operator's pushed laws in the depth worker's line (now after).
+**Waiting on the operator**: 892's pull request; study 178 on 892 (`docs/build_notes/BUILD892_NOTES.md`,
+"For the folders"); whether a pushed law's sizes may start several at once (`docs/ROADMAP.md`, "Still open from 884
+to 892", item 4: the decision engine, frozen). On 178's next bundle, read too the push: the Top page's `slot`, `done`
+and forecast against what ran, the attempts of class `preempted_depth_order`, and each pushed law's last size.
 
 ## Reading a study's bundle
 

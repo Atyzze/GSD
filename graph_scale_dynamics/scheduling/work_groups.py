@@ -201,9 +201,18 @@ BY_LAW = "by_law"
 VERIFY_TO = 4096
 
 
-def claim_bounds(tier: int) -> list[dict]:
+VERIFYING_FLAG = "dex_verifying_to"
+
+
+def verifying(repo) -> int | None:
+    getter = getattr(repo, "get_flag", None)
+    raw = getter(VERIFYING_FLAG, "") if callable(getter) else ""
+    return int(raw) if str(raw or "").isdigit() and int(raw) > 0 else None
+
+
+def claim_bounds(tier: int, verifying_to: int | None = None) -> list[dict]:
     if tier == DEX_TIER:
-        return [{"order": BY_LAW, "max_n": VERIFY_TO}, {"order": BY_LAW}]
+        return [{"order": BY_LAW, "max_n": int(verifying_to or VERIFY_TO)}] + ([] if verifying_to else [{"order": BY_LAW}])
     return [{}]
 
 
@@ -230,14 +239,15 @@ def ordered(allocation: list[dict]) -> list[tuple[int, list[dict]]] | None:
         return None
     tiers: dict[int, list[dict]] = {}
     for row in allocation:
-        if not _open(row):
+        if not _open(row) or tier_of(row) == DEPTH_TIER:
             continue
         if _first(row) > 0:
             tiers.setdefault(tier_of(row), []).append(row)
         if int(row.get("behind") or 0) > 0:
             tiers.setdefault(LEFTOVER_TIER, []).append(row)
     out = [(tier, tiers[tier]) for tier in sorted(tiers)]
-    held = [row for row in allocation if row.get("workers_target") not in (None, 0) and _open(row) and _first(row) > 0]
+    held = [row for row in allocation if row.get("workers_target") not in (None, 0) and _open(row) and _first(row) > 0
+            and tier_of(row) != DEPTH_TIER]
     if out:
         first, rows = out[0]
         out[0] = (first, rows + [row for row in held if row not in rows])
@@ -295,9 +305,12 @@ def reading(repo) -> dict:
             "shares_a_core": {str(cpu): mates for cpu, mates in shared.items()},
             "order": list(TIER_NAMES),
             "words": ("in a folder with a focus the fleet takes its work in one order, runs and probes alike: the zone "
-                      "of the law in focus, the depth worker, the Dex laws read again, the blind draw, earlier laws' "
-                      "leftovers; each takes a worker only when the ones before it have nothing queued, and a run "
-                      "under way is never stopped for one before it. Elsewhere each group with work is given slots "
+                      "of the law in focus, the Dex laws read again (only to the level they are verified at while a "
+                      "dex is checked), the blind draw, earlier laws' leftovers; each takes a worker only when the ones "
+                      "before it have nothing queued, and a run under way is never stopped for one before it. While the "
+                      "Top page's push list holds a law, every slot runs it alone and every other run is stopped with its "
+                      "seed saved; with the list empty the depth worker runs on a slot of its own above the worker "
+                      "count. Elsewhere each group with work is given slots "
                       "toward its share. Every simulation and analysis runs only on the work CPUs, never on the "
                       "system's, a running one moved off them within five seconds of a change")}
 

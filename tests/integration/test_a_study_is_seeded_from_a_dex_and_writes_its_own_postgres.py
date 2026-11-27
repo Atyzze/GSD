@@ -125,10 +125,12 @@ def test_no_outlier_before_a_law_scores_and_an_early_one_yields_to_a_scoring_law
         state = focus.load(repo)
         assert flicker in state["set_aside"] and state["current"]["law"] == real
         assert state["current"]["chosen_by"] == focus.BY_SCORE
-        assert state["campaigns"][focus.DEPTH] != old_depth, "the depth worker leaves the law set aside"
+        assert state["campaigns"][focus.DEPTH] == old_depth, "the depth worker leaves the law set aside, its campaign kept"
         from graph_scale_dynamics.operations import campaign_control as control
-        assert control.is_paused(repo, old_depth)
-        assert _held(repo, state["campaigns"][focus.DEPTH]) == {real} and state["depth_now"]["law"] == real
+        from graph_scale_dynamics.operations import push
+        assert not control.is_paused(repo, old_depth)
+        assert _held(repo, old_depth) == {flicker, real} and state["depth_now"]["law"] == real
+        assert push.order_here(repo)["laws"] == [real], "the law set aside is out of the depth order: its runs stop"
         assert focus.load(repo)["depth_done"][flicker]["left"] == "no longer a contender"
 
 
@@ -195,7 +197,7 @@ def test_a_law_skipped_on_881_but_left_to_the_depth_worker_is_dropped_for_the_la
         focus.step(repo, force=True)
         state = focus.load(repo)
         assert flicker not in state["contenders"] and state["current"]["law"] == seeded
-        assert state["campaigns"][focus.DEPTH] != old_depth and state["depth_now"]["law"] == seeded
+        assert state["campaigns"][focus.DEPTH] == old_depth and state["depth_now"]["law"] == seeded
         assert any(e.get("depth_dropped") == flicker[:12] for e in state["events"])
         needs = {n["what"]: n for n in focus.reading(repo)["current"]["needs"]}
         assert set(needs) == {"its kind", "ring 0.1", "its depth", "its seeds", "every ring", "each term switched off"}

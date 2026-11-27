@@ -122,7 +122,7 @@ Top page; 890 the first zone searched by stepping and halving each parameter, a 
 central law pushed, benchmarked against the ring method; 891 the zones one after another, the dex a list of zones
 with their central laws, a zone read in not searched again, the lucky hits kept to revisit.
 
-**Still open from 884 to 889**, each its own build, the first two waiting on study 178's first zones:
+**Still open from 884 to 892**, each its own build, the first two waiting on study 178's first zones:
 
 1. **The search's hours** (890's benchmark): a line's steps follow one another, each a ladder to 4,096; if 178 shows
    them as the slow part, each line's next two points at once, the one not needed dropped when the first reads.
@@ -130,7 +130,9 @@ with their central laws, a zone read in not searched again, the lucky hits kept 
    back to the score and draws rings (861); the search would judge it the same way, its members the laws already read
    near it. Recommended once 178's benchmark is read.
 3. **Each term set to 0 beside switched off** (884, law space's faces).
-4. **The push list dropped** (889) once a zone's central law is pushed every time (the operator's own words).
+4. **Several sizes of a pushed law at once** (the operator, 09:19; 892's notes): a speculative rung priced from the
+   forecast, its seeds started beside the size below while the reach holds them, in the decision engine (`decisions/`,
+   frozen): the operator's word first. With it, starting a pushed law at the size it has read rather than from 64.
 5. **A topology probe** (886; "Questions for the operator"), if a zone reads d near 2.
 
 **From 881** (the operator, 2026-11-26 11:55: "can we just start a new study from scratch first without any prior
