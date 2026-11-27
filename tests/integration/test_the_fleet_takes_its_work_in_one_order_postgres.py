@@ -133,5 +133,5 @@ def test_a_folder_without_a_focus_keeps_its_shares():
     rows = [{"campaign_id": "1", "work_group": "A", "design_kind": "blind", "leased": 1, "queued": 5, "behind": 0,
              "workers_target": None}]
     assert work_groups.ordered(rows) is None
-    assert W.offers(rows, {}) == [(None, None)]
+    assert W.offers(rows, {}) == [(None, None, {})]
     assert work_groups.now_on(rows) == {"ordered": False, "tier": None, "name": None}

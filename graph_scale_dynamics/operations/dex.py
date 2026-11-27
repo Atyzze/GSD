@@ -24,6 +24,9 @@ ARCHIVE_ENDINGS = (".tar.zst", "_tar.zst")
 TOP = 100
 FOLDER = "export"
 EVERY_SECONDS = 3600.0
+NEW_GAP_SECONDS = 600.0
+LOOK_SECONDS = 60.0
+KEPT_ID = 16
 FLAG = "dex_written"
 DEX, BUNDLE, OWN = "dex", "study bundle", "folder"
 RUN_AGAIN = ("moves", "accepted_moves", "final_edges", "peak_edges", "max_degree", "work_units", "termination")
@@ -211,12 +214,21 @@ def part_of_dex(found: dict, name: str) -> dict:
     return {"name": name, "kind": DEX, "study": (dex.get("made_by") or {}).get("study"),
             "build": (dex.get("made_by") or {}).get("build"), "made_utc": dex.get("made_utc"),
             "science": _dict(dex.get("science")), "laws": laws, "regions": list(dex.get("regions") or []),
+            "verify_to": level_of(dex.get("verify_to")),
             "chains": [row for row in _rows(found.get(CHAINS)) if str(row.get("law")) in laws],
             "rungs": [row for row in _rows(found.get(RUNGS)) if str(row.get("law")) in laws],
             "sources": list(dex.get("sources") or []) + [{"name": name, "kind": DEX, "made_utc": dex.get("made_utc"),
                                                          "study": (dex.get("made_by") or {}).get("study"),
                                                          "science": _dict(dex.get("science")).get("sha256"),
                                                          "laws": len(laws), "sha256": dex_sha256(dex)}]}
+
+
+def level_of(value) -> int | None:
+    try:
+        found = int(value)
+    except (TypeError, ValueError):
+        return None
+    return found if found > 0 else None
 
 
 def read_part(path) -> dict:
@@ -251,7 +263,7 @@ def ranked(laws: dict[str, dict], science: str | None) -> list[str]:
     return sorted(laws, key=key)
 
 
-def merge(parts: list[dict], *, science: dict, made_by: dict) -> dict:
+def merge(parts: list[dict], *, science: dict, made_by: dict, verify_to=None) -> dict:
     from graph_scale_dynamics.operations import law_code as LC
     sha = science.get("sha256")
     laws: dict[str, dict] = {}
@@ -288,7 +300,9 @@ def merge(parts: list[dict], *, science: dict, made_by: dict) -> dict:
         laws[law]["score"] = standing(laws[law], sha)
         laws[law]["rank"] = place + 1
         laws[law]["sizes"] = sorted(sizes.get(law) or ())
+    levels = [v for v in [level_of(verify_to)] + [level_of(part.get("verify_to")) for part in parts] if v]
     return {"contract": CONTRACT, "made_utc": utc_now(), "made_by": made_by, "science": science,
+            **({"verify_to": max(levels)} if levels else {}),
             "sources": list(sources.values()), "laws": [laws[law] for law in order],
             "top": [law for law in order if laws[law]["score"]][:TOP], "regions": list(regions.values()),
             "chains": list(chains.values()), "rungs": list(rungs.values())}
@@ -422,6 +436,7 @@ def seeding(part: dict) -> dict:
     return {"name": part["name"], "kind": part["kind"], "built_utc": part.get("made_utc"), "build": part.get("build"),
             "study": str(part.get("study") or ""), "science": part.get("science") or {}, "specs": specs,
             "scoring": scoring, "laws_only": laws_only, "regions": regions, "codes": codes,
+            "verify_to": level_of(part.get("verify_to")),
             "sha256": dex_sha256({"laws": list(part["laws"].values())})}
 
 
@@ -521,15 +536,51 @@ def of_folder(repo, *, blobs: Path | None, import_folder: Path | None, build=Non
     return dex
 
 
-def write_folder(repo, root: Path, *, blobs: Path | None, build=None) -> Path:
-    from graph_scale_dynamics.operations import imports
+def held_now(state: dict | None) -> dict:
+    return {"regions": len((state or {}).get("regions") or []),
+            "confirmed": int((((state or {}).get("dex_check") or {}).get("counts") or {}).get("confirmed") or 0)}
+
+
+def write_folder(repo, root: Path, *, blobs: Path | None, build=None, why: str | None = None) -> Path:
+    from graph_scale_dynamics.operations import focus, imports
     root = Path(root)
+    state = focus.load(repo)
     dex = of_folder(repo, blobs=blobs, import_folder=root / imports.FOLDER, build=build)
     path = write(dex, root / FOLDER, str(dex["made_by"]["study"]))
     counts = document(dex)["counts"]
-    repo.set_flag(FLAG, json.dumps({"at": time.time(), "utc": utc_now(), "path": str(path), "counts": counts},
-                                   sort_keys=True))
+    repo.set_flag(FLAG, json.dumps({"at": time.time(), "utc": utc_now(), "path": str(path), "counts": counts,
+                                    "why": why or "written on the Map page", **held_now(state),
+                                    "laws": sorted(str(e["law"])[:KEPT_ID] for e in dex["laws"])}, sort_keys=True))
     return path
+
+
+def scoring_here(repo, study: str) -> set[str]:
+    from graph_scale_dynamics.observability import score_board
+    from graph_scale_dynamics.operations import focus
+    out = set()
+    for campaign_id in focus.own_campaigns(repo, str(study)):
+        for law, score in (score_board.board(repo, campaign_id).get("scores") or {}).items():
+            if int(score.get("score") or 0) > 0:
+                out.add(str(law))
+    return out
+
+
+def news(repo, state: dict, last: dict) -> str | None:
+    known = set(last.get("laws") or [])
+    new = {law[:KEPT_ID] for law in scoring_here(repo, str(state.get("study") or ""))} - known
+    if new:
+        return f"{len(new)} law{'' if len(new) == 1 else 's'} scoring here that the last dex does not hold"
+    now = held_now(state)
+    if now["regions"] > int(last.get("regions") or 0):
+        more = now["regions"] - int(last.get("regions") or 0)
+        return f"{more} zone{'' if more == 1 else 's'} mapped since the last dex"
+    if now["confirmed"] > int(last.get("confirmed") or 0):
+        more = now["confirmed"] - int(last.get("confirmed") or 0)
+        return f"{more} law{'' if more == 1 else 's'} of the dex verified here since the last dex"
+    return None
+
+
+_LOOKED: dict[str, float] = {}
 
 
 def written(repo) -> dict:
@@ -542,12 +593,19 @@ def written(repo) -> dict:
 
 def keep(repo, root: Path, *, blobs: Path | None, now: float | None = None, build=None) -> Path | None:
     from graph_scale_dynamics.operations import focus
-    if focus.load(repo) is None:
+    state = focus.load(repo)
+    if state is None:
         return None
     clock = time.time() if now is None else float(now)
-    if clock - float(written(repo).get("at") or 0.0) < EVERY_SECONDS:
+    last = written(repo)
+    since = clock - float(last.get("at") or 0.0)
+    if since >= EVERY_SECONDS:
+        return write_folder(repo, root, blobs=blobs, build=build, why="an hour since the last")
+    if since < NEW_GAP_SECONDS or clock - _LOOKED.get(str(root), -1e18) < LOOK_SECONDS:
         return None
-    return write_folder(repo, root, blobs=blobs, build=build)
+    _LOOKED[str(root)] = clock
+    why = news(repo, state, last)
+    return None if why is None else write_folder(repo, root, blobs=blobs, build=build, why=why)
 
 
 def is_dex_path(path: Path) -> bool:
@@ -581,6 +639,6 @@ def absorb(repo, import_folder: Path | None) -> list[dict]:
     return done
 
 
-__all__ = ["CONTRACT", "FOLDER", "NAME", "TOP", "absorb", "files", "is_dex_path", "keep", "like", "merge", "of_folder",
-           "own_part", "part_of_bundle", "part_of_dex", "read_part", "seeding", "standing", "verify", "write",
-           "write_folder", "written"]
+__all__ = ["CONTRACT", "FOLDER", "NAME", "TOP", "absorb", "files", "held_now", "is_dex_path", "keep", "level_of",
+           "like", "merge", "news", "of_folder", "own_part", "part_of_bundle", "part_of_dex", "read_part",
+           "scoring_here", "seeding", "standing", "verify", "write", "write_folder", "written"]

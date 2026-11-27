@@ -69,14 +69,26 @@ def read(path) -> dict:
             "sha256": hashlib.sha256(found[LAWS]).hexdigest()}
 
 
-def seeded_campaign(repo, study: str, *, make: bool = False, tree=None) -> str:
+def reading_order(specs: dict[str, dict], ranked: list[str]) -> list[str]:
+    from graph_scale_dynamics.research import neighbourhood as N
+    place = {law: i for i, law in enumerate(ranked)}
+    groups: dict[tuple, list[str]] = {}
+    for law in specs:
+        groups.setdefault(N.signature(specs[law]), []).append(law)
+    for members in groups.values():
+        members.sort(key=lambda law: (place.get(law, len(place)), law))
+    order = sorted(groups.values(), key=lambda m: (-len(m), place.get(m[0], len(place)), m[0]))
+    return [law for members in order for law in members]
+
+
+def seeded_campaign(repo, study: str, *, make: bool = False, tree=None, level=None) -> str:
     for campaign in repo.all_campaigns():
         design = (campaign.get("spec") or {}).get("study_design") or {}
         if str(design.get("study")) == str(study) and design.get("kind") == KIND:
             return str(campaign["campaign_id"])
     if make:
         from graph_scale_dynamics.operations import study_design as SD
-        return SD.dex_campaign(repo, str(study), tree=tree, log=lambda *_a: None)
+        return SD.dex_campaign(repo, str(study), tree=tree, log=lambda *_a: None, level=level)
     raise ValueError(f"study {study}'s design has no seeded campaign: a seed goes into a study designed for one")
 
 
@@ -270,9 +282,10 @@ def seed(repo, path, *, science: dict | None = None) -> dict:
                          + (f" ({plan['mismatched']} laws whose spec is not their id left out)"
                             if plan["mismatched"] else ""))
     if campaign is None:
-        campaign = seeded_campaign(repo, state["study"], make=True)
-    for spec in plan["insert"].values():
-        focus._insert(repo, campaign, spec)
+        campaign = seeded_campaign(repo, state["study"], make=True, level=bundle.get("verify_to"))
+    for law in (reading_order(plan["insert"], [e["law"] for e in bundle["scoring"]] + list(bundle.get("laws_only") or []))
+                if state.get("dex_first") else list(plan["insert"])):
+        focus._insert(repo, campaign, plan["insert"][law])
     regions = state.setdefault("regions", [])
     names, grown = [], []
     for known_region, wider, more, _given in plan["grown"]:

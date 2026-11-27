@@ -30,7 +30,8 @@ def blobs_of(root):
 def dex_reading(repo) -> dict:
     from graph_scale_dynamics.operations import dex
     root = folder_root()
-    return dict(dex.written(repo), folder=None if root is None else str(root / dex.FOLDER))
+    return dict({k: v for k, v in dex.written(repo).items() if k != "laws"},
+                folder=None if root is None else str(root / dex.FOLDER))
 
 
 def answer(repo) -> dict:

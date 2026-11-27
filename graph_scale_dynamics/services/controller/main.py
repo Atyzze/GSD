@@ -69,7 +69,7 @@ def dex_pass(repo: Repo, log: Log, root: Path | None, blobs: Path | None) -> Non
                       no_zone=checked["none"])
         written = dex.keep(repo, root, blobs=blobs, build=BUILD_NUMBER)
         if written is not None:
-            log.write("dex_written", path=str(written))
+            log.write("dex_written", path=str(written), why=str(dex.written(repo).get("why"))[:200])
     except Exception as exc:  # noqa: BLE001
         try:
             repo.conn.rollback_if_open()
@@ -117,6 +117,8 @@ def main(argv=None) -> int:
         log.write("standby", reason="another PostgreSQL controller holds the advisory lock")
         repo.wait_for_work(max(1.0, args.poll))
     log.write("start", home=args.campaign, backend=repo.backend)
+    from graph_scale_dynamics.operations.study import make_import_folder
+    make_import_folder(args.var)
     refused: set[str] = set()
     rest = max(0.1, args.poll)
     wakes = {"notified": 0, "rest_ran_out": 0}

@@ -89,14 +89,14 @@ Open, from 887 (`docs/build_notes/BUILD887_NOTES.md`):
 * **The first zone, if not the rule's**: on 177's dex of 19:33Z the rule takes G79's family (29 laws within 0.1 of
   S176-C12-G100, every one scoring 1) one law ahead of G37's (28 within 0.1 of S177-C12-G1015, its best 27).
   Recommended: let the rule stand; the ring method's run on G79's family is already paid (its 47 neighbours), so
-  888's search is benchmarked against it at no extra cost. Another centre is put into focus by hand as any law is (`main.py focus --study 178 --law <code>`).
+  889's search is benchmarked against it at no extra cost. Another centre is put into focus by hand as any law is (`main.py focus --study 178 --law <code>`).
 
 Open, from 871 (`docs/build_notes/BUILD871_NOTES.md`):
 
 * **A let-go law's own runs**: decided 2026-11-25 23:25, let them run (the recommendation); a tick takes them back.
-* **871's to 887's pull requests**: the sessions that made them were refused push access to `github.com/Atyzze/GSD`.
-  1. Open them from the archives yourself (a branch a build, each on the one before). 2. Give the next session push
-  access, and it opens them.
+* **The pull requests**: 871 to 880 are merged (#18 to #27); 881 to 886 are #28 (886's archive on `main`), 887 is #29
+  on it, 888 on 887, each made by 888's session once push access was given (2026-11-27 01:42: "Try again, worked last
+  time"). Merge them in order.
 
 Answered 2026-11-24 10:22 (`docs/HISTORY.md`): study 175 runs to its end; the study after it looks for laws whose
 different starts arrive at the same d and mean degree; a lattice that does not change scores lowest; every behaviour
@@ -161,6 +161,18 @@ Open, none waiting:
 
 ## Planned builds, in order
 
+**From 887's run** (the operator, 2026-11-27 01:35, watching study 178 read 177's dex: "ideally, the import folder is
+there from the start and so that if its pre seeded with a dex, the first thing it does is indeed verify all its listed
+laws/zones"; "if we could prioritize the work grouped by all sims needed for 1 law, so that we can see a progress bar
+per zone/candidate"; "N64, N256, N1024 and N4096 as base level of verification it defaults to, unless its internal
+dex-lvl is set at a higher N"; "whenever a new zone/candidate is found that isnt in the dex yet [...] also export new
+copy of the dex to the export folder"), one build, ahead of the zone's search, which waits on the dex being read:
+
+1. **888, made** (`docs/build_notes/BUILD888_NOTES.md`): the import folder in the tree and made at every start, a dex
+   in it before the first start read in at the study's start; a dex read again to N=4,096 unless it carries a higher
+   level; the Dex work taken law by law, its laws in the order of their term sets; "Working now" one row per law with
+   its progress; a new copy of the dex when a law or zone it lacks turns up or more of its laws verify.
+
 **From 886** (the handover; the operator, 2026-11-26 19:49 and 19:59: "I really want to be able to start a fresh
 study, one that does only blind mapping as base load, until a dex is seen"; "pick the first most likely/big area";
 "how to find its edges as efficiently as possible over all parameters used? including N?"; "benchmarking that and well
@@ -173,11 +185,11 @@ heading is `docs/agent/ZONE_MAP.md`. It takes the place of "From 884", items 2 t
    confirmed, denied or unmatched, listed on the Map page as it reads, the focus waiting for it.
 3. **887, made**: the first zone chosen to confirm fast, the most confirmed laws of one term set within 0.1 of one
    centre, never a control; its centre taken into focus.
-4. **888, the zone's search, benchmarked on that one zone**: its laws judged first; per parameter, stepped out until its
+4. **889, the zone's search, benchmarked on that one zone**: its laws judged first; per parameter, stepped out until its
    behaviour changes and halved three times, judged at 4,096 with the two points either side of an edge at 16,384;
    its central law made from the middle of its alike points and pushed to half the host's memory; each edge's runs,
    core-hours and hours beside the ring method's on the same law (G79's 47 neighbours in the dex of 15:11Z).
-5. **Then zones one after another**, the dex a list of zones, each with its central law, members, edges and the N it
+5. **890, then zones one after another**, the dex a list of zones, each with its central law, members, edges and the N it
    holds to; lucky hits kept to revisit; a topology probe if the operator wants tori told from planes.
 
 **From 884** (the operator, 2026-11-26 19:06 to 19:21: "only do blind draws when there are no seeds/zones to confirm";

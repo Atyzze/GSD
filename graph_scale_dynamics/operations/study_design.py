@@ -252,7 +252,29 @@ def dex_search_seed(study: str) -> int:
     return int(hashlib.sha256(f"{study}:dex".encode("utf-8")).hexdigest(), 16) % (2 ** 63)
 
 
-def dex_campaign(repo, study: str, *, tree=None, log=print) -> str:
+def verify_level(design: dict, wanted=None) -> int:
+    base = [int(n) for n in design["ladder"]["base"]]
+    ladder = base + [int(n) for n in design["ladder"]["deep"]]
+    asked = [int(v) for v in (wanted, (dex_entry(design) or {}).get("verify_to")) if v]
+    level = max([max(base)] + asked)
+    return max(n for n in ladder if n <= level)
+
+
+def ladder_to(spec: dict, design: dict, level: int) -> dict:
+    from graph_scale_dynamics.decisions.engine import Policy
+    from graph_scale_dynamics.scheduling.ladder_spec import engine_ladder
+    policy = Policy.from_spec(spec)
+    base_sizes = [int(n) for n in design["ladder"]["base"]]
+    deep_sizes = [int(n) for n in design["ladder"]["deep"] if int(n) <= int(level)]
+    budgets = {int(n): int(units) for n, units in design["ladder"].get("budgets") or []}
+    engine_ladder(spec, base_sizes=base_sizes, deep_sizes=deep_sizes, seeds=int(design["ladder"]["seeds"]),
+                  budgets={n: budgets.get(n, policy.work_budget(n)) for n in base_sizes + deep_sizes},
+                  audit_fraction=float(policy.audit_fraction))
+    spec["budgets"] = dict(spec.get("budgets") or {}, max_n=max(base_sizes + deep_sizes))
+    return spec
+
+
+def dex_campaign(repo, study: str, *, tree=None, log=print, level=None) -> str:
     from graph_scale_dynamics import PROJECT_ROOT
     from graph_scale_dynamics.operations import campaign_control as control
     tree = Path(tree) if tree is not None else Path(PROJECT_ROOT)
@@ -264,10 +286,14 @@ def dex_campaign(repo, study: str, *, tree=None, log=print) -> str:
     base = json.loads((tree / "graph_scale_dynamics" / "resources" / "configs" / "campaign_engine_survey.json")
                       .read_text(encoding="utf-8"))
     spec = campaign_spec(design, without_terms(design, base, log=lambda *_a: None), entry, len(design["campaigns"]))
+    to = verify_level(design, level)
+    spec = ladder_to(spec, design, to)
     spec["study_design"]["dex"] = True
+    spec["study_design"]["verify_to"] = to
     made = control.create_campaign(repo, spec, search_seed=dex_search_seed(str(study)),
-                                   reason=f"study {study} ({design['path']}): {entry['label']}")
-    log(f"created Campaign {made['campaign_id']} ({entry['label']}), study {study}: the laws of the first dex read in")
+                                   reason=f"study {study} ({design['path']}): {entry['label']}, read to N={to:,}")
+    log(f"created Campaign {made['campaign_id']} ({entry['label']}), study {study}: the laws of the first dex read in, "
+        f"each to N={to:,}")
     return str(made["campaign_id"])
 
 

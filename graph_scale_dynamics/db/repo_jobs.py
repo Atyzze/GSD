@@ -82,6 +82,7 @@ class JobStore:
             "RANDOM()" if order == "random" else
             "j.priority,RANDOM()" if order == "priority_random" else
             "j.n DESC,j.priority,j.created_utc,j.job_id" if order == "deepest" else
+            f"j.priority / {QUEUE_RANK_STEP},cc.admission_sequence,j.n,j.created_utc,j.job_id" if order == "by_law" else
             f"j.priority / {QUEUE_RANK_STEP},j.created_utc,j.job_id" if order == "oldest" else
             "j.priority,j.created_utc,j.job_id"
         )

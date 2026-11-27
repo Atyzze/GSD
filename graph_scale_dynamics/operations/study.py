@@ -198,6 +198,7 @@ def start_study(repo, spec: dict, *, search_seed=None, default: bool = True,
         first = study_design.start(repo, design, spec, var=var, tree=tree, search_seed=search_seed, log=log,
                                    made=made(repo, study))
         study_record.finish(var, kind=study_record.DESIGNED)
+        read_in_at_start(repo, var, log=log)
         return first
     if default:
         study_record.write(var, study=study_record.DEFAULT, kind=study_record.DEFAULT,
@@ -230,6 +231,35 @@ def start_study(repo, spec: dict, *, search_seed=None, default: bool = True,
         log(default_study_note(tree))
     study_record.finish(var, kind=study_record.DEFAULT if default else study_record.NAMED_SPEC)
     return str(first)
+
+
+def import_folder_of(var) -> Path | None:
+    from graph_scale_dynamics.operations import imports
+    return None if var is None else Path(var).resolve().parent / imports.FOLDER
+
+
+def make_import_folder(var) -> Path | None:
+    folder = import_folder_of(var)
+    if folder is None:
+        return None
+    try:
+        folder.mkdir(parents=True, exist_ok=True)
+    except OSError:
+        return None
+    return folder
+
+
+def read_in_at_start(repo, var, *, log=print) -> list[dict]:
+    from graph_scale_dynamics.operations import dex
+    folder = make_import_folder(var)
+    found = dex.absorb(repo, folder)
+    for each in found:
+        if each.get("refused"):
+            log(f"the dex {each['bundle']} in {folder} was not read in: {each['refused']}")
+        else:
+            log(f"the dex {each['bundle']} in {folder} read in at the study's start: {each.get('laws_added')} laws, "
+                "read again before anything else")
+    return found
 
 
 def spec_digest(spec: dict) -> str:
