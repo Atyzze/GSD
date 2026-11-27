@@ -54,7 +54,9 @@ from graph_scale_dynamics.scheduling.memory import (
     settled_reservation_bytes,
     early_reservation_release_bytes,
     EARLY_RESERVATION_SETTLE_SECONDS,
+    SETTLED_RESERVATION_SLACK,
 )
+from graph_scale_dynamics.operations import push_ladder
 
 ROOT = PROJECT_ROOT
 
@@ -822,7 +824,10 @@ def restate_reservation(repo: Repo, log: Log, job: dict, owner: str, generation:
         if early:
             return early_reservation_release_bytes(job["spec"], job["n"], "simulation", observed, held,
                                                    floor_bytes=floor)
-        settled = settled_reservation_bytes(job["spec"], job["n"], "simulation", observed, floor_bytes=floor)
+        held_pushed = job["pushed"] if "pushed" in job else push_ladder.pushed(repo, job["campaign_id"])
+        slack = push_ladder.PUSHED_SLACK if held_pushed else SETTLED_RESERVATION_SLACK
+        settled = settled_reservation_bytes(job["spec"], job["n"], "simulation", observed, floor_bytes=floor,
+                                            slack=slack)
         return settled if reservation_restatement_is_material(held, settled) else None
 
     now_bytes = unless_the_database_is_away(restated)
@@ -1040,7 +1045,8 @@ def _admitted(repo: Repo, owner: str, job: dict, held: dict | None) -> bool:
     with returned_on_failure(
             lambda: repo.release_job(job["job_id"], owner, int(job["lease_generation"])),
             report=report_returned_claim(repo, "simulation", job_id=job["job_id"], n=int(job["n"]))):
-        requested = predicted_claim_peak_bytes(
+        pushed = push_ladder.claim_bytes(repo, job)
+        requested = pushed if pushed is not None else predicted_claim_peak_bytes(
             repo.conn, kind="simulation", campaign_id=job["campaign_id"],
             candidate_id=job["candidate_id"], n=int(job["n"]), spec=job["spec"],
         )

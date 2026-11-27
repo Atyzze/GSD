@@ -9,6 +9,7 @@ from graph_scale_dynamics.domain.model import utc_now
 
 CONTRACT = "gsd-push-ladder-2"
 CEILING_RULE = "ceiling"
+PUSHED_SLACK = 1.1
 PUSH = "P"
 LEAST_SEEDS = 3
 EVERY_SECONDS = 5.0
@@ -77,17 +78,7 @@ def rungs(repo, campaign_id: str, law: str) -> dict[int, dict]:
         key = str(row["status"]) if str(row["status"]) in held else "failed"
         held[key] += int(row["c"])
         held["seeds"] += int(row["c"])
-    runs: dict[str, dict] = {}
-    for row in repo.conn.execute(
-            "SELECT j.job_id AS job, j.n AS n, a.exit_code AS code, a.peak_rss_bytes AS peak, a.wall_seconds AS wall "
-            "FROM jobs j JOIN attempts a ON a.job_id=j.job_id WHERE j.campaign_id=? AND j.candidate_id=? "
-            "AND j.kind='simulate'", (str(campaign_id), str(law))).fetchall():
-        run = runs.setdefault(str(row["job"]), {"n": int(row["n"]), "whole": [], "cut": [], "wall": 0.0, "done": False})
-        whole = row["code"] is not None and int(row["code"]) == 0
-        if row["peak"]:
-            run["whole" if whole else "cut"].append(int(row["peak"]))
-        run["wall"] += float(row["wall"] or 0.0)
-        run["done"] = run["done"] or whole
+    runs = _runs(repo, campaign_id, law)
     for n, held in out.items():
         mine = [r for r in runs.values() if r["n"] == n]
         whole = [p for r in mine for p in r["whole"]]
@@ -100,6 +91,21 @@ def rungs(repo, campaign_id: str, law: str) -> dict[int, dict]:
         if n in out:
             out[n].update(live)
     return out
+
+
+def _runs(repo, campaign_id: str, law: str) -> dict[str, dict]:
+    runs: dict[str, dict] = {}
+    for row in repo.conn.execute(
+            "SELECT j.job_id AS job, j.n AS n, a.exit_code AS code, a.peak_rss_bytes AS peak, a.wall_seconds AS wall "
+            "FROM jobs j JOIN attempts a ON a.job_id=j.job_id WHERE j.campaign_id=? AND j.candidate_id=? "
+            "AND j.kind='simulate'", (str(campaign_id), str(law))).fetchall():
+        run = runs.setdefault(str(row["job"]), {"n": int(row["n"]), "whole": [], "cut": [], "wall": 0.0, "done": False})
+        whole = row["code"] is not None and int(row["code"]) == 0
+        if row["peak"]:
+            run["whole" if whole else "cut"].append(int(row["peak"]))
+        run["wall"] += float(row["wall"] or 0.0)
+        run["done"] = run["done"] or whole
+    return runs
 
 
 def running(repo, campaign_id: str, law: str) -> dict[int, dict]:
@@ -125,6 +131,9 @@ def _ladder(repo, campaign_id: str) -> list[int]:
 def asked(repo, campaign_id: str, law: str, n: int) -> int | None:
     import json
     from graph_scale_dynamics.scheduling import memory
+    own = pushed_ask(repo, campaign_id, law, n)
+    if own is not None:
+        return own
     row = repo.conn.execute(
         "SELECT spec_json FROM jobs WHERE campaign_id=? AND candidate_id=? AND kind='simulate' ORDER BY n DESC "
         "LIMIT 1", (str(campaign_id), str(law))).fetchone()
@@ -134,6 +143,40 @@ def asked(repo, campaign_id: str, law: str, n: int) -> int | None:
                                                  candidate_id=str(law), n=int(n), spec=spec))
 
 
+def pushed_ask(repo, campaign_id: str, law: str, n: int, *, job_id: str | None = None) -> int | None:
+    from statistics import median
+
+    from graph_scale_dynamics.operations import depth_reach
+    from graph_scale_dynamics.scheduling import memory
+    runs = _runs(repo, campaign_id, law)
+    whole: dict[int, list[int]] = {}
+    for run in runs.values():
+        whole.setdefault(run["n"], []).extend(run["whole"])
+    typical = {m: int(median(v)) for m, v in whole.items() if v}
+    grown = depth_reach.price(typical, int(n))
+    expected = typical.get(int(n)) or (int(grown["needs_bytes"] / depth_reach.SAFETY) if grown else 0)
+    mine = (runs.get(str(job_id)) or {}) if job_id else {}
+    expected = max(int(expected or 0), *(int(p) for p in (mine.get("whole") or []) + (mine.get("cut") or [])), 0)
+    if not expected:
+        return None
+    seen = memory.runaway_seen_bytes(repo.conn, "simulation", str(campaign_id), str(law), int(n))
+    return max(int(math.ceil(float(expected) * PUSHED_SLACK)),
+               int(math.ceil(float(seen) * memory.RUNAWAY_SEEN_SLACK)) if seen else 0)
+
+
+def claim_bytes(repo, job: dict) -> int | None:
+    job["pushed"] = pushed(repo, job["campaign_id"])
+    if not job["pushed"]:
+        return None
+    return pushed_ask(repo, str(job["campaign_id"]), str(job["candidate_id"]), int(job["n"]),
+                      job_id=str(job["job_id"]))
+
+
+def pushed(repo, campaign_id: str) -> bool:
+    found = getattr(repo, "campaign", None)
+    return callable(found) and is_push((found(str(campaign_id)) or {}).get("spec") or {})
+
+
 def typical_peaks(found: dict[int, dict]) -> dict[int, int]:
     return {m: int(r["typical_bytes"]) for m, r in found.items() if r.get("typical_bytes")}
 
@@ -141,7 +184,6 @@ def typical_peaks(found: dict[int, dict]) -> dict[int, int]:
 def price(repo, campaign_id: str, law: str, found: dict[int, dict], n: int, reach_bytes: int, *,
           typical: dict[int, int] | None = None) -> dict:
     from graph_scale_dynamics.operations import depth_reach
-    from graph_scale_dynamics.scheduling.memory import SETTLED_RESERVATION_SLACK
     typical = typical_peaks(found) if typical is None else typical
     here = found.get(int(n)) or {}
     grown = depth_reach.price(typical, int(n))
@@ -151,7 +193,7 @@ def price(repo, campaign_id: str, law: str, found: dict[int, dict], n: int, reac
                                         int(here.get("live_bytes") or 0), int(here.get("cut_bytes") or 0)) or None
     asks = asked(repo, campaign_id, law, int(n))
     first = max(int(asks or 0), int(grown_bytes or 0)) or expected
-    hold = (int(own) if own else int(math.ceil(float(expected) * SETTLED_RESERVATION_SLACK))) if expected else first
+    hold = int(math.ceil(float(expected) * PUSHED_SLACK)) if expected else first
     fits = grown_bytes is None or grown_bytes <= int(reach_bytes)
     if not first:
         at_once = None
@@ -370,5 +412,6 @@ def tick(repo, *, now: float | None = None, force: bool = False) -> dict | None:
     return done
 
 
-__all__ = ["CEILING_RULE", "CONTRACT", "EVERY_SECONDS", "LEAST_SEEDS", "NOW", "PUSH", "asked", "campaign", "forecast", "is_push", "plan",
-           "price", "reach", "rungs", "running", "step", "tick", "typical_peaks", "workers"]
+__all__ = ["CEILING_RULE", "CONTRACT", "EVERY_SECONDS", "LEAST_SEEDS", "NOW", "PUSH", "PUSHED_SLACK", "asked", "campaign",
+           "claim_bytes", "forecast", "is_push", "plan", "price", "pushed", "pushed_ask", "reach", "rungs", "running",
+           "step", "tick", "typical_peaks", "workers"]

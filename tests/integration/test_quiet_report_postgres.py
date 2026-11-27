@@ -463,3 +463,36 @@ def test_a_runner_that_keeps_failing_says_why_and_resumes_the_fleet(isolated_pos
         assert "failed 15 times in a row" in record["error"]
     finally:
         repo.close()
+
+
+def test_a_quiet_bundle_leaves_the_n_push_running_and_waits_for_nothing_of_it(isolated_postgres_schema, tmp_path,
+                                                                             monkeypatch):
+    base = tmp_path / "FOLDER" / "var" / "reports"
+    started: list = []
+    _runner(monkeypatch, base, started)
+    repo = _fleet(isolated_postgres_schema.dsn, names=("camp-a", "camp-b"))
+    try:
+        pushed = dict(SPEC, study_design={"kind": "focus", "focus": {"part": "P"}})
+        repo.insert_campaign("camp-push", pushed, content_hash(pushed))
+        repo.insert_candidate("law-push", "camp-push", LAW, "metropolis", 1, "EXTENDING")
+        repo.insert_job(job_id="job-push", campaign_id="camp-push", candidate_id="law-push", kind="simulate",
+                        stage="extend", n=1048576, seed=2, replicate=0, spec={"candidate_spec": LAW}, priority=10,
+                        sealed=False, requested_by="quiet-contract")
+        seed = _lease(repo, "camp-push")
+        assert quiet_report.beside_the_push(repo) == ["camp-push"]
+
+        payload, code = quiet_report.request(repo, "camp-a", "quiet", report_base=base, db="folder")
+        assert code == 202, payload
+        record = payload["quiet_report"]
+        assert sorted(record["paused"]) == ["camp-a", "camp-b"] and record["beside"] == ["camp-push"], (
+            "899, the operator's answer of 18:26: a bundle leaves the N-push's seeds running")
+        record = quiet_report.step(repo)
+        assert record["stage"] == quiet_report.DRAINING and not control.is_paused(repo, "camp-push")
+        record = quiet_report.step(repo)
+        assert record["stage"] == quiet_report.REPORTING and started, "the N-push's seed in flight holds nothing back"
+        assert record["in_flight"]["beside"] == {"camp-push": {"simulate": 1}}
+        assert repo.conn.execute("SELECT status FROM jobs WHERE job_id=?", (seed["job_id"],)).fetchone()[
+            "status"] == "leased"
+        assert quiet_report.quiet_problem(repo) is None, "one campaign's cycle is not refused for the N-push's seed"
+    finally:
+        repo.close()

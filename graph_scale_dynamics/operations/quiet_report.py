@@ -28,8 +28,15 @@ STUDY_SCOPE = "study"
 _REPORT_FINISHED = frozenset({"complete", "complete_with_errors", "error", "unchanged"})
 
 
-def work_in_flight(repo, now: str | None = None) -> dict:
+def beside_the_push(repo) -> list[str]:
+    from graph_scale_dynamics.operations.push_ladder import is_push
+    return sorted((str(row["campaign_id"]) for row in repo.active_campaigns() if is_push(row.get("spec") or {})),
+                  key=_campaign_order)
+
+
+def work_in_flight(repo, now: str | None = None, *, beside: list[str] | None = None) -> dict:
     now = now or utc_now()
+    left = {str(c) for c in beside or []}
     by_campaign: dict[str, dict[str, int]] = {}
     rows = repo.conn.execute(
         "SELECT campaign_id,kind,COUNT(*) AS c FROM jobs WHERE status='leased' "
@@ -43,16 +50,18 @@ def work_in_flight(repo, now: str | None = None) -> dict:
     for row in rows:
         bucket = by_campaign.setdefault(str(row["campaign_id"]), {})
         bucket["analysis_queue"] = bucket.get("analysis_queue", 0) + int(row["c"] or 0)
+    running_beside = {cid: kinds for cid, kinds in by_campaign.items() if cid in left}
+    by_campaign = {cid: kinds for cid, kinds in by_campaign.items() if cid not in left}
     total = sum(sum(kinds.values()) for kinds in by_campaign.values())
     parts = [f"campaign {cid}: " + ", ".join(f"{n} {kind}" for kind, n in sorted(kinds.items()))
              for cid, kinds in sorted(by_campaign.items())]
-    return {"total": int(total), "by_campaign": by_campaign,
+    return {"total": int(total), "by_campaign": by_campaign, "beside": running_beside,
             "reading": ("nothing is in flight" if not total
                         else f"{total} unit(s) of work in flight ({'; '.join(parts)})")}
 
 
 def quiet_problem(repo) -> dict | None:
-    flight = work_in_flight(repo)
+    flight = work_in_flight(repo, beside=beside_the_push(repo))
     if not flight["total"]:
         return None
     return {"error": ("reports run only while no work is in flight, so a cycle never "
@@ -138,20 +147,23 @@ def start(repo, campaign_id: str | None = None, *, report_base=None, db: str | N
     if not campaigns:
         return {"ok": False, "code": 409,
                 "problem": "no campaign to report on: reporting follows an active continuous campaign"}
+    beside = beside_the_push(repo)
     running = [] if only else [str(row["campaign_id"]) for row in repo.active_campaigns()
-                               if control.derived_state(row) not in (control.PAUSED, control.PAUSING)]
+                               if control.derived_state(row) not in (control.PAUSED, control.PAUSING)
+                               and str(row["campaign_id"]) not in beside]
     record = {"contract": QUIET_REPORT_CONTRACT, "request_id": uuid.uuid4().hex,
               "campaign_id": campaigns[0], "campaigns": campaigns, "index": 0, "reported": [],
               "selected": campaign_id or None, "report_base": str(report_base) if report_base else None,
-              "study_bundle": None, "paused": running, "resumed": [],
+              "study_bundle": None, "paused": running, "beside": beside, "resumed": [],
               "started_utc": utc_now(), "report_request_id": None, "error": None,
               "outcome": None,
               "study_run": True, "db": db, "api_base": api_base, "only": bool(only)}
     if only:
         _advance(record, DRAINING, f"one report cycle for campaign {campaigns[0]}, by the study runner")
     else:
-        _advance(record, PAUSING, f"pausing {len(running)} running campaign(s); then a report cycle for each of "
-                                  f"{len(campaigns)} campaign(s)")
+        _advance(record, PAUSING, f"pausing {len(running)} running campaign(s)"
+                                  + (f", the N-push's campaign {', '.join(beside)} left running" if beside else "")
+                                  + f"; then a report cycle for each of {len(campaigns)} campaign(s)")
     return {"ok": True, "code": 202, "state": _save(repo, record)}
 
 
@@ -178,7 +190,7 @@ def step(repo) -> dict | None:
     if stage == DRAINING and record.get("only"):
         return _save(repo, _start_reports(record, ""))
     if stage == DRAINING:
-        flight = work_in_flight(repo)
+        flight = work_in_flight(repo, beside=record.get("beside") or [])
         record["in_flight"] = flight
         if flight["total"]:
             if _age_seconds(record.get("stage_utc")) > DRAIN_TIMEOUT_SECONDS:

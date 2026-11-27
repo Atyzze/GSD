@@ -59,9 +59,17 @@ Open, from 864 (2026-11-25 11:06):
   region predicts its kind), the controls the control of the instrument. Cost of dropping them: nothing that checks
   the instrument inside a study's own folder and bundle.
 
+Open, from 899 (2026-11-27 19:39):
+
+* **G133 off the push list until zone 1 is benchmarked?** Zone 1 of study 178 (S178-C15-G2302) stopped two steps short
+  when the N-push took the fleet at 11:20Z: its 3 edges read at 16,384 and its benchmark, under an hour of the fleet.
+  The zone search runs only while the push list is empty; G73 ends at 1,048,576 around 11-28 morning, then G133 climbs
+  from 64 to 1,048,576, a day or more. Recommended: take G133 off ("stop pushing" on the Top page) and push it again
+  once zone 1 is benchmarked, which the zone map's next builds wait on. Other choice: leave it, zone 1 after G133.
+
 Answered, from 897: **both as recommended** (the operator, 2026-11-27 18:26: "agree with both recommendations"): a
 pushed seed held at 1.1 times its own typical peak grown to its size, and asked 1.1 times it to start; a bundle leaves
-the N-push's seeds running. Built in 899 (below, "Next, in order").
+the N-push's seeds running. Made in 899.
 
 Open, from 886:
 
@@ -134,30 +142,25 @@ said on the law page; 897 every seed the N-push buys read (a start cancelled 8 o
 priced as the admission holds a seed with the rung under way said, the push stopped at N=1,048,576 unless a law is
 pushed past it (the operator, 2026-11-27 15:47), the bundle carrying the N-push (`focus.json`'s `push_now`); 898 the
 fleet ladder's graphs those grown, of those bought (1,048,576 read 64 with none finished), and a seed's rough time over
-the seeds its law ran at the size below (it read 34 h 44 min for about 6.5 h).
+the seeds its law ran at the size below (it read 34 h 44 min for about 6.5 h); 899 a pushed seed asked and held at
+1.1 times its own peak, and a bundle that leaves the N-push running (the operator's answers of 18:26).
 
 **Next, in order** (laid out for the operator with 897, reordered with 898; each its own build):
 
-1. **899: the operator's two answers of 18:26**, both needing a restart of the fleet, so applied together. (a) A
-   pushed seed's hold: the admission asks 1.1 times the typical whole-run peak of the law's own seeds at the size below
-   grown to its size (`push_ladder.price`'s grown price over its safety), and holds a running pushed seed at 1.1 times
-   its peak, where every other law keeps 1.35 and 1.5; the host's 10 GiB floor and the hard stop at 60% of the host
-   hold for all. In 178 at 17:26Z three seeds of 1,048,576 ran, at up to 9.8 GiB, each held at about 14.7; at 1.1 times,
-   about 5 would run. (b) A bundle beside the N-push: a quiet bundle pauses every campaign but the push's
-   (`operations/quiet_report.py`), its report saying which seeds shared the host with it.
-2. **900: a resumed seed in a fresh seed's memory.** In 178 the two seeds of G73's 262,144 that were stopped and
+1. **900: a resumed seed in a fresh seed's memory.** In 178 the two seeds of G73's 262,144 that were stopped and
    resumed peaked at 3.05 and 3.19 GiB, the 14 that ran through at 1.47 to 1.53; the 4 seeds running at 1,048,576 were
    all resumed (1 to 3 stops each, the restart for 896 and the bundle of 14:27Z) and sit at 9.0 to 9.4 GiB, where a
    fresh one should be near 6 (about 190 bytes an edge at 65,536 and 262,144). The child keeps the saved state it
    resumed from (`artifact_store/resume_state.py`, `scaleflow/one_shot.run_one_shot`'s `resume`) beside the engine's
    graph. Measured first in the sandbox (a seed of 65,536 run through, and stopped and resumed: both peaks, the chains
    identical to the bit), then the state let go once the engine holds it. The admission's ask falls with it (it grows
-   from the doubled peak). Gain at 1,048,576: about 6 at once instead of 4; a restart or a bundle stops costing memory.
+   from the doubled peak). Gain at 1,048,576, with 899's hold: a resumed seed near 6.6 GiB held instead of about 10.8,
+   so about 8 at once instead of about 5; a restart or a bundle stops costing memory.
    It touches `scaleflow/`, named why; no engine change; `tools/outputs_of_a_law.py --against` unchanged. Then the
    unscheduled "Is the Rust engine as lean as it can be" profile, the bytes an edge against a plain adjacency list.
-3. **A consolidation**: 41 builds since 858's; no behaviour changes; after the N-push's fixes, never in the middle of
+2. **A consolidation**: 42 builds since 858's; no behaviour changes; after the N-push's fixes, never in the middle of
    one.
-4. **The zone map's road**, once the push list empties (G73 ends at 1,048,576, then G133): "Still open from 884 to
+3. **The zone map's road**, once the push list empties (G73 ends at 1,048,576, then G133): "Still open from 884 to
    896" below, the zone search's hours and idle slots read from 178's first mapped zone first.
 
 **Still open from 884 to 896**, each its own build, the first two waiting on study 178's first zones:
