@@ -133,7 +133,19 @@
       <div class=muted>${seedLine}</div>
       <div>${sens?`sensitive to <b>${esc(sens.on)}</b>: ${esc(sens.words)}`:'<span class=muted>sensitive to: not read yet (its seeds and the rings of 1e-3 or less)</span>'}</div>
       <div class=muted>its zone ${c.confirmed_at!=null&&(c.alike_to==null||+c.confirmed_at>+c.alike_to)?`stands at ring ${esc(radiusText(c.confirmed_at))}`:`reaches ${c.alike_to!=null?esc(c.alike_to):'no ring yet'}`} · its depth: deepest ${esc(size(depth.deepest))}, holds to ${esc(size(depth.holds_to))}${depth.invalidated_at!=null?`, <b class=warn>invalidated at ${esc(num(depth.invalidated_at))}</b>`:''}</div>
-      ${lines?`<ul class=map-lines>${lines}</ul>`:''}${termsLine(c)}`}
+      ${lines?`<ul class=map-lines>${lines}</ul>`:''}${termsLine(c)}${searchBlock(c.search)}`}
+  function searchBlock(s){
+    if(!s)return '';
+    const m=Object.values(s.members||{}), alike=m.filter(x=>x.verdict==='alike').length, near=m.filter(x=>x.near);
+    const fmtAt=v=>v==null?'-':`${(100*Number(v)).toFixed(Number(v)<0.1?1:0)}%`;
+    const rows=Object.entries(s.lines||{}).map(([k,l])=>{const steps=Object.values(l.steps||{}).sort((a,b)=>a.at-b.at).map(x=>`<span class=${x.verdict==='alike'?'good':x.verdict==='other'?'warn':'muted'} title="${esc(x.why||'not read yet')}">${esc(fmtAt(x.at))}</span>`).join(' ');const e=(s.edges||{})[k];
+      return `<tr><td>${esc(l.param)}</td><td>${l.sign>0?'up':'down'}</td><td>${steps||'<span class=muted>-</span>'}</td><td>${l.hi!=null?`between ${esc(fmtAt(l.lo))} and ${esc(fmtAt(l.hi))}`:l.done?`<span class=muted>${esc(l.why||'none')}</span>`:'<span class=muted>stepping out</span>'}</td><td>${e?(e.held==null?'<span class=muted>reading</span>':e.held?'<span class=good>held</span>':`<b class=warn>moved</b>`):''}</td></tr>`}).join('');
+    const b=s.benchmark, off=Object.entries(s.off||{}).map(([t,e])=>`${esc(t)}: ${esc(e.verdict||'waiting')}`).join(' · ');
+    return `<div class=map-search><b>the zone's search</b> <span class=muted>(${esc(s.stage)}; judged at N=${esc(num(s.judge_n))}, its edges read again at N=${esc(num(s.confirm_n))})</span>
+      <div class=muted>its laws: ${esc(num(alike))} of ${esc(num(m.length))} alike, ${esc(num(near.filter(x=>x.verdict==='alike').length))} of the ${esc(num(near.length))} within ${esc(s.radius)}${s.centre?` · its curves locked in at ${esc(num(s.judge_n))}: ${esc((s.centre.curves||[]).join(', ')||'none')}`:''}${off?` · each term off: ${off}`:''}</div>
+      <table class=map-search-lines><thead><tr><th>parameter</th><th>way</th><th title="each step from its value, green alike, amber another kind; hover for why">steps</th><th>its edge</th><th title="the two points either side, read again at the larger size">at ${esc(num(s.confirm_n))}</th></tr></thead><tbody>${rows}</tbody></table>
+      ${s.central?`<div>its central law: ${lawLink(s.central.law,s.central.of,s.central.label)}, pushed to the N limit</div>`:''}
+      ${b?`<div class=muted>the search cost ${esc(num(b.total.runs))} runs, ${esc(b.total.core_hours)} core-hours${b.total.hours!=null?` over ${esc(b.total.hours)} h`:''}; ${esc(b.ring_method.words)}; ${esc(num(b.calls.held))} of ${esc(num(b.calls.edges))} edges held at the larger size</div>`:''}</div>`}
   function needsLine(c,z){
     const n=c.needs||[], at=(z&&z.needs_at)||{};
     if(!n.length)return '';

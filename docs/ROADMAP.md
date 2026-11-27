@@ -75,7 +75,7 @@ original result? How has that been quantized?"):
 * **What makes a neighbour alike**: answered 2026-11-27 01:55 ("B, and the rule": "Yes"): alike at N when every curve
   both laws have locked in by N (its form held over three sizes, by the phenotype's forms) takes the same form at the
   same value or exponent within the phenotype's own margins, and their kinds agree; a curve not locked in counts
-  neither way, and a law that locks in nothing is judged by its kind alone. Made in 890's search.
+  neither way, and a law that locks in nothing is judged by its kind alone. Made at 890 (`observability/likeness.py`).
 * **A zone's law**: answered 19:49, its central law, the middle of its boundaries, pushed to the largest N: the zone's
   signature, every other law a distance from it.
 * **A topology probe** (886): the probes tell a circle from a torus (d 1 from d 2) but not a torus from a plane patch
@@ -85,8 +85,8 @@ original result? How has that been quantized?"):
 Open, from 887 (`docs/build_notes/BUILD887_NOTES.md`):
 
 * **The first zone**: answered 2026-11-27 01:55: the rule's, G79's family (29 laws within 0.1 of S176-C12-G100) first,
-  G37's family (28 within 0.1 of S177-C12-G1015) second; the ring method's run on G79's family (its 47 neighbours) is
-  what 890's search is benchmarked against.
+  G37's family (28 within 0.1 of S177-C12-G1015) second; the ring method's run on G79's family (44 laws of its term
+  set, 3.2 core-hours in 177's dex) is what 890's search is benchmarked against (`docs/build_notes/BUILD890_NOTES.md`).
 
 Open, from 871 (`docs/build_notes/BUILD871_NOTES.md`):
 
@@ -197,10 +197,9 @@ heading is `docs/agent/ZONE_MAP.md`. It takes the place of "From 884", items 2 t
    confirmed, denied or unmatched, listed on the Map page as it reads, the focus waiting for it.
 3. **887, made**: the first zone chosen to confirm fast, the most confirmed laws of one term set within 0.1 of one
    centre, never a control; its centre taken into focus.
-4. **890, the zone's search, benchmarked on that one zone**: its laws judged first; per parameter, stepped out until its
-   behaviour changes and halved three times, judged at 4,096 with the two points either side of an edge at 16,384;
-   its central law made from the middle of its alike points and pushed to half the host's memory; each edge's runs,
-   core-hours and hours beside the ring method's on the same law (G79's 47 neighbours in the dex of 15:11Z).
+4. **890, made** (`docs/build_notes/BUILD890_NOTES.md`): the first zone searched, its laws judged at 4,096 with no
+   run, each parameter stepped out both ways and halved three times, each edge read again at 16,384, its central law
+   pushed; benchmarked against the ring method's 3.2 core-hours on the same zone.
 5. **891, then zones one after another**, the dex a list of zones, each with its central law, members, edges and the N it
    holds to; lucky hits kept to revisit; a topology probe if the operator wants tori told from planes.
 
@@ -213,8 +212,8 @@ zones"; study 177 "is mainly the study where I want to complete two zones, get t
    the depth worker, the Dex laws, the blind draw, earlier laws' leftovers), the slider gone, a zone standing at a
    smaller ring from 0.01, zones named Z1, a law with no zone around it a lucky hit.
 2. **The zone's last stage**: its central law made from its members, run, and pushed to the largest N in place of the
-   depth worker as a step of its own (890); each term set to 0 beside switched off; a "push this law" mark (889,
-   made).
+   depth worker as a step of its own (890, made: after the operator's pushed laws); each term set to 0 beside
+   switched off; a "push this law" mark (889, made).
 3. **A smarter zone**: a neighbour judged at 16,384 needs 4,096 and 16,384, not 64 to 1,024 (three of its five round
    trips); the rings and seeds chosen where they tell most.
 4. **The dex as zones**: a zone carried with its law, members, edges and how far it holds; a dex read in as its own

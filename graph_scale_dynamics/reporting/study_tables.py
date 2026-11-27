@@ -74,6 +74,18 @@ def rung_rows(repo, campaign_ids, points: dict | None = None):
             yield row
 
 
+def law_rung_rows(repo, campaign_id: str, law: str) -> list[dict]:
+    cid = str(campaign_id)
+    version = repo.campaign_analysis_contract(cid)
+    out = []
+    for row in repo.conn.execute("SELECT n,summary_json FROM rung_summaries WHERE campaign_id=? AND candidate_id=? AND "
+                                 "analysis_version=? ORDER BY n", (cid, str(law), version)).fetchall():
+        summary = _parsed(row["summary_json"])
+        if summary:
+            out.append(rung_row(cid, str(law), int(row["n"]), version, summary))
+    return out
+
+
 def _parsed(text) -> dict:
     try:
         found = json.loads(text) if text else {}

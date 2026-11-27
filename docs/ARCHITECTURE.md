@@ -831,6 +831,23 @@ run and edges per size from its attempts (`push.sizes`) and the sizes ahead pric
 first past the depth worker's reach (`push.forecast`), and the study's laws by the deepest N any run of theirs has
 finished (`push.deepest`).
 
+**A zone's search** (890, `operations/zone_search.py`, `observability/likeness.py`). A law taken into focus by the zone
+rule (887) is searched instead of ringed: `focus.start_next` calls `zone_search.begin`, and `focus.advance` hands each
+step to `zone_search.advance`, through four stages kept in the law's `search`. Members: the zone's laws judged
+against the centre at `JUDGE_N` (4,096) from the runs the dex check made; two thirds of those within the plan's
+`confirm_radius` must read alike, else UNCONFIRMED. Edges: each `perturb.parameters` path, both ways, stepped from 10%
+of its value doubling (`next_at`, five steps, 95% at most down), each point a new law in the focus's part E campaign,
+laddered to 4,096 and in the zone step, judged by `likeness.alike`; at the first step read other, the gap halved
+three times (`HALVINGS`); each term switched off once (`focus.knockouts`) in the same campaign. Confirming: the two
+points either side of each edge in the zone campaign to the plan's `read_n` (16,384), against the centre's own seeds
+there; an edge holds when the inside reads alike and the outside other. Done: `central_spec`, the middle of each
+parameter's alike extent, made in the zone campaign and put on the focus's `central` list, which `push.front` puts
+after the pushed laws in the depth worker's line; `benchmark` prices the search from its attempts beside the plan's
+rings; the law ends MAPPED and its region is named as before. Likeness fits each law's curves from its rungs up to
+the size read by the phenotype's forms (`phenotype.fit`) and calls two laws alike when their kinds agree and every
+curve both have locked in has the same form and value or exponent within the phenotype's margins; with none shared,
+the kind alone.
+
 **The focus's choices** (882). `focus._chosen` records why it took a law (`chosen_by`: score, bundle, outlier,
 operator), said on the Map page's line. An outlier is taken only once the study has a scoring law and every one is
 mapped, inside a region or skipped; an outlier in focus (or a law of score 0 taken before 882 with no reason

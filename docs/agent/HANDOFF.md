@@ -1,4 +1,4 @@
-# Handoff: the state of GSD at build 889
+# Handoff: the state of GSD at build 890
 
 What is true now, for a context that has just opened this archive. Each fact has one home; the last section says
 where. **Think from the data, not from this page**: where the data and a document disagree, the data wins and the
@@ -24,7 +24,11 @@ of it verifies (`docs/build_notes/BUILD888_NOTES.md`). 889, on the operator's wo
 limit" toggle on every law page, the pushed laws first on the depth worker's one worker with or without a law in focus,
 and a Top page with the law being pushed, its memory per size and where it stops (`docs/build_notes/BUILD889_NOTES.md`).
 The operator answered at 01:55: a neighbour is alike by its locked-in curves, its kind as fallback; the first zone is
-the rule's, G79's family, then G37's.
+the rule's, G79's family, then G37's. 890 made both: no ring is drawn around the first zone's centre; its laws are
+judged at 4,096 with no run (`observability/likeness.py`), each parameter stepped out both ways and halved three times
+in a campaign read to 4,096 (part E), each edge read again at 16,384, and the central law, the middle of the alike
+extents, first in the depth worker's line after the pushed laws (`operations/zone_search.py`,
+`docs/build_notes/BUILD890_NOTES.md`). The ring method spent 3.2 core-hours on the same zone in 176.
 
 **The builds since the last handover, 871 to 885** (each build's notes in `docs/build_notes/`; the operator's words in
 `docs/HISTORY.md`):
@@ -56,9 +60,8 @@ the calibration table) and what it shows: `docs/WHERE_WE_ARE.md` and `docs/paper
 **Open threads at 886**, each with its home:
 
 * **Pull requests**: 864 to 880 (#11 to #27) merged by the operator; `main` holds 880. Open: #28 (881 to 886, 886's
-  archive on `main`, one commit), #29 (887, on #28) and 888's (on #29), made by 888's session once the operator gave
-  push access (2026-11-27 01:42), #30 888's and 889's on it. Each is on the one before; merged in order, each shows
-  only its own build.
+  archive on `main`, one commit), #29 (887), #30 (888), then 889's and 890's, made once the operator gave push access
+  (2026-11-27 01:42). Each is on the one before; merged in order, each shows only its own build.
 * **Study 177** runs since 2026-11-26 12:24Z (`/data/projects/GSD/177/main`), on 885 since about 19:40 local, seeded
   on 882 from the dex of 176's laws and 174's bundle. Its focus on S177-C11-G37 (from S174-C8-463fc3bf, 27 there).
   Its dex of 19:33Z (`dex_177_2026-11-26T19-33-48Z`, sent with 887): 193 laws in 76 term sets, 26,366 chains, no zone
@@ -229,12 +232,11 @@ again after the paper's three studies, on the final probes, with a criterion wri
 
 ## What waits on the operator
 
-* **#28, #29, #30 and 889's pull request**: theirs to merge, in that order.
-* **Study 178 on 888**: 888 applied to its folder, or 178 started afresh on 888 with the dex in `import/` before the
+* **#28 to #30, 889's and 890's pull requests**: theirs to merge, in that order.
+* **Study 178 on 890**: 890 applied to its folder, or 178 started afresh on 890 with the dex in `import/` before the
   start (`docs/build_notes/BUILD888_NOTES.md`, "For the folders").
-* **Which law to push first** on the Top page, once 889 is applied.
-* **What makes a neighbour alike** (`docs/agent/ZONE_MAP.md`, the proposal; `docs/ROADMAP.md`, "Questions for the
-  operator"): the forms of the curves both laws have locked in, within the score's margins.
+* **Which law to push first** on the Top page (889).
+* **Whether a zone's central law goes before the pushed laws** in the depth worker's line (890: after them).
 * **Study 176's standing controls**: kept as a tick (recommended; `docs/ROADMAP.md`, "Questions for the operator").
 * **Where the older data's archive goes public** (the consolidation): the review asks for a public archive (Zenodo or a tag) so a
   referee can see nothing was dropped selectively; the operator wants it out of the tree. Both hold if the archive

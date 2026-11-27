@@ -362,7 +362,7 @@ def contenders(repo, state: dict, ranked: list | None = None) -> list[str]:
         state["contenders"].pop(law)
     from graph_scale_dynamics.operations import push
     current = state.get("current") or {}
-    scoring = {e["candidate_id"] for e in ranked} | set(push.laws(state))
+    scoring = {e["candidate_id"] for e in ranked} | set(push.laws(state)) | set(push.central(state))
     for entry in push.entries(state):
         state["contenders"].setdefault(entry["law"], {"of": entry["of"], "label": entry.get("label"),
                                                       "joined_utc": entry.get("since") or utc_now(), "pushed": True})
@@ -651,6 +651,12 @@ def start_next(repo, state: dict, law: str | None = None, chosen: dict | None = 
     _insert(repo, state["campaigns"][SEEDS], spec)
     if state.get("lean") is None and not state.get("stopped") and callable(getattr(repo, "set_flag", None)):
         _lean(repo, state, FIRST_LEAN)
+    if chosen.get("chosen_by") == BY_ZONE:
+        from graph_scale_dynamics.operations import zone_search
+        zone_search.begin(repo, state, current, spec)
+        contenders(repo, state, ranked)
+        state["events"].append({"at": utc_now(), "began": current["label"], "search": True})
+        return current
     found, refused = neighbours(state, holder, spec, radii)
     current["refused"] = refused
     _add(repo, state, current, found)
@@ -859,7 +865,8 @@ def _summary(current: dict) -> dict:
             "needs": current.get("needs"), "kind_from": current.get("kind_from"),
             "chosen_by": current.get("chosen_by"),
             "identified_from": current.get("identified_from"), "early_call": current.get("early_call"),
-            "origin": current.get("origin"), "standing": current.get("standing")}
+            "origin": current.get("origin"), "standing": current.get("standing"),
+            **({"search": current.get("search_summary") or current["search"]} if current.get("search") else {})}
 
 
 def _end(state: dict, current: dict, stage: str, why: str) -> None:
@@ -897,6 +904,9 @@ def _need(what: str, done: bool, said: str) -> dict:
 
 
 def needs(state: dict, current: dict) -> list[dict]:
+    if current.get("search") is not None:
+        from graph_scale_dynamics.operations import zone_search
+        return zone_search.needs(state, current)
     p = state["plan"]["neighbourhood"]
     read_n, radius = int(p["read_n"]), f"{float(p['confirm_radius']):g}"
     kind, rows = current.get("kind"), current.get("tally") or {}
@@ -941,6 +951,9 @@ def needs(state: dict, current: dict) -> list[dict]:
 
 def advance(repo, state: dict) -> int:
     current = state["current"]
+    if current.get("search") is not None:
+        from graph_scale_dynamics.operations import zone_search
+        return zone_search.advance(repo, state, current)
     p = state["plan"]["neighbourhood"]
     read_n = int(p["read_n"])
     if current.get("kind") is None:
@@ -1014,6 +1027,9 @@ def advance(repo, state: dict) -> int:
 
 
 def members(repo, state: dict, current: dict) -> list[dict]:
+    if current.get("search") is not None:
+        from graph_scale_dynamics.operations import zone_search
+        return zone_search.members_specs(repo, state, current)
     seen = current.get("read") or {}
     specs = [_spec_of(repo, current["of"], current["law"])]
     for law, point in current["points"].items():
@@ -1023,6 +1039,9 @@ def members(repo, state: dict, current: dict) -> list[dict]:
 
 
 def _finish(repo, state: dict, current: dict) -> None:
+    if current.get("search") is not None:
+        from graph_scale_dynamics.operations import zone_search
+        current["search_summary"] = zone_search.summary(current)
     summary = _summary(current)
     summary["type"] = type_of(repo, state, current["of"], current["law"])
     if current["stage"] == MAPPED:

@@ -1,48 +1,44 @@
-# The next build is 890
+# The next build is 891
 
 This file names the next build and says how to make it. `tests/unit/test_next_build_is_named.py` parses its first line,
 which must read exactly `# The next build is <N>`, one above `BUILD_NUMBER`.
 
-## Where to begin: 890 benchmarks the zone's search on the first zone
+## Where to begin: 891 takes the zones one after another, the dex a list of zones
 
 **Starting from nothing but the repository** (the operator, 2026-11-24 23:00): clone `main` and bring it up by
 `docs/agent/ENVIRONMENT.md`, section 10, "From the repository". Then `docs/WHERE_WE_ARE.md`, `docs/agent/HANDOFF.md`,
-**`docs/agent/ZONE_MAP.md`** and this page, in that order, and `CLAUDE.md`'s rules for a shared repository. 871 to 889
-are made (`docs/build_notes/BUILD871_NOTES.md` to `BUILD889_NOTES.md`); 871 to 880 are on `main`, 881 to 889 in pull
-requests #28, #29, #30 and 889's, each on the one before: branch from the newest not yet merged.
+**`docs/agent/ZONE_MAP.md`** and this page, in that order, and `CLAUDE.md`'s rules for a shared repository. 871 to 890
+are made (`docs/build_notes/BUILD871_NOTES.md` to `BUILD890_NOTES.md`); 871 to 880 are on `main`, 881 to 890 in pull
+requests #28 to #30, 889's and 890's, each on the one before: branch from the newest not yet merged.
 
-**What comes first, when the operator sends 178's bundle or dex**: read the dex's check and the zone. On a bundle,
-`focus.json`'s `dex_check` (`counts`, every law's verdict, `first_differ` of any denied law, `began_utc`, `done_utc`)
-and `zone_chosen` (`centre`, `why`, `groups`, `taken_utc`), `dex_check.verify_to` (888: 4,096 unless the dex asked
-for more), then `zone_now` and the `events` as at 886; the `dex_written` flag says why each copy of the dex was
-written. Judge 178's
-criterion (`study_178_criterion.json`): P1 the dex campaign made with 193 laws, P2 no law in focus or deeper before
-every law read, P3 no law denied, P4 the first zone S176-C12-G100's; P5 reported. A denied law is read first (its
-first difference names the size, seed and start). `tools/dex.py zones` on a dex 178 writes reads the rule again.
+**What comes first, when the operator sends 178's bundle or dex**: read the dex's check, the zone and its search. On a
+bundle, `focus.json`'s `dex_check` (`counts`, every law's verdict, `first_differ` of any denied law) and `zone_chosen`
+(`centre`, `why`, `groups`, `taken_utc`) as at 889; then the law in focus's `search` (890): `stands` (its laws alike
+within 0.1), each line's `steps` (`at`, `verdict`, `why`) and its `lo`/`hi`, the `edges` and whether each `held` at
+16,384, the `central` law and the `benchmark` (its runs and core-hours against the ring method's 3.2 core-hours on the
+same zone, `docs/build_notes/BUILD890_NOTES.md`). Judge 178's criterion (`study_178_criterion.json`): P1 to P4 as
+before; P5 reported. A line whose steps read other at once (an edge under 10%) says the zone is narrow along it; an
+edge that did not hold at 16,384 says 4,096 is too early to judge along it.
 
-**What 890 makes** (`docs/ROADMAP.md`, "From 886", item 4), on the first zone alone, the rule's (G79's family), a
-neighbour alike by its locked-in curves with its kind as fallback (the operator, 2026-11-27 01:55):
+**What 891 makes** (`docs/ROADMAP.md`, "From 886", item 5):
 
-1. **Its laws judged first**, with no new run: the dex campaign's laws of the zone's term set, read at 16,384 by
-   their kind (and, if the operator answers it, by the phenotype's locked-in curves, `docs/agent/ZONE_MAP.md`), so the
-   zone's members and its first edges come from what is already paid for.
-2. **Its edges per parameter**: from the centre, each coupling and the dynamics' parameters stepped out both ways,
-   doubling until the behaviour changes, then the gap halved three times; each point judged at 4,096, and only the two
-   points either side of an edge run to 16,384. Each term set to 0 beside switched off (law space's faces).
-3. **The central law** made from the middle of the points read alike, run, and pushed to half the host's memory in
-   place of the depth worker's next law.
-4. **Benchmarked**: every edge's runs, core-hours and hours, how often the call at 4,096 matched 16,384, beside the
-   ring method's on the same law (G79's 47 neighbours already in the dex) and the rings 887 drew around the centre.
-   Its runs go to the zone step of the fleet's order; 888 took the Dex step law by law (`work_groups.claim_bounds`),
-   and the zone step may take its points the same way if the benchmark shows it finishes edges sooner. The central
-   law goes to the depth worker through the push list's line (889, `push.front`), after the operator's pushed laws.
+1. **The next zone**: once a zone's search ends MAPPED or UNCONFIRMED, the zone rule (`zone_choice`) is asked again
+   over the laws not inside a mapped zone (inside: within every edge of its search), and its centre taken into focus
+   and searched; G37's family is next by 887's reading. A scoring law with no zone around it waits behind the zones.
+2. **The dex a list of zones**: `dex.json` gains `zones`, each with its centre, central law, members, kind, edges
+   (per parameter, `lo` and `hi`), the size each edge held to, and the benchmark; `tools/dex.py zones` prints them; a
+   dex read in carries its zones into `zone_chosen`, so a mapped zone is not searched again, only its central law read
+   again to the dex's level.
+3. **Lucky hits kept**: a law that read its kind with no zone around it (885's lucky hit) is listed in the dex to
+   revisit, not searched.
+4. **The search's hours**, if 178's benchmark shows the lines' steps as the slow part: each line's next two points
+   at once (the step out and the one after), the one not needed dropped when the first reads.
 
-**Acceptance**: the zone's laws judged with no run in a test; an edge found by stepping and halving on a law of known
-answer in a test; the benchmark's table in the notes; `outputs_of_a_law --against` 889's record unchanged; the full
-lane green.
+**Acceptance**: a second zone searched after the first in a test; a dex written with its zones and read back with
+them, a mapped zone not searched again; `outputs_of_a_law --against` 890's record unchanged; the full lane green.
 
-**Waiting on the operator**: #28, #29, #30 and 889's pull request; study 178 on 889 (applied, or started afresh
-with 177's dex in `import/`); which law to push first on the Top page.
+**Waiting on the operator**: #28 to #30, 889's and 890's pull requests; study 178 on 890; whether the central law
+goes before the operator's pushed laws in the depth worker's line (now after).
 
 ## Reading a study's bundle
 

@@ -16,8 +16,12 @@ def laws(state: dict | None) -> list[str]:
     return [str(e["law"]) for e in entries(state)]
 
 
+def central(state: dict | None) -> list[str]:
+    return [str(e["law"]) for e in (state or {}).get("central") or [] if e.get("law")]
+
+
 def front(state: dict | None, line: list[str], held) -> list[str]:
-    first = [law for law in laws(state) if law in held]
+    first = [law for law in laws(state) + central(state) if law in held]
     return first + [law for law in line if law not in first]
 
 
@@ -144,4 +148,4 @@ def reading(repo, state: dict | None, *, limit: int = TOP) -> dict:
             "laws_read": len(ranked)}
 
 
-__all__ = ["CONTRACT", "KEY", "TOP", "deepest", "entries", "forecast", "front", "laws", "reading", "sizes", "toggle"]
+__all__ = ["CONTRACT", "KEY", "TOP", "central", "deepest", "entries", "forecast", "front", "laws", "reading", "sizes", "toggle"]
