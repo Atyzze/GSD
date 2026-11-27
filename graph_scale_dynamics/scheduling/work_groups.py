@@ -10,13 +10,13 @@ BLIND, MAP = "A", "B"
 NEIGHBOURS, DEPTH = "N", "D"
 LAWS_IN_KINDS = ("seed",)
 FOCUS_KIND = "focus"
-ZONE_PARTS = ("N", "S")
+ZONE_PARTS = ("N", "S", "E")
 BEHIND = 10_000_000_000
 ZONE_TIER, DEPTH_TIER, DEX_TIER, BLIND_TIER, LEFTOVER_TIER = range(5)
 TIER_NAMES = ("the zone of the law in focus", "the depth worker", "the Dex laws read again", "the blind draw",
               "earlier laws' leftovers")
 TIER_SQL = ("CASE WHEN (c.spec_json::jsonb #>> '{study_design,kind}')='focus' "
-            "AND (c.spec_json::jsonb #>> '{study_design,focus,part}') IN ('N','S') THEN 0 "
+            "AND (c.spec_json::jsonb #>> '{study_design,focus,part}') IN ('N','S','E') THEN 0 "
             "WHEN (c.spec_json::jsonb #>> '{study_design,kind}')='focus' "
             "AND (c.spec_json::jsonb #>> '{study_design,focus,part}')='D' THEN 1 "
             "WHEN (c.spec_json::jsonb #>> '{study_design,kind}')='seed' THEN 2 ELSE 3 END")

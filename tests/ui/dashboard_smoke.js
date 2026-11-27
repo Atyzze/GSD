@@ -4163,6 +4163,35 @@ check('the Map page reads its rings and settings and refuses what is not radius:
   if (map.ringsText([[1e-9, 4], [0.001, 4], [0.1, 8]]) !== '1e-9:4, 0.001:4, 0.1:8') throw new Error(map.ringsText([[1e-9, 4], [0.001, 4], [0.1, 8]]));
 });
 
+check('the Map page shows the zone’s search: each line stepped out and halved, its edges read again, its central law and its cost (890)', () => {
+  const map = sandbox.GSD_MAP;
+  const search = { stage: 'confirming', judge_n: 4096, confirm_n: 16384, radius: 0.1, centre: { kind: 'made', curves: ['d_s', 'mean_degree'] },
+                   members: { a: { near: true, verdict: 'alike' }, b: { near: true, verdict: 'alike' }, c: { near: false, verdict: 'other' } },
+                   off: { square_edge_overlap: { verdict: 'other' } },
+                   lines: { 'beta +': { param: 'beta', sign: 1, lo: 0.55, hi: 0.6, done: true,
+                                        steps: { '0.1': { at: 0.1, verdict: 'alike' }, '0.8': { at: 0.8, verdict: 'other', why: 'reads moved, not made' } } },
+                            'swap +': { param: 'swap', sign: 1, lo: 0, hi: null, done: true, why: 'a share cannot leave 0 to 1', steps: {} },
+                            'beta -': { param: 'beta', sign: -1, lo: 0.1, hi: null, done: false, steps: { '0.1': { at: 0.1, verdict: 'alike' } } } },
+                   edges: { 'beta +': { held: true }, 'beta -': { held: null } },
+                   central: { law: 'cd'.repeat(32), of: '11', label: 'S178-C11-G9' },
+                   benchmark: { total: { runs: 412, core_hours: 3.1, hours: 2.4 }, ring_method: { words: 'the ring method read 29 neighbours of this zone on 3 seeds at 5 sizes to N=16,384: about 435 runs' },
+                                calls: { held: 1, edges: 2 } } };
+  const page = JSON.parse(JSON.stringify(FOCUS_PAGE));
+  page.focus.current.search = search;
+  map.render(page);
+  const current = getElementById('mapCurrent').innerHTML;
+  for (const want of ["the zone's search", 'confirming; judged at N=4,096, its edges read again at N=16,384', 'its laws: 2 of 3 alike, 2 of the 2 within 0.1',
+                      'its curves locked in at 4,096: d_s, mean_degree', 'each term off: square_edge_overlap: other',
+                      'between 55% and 60%', '<span class=warn title="reads moved, not made">80%</span>', 'a share cannot leave 0 to 1', 'stepping out',
+                      '<span class=good>held</span>', '<span class=muted>reading</span>', 'S178-C11-G9', 'pushed to the N limit',
+                      'the search cost 412 runs, 3.1 core-hours over 2.4 h', 'about 435 runs', '1 of 2 edges held at the larger size']) {
+    if (!current.includes(want)) throw new Error(`the zone's search lacks "${want}": ${current.slice(0, 900)}`);
+  }
+  delete page.focus.current.search;
+  map.render(page);
+  if (getElementById('mapCurrent').innerHTML.includes('map-search')) throw new Error('a law in focus with no search draws one');
+});
+
 checkAsync('a Map page button sends its action to the focus and draws the answer', async () => {
   const map = sandbox.GSD_MAP, sys = sandbox.GSD_SYSTEM, original = sys.postJson, sent = [];
   try {

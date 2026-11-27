@@ -80,7 +80,7 @@ def roles_of(repo, state: dict) -> dict[str, str]:
         kind = design.get("kind")
         if kind == F.KIND:
             part = (design.get("focus") or {}).get("part")
-            role = {F.NEIGHBOURS: ZONE, F.SEEDS: ZONE_SEEDS, F.DEPTH: DEPTH}.get(part, OTHER)
+            role = {F.NEIGHBOURS: ZONE, F.SEEDS: ZONE_SEEDS, F.DEPTH: DEPTH, "E": ZONE}.get(part, OTHER)
         else:
             role = {"seed": DEX, "blind": BLIND}.get(kind, OTHER)
         out[str(campaign["campaign_id"])] = role
@@ -98,6 +98,8 @@ def part_of(state: dict, role: str, campaign: str, law: str) -> str:
     from graph_scale_dynamics.operations import focus as F
     current = state.get("current") or {}
     campaigns = {str(c) for c in (state.get("campaigns") or {}).values()}
+    if role == ZONE and campaign == str((state.get("campaigns") or {}).get("E") or ""):
+        return "a step of the zone's search, read to N=4,096"
     if role == ZONE:
         point = (current.get("points") or {}).get(law) if campaign in campaigns else None
         if not point:
