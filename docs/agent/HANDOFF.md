@@ -1,4 +1,4 @@
-# Handoff: the state of GSD at build 900
+# Handoff: the state of GSD at build 901
 
 What is true now, for a context that has just opened this archive. Each fact has one home; the last section says
 where. **Think from the data, not from this page**: where the data and a document disagree, the data wins and the
@@ -64,6 +64,9 @@ in `docs/HISTORY.md`):
 * 900: the N-push runs 3 seeds a rung (the operator, 19:52), a rung holding more keeping its done and running seeds
   up to 3 and letting its other queued seeds go (G73's 1,048,576: 3 running kept, 5 queued let go); a rung done says
   how many ran at once, its passes, its time and when.
+* 901: a resumed seed in a fresh seed's memory: its saved state read back as the engine keeps it (a pair a tuple,
+  equal numbers one object) and let go once the run hands out its next (at 16,384: 181 MiB where it held 304, a fresh
+  one 170, the chains the same). A restart of the fleet.
 
 **Before that, 871 to 885** (the handover of 886 read them):
 
@@ -91,9 +94,9 @@ and 862 the focus and the Map page; 864 to 869 no law done, study 176 seeded fro
 `import/` folder; 870 a handover. The baseline the paper rests on (174's bundle of 2026-11-24 14:22Z, 175's of 08:35Z,
 the calibration table) and what it shows: `docs/WHERE_WE_ARE.md` and `docs/paper/GSD_PAPER.md`.
 
-**Open threads at 900**, each with its home:
+**Open threads at 901**, each with its home:
 
-* **Pull requests**: 864 to 899 (#11 to #41) merged by the operator; `main` holds 899. Open: 900's.
+* **Pull requests**: 864 to 900 (#11 to #42) merged by the operator; `main` holds 900. Open: 901's.
 * **Study 178** (`/data/projects/GSD/178/main`, `study_178_design.json`, criterion `study_178_criterion.json`) runs
   on 893 since 2026-11-27 about 11:20Z. 177's dex of 19:33Z was read in at its start (C15) and checked: 192 laws
   confirmed, 1 unmatched, at 07:18Z; the first zone (S178-C15-G2302, 177's S176-C12-G100, G79's family) was chosen at
@@ -273,7 +276,7 @@ again after the paper's three studies, on the final probes, with a criterion wri
 
 ## What waits on the operator
 
-* **900's pull request**: theirs to merge; 898 to 900 applied to the folders with one restart of the fleet.
+* **901's pull request**: theirs to merge; 898 to 901 applied to the folders with one restart of the fleet.
 * **G133 off the push list until zone 1 is benchmarked?** (`docs/ROADMAP.md`, "Questions for the operator"): recommended.
 * **Study 178 on 897**, G73's 1,048,576 under way (3 seeds at about 17:26Z, none finished); 898
   applies with a restart of the dashboard alone; its next bundle once G73's 1,048,576 is read.

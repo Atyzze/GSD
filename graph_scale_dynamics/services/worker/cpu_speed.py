@@ -41,9 +41,8 @@ def topology(cpu: int | None) -> dict:
     return {key: value for key, value in out.items() if value is not None}
 
 
-def cpu_speed(envelope: dict, resume: dict | None, cpu_seconds: float) -> dict:
-    moves = max(0, chain_moves(envelope.get("sampling_checkpoint"))
-                - chain_moves((resume or {}).get("checkpoint")))
+def cpu_speed(envelope: dict, moves_before: int, cpu_seconds: float) -> dict:
+    moves = max(0, chain_moves(envelope.get("sampling_checkpoint")) - int(moves_before))
     cpu = last_cpu()
     try:
         allowed = len(os.sched_getaffinity(0))

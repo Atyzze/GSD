@@ -515,6 +515,18 @@ copy the relief moved to disk, stays until the worker's commit of the rung is on
 drain resumes the rung where its chain stood (742); a state left behind goes with the prune once its job is no longer
 queued or leased. A resumed rung equals an uninterrupted one, on either engine (the parity lane).
 
+**A resumed seed holds what a fresh one holds** (901). A saved state is read back as the engine keeps it: a packed
+pair a tuple, equal numbers one object (`resume_state.unpacked_list`), decoded while the JSON is parsed
+(`unpacking`, `json.load`'s `object_hook`), so the file's arrays are not held beside what they decode to. The child
+counts the moves its saved state had run before the run starts (`cpu_speed(envelope, moves_before, ...)`) and, at
+the first state the run hands out, lets the saved checkpoint and its whole chunk go (`let_go_of_its_states`,
+`HELD_STATES`); from there the run holds what a fresh seed holds, its checkpoint inside a chunk until the next save
+and its last whole chunk until the next. Before 901 a resumed seed kept both for its whole run beside the engine's
+graph, every edge a list of two numbers of its own: at 16,384 (G73's seed 2, stopped inside its third chunk) a fresh
+seed held at most 170 MiB, the resumed one 304, with 901 181, the chains identical to the bit; in 178 the resumed seeds of 262,144 peaked at 3.05 and 3.19 GiB against 1.47 to 1.53 for
+those that ran through. `scaleflow/` and the engines are untouched: the run reads its `resume` before its first
+chunk and, after it, only the chunks it had (`chunks_before`).
+
 **The fleet ladder's graphs** are those grown, a start of every finished seed (`rung_distribution`'s `completed`
 times the starts a seed), "of" the graphs bought where more are bought than grown (its `graphs`, a seed whatever its
 status), with a + those under way (898: in 178, 1,048,576 read 64, its 8 seeds bought, with none finished). **A seed's
@@ -754,7 +766,8 @@ reads the entries for its campaign (`DecisionStore.memory_ceilings`), records th
 inputs, and `memory_ceiling.settle` turns a decision buying that size or past it into `stop memory_ceiling`
 (`PARKING_RULES`, an operational gate, not salted); `decisions/replay.py` applies it from the inputs. A saved seed
 (`artifact_store/resume_state.py`) writes every list of 4,096 or more whole numbers or pairs of them packed
-(`packed`, `unpacked`: base64 of a 32- or 64-bit array inside the gzip JSON, marked `__gsd_packed__`).
+(`packed`, `unpacked`: base64 of a 32- or 64-bit array inside the gzip JSON, marked `__gsd_packed__`); read back,
+a pair is a tuple as the engine keeps it (901; 873 to 900 read it back as a list).
 
 **One depth worker, and a step that cannot fail unseen** (881; the depth worker's own law retired at 893, when a law
 goes deeper only on the push list, "A law pushed to the N limit" below). The depth campaign held one law at a time

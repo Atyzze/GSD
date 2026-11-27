@@ -21,7 +21,7 @@ from graph_scale_dynamics.domain.version import (
     DeploymentProvenanceFence, verify_environment_fingerprint, verify_runtime_fingerprint,
 )
 from graph_scale_dynamics.dsl.dsl import fingerprint
-from graph_scale_dynamics.services.worker.cpu_speed import cpu_speed
+from graph_scale_dynamics.services.worker.cpu_speed import chain_moves, cpu_speed
 from graph_scale_dynamics.services.worker.engine_registry import engine_sources_digest, resolve_engine
 
 RUN_ENGINE: dict = {}
@@ -30,7 +30,8 @@ from graph_scale_dynamics.scaleflow.one_shot import ONE_SHOT_CONTRACT, ONE_SHOT_
 
 STOPPED_EXIT_CODE = 75
 from graph_scale_dynamics.artifact_store.resume_state import (
-    RESUME_MIN_SECONDS, discard_resume_state, load_resume_state, resume_path, save_resume_state, stop_file_for)
+    RESUME_MIN_SECONDS, discard_resume_state, let_go_of_its_states, load_resume_state, resume_path, save_resume_state,
+    stop_file_for)
 
 
 def without_the_whole_chunk(state: dict, refused: Exception) -> dict:
@@ -113,8 +114,10 @@ def _run(argv: list[str]) -> int:
             discard_resume_state(disk_path)
         else:
             disk_copy_kept.append(disk_path)
+    moves_before = chain_moves((resume or {}).get("checkpoint"))
 
     def keep_state(state: dict) -> None:
+        let_go_of_its_states(resume)
         if state_path is not None and float(state.get("seconds_spent") or 0.0) >= RESUME_MIN_SECONDS:
             try:
                 save_resume_state(state_path, state, execution_spec_hash=execution_spec_hash)
@@ -146,7 +149,7 @@ def _run(argv: list[str]) -> int:
             "peak_rss_bytes": int(usage.ru_maxrss * rss_scale),
             "user_cpu_seconds": float(usage.ru_utime),
             "system_cpu_seconds": float(usage.ru_stime),
-            "cpu_speed": cpu_speed(envelope, resume, float(usage.ru_utime) + float(usage.ru_stime)),
+            "cpu_speed": cpu_speed(envelope, moves_before, float(usage.ru_utime) + float(usage.ru_stime)),
         }
     else:  # pragma: no cover
         process = psutil.Process()
