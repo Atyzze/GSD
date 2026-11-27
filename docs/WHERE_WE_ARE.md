@@ -1,4 +1,4 @@
-# Where we are, at build 901
+# Where we are, at build 902
 
 The whole project on one page, in plain words; the detail is in `docs/agent/HANDOFF.md`.
 
@@ -55,7 +55,7 @@ are one seed of three at small sizes, on graphs in pieces or trees the next size
 68% to 81% of the way there from empty, worse as N grows. Until a known law grows its geometry from empty, "nothing
 grows from empty" cannot be told from "nothing can get there under these moves".
 
-## What 800 to 901 changed
+## What 800 to 902 changed
 
 The probes locked and your table installed (800 to 805); the evidence judged again on the final code (806 to 843); 844
 study 174; 845 to 853 study 175; 854 the paper's draft; 855 the ledger; 856 study 176; 857 to 870 Home, the focus, the
@@ -66,20 +66,20 @@ verified first, the first zone chosen. 888: the dex read again to 4,096, law by 
 893: three modes; the N-push its own ladder from 64. 894: one code a law, pages told of each change. 895: a handover.
 896: the N-push's probes get its slots. 897: every seed it buys read, stopped at 1,048,576. 898: graphs grown counted.
 899: a pushed seed held at 1.1 times its peak. 900: 3 seeds a rung. 901: a resumed seed in a fresh one's memory.
+902: a consolidation.
 
 ## What comes next
 
-902: a consolidation. Then the zone map's road, which waits on zone 1's benchmark: G133 off the push list until then
-is recommended.
+903: the zone map's road, from zone 1's benchmark: G133 off the push list until then is recommended.
 
 ## The decision in front of you
 
-1. **Merge 901; apply 898 to 901 to study 178 with one restart of the fleet**: G73's 1,048,576 keeps its 3
+1. **Merge 902; apply 898 to 901 to study 178 with one restart of the fleet**: G73's 1,048,576 keeps its 3
    seeds running, one pass, each resumed in a fresh seed's memory. Send 178's bundle once that rung is read.
 2. **The push list's order** on the Top page: "first", "up", "past N=1,048,576", "stop pushing".
 3. **Whether a known law must grow its geometry from empty first** (recommended, before more compute from empty):
    parallel tempering is the cheapest remedy, an engine change of about a build, its known answers read again after.
-4. **Where the archive of the older data goes public** (the consolidation), so a reader can see nothing was dropped selectively.
+4. **Where the archive of the older data goes public**: a GitHub release now, a Zenodo DOI with the paper (recommended).
 
 ## Words you will see
 

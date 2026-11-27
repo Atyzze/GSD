@@ -52,6 +52,10 @@ The recipes are `docs/agent/ENVIRONMENT.md`.
   digits held it (782); name the files a pin lives in, or add `--include=*.py` and `| head`.
 * Read the gate's exit from the gate, not from `tail` (append `EXIT $?` to the log); stop a run by the PID it wrote
   (`pkill -f` can match its own shell); after an interrupted lane, check `pgrep -x btop`.
+* The bundled PostgreSQL refuses root ("refusing root execution"): where the shell is root, the gate and every
+  database test run as the folder's own user with the prefix file (`runuser -u <user> -- bash -c '. <prefix>; ...'`).
+  Run as root they skip as "folder-local PostgreSQL is unavailable", which `GSD_REQUIRE_NATIVE_POSTGRES_TESTS=1`
+  turns into a failure (900).
 
 ## Releases
 
@@ -65,6 +69,16 @@ The recipes are `docs/agent/ENVIRONMENT.md`.
 * Two contexts on one repository spend the same number: whoever's pull request is merged second renumbers and runs
   the gate again (`CLAUDE.md`, 855).
 * Only `package_release.py` makes an archive; write the notes for the number it assigns.
+* The release spends the number itself: a build is made with `BUILD_NUMBER` at the last release. Set by hand to the
+  new number, 900's first gate ran as 901 and failed on its own pages, 25 minutes spent.
+* A test never quotes the operator either: who decided a rule and when lives in `docs/HISTORY.md` and the notes, and
+  `tests/contract/test_the_operator_s_words_live_in_the_documents.py` reads every test's strings (900's first gate
+  failed on one assertion's message).
+* A page fixed after the gate, when `main` moved under its pull request (900, 901), moves
+  `tests/fixtures/build_files.json`: write it again (`tools/test_suite.write_build_files`) and run the page tests.
+  The archive is the gate's tree; the pull request adds the page commit and its description says so.
+* A build made on an open pull request is opened against `main` and says to merge the one under it first; until then
+  its diff shows both (899 on 898).
 * A killed release is recovered by the next run's journal, never by editing `BUILD_NUMBER`.
 * The first PostgreSQL bootstrap after a sandbox idles fails every lane started together, so the lanes warm it alone
   first (`tools/test_suite.warm_postgres`, one integration test, twice at most; 738). Before 738 it was a step by hand.
@@ -97,6 +111,10 @@ The recipes are `docs/agent/ENVIRONMENT.md`.
 * SQL only the database rejects: test a repository method on a live database, a per-tick query at the operator's scale
   (`tests/integration/test_overview_scales_postgres.py`).
 * Fields nobody writes or reads: a key storage never held reads as nulls that look like nothing to say.
+* A clean-up's rule knows every campaign that buys past its spec: a start read the N-push's probes beyond its copied
+  spec's 8 seeds as a crash's leftovers and cancelled 8 of G73's 16 at 262,144 (897).
+* Bought is not grown: the fleet ladder counted a seed bought as a graph grown, so 1,048,576 read 64 with none
+  finished, and a seed's rough time divided by 3 seeds where 16 had run (898).
 * A lever built at both ends works once it runs through the middle
   (`tests/unit/test_the_given_chain_starts_at_the_answer.py`).
 * One idea, one name, one function, one rate, one number in one place: fold a second mechanism into the first with a
@@ -382,6 +400,12 @@ file from Mermaid (`docs/diagrams/rung_flow.svg`).
 * One host, one scheduler: cells on the operator's host run through the suite's workers, priced from what they hold.
 * A forked child copies every page its collector walks: `gc.freeze()` first, and build the reports that read every
   measurement before the fork (`BUILT_BEFORE_THE_CHILDREN`).
+* A state read back is not the state written: JSON gives a list where the engine keeps a tuple, and an object of its
+  own for every number, so a resumed seed's checkpoint held about 1.4 times the engine's own; the child also kept it
+  for the whole run beside the engine's graph. A resumed seed held about twice a fresh one's memory from 873 to 900:
+  decode as the engine keeps it, and let go of what was handed in once it is used (901).
+* Frozen code bounds where a fix goes: the run (`scaleflow/`) holds its `resume` for its whole call, so the caller,
+  which is not frozen, empties what it handed in (901).
 
 ## Counting what could be judged
 
