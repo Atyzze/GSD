@@ -804,6 +804,22 @@ begins with it. A dex let go while it is read again ends the wait. The Map page'
 they read again and the zone with its line (`focus.reading`'s `dex_check`); `tools/dex.py zones` reads the rule on a
 dex on a disk.
 
+**A dex read again: its level, law by law, from the start** (888). The import folder ships in the tree
+(`import/README.md`), and the controller makes it at its start and the study's start too (`study.make_import_folder`); a dex in it when a study starts is read in
+by the start (`study.read_in_at_start`), before the fleet's first pass. The dex campaign's ladder stops at its level
+(`study_design.verify_level`, `ladder_to`): the ladder's base, N=4,096, unless the design's `dex` entry or the dex's
+own `verify_to` (`tools/dex.py make --verify-to`, carried through `dex.merge`) asks for more, never past the design's
+top; the level is filed as `study_design.verify_to`. `dex_check.read_to_level` judges a law once every seed has run at
+every size to the level, or once it is decided, so a campaign made before 888 with a deeper ladder is judged at 4,096
+too. In a study that verifies its dex first its laws are read in term set by term set, the largest first
+(`study_seed.reading_order`), and the Dex step of the fleet's order claims `by_law` (`work_groups.claim_bounds`):
+`ORDER BY` the job's rank, the law's admission, its size, first with `max_n` the level (4,096), then without, so every
+law reads to 4,096 before any law goes deeper. "Working now" groups the runs under way by law (`zone_live.law_rows`):
+its runs done of those planned (seeds times sizes, to the level for a Dex law), what runs now, and its progress. The
+folder's dex is written every hour, and between the hours when `dex.news` finds what the last one lacks (a law scoring
+here not in it, a zone mapped since, more of the dex verified here), looked at once a minute and never two within ten
+minutes; the `dex_written` flag keeps why, and the ids of the laws it held.
+
 **The focus's choices** (882). `focus._chosen` records why it took a law (`chosen_by`: score, bundle, outlier,
 operator), said on the Map page's line. An outlier is taken only once the study has a scoring law and every one is
 mapped, inside a region or skipped; an outlier in focus (or a law of score 0 taken before 882 with no reason

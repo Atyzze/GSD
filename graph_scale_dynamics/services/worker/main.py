@@ -954,17 +954,18 @@ def _claim_by_reserve(repo, owner: str, campaigns: tuple[str, ...] | None, below
     return job
 
 
-def offers(allocation: list[dict], shares: dict | None = None) -> list[tuple[tuple[str, ...] | None, int | None]]:
+def offers(allocation: list[dict], shares: dict | None = None) -> list[tuple[tuple[str, ...] | None, int | None, dict]]:
     found = work_groups.ordered(allocation)
     if found is None:
         campaigns = allowed_campaigns(allocation, shares)
-        return [(campaigns, None), (None, None)] if campaigns else [(None, None)]
-    out: list[tuple[tuple[str, ...] | None, int | None]] = []
+        return [(campaigns, None, {}), (None, None, {})] if campaigns else [(None, None, {})]
+    out: list[tuple[tuple[str, ...] | None, int | None, dict]] = []
     for tier, rows in found:
         within = allowed_campaigns(rows)
         chosen = tuple(str(row["campaign_id"]) for row in rows) if within is None else within
-        out.append((chosen, None if tier == work_groups.LEFTOVER_TIER else work_groups.BEHIND))
-    return out + [(None, None)]
+        for bounds in work_groups.claim_bounds(tier):
+            out.append((chosen, None if tier == work_groups.LEFTOVER_TIER else work_groups.BEHIND, bounds))
+    return out + [(None, None, {})]
 
 
 def claim_simulation_for_owner(repo: Repo, owner: str) -> dict | None:
@@ -975,9 +976,10 @@ def claim_simulation_for_owner(repo: Repo, owner: str) -> dict | None:
         job = None
         if held is not None and below is None:
             job = repo.claim_job(owner, ("simulate",), lease_seconds=SIM_LEASE_SECONDS, job_id=str(held["job_id"]))
-        for offered, under in offered_in_order:
+        for offered, under, bounds in offered_in_order:
             if job is None:
-                job = _claim_by_reserve(repo, owner, offered, below, under=under)
+                job = (_claim(repo, owner, offered, below, under=under, **bounds) if bounds
+                       else _claim_by_reserve(repo, owner, offered, below, under=under))
         if job is None:
             return None
         if below is not None and int(job["n"]) >= below:

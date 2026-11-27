@@ -158,6 +158,50 @@ def _count(cell: dict, status: str) -> int:
     return int((cell.get(status) or {}).get("count") or 0)
 
 
+def planned_of(spec: dict | None, role: str) -> tuple[list[int], int]:
+    from graph_scale_dynamics.operations import dex_check
+    spec = spec or {}
+    if role == DEX:
+        sizes, _level, seeds = dex_check.level_of(spec)
+        return sizes, seeds
+    policy = ((spec.get("engine") or {}).get("policy") or {})
+    return [int(n) for n in spec.get("ladder") or []], int(spec.get("default_seeds") or policy.get("seeds") or 3)
+
+
+def law_rows(repo, rows: list[dict], medians_of) -> list[dict]:
+    by: dict[tuple[str, str], list[dict]] = {}
+    for row in rows:
+        by.setdefault((row["campaign"], row["law"]), []).append(row)
+    out = []
+    for campaign in sorted({c for c, _l in by}):
+        laws = sorted(l for c, l in by if c == campaign)
+        jobs, _reading, _decided = _tables(repo, campaign, laws)
+        spec = (repo.campaign(campaign) or {}).get("spec")
+        for law in laws:
+            running = by[(campaign, law)]
+            role = running[0]["role"]
+            sizes, seeds = planned_of(spec, role)
+            sizes = sorted(set(sizes) | {int(r["n"]) for r in running})
+            cells = jobs.get(law) or {}
+            planned = len(sizes) * seeds
+            done = sum(min(seeds, _count(cells.get(n) or {}, "done")) for n in sizes)
+            medians = medians_of(role)
+            under_way = sum(min(0.95, float(r["seconds"]) / float(medians[str(r["n"])]))
+                            for r in running if r.get("seconds") is not None and medians.get(str(r["n"])))
+            now = sorted({int(r["n"]) for r in running})
+            starts = [r.get("started_utc") for r in running if r.get("started_utc")]
+            out.append({"role": role, "part": running[0]["part"], "campaign": campaign, "law": law,
+                        "label": running[0].get("label"), "sizes": sizes, "seeds": seeds, "planned": planned,
+                        "done": done, "running": len(running),
+                        "queued": sum(_count(cells.get(n) or {}, "queued") for n in sizes),
+                        "now": [{"n": n, "seeds": sorted(int(r["seed"]) for r in running if int(r["n"]) == n)}
+                                for n in now],
+                        "seconds": max((r["seconds"] or 0.0) for r in running), "started_utc": min(starts) if starts else None,
+                        "progress": round(min(1.0, (done + under_way) / planned), 4) if planned else None})
+    out.sort(key=lambda r: (ROLES.index(r["role"]), -(r["progress"] or 0.0), str(r["label"] or r["law"])))
+    return out
+
+
 def where(jobs: dict[int, dict], reading: dict[int, dict], decision: dict | None, started: dict[int, str],
           seeds: int) -> dict:
     leased = sorted(n for n, cell in jobs.items() if _count(cell, "leased"))
@@ -331,13 +375,14 @@ def reading(repo, state: dict | None, *, now: datetime | None = None) -> dict | 
                      "label": labels.get((campaign, law)), "n": int(row["n"]), "seed": int(row["seed"]),
                      "started_utc": at, "seconds": seconds_since(at, now), "typical": medians.get(str(int(row["n"])))})
     rows.sort(key=lambda r: (ROLES.index(r["role"]), -(r["seconds"] or 0.0)))
+    laws = law_rows(repo, rows, lambda role: zone_medians if role in (ZONE, ZONE_SEEDS, DEPTH) else fleet)
     workers = Counter(r["role"] for r in rows)
     found_analyses = repo.conn.execute(
         "SELECT SUM(CASE WHEN status='leased' THEN 1 ELSE 0 END) AS running, "
         "SUM(CASE WHEN status='queued' THEN 1 ELSE 0 END) AS queued FROM analysis_queue "
         "WHERE status IN ('queued','leased')").fetchone()
     analyses = dict(found_analyses) if found_analyses is not None else {}
-    out = {"contract": CONTRACT, "at": _stamp(now), "running": rows,
+    out = {"contract": CONTRACT, "at": _stamp(now), "running": rows, "laws": laws,
            "workers": {role: int(workers.get(role, 0)) for role in ROLES},
            "analyses": {"running": int(analyses.get("running") or 0), "queued": int(analyses.get("queued") or 0)},
            "order": order(repo), "typical": found, "zone": None, "zone_first": state.get("zone_first")}
@@ -368,5 +413,5 @@ def safe(repo, state: dict | None) -> dict | None:
 
 __all__ = ["BEING_READ", "BLIND", "CONTRACT", "DECIDED", "DECIDER", "DEPTH", "DEX", "FAILED", "HELD", "JUDGED",
            "NEXT_DUE", "NOT_STARTED", "OTHER", "QUEUED", "READ", "ROLES", "RUNNING", "STAGES", "ZONE",
-           "ZONE_SEEDS", "order", "pace", "part_of", "reached", "reading", "rings_of", "roles_of", "safe", "seconds_since",
-           "typical", "when", "where"]
+           "ZONE_SEEDS", "law_rows", "order", "pace", "part_of", "planned_of", "reached", "reading", "rings_of",
+           "roles_of", "safe", "seconds_since", "typical", "when", "where"]

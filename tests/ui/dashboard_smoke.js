@@ -4069,6 +4069,27 @@ check('a running law says whether the blind draw or the focus drew it (15:18)', 
   if (!/blind<\/span> 6/.test(said) || !/zone<\/span> 3/.test(said) || !/depth<\/span> 1/.test(said)) throw new Error(`the heading counts ${said}`);
 });
 
+check('the Map page shows the work law by law, each with its progress, and why a dex was written', () => {
+  const map = sandbox.GSD_MAP;
+  const laws = [{ role: 'Dex laws', part: 'a Dex law, read again here', campaign: '15', law: '56'.repeat(32), label: 'S178-C15-G3',
+                  sizes: [64, 256, 1024, 4096], seeds: 3, planned: 12, done: 3, running: 2, queued: 1,
+                  now: [{ n: 256, seeds: [0, 1] }], seconds: 40, started_utc: '2026-11-27T00:29:20Z', progress: 0.3 }];
+  map.render(Object.assign({}, FOCUS_PAGE, { zone_now: Object.assign({}, ZONE_NOW, { laws }) }));
+  const working = getElementById('mapWorking').innerHTML;
+  for (const want of ['map-working-laws', '>its runs</th>', 'S178-C15-G3', '3 of 12', '(1 queued)', 'N=256, seeds 0, 1', 'map-law-bar',
+                      'width:25.0%', 'width:5.0%', '30%', 'each run under way (3)', 'map-run-bar']) {
+    if (!working.includes(want)) throw new Error(`Working now by law lacks "${want}": ${working.slice(0, 700)}`);
+  }
+  const verifying = Object.assign({}, FOCUS_PAGE.focus, { current: null, dex_check: { laws: [], counts: { held: 193 }, zone: null, verify_to: 4096 } });
+  map.render(Object.assign({}, FOCUS_PAGE, { focus: verifying, imports: { contract: 'gsd-imports-2', folder: '/x/178/main/import', exists: true, bundles: [] }, dex: { path: '/x/export/dex_178_2026-11-27T00-20-51Z.tar.zst', utc: '2026-11-27T00:20:51Z',
+                                                                      counts: { laws: 5 }, why: '3 laws of the dex verified here since the last dex' } }));
+  if (!getElementById('mapCurrent').innerHTML.includes('no law is in focus while the dex is verified')) throw new Error('the focus panel does not say it waits for the dex');
+  const seed = getElementById('mapSeed').innerHTML;
+  for (const want of ['0 of 193 laws read again, each to N=4,096', 'title="laws of the dex read again and judged"', '(3 laws of the dex verified here since the last dex)', 'at most every 10 minutes']) {
+    if (!seed.includes(want)) throw new Error(`the Seeds panel lacks "${want}": ${seed.slice(0, 700)}`);
+  }
+});
+
 check('the Map page lists a dex read in as it is verified, then the first zone and why it was chosen', () => {
   const map = sandbox.GSD_MAP;
   const rows = [{ law: 'aa'.repeat(32), code: 'S176-C12-G4', score: 1, verdict: 'denied', agree: 7, differ: 1, other_length: 0, sizes: [64, 256],

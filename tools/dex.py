@@ -23,10 +23,12 @@ def make(args) -> int:
     parts = [D.read_part(path) for path in args.parts]
     science = _science(args, parts)
     label = args.label or "_".join(sorted({str(p.get("study") or "x") for p in parts}))
-    dex = D.merge(parts, science=science, made_by={"study": label, "build": None, "folder": "tools/dex.py"})
+    dex = D.merge(parts, science=science, made_by={"study": label, "build": None, "folder": "tools/dex.py"},
+                  verify_to=args.verify_to)
     path = D.write(dex, Path(args.out), label)
     print(f"{path}: {len(dex['laws'])} laws, {len(dex['top'])} in the top, {len(dex['regions'])} regions, "
-          f"{len(dex['chains'])} chains, from {len(dex['sources'])} sources")
+          f"{len(dex['chains'])} chains, from {len(dex['sources'])} sources"
+          + (f", read again to N={dex['verify_to']:,}" if dex.get("verify_to") else ""))
     return 0
 
 
@@ -35,7 +37,8 @@ def show(args) -> int:
     sha = (part.get("science") or {}).get("sha256")
     order = D.ranked(part["laws"], sha)
     print(f"{part['name']} ({part['kind']}): {len(part['laws'])} laws, science {str(sha)[:16]}, "
-          f"{len(part.get('regions') or [])} regions, {len(part.get('chains') or [])} chains")
+          f"{len(part.get('regions') or [])} regions, {len(part.get('chains') or [])} chains"
+          + (f", read again to N={part['verify_to']:,}" if part.get("verify_to") else ""))
     for source in part.get("sources") or []:
         print(f"  from {source.get('name')} ({source.get('kind')}, study {source.get('study')}, "
               f"{source.get('laws')} laws, science {str(source.get('science'))[:16]})")
@@ -89,6 +92,9 @@ def main(argv=None) -> int:
     made.add_argument("--out", required=True)
     made.add_argument("--label")
     made.add_argument("--science-of", help="a part whose science the dex is read under (default: this tree's)")
+    made.add_argument("--verify-to", type=int,
+                      help="the size a study reading the dex in runs its laws again to (default: the ladder's base, "
+                           "N=4,096); a level below the base is the base")
     shown = sub.add_parser("show", help="a dex's or a study bundle's laws, best first")
     shown.add_argument("dex")
     shown.add_argument("--top", type=int, default=25)

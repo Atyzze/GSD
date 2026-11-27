@@ -95,6 +95,33 @@ def decided(repo, campaign_id: str, law: str) -> bool:
     return study_map.decided(repo, str(campaign_id), str(law))
 
 
+def level_of(spec: dict | None) -> tuple[list[int], int, int]:
+    spec = spec or {}
+    policy = ((spec.get("engine") or {}).get("policy") or {})
+    ladder = [int(n) for n in spec.get("ladder") or []]
+    base = [int(n) for n in policy.get("base_sizes") or []] or ladder[:4]
+    level = int((spec.get("study_design") or {}).get("verify_to") or (max(base) if base else max(ladder or [0])))
+    seeds = int(spec.get("default_seeds") or policy.get("seeds") or 3)
+    return [n for n in ladder if n <= level], level, seeds
+
+
+def read_to_level(repo, campaign_id: str | None, laws: list[str] | None = None) -> set[str]:
+    if campaign_id is None:
+        return set()
+    sizes, level, seeds = level_of((repo.campaign(str(campaign_id)) or {}).get("spec"))
+    if not sizes:
+        return set()
+    cells: dict[str, dict[int, dict[str, int]]] = {}
+    for row in repo.conn.execute(
+            "SELECT candidate_id, n, status, COUNT(*) AS c FROM jobs WHERE campaign_id=? AND kind='simulate' "
+            "AND n<=? GROUP BY candidate_id, n, status", (str(campaign_id), int(level))).fetchall():
+        cells.setdefault(str(row["candidate_id"]), {}).setdefault(int(row["n"]), {})[str(row["status"])] = int(row["c"])
+    wanted = set(laws) if laws is not None else set(cells)
+    return {law for law, by_n in cells.items() if law in wanted and all(
+        (by_n.get(n) or {}).get("done", 0) >= seeds and not (by_n.get(n) or {}).get("queued")
+        and not (by_n.get(n) or {}).get("leased") for n in sizes)}
+
+
 def verdict_of(check: dict | None) -> str:
     if check and int(check.get("differ") or 0):
         return Z.DENIED
@@ -178,8 +205,10 @@ def keep(repo, root: Path | None, *, blobs: Path | None, now: float | None = Non
     check = state.setdefault(STATE, {"contract": CONTRACT, "began_utc": utc_now(), "laws": {}})
     check["campaign"] = campaign_id
     check["bundles"] = [r["bundle"] for r in records(state)]
+    check["verify_to"] = level_of((repo.campaign(str(campaign_id)) or {}).get("spec"))[1] if campaign_id else None
     science = science_contract.science()[0].get("sha256")
-    ready = [law for law in pending if decided(repo, campaign_id, law)]
+    read = read_to_level(repo, campaign_id, pending)
+    ready = [law for law in pending if law in read or decided(repo, campaign_id, law)]
     added = 0
     if ready:
         folder = None if root is None else Path(root) / imports.FOLDER
@@ -246,9 +275,9 @@ def reading(state: dict | None) -> dict | None:
     rows.sort(key=lambda r: (order.get(r.get("verdict"), 3), -int(r.get("score") or 0), str(r.get("code") or "")))
     return {"contract": CONTRACT, "campaign": check.get("campaign"), "bundles": check.get("bundles") or [],
             "counts": check.get("counts") or {}, "began_utc": check.get("began_utc"), "done_utc": check.get("done_utc"),
-            "laws": rows, "zone": (state or {}).get(ZONE), "words": words(state or {})}
+            "verify_to": check.get("verify_to"), "laws": rows, "zone": (state or {}).get(ZONE), "words": words(state or {})}
 
 
 __all__ = ["CONTRACT", "STATE", "ZONE", "by_of", "chains_here", "choose", "controls", "decided", "first", "judged",
-           "keep", "laws_held", "owed", "path_of", "reading", "recorded", "records", "taken", "verdict_of", "waiting",
-           "words"]
+           "keep", "laws_held", "level_of", "owed", "path_of", "read_to_level", "reading", "recorded", "records",
+           "taken", "verdict_of", "waiting", "words"]

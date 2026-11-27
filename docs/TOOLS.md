@@ -658,6 +658,9 @@ names a part). `show` prints a dex's or a bundle's laws best first, with their c
     python3 tools/dex.py show <dex or bundle> [--top 25] [--json <file>]
     python3 tools/dex.py zones <dex or bundle> [--radius 0.1] [--as-verified] [--top 10] [--json <file>]
 
+`make --verify-to N` (888) writes the size a study reading the dex in runs its laws again to; without it a study reads
+them to the ladder's base, N=4,096, and a level below the base is the base. `show` says the level a dex carries.
+
 `zones` (887) reads the first zone's rule (`operations/zone_choice.py`) on a dex: its laws grouped by term set, each
 group's centre and how many laws lie within the radius of it, and the zone a study reading the dex in first would
 choose with its line. A law counts as confirmed where its checks in the dex agree and none differs; `--as-verified`

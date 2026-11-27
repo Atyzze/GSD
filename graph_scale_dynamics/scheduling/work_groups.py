@@ -197,6 +197,16 @@ def group_of(row: dict) -> str:
     return row.get("work_group") or BLIND
 
 
+BY_LAW = "by_law"
+VERIFY_TO = 4096
+
+
+def claim_bounds(tier: int) -> list[dict]:
+    if tier == DEX_TIER:
+        return [{"order": BY_LAW, "max_n": VERIFY_TO}, {"order": BY_LAW}]
+    return [{}]
+
+
 def tier_of(row: dict) -> int:
     kind, part = row.get("design_kind"), row.get("focus_part")
     if kind == FOCUS_KIND:

@@ -1,24 +1,28 @@
-# The next build is 888
+# The next build is 889
 
 This file names the next build and says how to make it. `tests/unit/test_next_build_is_named.py` parses its first line,
 which must read exactly `# The next build is <N>`, one above `BUILD_NUMBER`.
 
-## Where to begin: 888 benchmarks the zone's search on the first zone
+## Where to begin: 889 benchmarks the zone's search on the first zone
 
 **Starting from nothing but the repository** (the operator, 2026-11-24 23:00): clone `main` and bring it up by
 `docs/agent/ENVIRONMENT.md`, section 10, "From the repository". Then `docs/WHERE_WE_ARE.md`, `docs/agent/HANDOFF.md`,
-**`docs/agent/ZONE_MAP.md`** and this page, in that order, and `CLAUDE.md`'s rules for a shared repository. 871 to 887
-are made (`docs/build_notes/BUILD871_NOTES.md` to `BUILD887_NOTES.md`); if their pull requests are not on `main` yet,
-branch from the newest.
+**`docs/agent/ZONE_MAP.md`** and this page, in that order, and `CLAUDE.md`'s rules for a shared repository. 871 to 888
+are made (`docs/build_notes/BUILD871_NOTES.md` to `BUILD888_NOTES.md`); 871 to 880 are on `main`, 881 to 888 in pull
+requests #28, #29 and 888's, each on the one before: branch from the newest not yet merged.
 
 **What comes first, when the operator sends 178's bundle or dex**: read the dex's check and the zone. On a bundle,
 `focus.json`'s `dex_check` (`counts`, every law's verdict, `first_differ` of any denied law, `began_utc`, `done_utc`)
-and `zone_chosen` (`centre`, `why`, `groups`, `taken_utc`), then `zone_now` and the `events` as at 886. Judge 178's
+and `zone_chosen` (`centre`, `why`, `groups`, `taken_utc`), `dex_check.verify_to` (888: 4,096 unless the dex asked
+for more), then `zone_now` and the `events` as at 886; the `dex_written` flag says why each copy of the dex was
+written. Judge 178's
 criterion (`study_178_criterion.json`): P1 the dex campaign made with 193 laws, P2 no law in focus or deeper before
 every law read, P3 no law denied, P4 the first zone S176-C12-G100's; P5 reported. A denied law is read first (its
 first difference names the size, seed and start). `tools/dex.py zones` on a dex 178 writes reads the rule again.
 
-**What 888 makes** (`docs/ROADMAP.md`, "From 886", item 4), on the first zone alone:
+**What 889 makes** (`docs/ROADMAP.md`, "From 886", item 4), on the first zone alone, once the operator has answered
+what makes a neighbour alike (asked again 2026-11-27 with its trade-offs; recommended: the locked-in curves, the kind
+as fallback):
 
 1. **Its laws judged first**, with no new run: the dex campaign's laws of the zone's term set, read at 16,384 by
    their kind (and, if the operator answers it, by the phenotype's locked-in curves, `docs/agent/ZONE_MAP.md`), so the
@@ -30,13 +34,15 @@ first difference names the size, seed and start). `tools/dex.py zones` on a dex 
    place of the depth worker's next law.
 4. **Benchmarked**: every edge's runs, core-hours and hours, how often the call at 4,096 matched 16,384, beside the
    ring method's on the same law (G79's 47 neighbours already in the dex) and the rings 887 drew around the centre.
+   Its runs go to the zone step of the fleet's order; 888 took the Dex step law by law (`work_groups.claim_bounds`),
+   and the zone step may take its points the same way if the benchmark shows it finishes edges sooner.
 
 **Acceptance**: the zone's laws judged with no run in a test; an edge found by stepping and halving on a law of known
-answer in a test; the benchmark's table in the notes; `outputs_of_a_law --against` 887's record unchanged; the full
+answer in a test; the benchmark's table in the notes; `outputs_of_a_law --against` 888's record unchanged; the full
 lane green.
 
-**Waiting on the operator**: 871's to 887's pull requests; study 178's start on 887 with 177's dex of 19:33Z in its
-`import/`; what makes a neighbour alike (`docs/agent/ZONE_MAP.md`, the proposal); the first zone if not the rule's
+**Waiting on the operator**: #28, #29 and 888's pull request; study 178 on 888 (applied, or started afresh with
+177's dex in `import/`); what makes a neighbour alike (`docs/agent/ZONE_MAP.md`, the proposal); the first zone if not the rule's
 (`docs/ROADMAP.md`, "Questions for the operator").
 
 ## Reading a study's bundle

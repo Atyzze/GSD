@@ -449,3 +449,6 @@ body[data-gsd-freshness="stale"] .live-clock,body[data-gsd-freshness="offline"] 
 .map-zone-table tr.map-stage-read td { color: var(--muted); } .map-zone-table tr.map-stage-held td:nth-child(3), .map-zone-table tr.map-stage-failed td:nth-child(3) { color: var(--amber); }
 .map-run-bar { display: inline-block; width: 120px; height: 8px; border: 1px solid var(--line2); border-radius: 3px; overflow: hidden; vertical-align: middle; }
 .map-run-bar > span { display: block; height: 100%; background: var(--green); } .map-run-bar.over > span { background: var(--amber); }
+.map-law-bar { display: inline-flex; width: 140px; height: 9px; border: 1px solid var(--line2); border-radius: 3px; overflow: hidden; vertical-align: middle; }
+.map-law-bar > span { display: block; height: 100%; } .map-law-bar > .done { background: var(--green); } .map-law-bar > .now { background: color-mix(in srgb, var(--green) 40%, transparent); }
+.map-working-each > summary { cursor: pointer; margin-top: 6px; color: var(--muted); }
