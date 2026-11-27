@@ -81,12 +81,13 @@ boundary itself lies, and what grows there, is a later question (the operator, 1
 ## How a zone is mapped (the operator's order)
 
 1. **Study 178, clean**: the blind draw as the base load, run only when nothing else has work (885's order).
-2. **A dex read in becomes its own campaign**: every law run again on its seeds and each chain checked like for like
-   against the dex's (`dex.verify`); each law confirmed or denied, listed in the Top 100 as it reads, opened like any
-   law of the folder.
+2. **A dex read in becomes its own campaign** (made at 887, `operations/dex_check.py`): every law run again on its
+   seeds and each chain checked like for like against the dex's (`dex.verify`); each law confirmed, denied or
+   unmatched, listed on the Map page as it reads, opened like any law of the folder; nothing taken into focus before.
 3. **One zone at a time, the one most likely to confirm fast** (19:49: "not the most special/unique one but the one
-   most likely to confirm fast"): the verified group with the most laws of one term set nearest one centre. In the dex
-   of 15:11Z that is G79 and its 47 neighbours; controls are never chosen.
+   most likely to confirm fast"; made at 887, `operations/zone_choice.py`): the confirmed laws of one term set with the
+   most within the confirm radius (0.1) of one centre, then the larger group; controls never. In 177's dex of 19:33Z
+   that is G79's family, 29 within 0.1 of S176-C12-G100, one ahead of G37's (28 of S177-C12-G1015).
 4. **Its edges, as efficiently as possible, over every parameter and N**: judge the laws already there first, with
    no new run; then, per parameter, step out both ways, doubling until the behaviour changes, and halve the gap three
    times; each point judged at 4,096, and only the two points either side of an edge run to 16,384. N by the central

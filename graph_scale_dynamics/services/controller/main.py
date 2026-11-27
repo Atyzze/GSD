@@ -56,13 +56,17 @@ def _completion(repo: Repo, log: Log, campaign: dict) -> None:
 
 def dex_pass(repo: Repo, log: Log, root: Path | None, blobs: Path | None) -> None:
     from graph_scale_dynamics.domain.version import BUILD_NUMBER
-    from graph_scale_dynamics.operations import dex, imports
+    from graph_scale_dynamics.operations import dex, dex_check, imports
     if root is None:
         return
     try:
         for found in dex.absorb(repo, root / imports.FOLDER):
             log.write("dex_read_in", bundle=str(found.get("bundle"))[:80], laws=found.get("laws_added"),
                       standing=found.get("laws_standing"), refused=found.get("refused"))
+        checked = dex_check.keep(repo, root, blobs=blobs)
+        if checked and (checked["checked"] or checked["chosen"] or checked["none"]):
+            log.write("dex_checked", checked=checked["checked"], owed=checked["owed"], zone=checked["chosen"],
+                      no_zone=checked["none"])
         written = dex.keep(repo, root, blobs=blobs, build=BUILD_NUMBER)
         if written is not None:
             log.write("dex_written", path=str(written))

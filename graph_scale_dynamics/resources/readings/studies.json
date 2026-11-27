@@ -80,6 +80,14 @@
    "criterion": "graph_scale_dynamics/resources/readings/study_177_criterion.json",
    "laws": 10000,
    "status": "designed on 881 from nothing; starts on 881 in a folder of its own"
+  },
+  {
+   "id": "178",
+   "notes": "Study 178, the zone map's first study: group A draws 10,000 laws blind in ten new batches of 1,000 on 174's rules, the base load run only when no zone, depth or Dex work is queued; a dex read in becomes its own campaign, every law run again on its own seeds and checked chain by chain against the dex before the first zone, the most verified laws of one term set nearest one centre, is chosen and its centre taken into focus, on build 887.",
+   "design": "graph_scale_dynamics/resources/readings/study_178_design.json",
+   "criterion": "graph_scale_dynamics/resources/readings/study_178_criterion.json",
+   "laws": 10000,
+   "status": "designed on 887 from nothing, the dex of 177 to be read in at its start; starts on 887 in a folder of its own"
   }
  ]
 }

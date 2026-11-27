@@ -4069,6 +4069,41 @@ check('a running law says whether the blind draw or the focus drew it (15:18)', 
   if (!/blind<\/span> 6/.test(said) || !/zone<\/span> 3/.test(said) || !/depth<\/span> 1/.test(said)) throw new Error(`the heading counts ${said}`);
 });
 
+check('the Map page lists a dex read in as it is verified, then the first zone and why it was chosen', () => {
+  const map = sandbox.GSD_MAP;
+  const rows = [{ law: 'aa'.repeat(32), code: 'S176-C12-G4', score: 1, verdict: 'denied', agree: 7, differ: 1, other_length: 0, sizes: [64, 256],
+                  first_differ: { n: 256, accepted_moves: [400, 401] } },
+                { law: 'bb'.repeat(32), code: 'S177-C12-G565', score: 27, verdict: 'unmatched', agree: 0, differ: 0, other_length: 8, sizes: [] },
+                { law: 'cc'.repeat(32), code: 'S176-C12-G2', score: 1, verdict: 'confirmed', agree: 8, differ: 0, other_length: 0, sizes: [64, 256] }];
+  const verifying = { contract: 'gsd-dex-check-1', campaign: '15', bundles: ['dex_177_2026-11-26T19-33-48Z'], laws: rows, zone: null,
+                      counts: { confirmed: 1, denied: 1, unmatched: 1, controls: 0, laws: 3, owed: 190, held: 193 } };
+  const page = (check) => Object.assign({}, FOCUS_PAGE, { focus: Object.assign({}, FOCUS_PAGE.focus, { dex_check: check }) });
+  map.render(page(verifying));
+  let seedHtml = getElementById('mapSeed').innerHTML;
+  for (const want of ['verifying the dex first', '3 of 193 laws read again', 'no law is taken into focus before every law has read',
+                      '1 confirmed', '1 denied', '1 unmatched', 'the dex campaign C15', 'the dex’s laws as they read again (3)',
+                      'S177-C12-G565', '8 of another length', '1 differ', 'candidate=' + 'cc'.repeat(32) + '&amp;campaign=15']) {
+    if (!seedHtml.includes(want)) throw new Error(`the dex check lacks "${want}": ${seedHtml.slice(0, 400)}`);
+  }
+  const zone = { contract: 'gsd-zone-choice-1', radius: 0.1, campaign: '15', centre: 'cc'.repeat(32), code: 'S176-C12-G2',
+                 why: 'the most verified laws of one term set nearest one centre: 29 verified laws within 0.1 of S176-C12-G100',
+                 chosen: { centre: 'cc'.repeat(32), code: 'S176-C12-G2', near: 29, laws: 45 },
+                 groups: [{ centre: 'cc'.repeat(32), code: 'S176-C12-G2', near: 29, laws: 45, terms: ['degree_anchor k=7', 'induced_square_count'],
+                            dynamics: 'zero temperature', mean: 0.09 },
+                          { centre: 'dd'.repeat(32), code: 'S177-C12-G1015', near: 28, laws: 34, terms: ['degree_cube_sum'], dynamics: 'zero temperature', mean: 0.09 }],
+                 taken_utc: '2026-11-27T08:00:00Z' };
+  map.render(page(Object.assign({}, verifying, { zone, done_utc: '2026-11-27T07:59:00Z' })));
+  seedHtml = getElementById('mapSeed').innerHTML;
+  for (const want of ['the first zone:', 'S176-C12-G2', 'taken into focus 2026-11-27 08:00', '29 verified laws within 0.1 of S176-C12-G100',
+                      '29 within 0.1', 'S177-C12-G1015', '28 within 0.1', 'degree_anchor k=7, induced_square_count, zero temperature', '0.090']) {
+    if (!seedHtml.includes(want)) throw new Error(`the zone chosen lacks "${want}": ${seedHtml.slice(0, 400)}`);
+  }
+  map.render(page(Object.assign({}, verifying, { zone: { radius: 0.1, chosen: null, why: 'no two verified laws of one term set lie within 0.1 of each other' } })));
+  if (!getElementById('mapSeed').innerHTML.includes('no zone chosen')) throw new Error('a dex with no zone in it is not said');
+  map.render(FOCUS_PAGE);
+  if (getElementById('mapSeed').innerHTML.includes('verifying the dex')) throw new Error('a folder with no dex first shows a dex check');
+});
+
 check('the Map page reads its rings and settings and refuses what is not radius:laws', () => {
   const map = sandbox.GSD_MAP;
   const rings = map.parseRings('1e-9:4, 0.1:8 ,0.4:8');

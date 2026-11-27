@@ -1,4 +1,4 @@
-# Handoff: the state of GSD at build 886
+# Handoff: the state of GSD at build 887
 
 What is true now, for a context that has just opened this archive. Each fact has one home; the last section says
 where. **Think from the data, not from this page**: where the data and a document disagree, the data wins and the
@@ -9,6 +9,14 @@ law pushed to the largest N, every other law a distance from it; one zone at a t
 only when no zone has work; a zone told by what its laws do (the curves of the four probes on every start over N),
 not by its term set. **`docs/agent/ZONE_MAP.md`** holds it, with what the data and the code already say; it is read
 before any build from 887.
+
+**Since the handover (886)**: 887 designed study 178 (`study_178_design.json`): the blind draw as the base load, no
+seeded campaign made in advance; the first dex read in makes its own campaign (kind `seed`, the Dex step), every law
+run again and checked chain by chain against the dex (`operations/dex_check.py`: confirmed, denied or unmatched), the
+focus and the depth worker waiting until every law has read; then the first zone (`operations/zone_choice.py`: the
+most confirmed laws of one term set within 0.1 of one centre, controls never), its centre taken into focus. On 177's
+dex of 19:33Z the rule reads G79's family, 29 laws within 0.1 of S176-C12-G100, ahead of G37's, 28 within 0.1 of
+S177-C12-G1015 (`tools/dex.py zones`).
 
 **The builds since the last handover, 871 to 885** (each build's notes in `docs/build_notes/`; the operator's words in
 `docs/HISTORY.md`):
@@ -39,14 +47,16 @@ the calibration table) and what it shows: `docs/WHERE_WE_ARE.md` and `docs/paper
 
 **Open threads at 886**, each with its home:
 
-* **Pull requests**: 864 to 870 (#11 to #17) merged by the operator. 871's to 886's were not opened: the sessions that
+* **Pull requests**: 864 to 870 (#11 to #17) merged by the operator. 871's to 887's were not opened: the sessions that
   made them were refused push access to `github.com/Atyzze/GSD`; their archives are the delivery, each tree a branch
   (`build-871` on `main`, each next on the one before) with one commit, the notes' opening its description.
 * **Study 177** runs since 2026-11-26 12:24Z (`/data/projects/GSD/177/main`), on 885 since about 19:40 local, seeded
-  on 882 from the dex of 176's laws and 174's bundle (its dex of 15:11Z: 132 laws). Its focus on S177-C11-G37 (from
-  S174-C8-463fc3bf, 27 there): at 19:02 local 16 of its 47 laws read, its tiny rings all "moved" like it, two of its
-  ring at 0.1 "made"; the rest waited on their probes, which 885 reads first. The operator means to stop it once its dex
-  is written and start study 178 on the zone map's design.
+  on 882 from the dex of 176's laws and 174's bundle. Its focus on S177-C11-G37 (from S174-C8-463fc3bf, 27 there).
+  Its dex of 19:33Z (`dex_177_2026-11-26T19-33-48Z`, sent with 887): 193 laws in 76 term sets, 26,366 chains, no zone
+  mapped, 129 laws run again identical, 64 of 177's own never run elsewhere, 3 standing controls. The operator means
+  to stop it and start study 178 with that dex in its `import/`.
+* **Study 178** (887): designed, not started; its criterion (`study_178_criterion.json`) commits P1 to P4 before it
+  runs, P4 the first zone S176-C12-G100's.
 * **Studies 176 and 174** stopped or the operator's; their bundles were read at 881 and 865.
 * **Open questions** (`docs/ROADMAP.md`, "Questions for the operator"): what makes a neighbour alike (proposed in
   `docs/agent/ZONE_MAP.md`), a topology probe, 176's standing controls, past 65,536.
@@ -70,8 +80,8 @@ sometimes with the operator's words typed above it; a context that opens either 
 
 ## What is live
 
-* **Study 177** (`study_177_design.json`, 881: 176's design on new seeds) runs on 885; study 178 is next, designed by
-  the zone map (`docs/agent/ZONE_MAP.md`, "How a zone is mapped").
+* **Study 177** (`study_177_design.json`, 881: 176's design on new seeds) runs on 885; study 178 (887) is next, its
+  dex read in at its start and verified first (`docs/agent/ZONE_MAP.md`, "How a zone is mapped").
 * **Studies 174 to 176** in folders of their own, stopped or the operator's; the baseline bundles are 174's of
   2026-11-24 14:22Z and 175's of 08:35Z. Every older folder (169 to 173, 156, 158) is the operator's to delete.
 * **The worker count while a study runs** (846, System page, Workers): `compute_worker_target`, read by the
@@ -208,8 +218,8 @@ again after the paper's three studies, on the final probes, with a criterion wri
 
 ## What waits on the operator
 
-* **871's to 886's pull requests**: theirs to open from the archives (or to give the session push access) and merge.
-* **Study 177's dex** written on its Map page ("write the dex now") before it stops, carried into study 178's `import/`.
+* **871's to 887's pull requests**: theirs to open from the archives (or to give the session push access) and merge.
+* **Study 178's start on 887**, 177 stopped, with 177's dex of 19:33Z in its `import/`.
 * **What makes a neighbour alike** (`docs/agent/ZONE_MAP.md`, the proposal; `docs/ROADMAP.md`, "Questions for the
   operator"): the forms of the curves both laws have locked in, within the score's margins.
 * **Study 176's standing controls**: kept as a tick (recommended; `docs/ROADMAP.md`, "Questions for the operator").

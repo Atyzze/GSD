@@ -1,4 +1,4 @@
-# Where we are, at build 886
+# Where we are, at build 887
 
 The whole project on one page, in plain words; the detail is in `docs/agent/HANDOFF.md`.
 
@@ -35,9 +35,9 @@ What the instrument reads on known answers (1, 2). **No data from a study before
 
 ## What is running
 
-Study 177 since 11-26 12:24Z, seeded on 882 from the dex of 176's 130 laws and 174's bundle: 132 laws, 8,000 chains
-run again identical. On 885 the fleet maps one zone at a time with everything it has, the blind draw only when no
-zone has work. Next, study 178 on the zone map (886). 176 stopped.
+Study 177 since 11-26 12:24Z; its dex of 19:33Z holds 193 laws, 129 run again identical, no zone mapped. Study 178
+is designed on 887 to start with that dex in its `import/`: its own campaign, every law checked first, then the
+first zone's centre in focus. 176 stopped.
 The project rests on two bundles and the calibration table, nothing older (2026-11-24 16:34): 174's of 14:22Z (the
 blind draw, 8,131 laws read) and 175's of 08:35Z (595 variants around 174's 35 settled laws), the paper's draft on them.
 
@@ -56,25 +56,24 @@ are one seed of three at small sizes, on graphs in pieces or trees the next size
 68% to 81% of the way there from empty, worse as N grows. Until a known law grows its geometry from empty, "nothing
 grows from empty" cannot be told from "nothing can get there under these moves".
 
-## What 800 to 886 changed
+## What 800 to 887 changed
 
 The probes locked and your table installed (800 to 805); the evidence judged again on the final code (806 to 843); 844
-study 174; 845 to 853 study 175, the score of 848; 854 the paper's draft; 855 `CLAUDE.md` and the ledger; 856 study
-176; 857 to 860 Home's filters, Home says what is true. 861, 862: the focus and the Map page, regions GG#n. 864 to 870:
-held laws run on, study 176 seeded, a slider, the law page in words, an import folder. 871: laws named S176C11G79. 872:
-Home's study bar. 873: the depth seeker to the memory limit. 875 to 877: a seed in half the memory, the C and assembly
-engines. 878 to 880: known types, phenotypes, outliers. 881: study 177. 882: the dex. 883: the first zone unblocked.
-884: the zone live on the Map page. 885: one zone at a time, runs and probes in one order. 886: the zone map.
+study 174; 845 to 853 study 175; 854 the paper's draft; 855 the ledger; 856 study 176; 857 to 870 Home, the focus, the
+Map page, an import folder. 871 to 880: law codes, the depth seeker, the C and assembly engines, phenotypes. 881:
+study 177. 882: the dex. 883 to 885: the zone unblocked, live, one at a time. 886: the zone map. 887: study 178, a dex
+verified first, the first zone chosen to confirm fast.
 
 ## What comes next
 
-Study 178: the blind draw as the base load, a dex read in and verified as its own campaign, then one zone at a time,
-its edges found per parameter and in N, benchmarked, its central law its signature (`docs/agent/ZONE_MAP.md`).
+888: the first zone's search benchmarked: its laws judged first, its edges found per parameter by stepping and
+halving at 4,096, the points either side at 16,384, its central law pushed (`docs/agent/ZONE_MAP.md`). On 177's dex
+the rule chooses G79's family (29 laws within 0.1 of S176-C12-G100) ahead of G37's (28) by one law.
 
 ## The decision in front of you
 
-1. **Write 177's dex on its Map page before you stop it**, for study 178's `import/`. 871's to 886's pull requests
-   are yours to open and merge.
+1. **Start study 178 on 887** in a folder of its own, 177 stopped, and put 177's dex of 19:33Z into its `import/`.
+   871's to 887's pull requests are yours to open and merge.
 2. **What makes a neighbour alike**: recommended, the same forms on every curve both have locked in, within the
    score's margins (`docs/agent/ZONE_MAP.md`).
 3. **Whether a known law must grow its geometry from empty first** (recommended, before more compute from empty):

@@ -656,6 +656,14 @@ names a part). `show` prints a dex's or a bundle's laws best first, with their c
 
     python3 tools/dex.py make <dex or bundle>... --out <folder> [--label 174_176]   # writes dex_<label>_<utc>.tar.zst
     python3 tools/dex.py show <dex or bundle> [--top 25] [--json <file>]
+    python3 tools/dex.py zones <dex or bundle> [--radius 0.1] [--as-verified] [--top 10] [--json <file>]
+
+`zones` (887) reads the first zone's rule (`operations/zone_choice.py`) on a dex: its laws grouped by term set, each
+group's centre and how many laws lie within the radius of it, and the zone a study reading the dex in first would
+choose with its line. A law counts as confirmed where its checks in the dex agree and none differs; `--as-verified`
+takes every law as confirmed, as a fresh study will find them if no chain differs. On 177's dex of 2026-11-26
+19:33Z it reads, with every law confirmed, 29 laws within 0.1 of S176-C12-G100 (45 of its term set) ahead of 28 within
+0.1 of S177-C12-G1015 (34) and 25 of S176-C11-G4 (31), three standing controls left out.
 
 A folder writes its own dex every hour into `export/` and on the Map page's "write the dex now"; this tool is for
 bundles that sit on a disk with no folder running.

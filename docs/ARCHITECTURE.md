@@ -784,6 +784,26 @@ its laws scored under the folder's science stand on that score until read here, 
 another science brings its laws alone (`laws_only` in the seed record), each run here from nothing, no score or region
 carried, and is no longer refused.
 
+**A dex verified first, then the first zone** (887, `operations/dex_check.py`, `operations/zone_choice.py`). A study
+whose design carries a `dex` entry with `verified_first` (178) makes no seeded campaign in advance: the first dex or
+bundle read in makes the dex campaign (`study_design.dex_campaign`, kind `seed`, so the Dex step of the fleet's order;
+its index one past the batches, `study_design.entry_of`). Its focus (`dex_first`, set by `focus.begin` from the
+design) takes no law and gives the depth worker none while a dex is read again (`dex_check.waiting`: a dex in the map
+and no zone chosen). The controller's dex pass runs `dex_check.keep` once a minute: each law the dex campaign has
+decided (`study_map.decided`) is checked chain by chain against the dex in `import/` (`dex.verify`, like for like:
+law, size, seed, start, start graph and length; `dex_check.judged`) and filed in the state's `dex_check` as
+confirmed (some chains agree, none differs), denied (one differs, its first difference kept) or unmatched (nothing to
+compare: another length, or another science). Once every law of the dex campaign has its verdict, `zone_choice.first`
+chooses the first zone from the confirmed laws, standing controls never: grouped by signature
+(`neighbourhood.signature`: the term set and its parameters, the dynamics), each group's centre the law with the most
+others within the focus's confirm radius, then the smallest mean distance; the group with the most laws within the
+radius of its centre is chosen, then the larger group, then the smaller mean distance; with no two within the radius
+none is, and the focus goes on as before. The choice is filed as `zone_chosen` with its line (`why`) and the first
+groups; the focus's next step takes its centre into focus (`chosen_by` zone, `focus.zone_entry`) and the depth worker
+begins with it. A dex let go while it is read again ends the wait. The Map page's Seeds panel lists the dex's laws as
+they read again and the zone with its line (`focus.reading`'s `dex_check`); `tools/dex.py zones` reads the rule on a
+dex on a disk.
+
 **The focus's choices** (882). `focus._chosen` records why it took a law (`chosen_by`: score, bundle, outlier,
 operator), said on the Map page's line. An outlier is taken only once the study has a scoring law and every one is
 mapped, inside a region or skipped; an outlier in focus (or a law of score 0 taken before 882 with no reason
