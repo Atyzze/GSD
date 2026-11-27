@@ -61,7 +61,7 @@ No score, kind, gate or decision of any law moves, no frozen source and no schem
 * The lucky hits are listed, not searched or read again.
 * **The operator decides**: 892 waits on study 178's first zones. Its search's benchmark says whether the lines'
   steps are the slow part (then each line's next two points at once), and whether a law taken by its score should
-  be searched as a zone is in place of the rings (`docs/ROADMAP.md`, "Still open from 884 to 889").
+  be searched as a zone is in place of the rings (`docs/ROADMAP.md`, "Still open from 884 to 892").
 
 ## Verification
 

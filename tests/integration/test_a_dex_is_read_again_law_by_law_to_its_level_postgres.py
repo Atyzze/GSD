@@ -135,7 +135,7 @@ def test_a_dex_may_ask_to_be_read_deeper_and_a_law_read_to_its_level_is_judged_w
         isolated_postgres_schema, tmp_path, monkeypatch):
     from graph_scale_dynamics.db.repo import Repo, init_db
     from graph_scale_dynamics.operations import dex as D
-    from graph_scale_dynamics.operations import dex_check, study, study_seed
+    from graph_scale_dynamics.operations import dex_check, focus, study, study_seed
     from graph_scale_dynamics.operations import study_design as SD
     init_db(isolated_postgres_schema.dsn)
     var = tmp_path / "178" / "main" / "var"
@@ -165,6 +165,9 @@ def test_a_dex_may_ask_to_be_read_deeper_and_a_law_read_to_its_level_is_judged_w
             dict(row, source="study 178's folder") for row in recorded if row["law"] in wanted])
         found = dex_check.keep(repo, var.parent, blobs=None, force=True)
         assert found["checked"] == 1 and found["owed"] == 4
+        from graph_scale_dynamics.scheduling import work_groups
+        assert work_groups.verifying(repo) == focus.load(repo)["dex_check"]["verify_to"] == 16384, (
+            "while the check is open the Dex laws run only to the level the dex asks")
         from graph_scale_dynamics.operations import focus
         check = focus.load(repo)["dex_check"]
         assert check["laws"][first]["verdict"] == "confirmed" and check["laws"][first]["agree"] == 12

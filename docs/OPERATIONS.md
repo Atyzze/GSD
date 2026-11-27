@@ -590,9 +590,13 @@ the zone's workers now; the next, who runs now against the zone's share. In the 
 kind so far against the law's; Working now lists every running simulation with its clock, its bar amber past the
 typical time of one seed at its size. A neighbour is read only at 16,384, so the "read" column jumps late: the
 "between sizes" and "alike so far" columns are the progress before it. There is no share to set (885): the fleet
-takes runs and probes in one order, the zone of the law in focus, the depth worker, the Dex laws read again, the blind
-draw, earlier laws' leftovers, each only when the ones before it have nothing queued; the Map page's first panel says
-which step it is on and what each has queued. A zone whose ring at 0.1 is not two thirds alike stands at ring 0.01 if
+takes runs and probes in one order, the zone of the law in focus, the Dex laws read again (only to the level they are
+verified at while a dex is checked, 892), the blind draw, earlier laws' leftovers, each only when the ones before it
+have nothing queued; the Map page's first panel says which step it is on and what each has queued. The depth worker is
+not in that order (892): while the Top page's push list holds a law, every slot runs that law's seeds, the rest stopped
+with their seeds saved, until not one seed of its next size fits the host's memory, then the next law in the list's
+order; with the list empty the depth worker pushes its own pick (the law in focus) on one slot of its own above the
+worker count. A zone whose ring at 0.1 is not two thirds alike stands at ring 0.01 if
 that one is; else the law is a lucky hit, its readings kept.
 
 **If `uv run` fails building `gsd-engine-rs`** with `rustc: symbol lookup error: .../librustc_driver-*.so: undefined

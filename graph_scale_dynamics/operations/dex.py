@@ -490,7 +490,9 @@ def own_part(repo, *, study: str, blobs: Path | None, science: dict, state: dict
                 entry = laws.setdefault(str(law), _entry(str(law), spec))
                 _add_seen(entry, _seen(str(record.get("bundle") or ""), record.get("study"),
                                        (record.get("codes") or {}).get(str(law)), None, None, record.get("science")))
-    for held in (state or {}).get("central") or []:
+    from graph_scale_dynamics.operations import zone_search
+    for held in [z["central"] for z in zone_search.zones(state) if z.get("central")] + list((state or {}).get("central")
+                                                                                            or []):
         spec = specs.get(str(held.get("law")))
         if spec:
             entry = laws.setdefault(str(held["law"]), _entry(str(held["law"]), spec))

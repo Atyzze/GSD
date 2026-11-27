@@ -4061,12 +4061,13 @@ check('a running law says whether the blind draw or the focus drew it (15:18)', 
   const app = sandbox.GSD_APP;
   const rows = [{ campaign_id: '3', design_kind: 'blind', group: 'A', study_batch: true }, { campaign_id: '12', design_kind: 'focus', group: 'N', focus_part: 'N' },
                 { campaign_id: '13', design_kind: 'focus', group: 'N', focus_part: 'S' }, { campaign_id: '14', design_kind: 'focus', group: 'D', focus_part: 'D' },
-                { campaign_id: '15', design_kind: 'seed', group: 'N' }, { campaign_id: '11', name: 'campaign-standing-controls' }];
-  const got = ['3', '12', '13', '14', '15', '11', '99'].map((cid) => app.lawGroupOf(rows, cid)[1]).join(',');
-  if (got !== 'blind,zone,zone seeds,depth,seeded,control,other') throw new Error(`the groups read ${got}`);
+                { campaign_id: '15', design_kind: 'seed', group: 'N' }, { campaign_id: '11', name: 'campaign-standing-controls' },
+                { campaign_id: '16', design_kind: 'focus', group: 'N', focus_part: 'E' }];
+  const got = ['3', '12', '13', '14', '15', '16', '11', '99'].map((cid) => app.lawGroupOf(rows, cid)[1]).join(',');
+  if (got !== 'blind,zone,zone seeds,pushed,seeded,zone edges,control,other') throw new Error(`the groups read ${got}`);
   app.paintLiveGroups({ A: 6, N: 3, D: 1 });
   const said = getElementById('liveGroups').innerHTML;
-  if (!/blind<\/span> 6/.test(said) || !/zone<\/span> 3/.test(said) || !/depth<\/span> 1/.test(said)) throw new Error(`the heading counts ${said}`);
+  if (!/blind<\/span> 6/.test(said) || !/zone<\/span> 3/.test(said) || !/pushed<\/span> 1/.test(said)) throw new Error(`the heading counts ${said}`);
 });
 
 check('the Top page lists the pushed laws, the law being pushed with its memory ahead, and the laws by N', () => {
@@ -4080,14 +4081,16 @@ check('the Top page lists the pushed laws, the law being pushed with its memory 
           { law: other, campaign: '4', label: 'S178-C4-G7', deepest: 4096, runs: 12, pushed: false, running: false }],
     law: { law, campaign: '15', label: 'S178-C15-G133', running: true, pushed: true, deepest: 65536,
            sizes: [{ n: 16384, runs: 3, peak_bytes: 2147483648, seconds: 600, edges: 60000 }, { n: 65536, runs: 3, peak_bytes: 8589934592, seconds: 2400, edges: 240000 }],
-           forecast: { reach_bytes: 49392123904, ahead: [{ n: 262144, needs_bytes: 37795712204, growth: 1.0, fits: true }, { n: 1048576, needs_bytes: 166301133619, growth: 1.0, fits: false }],
+           forecast: { reach_bytes: 49392123904, seeds: 3, host: true,
+                       ahead: [{ n: 262144, needs_bytes: 37795712204, growth: 1.0, fits: true, at_once: 1, seconds: 9600, hours: 8 }, { n: 1048576, needs_bytes: 166301133619, growth: 1.0, fits: false }],
                        limit: { n: 1048576, needs_bytes: 166301133619, short_bytes: 116909009715 },
                        words: 'N=1,048,576 would need 154.9 GiB, 108.9 GiB more than the 46.0 GiB the depth worker may use: it stops below it' } } });
   const pushed = getElementById('topPushed').innerHTML, one = getElementById('topLaw').innerHTML, list = getElementById('topList').innerHTML;
-  for (const want of ['the depth worker runs', 'S178-C15-G133', 'being pushed now', '65,536', 'data-top-do=unpush', 'stop pushing']) {
+  for (const want of ['the depth slot holds', 'S178-C15-G133', 'being pushed now', '65,536', 'data-top-do=unpush', 'stop pushing']) {
     if (!pushed.includes(want)) throw new Error(`the push list lacks "${want}": ${pushed.slice(0, 500)}`);
   }
-  for (const want of ['154.9 GiB, 108.9 GiB more', 'top-chart', 'top-reach', '8.0 GiB', '35.2 GiB', 'past its reach', 'growing as N^1', '40:00']) {
+  for (const want of ['154.9 GiB, 108.9 GiB more', 'top-chart', 'top-reach', '8.0 GiB', '35.2 GiB', 'past its reach', 'growing as N^1', '40:00',
+                      'priced, 1 of 3 seeds at once', '2 h 40 min', '8 h for the size', 'the push list holds the host: every slot runs this law']) {
     if (!one.includes(want)) throw new Error(`the pushed law lacks "${want}": ${one.slice(0, 600)}`);
   }
   for (const want of ['412 laws have read at least one size', 'S178-C4-G7', '4,096', 'data-top-do=push', 'push to the N limit', 'top-running']) {
@@ -4095,6 +4098,31 @@ check('the Top page lists the pushed laws, the law being pushed with its memory 
   }
   top.render({ contract: 'gsd-push-1', focus: false, pushed: [], top: [], law: null });
   if (!getElementById('topPushed').innerHTML.includes('no focus in this folder')) throw new Error('a folder with no focus is not said');
+});
+
+check('the Top page shows the depth slot at work, the push list in its order with who put each law there, the laws waiting and those done (892)', () => {
+  const top = sandbox.GSD_TOP;
+  const a = 'b1'.repeat(32), b = 'b2'.repeat(32), c = 'b3'.repeat(32), w = 'b4'.repeat(32), d = 'b5'.repeat(32);
+  top.render({ contract: 'gsd-push-1', focus: true, laws_read: 3, top: [], law: null,
+    pushed: [{ law: a, of: '15', label: 'S178-C15-G73', since: '2026-11-27T07:32:00Z', deepest: 65536 },
+             { law: b, of: '15', label: 'S178-C15-G133', since: '2026-11-27T07:33:00Z', deepest: 65536 },
+             { law: c, of: '11', label: 'S178-C11-G900', since: '2026-11-27T09:00:00Z', deepest: null, by: 'zone S178-C15-G2302' }],
+    now: { law: a, label: 'S178-C15-G73', campaign: '13', since: '2026-11-27T07:35:00Z' },
+    slot: { campaign: '13', running: [{ law: a, label: 'S178-C15-G73', n: 262144, seed: 1, since: '2026-11-27T08:01:00Z',
+                                        memory_now: 3221225472, memory_peak: 3650722201, elapsed: 754 }],
+            order: [{ law: a, label: 'S178-C15-G73', queued: 2 }, { law: w, label: 'S178-C15-G2302', queued: 4 }],
+            waiting: [{ law: w, label: 'S178-C15-G2302' }] },
+    done: [{ law: d, of: '15', label: 'S178-C15-G5', at_n: 1048576, rule: 'memory' }] });
+  const pushed = getElementById('topPushed').innerHTML;
+  for (const want of ['the depth slot runs', 'at N=262,144, seed 1, since 08:01 UTC', 'using 3.0 GiB now, 3.4 GiB at most so far', '>you</td>', 'zone S178-C15-G2302',
+                      'data-top-do=push_move', 'data-top-to="0"', 'data-top-to="1"', '>first</button>', '>up</button>',
+                      'waiting, their runs kept', 'S178-C15-G2302', 'pushed to their limit', 'to N=1,048,576 (memory)',
+                      'one worker of its own, above the worker count', "joins the end of this list",
+                      'its run under way stops at once, its seed saved']) {
+    if (!pushed.includes(want)) throw new Error(`the push list lacks "${want}": ${pushed.slice(0, 1200)}`);
+  }
+  const firstRow = pushed.split('<tr>')[2] || '';
+  if (firstRow.includes('data-top-do=push_move')) throw new Error('the first law offers to move up');
 });
 
 check('the Map page shows the work law by law, each with its progress, and why a dex was written', () => {

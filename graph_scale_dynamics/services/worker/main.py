@@ -18,11 +18,11 @@ from graph_scale_dynamics.db.repo import (
 )
 from graph_scale_dynamics.db.connection import DatabaseOperationalError
 from graph_scale_dynamics.db.write_outcome import job_commit_landed
-from graph_scale_dynamics.db.lane_yield import lane_yield_reason, release_defer_seconds
+from graph_scale_dynamics.db.lane_yield import depth_yield_reason, lane_yield_reason, release_defer_seconds
 from graph_scale_dynamics.artifact_store.blobstore import BlobStore
 from graph_scale_dynamics.artifact_store.envelope import RAW_ENVELOPE_SCHEMA
 from graph_scale_dynamics.observability import attempt_cost, oom_evidence
-from graph_scale_dynamics.domain.model import content_hash
+from graph_scale_dynamics.domain.model import content_hash, utc_now
 from graph_scale_dynamics.domain.version import (
     BUILD_NUMBER, DeploymentProvenanceFence, environment_fingerprint, runtime_environment,
     runtime_fingerprint,
@@ -385,7 +385,8 @@ def run_one(repo: Repo, blobs: BlobStore, log: Log, owner: str, job: dict, *,
             if now - last_preempt_check > 2.0:
                 last_preempt_check = now
                 stop_reason = unless_the_database_is_away(
-                    lambda: paused_reason(repo, job.get("campaign_id")) or lane_yield_reason(repo, job))
+                    lambda: paused_reason(repo, job.get("campaign_id")) or lane_yield_reason(repo, job)
+                    or depth_yield_reason(repo, job))
                 stopped = stop_reason is not None
                 preempt = None if stopped else unless_the_database_is_away(
                     lambda: repo.preempt_reason(job) or memory_shed_reason(repo.conn, job, saved_at=lambda jid: resume_saved_at(blobs.volatile_root, jid)))
@@ -954,7 +955,8 @@ def _claim_by_reserve(repo, owner: str, campaigns: tuple[str, ...] | None, below
     return job
 
 
-def offers(allocation: list[dict], shares: dict | None = None) -> list[tuple[tuple[str, ...] | None, int | None, dict]]:
+def offers(allocation: list[dict], shares: dict | None = None,
+           verifying_to: int | None = None) -> list[tuple[tuple[str, ...] | None, int | None, dict]]:
     found = work_groups.ordered(allocation)
     if found is None:
         campaigns = allowed_campaigns(allocation, shares)
@@ -963,13 +965,44 @@ def offers(allocation: list[dict], shares: dict | None = None) -> list[tuple[tup
     for tier, rows in found:
         within = allowed_campaigns(rows)
         chosen = tuple(str(row["campaign_id"]) for row in rows) if within is None else within
-        for bounds in work_groups.claim_bounds(tier):
+        for bounds in work_groups.claim_bounds(tier, verifying_to):
             out.append((chosen, None if tier == work_groups.LEFTOVER_TIER else work_groups.BEHIND, bounds))
-    return out + [(None, None, {})]
+    rest = tuple(str(row["campaign_id"]) for row in allocation
+                 if work_groups.tier_of(row) != work_groups.DEPTH_TIER
+                 and not (verifying_to and work_groups.tier_of(row) == work_groups.DEX_TIER))
+    return out + [(rest, None, {})]
+
+
+def claim_depth_for_owner(repo: Repo, owner: str) -> dict | None:
+    from graph_scale_dynamics.operations import push
+    order = push.order_here(repo)
+    if order is None:
+        return None
+    campaign = str(order["campaign"])
+    for index, law in enumerate(order["laws"]):
+        row = repo.conn.execute(
+            "SELECT job_id, n FROM jobs WHERE campaign_id=? AND candidate_id=? AND kind='simulate' AND status='queued' "
+            "AND (next_attempt_utc IS NULL OR next_attempt_utc<=?) ORDER BY n, created_utc, job_id LIMIT 1",
+            (campaign, str(law), utc_now())).fetchone()
+        if row is None or (index and int(row["n"]) >= EXTENSION_FROM_N):
+            continue
+        job = repo.claim_job(owner, ("simulate",), lease_seconds=SIM_LEASE_SECONDS, campaigns=(campaign,),
+                             job_id=str(row["job_id"]))
+        if job is not None:
+            return job if _admitted(repo, owner, job, None) else None
+    return None
 
 
 def claim_simulation_for_owner(repo: Repo, owner: str) -> dict | None:
-    offered_in_order = offers(repo.worker_allocation(claimable=True), work_groups.shares(repo))
+    from graph_scale_dynamics.operations import push
+    held_by = push.holds_host(repo)
+    if held_by is not None:
+        hold = memory_hold.active(getattr(repo, "conn", None))
+        if hold is not None and str(hold.get("campaign_id")) != str(held_by["campaign"]):
+            memory_hold.end(repo.conn, str(hold["job_id"]), "the push list holds the host")
+        return claim_depth_for_owner(repo, owner)
+    offered_in_order = offers(repo.worker_allocation(claimable=True), work_groups.shares(repo),
+                              work_groups.verifying(repo))
     held = memory_hold.active(getattr(repo, "conn", None))
     below = None
     while True:

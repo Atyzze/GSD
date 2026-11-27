@@ -434,9 +434,9 @@ body[data-gsd-freshness="stale"] .live-clock,body[data-gsd-freshness="offline"] 
 .live-law .live-group { display: block; width: fit-content; margin: 2px 0 1px; }
 .live-group { display: inline-block; font: 600 10px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; padding: 0 5px; border-radius: 4px; border: 1px solid var(--line2); color: var(--muted); }
 .live-group-A { color: var(--blue); border-color: color-mix(in srgb, var(--blue) 45%, var(--line2)); }
-.live-group-N, .live-group-S { color: var(--green); border-color: color-mix(in srgb, var(--green) 45%, var(--line2)); }
+.live-group-N, .live-group-S, .live-group-E { color: var(--green); border-color: color-mix(in srgb, var(--green) 45%, var(--line2)); }
 .live-group-D { color: var(--amber); border-color: color-mix(in srgb, var(--amber) 45%, var(--line2)); }
-.live-group-E { color: var(--violet, #a78bfa); border-color: color-mix(in srgb, var(--violet, #a78bfa) 45%, var(--line2)); }
+.live-group-X { color: var(--violet, #a78bfa); border-color: color-mix(in srgb, var(--violet, #a78bfa) 45%, var(--line2)); }
 .map-settings { margin: 6px 0; } .map-settings > summary { cursor: pointer; color: var(--muted); }
 .map-settings-words { margin: 4px 0 6px 18px; padding: 0; max-width: 160ch; } .map-settings-words li { margin: 1px 0; }
 .map-import-where code { font-size: 12px; } .map-imports td, .map-imports th { padding: 2px 10px 2px 0; text-align: left; }

@@ -53,6 +53,8 @@ ATTEMPT_CLASS_MEMORY_FLOOR = "preempted_memory_floor"
 ATTEMPT_CLASS_MEMORY_RUNAWAY = "memory_runaway_requeued"
 LANE_YIELD_REASON = "gave its lane to a law bought on its own reading"
 ATTEMPT_CLASS_LANE_YIELD = "preempted_lane_yield"
+DEPTH_YIELD_REASON = "gave its slot to the law first on the push list"
+ATTEMPT_CLASS_DEPTH_YIELD = "preempted_depth_order"
 ATTEMPT_CLASS_CAMPAIGN_PAUSED = "preempted_campaign_paused"
 ATTEMPT_CLASS_NO_SPACE = "no_space_left"
 ATTEMPT_CLASS_WORKER_CAP = "preempted_worker_cap"
@@ -61,7 +63,7 @@ ATTEMPT_CLASS_WORKER_VANISHED = "worker_vanished"
 INTERRUPTED_ATTEMPT_CLASSES = ("preempted_fleet_paused", "preempted_fleet_shutdown", "supervisor_interrupted",
                                ATTEMPT_CLASS_MEMORY_FLOOR, ATTEMPT_CLASS_MEMORY_RUNAWAY, ATTEMPT_CLASS_LANE_YIELD, ATTEMPT_CLASS_CAMPAIGN_PAUSED,
                                ATTEMPT_CLASS_NO_SPACE, ATTEMPT_CLASS_WORKER_CAP, ATTEMPT_CLASS_LEASE_LOST,
-                               ATTEMPT_CLASS_WORKER_VANISHED)
+                               ATTEMPT_CLASS_WORKER_VANISHED, ATTEMPT_CLASS_DEPTH_YIELD)
 VANISHED_FIRST_WAIT_SECONDS = 60.0
 VANISHED_LONGEST_WAIT_SECONDS = 3600.0
 

@@ -1,4 +1,4 @@
-# Handoff: the state of GSD at build 891
+# Handoff: the state of GSD at build 892
 
 What is true now, for a context that has just opened this archive. Each fact has one home; the last section says
 where. **Think from the data, not from this page**: where the data and a document disagree, the data wins and the
@@ -31,7 +31,13 @@ extents, first in the depth worker's line after the pushed laws (`operations/zon
 `docs/build_notes/BUILD890_NOTES.md`). The ring method spent 3.2 core-hours on the same zone in 176. 891: when a zone's
 search ends, the rule is asked again without the laws inside a mapped zone's box or near an unconfirmed centre, so the
 zones come one after another; a zone is kept on its region, travels in the dex with its central law, and is not
-searched again when the dex is read in; the dex lists its lucky hits (`docs/build_notes/BUILD891_NOTES.md`).
+searched again when the dex is read in; the dex lists its lucky hits (`docs/build_notes/BUILD891_NOTES.md`). 892, on
+178's bundle and the operator's words of 08:36 to 09:19: the depth worker had been a share inside the fleet, its runs
+waiting for free slots; now while the Top page's push list holds a law the host is its, every slot on its seeds, every
+other run stopped and saved, its sizes priced against the host's memory until not one seed fits, in the operator's
+order (taking the first off stops its run at once), a zone's central law joining the end; the forecast says the last
+size and about when; Home names its runs "pushed"; while a dex is checked its laws run only to their level (the zone
+had waited six hours on 31 core-hours of the dex's deeper runs) (`docs/build_notes/BUILD892_NOTES.md`).
 
 **The builds since the last handover, 871 to 885** (each build's notes in `docs/build_notes/`; the operator's words in
 `docs/HISTORY.md`):
@@ -62,9 +68,8 @@ the calibration table) and what it shows: `docs/WHERE_WE_ARE.md` and `docs/paper
 
 **Open threads at 886**, each with its home:
 
-* **Pull requests**: 864 to 880 (#11 to #27) merged by the operator; `main` holds 880. Open: #28 (881 to 886, 886's
-  archive on `main`, one commit) and #29 (887) merged 2026-11-27 00:53Z; open: #30 (888), #31 (889), then 890's and
-  891's. Each is on the one before; merged in order, each shows only its own build.
+* **Pull requests**: 864 to 891 (#11 to #33) merged by the operator, #30 to #33 (888 to 891) at 2026-11-27 07:31Z;
+  `main` holds 891. Open: 892's, on `main`.
 * **Study 177** runs since 2026-11-26 12:24Z (`/data/projects/GSD/177/main`), on 885 since about 19:40 local, seeded
   on 882 from the dex of 176's laws and 174's bundle. Its focus on S177-C11-G37 (from S174-C8-463fc3bf, 27 there).
   Its dex of 19:33Z (`dex_177_2026-11-26T19-33-48Z`, sent with 887): 193 laws in 76 term sets, 26,366 chains, no zone
@@ -235,11 +240,10 @@ again after the paper's three studies, on the final probes, with a criterion wri
 
 ## What waits on the operator
 
-* **#30, #31, 890's and 891's pull requests**: theirs to merge, in that order.
-* **Study 178 on 891**: 891 applied to its folder, or 178 started afresh on 891 with the dex in `import/` before the
+* **892's pull request**: theirs to merge.
+* **Study 178 on 892**: 892 applied to its folder, or 178 started afresh on 892 with the dex in `import/` before the
   start (`docs/build_notes/BUILD888_NOTES.md`, "For the folders").
-* **Which law to push first** on the Top page (889).
-* **Whether a zone's central law goes before the pushed laws** in the depth worker's line (890: after them).
+* **The push list's order** on the Top page (892: the law the depth worker holds first; "first", "up", "stop pushing").
 * **Study 176's standing controls**: kept as a tick (recommended; `docs/ROADMAP.md`, "Questions for the operator").
 * **Where the older data's archive goes public** (the consolidation): the review asks for a public archive (Zenodo or a tag) so a
   referee can see nothing was dropped selectively; the operator wants it out of the tree. Both hold if the archive

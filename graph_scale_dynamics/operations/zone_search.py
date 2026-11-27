@@ -238,11 +238,9 @@ def _central(repo, state: dict, current: dict, search: dict) -> None:
     of = current["of"] if law == current["law"] else zone_campaign
     name = focus.label(repo, of, law)
     search["central"] = {"law": law, "of": of, "label": name, "at": utc_now()}
-    held = state.setdefault("central", [])
-    if all(e.get("law") != law for e in held):
-        held.append({"law": law, "of": of, "label": name, "since": utc_now(), "zone": current.get("label")})
-    state.setdefault("contenders", {}).setdefault(law, {"of": of, "label": name, "joined_utc": utc_now(),
-                                                        "central": True})
+    from graph_scale_dynamics.operations import push
+    push.add(state, law, of, name, by=f"zone {current.get('label')}")
+    state["contenders"][law]["central"] = True
 
 
 def advance(repo, state: dict, current: dict) -> int:

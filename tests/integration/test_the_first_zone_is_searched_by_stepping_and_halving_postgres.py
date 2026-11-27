@@ -128,9 +128,11 @@ def test_the_first_zone_is_searched_by_stepping_and_halving_each_parameter_and_i
         central = search["central"]
         spec = focus._spec_of(repo, central["of"], central["law"])
         assert P.value_of(spec, ("dynamics", "beta")) == pytest.approx(centre["spec"]["dynamics"]["beta"] * 1.1125)
-        assert central["law"] in push.central(state) and central["law"] in state["contenders"]
-        assert focus.depth_line(state, [])[0] == central["law"], (
-            "its central law is pushed: first in the depth worker's line once the law it runs ends")
+        entry = next(e for e in push.entries(state) if e["law"] == central["law"])
+        assert entry["by"].startswith("zone ") and central["law"] in state["contenders"], (
+            "its central law joins the end of the push list, as the operator's own pushes do")
+        assert push.laws(state)[-1] == central["law"] and push.laws(state)[0] == state["depth_now"]["law"], (
+            "the law the depth worker holds stays first; the central law waits at the end until the operator moves it")
         edges = state["campaigns"][zone_search.EDGES]
         spec_e = repo.campaign(edges)["spec"]
         assert spec_e["ladder"] == [64, 256, 1024, 4096] and spec_e["study_design"]["focus"]["part"] == "E"
