@@ -302,7 +302,7 @@ def seed(repo, path, *, science: dict | None = None) -> dict:
                 "labels": list(region.get("labels") or []), "members": int(region.get("members") or len(holders)),
                 "ranges": dict(region.get("ranges") or {}), "alike_to": region.get("alike_to"),
                 "boundaries": list(region.get("boundaries") or []), "joined": [], "mapped_utc": region.get("mapped_utc"),
-                "sources": [bundle["name"]],
+                **({"zones": list(region["zones"])} if region.get("zones") else {}), "sources": [bundle["name"]],
                 "seeded_from": {"study": str(region.get("study") or bundle["study"]), "bundle": bundle["name"],
                                 "number": int(region.get("number") or 0),
                                 "name": region.get("name"), "at": utc_now()}}

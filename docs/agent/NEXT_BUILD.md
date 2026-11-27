@@ -1,44 +1,39 @@
-# The next build is 891
+# The next build is 892
 
 This file names the next build and says how to make it. `tests/unit/test_next_build_is_named.py` parses its first line,
 which must read exactly `# The next build is <N>`, one above `BUILD_NUMBER`.
 
-## Where to begin: 891 takes the zones one after another, the dex a list of zones
+## Where to begin: 892 is read from study 178's first zones
 
 **Starting from nothing but the repository** (the operator, 2026-11-24 23:00): clone `main` and bring it up by
 `docs/agent/ENVIRONMENT.md`, section 10, "From the repository". Then `docs/WHERE_WE_ARE.md`, `docs/agent/HANDOFF.md`,
-**`docs/agent/ZONE_MAP.md`** and this page, in that order, and `CLAUDE.md`'s rules for a shared repository. 871 to 890
-are made (`docs/build_notes/BUILD871_NOTES.md` to `BUILD890_NOTES.md`); 871 to 880 are on `main`, 881 to 890 in pull
-requests #28 to #30, 889's and 890's, each on the one before: branch from the newest not yet merged.
+**`docs/agent/ZONE_MAP.md`** and this page, in that order, and `CLAUDE.md`'s rules for a shared repository. 871 to 891
+are made (`docs/build_notes/BUILD871_NOTES.md` to `BUILD891_NOTES.md`); 871 to 887 are on `main`, 888 to 891 in pull
+requests #30, #31 and those after, each on the one before: branch from the newest not yet merged.
 
-**What comes first, when the operator sends 178's bundle or dex**: read the dex's check, the zone and its search. On a
-bundle, `focus.json`'s `dex_check` (`counts`, every law's verdict, `first_differ` of any denied law) and `zone_chosen`
-(`centre`, `why`, `groups`, `taken_utc`) as at 889; then the law in focus's `search` (890): `stands` (its laws alike
-within 0.1), each line's `steps` (`at`, `verdict`, `why`) and its `lo`/`hi`, the `edges` and whether each `held` at
-16,384, the `central` law and the `benchmark` (its runs and core-hours against the ring method's 3.2 core-hours on the
-same zone, `docs/build_notes/BUILD890_NOTES.md`). Judge 178's criterion (`study_178_criterion.json`): P1 to P4 as
-before; P5 reported. A line whose steps read other at once (an edge under 10%) says the zone is narrow along it; an
-edge that did not hold at 16,384 says 4,096 is too early to judge along it.
+**What comes first, when the operator sends 178's bundle or dex**: read the dex's check, the zones and their searches.
+On a bundle, `focus.json`'s `dex_check` and `zone_chosen` as at 889 (`passed_over` since 891); `zones` (891): each
+zone's `stage`, `box`, `edges` and `held_to`, its `central` law and `cost`; `zones_chosen`, the order they were taken
+in; the law in focus's `search` (890): `stands`, each line's `steps` and `lo`/`hi`, the `edges` and whether each
+`held`, the `benchmark`. On a dex, `tools/dex.py zones <dex>` prints its zones and the next zone. Judge 178's
+criterion (`study_178_criterion.json`): P1 to P4 as before; P5 reported. Then read the benchmark against the ring
+method's 3.2 core-hours on the same zone (`docs/build_notes/BUILD890_NOTES.md`): core-hours, hours, how many edges
+held at 16,384.
 
-**What 891 makes** (`docs/ROADMAP.md`, "From 886", item 5):
+**What 892 makes**, chosen by that reading (`docs/ROADMAP.md`, "Still open from 884 to 889"):
 
-1. **The next zone**: once a zone's search ends MAPPED or UNCONFIRMED, the zone rule (`zone_choice`) is asked again
-   over the laws not inside a mapped zone (inside: within every edge of its search), and its centre taken into focus
-   and searched; G37's family is next by 887's reading. A scoring law with no zone around it waits behind the zones.
-2. **The dex a list of zones**: `dex.json` gains `zones`, each with its centre, central law, members, kind, edges
-   (per parameter, `lo` and `hi`), the size each edge held to, and the benchmark; `tools/dex.py zones` prints them; a
-   dex read in carries its zones into `zone_chosen`, so a mapped zone is not searched again, only its central law read
-   again to the dex's level.
-3. **Lucky hits kept**: a law that read its kind with no zone around it (885's lucky hit) is listed in the dex to
-   revisit, not searched.
-4. **The search's hours**, if 178's benchmark shows the lines' steps as the slow part: each line's next two points
-   at once (the step out and the one after), the one not needed dropped when the first reads.
+1. **If the search's hours are the slow part** (a zone's lines took many times the ring method's hours for about its
+   core-hours): each line's next two points at once (the step out and the one after it, or both halves' midpoints),
+   the one not needed dropped when the first reads (`zone_search._step_line`, `next_at`).
+2. **If the edges held at 16,384** (the call at 4,096 matched): a law taken into focus by its score searched as a zone
+   is, in place of the rings, its members the laws already read near it (`focus.start_next`, `zone_search.begin`).
+3. **If an edge did not hold**: the line's points judged at 16,384 along that parameter, the rest at 4,096.
 
-**Acceptance**: a second zone searched after the first in a test; a dex written with its zones and read back with
-them, a mapped zone not searched again; `outputs_of_a_law --against` 890's record unchanged; the full lane green.
+**Acceptance**: the choice and its reading in the notes; the change tested on a law of known answer as 890's search
+is; `outputs_of_a_law --against` 891's record unchanged; the full lane green.
 
-**Waiting on the operator**: #28 to #30, 889's and 890's pull requests; study 178 on 890; whether the central law
-goes before the operator's pushed laws in the depth worker's line (now after).
+**Waiting on the operator**: #30, #31 and the pull requests after them; study 178 on 891; whether the central law goes
+before the operator's pushed laws in the depth worker's line (now after).
 
 ## Reading a study's bundle
 

@@ -1,4 +1,4 @@
-# Handoff: the state of GSD at build 890
+# Handoff: the state of GSD at build 891
 
 What is true now, for a context that has just opened this archive. Each fact has one home; the last section says
 where. **Think from the data, not from this page**: where the data and a document disagree, the data wins and the
@@ -28,7 +28,10 @@ the rule's, G79's family, then G37's. 890 made both: no ring is drawn around the
 judged at 4,096 with no run (`observability/likeness.py`), each parameter stepped out both ways and halved three times
 in a campaign read to 4,096 (part E), each edge read again at 16,384, and the central law, the middle of the alike
 extents, first in the depth worker's line after the pushed laws (`operations/zone_search.py`,
-`docs/build_notes/BUILD890_NOTES.md`). The ring method spent 3.2 core-hours on the same zone in 176.
+`docs/build_notes/BUILD890_NOTES.md`). The ring method spent 3.2 core-hours on the same zone in 176. 891: when a zone's
+search ends, the rule is asked again without the laws inside a mapped zone's box or near an unconfirmed centre, so the
+zones come one after another; a zone is kept on its region, travels in the dex with its central law, and is not
+searched again when the dex is read in; the dex lists its lucky hits (`docs/build_notes/BUILD891_NOTES.md`).
 
 **The builds since the last handover, 871 to 885** (each build's notes in `docs/build_notes/`; the operator's words in
 `docs/HISTORY.md`):
@@ -60,8 +63,8 @@ the calibration table) and what it shows: `docs/WHERE_WE_ARE.md` and `docs/paper
 **Open threads at 886**, each with its home:
 
 * **Pull requests**: 864 to 880 (#11 to #27) merged by the operator; `main` holds 880. Open: #28 (881 to 886, 886's
-  archive on `main`, one commit), #29 (887), #30 (888), then 889's and 890's, made once the operator gave push access
-  (2026-11-27 01:42). Each is on the one before; merged in order, each shows only its own build.
+  archive on `main`, one commit) and #29 (887) merged 2026-11-27 00:53Z; open: #30 (888), #31 (889), then 890's and
+  891's. Each is on the one before; merged in order, each shows only its own build.
 * **Study 177** runs since 2026-11-26 12:24Z (`/data/projects/GSD/177/main`), on 885 since about 19:40 local, seeded
   on 882 from the dex of 176's laws and 174's bundle. Its focus on S177-C11-G37 (from S174-C8-463fc3bf, 27 there).
   Its dex of 19:33Z (`dex_177_2026-11-26T19-33-48Z`, sent with 887): 193 laws in 76 term sets, 26,366 chains, no zone
@@ -232,8 +235,8 @@ again after the paper's three studies, on the final probes, with a criterion wri
 
 ## What waits on the operator
 
-* **#28 to #30, 889's and 890's pull requests**: theirs to merge, in that order.
-* **Study 178 on 890**: 890 applied to its folder, or 178 started afresh on 890 with the dex in `import/` before the
+* **#30, #31, 890's and 891's pull requests**: theirs to merge, in that order.
+* **Study 178 on 891**: 891 applied to its folder, or 178 started afresh on 891 with the dex in `import/` before the
   start (`docs/build_notes/BUILD888_NOTES.md`, "For the folders").
 * **Which law to push first** on the Top page (889).
 * **Whether a zone's central law goes before the pushed laws** in the depth worker's line (890: after them).

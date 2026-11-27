@@ -49,10 +49,6 @@ Open, for after study 174 (the operator, 2026-11-22 15:50):
   with its reading.
 * **A tenth or a hundredth let through?** Every acting gate lets a tenth through in 174 (15:55); its 10,000 laws say
   what each tenth cost and found, and so what a hundredth would save and lose, gate by gate and size by size.
-* **The perturbation of the best laws**: answered 2026-11-23 11:21, study 175, designed in 847 (`docs/HISTORY.md`);
-  theirs to start.
-* **Put the score's candidate in force?**: answered 2026-11-23 15:45, in force at 848, the trees of long paths a known
-  limit of both scores (`docs/HISTORY.md`).
 
 Open, from 864 (2026-11-25 11:06):
 
@@ -62,42 +58,12 @@ Open, from 864 (2026-11-25 11:06):
   read by a wrong instrument agrees with itself. The map is the control of the search (a blind law inside a known
   region predicts its kind), the controls the control of the instrument. Cost of dropping them: nothing that checks
   the instrument inside a study's own folder and bundle.
-* **When 176 starts**: answered, the operator started it on 867 at about 15:00, as designed (`docs/HISTORY.md`); a
-  gate change learned from 174 would be study 177.
-* **A law's code**: answered 16:34, SnCnGn, the study, the campaign and the graph, its fingerprint underneath (not
-  the build: a build can change nothing a law does, a study is one folder across builds).
-* **The split** (16:12: "why should I not set the distribution 10-1?"): recommended, 90% focus on the slider; the blind
-  draw keeps finding new types beside it, and a group with nothing queued leaves its slots to the others.
 
-Open, from 884 (the operator, 2026-11-26 17:22: "when exactly do we know or decide when the result is no longer the
-original result? How has that been quantized?"):
+Open, from 886:
 
-* **What makes a neighbour alike**: answered 2026-11-27 01:55 ("B, and the rule": "Yes"): alike at N when every curve
-  both laws have locked in by N (its form held over three sizes, by the phenotype's forms) takes the same form at the
-  same value or exponent within the phenotype's own margins, and their kinds agree; a curve not locked in counts
-  neither way, and a law that locks in nothing is judged by its kind alone. Made at 890 (`observability/likeness.py`).
-* **A zone's law**: answered 19:49, its central law, the middle of its boundaries, pushed to the largest N: the zone's
-  signature, every other law a distance from it.
 * **A topology probe** (886): the probes tell a circle from a torus (d 1 from d 2) but not a torus from a plane patch
   or a sphere; a new appended probe group would count the cycles a graph keeps that its triangles and squares do not
   fill, its known answers first. Recommended after the first zones, if a zone reads d near 2.
-
-Open, from 887 (`docs/build_notes/BUILD887_NOTES.md`):
-
-* **The first zone**: answered 2026-11-27 01:55: the rule's, G79's family (29 laws within 0.1 of S176-C12-G100) first,
-  G37's family (28 within 0.1 of S177-C12-G1015) second; the ring method's run on G79's family (44 laws of its term
-  set, 3.2 core-hours in 177's dex) is what 890's search is benchmarked against (`docs/build_notes/BUILD890_NOTES.md`).
-
-Open, from 871 (`docs/build_notes/BUILD871_NOTES.md`):
-
-* **A let-go law's own runs**: decided 2026-11-25 23:25, let them run (the recommendation); a tick takes them back.
-* **The pull requests**: 871 to 880 are merged (#18 to #27); 881 to 886 are #28 (886's archive on `main`), 887 is #29
-  on it, 888 on 887, each made by 888's session once push access was given (2026-11-27 01:42: "Try again, worked last
-  time"). Merge them in order.
-
-Answered 2026-11-24 10:22 (`docs/HISTORY.md`): study 175 runs to its end; the study after it looks for laws whose
-different starts arrive at the same d and mean degree; a lattice that does not change scores lowest; every behaviour
-seen goes into a catalogue, with how to spot it early and how it scores.
 
 Open, from 856 (`docs/build_notes/BUILD856_NOTES.md`), none blocking study 176:
 
@@ -118,21 +84,11 @@ Open, from 860 (`docs/build_notes/BUILD860_NOTES.md`), the first two before stud
   is wanted), before 176 starts; the design is committed and not yet run, so this is a new design file.
 * **The counts the pages and the paper's draft give** ("83 laws score, 54 of them 1", from 14:22Z): recommended, read
   again by the folder's score (the reader's build above) and restated, the old figure kept in the history beside why.
-* **Group D's law**: answered 2026-11-25 07:33 and 07:47, the study's best laws one at a time and the top five's
-  depth, made at 861 (the focus).
 * **E8**: recommended, no study at a cap of 240 or 1,024: the probes refuse E8 at every size the host holds (860's
   notes); its cells appended to the table as refusals instead ("Unscheduled").
 
 Open, from 861 (`docs/build_notes/BUILD861_NOTES.md`):
 
-* **The gates of the next study** (07:33: "perhaps its also time to revisit the gates"; 860's reading of 174's bundle
-  of 06:26Z): `starts_alike` at 16,384 is the costly one: 2 of the 23 it let through score 19, the top score, and
-  of the 165 it holds, 53 are lines or rings, 12 read d 1.3 to 2.5 and 100 read nothing; the fact gates,
-  `starts_alike` at 4,096 and `nothing_read` at 16,384 lost nothing a let-through found. Recommended for the next
-  study: `starts_alike` at 16,384 to act only where the starts' shared end reads no dimension, the rest as in 174.
-  Answered 2026-11-25 09:42, option 3 of four: the 65 that read something (the 53 lines or rings and the 12 at d 1.3
-  to 2.5) run on in 174, about 300 core-hours, with a "run on" action the decisions respect (863); the next study's
-  gates are set on what they show.
 * **Which law first**: recommended the folder's order (C1-G6940, then the other rings at 19, then C3-G7363 at 18);
   the Map page's "focus now" takes another at any time, 175's H12 (aba936bffa) the one to tell seeds from digits on.
 
@@ -158,66 +114,24 @@ Open, none waiting:
 
 ## Planned builds, in order
 
-**From 888's run** (the operator, 2026-11-27 02:22, on S178-C15-G133's law page: "I reaaaaallllly want to see the N
-Being pushed higher here"; "a new button on this page so that we can manually toggle whether or not to push this law
-to the N limit and as soon as that list is non empty, we still allocate 1 thread/worker on top of all the other seed
-work going on, we push this specific law on top, single seed by single seed"; "a dedicated page for the 'top'
-pushing, where we keep a list of the top100 not by score but by sheer N count"; "the memory ballooning basically so it
-can predict when it will hit the memory limit and how much more would be needed"; "this would still share the same
-queue as the zone mapper"; "once we confirm that mechanism to be perfected as well then we can drop the
-functionality"), one build:
+**Made, 885 to 891**, the zone map's road (`docs/agent/ZONE_MAP.md`; the operator's words in each build's notes and
+in `docs/HISTORY.md`): 885 one order for runs and probes, zones named Z1, a lucky hit; 887 study 178, a dex read in as
+its own campaign and verified first, the first zone chosen to confirm fast; 888 the dex read again to 4,096 law by
+law from the start, "Working now" by law, a new dex on a find; 889 a law pushed to the N limit from its page and the
+Top page; 890 the first zone searched by stepping and halving each parameter, a law alike by its locked-in curves, its
+central law pushed, benchmarked against the ring method; 891 the zones one after another, the dex a list of zones
+with their central laws, a zone read in not searched again, the lucky hits kept to revisit.
 
-1. **889, made** (`docs/build_notes/BUILD889_NOTES.md`): a "push to the N limit" toggle on every law page; the pushed
-   laws first in the depth worker's line, on its one worker, one seed after another, with or without a law in focus;
-   a Top page: the pushed laws, the law being pushed with its peak memory per size and the sizes ahead priced from
-   its own peaks (where it stops, and how much more memory the next size would need), and the study's laws by the
-   deepest N they have read. To be dropped once the zone's own push of its central law (890) is trusted.
+**Still open from 884 to 889**, each its own build, the first two waiting on study 178's first zones:
 
-**From 887's run** (the operator, 2026-11-27 01:35, watching study 178 read 177's dex: "ideally, the import folder is
-there from the start and so that if its pre seeded with a dex, the first thing it does is indeed verify all its listed
-laws/zones"; "if we could prioritize the work grouped by all sims needed for 1 law, so that we can see a progress bar
-per zone/candidate"; "N64, N256, N1024 and N4096 as base level of verification it defaults to, unless its internal
-dex-lvl is set at a higher N"; "whenever a new zone/candidate is found that isnt in the dex yet [...] also export new
-copy of the dex to the export folder"), one build, ahead of the zone's search, which waits on the dex being read:
-
-1. **888, made** (`docs/build_notes/BUILD888_NOTES.md`): the import folder in the tree and made at every start, a dex
-   in it before the first start read in at the study's start; a dex read again to N=4,096 unless it carries a higher
-   level; the Dex work taken law by law, its laws in the order of their term sets; "Working now" one row per law with
-   its progress; a new copy of the dex when a law or zone it lacks turns up or more of its laws verify.
-
-**From 886** (the handover; the operator, 2026-11-26 19:49 and 19:59: "I really want to be able to start a fresh
-study, one that does only blind mapping as base load, until a dex is seen"; "pick the first most likely/big area";
-"how to find its edges as efficiently as possible over all parameters used? including N?"; "benchmarking that and well
-defining the space, long before automating it over multiple zones"), each its own build, one step at a time; the
-heading is `docs/agent/ZONE_MAP.md`. It takes the place of "From 884", items 2 to 4.
-
-1. **887, made** (`docs/build_notes/BUILD887_NOTES.md`): study 178's design, the blind draw as the base load in ten
-   batches, the focus begun with no law, no seeded campaign made in advance.
-2. **887, made**: a dex read in as its own campaign, every law run again on its seeds and checked like for like,
-   confirmed, denied or unmatched, listed on the Map page as it reads, the focus waiting for it.
-3. **887, made**: the first zone chosen to confirm fast, the most confirmed laws of one term set within 0.1 of one
-   centre, never a control; its centre taken into focus.
-4. **890, made** (`docs/build_notes/BUILD890_NOTES.md`): the first zone searched, its laws judged at 4,096 with no
-   run, each parameter stepped out both ways and halved three times, each edge read again at 16,384, its central law
-   pushed; benchmarked against the ring method's 3.2 core-hours on the same zone.
-5. **891, then zones one after another**, the dex a list of zones, each with its central law, members, edges and the N it
-   holds to; lucky hits kept to revisit; a topology probe if the operator wants tori told from planes.
-
-**From 884** (the operator, 2026-11-26 19:06 to 19:21: "only do blind draws when there are no seeds/zones to confirm";
-"our system never tries to map multiple zones at the same time"; "at the end of the zone, you basically select the
-central law [...] and then you push that one to the highest N possible"; "the DEX should in the end just be a list of
-zones"; study 177 "is mainly the study where I want to complete two zones, get them in the DEX"), each its own build:
-
-1. **885, made** (`docs/build_notes/BUILD885_NOTES.md`): one order for runs and probes (the zone of the law in focus,
-   the depth worker, the Dex laws, the blind draw, earlier laws' leftovers), the slider gone, a zone standing at a
-   smaller ring from 0.01, zones named Z1, a law with no zone around it a lucky hit.
-2. **The zone's last stage**: its central law made from its members, run, and pushed to the largest N in place of the
-   depth worker as a step of its own (890, made: after the operator's pushed laws); each term set to 0 beside
-   switched off; a "push this law" mark (889, made).
-3. **A smarter zone**: a neighbour judged at 16,384 needs 4,096 and 16,384, not 64 to 1,024 (three of its five round
-   trips); the rings and seeds chosen where they tell most.
-4. **The dex as zones**: a zone carried with its law, members, edges and how far it holds; a dex read in as its own
-   campaign, its laws verified first and listed as they read; lucky hits kept to revisit. After 177's first two zones.
+1. **The search's hours** (890's benchmark): a line's steps follow one another, each a ladder to 4,096; if 178 shows
+   them as the slow part, each line's next two points at once, the one not needed dropped when the first reads.
+2. **A law taken by its score searched as a zone is** (884's "a smarter zone"): once the zones run out the focus goes
+   back to the score and draws rings (861); the search would judge it the same way, its members the laws already read
+   near it. Recommended once 178's benchmark is read.
+3. **Each term set to 0 beside switched off** (884, law space's faces).
+4. **The push list dropped** (889) once a zone's central law is pushed every time (the operator's own words).
+5. **A topology probe** (886; "Questions for the operator"), if a zone reads d near 2.
 
 **From 881** (the operator, 2026-11-26 11:55: "can we just start a new study from scratch first without any prior
 seeding at all [...] And then afterwards, once the from scratch is confirmed running, then we want to test [...] a data

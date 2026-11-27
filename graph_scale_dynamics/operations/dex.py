@@ -214,7 +214,7 @@ def part_of_dex(found: dict, name: str) -> dict:
     return {"name": name, "kind": DEX, "study": (dex.get("made_by") or {}).get("study"),
             "build": (dex.get("made_by") or {}).get("build"), "made_utc": dex.get("made_utc"),
             "science": _dict(dex.get("science")), "laws": laws, "regions": list(dex.get("regions") or []),
-            "verify_to": level_of(dex.get("verify_to")),
+            "lucky": list(dex.get("lucky") or []), "verify_to": level_of(dex.get("verify_to")),
             "chains": [row for row in _rows(found.get(CHAINS)) if str(row.get("law")) in laws],
             "rungs": [row for row in _rows(found.get(RUNGS)) if str(row.get("law")) in laws],
             "sources": list(dex.get("sources") or []) + [{"name": name, "kind": DEX, "made_utc": dex.get("made_utc"),
@@ -270,6 +270,7 @@ def merge(parts: list[dict], *, science: dict, made_by: dict, verify_to=None) ->
     chains: dict[tuple, dict] = {}
     rungs: dict[tuple, dict] = {}
     regions: dict[tuple, dict] = {}
+    lucky: dict[str, dict] = {}
     sources: dict[str, dict] = {}
     for part in parts:
         for law, entry in part["laws"].items():
@@ -289,6 +290,8 @@ def merge(parts: list[dict], *, science: dict, made_by: dict, verify_to=None) ->
             rungs.setdefault((row.get("law"), row.get("n"), row.get("source"), row.get("campaign_id")), row)
         for region in part.get("regions") or []:
             regions.setdefault((str(region.get("study") or ""), int(region.get("number") or 0)), region)
+        for hit in part.get("lucky") or []:
+            lucky.setdefault(str(hit.get("law")), hit)
         for source in part.get("sources") or []:
             sources.setdefault(str(source.get("name")), source)
     order = ranked(laws, sha)
@@ -305,6 +308,7 @@ def merge(parts: list[dict], *, science: dict, made_by: dict, verify_to=None) ->
             **({"verify_to": max(levels)} if levels else {}),
             "sources": list(sources.values()), "laws": [laws[law] for law in order],
             "top": [law for law in order if laws[law]["score"]][:TOP], "regions": list(regions.values()),
+            "lucky": [hit for _law, hit in sorted(lucky.items())],
             "chains": list(chains.values()), "rungs": list(rungs.values())}
 
 
@@ -361,6 +365,7 @@ def _gz(rows) -> bytes:
 def document(dex: dict) -> dict:
     return {key: value for key, value in dex.items() if key not in ("chains", "rungs")} | {
         "counts": {"laws": len(dex["laws"]), "top": len(dex["top"]), "regions": len(dex["regions"]),
+                   "zones": sum(len(r.get("zones") or []) for r in dex["regions"]), "lucky": len(dex.get("lucky") or []),
                    "chains": len(dex["chains"]), "rungs": len(dex["rungs"]), "sources": len(dex["sources"]),
                    "verified": sum(1 for e in dex["laws"] if any(int(v.get("agree") or 0) and not int(v.get("differ") or 0)
                                                                  for v in e.get("verified") or [])),
@@ -374,8 +379,10 @@ def readme() -> dict:
                "every reading of its score with the study, the source and the science that read it (`seen`), its "
                "score under the dex's own science (`score`, null where no part of that science read it), the sizes "
                "its chains reach, and every run again checked against the chains recorded for it (`verified`); `top` "
-               "the first hundred that score; `regions` the mapped regions; `sources` every dex, study bundle and "
-               "folder merged into it"),
+               "the first hundred that score; `regions` the mapped regions, each zone searched in one under `zones` (its centre, "
+               "kind, members, each parameter's alike extent `box`, its edges and whether each held, the size they held "
+               "to, its central law and its cost); `lucky` the laws that read their kind with no zone around them, to "
+               "revisit; `sources` every dex, study bundle and folder merged into it"),
         CHAINS: ("one row per law, size, seed and start from every source: what a run again on the same science must "
                  "reproduce to the bit (moves, accepted moves, edges, largest degree, work), and its seconds and the "
                  "seed's peak memory"),
@@ -483,6 +490,11 @@ def own_part(repo, *, study: str, blobs: Path | None, science: dict, state: dict
                 entry = laws.setdefault(str(law), _entry(str(law), spec))
                 _add_seen(entry, _seen(str(record.get("bundle") or ""), record.get("study"),
                                        (record.get("codes") or {}).get(str(law)), None, None, record.get("science")))
+    for held in (state or {}).get("central") or []:
+        spec = specs.get(str(held.get("law")))
+        if spec:
+            entry = laws.setdefault(str(held["law"]), _entry(str(held["law"]), spec))
+            _add_seen(entry, _seen(name, study, held.get("label"), None, None, sha, held.get("of")))
     chains = []
     if blobs is not None and Path(blobs).is_dir() and laws:
         from graph_scale_dynamics.artifact_store.blobstore import BlobStore
@@ -492,8 +504,12 @@ def own_part(repo, *, study: str, blobs: Path | None, science: dict, state: dict
     rungs = [_rung(row, str(row["candidate_id"]), name, sha, study) for row in rung_rows
              if str(row["candidate_id"]) in laws]
     regions = _regions_of({"regions": (state or {}).get("regions") or []}, study, set(laws), name)
+    lucky = [{"law": str(e["law"]), "label": e.get("label"), "campaign": e.get("of"), "kind": e.get("kind"),
+              "why": e.get("why"), "study": study, "source": name, "spec": specs[str(e["law"])]}
+             for e in (state or {}).get("done") or [] if e.get("stage") == "unconfirmed" and not e.get("seeded")
+             and specs.get(str(e.get("law")))]
     return {"name": name, "kind": OWN, "study": study, "made_utc": utc_now(), "science": science, "laws": laws,
-            "regions": regions, "chains": chains, "rungs": rungs,
+            "regions": regions, "lucky": lucky, "chains": chains, "rungs": rungs,
             "sources": [{"name": name, "kind": OWN, "study": study, "made_utc": utc_now(), "science": sha,
                          "laws": len(laws)}]}
 

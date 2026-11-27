@@ -1044,6 +1044,7 @@ def _finish(repo, state: dict, current: dict) -> None:
         current["search_summary"] = zone_search.summary(current)
     summary = _summary(current)
     summary["type"] = type_of(repo, state, current["of"], current["law"])
+    region = None
     if current["stage"] == MAPPED:
         region = R.place(state, summary, members(repo, state, current))
         summary["region"] = region["name"]
@@ -1052,6 +1053,9 @@ def _finish(repo, state: dict, current: dict) -> None:
         state["events"].append({"at": utc_now(), "law": current["label"], "region": region["name"]})
     state["done"].append(summary)
     state["current"] = None
+    if current.get("search") is not None:
+        from graph_scale_dynamics.operations import zone_search
+        zone_search.ended(repo, state, current, region)
 
 
 def place_of(state: dict | None, law: str) -> dict | None:
