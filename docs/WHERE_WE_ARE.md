@@ -1,4 +1,4 @@
-# Where we are, at build 890
+# Where we are, at build 891
 
 The whole project on one page, in plain words; the detail is in `docs/agent/HANDOFF.md`.
 
@@ -56,24 +56,26 @@ are one seed of three at small sizes, on graphs in pieces or trees the next size
 68% to 81% of the way there from empty, worse as N grows. Until a known law grows its geometry from empty, "nothing
 grows from empty" cannot be told from "nothing can get there under these moves".
 
-## What 800 to 890 changed
+## What 800 to 891 changed
 
 The probes locked and your table installed (800 to 805); the evidence judged again on the final code (806 to 843); 844
 study 174; 845 to 853 study 175; 854 the paper's draft; 855 the ledger; 856 study 176; 857 to 870 Home, the focus, the
 Map page, an import folder. 871 to 880: law codes, the depth seeker, the C and assembly engines, phenotypes. 881:
 study 177. 882: the dex. 883 to 885: the zone unblocked, live, one at a time. 886: the zone map. 887: study 178, a dex
 verified first, the first zone chosen. 888: the dex read again to 4,096, law by law. 889: a law pushed to the N limit.
-890: the first zone searched by stepping and halving each parameter, a law alike by its curves, its central law pushed.
+890: a zone searched by stepping and halving each parameter, its central law pushed. 891: zones one after another.
 
 ## What comes next
 
-891: the zones one after another, G37's family after G79's, and the dex a list of zones, each with its central law,
-members and edges, so a zone mapped once is not searched again.
+892 is read from study 178's first zones: their searches' cost and hours against the ring method's, and whether the
+edges called at 4,096 held at 16,384, say whether a line steps two points at once or a law taken by its score is
+searched as a zone is.
 
 ## The decision in front of you
 
-1. **Apply 890 to study 178** (or start it afresh with the dex in `import/` first): after the dex is read again, the
-   Map page shows the first zone's search. Merge #28 to #30, 889's and 890's pull requests, in that order.
+1. **Apply 891 to study 178** (or start it afresh with the dex in `import/` first): after the dex is read again, the
+   Map page shows the first zone's search, then the next zone's. Merge #30, #31, 890's and 891's pull requests, in
+   that order, and send 178's bundle or dex once a zone is mapped.
 2. **Which law to push first** on the Top page: any law page's "push to the N limit".
 3. **Whether a known law must grow its geometry from empty first** (recommended, before more compute from empty):
    parallel tempering is the cheapest remedy, an engine change of about a build, its known answers read again after.

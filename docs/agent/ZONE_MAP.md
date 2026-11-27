@@ -97,3 +97,8 @@ boundary itself lies, and what grows there, is a later question (the operator, 1
    learned one by one (19:49). The ring method's run on the same law is in 177's dex: the 44 laws of G79's term set
    176's map drew, 5,280 chains, 3.2 core-hours, 78% of it at 16,384; the search is priced at 2.7 to 3.3 core-hours on
    the same centre (`docs/build_notes/BUILD890_NOTES.md`), its real figures kept in its `benchmark`.
+6. **Then zones one after another, the dex a list of zones** (made at 891, `zone_search.ended`, `dex_check.next_zone`):
+   a zone kept with its centre, members, box (each parameter's alike extent), edges, the size they held to and its
+   central law, on its region in the dex; the rule asked again without the laws inside a mapped zone or near an
+   unconfirmed centre, so a zone mapped once, here or in a dex read in, is not searched again; the lucky hits listed to
+   revisit.

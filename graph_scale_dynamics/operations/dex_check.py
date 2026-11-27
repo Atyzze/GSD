@@ -171,14 +171,14 @@ def controls() -> set[str]:
     return {law["candidate_id"] for law in S.laws(found)} if found else set()
 
 
-def choose(repo, state: dict) -> dict:
+def choose(repo, state: dict, without: set[str] | None = None) -> dict:
     from graph_scale_dynamics.operations import focus, study_seed
     campaign_id = study_seed.campaign_of(state)
     radius = float(state["plan"]["neighbourhood"]["confirm_radius"])
     known, held, off = _codes(state), controls(), study_seed.let_go(state)
     laws = {}
     for law, check in ((state.get(STATE) or {}).get("laws") or {}).items():
-        if law in off:
+        if law in off or law in (without or ()):
             continue
         laws[law] = {"spec": focus._spec_of(repo, campaign_id, law), "verdict": check.get("verdict"),
                      "code": (known.get(law) or {}).get("code") or check.get("code"),
@@ -187,6 +187,29 @@ def choose(repo, state: dict) -> dict:
     chosen = found["chosen"]
     return dict(found, at=utc_now(), campaign=campaign_id,
                 **({"centre": chosen["centre"], "code": chosen["code"]} if chosen else {}))
+
+
+def searched(repo, state: dict) -> dict[str, str]:
+    from graph_scale_dynamics.operations import focus, study_seed, zone_search
+    campaign_id = study_seed.campaign_of(state)
+    out = {str(z["centre"]): "searched before" for z in state.get("zones_chosen") or [] if z.get("centre")}
+    found = zone_search.zones(state)
+    laws = [law for law in ((state.get(STATE) or {}).get("laws") or {}) if law not in out]
+    specs = {law: focus._spec_of(repo, campaign_id, law) for law in laws} if found else {}
+    return out | zone_search.passed_over(found, specs)
+
+
+def next_zone(repo, state: dict) -> dict | None:
+    zone = state.get(ZONE) or {}
+    if zone.get("chosen"):
+        state.setdefault("zones_chosen", []).append(
+            {"centre": zone.get("centre"), "code": zone.get("code"), "why": zone.get("why"), "at": zone.get("at"),
+             "taken_utc": zone.get("taken_utc"), "ended_utc": utc_now()})
+    left = searched(repo, state)
+    chosen = state[ZONE] = dict(choose(repo, state, without=set(left)), passed_over=len(left))
+    state["events"].append({"at": utc_now(), "zone_chosen": chosen.get("code"), "why": chosen["why"][:300],
+                            "passed_over": len(left)})
+    return chosen
 
 
 def keep(repo, root: Path | None, *, blobs: Path | None, now: float | None = None, force: bool = False
@@ -229,7 +252,8 @@ def keep(repo, root: Path | None, *, blobs: Path | None, now: float | None = Non
                            held=len(laws_held(repo, campaign_id)))
     chosen = None
     if not owed(repo, state):
-        chosen = state[ZONE] = choose(repo, state)
+        left = searched(repo, state)
+        chosen = state[ZONE] = dict(choose(repo, state, without=set(left)), passed_over=len(left))
         check["done_utc"] = utc_now()
         state["events"].append({"at": utc_now(), "zone_chosen": chosen.get("code"), "why": chosen["why"][:300]})
     elif added:
@@ -267,6 +291,7 @@ def words(state: dict) -> str | None:
 
 
 def reading(state: dict | None) -> dict | None:
+    from graph_scale_dynamics.operations import zone_search
     if not first(state):
         return None
     check = (state or {}).get(STATE) or {}
@@ -275,9 +300,13 @@ def reading(state: dict | None) -> dict | None:
     rows.sort(key=lambda r: (order.get(r.get("verdict"), 3), -int(r.get("score") or 0), str(r.get("code") or "")))
     return {"contract": CONTRACT, "campaign": check.get("campaign"), "bundles": check.get("bundles") or [],
             "counts": check.get("counts") or {}, "began_utc": check.get("began_utc"), "done_utc": check.get("done_utc"),
-            "verify_to": check.get("verify_to"), "laws": rows, "zone": (state or {}).get(ZONE), "words": words(state or {})}
+            "verify_to": check.get("verify_to"), "laws": rows, "zone": (state or {}).get(ZONE), "words": words(state or {}),
+            "zones": [{k: z.get(k) for k in ("centre", "of", "label", "stage", "why", "region", "kind", "held_to",
+                                            "central", "ended_utc")} | {"members": len(z.get("members") or []),
+                                                                        "edges": len(z.get("edges") or {})}
+                      for z in zone_search.zones(state)]}
 
 
 __all__ = ["CONTRACT", "STATE", "ZONE", "by_of", "chains_here", "choose", "controls", "decided", "first", "judged",
-           "keep", "laws_held", "level_of", "owed", "path_of", "read_to_level", "reading", "recorded", "records",
-           "taken", "verdict_of", "waiting", "words"]
+           "keep", "laws_held", "level_of", "next_zone", "owed", "path_of", "read_to_level", "reading", "recorded",
+           "records", "searched", "taken", "verdict_of", "waiting", "words"]

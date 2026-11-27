@@ -848,6 +848,19 @@ the size read by the phenotype's forms (`phenotype.fit`) and calls two laws alik
 curve both have locked in has the same form and value or exponent within the phenotype's margins; with none shared,
 the kind alone.
 
+**Zones one after another** (891, `zone_search.zone_of`, `zone_search.ended`, `dex_check.next_zone`). When a searched
+law ends, `focus._finish` keeps its zone (`zone_of`: centre, kind, curves, term-set `signature`, the laws alike and
+near, the `box` of each parameter's alike extent from the lines' `lo`, the edges and whether each held, `held_to`, the
+central law, the cost) in the focus state's `zones` and, when mapped, on its region's `zones`; then `next_zone` moves
+the chosen zone to `zones_chosen` and asks `zone_choice.first` again over the dex's verified laws less those
+`dex_check.searched` names: every centre tried, the laws near an unconfirmed centre, and every law inside a mapped
+zone (`zone_search.within`: the same signature and each parameter's relative offset from the centre within its
+extent, `passed_over`). The first choice passes over the same set, `zone_search.zones` reading the zones read in on
+seeded regions too. A region's `zones` travel in the dex (`_regions_of`, kept by `study_seed` on a read-in region),
+each zone's central law is among the dex's laws (`own_part`, from the focus state's `central`), and the dex's `lucky`
+lists the laws that ended UNCONFIRMED here, merged by law across parts. `tools/dex.py zones` prints a dex's zones and
+the next zone with what they pass over.
+
 **The focus's choices** (882). `focus._chosen` records why it took a law (`chosen_by`: score, bundle, outlier,
 operator), said on the Map page's line. An outlier is taken only once the study has a scoring law and every one is
 mapped, inside a region or skipped; an outlier in focus (or a law of score 0 taken before 882 with no reason

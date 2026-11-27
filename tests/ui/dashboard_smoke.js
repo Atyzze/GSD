@@ -4153,6 +4153,26 @@ check('the Map page lists a dex read in as it is verified, then the first zone a
   if (getElementById('mapSeed').innerHTML.includes('verifying the dex')) throw new Error('a folder with no dex first shows a dex check');
 });
 
+check('the Map page lists the zones searched, how each ended and its central law, then the next zone (891)', () => {
+  const map = sandbox.GSD_MAP;
+  const zones = [{ centre: 'cc'.repeat(32), of: '15', label: 'S178-C15-G2', stage: 'mapped', region: 'Z1', kind: 'made', held_to: 16384,
+                   central: { law: 'ee'.repeat(32), of: '11', label: 'S178-C11-G40' }, members: 27, edges: 11 },
+                 { centre: 'dd'.repeat(32), of: '15', label: 'S178-C15-G9', stage: 'unconfirmed', region: null, kind: 'moved', held_to: null,
+                   central: null, members: 3, edges: 0 }];
+  const next = { radius: 0.1, campaign: '15', centre: 'ff'.repeat(32), code: 'S178-C15-G31', chosen: { centre: 'ff'.repeat(32) },
+                 why: 'the most verified laws of one term set nearest one centre', passed_over: 31, groups: [] };
+  const check = { contract: 'gsd-dex-check-1', campaign: '15', laws: [], counts: { confirmed: 193, held: 193 }, zone: next, zones };
+  map.render(Object.assign({}, FOCUS_PAGE, { focus: Object.assign({}, FOCUS_PAGE.focus, { dex_check: check }) }));
+  const html = getElementById('mapSeed').innerHTML;
+  for (const want of ['the next zone:', 'S178-C15-G31', '31 laws passed over, inside or at the centre of a zone already searched',
+                      '<td>Z1</td>', 'S178-C15-G2', 'mapped <span class=muted>(made)</span>', 'held to N=16,384', 'S178-C11-G40',
+                      'S178-C15-G9', 'a lucky hit: no zone found around it, kept to revisit']) {
+    if (!html.includes(want)) throw new Error(`the zones searched lack "${want}": ${html.slice(0, 900)}`);
+  }
+  map.render(Object.assign({}, FOCUS_PAGE, { focus: Object.assign({}, FOCUS_PAGE.focus, { dex_check: Object.assign({}, check, { zone: { radius: 0.1, chosen: null, why: 'none left' } }) }) }));
+  if (!getElementById('mapSeed').innerHTML.includes('no zone left to choose')) throw new Error('the zones run out unsaid');
+});
+
 check('the Map page reads its rings and settings and refuses what is not radius:laws', () => {
   const map = sandbox.GSD_MAP;
   const rings = map.parseRings('1e-9:4, 0.1:8 ,0.4:8');

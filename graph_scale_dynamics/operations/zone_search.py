@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from copy import deepcopy
 from pathlib import Path
 
@@ -7,6 +8,7 @@ from graph_scale_dynamics.domain.model import utc_now
 from graph_scale_dynamics.observability import likeness as L
 
 CONTRACT = "gsd-zone-search-1"
+ZONE_CONTRACT = "gsd-zone-1"
 EDGES = "E"
 JUDGE_N = 4096
 FIRST_STEP = 0.1
@@ -387,6 +389,92 @@ def needs(state: dict, current: dict) -> list[dict]:
          "said": search["central"]["label"] if search.get("central") else "made once every edge is read"}]
 
 
+def box(search: dict) -> dict:
+    out: dict[str, dict] = {}
+    for line in (search.get("lines") or {}).values():
+        entry = out.setdefault(line["param"], {"path": list(line["path"]), "from": line["from"], "down": 0.0, "up": 0.0})
+        entry["up" if int(line["sign"]) > 0 else "down"] = float(line.get("lo") or 0.0)
+    return out
+
+
+def signature_of(spec: dict) -> list:
+    from graph_scale_dynamics.research import neighbourhood as N
+    return json.loads(json.dumps(N.signature(spec)))
+
+
+def within(zone: dict, spec: dict | None) -> bool:
+    from graph_scale_dynamics.research import perturb as P
+    if not spec or zone.get("stage") != "mapped" or signature_of(spec) != zone.get("signature"):
+        return False
+    for edge in (zone.get("box") or {}).values():
+        try:
+            value, was = float(P.value_of(spec, tuple(edge["path"]))), float(edge["from"])
+        except (KeyError, IndexError, TypeError, ValueError):
+            return False
+        change = (value - was) / was if was else (0.0 if value == 0.0 else float("inf"))
+        if not -float(edge["down"]) - 1e-9 <= change <= float(edge["up"]) + 1e-9:
+            return False
+    return True
+
+
+def zone_of(repo, current: dict) -> dict:
+    from graph_scale_dynamics.operations import focus
+    search = current["search"]
+    edges = search.get("edges") or {}
+    members = search.get("members") or {}
+    return {"contract": ZONE_CONTRACT, "centre": current["law"], "of": current["of"], "label": current.get("label"),
+            "stage": current.get("stage"), "why": current.get("why"), "kind": (search.get("centre") or {}).get("kind"),
+            "curves": (search.get("centre") or {}).get("curves"),
+            "signature": signature_of(focus._spec_of(repo, current["of"], current["law"])),
+            "members": sorted(law for law, m in members.items() if m.get("verdict") == ALIKE),
+            "near": sorted(law for law, m in members.items() if m.get("near")), "box": box(search),
+            "edges": {key: {k: e.get(k) for k in ("param", "sign", "lo", "hi", "held")} for key, e in edges.items()},
+            "held_to": int(search["confirm_n"]) if edges and all(e.get("held") for e in edges.values()) else None,
+            "central": search.get("central"), "cost": (search.get("benchmark") or {}).get("total"),
+            "ended_utc": utc_now()}
+
+
+def zones(state: dict | None) -> list[dict]:
+    out = list((state or {}).get("zones") or [])
+    seen = {(z.get("centre"), z.get("ended_utc")) for z in out}
+    for region in (state or {}).get("regions") or []:
+        for zone in region.get("zones") or []:
+            if (zone.get("centre"), zone.get("ended_utc")) not in seen:
+                out.append(zone)
+                seen.add((zone.get("centre"), zone.get("ended_utc")))
+    return out
+
+
+def passed_over(found: list[dict], specs: dict[str, dict]) -> dict[str, str]:
+    out: dict[str, str] = {}
+    for zone in found:
+        out[str(zone["centre"])] = f"the centre of {zone.get('region') or zone.get('label')}"
+        if zone.get("stage") != "mapped":
+            out.update({str(law): f"near {zone.get('label')}, not a zone at its radius" for law in zone.get("near") or []
+                        if str(law) not in out})
+    mapped = [zone for zone in found if zone.get("stage") == "mapped"]
+    for law, spec in specs.items():
+        if law in out:
+            continue
+        zone = next((z for z in mapped if within(z, spec)), None)
+        if zone is not None:
+            out[law] = f"inside {zone.get('region') or zone.get('label')}"
+    return out
+
+
+def ended(repo, state: dict, current: dict, region: dict | None) -> dict:
+    from graph_scale_dynamics.operations import dex_check
+    zone = zone_of(repo, current)
+    if region is not None:
+        zone["region"] = region["name"]
+        region.setdefault("zones", []).append(zone)
+    state.setdefault("zones", []).append(zone)
+    state["events"].append({"at": utc_now(), "law": current.get("label"), "zone": zone["stage"],
+                            "region": zone.get("region")})
+    dex_check.next_zone(repo, state)
+    return zone
+
+
 def summary(current: dict) -> dict | None:
     search = current.get("search")
     if not search:
@@ -401,5 +489,6 @@ def summary(current: dict) -> dict | None:
                       for k, v in search["lines"].items()}}
 
 
-__all__ = ["ALIKE", "CONTRACT", "EDGES", "JUDGE_N", "OTHER", "advance", "begin", "benchmark", "central_spec",
-           "edges_campaign", "judged", "members_specs", "needs", "next_at", "reading", "stepped", "summary"]
+__all__ = ["ALIKE", "CONTRACT", "EDGES", "JUDGE_N", "OTHER", "ZONE_CONTRACT", "advance", "begin", "benchmark", "box",
+           "central_spec", "edges_campaign", "ended", "judged", "members_specs", "needs", "next_at", "passed_over",
+           "reading", "signature_of", "stepped", "summary", "within", "zone_of", "zones"]
