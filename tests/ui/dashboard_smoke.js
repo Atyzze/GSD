@@ -4136,6 +4136,46 @@ check('the Top page lists the pushed laws, the law being pushed with its ladder 
   if (!getElementById('topPushed').innerHTML.includes('no focus in this folder')) throw new Error('a folder with no focus is not said');
 });
 
+check('the Top page says how many seeds run now and why, what the admission asks, and where the N-push stops a law (897)', () => {
+  const top = sandbox.GSD_TOP;
+  const law = 'd7'.repeat(32), G = 1073741824;
+  const rung = { n: 1048576, state: 'running', seeds: 8, left: 8, at_once: 4, passes: 2, needs_bytes: 10.06 * G, asked_bytes: 10.06 * G,
+                 grown_bytes: 6.56 * G, hold_bytes: 14.1 * G, live_bytes: 9.4 * G, cut_bytes: 6.8 * G, running: 4, held_bytes: 47.08 * G,
+                 seconds: 32040, hours: 17.8, starts_utc: '2026-11-27T14:30:00Z', ends_utc: '2026-11-28T08:18:00Z' };
+  const ladder = { contract: 'gsd-push-ladder-2', workers: 11, reach_bytes: 54 * G, now_utc: '2026-11-27T14:30:00Z',
+    rungs: [{ n: 262144, state: 'done', seeds: 16, done: 16, failed: 0, peak_bytes: 3.19 * G, typical_bytes: 1.49 * G, seconds: 5736 }, rung],
+    limit: null, marks: { fewer: { n: 1048576, at_utc: '2026-11-27T14:30:00Z', at_once: 4, seeds: 8 } },
+    end: { n: 1048576, ends_utc: '2026-11-28T08:18:00Z', hours: 17.8 },
+    under_way: { n: 1048576, running: 4, held_bytes: 47.08 * G, live_bytes: 9.4 * G, asked_bytes: 10.06 * G, headroom_bytes: 6.29 * G, more: 0 },
+    ceiling: { n: 1048576, next: 4194304, next_bytes: 30.1 * G, next_fits: true, next_at_once: 1, next_seconds: 195540 } };
+  const entry = { law, of: '15', label: 'S178-C15-G73', since: '2026-11-27T07:32:00Z', deepest: 262144, ceiling: 1048576 };
+  top.render({ contract: 'gsd-push-1', focus: true, laws_read: 3, top: [], mode: { mode: 'push', why: 'S178-C15-G73 is first on the push list' },
+    pushed: [entry], now: { law, label: 'S178-C15-G73', campaign: '15' },
+    law: { law, campaign: '15', label: 'S178-C15-G73', running: true, pushed: true, deepest: 262144, ceiling: 1048576, ladder },
+    slot: { campaign: '17', running: [], order: [], waiting: [] },
+    done: [{ law: 'e1'.repeat(32), of: '15', label: 'S178-C15-G5', at_n: 1048576, rule: 'ceiling' }] });
+  const one = getElementById('topLaw').innerHTML, list = getElementById('topPushed').innerHTML;
+  for (const want of ['N=1,048,576 under way: 4 seeds run at once, the admission holding 47.1 GiB for them (the largest at 9.4 GiB so far)',
+                      'the next asks 10.1 GiB and 6.3 GiB is free above the host', 'so it waits for one to finish',
+                      'the N-push stops this law at N=1,048,576, its ceiling; pushed past it, N=4,194,304 would ask 30.1 GiB a seed, 1 at once',
+                      'the admission asks 10.1 GiB to start a seed', 'a running seed held at about 14.1 GiB', 'its runs under way at 9.4 GiB so far',
+                      'a typical run 1.5 GiB, the largest 3.2 GiB', '10.1 GiB priced']) {
+    if (!one.includes(want)) throw new Error(`the pushed law lacks "${want}": ${one.slice(0, 1200)}`);
+  }
+  for (const want of ['data-top-do=push_past', 'past N=1,048,576', 'it stops at N=1,048,576 unless pushed past it', 'S178-C15-G5', '(ceiling)']) {
+    if (!list.includes(want)) throw new Error(`the push list lacks "${want}": ${list.slice(0, 900)}`);
+  }
+  if ((list.match(/data-top-do=push_past/g) || []).length !== 2) throw new Error('a law that ended at its ceiling is offered "past" too');
+  top.render({ contract: 'gsd-push-1', focus: true, laws_read: 3, top: [], pushed: [entry], now: null, slot: { running: [], order: [], waiting: [] },
+    law: { law, campaign: '15', label: 'S178-C15-G73', running: false, pushed: true, ladder: Object.assign({}, ladder, { under_way: null, ceiling: null,
+      rungs: [Object.assign({}, rung, { state: 'ahead', running: 0, needs_bytes: 60 * G, waits: true })] }) } });
+  const waits = getElementById('topLaw').innerHTML;
+  if (!waits.includes('N=1,048,576: the admission asks 60.0 GiB to start one seed, more than the 54.0 GiB the host admits')) {
+    throw new Error(`a rung whose ask passes the host's reach is not said: ${waits.slice(0, 900)}`);
+  }
+  if (waits.includes('under way:') || waits.includes('its ceiling')) throw new Error('a line was said with nothing behind it');
+});
+
 check('the Top page shows the push list in its order with who put each law there, the laws waiting and those done, and the mode when nothing is pushed', () => {
   const top = sandbox.GSD_TOP;
   const a = 'b1'.repeat(32), b = 'b2'.repeat(32), c = 'b3'.repeat(32), w = 'b4'.repeat(32), d = 'b5'.repeat(32);

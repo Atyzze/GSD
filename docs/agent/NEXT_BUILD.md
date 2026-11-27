@@ -1,49 +1,41 @@
-# The next build is 897
+# The next build is 898
 
 This file names the next build and says how to make it. `tests/unit/test_next_build_is_named.py` parses its first line,
 which must read exactly `# The next build is <N>`, one above `BUILD_NUMBER`.
 
-## Where to begin: 897 is read from study 178's first N-push and its first zones
+## Where to begin: 898 is a resumed seed in a fresh seed's memory, measured first
 
 **Starting from nothing but the repository** (the operator, 2026-11-24 23:00): clone `main` and bring it up by
-`docs/agent/ENVIRONMENT.md`, section 10, "From the repository". Then `docs/WHERE_WE_ARE.md`, `docs/agent/HANDOFF.md`
-(rewritten by the handover of 895), **`docs/agent/ZONE_MAP.md`** and this page, in that order, and `CLAUDE.md`'s rules
-for a shared repository. 871 to 896 are made (`docs/build_notes/BUILD871_NOTES.md` to `BUILD896_NOTES.md`); 871 to
-893 are on `main` (#18 to #35), 894 (#36), 895 (#37) and 896 in their pull requests, each made on the one before:
-branch from 896 if they are not merged yet.
+`docs/agent/ENVIRONMENT.md`, section 10, "From the repository". Then `docs/WHERE_WE_ARE.md`, `docs/agent/HANDOFF.md`,
+`docs/agent/ZONE_MAP.md` and this page, in that order, and `CLAUDE.md`'s rules for a shared repository. 871 to 897 are
+made (`docs/build_notes/BUILD871_NOTES.md` to `BUILD897_NOTES.md`); 871 to 893 are on `main` (#18 to #35), 894 (#36),
+895 (#37) and 896 in their pull requests; 897 was delivered as an archive only (its session could not attach the
+repository), made on 896's: branch from 897's tree, rebased onto `main` once 894 to 896 are merged.
 
-**The check the operator named** (13:06): "once we have our first workers pushing the 4M size, we'll have confirmed the
-N-pusher is working fully as intended". On 178's next bundle read first the N-push: the flag `fleet_mode` and its
-`since`; the push campaign's rungs (`push_ladder.rungs`: seeds, done, failed, peak memory, time a run) against the
-forecast it made (`push_ladder.forecast`, each rung's at once, passes, hours and end); whether 4,194,304 ran and on how
-many workers; the attempts of class `preempted_fleet_mode`; each pushed law's end (`pushed_done`: rule `memory`,
-`ladder` or `failed`). A rung whose time or memory missed its forecast by more than half is the first thing to fix.
+**What 898 makes** (`docs/ROADMAP.md`, "Next, in order", item 1). 178's bundle of 2026-11-27 14:28Z (897's notes): at
+262,144 the two seeds of G73 that were stopped and resumed peaked at 3.05 and 3.19 GiB, the 14 that ran through at
+1.47 to 1.53; at 1,048,576 the 4 running seeds were all resumed and sat at 9.0 to 9.4 GiB where a fresh one should be
+near 6. Measure before changing anything:
 
-**What comes first, when the operator sends 178's bundle or dex**: read the dex's check, the zones and their searches.
-On a bundle, `focus.json`'s `dex_check` and `zone_chosen` as at 889 (`passed_over` since 891); `zones` (891): each
-zone's `stage`, `box`, `edges` and `held_to`, its `central` law and `cost`; `zones_chosen`, the order they were taken
-in; the law in focus's `search` (890): `stands`, each line's `steps` and `lo`/`hi`, the `edges` and whether each
-`held`, the `benchmark`. On a dex, `tools/dex.py zones <dex>` prints its zones and the next zone. Judge 178's
-criterion (`study_178_criterion.json`): P1 to P4 as before; P5 reported. Then read the benchmark against the ring
-method's 3.2 core-hours on the same zone (`docs/build_notes/BUILD890_NOTES.md`): core-hours, hours, how many edges
-held at 16,384.
+1. In the sandbox, one seed of G73 (its spec in the bundle's `tables/laws.ndjson.gz`, law 8addbb0c) at 65,536 run
+   through, then the same seed stopped after a chunk and resumed (`services/worker/child.py`, `stop_file`), each
+   child's peak resident and proportional memory read every half second; and the same at 262,144 under a memory limit
+   if the sandbox's 7 GB allow it. The criterion first, in the notes: the resumed child's peak within 10% of the fresh
+   one's after the change, its chains identical to the bit (`tools/outputs_of_a_law.py --against`).
+2. Where the resumed child holds the saved state (`artifact_store/resume_state.load_resume_state`, the `resume` dict
+   `run_one_shot` and its caller keep for the whole run, `whole_chunk_of`'s envelope) beside the engine's own graph,
+   let it go once the engine has it; if a fresh child also keeps a checkpoint of every chain's edges between chunks,
+   say what it costs an edge.
+3. Nothing under `engine/` or `engine_rs/` moves in 898; `scaleflow/` moves only with the reason in the notes.
 
-**What 897 makes**, chosen by that reading (`docs/ROADMAP.md`, "Still open from 884 to 896"), after any fix the N-push's
-reading calls for:
+**Then**: the two questions of 897 (`docs/ROADMAP.md`, "Questions for the operator", "Open, from 897") decide 899; a
+consolidation after the N-push's fixes; the zone map's road once the push list empties.
 
-1. **If the search's hours are still the slow part** with 893's look-ahead (a zone's lines took many times the ring
-   method's hours for about its core-hours): the members' readings and the edges at 16,384 run ahead on the free
-   slots too, or a line looks two steps ahead (`zone_search.ahead`, `_look_ahead`).
-2. **If the edges held at 16,384** (the call at 4,096 matched): a law taken into focus by its score searched as a zone
-   is, in place of the rings, its members the laws already read near it (`focus.start_next`, `zone_search.begin`).
-3. **If an edge did not hold**: the line's points judged at 16,384 along that parameter, the rest at 4,096.
+**Acceptance**: the measurement and its criterion in the notes; a test that runs a resumed child and holds its peak
+to the fresh one's; `outputs_of_a_law --against` the record before it unchanged; the full lane green.
 
-**Acceptance**: the choice and its reading in the notes; the change tested on a law of known answer as 890's search
-is; `outputs_of_a_law --against` the record before it unchanged; the full lane green.
-
-**Waiting on the operator**: 894's, 895's and 896's pull requests; study 178 on 896
-(`docs/build_notes/BUILD894_NOTES.md`, "For the folders"); its next bundle once a worker runs 4,194,304 or a zone is
-mapped.
+**Waiting on the operator**: 897 applied to study 178 with a restart (the 8 unread seeds of 262,144 are probed at the
+start, G73 ends at 1,048,576); 178's next bundle once G73's 1,048,576 is read; the two questions of 897.
 
 ## Reading a study's bundle
 

@@ -59,6 +59,21 @@ Open, from 864 (2026-11-25 11:06):
   region predicts its kind), the controls the control of the instrument. Cost of dropping them: nothing that checks
   the instrument inside a study's own folder and bundle.
 
+Open, from 897 (2026-11-27), deciding build 899:
+
+* **A pushed seed's hold.** The admission asks 1.35 times its prediction to start a seed and holds a running one at 1.5
+  times its peak, sized for a law whose memory is unknown. A pushed law's seeds agree: G73's 14 seeds that ran through
+  262,144 peaked within 4% of each other (1.47 to 1.53 GiB). Recommended: hold a pushed seed at 1.1 times the typical
+  peak of its own whole runs at the size below grown to its size, and ask 1.1 times it to start. Gain at 1,048,576 with
+  898: about 8 at once instead of about 6, the 8-seed rung in one pass (about 9 h) instead of two (about 18 h). Cost:
+  less margin for a seed that outgrows its siblings; the host's 10 GiB floor and the hard stop at 60% of the host still
+  hold. Other choice: keep the admission as it is for every law.
+* **A bundle beside the N-push.** A quiet bundle pauses every campaign: each running seed saves and resumes, and in 178
+  the bundle of 14:27Z stopped the 4 seeds of 1,048,576 minutes after the restart had. Recommended: a bundle leaves the
+  N-push's seeds running, its report noting they shared the host (no clock decides a seed since 806, so only their
+  wall-clock readings move). Cost: those seeds' times in that bundle read a few minutes of the report's CPU. Other
+  choice: as now, every seed stopped for a bundle.
+
 Open, from 886:
 
 * **A topology probe** (886): the probes tell a circle from a torus (d 1 from d 2) but not a torus from a plane patch
@@ -126,7 +141,27 @@ the N-push its own ladder again from 64 on every worker with its break-points fo
 campaign of its law; 894 a pushed law keeping its code on every page, each size drawn from the campaign with the most
 seeds, the pages told of every change of the work (our own stack, the operator, 13:00); 895 the handover, the plans
 before 886 moved to `docs/agent/ROADMAP_BEFORE_886.md`; 896 the N-push's probes given its slots, the sizes being read
-said on the law page.
+said on the law page; 897 every seed the N-push buys read (a start cancelled 8 of G73's 16 at 262,144), its forecast
+priced as the admission holds a seed with the rung under way said, the push stopped at N=1,048,576 unless a law is
+pushed past it (the operator, 2026-11-27 15:47), the bundle carrying the N-push (`focus.json`'s `push_now`).
+
+**Next, in order** (laid out for the operator with 897; each its own build):
+
+1. **898: a resumed seed in a fresh seed's memory.** In 178 the two seeds of G73's 262,144 that were stopped and
+   resumed peaked at 3.05 and 3.19 GiB, the 14 that ran through at 1.47 to 1.53; the 4 seeds running at 1,048,576 were
+   all resumed (1 to 3 stops each, the restart for 896 and the bundle of 14:27Z) and sit at 9.0 to 9.4 GiB, where a
+   fresh one should be near 6 (about 190 bytes an edge at 65,536 and 262,144). The child keeps the saved state it
+   resumed from (`artifact_store/resume_state.py`, `scaleflow/one_shot.run_one_shot`'s `resume`) beside the engine's
+   graph. Measured first in the sandbox (a seed of 65,536 run through, and stopped and resumed: both peaks, the chains
+   identical to the bit), then the state let go once the engine holds it. The admission's ask falls with it (it grows
+   from the doubled peak). Gain at 1,048,576: about 6 at once instead of 4; a restart or a bundle stops costing memory.
+   It touches `scaleflow/`, named why; no engine change; `tools/outputs_of_a_law.py --against` unchanged. Then the
+   unscheduled "Is the Rust engine as lean as it can be" profile, the bytes an edge against a plain adjacency list.
+2. **899: the two questions below** ("A pushed seed's hold", "A bundle beside the N-push"), as the operator answers.
+3. **A consolidation**: 39 builds since 858's; no behaviour changes; after the N-push's fixes, never in the middle of
+   one.
+4. **The zone map's road**, once the push list empties (G73 ends at 1,048,576, then G133): "Still open from 884 to
+   896" below, the zone search's hours and idle slots read from 178's first mapped zone first.
 
 **Still open from 884 to 896**, each its own build, the first two waiting on study 178's first zones:
 
@@ -139,7 +174,8 @@ said on the law page.
 4. **Several sizes of a pushed law at once** (the operator, 09:19; 892's notes): since 893 the N-push buys its own
    rungs (`push_ladder.step`, outside the decision engine), the next once the size below has one finished run, and
    every slot not taken by the rung below runs the next. Open: starting a size before any run below it has finished,
-   priced from the forecast alone, the price corrected as the size below reads.
+   priced from the forecast alone, the price corrected as the size below reads. Since 897 the push stops at
+   1,048,576, so this matters below it.
 6. **The zone search's idle slots** (893; the operator, 11:37: "those free slots should be used to speed up the zoning
    mapping"): its lines run their two possible next points on the free slots since 893. Its members' readings and its
    edges at 16,384 could use them too, read from 178's next bundle.

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 
+from graph_scale_dynamics.operations.push_ladder import is_push
 from graph_scale_dynamics.scheduling.rungs import max_seed_attempts_for_rung
 
 
@@ -32,7 +33,8 @@ def superseded_analysis_keys(rows: list[dict]) -> list[tuple[str, str, str]]:
     allowed_seeds: dict[tuple, set[int]] = {}
     for key, family in rung_groups.items():
         campaign_spec = family[0].get("campaign_spec") or {}
-        ceiling = max_seed_attempts_for_rung(campaign_spec, int(key[2]))
+        ceiling = (len({int(row["seed"]) for row in family}) if is_push(campaign_spec)
+                   else max_seed_attempts_for_rung(campaign_spec, int(key[2])))
         first_seen: dict[int, str] = {}
         for row in family:
             seed = int(row["seed"])

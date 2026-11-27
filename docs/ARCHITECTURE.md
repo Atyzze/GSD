@@ -859,12 +859,27 @@ peaks below (`depth_reach.price`) against the host's reach (`push_ladder.reach`,
 `push_ladder.plan`: as many seeds as there are workers (the worker count), all at once, while they fit; when memory
 binds, as many at once as fit, and the rung takes that many seeds, never fewer than `LEAST_SEEDS` (3), then in passes;
 when not one seed of the next size fits, the law is done (`push.ended`, `pushed_done`, rule `memory`, or `ladder` at
-its top) and the next law is pushed. Its runs are claimed by every slot (`worker.claim_depth_for_owner`: the first
+its top) and the next law is pushed. **A seed is priced as the admission will hold it** (897, `push_ladder.price`):
+the peaks are those of whole runs only (exit 0; a run cut short by a restart or a bundle says nothing of a whole run's
+peak), a size grown from the sizes below by their typical (median) whole-run peak (`depth_reach.price`, which still
+decides whether a size is tried at all); a seed is priced at the larger of that and what the admission asks to start
+it (`push_ladder.asked`, the worker's own `memory.predicted_claim_peak_bytes` on the law's last job spec) and, running,
+is held at
+`SETTLED_RESERVATION_SLACK` (1.5) times its peak (its own typical peak where it has whole runs, else the largest of
+the grown price, its runs under way and its runs cut short), so as many fit at once as `1 + (reach - price) // held`.
+**The push stops a law at N=1,048,576** (897, `push.CEILING`): its ladder still reaches 4,194,304 in the campaign's
+spec, but a law goes past 1,048,576 only when pushed past it (`push.past`, the Top page's "past" button, `push_past`:
+the entry's `to` set one size of the ladder higher, the law put back at the end of the list if it had left it); at
+its ceiling it is done with rule `ceiling` (`push_ladder.CEILING_RULE`). Its runs are claimed by every slot (`worker.claim_depth_for_owner`: the first
 law's queued runs, smallest first, a later law's only below 16,384; memory admission as for every run) and probed as
-any run; the evidence rebuild writes its rung summaries. `push_ladder.forecast` reads the ladder rung by rung: done,
+any run; the evidence rebuild writes its rung summaries. `push_ladder.forecast` reads the ladder rung by rung to the law's ceiling: done,
 under way (its seeds left) and ahead, each with its seeds, how many at once, its passes, the memory a seed needs (its
-peak, or priced), the time a run takes (its mean, or priced from the law's two deepest sizes by `push.run_seconds`),
-the hours the rung takes and when it starts and ends from now; the break-points (`marks`: the first rung with fewer
+largest and typical whole-run peak, or the price above with what the admission asks, the grown price and the hold),
+the time a run takes (the mean over finished seeds of every attempt's wall, a resumed seed's time before its stop
+counted, or priced from the law's two deepest sizes by `push.run_seconds`), the hours the rung takes and when it
+starts and ends from now; for the rung under way, how many run, what the admission holds for them, and how many more
+the headroom admits now (`under_way`, from `memory.admission_headroom`), the passes left counted from there; the
+ceiling and what the size past it would ask (`ceiling`); the break-points (`marks`: the first rung with fewer
 at once than workers, the first with two passes, the first on one worker), the size past the host's reach (`limit`)
 and the end. The Top page (`/top`, `GSD_TOP` in `map.js`) reads `/api/focus/top` (`push.reading`): the mode and why,
 the runs under way with the memory each holds now and at most from the executor's heartbeat (`push.slot`,
@@ -1263,6 +1278,12 @@ energy and the instrument's readings, never its decisions; the papers are cited 
   pause switch, and a loop that finds nothing doubles its rest.
 * **Nothing a run starts outlives it**: a process dies with its owner however the owner ends; `run` and `serve` drain
   on SIGTERM and SIGHUP; an archive carries its name only once verified.
+* **A start cancels the probes it takes for a crash's leftovers** (`repo.cancel_superseded_analysis_work`,
+  `scheduling/recovery.superseded_analysis_keys`), after it queues again every finished run's probe
+  (`repo.ensure_analysis_queue`, which brings back a cancelled one): a seed's shorter run where a longer one of it
+  exists, and a rung's seeds past the attempts its campaign's spec allows (`max_seed_attempts_for_rung`). A push
+  campaign's rung allows every seed the push bought (897): the push buys as many as there are workers, past its copied
+  spec's ceiling, and 896's start in 178 cancelled seeds 8 to 15 of G73's 262,144 so, the same 8 again at every start.
 * **A law left running with no work under a stop is decided again** at every start (`operations/stranded_laws.py`),
   for a folder an older build left so; since 786 a buy that makes no work is recorded with "decide again" itself.
 * **An anonymous viewer's cost is bounded** (742). The web process streams files and the API's answers in 1 MiB

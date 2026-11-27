@@ -404,8 +404,9 @@ def _focus(repo) -> dict | None:
     except Exception as exc:  # noqa: BLE001
         return {"unavailable": f"{type(exc).__name__}: {str(exc)[:200]}"}
     if found is not None:
-        from graph_scale_dynamics.operations import zone_live
+        from graph_scale_dynamics.operations import push, zone_live
         found["zone_now"] = zone_live.safe(repo, found)
+        found["push_now"] = push.for_the_bundle(repo, found)
     return found
 
 

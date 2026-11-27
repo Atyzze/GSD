@@ -107,6 +107,6 @@ boundary itself lies, and what grows there, is a later question (the operator, 1
    revisit.
 7. **Each zone with every worker, its N by the N-push** (made at 893): the fleet in one mode at a time, the zone search
    while a zone has work, its free slots running its lines' next points ahead; a zone's central law joins the push
-   list, and the N-push takes it from 64 to the last size one seed fits, as many seeds a rung as workers while memory
-   allows. Study 178's first push (S178-C15-G73, from 12:00Z of 2026-11-27) is the check of it: confirmed once a worker
-   runs 4,194,304 (the operator, 13:06).
+   list, and the N-push takes it from 64 to the last size one seed fits, at most 1,048,576 unless pushed past it (897;
+   the operator, 15:47: "not auto extend beyond 1M and to stop there"), as many seeds a rung as workers while memory
+   allows. Study 178's first push (S178-C15-G73, from 12:00Z of 2026-11-27) is the check of it, at 1,048,576.

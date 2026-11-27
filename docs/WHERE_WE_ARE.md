@@ -1,4 +1,4 @@
-# Where we are, at build 896
+# Where we are, at build 897
 
 The whole project on one page, in plain words; the detail is in `docs/agent/HANDOFF.md`.
 
@@ -35,9 +35,8 @@ What the instrument reads on known answers (1, 2). **No data from a study before
 
 ## What is running
 
-Study 178 on 887 since 11-27 00:20Z, reading 177's dex of 19:33Z (193 laws) again before anything else: then the first
-zone's centre in focus. On 888 each law is read again to N=4,096, law by law, its progress on the Map page. 177, 176
-stopped or the operator's.
+Study 178 (887's design) on 896 since 11-27 14:15Z, in the N-push on S178-C15-G73 at N=1,048,576: 8 seeds, 4 at once,
+memory binding (the admission asks 10.1 GiB a seed); its first zone (G2302) searched before. 177, 176 stopped.
 The project rests on two bundles and the calibration table, nothing older (2026-11-24 16:34): 174's of 14:22Z (the
 blind draw, 8,131 laws read) and 175's of 08:35Z (595 variants around 174's 35 settled laws), the paper's draft on them.
 
@@ -56,7 +55,7 @@ are one seed of three at small sizes, on graphs in pieces or trees the next size
 68% to 81% of the way there from empty, worse as N grows. Until a known law grows its geometry from empty, "nothing
 grows from empty" cannot be told from "nothing can get there under these moves".
 
-## What 800 to 896 changed
+## What 800 to 897 changed
 
 The probes locked and your table installed (800 to 805); the evidence judged again on the final code (806 to 843); 844
 study 174; 845 to 853 study 175; 854 the paper's draft; 855 the ledger; 856 study 176; 857 to 870 Home, the focus, the
@@ -64,19 +63,20 @@ Map page, an import folder. 871 to 880: law codes, the depth seeker, the C and a
 study 177. 882: the dex. 883 to 885: the zone unblocked, live, one at a time. 886: the zone map. 887: study 178, a dex
 verified first, the first zone chosen. 888: the dex read again to 4,096, law by law. 889: a law pushed to the N limit.
 890: a zone searched by stepping and halving. 891: zones one after another. 892: a pushed law holds the host.
-893: three modes, never mixed; the N-push its own ladder from 64. 894: one code a law, pages told of each change.
-895: a handover. 896: the N-push's probes get its slots; the law page says what is being read.
+893: three modes; the N-push its own ladder from 64. 894: one code a law, pages told of each change. 895: a handover.
+896: the N-push's probes get its slots. 897: every seed it buys is read, priced as admitted, stopped at 1,048,576.
 
 ## What comes next
 
-897 is read from 178's first N-push (confirmed once a worker runs 4,194,304) and its first zones: each pushed rung
-against its forecast, the searches' cost against the ring method's, whether the edges at 4,096 held at 16,384.
+898: a resumed seed in a fresh seed's memory, measured first (at 262,144 the two seeds that resumed peaked at twice
+the others). Then two choices of yours (a pushed seed's memory hold; a bundle beside the N-push), a consolidation, and
+the zone map's road once the push list empties.
 
 ## The decision in front of you
 
-1. **Merge 894 to 896 in order and apply 896 to study 178**: the N-push runs on, named as you pushed it, the pages
-   updating as readings land. Send 178's bundle once a worker runs 4,194,304 or a zone is mapped.
-2. **The push list's order** on the Top page: "first", "up", "stop pushing"; any law page's "push to the N limit".
+1. **Apply 897 to study 178 and restart the fleet**: the 8 unread seeds of 262,144 are probed, the Top page says why
+   4 run, G73 ends at 1,048,576 and G133 follows. Send 178's bundle once G73's 1M rung is read.
+2. **The push list's order** on the Top page: "first", "up", "past N=1,048,576", "stop pushing".
 3. **Whether a known law must grow its geometry from empty first** (recommended, before more compute from empty):
    parallel tempering is the cheapest remedy, an engine change of about a build, its known answers read again after.
 4. **Where the archive of the older data goes public** (the consolidation), so a reader can see nothing was dropped selectively.

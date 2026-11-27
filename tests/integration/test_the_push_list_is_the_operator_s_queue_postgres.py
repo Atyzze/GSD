@@ -40,6 +40,7 @@ def folder(isolated_postgres_schema, monkeypatch):
     repo.set_flag(worker_count.MOST_FLAG, "32")
     repo.set_flag(worker_count.FLAG, "4")
     monkeypatch.setattr(push_ladder, "reach", lambda repo: 40 * G)
+    monkeypatch.setattr(push_ladder, "asked", lambda repo, campaign_id, law, n: None)
     monkeypatch.setattr(M, "memory_pressure_snapshot", lambda: {"available": False})
     monkeypatch.setattr(M, "system_memory", lambda: M.MemorySnapshot(total=98746621952, available=60 * G))
     monkeypatch.setattr(W, "predicted_claim_peak_bytes", lambda conn, **kw: G // 10)
