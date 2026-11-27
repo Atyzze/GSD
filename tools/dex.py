@@ -52,6 +52,35 @@ def show(args) -> int:
     return 0
 
 
+def zones(args) -> int:
+    from graph_scale_dynamics.operations import dex_check
+    from graph_scale_dynamics.operations import zone_choice as Z
+    part = D.read_part(args.dex)
+    sha = (part.get("science") or {}).get("sha256")
+    held = dex_check.controls()
+    laws = {}
+    for law, entry in part["laws"].items():
+        checks = entry.get("verified") or []
+        verdict = (Z.CONFIRMED if args.as_verified else
+                   dex_check.verdict_of({"agree": sum(int(v.get("agree") or 0) for v in checks),
+                                         "differ": sum(int(v.get("differ") or 0) for v in checks)}))
+        laws[law] = {"spec": entry["spec"], "verdict": verdict, "code": (entry.get("codes") or [law[:10]])[0],
+                     "score": D.standing(entry, sha), "control": law in held}
+    found = Z.first(laws, radius=args.radius)
+    tally = found["counts"]
+    print(f"{part['name']}: {tally['laws']} laws, {tally[Z.CONFIRMED]} confirmed, {tally[Z.DENIED]} denied, "
+          f"{tally[Z.UNMATCHED]} unmatched" + (" (every law taken as confirmed)" if args.as_verified else "")
+          + f", {tally['controls']} standing controls")
+    for place, group in enumerate(Z.groups(laws, args.radius)[:args.top]):
+        print(f"  {place + 1:>3} {group['near']:>3} within {args.radius:g} of {group['code']} ({group['laws']} of "
+              f"{', '.join(group['terms'])}, {group['dynamics']}; mean {group['mean']:.3f}, widest "
+              f"{group['widest']:.3f}, best score {group['best']})")
+    print(f"the first zone: {found['chosen']['code'] if found['chosen'] else 'none'}: {found['why']}")
+    if args.json:
+        Path(args.json).write_text(json.dumps(found, indent=1, default=str))
+    return 0
+
+
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(prog="tools/dex.py")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -64,9 +93,16 @@ def main(argv=None) -> int:
     shown.add_argument("dex")
     shown.add_argument("--top", type=int, default=25)
     shown.add_argument("--json")
+    zoned = sub.add_parser("zones", help="the dex's laws grouped by term set, and the first zone the rule chooses")
+    zoned.add_argument("dex")
+    zoned.add_argument("--radius", type=float, default=0.1)
+    zoned.add_argument("--as-verified", action="store_true",
+                       help="every law taken as confirmed, as a study reading the dex in will find it if none differs")
+    zoned.add_argument("--top", type=int, default=10)
+    zoned.add_argument("--json")
     args = parser.parse_args(argv)
     try:
-        return make(args) if args.command == "make" else show(args)
+        return {"make": make, "show": show, "zones": zones}[args.command](args)
     except ValueError as exc:
         print(f"refused: {exc}", file=sys.stderr)
         return 2

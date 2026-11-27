@@ -35,7 +35,7 @@ INTERVAL_SECONDS = 60.0
 FAILED_FLAG = "study_focus_failed"
 TYPICAL_EVERY_SECONDS = 300.0
 BEHIND = 10_000_000_000
-BY_SCORE, BY_BUNDLE, BY_OUTLIER, BY_OPERATOR = "score", "bundle", "outlier", "operator"
+BY_SCORE, BY_BUNDLE, BY_OUTLIER, BY_OPERATOR, BY_ZONE = "score", "bundle", "outlier", "operator", "zone"
 OWN_CAMPAIGN, SEEDS_CAMPAIGN = "its own campaign", "its seeds' campaign"
 SET_ASIDE_WHY = "an outlier set aside: a scoring law waits, and outliers come only once every scoring law is mapped"
 _LAST: dict[str, float] = {}
@@ -242,7 +242,7 @@ def campaign_specs(repo, study: str, holder_campaign: str, found_plan: dict, tre
     base = json.loads((Path(tree) / "graph_scale_dynamics" / "resources" / "configs" / "campaign_engine_survey.json")
                       .read_text(encoding="utf-8"))
     base = SD.without_terms(design, base, log=lambda *_: None)
-    around = SD.campaign_spec(design, base, design["campaigns"][index], index)
+    around = SD.campaign_spec(design, base, SD.entry_of(design, index), index)
     read_n = int(found_plan["neighbourhood"]["read_n"])
     seeds = int(design["ladder"]["seeds"])
     upto = [int(n) for n in design["ladder"]["deep"] if int(n) <= read_n]
@@ -568,7 +568,21 @@ def lean(repo, share) -> dict:
     return state
 
 
+def zone_entry(repo, state: dict, zone: dict) -> dict:
+    law, campaign_id = str(zone["centre"]), str(zone["campaign"])
+    here = next((e for e in best(repo, state["study"], state) if e["candidate_id"] == law), None)
+    return {"candidate_id": law, "campaign": campaign_id,
+            "score": (here or {}).get("score", (zone.get("chosen") or {}).get("best")),
+            "chosen_by": BY_ZONE, "zone": {k: zone.get(k) for k in ("code", "why", "radius", "at")}}
+
+
 def _chosen(repo, state: dict, law: str | None, ranked: list | None = None) -> dict | None:
+    from graph_scale_dynamics.operations import dex_check
+    if not law and dex_check.waiting(state):
+        return None
+    zone = dex_check.taken(state) if not law else None
+    if zone is not None:
+        return zone_entry(repo, state, zone)
     ranked = best(repo, state["study"]) if ranked is None else ranked
     if not law:
         seen = ({entry["law"] for entry in state["done"]} | set(state.setdefault("inside", {}))
@@ -612,6 +626,8 @@ def start_next(repo, state: dict, law: str | None = None, chosen: dict | None = 
     if state.get("next_plan"):
         state["plan"] = state.pop("next_plan")
         state["events"].append({"at": utc_now(), "settings": settings_of(state["plan"])})
+    if chosen.get("chosen_by") == BY_ZONE and (state.get("zone_chosen") or {}).get("centre") == chosen["candidate_id"]:
+        state["zone_chosen"]["taken_utc"] = utc_now()
     holder, campaign_id = chosen["candidate_id"], chosen["campaign"]
     spec = _spec_of(repo, campaign_id, holder)
     read_n = int(state["plan"]["neighbourhood"]["read_n"])
@@ -623,7 +639,8 @@ def start_next(repo, state: dict, law: str | None = None, chosen: dict | None = 
                **({"origin": chosen["origin"]} if chosen.get("origin") else {}),
                **({"standing": chosen["standing"]} if chosen.get("standing") else {}),
                **({"chosen_by": chosen["chosen_by"]} if chosen.get("chosen_by") else {}),
-               **({"outlier": chosen["outlier"]} if chosen.get("outlier") else {})}
+               **({"outlier": chosen["outlier"]} if chosen.get("outlier") else {}),
+               **({"zone": chosen["zone"]} if chosen.get("zone") else {})}
     state["current"] = current
     type_of(repo, state, campaign_id, holder)
     current["identified_from"] = (state.get("identified") or {}).get(holder)
@@ -657,7 +674,10 @@ def begin(repo, study: str, *, law: str | None = None, tree=None) -> dict:
         if anchor is None:
             raise ValueError(f"this folder holds no campaign of study {study}")
         specs = campaign_specs(repo, study, anchor, found_plan, tree)
+        from graph_scale_dynamics.operations import study_design as SD
+        dex_entry = SD.dex_entry(SD.design_for(tree, str(study)))
         state = {"contract": CONTRACT, "study": str(study), "plan": found_plan, "campaigns": {}, "contenders": {},
+                 "dex_first": bool((dex_entry or {}).get("verified_first")),
                  "complexity_budget": int(specs[NEIGHBOURS].get("complexity_budget") or 6),
                  "whitelist": specs[NEIGHBOURS].get("operator_whitelist"), "current": None, "done": [],
                  "seeds": int(specs[DEPTH]["default_seeds"]),
@@ -1284,9 +1304,10 @@ def set_aside(repo, state: dict, ranked: list[dict]) -> str | None:
 
 
 def _step(repo, state: dict) -> dict:
+    from graph_scale_dynamics.operations import dex_check
     renew_depth(repo, state)
     tidy_depth(repo, state)
-    ranked = best(repo, state["study"])
+    ranked = [] if dex_check.waiting(state) else best(repo, state["study"])
     set_aside(repo, state, ranked)
     added = len(contenders(repo, state, ranked))
     current = state.get("current")
@@ -1638,6 +1659,8 @@ def chosen_words(current: dict) -> str:
         return " (the operator's choice)"
     if by == BY_SCORE:
         return f" (the best free scoring law, score {current.get('score')})"
+    if by == BY_ZONE:
+        return f" (the centre of the first zone, chosen to confirm fast: {(current.get('zone') or {}).get('why')})"
     return ""
 
 
@@ -1660,6 +1683,10 @@ def _doing(state: dict) -> str:
         if current.get("kind") is None:
             said += f"; its neighbours wait for its own kind at N={read_n:,}"
         return said + depth
+    from graph_scale_dynamics.operations import dex_check
+    verifying = dex_check.words(state)
+    if verifying:
+        return verifying + depth
     queue = state.get("queue") or []
     if not queue:
         return (f"idle: no law scores in this folder yet and no seeded law stands on a bundle's score; a law joins the "
@@ -1670,7 +1697,7 @@ def _doing(state: dict) -> str:
 
 
 def reading_of(state: dict) -> dict:
-    from graph_scale_dynamics.operations import study_seed
+    from graph_scale_dynamics.operations import dex_check, study_seed
     current = state.get("current")
     return {"contract": CONTRACT, "study": state["study"], "campaigns": state["campaigns"], "doing": doing_of(state),
             "current": _summary(current) if current else None,
@@ -1689,6 +1716,7 @@ def reading_of(state: dict) -> dict:
             "depth_done": state.get("depth_done") or {},
             "settings": settings_of(state["plan"]),
             "next_settings": settings_of(state["next_plan"]) if state.get("next_plan") else None,
+            "dex_check": dex_check.reading(state),
             "events": (state.get("events") or [])[-30:]}
 
 

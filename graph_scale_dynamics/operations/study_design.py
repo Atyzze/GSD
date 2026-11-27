@@ -11,6 +11,7 @@ DESIGN_CONTRACT = "gsd-study-design-1"
 STARTS_READING_KEYS = ("hold_structure", "lattice_chains_meet")
 DESIGNS = Path("graph_scale_dynamics") / "resources" / "readings"
 BLIND, AROUND, PERTURB, MAP, SEED = "blind", "around", "perturb", "map", "seed"
+DEX = "dex"
 NUDGE = 1.5
 SIGNIFICANT_FIGURES = 4
 TRIES = 50
@@ -231,6 +232,43 @@ def campaign_spec(design: dict, base: dict, entry: dict, index: int) -> dict:
         spec["proposer"] = {"pool_min": 1}
         spec["search_policy"] = {"contract": "gsd-hand-1", "kind": "hand"}
     return spec
+
+
+def entry_of(design: dict, index: int) -> dict:
+    campaigns = design["campaigns"]
+    if 0 <= int(index) < len(campaigns):
+        return campaigns[int(index)]
+    if int(index) == len(campaigns) and design.get(DEX):
+        return design[DEX]
+    raise ValueError(f"study {design.get('study')}'s design has no campaign {index}")
+
+
+def dex_entry(design: dict | None) -> dict | None:
+    found = (design or {}).get(DEX)
+    return dict(found) if isinstance(found, dict) and found.get("kind") == SEED else None
+
+
+def dex_search_seed(study: str) -> int:
+    return int(hashlib.sha256(f"{study}:dex".encode("utf-8")).hexdigest(), 16) % (2 ** 63)
+
+
+def dex_campaign(repo, study: str, *, tree=None, log=print) -> str:
+    from graph_scale_dynamics import PROJECT_ROOT
+    from graph_scale_dynamics.operations import campaign_control as control
+    tree = Path(tree) if tree is not None else Path(PROJECT_ROOT)
+    design = design_for(tree, str(study))
+    entry = dex_entry(design)
+    if entry is None:
+        raise ValueError(f"study {study}'s design has no seeded campaign and makes none for a dex: a seed goes into "
+                         "a study designed for one")
+    base = json.loads((tree / "graph_scale_dynamics" / "resources" / "configs" / "campaign_engine_survey.json")
+                      .read_text(encoding="utf-8"))
+    spec = campaign_spec(design, without_terms(design, base, log=lambda *_a: None), entry, len(design["campaigns"]))
+    spec["study_design"]["dex"] = True
+    made = control.create_campaign(repo, spec, search_seed=dex_search_seed(str(study)),
+                                   reason=f"study {study} ({design['path']}): {entry['label']}")
+    log(f"created Campaign {made['campaign_id']} ({entry['label']}), study {study}: the laws of the first dex read in")
+    return str(made["campaign_id"])
 
 
 def seed_of(design: dict, index: int, search_seed=None) -> int | None:

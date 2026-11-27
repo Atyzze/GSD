@@ -1,0 +1,20 @@
+{
+  "contract": "gsd-study-criterion-1",
+  "study": "178",
+  "committed_utc": "2026-11-26T19:47:43Z",
+  "committed_before": "study 178's first start, in any folder, and before any law it names was run in it",
+  "design": "graph_scale_dynamics/resources/readings/study_178_design.json",
+  "design_sha256": "d161c43b9428051e73a9e527f888e0cae186948f9ffc0a391bb8d5642d0984f7",
+  "question": "The operator's (2026-11-26 19:49): started clean with the blind draw as the base load, does a dex read in become its own campaign whose laws are run again and verified first, and is the first zone then the one most likely to confirm fast?",
+  "read_on": "the dex of study 177 written at 2026-11-26T19:33:48Z (dex_177_2026-11-26T19-33-48Z, 193 laws), put into the folder's import/ at its start",
+  "predictions": {
+    "P1": "the dex is read in within a minute of the folder's start and makes one dex campaign of kind seed holding its 193 laws; nothing else is seeded and no seeded campaign exists before it",
+    "P2": "no law is taken into focus and the depth worker begins no law before every law of the dex campaign has read again: the Map page says the dex is being verified until then",
+    "P3": "no law of the dex is denied: every chain run again in the dex campaign that has a chain of the same law, size, seed, start and length in the dex agrees with it to the bit",
+    "P4": "the first zone is S176-C12-G100's: 29 laws within 0.1 of it, of the 45 of its term set (degree_anchor k=7, degree_anchor_abs k=6, degree_neighbor_gradient, induced_square_count, zero temperature), ahead of 28 within 0.1 of S177-C12-G1015 (degree_anchor_abs k=19, degree_cube_sum, square_count); its centre is the law taken into focus at the next step, chosen_by zone",
+    "P5": "reported: when the dex was read in, when its last law read again, the chains compared and the counts confirmed, denied and unmatched, the zone's line as the Map page gives it, and the blind draw's share of the work before the zone was chosen"
+  },
+  "not_predicted": "how long the dex takes to read again on the host, how many of 177's own laws (the 64 the dex carries unverified) find a chain to compare, and what the zone's search finds",
+  "passes": "when P1 to P4 hold on the study's first bundle after the first zone is chosen; P5 is reported; if P3 fails, the zone is chosen from the laws that hold and the denied laws are read first",
+  "what_follows": "888: the zone's search benchmarked on the first zone, its laws judged first, its edges by stepping and halving per parameter"
+}

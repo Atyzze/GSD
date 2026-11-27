@@ -1,41 +1,43 @@
-# The next build is 887
+# The next build is 888
 
 This file names the next build and says how to make it. `tests/unit/test_next_build_is_named.py` parses its first line,
 which must read exactly `# The next build is <N>`, one above `BUILD_NUMBER`.
 
-## Where to begin: 887 starts study 178 on the zone map
+## Where to begin: 888 benchmarks the zone's search on the first zone
 
 **Starting from nothing but the repository** (the operator, 2026-11-24 23:00): clone `main` and bring it up by
 `docs/agent/ENVIRONMENT.md`, section 10, "From the repository". Then `docs/WHERE_WE_ARE.md`, `docs/agent/HANDOFF.md`,
-**`docs/agent/ZONE_MAP.md`** and this page, in that order, and `CLAUDE.md`'s rules for a shared repository. 871 to 886
-are made (`docs/build_notes/BUILD871_NOTES.md` to `BUILD886_NOTES.md`); if their pull requests are not on `main` yet,
-branch from the newest. 886 is a handover: pages only.
+**`docs/agent/ZONE_MAP.md`** and this page, in that order, and `CLAUDE.md`'s rules for a shared repository. 871 to 887
+are made (`docs/build_notes/BUILD871_NOTES.md` to `BUILD887_NOTES.md`); if their pull requests are not on `main` yet,
+branch from the newest.
 
-**What comes first, when the operator sends 177's dex or bundle**: read the zone. `tools/dex.py show` on a dex; on a
-bundle, `focus.json`'s `zone_now` (`order`, who ran, every law of the zone where it stood), `current.read_at`,
-`confirmed_at`, `needs_at` and the `events`: whether G37's zone was mapped (at ring 0.1 or 0.01) or ended a lucky hit,
-how long each part took, what held it. Then group the dex's laws by term set and distance as 886 did
-(`docs/agent/ZONE_MAP.md`, "Law space") to see which zone would confirm fastest.
+**What comes first, when the operator sends 178's bundle or dex**: read the dex's check and the zone. On a bundle,
+`focus.json`'s `dex_check` (`counts`, every law's verdict, `first_differ` of any denied law, `began_utc`, `done_utc`)
+and `zone_chosen` (`centre`, `why`, `groups`, `taken_utc`), then `zone_now` and the `events` as at 886. Judge 178's
+criterion (`study_178_criterion.json`): P1 the dex campaign made with 193 laws, P2 no law in focus or deeper before
+every law read, P3 no law denied, P4 the first zone S176-C12-G100's; P5 reported. A denied law is read first (its
+first difference names the size, seed and start). `tools/dex.py zones` on a dex 178 writes reads the rule again.
 
-**What 887 makes** (`docs/ROADMAP.md`, "From 886", items 1 to 3), one step at a time and in the operator's order:
+**What 888 makes** (`docs/ROADMAP.md`, "From 886", item 4), on the first zone alone:
 
-1. **Study 178's design**: the blind draw as the base load (one campaign, or the ten batches if the design keeps
-   them; say which and why), no seeded campaign made in advance, the focus begun with no law; the fleet's order of 885.
-2. **A dex read in becomes its own campaign, verified first**: every law run again on its own seeds, its chains
-   checked like for like (`dex.verify`), each law confirmed or denied and listed as it reads; the operator's tick
-   still lets a dex go.
-3. **The first zone chosen to confirm fast**: the verified group with the most laws of one term set nearest one centre
-   (no control), shown on the Map page with why it was chosen.
+1. **Its laws judged first**, with no new run: the dex campaign's laws of the zone's term set, read at 16,384 by
+   their kind (and, if the operator answers it, by the phenotype's locked-in curves, `docs/agent/ZONE_MAP.md`), so the
+   zone's members and its first edges come from what is already paid for.
+2. **Its edges per parameter**: from the centre, each coupling and the dynamics' parameters stepped out both ways,
+   doubling until the behaviour changes, then the gap halved three times; each point judged at 4,096, and only the two
+   points either side of an edge run to 16,384. Each term set to 0 beside switched off (law space's faces).
+3. **The central law** made from the middle of the points read alike, run, and pushed to half the host's memory in
+   place of the depth worker's next law.
+4. **Benchmarked**: every edge's runs, core-hours and hours, how often the call at 4,096 matched 16,384, beside the
+   ring method's on the same law (G79's 47 neighbours already in the dex) and the rings 887 drew around the centre.
 
-Then 888, the zone's search benchmarked on that one zone (item 4): its laws judged first, its edges by stepping and
-halving per parameter at 4,096 with the two points either side confirmed at 16,384, its central law made and pushed;
-every edge's cost recorded beside the ring method's on the same law. Only then several zones (item 5).
+**Acceptance**: the zone's laws judged with no run in a test; an edge found by stepping and halving on a law of known
+answer in a test; the benchmark's table in the notes; `outputs_of_a_law --against` 887's record unchanged; the full
+lane green.
 
-**Acceptance**: a dex read into a fresh study in a test, its laws verified in their own campaign and listed, the first
-zone chosen by the rule with its reason; `outputs_of_a_law --against` 880's record unchanged; the full lane green.
-
-**Waiting on the operator**: 871's to 886's pull requests; 177's dex written before it stops; what makes a neighbour
-alike (`docs/agent/ZONE_MAP.md`, the proposal).
+**Waiting on the operator**: 871's to 887's pull requests; study 178's start on 887 with 177's dex of 19:33Z in its
+`import/`; what makes a neighbour alike (`docs/agent/ZONE_MAP.md`, the proposal); the first zone if not the rule's
+(`docs/ROADMAP.md`, "Questions for the operator").
 
 ## Reading a study's bundle
 

@@ -69,11 +69,14 @@ def read(path) -> dict:
             "sha256": hashlib.sha256(found[LAWS]).hexdigest()}
 
 
-def seeded_campaign(repo, study: str) -> str:
+def seeded_campaign(repo, study: str, *, make: bool = False, tree=None) -> str:
     for campaign in repo.all_campaigns():
         design = (campaign.get("spec") or {}).get("study_design") or {}
         if str(design.get("study")) == str(study) and design.get("kind") == KIND:
             return str(campaign["campaign_id"])
+    if make:
+        from graph_scale_dynamics.operations import study_design as SD
+        return SD.dex_campaign(repo, str(study), tree=tree, log=lambda *_a: None)
     raise ValueError(f"study {study}'s design has no seeded campaign: a seed goes into a study designed for one")
 
 
@@ -252,8 +255,13 @@ def seed(repo, path, *, science: dict | None = None) -> dict:
     earlier = _record_of(state, bundle["name"])
     if earlier is not None and earlier.get("laws") is not None and not selected(earlier):
         return choose(repo, bundle["name"])
-    campaign = seeded_campaign(repo, state["study"])
-    plan = _planned(state, bundle, _in(repo, campaign), campaign, carried=carried)
+    try:
+        campaign = seeded_campaign(repo, state["study"])
+    except ValueError:
+        if not state.get("dex_first"):
+            raise
+        campaign = None
+    plan = _planned(state, bundle, _in(repo, campaign) if campaign else set(), campaign, carried=carried)
     laws = {e["law"]: {"score": e["score"], "code": e["code"]} for e in plan["scoring"]}
     laws_only = {law: bundle["codes"].get(law) for law in plan["laws_only"]}
     if earlier is None and not plan["insert"] and not plan["joined"] and not plan["grown"] and not laws_only:
@@ -261,6 +269,8 @@ def seed(repo, path, *, science: dict | None = None) -> dict:
                          f"this study's map already and its regions add none"
                          + (f" ({plan['mismatched']} laws whose spec is not their id left out)"
                             if plan["mismatched"] else ""))
+    if campaign is None:
+        campaign = seeded_campaign(repo, state["study"], make=True)
     for spec in plan["insert"].values():
         focus._insert(repo, campaign, spec)
     regions = state.setdefault("regions", [])

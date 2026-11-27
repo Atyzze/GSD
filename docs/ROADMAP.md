@@ -84,10 +84,17 @@ original result? How has that been quantized?"):
   or a sphere; a new appended probe group would count the cycles a graph keeps that its triangles and squares do not
   fill, its known answers first. Recommended after the first zones, if a zone reads d near 2.
 
+Open, from 887 (`docs/build_notes/BUILD887_NOTES.md`):
+
+* **The first zone, if not the rule's**: on 177's dex of 19:33Z the rule takes G79's family (29 laws within 0.1 of
+  S176-C12-G100, every one scoring 1) one law ahead of G37's (28 within 0.1 of S177-C12-G1015, its best 27).
+  Recommended: let the rule stand; the ring method's run on G79's family is already paid (its 47 neighbours), so
+  888's search is benchmarked against it at no extra cost. Another centre is put into focus by hand as any law is (`main.py focus --study 178 --law <code>`).
+
 Open, from 871 (`docs/build_notes/BUILD871_NOTES.md`):
 
 * **A let-go law's own runs**: decided 2026-11-25 23:25, let them run (the recommendation); a tick takes them back.
-* **871's to 880's pull requests**: the session that made them was refused push access to `github.com/Atyzze/GSD`.
+* **871's to 887's pull requests**: the sessions that made them were refused push access to `github.com/Atyzze/GSD`.
   1. Open them from the archives yourself (a branch a build, each on the one before). 2. Give the next session push
   access, and it opens them.
 
@@ -160,11 +167,13 @@ study, one that does only blind mapping as base load, until a dex is seen"; "pic
 defining the space, long before automating it over multiple zones"), each its own build, one step at a time; the
 heading is `docs/agent/ZONE_MAP.md`. It takes the place of "From 884", items 2 to 4.
 
-1. **887, study 178's design**: the blind draw as the base load, the focus begun with no law, the fleet's order of 885.
-2. **A dex read in as its own campaign**, every law run again on its seeds and checked like for like, confirmed or
-   denied, listed as it reads.
-3. **The first zone chosen to confirm fast**: the most laws of one term set nearest one centre, never a control.
-4. **The zone's search, benchmarked on that one zone**: its laws judged first; per parameter, stepped out until its
+1. **887, made** (`docs/build_notes/BUILD887_NOTES.md`): study 178's design, the blind draw as the base load in ten
+   batches, the focus begun with no law, no seeded campaign made in advance.
+2. **887, made**: a dex read in as its own campaign, every law run again on its seeds and checked like for like,
+   confirmed, denied or unmatched, listed on the Map page as it reads, the focus waiting for it.
+3. **887, made**: the first zone chosen to confirm fast, the most confirmed laws of one term set within 0.1 of one
+   centre, never a control; its centre taken into focus.
+4. **888, the zone's search, benchmarked on that one zone**: its laws judged first; per parameter, stepped out until its
    behaviour changes and halved three times, judged at 4,096 with the two points either side of an edge at 16,384;
    its central law made from the middle of its alike points and pushed to half the host's memory; each edge's runs,
    core-hours and hours beside the ring method's on the same law (G79's 47 neighbours in the dex of 15:11Z).

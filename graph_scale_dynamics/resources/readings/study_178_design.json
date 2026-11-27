@@ -1,0 +1,505 @@
+{
+  "contract": "gsd-study-design-1",
+  "study": "178",
+  "name": "study 178, the zone map's first study: A draws laws blind as 177 did, ten new batches of 1,000, the base load that runs only when no zone, depth or Dex work is queued; a dex put into its import folder becomes its own campaign, every law run again on its own seeds and checked chain by chain against the dex, and only once every law has read is the first zone chosen, the most verified laws of one term set nearest one centre, its centre taken into focus; nothing seeded in advance",
+  "question": "The operator's question (2026-10-13): can simple local rules make a graph grow a real dimension, like space; which keep one they are given; and can the null map predict a law before it runs? Study 169 is the first study on the final probes, the installed table and the deterministic fleet (800 to 806), run on 813, its data the first clean data (the operator, 2026-11-19 21:11: \"This way, we immediately have clean data from our latest codebase\").",
+  "decided": {
+    "why_now": "the operator, 2026-11-26 19:49: \"I really want to be able to start a fresh study, one that does only blind mapping as base load, until a dex is seen\"; a dex read in \"as its own campaign\", verified first; \"pick the first most likely/big area\", \"not the most special/unique one but the one most likely to confirm fast\"",
+    "blind": "A is 177's design on ten new search seeds: the same grid, starts, ladder, budgets and gates, ten batches of 1,000, kept as ten so every reader of a bundle compares batch to batch as on 174 to 177; with the fleet's one order (885) the blind draw takes a worker only when no zone, depth or Dex work is queued, so how it is cut into batches changes nothing that runs first",
+    "focus": "the focus is begun by the study's start with no law, its three campaigns N, S and D made at once; with no dex read in it takes the first law that scores here, as 177's; once a dex is read in it takes no law until every law of the dex has read again, then the centre of the first zone (operations/zone_choice.py)",
+    "dex": "no seeded campaign is made in advance: the first dex or bundle read in makes the dex campaign (kind seed, the Dex step of the fleet's order), its laws run again on their own seeds with the gates of 177's seeded campaign; each law decided there is checked chain by chain against the dex (dex.verify through operations/dex_check.py): confirmed when every chain of the same law, size, seed, start and length agrees, denied when one differs, unmatched when none can be compared; the operator's untick still lets a dex go",
+    "zone": "the first zone: among the confirmed laws, standing controls never, the laws grouped by term set (the signature a distance is defined within); in each group the centre is the law with the most others within the focus's confirm radius (0.1), then the smallest mean distance; the group with the most laws within 0.1 of its centre is chosen, then the larger group, then the smaller mean distance",
+    "groups": "A 2, N 1, D 1, the focus's plan; a split the operator set is never reset",
+    "gates": "174's, as 176's and 177's",
+    "seeds": "the ten search seeds 887 drew with Python's secrets.randbits(63) at 2026-11-26T19:47:43Z, one for each batch of A"
+  },
+  "axes": {
+    "zero_temperature": "drawn",
+    "dense_cap": 32.0
+  },
+  "ladder": {
+    "base": [
+      64,
+      256,
+      1024,
+      4096
+    ],
+    "deep": [
+      16384,
+      65536
+    ],
+    "seeds": 3,
+    "budgets": [
+      [
+        64,
+        400000000000
+      ],
+      [
+        256,
+        400000000000
+      ],
+      [
+        1024,
+        400000000000
+      ],
+      [
+        4096,
+        1600000000000
+      ],
+      [
+        16384,
+        8000000000000
+      ],
+      [
+        65536,
+        24000000000000
+      ]
+    ]
+  },
+  "law_budget": 1000,
+  "starts": [
+    {
+      "name": "random",
+      "family": "random_at_drawn_degree"
+    },
+    {
+      "name": "square",
+      "family": "periodic_square_lattice"
+    },
+    {
+      "name": "triangular",
+      "family": "periodic_triangular_lattice"
+    },
+    {
+      "name": "cubic",
+      "family": "periodic_cubic_quotient"
+    },
+    {
+      "name": "bcc",
+      "family": "periodic_body_centred_cubic_lattice"
+    },
+    {
+      "name": "fcc",
+      "family": "periodic_face_centred_cubic_lattice"
+    },
+    {
+      "name": "tesseract",
+      "family": "periodic_tesseract_quotient"
+    }
+  ],
+  "engine": {
+    "every_chain": true,
+    "dimension_extends": true,
+    "let_through_rule": "gsd-let-through-1",
+    "let_through_from": 256,
+    "fact_sizes_in_a_row": 3,
+    "one_die": true,
+    "confirm_after": 100,
+    "known_result_after": 100,
+    "known_result_from": 256,
+    "kept_shape_park": true,
+    "steady_chain_gate": true,
+    "gate_shares": [
+      [
+        "cut",
+        1.0
+      ],
+      [
+        "disconnected",
+        0.1
+      ],
+      [
+        "empty",
+        0.1
+      ],
+      [
+        "kept_shape",
+        1.0
+      ],
+      [
+        "no_finite_dimension",
+        1.0
+      ],
+      [
+        "no_giant_component",
+        1.0
+      ],
+      [
+        "no_plateau",
+        1.0
+      ],
+      [
+        "no_reading",
+        1.0
+      ],
+      [
+        "no_second_rung",
+        1.0
+      ],
+      [
+        "no_steady_chain",
+        1.0
+      ],
+      [
+        "not_promising",
+        1.0
+      ],
+      [
+        "nothing_read",
+        0.1
+      ],
+      [
+        "reading_lost",
+        1.0
+      ],
+      [
+        "repeats_a_known_result",
+        1.0
+      ],
+      [
+        "starts_alike",
+        0.1
+      ],
+      [
+        "starts_apart_by_history",
+        1.0
+      ],
+      [
+        "starts_apart_twice",
+        1.0
+      ],
+      [
+        "starts_shape_unread",
+        1.0
+      ],
+      [
+        "too_dense",
+        0.1
+      ],
+      [
+        "unsettled",
+        1.0
+      ],
+      [
+        "unsettled_twice",
+        1.0
+      ]
+    ],
+    "cut_gate": true,
+    "nothing_read_piece_share": 0.9,
+    "longer_chain_budget_scale": 2.0,
+    "ledger_counts_priced": true,
+    "gate_from": [
+      [
+        "nothing_read",
+        16384
+      ]
+    ]
+  },
+  "limits": {
+    "mean_degree_cap_armed_from_n": 64
+  },
+  "starts_reading": {
+    "hold_structure": true,
+    "lattice_chains_meet": false
+  },
+  "finds": true,
+  "terms_left_out": [
+    "ollivier_curvature"
+  ],
+  "search_seeds": [
+    8162669558162483476,
+    8037862896555042247,
+    8954537640220170075,
+    2761671953363066566,
+    2518262671075115374,
+    2347943919920680975,
+    1901176996688790985,
+    4265982690776130172,
+    2556829879802203286,
+    7279778102812081417
+  ],
+  "groups": {
+    "A": 2,
+    "N": 1,
+    "D": 1
+  },
+  "focus": true,
+  "campaigns": [
+    {
+      "label": "laws free of N, drawn blind, batch 1 of 10",
+      "kind": "blind",
+      "group": "A",
+      "grid": {
+        "local_moves": [
+          "toggle"
+        ],
+        "scales": [
+          "one"
+        ],
+        "magnitudes": {
+          "min": 0.005,
+          "max": 20.0,
+          "spacing": "log"
+        }
+      }
+    },
+    {
+      "label": "laws free of N, drawn blind, batch 2 of 10",
+      "kind": "blind",
+      "group": "A",
+      "grid": {
+        "local_moves": [
+          "toggle"
+        ],
+        "scales": [
+          "one"
+        ],
+        "magnitudes": {
+          "min": 0.005,
+          "max": 20.0,
+          "spacing": "log"
+        }
+      }
+    },
+    {
+      "label": "laws free of N, drawn blind, batch 3 of 10",
+      "kind": "blind",
+      "group": "A",
+      "grid": {
+        "local_moves": [
+          "toggle"
+        ],
+        "scales": [
+          "one"
+        ],
+        "magnitudes": {
+          "min": 0.005,
+          "max": 20.0,
+          "spacing": "log"
+        }
+      }
+    },
+    {
+      "label": "laws free of N, drawn blind, batch 4 of 10",
+      "kind": "blind",
+      "group": "A",
+      "grid": {
+        "local_moves": [
+          "toggle"
+        ],
+        "scales": [
+          "one"
+        ],
+        "magnitudes": {
+          "min": 0.005,
+          "max": 20.0,
+          "spacing": "log"
+        }
+      }
+    },
+    {
+      "label": "laws free of N, drawn blind, batch 5 of 10",
+      "kind": "blind",
+      "group": "A",
+      "grid": {
+        "local_moves": [
+          "toggle"
+        ],
+        "scales": [
+          "one"
+        ],
+        "magnitudes": {
+          "min": 0.005,
+          "max": 20.0,
+          "spacing": "log"
+        }
+      }
+    },
+    {
+      "label": "laws free of N, drawn blind, batch 6 of 10",
+      "kind": "blind",
+      "group": "A",
+      "grid": {
+        "local_moves": [
+          "toggle"
+        ],
+        "scales": [
+          "one"
+        ],
+        "magnitudes": {
+          "min": 0.005,
+          "max": 20.0,
+          "spacing": "log"
+        }
+      }
+    },
+    {
+      "label": "laws free of N, drawn blind, batch 7 of 10",
+      "kind": "blind",
+      "group": "A",
+      "grid": {
+        "local_moves": [
+          "toggle"
+        ],
+        "scales": [
+          "one"
+        ],
+        "magnitudes": {
+          "min": 0.005,
+          "max": 20.0,
+          "spacing": "log"
+        }
+      }
+    },
+    {
+      "label": "laws free of N, drawn blind, batch 8 of 10",
+      "kind": "blind",
+      "group": "A",
+      "grid": {
+        "local_moves": [
+          "toggle"
+        ],
+        "scales": [
+          "one"
+        ],
+        "magnitudes": {
+          "min": 0.005,
+          "max": 20.0,
+          "spacing": "log"
+        }
+      }
+    },
+    {
+      "label": "laws free of N, drawn blind, batch 9 of 10",
+      "kind": "blind",
+      "group": "A",
+      "grid": {
+        "local_moves": [
+          "toggle"
+        ],
+        "scales": [
+          "one"
+        ],
+        "magnitudes": {
+          "min": 0.005,
+          "max": 20.0,
+          "spacing": "log"
+        }
+      }
+    },
+    {
+      "label": "laws free of N, drawn blind, batch 10 of 10",
+      "kind": "blind",
+      "group": "A",
+      "grid": {
+        "local_moves": [
+          "toggle"
+        ],
+        "scales": [
+          "one"
+        ],
+        "magnitudes": {
+          "min": 0.005,
+          "max": 20.0,
+          "spacing": "log"
+        }
+      }
+    }
+  ],
+  "dex": {
+    "label": "a dex read in, its laws run again on their own seeds and verified first",
+    "kind": "seed",
+    "group": "N",
+    "engine": {
+      "gate_from": [],
+      "gate_shares": [
+        [
+          "cut",
+          1.0
+        ],
+        [
+          "disconnected",
+          0.1
+        ],
+        [
+          "empty",
+          0.1
+        ],
+        [
+          "kept_shape",
+          1.0
+        ],
+        [
+          "no_finite_dimension",
+          1.0
+        ],
+        [
+          "no_giant_component",
+          1.0
+        ],
+        [
+          "no_plateau",
+          1.0
+        ],
+        [
+          "no_reading",
+          1.0
+        ],
+        [
+          "no_second_rung",
+          1.0
+        ],
+        [
+          "no_steady_chain",
+          1.0
+        ],
+        [
+          "not_promising",
+          1.0
+        ],
+        [
+          "nothing_read",
+          1.0
+        ],
+        [
+          "reading_lost",
+          1.0
+        ],
+        [
+          "repeats_a_known_result",
+          1.0
+        ],
+        [
+          "starts_alike",
+          1.0
+        ],
+        [
+          "starts_apart_by_history",
+          1.0
+        ],
+        [
+          "starts_apart_twice",
+          1.0
+        ],
+        [
+          "starts_shape_unread",
+          1.0
+        ],
+        [
+          "too_dense",
+          0.1
+        ],
+        [
+          "unsettled",
+          1.0
+        ],
+        [
+          "unsettled_twice",
+          1.0
+        ]
+      ]
+    },
+    "verified_first": true
+  }
+}
