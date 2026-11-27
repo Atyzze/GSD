@@ -570,8 +570,9 @@ log writes `study_map` when the map adds points or takes a new law into the ten.
 **Starting study 177** (881): `uv run python main.py run --allow-host <host> --study 177` in a new folder, every
 other fleet on the host stopped and the folder's `import/` left empty: ten blind batches, the focus begun at the start
 and an empty seeded campaign. Nothing to press: the focus's step (once a minute) takes the first law that scores here,
-the zone worker runs its neighbours, its terms switched off and its seeds (group N), and the depth worker takes it
-first, one seed at a time, up to half the host's memory (group D). The Map page's first line says what each does, in
+the zone worker runs its neighbours, its terms switched off and its seeds (group N), and on 881 the depth worker took
+it first, one seed at a time, up to half the host's memory (group D; since 893 a law goes deeper only on the push
+list, in the N-push). The Map page's first line says what each does, in
 amber if the focus's step fails. Seeding it from a bundle is the step after it runs on its own; a bundle of 176 made on
 870 or later reads its science (f5c045e195fdb4d2).
 
