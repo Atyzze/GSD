@@ -515,6 +515,13 @@ copy the relief moved to disk, stays until the worker's commit of the rung is on
 drain resumes the rung where its chain stood (742); a state left behind goes with the prune once its job is no longer
 queued or leased. A resumed rung equals an uninterrupted one, on either engine (the parity lane).
 
+**The fleet ladder's graphs** are those grown, a start of every finished seed (`rung_distribution`'s `completed`
+times the starts a seed), "of" the graphs bought where more are bought than grown (its `graphs`, a seed whatever its
+status), with a + those under way (898: in 178, 1,048,576 read 64, its 8 seeds bought, with none finished). **A seed's
+rough time** on Now researching, at a size none of its law has finished, is the law's own time at the size below over
+the seeds that ran there (`rung_eta.own_rung_seconds`, `Repo.dashboard_live_candidate_timing`'s `rung_seeds`), times
+the ratio of the sizes (898: it divided by 3 where the N-push ran 16, so 1,048,576 read 34 h 44 min for about 6.5 h).
+
 **A resumed run's time** is its own: `rung_terminal.wall_seconds` counts every stretch its save carried
 (`resumed.seconds_before`), and the fleet ladder's "time per
 seed" reads it (`Repo.resumed_run_seconds`, found through the measurement whose input is the job's result); an attempt's

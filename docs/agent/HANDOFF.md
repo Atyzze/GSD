@@ -1,4 +1,4 @@
-# Handoff: the state of GSD at build 897
+# Handoff: the state of GSD at build 898
 
 What is true now, for a context that has just opened this archive. Each fact has one home; the last section says
 where. **Think from the data, not from this page**: where the data and a document disagree, the data wins and the
@@ -55,6 +55,9 @@ in `docs/HISTORY.md`):
   seed as the admission holds it, and say for the rung under way how many run and how many more the headroom admits;
   the push stops at N=1,048,576 unless a law is pushed past it ("past" on the Top page); the bundle's `focus.json`
   carries the N-push (`push_now`).
+* 898: the fleet ladder's graphs are those grown, "of" those bought (1,048,576 read 64, its 8 seeds bought, none
+  finished); a seed's rough time on Now researching is its law's time at the size below over the seeds that ran there
+  (it divided by 3 where the N-push ran 16: 34 h 44 min for about 6.5 h). Pages only: a restart of the dashboard.
 
 **Before that, 871 to 885** (the handover of 886 read them):
 
@@ -82,10 +85,10 @@ and 862 the focus and the Map page; 864 to 869 no law done, study 176 seeded fro
 `import/` folder; 870 a handover. The baseline the paper rests on (174's bundle of 2026-11-24 14:22Z, 175's of 08:35Z,
 the calibration table) and what it shows: `docs/WHERE_WE_ARE.md` and `docs/paper/GSD_PAPER.md`.
 
-**Open threads at 897**, each with its home:
+**Open threads at 898**, each with its home:
 
-* **Pull requests**: 864 to 896 (#11 to #38) merged by the operator; `main` holds 896. 897's pull request is open on
-  it (its archive went to the operator first, its session having been refused the repository at the time).
+* **Pull requests**: 864 to 896 (#11 to #38) merged by the operator; `main` holds 896. Open: 897 (#39) and 898's,
+  898 made on 897; merged in that order.
 * **Study 178** (`/data/projects/GSD/178/main`, `study_178_design.json`, criterion `study_178_criterion.json`) runs
   on 893 since 2026-11-27 about 11:20Z. 177's dex of 19:33Z was read in at its start (C15) and checked: 192 laws
   confirmed, 1 unmatched, at 07:18Z; the first zone (S178-C15-G2302, 177's S176-C12-G100, G79's family) was chosen at
@@ -265,13 +268,12 @@ again after the paper's three studies, on the final probes, with a criterion wri
 
 ## What waits on the operator
 
-* **897's pull request**: theirs to merge.
-* **Study 178 on 897**: applied with a restart (`docs/build_notes/BUILD897_NOTES.md`, "For the folders"); its next
-  bundle once G73's 1,048,576 is read, read by `docs/agent/NEXT_BUILD.md`.
+* **897's and 898's pull requests** (#39 and the next): theirs to merge, in that order.
+* **Study 178 on 897**, G73's 1,048,576 under way (3 seeds at about 17:26Z, none finished); 898
+  applies with a restart of the dashboard alone; its next bundle once G73's 1,048,576 is read.
 * **The push list's order** on the Top page: "first", "up", "past N=1,048,576", "stop pushing"; any law page's "push
   to the N limit".
-* **897's two questions** (`docs/ROADMAP.md`, "Questions for the operator", "Open, from 897"): a pushed seed's memory
-  hold, and a bundle that leaves the N-push's seeds running.
+* **897's two questions answered** (18:26, "agree with both recommendations"): built in 899.
 * **Study 176's standing controls**: kept as a tick (recommended; `docs/ROADMAP.md`, "Questions for the operator").
 * **Where the older data's archive goes public** (the consolidation): the review asks for a public archive (Zenodo or a tag) so a
   referee can see nothing was dropped selectively; the operator wants it out of the tree. Both hold if the archive

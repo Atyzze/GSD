@@ -2035,6 +2035,23 @@ check('a rung whose runs are all under way shows their live values: the graphs b
   if (!done.includes('>24<') || !done.includes('>1.0/1.0/1.1/1.1 G<')) throw new Error(`a finished rung reads as before: ${done}`);
 });
 
+check('a size whose seeds are bought and not grown shows none grown, of those bought, and those under way (898)', () => {
+  sandbox.GSD_APP.overviewPayload = { active: [], rung_distribution: [
+    { n: 262144, running: 0, queued: 0, graphs: 22, completed: 22, chains: 176, chains_per_seed: 8 },
+    { n: 1048576, running: 3, running_laws: 1, queued: 5, graphs: 8, completed: 0, chains: 64, chains_per_seed: 8,
+      running_graphs: 24, max_unfinished: true, longest_unfinished_seconds: 12780 }] };
+  sandbox.GSD_APP.rungLadderRow();
+  const html = getElementById('rungLadder').innerHTML;
+  const row = (html.split('N=1048576</code>')[1] || '').split('</tr>')[0];
+  if (!row.includes('>0<small class=ladder-share>of 64</small><small class=ladder-share>+24 now</small>')) {
+    throw new Error(`178 read 64 graphs at 1,048,576 with none grown: ${row}`);
+  }
+  const below = (html.split('N=262144</code>')[1] || '').split('</tr>')[0];
+  if (!below.includes('>176<') || below.includes('of 176')) throw new Error(`a size grown whole reads as before: ${below}`);
+  const foot = (html.split('<b>all</b>')[1] || '');
+  if (!foot.includes('<b>176</b><small class=ladder-share>of 240</small>')) throw new Error(`the total counts the grown: ${foot.slice(0, 600)}`);
+});
+
 check('the ladder panel answers how many graphs are in each bracket', () => {
   sandbox.GSD_APP.overviewPayload = { active: [], rung_distribution: [
     { n: 64, running: 0, queued: 0, measured: 7600, attempts: 22761,
@@ -2234,8 +2251,8 @@ check('the ladder panel answers how many graphs are in each bracket', () => {
     }
   }
   if (html.includes('7418')) throw new Error('the laws reached are the selection\u2019s ladder now (872)');
-  if (!/<td class="num g-cand">12<\/td>/.test(html) || html.includes('11205')) {
-    throw new Error('the ladder does not show graphs where it showed attempts');
+  if (!/<td class="num g-cand">6<small class=ladder-share>of 12<\/small><\/td>/.test(html) || html.includes('11205')) {
+    throw new Error('the ladder does not show graphs where it showed attempts, those grown of those bought (898)');
   }
   for (const header of ['evolving laws \u00b7 a law at a size = 3 seeds \u00d7 8 starts = 24 graphs', 'probing laws \u00b7 a law at a size = 3 seeds \u00d7 8 starts = 24 graphs', 'totals', 'memory', 'ratio']) {
     if (!html.includes(`>${header}<`)) throw new Error(`the ${header} column is missing`);

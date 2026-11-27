@@ -267,7 +267,8 @@ class RecordStore:
             return {"rung_spend": {}, "current_by_candidate": {}}
         placeholders = ",".join("?" for _ in ids)
         spend_rows = self.conn.execute(
-            f"SELECT j.candidate_id,j.n,COALESCE(SUM(a.wall_seconds),0) elapsed_seconds "
+            f"SELECT j.candidate_id,j.n,COALESCE(SUM(a.wall_seconds),0) elapsed_seconds,"
+            f"COUNT(DISTINCT CASE WHEN a.wall_seconds > 0 THEN j.seed END) seeds "
             f"FROM jobs j JOIN attempts a ON a.job_id=j.job_id "
             f"WHERE j.campaign_id=? AND j.kind='simulate' AND j.candidate_id IN ({placeholders}) "
             f"GROUP BY j.candidate_id,j.n",
@@ -275,6 +276,10 @@ class RecordStore:
         ).fetchall()
         rung_spend = {
             (str(row["candidate_id"]), int(row["n"])): float(row["elapsed_seconds"] or 0.0)
+            for row in spend_rows
+        }
+        rung_seeds = {
+            (str(row["candidate_id"]), int(row["n"])): int(row["seeds"] or 0)
             for row in spend_rows
         }
         current_by_candidate: dict[str, list[dict]] = {}
@@ -296,7 +301,7 @@ class RecordStore:
         compute_by_candidate: dict[str, float] = {}
         for (candidate_id, _n), seconds in rung_spend.items():
             compute_by_candidate[candidate_id] = compute_by_candidate.get(candidate_id, 0.0) + seconds
-        return {"rung_spend": rung_spend, "current_by_candidate": current_by_candidate,
+        return {"rung_spend": rung_spend, "rung_seeds": rung_seeds, "current_by_candidate": current_by_candidate,
                 "compute_by_candidate": compute_by_candidate}
 
     def dashboard_job_snapshot(self, campaign_id: str) -> dict:

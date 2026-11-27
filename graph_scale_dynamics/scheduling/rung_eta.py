@@ -163,8 +163,7 @@ def estimate_for_job(duration_samples: dict, spec: dict, job: dict, elapsed: flo
 
 
 def own_rung_seconds(rungs, *, seeds: int = 3) -> dict[int, float]:
-    divisor = max(1, int(seeds))
-    return {int(r["n"]): float(r["elapsed_s"]) / divisor for r in (rungs or [])
+    return {int(r["n"]): float(r["elapsed_s"]) / max(1, int(r.get("seeds") or seeds)) for r in (rungs or [])
             if (r.get("elapsed_s") or 0) > 0}
 
 
