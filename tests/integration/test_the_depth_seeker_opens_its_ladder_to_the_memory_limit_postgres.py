@@ -55,11 +55,18 @@ def test_a_focus_on_the_old_ladder_moves_its_depth_seeker_to_one_open_to_the_mem
         assert max(focus.depth_ladder(repo, made)) == 4194304, "the ladder open to 4,194,304"
         from graph_scale_dynamics.operations import campaign_control
         assert campaign_control.is_paused(repo, old), "the old depth campaign rests, its readings kept"
+        assert focus.load(repo)["campaigns"][focus.DEPTH] == made, "the renewal is saved the moment it is made"
+        assert focus.depth_next(repo, state, []) == law
         held = {r["candidate_id"] for r in repo.conn.execute(
             "SELECT candidate_id FROM campaign_candidates WHERE campaign_id=?", (made,)).fetchall()}
-        assert law in held, "the contenders run again in the open ladder"
+        assert held == {law}, "the contenders run again in the open ladder, one law at a time"
         assert focus.renew_depth(repo, state, tree=ROOT) is None, "renewed once"
         assert state["depth_before"][0]["campaign"] == old
+        stale = focus.load(repo)
+        stale["campaigns"][focus.DEPTH] = old
+        assert focus.renew_depth(repo, stale, tree=ROOT) == made, (
+            "a state that missed its save adopts the campaign already made rather than make another")
+        assert len(focus.depth_campaigns(repo, "176")) == 2
 
 
 def test_a_depth_law_whose_next_size_would_not_fit_is_written_down_for_the_decider(isolated_postgres_schema):

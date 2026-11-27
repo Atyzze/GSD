@@ -88,7 +88,7 @@ class RuntimeImportHeartbeat:
 SLOW_ROUTES = (("/api/memory-ledger", 20.0), ("/api/runtime-imports", 10.0),
                ("/api/campaign/", 10.0), ("/api/candidate/", 10.0),
                ("/api/structure/", 10.0), ("/api/curves/", 10.0), ("/api/reports/", 10.0),
-               ("/api/focus", 10.0))
+               ("/api/focus", 10.0), ("/api/campaigns/overview", 30.0), ("/api/study-hours/", 10.0))
 
 WRITE_TIMEOUT_SECONDS = 300.0
 READ_METHODS = ("GET", "HEAD", "OPTIONS")

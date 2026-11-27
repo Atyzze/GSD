@@ -907,58 +907,77 @@ def allowed_campaigns(allocation: list[dict], shares: dict | None = None) -> tup
 
 
 def _claim(repo, owner: str, campaigns: tuple[str, ...] | None, below: int | None, *,
-           min_n: int | None = None, max_n: int | None = None, order: str | None = None) -> dict | None:
+           min_n: int | None = None, max_n: int | None = None, order: str | None = None,
+           under: int | None = None) -> dict | None:
     if below is not None:
         if min_n is not None and int(min_n) >= int(below):
             return None
         max_n = int(below) - 1 if max_n is None else min(int(max_n), int(below) - 1)
-    bounds = {key: value for key, value in (("min_n", min_n), ("max_n", max_n), ("order", order)) if value is not None}
+    bounds = {key: value for key, value in (("min_n", min_n), ("max_n", max_n), ("order", order), ("under", under))
+              if value is not None}
     return repo.claim_job(owner, ("simulate",), lease_seconds=SIM_LEASE_SECONDS, campaigns=campaigns, **bounds)
 
 
-def _claim_extension(repo, owner: str, campaigns: tuple[str, ...] | None, below: int | None = None) -> dict | None:
+def _claim_extension(repo, owner: str, campaigns: tuple[str, ...] | None, below: int | None = None,
+                     under: int | None = None) -> dict | None:
     job = None
     if LANE_RESERVED_WORKERS > 0 and repo.leased_count(min_n=LANE_MIN_N) < LANE_RESERVED_WORKERS:
-        job = _claim(repo, owner, campaigns, below, min_n=LANE_MIN_N, order="deepest")
+        job = _claim(repo, owner, campaigns, below, min_n=LANE_MIN_N, order="deepest", under=under)
     if (job is None and EXTENSION_RESERVED_WORKERS > 0
             and repo.leased_count(min_n=EXTENSION_MIN_N) < EXTENSION_RESERVED_WORKERS):
-        job = _claim(repo, owner, campaigns, below, min_n=EXTENSION_MIN_N, order="deepest")
+        job = _claim(repo, owner, campaigns, below, min_n=EXTENSION_MIN_N, order="deepest", under=under)
     if job is None:
-        job = _claim(repo, owner, campaigns, below, min_n=EXTENSION_FROM_N, max_n=LANE_MIN_N - 1, order="oldest")
+        job = _claim(repo, owner, campaigns, below, min_n=EXTENSION_FROM_N, max_n=LANE_MIN_N - 1, order="oldest",
+                     under=under)
     return job
 
 
-def _claim_base(repo, owner: str, campaigns: tuple[str, ...] | None, below: int | None = None) -> dict | None:
+def _claim_base(repo, owner: str, campaigns: tuple[str, ...] | None, below: int | None = None,
+                under: int | None = None) -> dict | None:
     job = None
     if repo.leased_count(max_n=SMALL_RUNG_MAX_N) < SMALL_RESERVED_WORKERS:
-        job = _claim(repo, owner, campaigns, below, max_n=SMALL_RUNG_MAX_N)
+        job = _claim(repo, owner, campaigns, below, max_n=SMALL_RUNG_MAX_N, under=under)
     if job is None:
-        job = _claim(repo, owner, campaigns, below, max_n=EXTENSION_FROM_N - 1, order="priority_random")
+        job = _claim(repo, owner, campaigns, below, max_n=EXTENSION_FROM_N - 1, order="priority_random", under=under)
     return job
 
 
-def _claim_by_reserve(repo, owner: str, campaigns: tuple[str, ...] | None, below: int | None = None) -> dict | None:
+def _claim_by_reserve(repo, owner: str, campaigns: tuple[str, ...] | None, below: int | None = None,
+                      under: int | None = None) -> dict | None:
     owed_extension = fleet_halves.extension_first(repo.leased_count(min_n=EXTENSION_FROM_N), repo.leased_count())
     job = None
     for half in ((_claim_extension, _claim_base) if owed_extension else (_claim_base, _claim_extension)):
         if job is None:
-            job = half(repo, owner, campaigns, below)
+            job = half(repo, owner, campaigns, below, under=under)
     if job is None:
-        job = _claim(repo, owner, campaigns, below, min_n=LANE_MIN_N, order="priority_random")
+        job = _claim(repo, owner, campaigns, below, min_n=LANE_MIN_N, order="priority_random", under=under)
     return job
 
 
+def offers(allocation: list[dict], shares: dict | None = None) -> list[tuple[tuple[str, ...] | None, int | None]]:
+    found = work_groups.ordered(allocation)
+    if found is None:
+        campaigns = allowed_campaigns(allocation, shares)
+        return [(campaigns, None), (None, None)] if campaigns else [(None, None)]
+    out: list[tuple[tuple[str, ...] | None, int | None]] = []
+    for tier, rows in found:
+        within = allowed_campaigns(rows)
+        chosen = tuple(str(row["campaign_id"]) for row in rows) if within is None else within
+        out.append((chosen, None if tier == work_groups.LEFTOVER_TIER else work_groups.BEHIND))
+    return out + [(None, None)]
+
+
 def claim_simulation_for_owner(repo: Repo, owner: str) -> dict | None:
-    campaigns = allowed_campaigns(repo.worker_allocation(claimable=True), work_groups.shares(repo))
+    offered_in_order = offers(repo.worker_allocation(claimable=True), work_groups.shares(repo))
     held = memory_hold.active(getattr(repo, "conn", None))
     below = None
     while True:
         job = None
         if held is not None and below is None:
             job = repo.claim_job(owner, ("simulate",), lease_seconds=SIM_LEASE_SECONDS, job_id=str(held["job_id"]))
-        for offered in ((campaigns, None) if campaigns else (None,)):
+        for offered, under in offered_in_order:
             if job is None:
-                job = _claim_by_reserve(repo, owner, offered, below)
+                job = _claim_by_reserve(repo, owner, offered, below, under=under)
         if job is None:
             return None
         if below is not None and int(job["n"]) >= below:

@@ -144,3 +144,35 @@ def test_the_manager_sets_the_workload_and_refuses_what_cannot_be(monkeypatch):
     assert found["work_cpus"] == [1, 2, 3]
     found, status = CM.handle(repo, {"action": "workload", "system_cpus": "0-3"})
     assert status == 400 and "every CPU" in found["error"] and found["system_cpus"] == [0]
+
+
+def test_the_dex_laws_read_again_count_with_the_laws_coming_in_never_with_the_zone():
+    dex = dict(_row("11", "N", 6, 50), design_kind="seed")
+    rows = [_row("1", "A", 1, 5), dex, _row("13", "N", 3, 40)]
+    assert W.group_of(dex) == W.BLIND and W.group_of(rows[2]) == W.NEIGHBOURS
+    assert {r["campaign_id"] for r in W.in_shares(rows, {"A": 0.1, "N": 0.9})} == {"13"}, (
+        "the zone owes 9.9 of 11 and holds 3: its own campaign takes the next worker, not the Dex laws")
+
+
+def _focus_row(campaign, kind, part, leased, queued, behind=0, target=None):
+    return {"campaign_id": campaign, "work_group": "N", "design_kind": kind, "focus_part": part, "leased": leased,
+            "queued": queued, "behind": behind, "workers_target": target}
+
+
+def test_a_folder_with_a_focus_takes_its_work_in_one_order_the_depth_worker_holding_its_one():
+    from graph_scale_dynamics.services.worker.main import offers
+    rows = [_focus_row("1", "blind", None, 2, 900), _focus_row("11", "seed", None, 5, 40),
+            _focus_row("12", "focus", "N", 8, 30, behind=20), _focus_row("13", "focus", "S", 0, 0),
+            _focus_row("14", "focus", "D", 0, 2, target=1)]
+    found = W.ordered(rows)
+    assert [(tier, [r["campaign_id"] for r in got]) for tier, got in found] == [
+        (W.ZONE_TIER, ["12", "14"]), (W.DEPTH_TIER, ["14"]), (W.DEX_TIER, ["11"]), (W.BLIND_TIER, ["1"]),
+        (W.LEFTOVER_TIER, ["12"])], "the depth worker below its one is offered with the first work"
+    assert [under for _c, under in offers(rows)] == [W.BEHIND, W.BEHIND, W.BEHIND, W.BEHIND, None, None]
+    assert W.now_on(rows)["queued"] == {"the zone of the law in focus": 10, "the depth worker": 2,
+                                        "the Dex laws read again": 40, "the blind draw": 900,
+                                        "earlier laws' leftovers": 20}
+    rows[2]["queued"] = 20
+    assert W.now_on(rows)["name"] == "the depth worker", "the zone's queue holds only earlier laws' runs"
+    rows[4]["leased"] = 1
+    assert W.now_on(rows)["name"] == "the Dex laws read again"

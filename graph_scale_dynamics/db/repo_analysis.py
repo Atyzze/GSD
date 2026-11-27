@@ -538,40 +538,73 @@ class AnalysisStore:
             backlog = self.analysis_backlog(analysis_version)
         return backlog > 0
 
-    def simulation_work_counts(self) -> dict[str, int]:
+    def simulation_work_counts(self, ordered: bool = False) -> dict[str, int]:
+        from graph_scale_dynamics.scheduling import work_groups
         counts = {"queued": 0, "leased": 0, "blocked": 0}
         now = utc_now()
         rows = self.conn.execute(
             "SELECT c.campaign_id,c.workers_target,"
+            "(c.spec_json::jsonb #>> '{study_design,kind}') AS design_kind,"
+            "(c.spec_json::jsonb #>> '{study_design,focus,part}') AS focus_part,"
             "COUNT(*) FILTER (WHERE j.status='queued' AND "
             "(j.next_attempt_utc IS NULL OR j.next_attempt_utc<=?)) queued,"
+            "COUNT(*) FILTER (WHERE j.status='queued' AND j.priority>=? AND "
+            "(j.next_attempt_utc IS NULL OR j.next_attempt_utc<=?)) behind,"
             "COUNT(*) FILTER (WHERE j.status='leased') leased "
             "FROM campaigns c LEFT JOIN jobs j ON j.campaign_id=c.campaign_id "
             "AND j.kind='simulate' AND j.status IN ('queued','leased') "
             "AND EXISTS(SELECT 1 FROM campaign_candidates cc "
             "WHERE cc.campaign_id=j.campaign_id AND cc.candidate_id=j.candidate_id "
             "AND " + runnable_candidate_sql("cc.state") + ") "
-            "WHERE c.status='active' GROUP BY c.campaign_id,c.workers_target",
-            (now, *TERMINAL_STATES),
+            "WHERE c.status='active' GROUP BY c.campaign_id,c.workers_target,c.spec_json",
+            (now, work_groups.BEHIND, now, *TERMINAL_STATES),
         ).fetchall()
+        rows = [dict(row) for row in rows]
         for row in rows:
             counts["queued"] += int(row["queued"] or 0)
             counts["leased"] += int(row["leased"] or 0)
+        found = work_groups.ordered(rows) if ordered else None
+        if found is not None:
+            counts["tiers"] = {tier: sum(int(row["behind"] or 0) if tier == work_groups.LEFTOVER_TIER
+                                         else int(row["queued"] or 0) - int(row["behind"] or 0) for row in first)
+                               for tier, first in found}
         return counts
+
+    def analysis_backlog_tiers(self, analysis_version: str) -> dict[int, int]:
+        from graph_scale_dynamics.scheduling.work_groups import BEHIND, LEFTOVER_TIER, TIER_SQL
+        rows = self.conn.execute(
+            f"SELECT (CASE WHEN q.priority>={int(BEHIND)} THEN {int(LEFTOVER_TIER)} ELSE t.tier END) AS tier,"
+            "COUNT(*) AS c FROM analysis_queue q "
+            f"JOIN (SELECT c.campaign_id, {TIER_SQL} AS tier FROM campaigns c WHERE c.status='active') t "
+            "ON t.campaign_id=q.campaign_id "
+            "JOIN campaign_candidates cc ON cc.campaign_id=q.campaign_id AND cc.candidate_id=q.candidate_id "
+            "WHERE q.analysis_version=? AND q.status IN ('queued','leased') "
+            "AND " + analysis_runnable_candidate_sql("cc.state") + " "
+            "AND (q.status='leased' OR q.next_attempt_utc IS NULL OR q.next_attempt_utc<=?) GROUP BY 1",
+            (analysis_version, *TERMINAL_STATES, utc_now()),
+        ).fetchall()
+        return {int(row["tier"]): int(row["c"]) for row in rows}
 
     def refresh_scheduler_state(self, *, analysis_version: str, total_slots: int,
                                 max_analyzers: int, analysis_weight: float = 2.0) -> dict:
         from graph_scale_dynamics.scheduling.allocation import compute_allocation
-        work = self.simulation_work_counts()
+        work = self.simulation_work_counts(ordered=True)
+        whole = backlog = self.analysis_backlog(analysis_version)
+        queued = work["queued"]
+        if "tiers" in work:
+            from graph_scale_dynamics.scheduling.allocation import first_work
+            backlog, queued = first_work(work["tiers"], self.analysis_backlog_tiers(analysis_version),
+                                         backlog, queued)
         allocation = compute_allocation(
             total_slots=total_slots,
             max_analyzers=max_analyzers,
-            analysis_backlog=self.analysis_backlog(analysis_version),
-            queued_simulations=work["queued"],
+            analysis_backlog=backlog,
+            queued_simulations=queued,
             leased_simulations=work["leased"],
             paused=self.get_flag("paused") == "1",
             analysis_weight=analysis_weight,
         )
+        allocation["analysis_backlog"] = whole
         now = utc_now()
         monotonic_now = time.monotonic()
         critical_signature = (bool(allocation["paused"]), int(total_slots), int(max_analyzers))
@@ -652,7 +685,9 @@ class AnalysisStore:
 
     def claim_analysis_job(self, owner: str, analysis_version: str, lease_seconds: int = 120,
                            campaign_id: str | None = None, max_n: int | None = None,
-                           min_n: int | None = None, order: str = "priority") -> dict | None:
+                           min_n: int | None = None, order: str = "priority",
+                           tier_at_most: int | None = None) -> dict | None:
+        from graph_scale_dynamics.scheduling.work_groups import BEHIND, LEFTOVER_TIER, TIER_SQL
         expires_utc = time.strftime("%Y-%m-%dT%H:%M:%SZ",
                                     time.gmtime(time.time() + lease_seconds))
         claim_token = secrets.token_hex(16)
@@ -668,13 +703,19 @@ class AnalysisStore:
         if min_n is not None:
             claim_clause += " AND q.n>=?"
             params.append(int(min_n))
+        tier = f"(CASE WHEN q.priority>={int(BEHIND)} THEN {int(LEFTOVER_TIER)} ELSE t.tier END)"
+        if tier_at_most is not None:
+            claim_clause += f" AND {tier}<=?"
+            params.append(int(tier_at_most))
         from graph_scale_dynamics.db.decision_store import QUEUE_RANK_STEP
-        ordering = (f"q.priority / {QUEUE_RANK_STEP},q.created_utc,q.input_artifact" if order == "oldest" else
-                    "q.priority,q.next_attempt_utc NULLS FIRST,q.updated_utc,q.input_artifact")
+        ordering = tier + "," + (f"q.priority / {QUEUE_RANK_STEP},q.created_utc,q.input_artifact" if order == "oldest"
+                                 else "q.priority,q.next_attempt_utc NULLS FIRST,q.updated_utc,q.input_artifact")
         params.extend([owner, claim_token, expires_utc, now])
         row = self.conn.execute(
             "WITH picked AS (SELECT q.campaign_id,q.input_artifact,q.analysis_version "
             "FROM analysis_queue q JOIN campaigns c ON c.campaign_id=q.campaign_id "
+            f"JOIN (SELECT c.campaign_id, {TIER_SQL} AS tier FROM campaigns c WHERE c.status='active') t "
+            "ON t.campaign_id=q.campaign_id "
             "JOIN campaign_candidates cc ON cc.campaign_id=q.campaign_id "
             "AND cc.candidate_id=q.candidate_id "
             "WHERE q.analysis_version=? AND q.status='queued' "

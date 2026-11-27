@@ -868,6 +868,13 @@ class DecisionStore:
 
     def memory_ceilings(self, campaign_id: str) -> dict[str, dict]:
         from graph_scale_dynamics.decisions import memory_ceiling
+        from graph_scale_dynamics.operations import depth_reach
+        try:
+            depth_reach.refresh(self.repo, str(campaign_id))
+        except Exception as exc:  # noqa: BLE001
+            write = getattr(self.log, "write", None)
+            if callable(write):
+                write("memory_ceiling_unpriced", campaign=str(campaign_id)[:17], error=f"{type(exc).__name__}: {exc}"[:200])
         return memory_ceiling.entries_of(self.repo.get_flag(memory_ceiling.FLAG, ""), str(campaign_id))
 
     def law_starts_reading(self, campaign_id: str, law: str) -> dict:

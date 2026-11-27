@@ -93,18 +93,26 @@ def test_the_halves_are_tried_for_the_campaigns_owed_a_worker_then_for_every_cam
 
 
 class _Analyses:
-    def __init__(self, leased=None, queued=()):
+    def __init__(self, leased=None, queued=(), zone=()):
         self.leased = leased or {}
         self.queued = list(queued)
+        self.zone = list(zone)
         self.claims = []
 
     def analysis_leased_count(self, *, min_n=None, max_n=None):
         return int(self.leased.get((min_n, max_n), 0))
 
     def claim_analysis_job(self, owner, version, lease_seconds=120, **bounds):
+        if "tier_at_most" in bounds:
+            return next(({"n": n, "zone": True} for n in self.zone), None)
         self.claims.append(bounds)
         low, high = bounds.get("min_n", 0), bounds.get("max_n", float("inf"))
         return next(({"n": n} for n in self.queued if low <= n <= high), None)
+
+
+def test_the_zone_s_and_the_depth_worker_s_probes_come_before_either_half():
+    both = _Analyses({(H.EXTENSION_FROM_N, None): 2, (None, None): 3}, queued=[4096], zone=[16384])
+    assert analyzer.claim_analysis_for_owner(both, "w") == {"n": 16384, "zone": True} and both.claims == []
 
 
 def test_the_analyses_are_divided_as_the_simulations_are():

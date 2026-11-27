@@ -27,19 +27,23 @@ def _var_of(folder: Path) -> Path:
     return folder.parent / "var"
 
 
+DEX = "dex.json"
+
+
 def is_bundle(path: Path) -> bool:
     if path.name.startswith("."):
         return False
     if path.is_file():
         return path.name.endswith(ARCHIVE_ENDINGS)
-    return path.is_dir() and ((path / STUDY).is_file() or len(list(path.glob(f"*/{STUDY}"))) == 1)
+    return path.is_dir() and any((path / name).is_file() or len(list(path.glob(f"*/{name}"))) == 1
+                                 for name in (STUDY, DEX))
 
 
 def _stamp(path: Path) -> list:
     if path.is_file():
         st = path.stat()
         return [st.st_size, st.st_mtime_ns]
-    inner = path / STUDY if (path / STUDY).is_file() else next(iter(path.glob(f"*/{STUDY}")), path)
+    inner = next((p for name in (STUDY, DEX) for p in [path / name, *path.glob(f"*/{name}")] if p.is_file()), path)
     st = inner.stat()
     return [st.st_size, st.st_mtime_ns]
 
@@ -65,6 +69,7 @@ def read_one(path: Path) -> dict:
         return {"readable": False, "why": f"{type(exc).__name__}: {exc}"[:300]}
     return {"readable": True, "bundle": bundle["name"], "study": bundle["study"], "built_utc": bundle["built_utc"],
             "build": bundle.get("build"), "laws": len(bundle["specs"]), "scoring": len(bundle["scoring"]),
+            "laws_only": len(bundle.get("laws_only") or []), "part": bundle.get("kind") or "study bundle",
             "regions": len(bundle["regions"]), "science": bundle["science"], "sha256": bundle["sha256"]}
 
 
@@ -142,10 +147,12 @@ def listing(folder: Path | None, *, seeded: list | None = None, ours: dict | Non
     if changed or set(kept) != set(index):
         _save_index(var, kept)
     return {"contract": CONTRACT, "folder": str(folder), "exists": True, "bundles": entries,
-            "reading": ("a study bundle put into this folder, its .tar.zst or its unpacked folder, is listed here; "
-                        "ticked, its laws and regions are in this study's map; synchronize reads in what is newly "
-                        "ticked and lets go of what is unticked, the readings already taken kept; nothing in the "
-                        "folder is changed or removed")}
+            "reading": ("a dex or a study bundle put into this folder, its .tar.zst or its unpacked folder, is listed "
+                        "here; a dex is read in by itself at the focus's next step, a study bundle once ticked and "
+                        "synchronized; its laws, and its regions where it was read by this folder's science, are in "
+                        "this study's map, a law of another science run here from nothing; synchronize reads in what "
+                        "is newly ticked and lets go of what is unticked, the readings already taken kept; nothing in "
+                        "the folder is changed or removed")}
 
 
 def named(folder: Path | None, names) -> list[Path]:

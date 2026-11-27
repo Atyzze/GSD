@@ -1018,12 +1018,9 @@ def build_handler(db_path: str, blobs_path: str, admin_token: str, port: int,
                     memberships = []
                     if not candidate:
                         memberships = repo.candidate_campaign_ids(candidate_id)
-                        if len(memberships) == 1:
-                            candidate = repo.candidate(candidate_id, memberships[0])
-                        elif len(memberships) > 1:
-                            self._json({"error": "candidate belongs to multiple campaigns",
-                                        "campaigns": memberships}, 409)
-                            return
+                        if memberships:
+                            from graph_scale_dynamics.operations.focus import home_campaign
+                            candidate = repo.candidate(candidate_id, home_campaign(repo, memberships))
                     if not candidate:
                         self._json({"error": "unknown candidate"}, 404)
                         return

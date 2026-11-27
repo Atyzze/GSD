@@ -307,8 +307,8 @@
   }
   function lawCode(camp, ordinal, law, study) {
     const s = study !== undefined ? study : studyOf(camp);
-    if (ordinal != null && ordinal !== '') return s ? `S${s}C${camp}G${ordinal}` : `C${camp}-G${ordinal}`;
-    return `${s ? `S${s}` : ''}C${camp}-${String(law || '').slice(0, 8)}`;
+    if (ordinal != null && ordinal !== '') return s ? `S${s}-C${camp}-G${ordinal}` : `C${camp}-G${ordinal}`;
+    return `${s ? `S${s}-` : ''}C${camp}-${String(law || '').slice(0, 8)}`;
   }
   function lawCodeQuery(q) {
     const m = /^(?:s([a-z0-9._]+?)-?)?(?:b\d+-)?(?:c(\d+))?-?(?:g-?(\d+))?$/.exec(String(q || '').replace(/\s+/g, '').toLowerCase());

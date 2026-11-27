@@ -50,7 +50,8 @@ class JobStore:
 
     def claim_job(self, owner: str, kinds: tuple[str, ...], lease_seconds: int = 60,
                   max_n: int | None = None, campaigns: tuple[str, ...] | None = None,
-                  order: str = "priority", min_n: int | None = None, job_id: str | None = None) -> dict | None:
+                  order: str = "priority", min_n: int | None = None, job_id: str | None = None,
+                  under: int | None = None) -> dict | None:
         marks = ",".join("?" for _ in kinds)
         now = utc_now()
         clauses = ["j.status='queued'", f"j.kind IN ({marks})", "c.status='active'",
@@ -67,6 +68,9 @@ class JobStore:
         if job_id is not None:
             clauses.append("j.job_id=?")
             params.append(str(job_id))
+        if under is not None:
+            clauses.append("j.priority < ?")
+            params.append(int(under))
         if campaigns is not None:
             if not campaigns:
                 return None

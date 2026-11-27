@@ -1,172 +1,55 @@
-# Handoff: the state of GSD at build 880
+# Handoff: the state of GSD at build 886
 
 What is true now, for a context that has just opened this archive. Each fact has one home; the last section says
 where. **Think from the data, not from this page**: where the data and a document disagree, the data wins and the
 document is fixed in the same build.
 
-**What 855 added** (the operator, 2026-11-24 19:10 to 19:26). `CLAUDE.md`, which every agent on the
-repository loads: several workers share `github.com/Atyzze/GSD`, each on a branch of its own, each build a pull
-request the operator merges (`docs/agent/NEXT_BUILD.md`, "How to make a build", step 6 onward). And the start of the
-table that only grows: the calibration ledger (`docs/ARCHITECTURE.md`, "The calibration ledger"; `tools/ledger.py`)
-files every probe reading once under its own code's hash, and the quantum walk (`graph_scale_dynamics/probes/`) is its
-first appended group, measured on the host by `tools/ledger.py measure` and voting in nothing until its known answers
-are committed. The road from here, including the C and assembly engines of the reference set of four:
-`docs/agent/APPEND_ONLY_PLAN.md`, paused at the operator's word (19:43) after 858, which folded what that context
-measured into `docs/LESSONS.md` ("Evidence", "Releases", "Host state"), `docs/RESEARCH_METHOD.md` (two papers)
-and `docs/ROADMAP.md` ("Unscheduled").
+**The heading** (the operator, 2026-11-26 19:06 to 19:59): the dex becomes a list of zones, each named by its central
+law pushed to the largest N, every other law a distance from it; one zone at a time with every worker, the blind draw
+only when no zone has work; a zone told by what its laws do (the curves of the four probes on every start over N),
+not by its term set. **`docs/agent/ZONE_MAP.md`** holds it, with what the data and the code already say; it is read
+before any build from 887.
 
-**What 860 to 863 changed** (their notes in `docs/build_notes/`): 860, Home says what is true (the orange banner only
-when refreshes fall behind, the lattices back on the landscape, the Top 100 in one order, every law of a bundle whole);
-861, the focus (`operations/focus.py`): the study's best laws one at a time inside its folder beside its blind draw,
-groups N (neighbours and seeds) and D (depth) beside A; 862, the Map page (`resources/ui/map.js`,
-`services/api/focus_route.py`) that starts, steers and shows it, every mapped region named GG#n
-(`operations/focus_regions.py`); 863, a handover.
+**The builds since the last handover, 871 to 885** (each build's notes in `docs/build_notes/`; the operator's words in
+`docs/HISTORY.md`):
 
-**What 864 to 869 changed** (the operator, 2026-11-25 09:42 to 15:18; each build's notes in `docs/build_notes/`):
-864 ran no law to done (`observability/law_status.py`: waiting to be extended or settled at its highest reading) and
-made the decider's `run_on` (`decisions/by_word.py`); 865 designed study 176 again (`study_176_design.json`: A's ten
-blind batches, the focus begun by the study's start, an empty seeded campaign) and the seed (`operations/study_seed.py`),
-Home's one bar of blind against zoned laws and a law's type where DONE stood; 866 the Map page's slider (`do: lean`),
-the depth seeker held to one worker, the focus's and the depth's ordered lists (`do: order`), each law's earliest
-identification (`early_call`); 867 and 868 the law page (lettered sections and numbered plots, a mouse-over on every
-plot, one table of every plotted value, the curves a row a size, plain words behind every title, a line between two
-readings naming both); 869 the `import/` folder beside `main.py` whose bundles the Map page lists to tick and seed
-(`operations/imports.py`), the focus's settings folded, each running law's group, the focus's and seeded campaigns
-in the study's view on Home (`dashboard_workers.batches`). 870 is this handover (`docs/build_notes/BUILD870_NOTES.md`).
+* 871: seeded laws in the focus on their bundle's score; every law named by study, campaign and graph (`law_code`).
+* 872: Home's "The study now" in core-hours and memory; "Which laws" leads; the fleet ladder in two tables.
+* 873: the depth seeker to the memory limit (`depth_reach`, the decider's `memory_ceiling`).
+* 874: pages and reports say what a build number stood for, in words.
+* 875 to 877: a seed in half the memory with the same chains; the C engine and the assembly kernel, Rust the default.
+* 878, 879: the lexicon (every law's distance to 24 known types) and the phenotype (each curve's fewest form).
+* 880: the outliers' queue, taken once every scoring law is mapped.
+* 881: the focus's step mended (19 hours failed on 176), one depth worker to half the memory, study 177 designed.
+* 882: the dex (`operations/dex.py`): every scoring law, its codes, scores, chains, written hourly into `export/`,
+  read in from `import/`; codes dashed (S178-C11-G4766).
+* 883: the first zone unblocked (the depth list, seeds compared at one size, nothing judged before the law's kind);
+  every law opens; the dex checks a run again like for like (8,000 of 177's chains against 176's: identical).
+* 884: the zone live on the Map page (`operations/zone_live.py`): who runs, every law of the zone where it stands with
+  a clock, the work left.
+* 885: one order for runs and probes (`work_groups.ordered`: the zone of the law in focus, the depth worker, the Dex
+  laws, the blind draw, earlier laws' leftovers); the slider gone; a zone standing at ring 0.01 when 0.1 fails, else a
+  lucky hit; zones named Z1.
 
-**What 871 changed** (the operator, 2026-11-25 16:02 to 16:34; `docs/build_notes/BUILD871_NOTES.md`): a seed records
-each scoring law's bundle score and code, and `focus.best` takes a seeded law on that score until this folder decides
-it at 16,384 (`focus.read_here`), so the focus and the depth seeker start on the seeded laws at once; a law in focus
-waits for its own kind before its neighbours or depth judge it. A bundle read already, or identical to one in the map,
-or adding nothing is refused with its reason. The Seeds panel is one list of ticks: synchronize reads in the ticked
-and lets go of the unticked (`imports.synchronize`, `study_seed.release` and `choose`: out of the focus and the depth
-seeker, regions off the map, readings kept; its own ladder goes on). Every law is named SnCnGn
-(`operations/law_code.py`): the study, the campaign, its first graph; on every page, in the Explorer's search and in
-`tables/laws`. The Map page opens on one line saying what the focus does; the fleet ladder's header is whole numbers.
+**Before that**: 855 `CLAUDE.md` and the calibration ledger (`docs/agent/APPEND_ONLY_PLAN.md`, paused); 856 to 859
+study 176's first design, a science hash in every bundle, Home's filters, a handover; 860 Home says what is true; 861
+and 862 the focus and the Map page; 864 to 869 no law done, study 176 seeded from bundles, the law page in words, the
+`import/` folder; 870 a handover. The baseline the paper rests on (174's bundle of 2026-11-24 14:22Z, 175's of 08:35Z,
+the calibration table) and what it shows: `docs/WHERE_WE_ARE.md` and `docs/paper/GSD_PAPER.md`.
 
-**What 872 changed** (the operator, 14:24 to 16:20; `docs/build_notes/BUILD872_NOTES.md`): "The study now" opens on
-two bars, core-hours and memory held (GiB-hours), each in four parts, A, N, D and the system's own use from the host's
-telemetry less the workers' (`observability/study_hours.py`); the filters lead Home as "Which laws" with scoring only
-and deepest size at least, one line saying what is chosen; the fleet ladder is two tables, "The selection, size by
-size" (`observability/selection_ladder.py`, the same facts from the live folder and from a bundle's `tables/laws`,
-counted by the page's `selection.js` for the laws the filters keep) and "The fleet's work, size by size" (the machine's).
-The operator decided at 23:25: a let-go law's own runs go on, and the builds go on to the roadmap's end.
+**Open threads at 886**, each with its home:
 
-**What 873 changed** (the operator, 13:11; `docs/build_notes/BUILD873_NOTES.md`): the depth seeker's ladder runs to
-4,194,304 (an older focus's depth campaign renewed once, the old paused); each next size is priced from the law's own
-peak memory (`operations/depth_reach.py`) and a size past the host's reach less its free 10 GiB is written down
-(the flag `memory_ceiling`), which the decider turns into `stop memory_ceiling` (`decisions/memory_ceiling.py`,
-replayed from its inputs); a seed's save packs its edges, so 1,048,576 saves inside the stop's grace.
-
-**What 874 changed** (the operator, 10:00; `docs/build_notes/BUILD874_NOTES.md`): the pages and the reports say what
-a build number stood for, in words; what the numbers stood for is in `docs/HISTORY.md` ("Reports, pages and papers").
-`tests/unit/test_the_pages_and_reports_say_no_build_number.py` keeps it so: a new page or report text says the rule,
-not the build that made it. A decision's recorded reason keeps its numbers (it replays word for word), and so do four
-values in a law's or a report's own outputs, and the documents' claims, which quote the docs; the docs keep theirs.
-
-**What 875 changed** (the operator, 08:35 and 09:42; `docs/build_notes/BUILD875_NOTES.md`): a seed takes about half
-the memory and less time, every chain the same to the bit. The Rust graph keeps each edge's slot beside its ends'
-neighbour lists and its square and cycle counts in arrays by slot, not hash maps; the in-process door and a seed's
-starts share one number object per node; a run's Python state (`services/worker/engine_rs.RanInRust`) holds its
-edges and degrees and builds its sets only if asked. The crate is 0.875.0 and its science version 0.840.0
-(`engine_rs/Cargo.toml`, `[package.metadata.gsd]`), which the science hash reads: it moves only when a chain can come
-out different. `tools/engine_diet.py` measures a seed's peak memory, time and chains' digest on either engine.
-
-**What 876 changed** (the operator, 08:35 to 11:10; `docs/build_notes/BUILD876_NOTES.md`): `engine_c/`, the Rust
-engine ported to C (the reference set's R3), registered as `c` with the C door only, compiled on first use into
-`var/engines/` and held to every parity case and the engine contract; its science version is Rust's while its chains
-are. Through the same door it is 10% to 15% faster than Rust; Rust in process stays the default.
-
-**What 877 changed** (`docs/build_notes/BUILD877_NOTES.md`): `engine_asm/kernel.S`, the reference set's R4, an x86-64
-kernel (the Mersenne Twister, the acceptance, the energy change of edge count, degree square sum, wedges and the two
-degree anchors) inside the C engine's boundary, registered as `asm` with its coverage declared
-(`engine_registry.Engine.covers`); a law outside it is refused by name (`boundary.OutsideCoverage`), and the parity
-lane runs each engine on what it covers, a refusal outside it an expected failure. The engines of the roadmap's item 6 are made; Rust in process stays the
-default.
-
-**What 878 changed** (the operator, 12:03; `docs/build_notes/BUILD878_NOTES.md`): the lexicon
-(`resources/catalogue/lexicon.json`, `observability/lexicon.py`): 24 known types from the calibration table's 27
-families, and every law's distance to each, in the type's own spreads, from the four d's, the mean degree and the
-giant piece at the law's deepest size; a law further than 3 from all is near none, a new zone. Home's Top 100 shows
-each law's nearest type and the filters choose by it; `tools/lexicon_reading.py` writes a bundle's matrix.
-
-**What 879 changed** (the operator, 12:12; `docs/build_notes/BUILD879_NOTES.md`): the phenotype
-(`resources/catalogue/phenotype.json`, `observability/phenotype.py`): each quantity over N described by the fewest of
-a constant, a power of N and a line in log N, a law's phenotype the set of them and its categories ("reach as
-N^(1/2), d near 2"), read against the phenotypes already seen; 20 geometries of the table take the forms they
-predict. `tools/phenotype_reading.py` writes a bundle's.
-
-**What 880 changed** (the operator, 08:04 and 08:07; `docs/build_notes/BUILD880_NOTES.md`): the outliers' queue
-(`operations/outliers.py`, its criterion `resources/readings/outliers_1.json`): with every scoring law mapped, inside
-a region or skipped, the focus takes the strongest outlier next (d_w over 3.5 or d_V over 3.0 on a seed from 1,024
-nodes, strongest as a multiple of its line), passes over a lucky strike one seed shows (`state["lucky"]`) and joins
-one inside a mapped region to it. The roadmap's items from 870 that need nothing from outside are made; the rest wait
-on the operator's next bundles (`docs/agent/NEXT_BUILD.md`).
-
-**Open threads at 880**, each with its home:
-
-* **Pull requests**: 864 to 870 (#11 to #17) merged by the operator. 871's to 880's were not opened: the session that
-  made them was refused push access to `github.com/Atyzze/GSD`; their archives are the delivery, each tree a branch
+* **Pull requests**: 864 to 870 (#11 to #17) merged by the operator. 871's to 886's were not opened: the sessions that
+  made them were refused push access to `github.com/Atyzze/GSD`; their archives are the delivery, each tree a branch
   (`build-871` on `main`, each next on the one before) with one commit, the notes' opening its description.
-* **Study 176 runs** in its own folder (`/data/projects/GSD/176/main` on the operator's host) since about 15:00, on 867
-  and then 869, seeded at 14:14Z from 174's bundle of 13:04Z (72 laws) and again at 14:56Z (nothing new). Its bundle
-  of 15:09Z: the seeded laws on their ladder, none held; the focus idle until a seeded law scored here (C11-G79, 1).
-  On 871, after one synchronize with that bundle in `import/` (its laws' scores were not recorded one by one before),
-  the focus takes the bundle's best law at once. Its gates are 174's word for word; a gate learned from 174 is study
-  177. The operator's split: 90% focus recommended (16:12).
-* **Study 174** ran on to its bundle of 13:04Z on 865 (its focus on C8-G2983 since 11:59Z, 47 neighbours at 4,096, the
-  depth campaign's five, one at 65,536); the 40 held laws were never run on (no `run_on` decision) and are 40 rings, a
-  type the focus already holds. Paused or running is the operator's.
-* **Open questions** (`docs/ROADMAP.md`, "Questions for the operator"): 176's standing controls kept as a tick
-  (recommended); past 65,536, a tenth or a hundredth let through (after 174).
-* **E8** (`docs/ROADMAP.md`, "Unscheduled"): the paper gives no law to run; a reply to its authors drafted.
-
-**A correction the next builds carry** (860's reading of 174's bundle of 2026-11-24 23:19Z): the score in force counts
-a seed only where its chain stopped changing, and the folder scores 46 laws on that bundle. The counts below ("83
-score, 54 of them 1") and study 176's first ten came from `tools/catalogue_reading.py`, which reads report 28's
-per-chain means and so counts every seed, those run to the sweeps' ceiling included: it scores 122 on the same
-bundle, and five of the ten (M02, M04, M08, M09, M10) score 0 in the folder. They are read again by the reader's fix
-(`docs/ROADMAP.md`, "Planned builds", 3), and 176's ten chosen again on the operator's word, before 176 starts.
-
-**Where things stand, at 859.** 859 is the handover of the context that made 856 and 857 (the operator, 23:00): Home's
-plot whole above the filters, every law of a small campaign in the Top 100 and every start's point with its kind
-(23:07, 23:09), and the start from the repository alone, by which it was made (`docs/agent/ENVIRONMENT.md`, section
-10). Home has one filter panel for the landscape, the Top 100 and the fleet ladder (857).
-Study 176 is designed and committed, theirs to start in a folder of its own: groups
-A (the blind draw, 174's design on ten new seeds) and B (the map of the ten best laws not yet known), half the work
-slots each (`docs/build_notes/BUILD856_NOTES.md`). The baseline is two bundles and the calibration table, nothing older (the operator,
-2026-11-24 16:34: "these two are now are new baseline together with the unchanged calibration table"): study 174's
-bundle of 2026-11-24 14:22Z (the blind draw, 8,131 laws read, built on 850) and study 175's of 2026-11-24 08:35Z (595
-variants around 174's 35 settled laws). Both bundles were made on 850, each study in a folder of its own. The instrument's own checks on known
-answers stay (the calibration table, the dimension test, the score's known answers, the Boltzmann check); every study
-before 174 and every reading of one is out of what the project rests on, and the consolidation after group D takes
-their files out of the tree.
-
-**What the baseline says** (`docs/paper/GSD_PAPER.md`, sections 5 and 6, each number with its source):
-* Most blind laws empty the graph, fill it to the cap or melt the lattices; 83 score, and 64 of those are a lattice
-  start the law barely changed: what settles is mostly a start remembered, not a dimension chosen.
-* Ten laws settle a probe from empty or random, all one dimensional: five open strings, four loops with a few
-  shortcuts (one dimensional only below a few thousand nodes), one chain of small cliques. None scores.
-* Where starts agree (`made`), two of the eight are small worlds: every start forgets itself at the same degree.
-* de7ab4a85198 is frozen to 4,096 and changes at 16,384: an early frozen call is not safe to stop on.
-* `still_lattice_criterion_1.json` passes (`still_lattice_judged_1.json`): the still call at 1,024 and 4,096 held on
-  every chain.
-* **Under the score in force since 856** (gsd-law-score-9, the still lattice at 1): 174, 83 laws score, 54 of them 1;
-  175, 264 score, 230 of them 1. **Small worlds** (gsd-catalogue-2): H31 and fdc563a72c98 at 16,384, their reach 1.3
-  to 1.8 times a random graph's of their degree and their d rising; `small_world_criterion_1.json` waits on the next
-  bundle.
-* **The sampler's trap from empty** (an outside review, 2026-11-24, and 854's own run under the survey's policy): P1,
-  whose lowest energy is the square lattice, reaches 68% to 81% of the lattice's energy from empty, worse as N grows;
-  so "no law grows a geometry from empty" cannot be tested until a known law does (`docs/ROADMAP.md`, item 4).
-
-**What the operator asked this afternoon, and where it went** (`docs/HISTORY.md`, "Studies"): one study in groups A, B
-and C, 50-50, the system's CPUs theirs to name (16:33 to 17:39): 856. A science hash and the table in every bundle
-(18:04): 856. The dashboard's filter panel (17:51): 857, made. The work in four parts: A blind, B a scout that maps
-a region, D a scout that pushes one law up in N, the system's CPUs untouched (18:32). A study seeded from an earlier
-bundle (18:04): the next build. Group D, the best law taken as deep as memory allows (18:06): the one after. The
-consolidation: then. The shared atlas: after the paper, a device's CPU model and timings only with its owner's opt-in
-(18:28). This evening: a handover the next context can start from with the source alone (23:00), Home's plot and Top
-100 (23:07, 23:09): 859.
+* **Study 177** runs since 2026-11-26 12:24Z (`/data/projects/GSD/177/main`), on 885 since about 19:40 local, seeded
+  on 882 from the dex of 176's laws and 174's bundle (its dex of 15:11Z: 132 laws). Its focus on S177-C11-G37 (from
+  S174-C8-463fc3bf, 27 there): at 19:02 local 16 of its 47 laws read, its tiny rings all "moved" like it, two of its
+  ring at 0.1 "made"; the rest waited on their probes, which 885 reads first. The operator means to stop it once its dex
+  is written and start study 178 on the zone map's design.
+* **Studies 176 and 174** stopped or the operator's; their bundles were read at 881 and 865.
+* **Open questions** (`docs/ROADMAP.md`, "Questions for the operator"): what makes a neighbour alike (proposed in
+  `docs/agent/ZONE_MAP.md`), a topology probe, 176's standing controls, past 65,536.
 
 ## Start here, in a fresh context
 
@@ -187,15 +70,10 @@ sometimes with the operator's words typed above it; a context that opens either 
 
 ## What is live
 
-* **Study 176** is designed again at 865 (`study_176_design.json`: A's ten blind batches, the focus from its start, a
-  seeded campaign filled from bundles by the Map page); 856's design, never run, is replaced. Started by the operator
-  on 867 at about 15:00, 869 applied; 871 to apply, then one synchronize.
-* **Study 174** in a folder of its own, 16 workers when 175 is stopped; its bundle of 2026-11-24 14:22Z is the
-  baseline, its newest 2026-11-25 09:59Z (on 863): all ten batches at their law budget, 150 laws read to the top of the
-  ladder and waiting to be extended, 193 held by `starts_alike` at 16,384, of which 40 run on with 864, and C11, the
-  standing controls, active at 65,536 (3.1 core-hours of 750).
-* **Study 175** on 850 in a folder of its own, to its end (the operator, 2026-11-24 10:22); its bundle of
-  2026-11-24 08:35Z is the baseline. Every older folder (169 to 173, 156, 158) is the operator's to delete.
+* **Study 177** (`study_177_design.json`, 881: 176's design on new seeds) runs on 885; study 178 is next, designed by
+  the zone map (`docs/agent/ZONE_MAP.md`, "How a zone is mapped").
+* **Studies 174 to 176** in folders of their own, stopped or the operator's; the baseline bundles are 174's of
+  2026-11-24 14:22Z and 175's of 08:35Z. Every older folder (169 to 173, 156, 158) is the operator's to delete.
 * **The worker count while a study runs** (846, System page, Workers): `compute_worker_target`, read by the
   supervisor every half second; a lower count stops the slots above it at once, each saving its seed and giving its
   rung back uncharged (`docs/ARCHITECTURE.md`, "What the fleet does").
@@ -330,10 +208,11 @@ again after the paper's three studies, on the final probes, with a criterion wri
 
 ## What waits on the operator
 
-* **871's to 880's pull requests**: theirs to open from the archives (or to give the session push access) and merge.
-* **Study 176's next bundle**, on 871 or later after one synchronize: whether the focus stands on its seeded best law.
+* **871's to 886's pull requests**: theirs to open from the archives (or to give the session push access) and merge.
+* **Study 177's dex** written on its Map page ("write the dex now") before it stops, carried into study 178's `import/`.
+* **What makes a neighbour alike** (`docs/agent/ZONE_MAP.md`, the proposal; `docs/ROADMAP.md`, "Questions for the
+  operator"): the forms of the curves both laws have locked in, within the score's margins.
 * **Study 176's standing controls**: kept as a tick (recommended; `docs/ROADMAP.md`, "Questions for the operator").
-* **Study 174's 40 held laws**: 40 rings; running them on (the Map page's "run them on") is no longer recommended.
 * **Where the older data's archive goes public** (the consolidation): the review asks for a public archive (Zenodo or a tag) so a
   referee can see nothing was dropped selectively; the operator wants it out of the tree. Both hold if the archive
   goes beside the build and its place is theirs to name.
@@ -366,6 +245,7 @@ Builds go on without them while nothing waits on them.
 | what | its one home |
 |---|---|
 | the project on one page, in the operator's words | `docs/WHERE_WE_ARE.md` |
+| where the project is heading: zones, their behaviour, how one is mapped | `docs/agent/ZONE_MAP.md` |
 | the next build, how to make and release one | `docs/agent/NEXT_BUILD.md` |
 | the paper, a working draft resting on the baseline, claiming nothing | `docs/paper/GSD_PAPER.md` |
 | how the operator sends, decides and wants answers | `docs/agent/WORKING_WITH_THE_OPERATOR.md` |

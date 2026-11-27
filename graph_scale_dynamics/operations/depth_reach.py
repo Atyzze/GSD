@@ -47,12 +47,45 @@ def judge(found: dict[int, int], ladder, room: dict) -> dict | None:
     priced = price(found, following)
     if priced is None or priced["needs_bytes"] <= int(room.get("reach_bytes") or 0):
         return None
-    return dict(priced, reach_bytes=int(room.get("reach_bytes") or 0), free_bytes=int(room.get("floor_bytes") or 0))
+    out = dict(priced, reach_bytes=int(room.get("reach_bytes") or 0), free_bytes=int(room.get("floor_bytes") or 0))
+    if room.get("share") is not None:
+        out.update(share=float(room["share"]), total_bytes=int(room.get("total_bytes") or 0))
+    return out
 
 
 def room_now(repo) -> dict:
     from graph_scale_dynamics.scheduling import memory_hold
     return memory_hold.reach(repo.conn)
+
+
+def room_of_share(share: float, total_bytes: int) -> dict:
+    reach = int(float(share) * int(total_bytes))
+    return {"reach_bytes": reach, "floor_bytes": int(total_bytes) - reach, "share": float(share),
+            "total_bytes": int(total_bytes)}
+
+
+def share_of(repo, campaign_id: str) -> float | None:
+    spec = (repo.campaign(str(campaign_id)) or {}).get("spec") or {}
+    share = ((spec.get("study_design") or {}).get("focus") or {}).get("memory_share")
+    return None if share is None else float(share)
+
+
+def room_for(repo, campaign_id: str) -> dict:
+    share = share_of(repo, campaign_id)
+    if share is None:
+        return room_now(repo)
+    from graph_scale_dynamics.scheduling.memory import system_memory
+    return room_of_share(share, int(system_memory().total))
+
+
+def refresh(repo, campaign_id: str, room: dict | None = None) -> dict[str, dict]:
+    spec = (repo.campaign(str(campaign_id)) or {}).get("spec") or {}
+    if ((spec.get("study_design") or {}).get("focus") or {}).get("part") != "D":
+        return {}
+    laws = sorted(str(r["candidate_id"]) for r in repo.conn.execute(
+        "SELECT candidate_id FROM campaign_candidates WHERE campaign_id=?", (str(campaign_id),)).fetchall())
+    ladder = [int(n) for n in spec.get("ladder") or []]
+    return keep(repo, campaign_id, laws, ladder, room=room_for(repo, campaign_id) if room is None else room)
 
 
 def keep(repo, campaign_id: str, laws, ladder, room: dict | None = None, now: str | None = None) -> dict[str, dict]:
@@ -79,4 +112,5 @@ def ceilings(repo, campaign_id: str) -> dict[str, dict]:
     return MC.entries_of(repo.get_flag(MC.FLAG, ""), str(campaign_id))
 
 
-__all__ = ["CONTRACT", "SAFETY", "ceilings", "judge", "keep", "next_size", "peaks", "price", "room_now"]
+__all__ = ["CONTRACT", "SAFETY", "ceilings", "judge", "keep", "next_size", "peaks", "price", "refresh", "room_for",
+           "room_now", "room_of_share", "share_of"]

@@ -1,4 +1,4 @@
-# Where we are, at build 880
+# Where we are, at build 886
 
 The whole project on one page, in plain words; the detail is in `docs/agent/HANDOFF.md`.
 
@@ -35,8 +35,9 @@ What the instrument reads on known answers (1, 2). **No data from a study before
 
 ## What is running
 
-Study 176 in its own folder since 2026-11-25 15:00, seeded from 174's bundle of 13:04Z; on 871 its focus takes the
-bundle's best law at once (press synchronize once). Study 174 beside it, its focus on C8-G2983; 175 to be paused.
+Study 177 since 11-26 12:24Z, seeded on 882 from the dex of 176's 130 laws and 174's bundle: 132 laws, 8,000 chains
+run again identical. On 885 the fleet maps one zone at a time with everything it has, the blind draw only when no
+zone has work. Next, study 178 on the zone map (886). 176 stopped.
 The project rests on two bundles and the calibration table, nothing older (2026-11-24 16:34): 174's of 14:22Z (the
 blind draw, 8,131 laws read) and 175's of 08:35Z (595 variants around 174's 35 settled laws), the paper's draft on them.
 
@@ -55,35 +56,34 @@ are one seed of three at small sizes, on graphs in pieces or trees the next size
 68% to 81% of the way there from empty, worse as N grows. Until a known law grows its geometry from empty, "nothing
 grows from empty" cannot be told from "nothing can get there under these moves".
 
-## What 800 to 880 changed
+## What 800 to 886 changed
 
-The probes locked and your table installed (800 to 805); no clock decides and the evidence judged again on the final
-code (806 to 843); 844 the stable build with study 174; 845 to 853 Home's batches, study 175, the score of 848; 854 the
-baseline and the paper's draft; 855 `CLAUDE.md` and the ledger; 856 study 176 and a science hash in every bundle; 857
-Home's filters; 858, 859 handovers. 860: Home says what is true, every law of a bundle whole. 861: the focus, the best
-laws one at a time beside the blind draw. 862: the Map page steers it, and names regions GG#n. 863: a handover. 864:
-held laws run on, a 4x4 law page. 865: study 176 seeded from bundles. 866: a slider, one depth worker. 867, 868: the
-law page in plain words. 869: an import folder. 870: a handover. 871: seeded laws in the focus, laws named S176C11G79.
-872: Home's study bar in core-hours and memory; "Which laws" leads; the ladder in two. 873: the depth seeker to the
-memory limit. 874: build numbers in words. 875: a seed in half the memory, the same chains. 876, 877: the C and
-assembly engines. 878: every law against every known type. 879: a law's phenotype. 880: the outliers' queue.
+The probes locked and your table installed (800 to 805); the evidence judged again on the final code (806 to 843); 844
+study 174; 845 to 853 study 175, the score of 848; 854 the paper's draft; 855 `CLAUDE.md` and the ledger; 856 study
+176; 857 to 860 Home's filters, Home says what is true. 861, 862: the focus and the Map page, regions GG#n. 864 to 870:
+held laws run on, study 176 seeded, a slider, the law page in words, an import folder. 871: laws named S176C11G79. 872:
+Home's study bar. 873: the depth seeker to the memory limit. 875 to 877: a seed in half the memory, the C and assembly
+engines. 878 to 880: known types, phenotypes, outliers. 881: study 177. 882: the dex. 883: the first zone unblocked.
+884: the zone live on the Map page. 885: one zone at a time, runs and probes in one order. 886: the zone map.
 
 ## What comes next
 
-881 a finished chain's edges packed; a bundle's reading first when one comes; the neighbours at the earliest
-identification on a bundle's reading; a shared effort once one node has proven the mapping (`docs/ROADMAP.md`).
+Study 178: the blind draw as the base load, a dex read in and verified as its own campaign, then one zone at a time,
+its edges found per parameter and in N, benchmarked, its central law its signature (`docs/agent/ZONE_MAP.md`).
 
 ## The decision in front of you
 
-1. **Apply 880 to 176's folder, rebuild the engine, press synchronize once** (recommended), slider at 90% focus.
-   871's to 880's pull requests are yours to open and merge.
-2. **Whether a known law must grow its geometry from empty first** (recommended, before more compute from empty):
+1. **Write 177's dex on its Map page before you stop it**, for study 178's `import/`. 871's to 886's pull requests
+   are yours to open and merge.
+2. **What makes a neighbour alike**: recommended, the same forms on every curve both have locked in, within the
+   score's margins (`docs/agent/ZONE_MAP.md`).
+3. **Whether a known law must grow its geometry from empty first** (recommended, before more compute from empty):
    parallel tempering is the cheapest remedy, an engine change of about a build, its known answers read again after.
-3. **Where the archive of the older data goes public** (the consolidation), so a reader can see nothing was dropped selectively.
+4. **Where the archive of the older data goes public** (the consolidation), so a reader can see nothing was dropped selectively.
 
 ## Words you will see
 
-**group**: A draws laws blind, B maps the best, N and D the focus's neighbours and depth. **small world**: starts agree on a graph whose reach grows as log N.
+**group**: A draws laws blind; N is the zone worker (the law in focus's neighbours and seeds), D the depth worker. **small world**: starts agree on a graph whose reach grows as log N.
 **law**: energy terms and dynamics. **rung**: one graph size (N). **cap**: the mean degree above which a graph is not
 studied. **d_s**: the dimension a random walk feels. **start**: what a law is grown from: empty, random, square,
 triangular, cubic, bcc, fcc, tesseract (4D). **chain**: a law's run from one start, the Markov chain of graphs it grows. **twin starts**: empty and random. **budget**: a seed's work, as the engines count it, the same on any machine.

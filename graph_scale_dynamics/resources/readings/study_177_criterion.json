@@ -1,0 +1,19 @@
+{
+  "contract": "gsd-study-criterion-1",
+  "study": "177",
+  "committed_utc": "2026-11-26T11:05:28Z",
+  "committed_before": "study 177's first start, in any folder, and before any law it names was run in it",
+  "design": "graph_scale_dynamics/resources/readings/study_177_design.json",
+  "design_sha256": "2e60aa34820242f5134d8b628789f9e0a320d2c9e384736b77d14bbca0bac4a3",
+  "question": "The operator's (2026-11-26 11:55): started from nothing, do the zone worker and the depth worker take the study's first scoring law by themselves, and does the zone worker tell a lucky hit from a law whose neighbourhood holds its kind?",
+  "predictions": {
+    "P1": "the focus takes a law at the first step after a law scores in the folder (the focus's step runs once a minute): its neighbours and terms switched off enter campaign N, the law itself campaign S, and the law in focus is the depth worker's first law",
+    "P2": "one depth campaign of the focus holds work at any time, with one worker, and it runs one law at a time: the next law enters it only once the decider has ended the last",
+    "P3": "no depth law is bought a size its own peaks price past half the host's memory: every law the depth worker ends at its memory ceiling records a price above half the host's total memory",
+    "P4": "the focus's step does not fail: the Map page never shows the red line saying it has failed; if it does, its error is read first",
+    "P5": "reported: the first scoring law's code, when it scored, when the focus took it, its depth reached and its neighbourhood's tally by ring at 16,384"
+  },
+  "not_predicted": "which law scores first, when, what kind it reads and whether its neighbourhood holds are what the study is for",
+  "passes": "when P1 to P4 hold on the study's first bundle after its first law has been in focus a day; P5 is reported",
+  "what_follows": "once 177 is confirmed running on its own, the operator seeds it from a bundle of an earlier study (the import folder, the Map page's synchronize), the next step"
+}

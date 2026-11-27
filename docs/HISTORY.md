@@ -1775,6 +1775,20 @@ made; a time without a Z is the operator's local time.
 
 **What comes, in order**
 
+* **The zone map** (2026-11-26 19:21: "the DEX should in the end just be a list of zones"; 19:49: "the central last
+  law pushed to the highest N becomes its real signature then, all other laws are then simply a
+  derivation/distance/range-from the central data pillar"; "I really want to be able to start a fresh study, one that
+  does only blind mapping as base load, until a dex is seen, upon first load, it is first verified in the fleet, its
+  own campaign"; "not the most special/unique one but the one most likely to confirm fast"; "benchmarking that and
+  well defining the space, long before automating it over multiple zones ... 1 by 1"; 19:59: "laws can obviously
+  belong in multiple zones, there will be overlap regions between terms"; "what separates 2 zones from each other?
+  other than sheer term-set and their coupling strength?"): `docs/agent/ZONE_MAP.md` (886), study 178 next (887).
+* **One zone at a time, the blind draw only when no zone has work, no share to set** (2026-11-26 19:06: "only do blind
+  draws when there are no seeds/zones to confirm"; 19:07: "we also dont need the allocation slider, the fleet
+  naturally swaps between what work is most required"; 19:21: "our system never tries to map multiple zones at the
+  same time. It always focuses on one zone at the same time with all its available compute"): 885.
+* **The zone seen at work** (2026-11-26 17:22: "I'm mainly missing insight to see whether or not it is actively
+  mapping our first zone at all"): 884, the zone live on the Map page.
 * The 2019 model is run again only after the paper's three studies (2026-11-19 22:05, of the row "The 2019 model by
   its own procedure: a sandbox measurement to its paper's sizes, 1,048,576 on your host when it suits you": "This is
   for after we're doing with our A, B and C study"): the sandbox run to the paper's sizes and the host's two

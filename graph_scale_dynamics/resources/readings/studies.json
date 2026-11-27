@@ -72,6 +72,14 @@
    "criterion": "graph_scale_dynamics/resources/readings/study_176_criterion.json",
    "laws": 10125,
    "status": "designed on 856 from the baseline bundles; starts on 856 in a folder of its own"
+  },
+  {
+   "id": "177",
+   "notes": "Study 177, the blind draw and the map from nothing: group A draws 10,000 laws blind in ten new batches of 1,000 on 174's rules; the focus takes the first law that scores here, the zone worker reading its neighbours and seeds (group N) and the depth worker pushing one law at a time to half the host's memory (group D); nothing seeded, on build 881.",
+   "design": "graph_scale_dynamics/resources/readings/study_177_design.json",
+   "criterion": "graph_scale_dynamics/resources/readings/study_177_criterion.json",
+   "laws": 10000,
+   "status": "designed on 881 from nothing; starts on 881 in a folder of its own"
   }
  ]
 }

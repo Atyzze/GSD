@@ -22,6 +22,7 @@ class World:
         self.seeds = {"own": {}, "more": {}, "reproduced": True, "other": [], "of": 6} if seeds == "read" else seeds
         self.depth = depth or {"kinds": {}, "own": {}, "deepest": 65536, "holds_to": 65536, "invalidated_at": None}
         monkeypatch.setattr(focus, "verdict", lambda repo, campaign, law, read_n: self.verdicts.get(law))
+        monkeypatch.setattr(focus, "kinds_so_far", lambda repo, campaign, law, seeds: {})
         monkeypatch.setattr(focus, "depth_of", lambda repo, state, law, campaign: dict(self.depth))
         monkeypatch.setattr(focus, "seeds_of", lambda repo, state, current: self.seeds)
         monkeypatch.setattr(focus, "_spec_of", lambda repo, campaign, law: self.specs[law])
@@ -80,14 +81,38 @@ def test_seeds_that_disagree_moves_that_disagree_and_neither_are_told_apart():
     assert focus.sensitivity(found_plan, waiting, agree) is None
 
 
-def test_a_neighbourhood_under_two_thirds_alike_at_a_tenth_ends_unconfirmed(monkeypatch):
+def test_a_neighbourhood_under_two_thirds_alike_at_a_tenth_stands_at_a_hundredth(monkeypatch):
     world = World(monkeypatch)
     state = world.state()
     assert focus.advance(None, state) == 0 and state["current"]["stage"] == focus.NEIGHBOURHOOD
     world.read(state, lambda law, point: KIND if point["radius"] != 0.1 or law[-1] in "0123" else OTHER)
     focus.advance(None, state)
+    current = state["current"]
+    assert current["confirmed_at"] == 0.01 and current["stage"] == focus.BOUNDARIES, (
+        "the zone stands at 0.01: its edge is sought on lines to the others at 0.1")
+    assert any(e.get("confirmed_at") == 0.01 for e in state["events"])
+    ring = next(need for need in focus.needs(state, current) if need["what"] == "ring 0.1")
+    assert ring["done"] and "its zone stands at ring 0.01 instead" in ring["said"]
+    assert focus._summary(current)["confirmed_at"] == 0.01
+
+
+def test_a_neighbourhood_under_two_thirds_alike_at_a_tenth_and_a_hundredth_ends_unconfirmed(monkeypatch):
+    world = World(monkeypatch)
+    state = world.state()
+    world.read(state, lambda law, point: KIND if point["radius"] not in (0.01, 0.1) or law[-1] in "01" else OTHER)
+    focus.advance(None, state)
     assert state["current"]["stage"] == focus.UNCONFIRMED
-    assert "neighbours at radius 0.1" in state["current"]["why"]
+    assert "neighbours at radius 0.1" in state["current"]["why"] and "no smaller ring from 0.01" in state["current"]["why"]
+
+
+def test_a_smaller_ring_still_read_holds_the_judgement(monkeypatch):
+    rows = {"0.01": {"laws": 8, "alike": 2, "other": 0, "waiting": 6}, "0.1": {"laws": 8, "alike": 1, "other": 7,
+                                                                              "waiting": 0}}
+    assert focus.confirmed_at(focus.plan(ROOT), rows) is None
+    rows["0.01"].update(alike=6, other=2, waiting=0)
+    assert focus.confirmed_at(focus.plan(ROOT), rows) == 0.01
+    rows["0.01"].update(alike=5, other=3)
+    assert focus.confirmed_at(focus.plan(ROOT), rows) is False
 
 
 def test_the_depth_reading_another_kind_ends_it_invalidated_whatever_the_neighbours_say(monkeypatch):
@@ -238,3 +263,27 @@ def test_each_term_switched_off_says_whether_it_bears_the_law_s_kind_and_the_law
     assert state["current"]["core"] == ["square_edge_overlap"]
     alone = dict(SPEC, terms=SPEC["terms"][:1])
     assert focus.knockouts(state, alone) == ([], [{"term": "degree_cube_sum", "why": "no term left"}])
+
+
+def test_a_neighbour_read_before_the_law_s_own_kind_is_neither_alike_nor_other(monkeypatch):
+    world = World(monkeypatch)
+    state = world.state()
+    state["current"]["kind"] = None
+    world.read(state)
+    rows = focus.tally(state["current"], world.verdicts)
+    assert all(row["alike"] == row["other"] == 0 and row["waiting"] == row["read"] == row["laws"] for row in rows.values())
+    terms = focus.terms_read(state["current"], {law: "ring" for law in state["current"]["points"]})
+    assert all(row["load_bearing"] is None for row in terms.values())
+    said = {n["what"]: n for n in focus.needs(state, dict(state["current"], tally=rows, depth={}, seeds=None))}
+    assert not said["its kind"]["done"] and "judged once its own kind is read" in said["ring 0.1"]["said"]
+
+
+def test_a_law_s_own_kind_is_read_in_its_seeds_campaign_when_that_reads_it_first(monkeypatch):
+    found = {"3": None, "13": "ring"}
+    monkeypatch.setattr(focus, "verdict", lambda repo, campaign, law, read_n: found[str(campaign)])
+    state = {"campaigns": {focus.NEIGHBOURS: "12", focus.SEEDS: "13", focus.DEPTH: "14"}}
+    assert focus.kind_here(None, state, {"law": "x", "of": "3"}, 16384) == ("ring", focus.SEEDS_CAMPAIGN)
+    found["3"] = "moved"
+    assert focus.kind_here(None, state, {"law": "x", "of": "3"}, 16384) == ("moved", focus.OWN_CAMPAIGN)
+    found.update({"3": None, "13": "stopped: starts_alike at 4,096"})
+    assert focus.kind_here(None, state, {"law": "x", "of": "3"}, 16384) == (None, None), "a stop is not a kind"

@@ -99,3 +99,22 @@ def test_a_seed_s_save_packs_its_edges_and_reads_back_the_same_and_fits_1_048_57
         f"eight chains of 1,048,576 nodes at mean degree 32 save in about {at_a_million:.0f}s of their own work "
         f"here, inside the stop's {R.STOP_GRACE_SECONDS:.0f}s; the processor's time, so a busy host does not "
         f"read as a slow save")
+
+
+def test_the_depth_seeker_s_reach_is_half_the_host_s_memory_and_the_ceiling_says_so():
+    from graph_scale_dynamics.decisions import engine as E
+    from graph_scale_dynamics.decisions import memory_ceiling as MC
+    from graph_scale_dynamics.operations import depth_reach as D
+    gib = 1024 ** 3
+    room = D.room_of_share(0.5, 92 * gib)
+    assert room["reach_bytes"] == 46 * gib and room["floor_bytes"] == 46 * gib
+    found = {65536: 4 * gib, 262144: 16 * gib}
+    entry = D.judge(found, [65536, 262144, 1048576, 4194304], room)
+    assert entry["next_n"] == 1048576 and entry["needs_bytes"] > 46 * gib
+    assert entry["share"] == 0.5 and entry["total_bytes"] == 92 * gib
+    assert D.judge({65536: 1 * gib, 262144: 4 * gib}, [65536, 262144, 1048576], room) is None, "17.6 GiB fits 46"
+    decision = E.Decision(law="x", action=E.RUN_NEXT, rule="dimension_shows", reason="r", at_n=262144,
+                          next_n=1048576, priority=None)
+    settled = MC.settle(decision, entry, E.Policy())
+    assert settled.action == E.STOP and settled.rule == MC.RULE
+    assert "past the host's reach of 46.0 GiB with 46.0 GiB kept free" in settled.reason

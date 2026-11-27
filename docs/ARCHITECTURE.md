@@ -749,6 +749,82 @@ inputs, and `memory_ceiling.settle` turns a decision buying that size or past it
 (`artifact_store/resume_state.py`) writes every list of 4,096 or more whole numbers or pairs of them packed
 (`packed`, `unpacked`: base64 of a 32- or 64-bit array inside the gzip JSON, marked `__gsd_packed__`).
 
+**One depth worker, and a step that cannot fail unseen** (881). The depth campaign holds one law at a time
+(`focus.depth_next`, `depth_line`): the law in focus first, then the depth list in its order; the contenders are only
+the laws it will take. The next enters once the decider ends the last (`study_map.decided`: done, stopped or parked),
+recorded in the state's `depth_now` and `depth_done`; its one worker (`DEPTH_WORKERS`) runs one seed at a time, a
+size's three seeds in turn (three is the fewest `scheduling/base_block.py` lets a campaign measure a size on). The
+plan's `depth.memory_share` (0.5) is copied into the depth campaign's spec (`study_design.focus.memory_share`); its
+room is that share of the host's total memory (`depth_reach.room_for`, `room_of_share`: reach the share, the rest kept
+free), and `DecisionStore.memory_ceilings` prices the campaign's laws (`depth_reach.refresh`) before the decider reads
+the flag, so the price is never a step behind. A renewal adopts a depth campaign of the focus that already fits the
+plan (`depth_fits`: ladder top, seeds, share) before it makes one and saves at once; `tidy_depth` pauses every other
+active depth campaign of the focus. `focus.step` runs `_step` and, on any exception, writes the flag
+`study_focus_failed` (`since`, `last`, `times`, `error`) before it raises; a step that passes clears it, and
+`focus.reading` puts it first in the Map page's line. `focus.verdict` reads a law's kind at `read_n` once its campaign
+has decided at `read_n` or past (`decided_past`), not only once it has ended it.
+
+**The dex** (882, `operations/dex.py`, contract `gsd-dex-1`). The data a study hands to the next, with no report in
+it: a `dex_<study>_<utc>.tar.zst` holding `dex.json` (every law that scores, best first: its spec, whose fingerprint
+is its id; every code it was known by; every reading of its score as `seen`, each with its source, study and science;
+its `score` under the dex's own science, null where no part of that science read it; the sizes its chains reach; its
+`verified` checks), `chains.ndjson.gz` (per law, size, seed and start: the moves, accepted moves, edges, largest degree
+and work a run again on the same science must reproduce, with its seconds and peak memory) and `rungs.ndjson.gz`.
+`read_part` reads a dex or an old study bundle alike (a bundle's scoring laws, and the earlier studies' laws its
+`focus.json` records as seeded, with their codes and scores); `merge` joins parts by fingerprint, `ranked` orders
+them by the score under the dex's science, then the best score anywhere; `top` is the first hundred that score.
+A folder's dex (`of_folder`) is its own scoring laws from every campaign of the study, every seed record's laws, the
+focus's regions and the chains of those laws from the blob store (`study_tables.chain_rows(..., laws=...)`), merged
+with every ticked part still in `import/`; `verify` compares each of its chains with a recorded chain of the same
+law, size, seed and start under the same science, and files the count that agree and differ under the law. The
+controller's pass (`controller.dex_pass`) reads in any dex newly put into `import/` (`absorb`, through
+`study_seed.seed`) and writes the folder's dex into `export/` once an hour (`keep`, the flag `dex_written`); the Map
+page's "write the dex now" (`do: dex`) writes one at once. `study_seed.read` takes a dex as a seed (`dex.seeding`):
+its laws scored under the folder's science stand on that score until read here, as a bundle's do; a dex or bundle of
+another science brings its laws alone (`laws_only` in the seed record), each run here from nothing, no score or region
+carried, and is no longer refused.
+
+**The focus's choices** (882). `focus._chosen` records why it took a law (`chosen_by`: score, bundle, outlier,
+operator), said on the Map page's line. An outlier is taken only once the study has a scoring law and every one is
+mapped, inside a region or skipped; an outlier in focus (or a law of score 0 taken before 882 with no reason
+recorded) is set aside the moment a scoring law is free (`set_aside`, kept in the state's `set_aside`), and the depth
+worker leaves a law that is no longer a contender by beginning a new depth campaign (`depth_restart`), the old
+paused with everything it measured.
+
+**What the zone worker waits for** (883). The depth list (`focus.contenders`) holds the study's scoring laws and
+the law in focus only. A law's kind at 16,384 is read in its own campaign, else in its seeds' campaign once that has
+decided at 16,384 (`kind_here`, recorded as `kind_from`); before it, a neighbour or a term switched off is read but
+not judged (`tally`'s `read`, `terms_read`'s `load_bearing` None). Its seeds are compared seed by seed at the largest
+size both campaigns read (`seeds_of`'s `compared_at`), again at every step. `focus.needs` lists, under the law in
+focus, each condition of its mapping with its count; the Map page shows it as "to map it". A law in several
+campaigns opens in its home (`focus.home_campaign`: the blind or seeded campaign, then the zone's, then the depth's).
+
+**The zone now** (884). `operations/zone_live.py` reads, without writing, what the fleet does for the focus:
+`reading(repo, state)` lists every leased simulation by role (`roles_of`: a focus part's N, S, D as zone, zone seeds,
+depth; a `seed` campaign as Dex laws; `blind`) with its attempt's start and the median seconds of one seed at its size
+(`typical`, the zone's campaigns' finished attempts over six hours, else the fleet's), and each law of the zone's
+stage (`where`, from its jobs by size and status, its pending analyses and its latest decision), its largest whole
+size (`reached`), the work left at most, the rings counted by stage (`rings_of`) and the pace (`pace`). The focus's
+step keeps what it needs over time in the state: `read_at`, `so_far` (`kinds_so_far`), `needs_at`, `typical`
+(every five minutes, `typical_of`), and `zone_first` (`focus.zone_first`): the queued runs of laws no longer in focus,
+in the zone's and seeds' campaigns, priority raised by `focus.BEHIND` so the law in focus's are claimed first, lowered
+again when their law is in focus. `/api/focus` serves it as `zone_now`, `zone_live.safe` turning a failure into an
+`error` the page shows; a bundle's `focus.json` keeps it. The work groups count a campaign of kind `seed` in A
+(`work_groups.group_of`), whatever its design says.
+
+**One order for the fleet** (885). In a folder with a focus campaign, `work_groups.ordered(allocation)` lists the
+steps with work, each a list of campaigns: 0 the zone (focus parts N and S, runs below `BEHIND`), 1 the depth worker
+(part D), 2 the Dex laws (kind `seed`), 3 the blind draw and the rest, 4 earlier laws' leftovers (runs at or above
+`BEHIND`, raised so by `focus.zone_first`); a campaign below its own `workers_target` joins the first step. The worker
+(`services/worker.offers`) claims step by step, each kept below `BEHIND` by `claim_job(under=)` until the last, then
+anything. A probe takes its step from its campaign (`work_groups.TIER_SQL`, computed once a claim) and is ordered by
+it before its priority (`repo.claim_analysis_job`); the analyzer claims steps 0 and 1 first (`tier_at_most`), then its
+two halves. `repo.refresh_scheduler_state` splits the slots on the probes and runs of the first step with either
+(`allocation.first_work`, `analysis_backlog_tiers`, `simulation_work_counts(ordered=True)`) and publishes the whole
+backlog, an executor slot with nothing of its kind taking the other kind. A folder without a focus keeps its shares
+(`in_shares`). A zone whose ring at 0.1 is under two thirds alike stands at the largest ring from 0.01 that is not
+(`focus.confirmed_at`, kept as `confirmed_at`), else ends unconfirmed, "a lucky hit" on the Map page.
+
 **Home's selection and hours** (872). `observability/selection_ladder.py` makes one fact a law (`FIELDS`: its
 campaign and id, the sizes it has a reading at, `under way`, `waiting`, `settled` or `not started` from
 `law_status.of_row`, the rule and size of its latest decision, its next size, its score and the size it was scored

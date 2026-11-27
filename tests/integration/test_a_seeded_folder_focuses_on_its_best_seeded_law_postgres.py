@@ -84,9 +84,9 @@ def test_a_folder_seeded_from_a_bundle_focuses_on_its_best_seeded_law_at_its_nex
         state = focus.load(repo)
         current = state["current"]
         assert current["law"] == best, "the bundle's best law, 38 in study 174, is in focus at once"
-        assert current["standing"] == "bundle" and current["origin"]["code"] == "S174C2G3187"
+        assert current["standing"] == "bundle" and current["origin"]["code"] == "S174-C2-G3187"
         assert current["origin"]["score"] == 38 and current["kind"] is None
-        assert current["label"] == f"S176C{current['of']}-{best[:8]}", "its code here: the study, its campaign"
+        assert current["label"] == f"S176-C{current['of']}-{best[:8]}", "its code here: the study, its campaign"
         assert best in state["contenders"], "and the depth seeker takes it at once"
         reading = focus.reading(repo)
         assert "on its bundle's score (38 in study 174's bundle) until this folder reads it at N=16,384" in reading[
@@ -94,7 +94,7 @@ def test_a_folder_seeded_from_a_bundle_focuses_on_its_best_seeded_law_at_its_nex
         assert "its neighbours wait for its own kind at N=16,384" in reading["doing"]
         ranked = {e["candidate_id"]: e for e in focus.best(repo, "176")}
         assert set(ranked) == {best, next_} and low not in ranked, "only what the bundle scores"
-        assert ranked[next_]["origin"]["code"] == "S174C2-" + next_[:8], "an older bundle names it by its id"
+        assert ranked[next_]["origin"]["code"] == "S174-C2-" + next_[:8], "an older bundle names it by its id"
         focus.advance(repo, state)
         assert state["current"]["stage"] == focus.NEIGHBOURHOOD, "its neighbours are not judged before its own kind"
     finally:
@@ -141,9 +141,9 @@ def test_a_bundle_unticked_and_synchronized_leaves_the_focus_and_the_map_its_rea
         focus.step(repo, force=True)
         state = focus.load(repo)
         seeded = study_seed.campaign_of(state)
-        assert state["current"]["law"] == best and [r["name"] for r in state["regions"]] == ["GG#3"]
+        assert state["current"]["law"] == best and [r["name"] for r in state["regions"]] == ["Z3"]
         done = imports.synchronize(repo, folder, [])
-        assert done["let_go"][0]["bundle"] == name and done["let_go"][0]["regions_off"] == ["GG#3"]
+        assert done["let_go"][0]["bundle"] == name and done["let_go"][0]["regions_off"] == ["Z3"]
         state = focus.load(repo)
         assert state["regions"] == [] and next_ not in (state.get("region_of") or {}), "its regions off the map"
         assert state["current"] is None and best not in state["contenders"], "no longer focused on or taken deeper"
@@ -157,9 +157,9 @@ def test_a_bundle_unticked_and_synchronized_leaves_the_focus_and_the_map_its_rea
         row = next(b for b in focus.reading(repo)["seeded"] if b["bundle"] == name)
         assert row["selected"] is False and row["let_go_utc"]
         back = imports.synchronize(repo, folder, [name])
-        assert back["read_in"][0]["regions_back"] == ["GG#3"]
+        assert back["read_in"][0]["regions_back"] == ["Z3"]
         state = focus.load(repo)
-        assert [r["name"] for r in state["regions"]] == ["GG#3"] and best in {
+        assert [r["name"] for r in state["regions"]] == ["Z3"] and best in {
             e["candidate_id"] for e in focus.best(repo, "176")}, "ticked again, it is in the map again"
     finally:
         repo.close()
@@ -179,14 +179,14 @@ def test_a_law_s_code_reads_the_same_in_the_focus_on_its_page_and_in_the_bundle(
                             stage="base", n=64, seed=i, spec={})
         repo.insert_job(job_id="best-0", campaign_id=seeded, candidate_id=best, kind="simulate", stage="base", n=64,
                         seed=0, spec={})
-        want = f"S176C{seeded}G4"
+        want = f"S176-C{seeded}-G4"
         assert law_code.of(repo, seeded, best) == want
         assert focus.label(repo, seeded, best) == want
         assert next(e for e in focus.best(repo, "176") if e["candidate_id"] == best)["label"] == want
         rows = {r["candidate_id"]: r for r in study_tables.law_rows(repo, [seeded], {})}
         assert (rows[best]["code"], rows[best]["graph"]) == (want, 4), "the bundle carries the same code"
         page = readings_route._named(repo, focus.load(repo), seeded, best)
-        assert page["code"] == want and page["origin"]["code"] == "S174C2G3187" and page["origin"]["standing"] == (
+        assert page["code"] == want and page["origin"]["code"] == "S174-C2-G3187" and page["origin"]["standing"] == (
             "bundle")
         listed = {r["campaign_id"]: r for r in campaign_manager.campaign_list(repo)}
         assert listed[seeded]["study"] == "176", "the dashboard reads each campaign's study to name its laws"

@@ -567,6 +567,34 @@ begins with the 125 points of its first ten (`study_176_first_ten.json`). The ma
 (each region mapping or known, its points, its kind, the size it is spotted at, its boundaries); the controller's
 log writes `study_map` when the map adds points or takes a new law into the ten.
 
+**Starting study 177** (881): `uv run python main.py run --allow-host <host> --study 177` in a new folder, every
+other fleet on the host stopped and the folder's `import/` left empty: ten blind batches, the focus begun at the start
+and an empty seeded campaign. Nothing to press: the focus's step (once a minute) takes the first law that scores here,
+the zone worker runs its neighbours, its terms switched off and its seeds (group N), and the depth worker takes it
+first, one seed at a time, up to half the host's memory (group D). The Map page's first line says what each does, in
+amber if the focus's step fails. Seeding it from a bundle is the step after it runs on its own; a bundle of 176 made on
+870 or later reads its science (f5c045e195fdb4d2).
+
+**Seeding a study from the dex** (882). Put a dex (`dex_*.tar.zst`, from a folder's `export/` or `tools/dex.py
+make`) into the new folder's `import/`, before or after its start: within a minute the controller reads it in, its
+scoring laws go into the seeded campaign and the focus takes the best of them at its next step on its score in the
+dex. An old study bundle in `import/` is ticked and synchronized on the Map page as before; one of another science
+brings its laws alone. Every folder writes its own dex into `export/` each hour, every part it was seeded with merged
+in, so the newest dex there is the one to carry to the next study.
+
+**Is the zone being mapped?** (884) The Map page, under the law in focus: the first line says how long it has been
+in focus, how many of its laws are read (in the last hour, and when the last was) and about how much work is left at
+the zone's workers now; the next, who runs now against the zone's share. In the rings table, "running", "queued" and
+"between sizes" are neighbours under way, "held" in amber are stopped by the decider and do not move by themselves,
+"not started" have no run yet. "every law of the zone" (folded) gives each law where it stands and for how long, its
+kind so far against the law's; Working now lists every running simulation with its clock, its bar amber past the
+typical time of one seed at its size. A neighbour is read only at 16,384, so the "read" column jumps late: the
+"between sizes" and "alike so far" columns are the progress before it. There is no share to set (885): the fleet
+takes runs and probes in one order, the zone of the law in focus, the depth worker, the Dex laws read again, the blind
+draw, earlier laws' leftovers, each only when the ones before it have nothing queued; the Map page's first panel says
+which step it is on and what each has queued. A zone whose ring at 0.1 is not two thirds alike stands at ring 0.01 if
+that one is; else the law is a lucky hit, its readings kept.
+
 **If `uv run` fails building `gsd-engine-rs`** with `rustc: symbol lookup error: .../librustc_driver-*.so: undefined
 symbol ... version LLVM_...`, the system's `rustc` and its LLVM libraries are from different updates (`which -a
 rustc`, `rustc -V`); an upgrade and a reboot do not mend it. Use rustup: `sudo pacman -S rustup`, then `rustup default

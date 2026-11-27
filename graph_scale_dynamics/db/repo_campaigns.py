@@ -442,16 +442,20 @@ class CampaignStore:
         return storage_profile(self.conn, campaign_id)
 
     def worker_allocation(self, claimable: bool = False) -> list[dict]:
+        from graph_scale_dynamics.scheduling.work_groups import BEHIND
         ready = " AND COALESCE(j.next_attempt_utc,'')<=?" if claimable else ""
         rows = self.conn.execute(
             "SELECT c.campaign_id,c.workers_target,"
             "(c.spec_json::jsonb #>> '{study_design,group}') AS work_group,"
+            "(c.spec_json::jsonb #>> '{study_design,kind}') AS design_kind,"
+            "(c.spec_json::jsonb #>> '{study_design,focus,part}') AS focus_part,"
             "SUM(CASE WHEN j.status='leased' THEN 1 ELSE 0 END) AS leased,"
-            f"SUM(CASE WHEN j.status='queued'{ready} THEN 1 ELSE 0 END) AS queued "
+            f"SUM(CASE WHEN j.status='queued'{ready} THEN 1 ELSE 0 END) AS queued,"
+            f"SUM(CASE WHEN j.status='queued'{ready} AND j.priority>=? THEN 1 ELSE 0 END) AS behind "
             "FROM campaigns c LEFT JOIN jobs j ON j.campaign_id=c.campaign_id "
             "WHERE c.status='active' GROUP BY c.campaign_id,c.workers_target,c.created_utc,c.spec_json "
             "ORDER BY c.created_utc",
-            (utc_now(),) if claimable else ()
+            ((utc_now(), utc_now(), BEHIND) if claimable else (BEHIND,))
         ).fetchall()
         return [dict(r) for r in rows]
 
