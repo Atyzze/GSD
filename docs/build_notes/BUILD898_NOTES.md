@@ -39,7 +39,7 @@ still under way (the +). Three seeds ran (2, 3 and 4, 3 h 17 min to 3 h 31 min i
 
 ## For the folders
 
-* **Study 178**: merge 897 (#39) and this pull request; apply 898 and restart the dashboard only. The seeds of
+* **Study 178**: merge this pull request (897 is on `main`, #39); apply 898 and restart the dashboard only. The seeds of
   1,048,576 keep running. On Home the ladder's 1,048,576 reads "0 of 64 +24 now" until a seed finishes, and Now
   researching reads about 6 h 31 min a seed.
 

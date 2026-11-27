@@ -74,7 +74,7 @@ resumed seed in a fresh seed's memory, measured first. Then a consolidation and 
 
 ## The decision in front of you
 
-1. **Merge 897 and 898; apply 898 to study 178 with a restart of the dashboard only**: the seeds of 1,048,576 keep
+1. **Merge 898 and apply it to study 178 with a restart of the dashboard only**: the seeds of 1,048,576 keep
    running. Send 178's bundle once G73's 1M rung is read.
 2. **The push list's order** on the Top page: "first", "up", "past N=1,048,576", "stop pushing".
 3. **Whether a known law must grow its geometry from empty first** (recommended, before more compute from empty):

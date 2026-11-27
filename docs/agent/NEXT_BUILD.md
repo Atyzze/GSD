@@ -8,8 +8,8 @@ which must read exactly `# The next build is <N>`, one above `BUILD_NUMBER`.
 **Starting from nothing but the repository** (the operator, 2026-11-24 23:00): clone `main` and bring it up by
 `docs/agent/ENVIRONMENT.md`, section 10, "From the repository". Then `docs/WHERE_WE_ARE.md`, `docs/agent/HANDOFF.md`,
 `docs/agent/ZONE_MAP.md` and this page, in that order, and `CLAUDE.md`'s rules for a shared repository. 871 to 898 are
-made (`docs/build_notes/BUILD871_NOTES.md` to `BUILD898_NOTES.md`); 871 to 896 are on `main` (#18 to #38), 897 (#39)
-and 898 in their pull requests, 898 made on 897: branch from the newest that `main` holds.
+made (`docs/build_notes/BUILD871_NOTES.md` to `BUILD898_NOTES.md`); 871 to 897 are on `main` (#18 to #39), 898 in its
+pull request: branch from the newest that `main` holds.
 
 **What 899 makes** (`docs/ROADMAP.md`, "Next, in order", item 1; the operator, 18:26: "agree with both
 recommendations"). Both need a restart of the fleet, so they go together:
@@ -34,7 +34,7 @@ zone map's road once the push list empties.
 **Acceptance**: the two tests above, `tools/outputs_of_a_law.py --against` the record before unchanged, the full lane
 green.
 
-**Waiting on the operator**: 897 (#39) and 898 merged, 898 applied with a restart of the dashboard alone; 178's next
+**Waiting on the operator**: 898 merged and applied with a restart of the dashboard alone; 178's next
 bundle once G73's 1,048,576 is read (after 899, a bundle no longer stops it).
 
 ## Reading a study's bundle

@@ -87,8 +87,7 @@ the calibration table) and what it shows: `docs/WHERE_WE_ARE.md` and `docs/paper
 
 **Open threads at 898**, each with its home:
 
-* **Pull requests**: 864 to 896 (#11 to #38) merged by the operator; `main` holds 896. Open: 897 (#39) and 898's,
-  898 made on 897; merged in that order.
+* **Pull requests**: 864 to 897 (#11 to #39) merged by the operator; `main` holds 897. Open: 898's.
 * **Study 178** (`/data/projects/GSD/178/main`, `study_178_design.json`, criterion `study_178_criterion.json`) runs
   on 893 since 2026-11-27 about 11:20Z. 177's dex of 19:33Z was read in at its start (C15) and checked: 192 laws
   confirmed, 1 unmatched, at 07:18Z; the first zone (S178-C15-G2302, 177's S176-C12-G100, G79's family) was chosen at
@@ -268,7 +267,7 @@ again after the paper's three studies, on the final probes, with a criterion wri
 
 ## What waits on the operator
 
-* **897's and 898's pull requests** (#39 and the next): theirs to merge, in that order.
+* **898's pull request**: theirs to merge.
 * **Study 178 on 897**, G73's 1,048,576 under way (3 seeds at about 17:26Z, none finished); 898
   applies with a restart of the dashboard alone; its next bundle once G73's 1,048,576 is read.
 * **The push list's order** on the Top page: "first", "up", "past N=1,048,576", "stop pushing"; any law page's "push
