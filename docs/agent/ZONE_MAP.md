@@ -80,7 +80,8 @@ boundary itself lies, and what grows there, is a later question (the operator, 1
 
 ## How a zone is mapped (the operator's order)
 
-1. **Study 178, clean**: the blind draw as the base load, run only when nothing else has work (885's order).
+1. **Study 178, clean**: the blind draw as the base load, run only when nothing else has work (885's order; since 893
+   the blind ladder is a mode of its own, run only when the push list is empty and no zone has work).
 2. **A dex read in becomes its own campaign** (made at 887, `operations/dex_check.py`): every law run again on its
    seeds and each chain checked like for like against the dex's (`dex.verify`); each law confirmed, denied or
    unmatched, listed on the Map page as it reads, opened like any law of the folder; nothing taken into focus before.
@@ -104,3 +105,8 @@ boundary itself lies, and what grows there, is a later question (the operator, 1
    central law, on its region in the dex; the rule asked again without the laws inside a mapped zone or near an
    unconfirmed centre, so a zone mapped once, here or in a dex read in, is not searched again; the lucky hits listed to
    revisit.
+7. **Each zone with every worker, its N by the N-push** (made at 893): the fleet in one mode at a time, the zone search
+   while a zone has work, its free slots running its lines' next points ahead; a zone's central law joins the push
+   list, and the N-push takes it from 64 to the last size one seed fits, as many seeds a rung as workers while memory
+   allows. Study 178's first push (S178-C15-G73, from 12:00Z of 2026-11-27) is the check of it: confirmed once a worker
+   runs 4,194,304 (the operator, 13:06).

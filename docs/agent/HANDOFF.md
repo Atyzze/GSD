@@ -1,4 +1,4 @@
-# Handoff: the state of GSD at build 894
+# Handoff: the state of GSD at build 895
 
 What is true now, for a context that has just opened this archive. Each fact has one home; the last section says
 where. **Think from the data, not from this page**: where the data and a document disagree, the data wins and the
@@ -10,47 +10,43 @@ only when no zone has work; a zone told by what its laws do (the curves of the f
 not by its term set. **`docs/agent/ZONE_MAP.md`** holds it, with what the data and the code already say; it is read
 before any build from 887.
 
-**Since the handover (886)**: 887 designed study 178 (`study_178_design.json`): the blind draw as the base load, no
-seeded campaign made in advance; the first dex read in makes its own campaign (kind `seed`, the Dex step), every law
-run again and checked chain by chain against the dex (`operations/dex_check.py`: confirmed, denied or unmatched), the
-focus and the depth worker waiting until every law has read; then the first zone (`operations/zone_choice.py`: the
-most confirmed laws of one term set within 0.1 of one centre, controls never), its centre taken into focus. On 177's
-dex of 19:33Z the rule reads G79's family, 29 laws within 0.1 of S176-C12-G100, ahead of G37's, 28 within 0.1 of
-S177-C12-G1015 (`tools/dex.py zones`). 888, on the operator's words watching 178 read that dex (2026-11-27 01:35):
-the import folder ships in the tree and a dex in it is read in at the study's start; a dex is read again to N=4,096
-unless it carries a higher level; the Dex step takes its work law by law, the laws term set by term set; "Working now"
-shows one row per law with its progress; a new copy of the dex is written when a law or zone it lacks turns up or more
-of it verifies (`docs/build_notes/BUILD888_NOTES.md`). 889, on the operator's words at 02:22: a "push to the N
-limit" toggle on every law page, the pushed laws first on the depth worker's one worker with or without a law in focus,
-and a Top page with the law being pushed, its memory per size and where it stops (`docs/build_notes/BUILD889_NOTES.md`).
-The operator answered at 01:55: a neighbour is alike by its locked-in curves, its kind as fallback; the first zone is
-the rule's, G79's family, then G37's. 890 made both: no ring is drawn around the first zone's centre; its laws are
-judged at 4,096 with no run (`observability/likeness.py`), each parameter stepped out both ways and halved three times
-in a campaign read to 4,096 (part E), each edge read again at 16,384, and the central law, the middle of the alike
-extents, first in the depth worker's line after the pushed laws (`operations/zone_search.py`,
-`docs/build_notes/BUILD890_NOTES.md`). The ring method spent 3.2 core-hours on the same zone in 176. 891: when a zone's
-search ends, the rule is asked again without the laws inside a mapped zone's box or near an unconfirmed centre, so the
-zones come one after another; a zone is kept on its region, travels in the dex with its central law, and is not
-searched again when the dex is read in; the dex lists its lucky hits (`docs/build_notes/BUILD891_NOTES.md`). 892, on
-178's bundle and the operator's words of 08:36 to 09:19: the depth worker had been a share inside the fleet, its runs
-waiting for free slots; now while the Top page's push list holds a law the host is its, every slot on its seeds, every
-other run stopped and saved, its sizes priced against the host's memory until not one seed fits, in the operator's
-order (taking the first off stops its run at once), a zone's central law joining the end; the forecast says the last
-size and about when; Home names its runs "pushed"; while a dex is checked its laws run only to their level (the zone
-had waited six hours on 31 core-hours of the dex's deeper runs) (`docs/build_notes/BUILD892_NOTES.md`). 893, on the
-operator's words of 10:32 to 10:42: the fleet is always in one of three modes, the N-push, the zone search or the
-blind ladder, never mixed (`operations/modes.py`); the N-push runs the first pushed law's whole ladder again from 64
-in a campaign of its own (part P), as many seeds a rung as workers, fewer and in passes as memory binds, down to 3 and
-one worker, until not one seed fits (`operations/push_ladder.py`), its break-points and end forecast and plotted on
-the Top page; the law page reads every campaign of its law; Home's fleet ladder is one box with the selection, its
-rungs under way showing their live graphs and memory; the zone search's free slots run its lines' next points ahead
-(`docs/build_notes/BUILD893_NOTES.md`). 894, on the operator's words of 12:51 and 13:00: a pushed law keeps the code
-it was pushed with on every page; a law page draws each size from the campaign with the most seeds; the pages follow
-an event stream fed by Postgres's notifications and the law page reloads itself on a new reading; the stack stays
-ours (`docs/build_notes/BUILD894_NOTES.md`).
+**The fleet now** (893, 894; the operator, 2026-11-27 10:35: "always doing 1 of the three, never combining any of
+them though the N-push is the natural end-station of the zoned-searched"): the fleet is always in one of three modes
+(`operations/modes.py`, the flag `fleet_mode`), named on Home beside Now researching and on the Top page. **The
+N-push** while the Top page's push list holds a law: the first law runs its whole ladder again from N=64 in a
+campaign of its own (part P, `operations/push_ladder.py`), as many seeds a rung as the worker count, all at once; as
+memory binds, fewer at once and fewer seeds, down to 3, then in passes, on two workers, then on one; when not one
+seed of the next size fits the host's memory the law leaves the list and the next is pushed. **The zone search**
+while a zone has work: the dex read in checked law by law, then the zone chosen, its laws judged, each parameter
+stepped and halved, the edges read again, its central law pushed (it joins the end of the list); the slots the zone
+leaves free run its lines' next points ahead. **The blind ladder** with its gates only when the list is empty and
+no zone has work. A run of another mode stops within two seconds, its seed saved. Every page follows an event stream
+fed by Postgres's notifications and reads again when the work changes; a pushed law keeps the code it was pushed with
+on every page, and a law page draws each size from the campaign of the law with the most seeds there.
 
-**The builds since the last handover, 871 to 885** (each build's notes in `docs/build_notes/`; the operator's words in
-`docs/HISTORY.md`):
+**The builds since the handover (886), 887 to 894** (each build's notes in `docs/build_notes/`; the operator's words
+in `docs/HISTORY.md`):
+
+* 887: study 178 designed (`study_178_design.json`): the blind draw as the base load; the first dex read in makes its
+  own campaign (kind `seed`), every law run again and checked chain by chain against the dex
+  (`operations/dex_check.py`: confirmed, denied or unmatched); then the first zone (`operations/zone_choice.py`: the
+  most confirmed laws of one term set within 0.1 of one centre), its centre taken into focus.
+* 888: the import folder ships in the tree, a dex in it read in at the study's start, read again to N=4,096 law by
+  law; Working now one row per law; a new copy of the dex written when it learns something.
+* 889: "push to the N limit" on every law page; the Top page.
+* 890: the first zone searched by stepping and halving each parameter (`operations/zone_search.py`, part E), its laws
+  judged at 4,096 by their locked-in curves (`observability/likeness.py`), the edges read again at 16,384, its central
+  law pushed; benchmarked against the ring method (3.2 core-hours on the same zone in 176).
+* 891: the zones one after another; a zone kept on its region and carried in the dex with its central law; the dex's
+  lucky hits.
+* 892: the push list holds the host, in the operator's order; a zone's central law joins its end.
+* 893: the three modes; the N-push its own ladder from 64, its forecast and break-points plotted on the Top page; the
+  law page reads every campaign of its law; Home's fleet ladder one box, live values for rungs under way; the zone
+  search's look-ahead on free slots.
+* 894: one code for a pushed law on every page; each size of a law page from the campaign with the most seeds; the
+  pages told of every change of the work (`services/api/events.py`, our own stack: the operator, 13:00).
+
+**Before that, 871 to 885** (the handover of 886 read them):
 
 * 871: seeded laws in the focus on their bundle's score; every law named by study, campaign and graph (`law_code`).
 * 872: Home's "The study now" in core-hours and memory; "Which laws" leads; the fleet ladder in two tables.
@@ -76,22 +72,25 @@ and 862 the focus and the Map page; 864 to 869 no law done, study 176 seeded fro
 `import/` folder; 870 a handover. The baseline the paper rests on (174's bundle of 2026-11-24 14:22Z, 175's of 08:35Z,
 the calibration table) and what it shows: `docs/WHERE_WE_ARE.md` and `docs/paper/GSD_PAPER.md`.
 
-**Open threads at 886**, each with its home:
+**Open threads at 895**, each with its home:
 
-* **Pull requests**: 864 to 893 (#11 to #35) merged by the operator, #34 and #35 (892, 893) at 2026-11-27 11:21Z;
-  `main` holds 893. Open: 894's.
-* **Study 177** runs since 2026-11-26 12:24Z (`/data/projects/GSD/177/main`), on 885 since about 19:40 local, seeded
-  on 882 from the dex of 176's laws and 174's bundle. Its focus on S177-C11-G37 (from S174-C8-463fc3bf, 27 there).
-  Its dex of 19:33Z (`dex_177_2026-11-26T19-33-48Z`, sent with 887): 193 laws in 76 term sets, 26,366 chains, no zone
-  mapped, 129 laws run again identical, 64 of 177's own never run elsewhere, 3 standing controls.
-* **Study 178** runs on 887 since 2026-11-27 about 00:20Z (`/data/projects/GSD/178/main`); 177's dex of 19:33Z read in
-  at 00:23Z into its dex campaign (C15, 193 laws, a ladder to 65,536 as 887 made it); at 01:35 local every worker on
-  the Dex laws, 74 queued, 0 of 193 judged, the blind draw waiting. Its criterion (`study_178_criterion.json`)
-  commits P1 to P4, P4 the first zone S176-C12-G100's. On 888 it is judged at 4,096 and read law by law; started
-  afresh on 888 its dex campaign stops at 4,096.
+* **Pull requests**: 864 to 893 (#11 to #35) merged by the operator, #34 and #35 at 2026-11-27 11:21Z; `main` holds
+  893. Open: 894 (#36) and 895's, made on it; merged in that order.
+* **Study 178** (`/data/projects/GSD/178/main`, `study_178_design.json`, criterion `study_178_criterion.json`) runs
+  on 893 since 2026-11-27 about 11:20Z. 177's dex of 19:33Z was read in at its start (C15) and checked: 192 laws
+  confirmed, 1 unmatched, at 07:18Z; the first zone (S178-C15-G2302, 177's S176-C12-G100, G79's family) was chosen at
+  once and searched from 07:19Z, its 28 laws within 0.1 alike to the centre. Under 892 G2302 was pushed to N=262,144
+  (rule `memory_ceiling`). At 12:06Z the fleet was in the N-push on S178-C15-G73 (law 8addbb0c), its ladder again from
+  64 in C17 on 16 seeds a rung, 262,144 under way on 16 workers; S178-C15-G133 next on the list. Its forecast then put
+  1,048,576 on 6 workers at once from about 13:31Z and 4,194,304 on one worker, three seeds in three passes, from
+  about 22:23Z, the push ending about 171 hours on (around 2026-12-04 15:20Z); **the operator reads the N-push as
+  confirmed once its first worker runs 4,194,304** (13:06).
+* **Study 177** (`/data/projects/GSD/177/main`) and its dex of 19:33Z (193 laws, 76 term sets, 26,366 chains) are the
+  operator's; 178 read that dex in.
 * **Studies 176 and 174** stopped or the operator's; their bundles were read at 881 and 865.
-* **Open questions** (`docs/ROADMAP.md`, "Questions for the operator"): what makes a neighbour alike (proposed in
-  `docs/agent/ZONE_MAP.md`), a topology probe, 176's standing controls, past 65,536.
+* **Open questions** (`docs/ROADMAP.md`, "Questions for the operator", and "Still open from 884 to 894"): the zone
+  search's slots still idle while its members are read or its edges at 16,384; a size started before any run below it
+  has finished; a topology probe; 176's standing controls.
 
 ## Start here, in a fresh context
 
@@ -112,8 +111,10 @@ sometimes with the operator's words typed above it; a context that opens either 
 
 ## What is live
 
-* **Study 177** (`study_177_design.json`, 881: 176's design on new seeds) runs on 885; study 178 (887) is next, its
-  dex read in at its start and verified first (`docs/agent/ZONE_MAP.md`, "How a zone is mapped").
+* **Study 178** (887) runs on 893 (above); 894 and 895 apply to it without a restart of the fleet (the pages and the
+  push's naming change; the fleet's work does not). Its mode is the flag `fleet_mode`, its push list and the N-push's
+  ladder the focus state's `pushed`, `depth_now` and `campaigns.P` (`docs/ARCHITECTURE.md`, "The fleet's three
+  modes", "A law pushed to the N limit").
 * **Studies 174 to 176** in folders of their own, stopped or the operator's; the baseline bundles are 174's of
   2026-11-24 14:22Z and 175's of 08:35Z. Every older folder (169 to 173, 156, 158) is the operator's to delete.
 * **The worker count while a study runs** (846, System page, Workers): `compute_worker_target`, read by the
@@ -250,19 +251,18 @@ again after the paper's three studies, on the final probes, with a criterion wri
 
 ## What waits on the operator
 
-* **894's pull request**: theirs to merge.
-* **Study 178 on 894**: 894 applied to its folder (`docs/build_notes/BUILD893_NOTES.md` and `BUILD894_NOTES.md`, "For
-  the folders"), or 178 started afresh on 894 with the dex in `import/` before the start
-  (`docs/build_notes/BUILD888_NOTES.md`).
-* **The push list's order** on the Top page (892: the law the depth worker held first; "first", "up", "stop pushing").
+* **894's and 895's pull requests** (#36 and the next): theirs to merge, in that order (895 is made on 894).
+* **Study 178 on 895**: applied to its folder (`docs/build_notes/BUILD894_NOTES.md`, "For the folders"); its next
+  bundle or dex once the N-push reaches 4,194,304 or a zone is mapped, read by `docs/agent/NEXT_BUILD.md`.
+* **The push list's order** on the Top page: "first", "up", "stop pushing"; any law page's "push to the N limit".
 * **Study 176's standing controls**: kept as a tick (recommended; `docs/ROADMAP.md`, "Questions for the operator").
 * **Where the older data's archive goes public** (the consolidation): the review asks for a public archive (Zenodo or a tag) so a
   referee can see nothing was dropped selectively; the operator wants it out of the tree. Both hold if the archive
   goes beside the build and its place is theirs to name.
-* **The sampler** (`docs/ROADMAP.md`, item 4): whether a known law must grow its geometry from empty before more
+* **The sampler** (`docs/ROADMAP.md`, "Still open from before 886", item 1): whether a known law must grow its geometry from empty before more
   compute goes to blind laws from empty; parallel tempering is the cheapest remedy and changes the engine.
-* **Home's refresh every 0.5 s and a control for it** (18:26): held back while the API is starved; the question and
-  the recommendation are in `docs/ROADMAP.md`, "Questions for the operator".
+* **Home's refresh** (18:26 of 2026-11-26): since 894 the pages follow the fleet's events and read again when the work
+  changes; a faster fixed refresh is not needed unless the operator still sees a page lag.
 * **Folders**: every pilot folder once read is theirs to delete. A scratch holder parks its files and ends ten minutes
   after its folder's last process.
 
