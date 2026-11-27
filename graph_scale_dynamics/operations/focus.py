@@ -20,7 +20,7 @@ NEIGHBOURHOOD, BOUNDARIES, MAPPED, UNCONFIRMED, INVALIDATED = (
     "neighbourhood", "boundaries", "mapped", "unconfirmed", "invalidated")
 ENDED = (MAPPED, UNCONFIRMED, INVALIDATED)
 ROBUST, ITS_SEEDS, ITS_DIGITS = "robust", "its seeds", "its exact parameters"
-DOS = ("start", "law", "skip", "back", "stop", "settings", "split", "run_on", "seed", "lean", "order")
+DOS = ("start", "law", "skip", "back", "stop", "settings", "split", "run_on", "seed", "lean", "order", "push", "unpush")
 QUEUE_LENGTH = 100
 FOCUS_LIST, DEPTH_LIST = "focus", "depth"
 LIST_SHOWN = 10
@@ -360,8 +360,12 @@ def contenders(repo, state: dict, ranked: list | None = None) -> list[str]:
     gone, seeded_in = study_seed.let_go(state), study_seed.campaign_of(state)
     for law in [law for law, e in state["contenders"].items() if law in gone and str(e.get("of")) == str(seeded_in)]:
         state["contenders"].pop(law)
+    from graph_scale_dynamics.operations import push
     current = state.get("current") or {}
-    scoring = {e["candidate_id"] for e in ranked}
+    scoring = {e["candidate_id"] for e in ranked} | set(push.laws(state))
+    for entry in push.entries(state):
+        state["contenders"].setdefault(entry["law"], {"of": entry["of"], "label": entry.get("label"),
+                                                      "joined_utc": entry.get("since") or utc_now(), "pushed": True})
     for law in [law for law in state["contenders"] if law not in scoring and law != current.get("law")]:
         state["contenders"].pop(law)
         state["events"].append({"at": utc_now(), "depth_dropped": law[:12], "why": "it no longer scores and is not in focus"})
@@ -1237,6 +1241,10 @@ def act(repo, body: dict, *, tree=None) -> dict:
         lean(repo, body.get("focus"))
     elif do == "order":
         reorder(repo, str(body.get("list") or ""), str(body.get("law") or ""), str(body.get("move") or ""))
+    elif do in ("push", "unpush"):
+        from graph_scale_dynamics.operations import push
+        return {"ok": True, "did": do, **push.toggle(repo, str(body.get("law") or ""),
+                                                     campaign=body.get("campaign") or None, on=do == "push")}
     elif do == "seed":
         from graph_scale_dynamics.operations import study_seed
         return {"ok": True, "did": do, "seeded": study_seed.seed(repo, str(body.get("bundle") or ""))}
@@ -1516,7 +1524,8 @@ def depth_line(state: dict, ranked: list[dict]) -> list[str]:
     current = (state.get("current") or {}).get("law")
     if current in held and current not in ((state.get("order") or {}).get(DEPTH_LIST) or []):
         line = [current] + [law for law in line if law != current]
-    return line
+    from graph_scale_dynamics.operations import push
+    return push.front(state, line, held)
 
 
 def _ended(repo, campaign_id: str, law: str) -> dict:
@@ -1717,6 +1726,7 @@ def reading_of(state: dict) -> dict:
             "settings": settings_of(state["plan"]),
             "next_settings": settings_of(state["next_plan"]) if state.get("next_plan") else None,
             "dex_check": dex_check.reading(state),
+            "pushed": [dict(e) for e in state.get("pushed") or []],
             "events": (state.get("events") or [])[-30:]}
 
 

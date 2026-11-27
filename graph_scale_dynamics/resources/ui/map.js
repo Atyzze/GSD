@@ -279,3 +279,58 @@
     finally{busy=false;render(data)}}
   window.GSD_MAP={refresh,render,act,bodyFor,parseRings,ringsText,lawHref,doneNote,forText,longText,whereText,tick,get data(){return data},set data(v){data=v},get note(){return note},get pendingTicks(){return pendingTicks}};
 })();
+(function(){
+  const SYS=window.GSD_SYSTEM, esc=SYS.esc, MAP=window.GSD_MAP;
+  let data=null, busy=false, note='', wired=false;
+  const num=v=>Number(v).toLocaleString('en-US');
+  const gib=b=>b==null?'-':`${(Number(b)/1073741824).toFixed(b<1073741824?2:1)} GiB`;
+  const link=(law,camp,label)=>`<a class="candidate-link map-law" href="${esc(MAP.lawHref(law,camp))}" title="the law page of ${esc(law||'')}: its curves over N">${esc(label||String(law||'').slice(0,10))}</a>`;
+  const button=(what,law,camp,text,title)=>`<button type=button class=gsd-control data-admin-write data-top-do=${what} data-top-law="${esc(law)}" data-top-campaign="${esc(camp||'')}" title="${esc(title)}">${esc(text)}</button>`;
+  function put(id,html){const el=document.getElementById(id);if(el)el.innerHTML=html}
+  function pushed(d){
+    const rows=d.pushed||[], now=d.now;
+    const line=now?`<div class=toolbar><span>the depth worker runs ${link(now.law,now.campaign,now.label)} now${now.since?`, since ${esc(String(now.since).slice(11,16))} UTC`:''}</span></div>`:'<div class=toolbar><span class=muted>the depth worker runs no law now</span></div>';
+    const list=rows.length?`<table class=top-pushed><thead><tr><th></th><th>law</th><th title="the deepest size any of its runs has finished">deepest N</th><th>pushed since</th><th></th></tr></thead><tbody>${rows.map((e,i)=>`<tr><td class=muted>${i+1}</td><td>${link(e.law,e.of,e.label)}${now&&now.law===e.law?' <b>being pushed now</b>':''}</td><td>${e.deepest!=null?esc(num(e.deepest)):'<span class=muted>none yet</span>'}</td><td class=muted>${esc(String(e.since||'').replace('T',' ').slice(0,16))}</td><td>${button('unpush',e.law,e.of,'stop pushing','take it off the push list: the depth worker leaves it once it is no longer a contender')}</td></tr>`).join('')}</tbody></table>`:'<div class=empty>no law is pushed: mark one on its law page, or below</div>';
+    return `${note?`<div class=warn>${esc(note)}</div>`:''}${line}${list}<div class=muted>A pushed law goes before the zone's own; a law the depth worker is already running is finished first, then the pushed laws in this order.</div>`}
+  function chart(sizes,f){
+    const pts=sizes.filter(s=>s.peak_bytes).map(s=>[s.n,s.peak_bytes]), ahead=(f.ahead||[]).map(a=>[a.n,a.needs_bytes]);
+    if(!pts.length)return '';
+    const all=pts.concat(ahead).concat(f.reach_bytes?[[pts[0][0],f.reach_bytes]]:[]), W=560,H=200,P=46;
+    const xs=all.map(p=>Math.log2(p[0])), ys=all.map(p=>Math.log2(p[1]));
+    const x0=Math.min(...xs),x1=Math.max(...xs)+0.5,y0=Math.min(...ys)-0.5,y1=Math.max(...ys)+0.5;
+    const X=v=>P+(Math.log2(v)-x0)/((x1-x0)||1)*(W-P-10), Y=v=>H-24-(Math.log2(v)-y0)/((y1-y0)||1)*(H-34);
+    const path=p=>p.map((q,i)=>`${i?'L':'M'}${X(q[0]).toFixed(1)},${Y(q[1]).toFixed(1)}`).join('');
+    const reach=f.reach_bytes?`<line class=top-reach x1="${P}" x2="${W-10}" y1="${Y(f.reach_bytes).toFixed(1)}" y2="${Y(f.reach_bytes).toFixed(1)}"></line><text x="${W-12}" y="${(Y(f.reach_bytes)-4).toFixed(1)}" text-anchor=end class=top-axis>the depth worker's reach, ${esc(gib(f.reach_bytes))}</text>`:'';
+    const dots=pts.map(q=>`<circle cx="${X(q[0]).toFixed(1)}" cy="${Y(q[1]).toFixed(1)}" r=3.5 class=top-peak><title>N=${num(q[0])}: ${gib(q[1])}</title></circle>`).join('')+ahead.map(q=>`<circle cx="${X(q[0]).toFixed(1)}" cy="${Y(q[1]).toFixed(1)}" r=3.5 class=top-ahead><title>N=${num(q[0])}: ${gib(q[1])}, priced</title></circle>`).join('');
+    const ticks=[...new Set(all.map(p=>p[0]))].map(n=>`<text x="${X(n).toFixed(1)}" y="${H-8}" text-anchor=middle class=top-axis>${n>=1048576?`${n/1048576}M`:n>=1024?`${n/1024}k`:n}</text>`).join('');
+    return `<svg class=top-chart viewBox="0 0 ${W} ${H}" role=img aria-label="peak memory over N"><text x=4 y=12 class=top-axis>peak memory, log scale</text>${reach}<path class=top-line d="${path(pts)}"></path>${ahead.length?`<path class=top-line-ahead d="${path([pts[pts.length-1]].concat(ahead))}"></path>`:''}${dots}${ticks}</svg>`}
+  function law(d){
+    const l=d.law;if(!l)return '<div class=empty>no law is being pushed: push one and the depth worker takes it next</div>';
+    const f=l.forecast||{};
+    const rows=(l.sizes||[]).map(s=>`<tr><td>${esc(num(s.n))}</td><td>${esc(num(s.runs))}</td><td>${esc(gib(s.peak_bytes))}</td><td>${s.seconds!=null?esc(MAP.forText(s.seconds)):'-'}</td><td>${s.edges!=null?esc(num(s.edges)):'-'}</td></tr>`).join('')+(f.ahead||[]).map(a=>`<tr class=muted><td>${esc(num(a.n))}</td><td>priced</td><td>${esc(gib(a.needs_bytes))}${a.fits?'':' <b class=warn>past its reach</b>'}</td><td colspan=2>from its own peaks, growing as N^${esc(a.growth)}</td></tr>`).join('');
+    return `<div class=toolbar><b>${link(l.law,l.campaign,l.label)}</b><span class=muted>${l.running?'being pushed now':'waiting for the depth worker'}${l.deepest!=null?` · deepest N=${esc(num(l.deepest))}`:''} · open its law page for every curve over N</span></div>
+      <div class=${f.limit?'warn':'muted'}>${esc(f.words||'')}</div>${chart(l.sizes||[],f)}
+      <table class=top-sizes><thead><tr><th>N</th><th>runs</th><th title="the largest peak resident memory of its runs at this size">peak memory</th><th>a run takes</th><th>edges at most</th></tr></thead><tbody>${rows||'<tr><td colspan=5 class=muted>no run has finished yet</td></tr>'}</tbody></table>`}
+  function list(d){
+    const rows=d.top||[];if(!rows.length)return '<div class=empty>no run has finished yet</div>';
+    return `<div class=muted>${esc(num(d.laws_read||rows.length))} laws have read at least one size; the deepest ${esc(num(rows.length))}:</div><table class=top-list><thead><tr><th></th><th>law</th><th>deepest N</th><th>runs</th><th></th></tr></thead><tbody>${rows.map((r,i)=>`<tr${r.running?' class=top-running':''}><td class=muted>${i+1}</td><td>${link(r.law,r.campaign,r.label)}${r.running?' <b>being pushed now</b>':r.pushed?' <span class=muted>pushed</span>':''}</td><td>${esc(num(r.deepest))}</td><td>${esc(num(r.runs))}</td><td>${r.pushed?button('unpush',r.law,r.campaign,'stop pushing','take it off the push list'):button('push',r.law,r.campaign,'push to the N limit','put it on the push list: the depth worker takes it before the zone’s laws')}</td></tr>`).join('')}</tbody></table>`}
+  function render(d){
+    data=d||data;const x=data||{};
+    if(x.error||x.focus===false){put('topPushed',`<div class=empty>${esc(x.error||'no focus in this folder: start the study first')}</div>`);put('topLaw','');put('topList','');return}
+    put('topPushed',pushed(x));put('topLaw',law(x));put('topList',list(x));wire()}
+  async function act(body){
+    note='';
+    try{await SYS.postJson('/api/focus',body);data=await SYS.getJson('/api/focus/top')}
+    catch(e){note=String((e&&e.message)||e)}
+    render(data)}
+  function wire(){
+    if(wired)return;const root=document.getElementById('gsdTop');if(!root)return;wired=true;
+    root.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-top-do]');if(!b)return;
+      act({do:b.getAttribute('data-top-do'),law:b.getAttribute('data-top-law'),campaign:b.getAttribute('data-top-campaign')||undefined})})}
+  async function refresh(force){
+    if(busy&&!force)return;busy=true;
+    try{data=await SYS.getJson('/api/focus/top')}
+    catch(e){note=String((e&&e.message)||e)}
+    finally{busy=false;render(data)}}
+  window.GSD_TOP={refresh,render,act,get data(){return data},set data(v){data=v}};
+})();

@@ -3213,10 +3213,10 @@ check('577: a study bundle row links its front page first', () => {
   if (/front page</.test(oldRow || '')) throw new Error('a bundle made before 577 has no front page, and none is linked');
 });
 
-check('577 and 862: the nav reads Home, Map, Campaigns, Explorer, Reports, Calibration, System', () => {
+check('577, 862 and 889: the nav reads Home, Map, Top, Campaigns, Explorer, Reports, Calibration, System', () => {
   const html = String(getElementById('gsdSystemHeader').innerHTML);
   const order = [...html.matchAll(/class="gsd-nav-link" data-gsd-page="([a-z]+)"/g)].map((m) => m[1]);
-  if (order.join(',') !== 'home,map,campaigns,explorer,reports,calibration,system') {
+  if (order.join(',') !== 'home,map,top,campaigns,explorer,reports,calibration,system') {
     throw new Error(`the nav reads ${order.join(', ')}`);
   }
 });
@@ -4067,6 +4067,34 @@ check('a running law says whether the blind draw or the focus drew it (15:18)', 
   app.paintLiveGroups({ A: 6, N: 3, D: 1 });
   const said = getElementById('liveGroups').innerHTML;
   if (!/blind<\/span> 6/.test(said) || !/zone<\/span> 3/.test(said) || !/depth<\/span> 1/.test(said)) throw new Error(`the heading counts ${said}`);
+});
+
+check('the Top page lists the pushed laws, the law being pushed with its memory ahead, and the laws by N', () => {
+  const top = sandbox.GSD_TOP;
+  if (!top) throw new Error('no GSD_TOP');
+  const law = 'c8'.repeat(32), other = 'a1'.repeat(32);
+  top.render({ contract: 'gsd-push-1', focus: true, laws_read: 412,
+    pushed: [{ law, of: '15', label: 'S178-C15-G133', since: '2026-11-27T01:30:00Z', deepest: 65536 }],
+    now: { law, label: 'S178-C15-G133', campaign: '13', since: '2026-11-27T01:31:00Z' },
+    top: [{ law, campaign: '15', label: 'S178-C15-G133', deepest: 65536, runs: 21, pushed: true, running: true },
+          { law: other, campaign: '4', label: 'S178-C4-G7', deepest: 4096, runs: 12, pushed: false, running: false }],
+    law: { law, campaign: '15', label: 'S178-C15-G133', running: true, pushed: true, deepest: 65536,
+           sizes: [{ n: 16384, runs: 3, peak_bytes: 2147483648, seconds: 600, edges: 60000 }, { n: 65536, runs: 3, peak_bytes: 8589934592, seconds: 2400, edges: 240000 }],
+           forecast: { reach_bytes: 49392123904, ahead: [{ n: 262144, needs_bytes: 37795712204, growth: 1.0, fits: true }, { n: 1048576, needs_bytes: 166301133619, growth: 1.0, fits: false }],
+                       limit: { n: 1048576, needs_bytes: 166301133619, short_bytes: 116909009715 },
+                       words: 'N=1,048,576 would need 154.9 GiB, 108.9 GiB more than the 46.0 GiB the depth worker may use: it stops below it' } } });
+  const pushed = getElementById('topPushed').innerHTML, one = getElementById('topLaw').innerHTML, list = getElementById('topList').innerHTML;
+  for (const want of ['the depth worker runs', 'S178-C15-G133', 'being pushed now', '65,536', 'data-top-do=unpush', 'stop pushing']) {
+    if (!pushed.includes(want)) throw new Error(`the push list lacks "${want}": ${pushed.slice(0, 500)}`);
+  }
+  for (const want of ['154.9 GiB, 108.9 GiB more', 'top-chart', 'top-reach', '8.0 GiB', '35.2 GiB', 'past its reach', 'growing as N^1', '40:00']) {
+    if (!one.includes(want)) throw new Error(`the pushed law lacks "${want}": ${one.slice(0, 600)}`);
+  }
+  for (const want of ['412 laws have read at least one size', 'S178-C4-G7', '4,096', 'data-top-do=push', 'push to the N limit', 'top-running']) {
+    if (!list.includes(want)) throw new Error(`Top 100 by N lacks "${want}": ${list.slice(0, 500)}`);
+  }
+  top.render({ contract: 'gsd-push-1', focus: false, pushed: [], top: [], law: null });
+  if (!getElementById('topPushed').innerHTML.includes('no focus in this folder')) throw new Error('a folder with no focus is not said');
 });
 
 check('the Map page shows the work law by law, each with its progress, and why a dex was written', () => {

@@ -44,7 +44,7 @@ else the project reads (the kind, the score, the lexicon's nearest type) is made
 "reach as log N, an expander or a tree"). Twenty geometries of the calibration table take the forms they predict, the
 exponents within 0.06. Two phenotypes are as alike as the share of categories they hold in common.
 
-**Proposed, for the operator** ("What makes a neighbour alike", `docs/ROADMAP.md`): two laws are alike at N when every
+**Answered by the operator, 2026-11-27 01:55** ("What makes a neighbour alike", `docs/ROADMAP.md`): two laws are alike at N when every
 curve both have **locked in** by N takes the same form, at the same value or exponent within the score's own margins,
 and their starts relate the same way (the twins, empty and random, agreeing or not; the lattice starts kept, changed
 or lost). A curve is locked in when its form holds over at least three sizes; one that is not yet locked in does not

@@ -72,12 +72,10 @@ Open, from 864 (2026-11-25 11:06):
 Open, from 884 (the operator, 2026-11-26 17:22: "when exactly do we know or decide when the result is no longer the
 original result? How has that been quantized?"):
 
-* **What makes a neighbour alike**: today one word, its kind at 16,384 (`docs/build_notes/BUILD884_NOTES.md`, "How a
-  neighbour is judged"); the score does not enter. Recommended at 886 (`docs/agent/ZONE_MAP.md`, "What separates two
-  zones"): alike at N when every curve both laws have locked in by N (its form held over three sizes, by the
-  phenotype's forms) takes the same form at the same value or exponent within the score's own margins, and their
-  starts relate the same way; a curve not locked in counts neither way. Nothing new is tuned. Cost: zones read so are
-  smaller and refine with N; a law that locks in nothing is judged by its kind alone, as now.
+* **What makes a neighbour alike**: answered 2026-11-27 01:55 ("B, and the rule": "Yes"): alike at N when every curve
+  both laws have locked in by N (its form held over three sizes, by the phenotype's forms) takes the same form at the
+  same value or exponent within the phenotype's own margins, and their kinds agree; a curve not locked in counts
+  neither way, and a law that locks in nothing is judged by its kind alone. Made in 890's search.
 * **A zone's law**: answered 19:49, its central law, the middle of its boundaries, pushed to the largest N: the zone's
   signature, every other law a distance from it.
 * **A topology probe** (886): the probes tell a circle from a torus (d 1 from d 2) but not a torus from a plane patch
@@ -86,10 +84,9 @@ original result? How has that been quantized?"):
 
 Open, from 887 (`docs/build_notes/BUILD887_NOTES.md`):
 
-* **The first zone, if not the rule's**: on 177's dex of 19:33Z the rule takes G79's family (29 laws within 0.1 of
-  S176-C12-G100, every one scoring 1) one law ahead of G37's (28 within 0.1 of S177-C12-G1015, its best 27).
-  Recommended: let the rule stand; the ring method's run on G79's family is already paid (its 47 neighbours), so
-  889's search is benchmarked against it at no extra cost. Another centre is put into focus by hand as any law is (`main.py focus --study 178 --law <code>`).
+* **The first zone**: answered 2026-11-27 01:55: the rule's, G79's family (29 laws within 0.1 of S176-C12-G100) first,
+  G37's family (28 within 0.1 of S177-C12-G1015) second; the ring method's run on G79's family (its 47 neighbours) is
+  what 890's search is benchmarked against.
 
 Open, from 871 (`docs/build_notes/BUILD871_NOTES.md`):
 
@@ -161,6 +158,21 @@ Open, none waiting:
 
 ## Planned builds, in order
 
+**From 888's run** (the operator, 2026-11-27 02:22, on S178-C15-G133's law page: "I reaaaaallllly want to see the N
+Being pushed higher here"; "a new button on this page so that we can manually toggle whether or not to push this law
+to the N limit and as soon as that list is non empty, we still allocate 1 thread/worker on top of all the other seed
+work going on, we push this specific law on top, single seed by single seed"; "a dedicated page for the 'top'
+pushing, where we keep a list of the top100 not by score but by sheer N count"; "the memory ballooning basically so it
+can predict when it will hit the memory limit and how much more would be needed"; "this would still share the same
+queue as the zone mapper"; "once we confirm that mechanism to be perfected as well then we can drop the
+functionality"), one build:
+
+1. **889, made** (`docs/build_notes/BUILD889_NOTES.md`): a "push to the N limit" toggle on every law page; the pushed
+   laws first in the depth worker's line, on its one worker, one seed after another, with or without a law in focus;
+   a Top page: the pushed laws, the law being pushed with its peak memory per size and the sizes ahead priced from
+   its own peaks (where it stops, and how much more memory the next size would need), and the study's laws by the
+   deepest N they have read. To be dropped once the zone's own push of its central law (890) is trusted.
+
 **From 887's run** (the operator, 2026-11-27 01:35, watching study 178 read 177's dex: "ideally, the import folder is
 there from the start and so that if its pre seeded with a dex, the first thing it does is indeed verify all its listed
 laws/zones"; "if we could prioritize the work grouped by all sims needed for 1 law, so that we can see a progress bar
@@ -185,11 +197,11 @@ heading is `docs/agent/ZONE_MAP.md`. It takes the place of "From 884", items 2 t
    confirmed, denied or unmatched, listed on the Map page as it reads, the focus waiting for it.
 3. **887, made**: the first zone chosen to confirm fast, the most confirmed laws of one term set within 0.1 of one
    centre, never a control; its centre taken into focus.
-4. **889, the zone's search, benchmarked on that one zone**: its laws judged first; per parameter, stepped out until its
+4. **890, the zone's search, benchmarked on that one zone**: its laws judged first; per parameter, stepped out until its
    behaviour changes and halved three times, judged at 4,096 with the two points either side of an edge at 16,384;
    its central law made from the middle of its alike points and pushed to half the host's memory; each edge's runs,
    core-hours and hours beside the ring method's on the same law (G79's 47 neighbours in the dex of 15:11Z).
-5. **890, then zones one after another**, the dex a list of zones, each with its central law, members, edges and the N it
+5. **891, then zones one after another**, the dex a list of zones, each with its central law, members, edges and the N it
    holds to; lucky hits kept to revisit; a topology probe if the operator wants tori told from planes.
 
 **From 884** (the operator, 2026-11-26 19:06 to 19:21: "only do blind draws when there are no seeds/zones to confirm";
@@ -201,7 +213,8 @@ zones"; study 177 "is mainly the study where I want to complete two zones, get t
    the depth worker, the Dex laws, the blind draw, earlier laws' leftovers), the slider gone, a zone standing at a
    smaller ring from 0.01, zones named Z1, a law with no zone around it a lucky hit.
 2. **The zone's last stage**: its central law made from its members, run, and pushed to the largest N in place of the
-   depth worker as a step of its own; each term set to 0 beside switched off; a "push this law" mark.
+   depth worker as a step of its own (890); each term set to 0 beside switched off; a "push this law" mark (889,
+   made).
 3. **A smarter zone**: a neighbour judged at 16,384 needs 4,096 and 16,384, not 64 to 1,024 (three of its five round
    trips); the rings and seeds chosen where they tell most.
 4. **The dex as zones**: a zone carried with its law, members, edges and how far it holds; a dex read in as its own
