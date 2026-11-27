@@ -1786,6 +1786,7 @@ made; a time without a Z is the operator's local time.
   held at 1.1 times its own peak, and a bundle that leaves the N-push running (899, on the operator's answers of 18:26).
   The push at 3 seeds a rung, and its rungs done saying how they ran (900, on the operator's words of 19:52).
   A resumed seed in a fresh seed's memory, its saved state read back as the engine keeps it and let go once used (901).
+  A consolidation: what 893 to 901 learned in the lessons, six questions closed, the archive's question put (902).
 * **The N-push stops at N=1,048,576** (2026-11-27 15:47, on G73's forecast holding the fleet to about Dec 5:
   "Thats probably good reason to keep the push to 1million as the current default fleet max then? letting go of 4m
   all together unless operator specifically pushed 1 law even higher, but makes more sense to not auto extend beyond

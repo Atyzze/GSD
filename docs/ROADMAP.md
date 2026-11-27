@@ -44,9 +44,6 @@ Written here in plain words the turn a question is asked; it leaves when answere
 
 Open, for after study 174 (the operator, 2026-11-22 15:50):
 
-* **Past 65,536?** No law has run above 65,536 for many studies; it saves compute, but some results may show only
-  higher up. 174 says what 65,536 costs (the replay: 56% of the study) and what scores only there; the question is put
-  with its reading.
 * **A tenth or a hundredth let through?** Every acting gate lets a tenth through in 174 (15:55); its 10,000 laws say
   what each tenth cost and found, and so what a hundredth would save and lose, gate by gate and size by size.
 
@@ -59,6 +56,21 @@ Open, from 864 (2026-11-25 11:06):
   region predicts its kind), the controls the control of the instrument. Cost of dropping them: nothing that checks
   the instrument inside a study's own folder and bundle.
 
+Open, from 902:
+
+* **Where the archive of the older data goes public**: the review asks for one, so a referee can see nothing was
+  dropped selectively, and the operator wants it out of the tree; what goes in is theirs to name (every reading set
+  aside at 714, `GSD_readings_archive_714.tar.zst`; the studies' bundles the builds read). (a) A GitHub release on
+  `Atyzze/GSD` with the archives attached: free, made in minutes, deletable, as lasting as the repository. (b) A
+  Zenodo record from the operator's own account: a DOI a paper can cite, each new version its own DOI, deletable by
+  its owner only within 30 days of publishing. Recommended: (a) now, (b) when the paper goes out.
+
+Closed in 902, answered or overtaken (the table in `docs/build_notes/BUILD902_NOTES.md`): past 65,536 (a law goes
+past it when pushed, since 889, and stops at 1,048,576 unless pushed past it, the operator, 2026-11-27 15:47); E8 (the
+operator, 2026-11-25 00:40 and 07:35, `docs/HISTORY.md`); study 176's first ten and which law first (176 seeded from
+the map at 865, since 885 one order, the zone of the law in focus first); Home's refresh (since 894 the pages read
+again when the work changes); 897's two questions (made in 899, `docs/HISTORY.md`).
+
 Open, from 899 (2026-11-27 19:39):
 
 * **G133 off the push list until zone 1 is benchmarked?** Zone 1 of study 178 (S178-C15-G2302) stopped two steps short
@@ -66,10 +78,6 @@ Open, from 899 (2026-11-27 19:39):
   The zone search runs only while the push list is empty; G73 ends at 1,048,576 around 11-28 morning, then G133 climbs
   from 64 to 1,048,576, a day or more. Recommended: take G133 off ("stop pushing" on the Top page) and push it again
   once zone 1 is benchmarked, which the zone map's next builds wait on. Other choice: leave it, zone 1 after G133.
-
-Answered, from 897: **both as recommended** (the operator, 2026-11-27 18:26: "agree with both recommendations"): a
-pushed seed held at 1.1 times its own typical peak grown to its size, and asked 1.1 times it to start; a bundle leaves
-the N-push's seeds running. Made in 899.
 
 Open, from 886:
 
@@ -83,26 +91,11 @@ Open, from 856 (`docs/build_notes/BUILD856_NOTES.md`), none blocking study 176:
   tenth until the first regions are known and say whether a tenth changes a kind.
 * **How many halvings a line gets**: four, a boundary within a sixteenth of its line; a fifth costs one point a line.
 * **Which CPUs the system keeps**: none until named (`main.py workload --system-cpus`).
-* **Home's refresh every 0.5 s instead of 4, and a control for it on the System page behind the admin link** (18:26):
-  held back, since with every hardware thread simulating the API is what waits, and a faster refresh asks more of it
-  (`docs/build_notes/BUILD856_NOTES.md`). Recommended: keep one core's two threads for the system first and read the
-  header's API round trip; if it holds under a second, the refresh and its control are a small build.
 
 Open, from 860 (`docs/build_notes/BUILD860_NOTES.md`), the first two before study 176 starts:
 
-* **Study 176's first ten**: five of them (M02, M04, M08, M09, M10, `study_176_first_ten.json`) score 0 in the folder,
-  their seeds having run to the sweeps' ceiling without stopping; the list was made by a reading that counts every
-  seed. Recommended: choose the ten again by the folder's own score, from 174's and 175's newest bundles (175's newest
-  is wanted), before 176 starts; the design is committed and not yet run, so this is a new design file.
 * **The counts the pages and the paper's draft give** ("83 laws score, 54 of them 1", from 14:22Z): recommended, read
   again by the folder's score (the reader's build above) and restated, the old figure kept in the history beside why.
-* **E8**: recommended, no study at a cap of 240 or 1,024: the probes refuse E8 at every size the host holds (860's
-  notes); its cells appended to the table as refusals instead ("Unscheduled").
-
-Open, from 861 (`docs/build_notes/BUILD861_NOTES.md`):
-
-* **Which law first**: recommended the folder's order (C1-G6940, then the other rings at 19, then C3-G7363 at 18);
-  the Map page's "focus now" takes another at any time, 175's H12 (aba936bffa) the one to tell seeds from digits on.
 
 Open, none waiting:
 
@@ -145,17 +138,16 @@ fleet ladder's graphs those grown, of those bought (1,048,576 read 64 with none 
 the seeds its law ran at the size below (it read 34 h 44 min for about 6.5 h); 899 a pushed seed asked and held at
 1.1 times its own peak, and a bundle that leaves the N-push running (the operator's answers of 18:26); 900 the push at
 3 seeds a rung (the operator, 19:52), a rung holding more keeping 3, and its rungs done saying how they ran; 901 a
-resumed seed in a fresh seed's memory (at 16,384: 181 MiB where it held 304, a fresh one 170, the chains the same).
+resumed seed in a fresh seed's memory (at 16,384: 181 MiB where it held 304, a fresh one 170, the chains the same);
+902 a consolidation, what 893 to 901 learned in `docs/LESSONS.md` and six questions closed.
 
 **Next, in order** (laid out for the operator with 897, reordered with 898; each its own build):
 
-1. **902: a consolidation**: 44 builds since 858's; no behaviour changes. What the contexts of 886 to 901 learned
-   folded into the pages (`docs/LESSONS.md`), questions answered or gone closed, the archive of the older data's
-   question put to the operator once. Then the unscheduled "Is the Rust engine as lean as it can be" profile, the bytes
-   an edge against a plain adjacency list (a fresh seed of 16,384 holds two checkpoints of its eight chains between
-   saves, each edge a tuple of about 56 bytes beside the engine's own: `docs/build_notes/BUILD901_NOTES.md`).
-2. **The zone map's road**, once the push list empties (G73 ends at 1,048,576, then G133): "Still open from 884 to
+1. **The zone map's road**, once the push list empties (G73 ends at 1,048,576, then G133): "Still open from 884 to
    896" below, the zone search's hours and idle slots read from 178's first mapped zone first.
+2. **The Rust engine's bytes an edge** ("Unscheduled", "Is the Rust engine as lean as it can be"), while the zone
+   map's road waits on 178's bundle: a fresh seed holds two checkpoints of its eight chains between saves, each edge
+   a tuple of about 56 bytes, beside the engine's own graph (`docs/build_notes/BUILD901_NOTES.md`).
 
 **Still open from 884 to 896**, each its own build, the first two waiting on study 178's first zones:
 

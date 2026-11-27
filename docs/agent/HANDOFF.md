@@ -1,4 +1,4 @@
-# Handoff: the state of GSD at build 901
+# Handoff: the state of GSD at build 902
 
 What is true now, for a context that has just opened this archive. Each fact has one home; the last section says
 where. **Think from the data, not from this page**: where the data and a document disagree, the data wins and the
@@ -67,6 +67,8 @@ in `docs/HISTORY.md`):
 * 901: a resumed seed in a fresh seed's memory: its saved state read back as the engine keeps it (a pair a tuple,
   equal numbers one object) and let go once the run hands out its next (at 16,384: 181 MiB where it held 304, a fresh
   one 170, the chains the same). A restart of the fleet.
+* 902: a consolidation: what 893 to 901 learned in `docs/LESSONS.md`, six questions closed as answered or overtaken,
+  the archive's question put. No code.
 
 **Before that, 871 to 885** (the handover of 886 read them):
 
@@ -94,9 +96,9 @@ and 862 the focus and the Map page; 864 to 869 no law done, study 176 seeded fro
 `import/` folder; 870 a handover. The baseline the paper rests on (174's bundle of 2026-11-24 14:22Z, 175's of 08:35Z,
 the calibration table) and what it shows: `docs/WHERE_WE_ARE.md` and `docs/paper/GSD_PAPER.md`.
 
-**Open threads at 901**, each with its home:
+**Open threads at 902**, each with its home:
 
-* **Pull requests**: 864 to 900 (#11 to #42) merged by the operator; `main` holds 900. Open: 901's.
+* **Pull requests**: 864 to 901 (#11 to #43) merged by the operator; `main` holds 901. Open: 902's.
 * **Study 178** (`/data/projects/GSD/178/main`, `study_178_design.json`, criterion `study_178_criterion.json`) runs
   on 893 since 2026-11-27 about 11:20Z. 177's dex of 19:33Z was read in at its start (C15) and checked: 192 laws
   confirmed, 1 unmatched, at 07:18Z; the first zone (S178-C15-G2302, 177's S176-C12-G100, G79's family) was chosen at
@@ -276,7 +278,8 @@ again after the paper's three studies, on the final probes, with a criterion wri
 
 ## What waits on the operator
 
-* **901's pull request**: theirs to merge; 898 to 901 applied to the folders with one restart of the fleet.
+* **902's pull request**: theirs to merge (it changes no code); 898 to 901 applied to the folders with one restart
+  of the fleet.
 * **G133 off the push list until zone 1 is benchmarked?** (`docs/ROADMAP.md`, "Questions for the operator"): recommended.
 * **Study 178 on 897**, G73's 1,048,576 under way (3 seeds at about 17:26Z, none finished); 898
   applies with a restart of the dashboard alone; its next bundle once G73's 1,048,576 is read.
@@ -284,9 +287,8 @@ again after the paper's three studies, on the final probes, with a criterion wri
   to the N limit".
 * **897's two questions answered** (18:26, "agree with both recommendations"): made in 899.
 * **Study 176's standing controls**: kept as a tick (recommended; `docs/ROADMAP.md`, "Questions for the operator").
-* **Where the older data's archive goes public** (the consolidation): the review asks for a public archive (Zenodo or a tag) so a
-  referee can see nothing was dropped selectively; the operator wants it out of the tree. Both hold if the archive
-  goes beside the build and its place is theirs to name.
+* **Where the older data's archive goes public** (`docs/ROADMAP.md`, "Questions for the operator", from 902): a
+  GitHub release now, recommended, and a Zenodo record with a DOI when the paper goes out; what goes in is theirs.
 * **The sampler** (`docs/ROADMAP.md`, "Still open from before 886", item 1): whether a known law must grow its geometry from empty before more
   compute goes to blind laws from empty; parallel tempering is the cheapest remedy and changes the engine.
 * **Home's refresh** (18:26 of 2026-11-26): since 894 the pages follow the fleet's events and read again when the work

@@ -1,37 +1,32 @@
-# The next build is 902
+# The next build is 903
 
 This file names the next build and says how to make it. `tests/unit/test_next_build_is_named.py` parses its first line,
 which must read exactly `# The next build is <N>`, one above `BUILD_NUMBER`.
 
-## Where to begin: 902 is a consolidation
+## Where to begin: 903 is the zone map's road, read from study 178's first zone
 
 **Starting from nothing but the repository** (the operator, 2026-11-24 23:00): clone `main` and bring it up by
 `docs/agent/ENVIRONMENT.md`, section 10, "From the repository". Then `docs/WHERE_WE_ARE.md`, `docs/agent/HANDOFF.md`,
-`docs/agent/ZONE_MAP.md` and this page, in that order, and `CLAUDE.md`'s rules for a shared repository. 871 to 901 are
-made (`docs/build_notes/BUILD871_NOTES.md` to `BUILD901_NOTES.md`); 871 to 900 are on `main` (#18 to #42), 901 in its
+`docs/agent/ZONE_MAP.md` and this page, in that order, and `CLAUDE.md`'s rules for a shared repository. 871 to 902 are
+made (`docs/build_notes/BUILD871_NOTES.md` to `BUILD902_NOTES.md`); 871 to 901 are on `main` (#18 to #43), 902 in its
 pull request: branch from the newest that `main` holds.
 
-**What 902 makes** (`docs/ROADMAP.md`, "Next, in order", item 1): no file under `graph_scale_dynamics/`,
-`engine_rs/src/`, `tools/` or `main.py` changes, and no decision or score moves.
+**What 903 makes** (`docs/ROADMAP.md`, "Next, in order", item 1) waits on study 178's bundle with zone 1
+(S178-C15-G2302) benchmarked: its 3 edges read at 16,384, under an hour of the fleet once the push list is empty.
+From that bundle, the zone search's hours and its idle slots (`docs/ROADMAP.md`, "Still open from 884 to 896", item
+1): how long each line's steps took, how many slots stood idle while a line waited on its last step, and what running
+each line's next points ahead saved. The criterion first, in the notes, before the bundle is read.
 
-1. What the contexts of 886 to 901 learned that no page holds, into `docs/LESSONS.md` with where each now lives (858's
-   notes are the form): among them, that the release spends the build number itself (`BUILD_NUMBER` stays at the
-   last release while a build is made; set by hand, the gate runs one number high and fails on its own pages); that
-   the folder's PostgreSQL refuses root, so the gate and the database tests run as the folder's own user; that a test
-   of the tree never quotes the operator (`tests/contract/test_the_operator_s_words_live_in_the_documents.py`); that a
-   page fixed after the gate moves `tests/fixtures/build_files.json` (`tools/test_suite.write_build_files`).
-2. `docs/ROADMAP.md` and `docs/agent/HANDOFF.md`: what is done leaves them; questions answered or overtaken closed
-   ("Questions for the operator", "Still open from 884 to 896"), each with the build that settled it.
-3. The question of where the archive of the older data goes public (a tag or a deposit) put to the operator once,
-   with what each costs.
+**Until that bundle comes**, item 2 can go first: the Rust engine's bytes an edge against a plain adjacency list
+(`docs/ROADMAP.md`, "Unscheduled"), measured in the sandbox at 16,384 and 65,536 as 901 measured a seed, the
+checkpoints a fresh seed holds between saves counted apart from the engine's own graph. Nothing under `engine_rs/`
+moves without the operator's word; a change found is proposed with its measurement.
 
-**Then**: the zone map's road once the push list empties (the question "G133 off the push list until zone 1 is
-benchmarked?"); the unscheduled profile of the Rust engine's bytes an edge.
+**Acceptance**: the criterion and the reading in the notes; the full lane green.
 
-**Acceptance**: the notes' table of what was learned and where it lives; the page tests and the full lane green.
-
-**Waiting on the operator**: 901 merged, 898 to 901 applied with one restart of the fleet; the question of 899
-(G133); 178's next bundle once G73's 1,048,576 is read (since 899 a bundle leaves it running).
+**Waiting on the operator**: 902 merged, 898 to 901 applied with one restart of the fleet (902 changes no
+code); the question of 899 (G133); where the archive goes public (902); 178's next bundle once G73's 1,048,576 is
+read (since 899 a bundle leaves it running).
 
 ## Reading a study's bundle
 
