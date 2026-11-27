@@ -266,6 +266,7 @@ def test_a_folder_s_focus_goes_into_its_bundle_whole_and_named_on_the_study_s_pa
     named = dict(state, current=dict(state["current"], label="SGSD533-C3-G7363"))
     found = json.loads(members[f"{stem}/focus.json"])
     assert found.pop("zone_now")["contract"] == "gsd-zone-now-1", "with what ran when it was made (884)"
+    assert found.pop("push_now")["contract"] == "gsd-push-1", "897: with the N-push's list, its runs and its forecast"
     assert found == named, "whole, every law named by its study, campaign and graph"
     assert json.loads(members[f"{stem}/study.json"])["focus"] == {
         "file": "focus.json", "contract": focus.CONTRACT, "campaigns": state["campaigns"], "done": 1, "regions": ["GG#1"],

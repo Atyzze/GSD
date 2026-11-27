@@ -7,7 +7,8 @@ from pathlib import Path
 
 from graph_scale_dynamics.domain.model import utc_now
 
-CONTRACT = "gsd-push-ladder-1"
+CONTRACT = "gsd-push-ladder-2"
+CEILING_RULE = "ceiling"
 PUSH = "P"
 LEAST_SEEDS = 3
 EVERY_SECONDS = 5.0
@@ -56,17 +57,18 @@ def reach(repo) -> int:
     return int(depth_reach.room_now(repo).get("reach_bytes") or 0)
 
 
-def plan(need_bytes: int | None, reach_bytes: int, workers_now: int) -> dict:
-    fit = int(workers_now) if not need_bytes else int(reach_bytes) // max(1, int(need_bytes))
-    if fit < 1:
+def plan(priced: dict | None, reach_bytes: int, workers_now: int) -> dict:
+    if priced is not None and not priced["fits"]:
         return {"fits": False, "at_once": 0, "seeds": 0, "passes": 0}
-    at_once = min(int(workers_now), fit)
+    at_once = int(workers_now) if priced is None else min(int(workers_now), int(priced["at_once"]))
+    at_once = max(1, at_once)
     seeds = max(LEAST_SEEDS, at_once)
     at_once = min(at_once, seeds)
     return {"fits": True, "at_once": at_once, "seeds": seeds, "passes": math.ceil(seeds / at_once)}
 
 
 def rungs(repo, campaign_id: str, law: str) -> dict[int, dict]:
+    from statistics import median
     out: dict[int, dict] = {}
     for row in repo.conn.execute(
             "SELECT n, status, COUNT(*) AS c FROM jobs WHERE campaign_id=? AND candidate_id=? AND kind='simulate' "
@@ -75,13 +77,43 @@ def rungs(repo, campaign_id: str, law: str) -> dict[int, dict]:
         key = str(row["status"]) if str(row["status"]) in held else "failed"
         held[key] += int(row["c"])
         held["seeds"] += int(row["c"])
+    runs: dict[str, dict] = {}
     for row in repo.conn.execute(
-            "SELECT j.n AS n, MAX(a.peak_rss_bytes) AS peak, AVG(CASE WHEN a.exit_code=0 THEN a.wall_seconds END) AS "
-            "seconds FROM jobs j JOIN attempts a ON a.job_id=j.job_id WHERE j.campaign_id=? AND j.candidate_id=? "
-            "AND j.kind='simulate' GROUP BY j.n", (str(campaign_id), str(law))).fetchall():
-        if int(row["n"]) in out:
-            out[int(row["n"])].update(peak_bytes=int(row["peak"]) if row["peak"] else None,
-                                      seconds=round(float(row["seconds"]), 1) if row["seconds"] is not None else None)
+            "SELECT j.job_id AS job, j.n AS n, a.exit_code AS code, a.peak_rss_bytes AS peak, a.wall_seconds AS wall "
+            "FROM jobs j JOIN attempts a ON a.job_id=j.job_id WHERE j.campaign_id=? AND j.candidate_id=? "
+            "AND j.kind='simulate'", (str(campaign_id), str(law))).fetchall():
+        run = runs.setdefault(str(row["job"]), {"n": int(row["n"]), "whole": [], "cut": [], "wall": 0.0, "done": False})
+        whole = row["code"] is not None and int(row["code"]) == 0
+        if row["peak"]:
+            run["whole" if whole else "cut"].append(int(row["peak"]))
+        run["wall"] += float(row["wall"] or 0.0)
+        run["done"] = run["done"] or whole
+    for n, held in out.items():
+        mine = [r for r in runs.values() if r["n"] == n]
+        whole = [p for r in mine for p in r["whole"]]
+        cut = [p for r in mine for p in r["cut"]]
+        walls = [r["wall"] for r in mine if r["done"] and r["wall"] > 0]
+        held.update(peak_bytes=max(whole) if whole else None, typical_bytes=int(median(whole)) if whole else None,
+                    cut_bytes=max(cut) if cut else None,
+                    seconds=round(sum(walls) / len(walls), 1) if walls else None)
+    for n, live in running(repo, campaign_id, law).items():
+        if n in out:
+            out[n].update(live)
+    return out
+
+
+def running(repo, campaign_id: str, law: str) -> dict[int, dict]:
+    from graph_scale_dynamics.operations import push
+    out: dict[int, dict] = {}
+    for row in repo.conn.execute(
+            "SELECT job_id, n, lease_owner, memory_reservation_bytes FROM jobs WHERE campaign_id=? AND "
+            "candidate_id=? AND kind='simulate' AND status='leased'", (str(campaign_id), str(law))).fetchall():
+        held = out.setdefault(int(row["n"]), {"running": 0, "held_bytes": 0, "live_bytes": None})
+        held["running"] += 1
+        held["held_bytes"] += int(row["memory_reservation_bytes"] or 0)
+        seen = push._memory_of(repo, row["lease_owner"], str(row["job_id"])).get("memory_peak")
+        if seen:
+            held["live_bytes"] = max(int(seen), int(held["live_bytes"] or 0))
     return out
 
 
@@ -90,11 +122,52 @@ def _ladder(repo, campaign_id: str) -> list[int]:
     return sorted(int(n) for n in spec.get("ladder") or [])
 
 
-def _price(found: dict[int, dict], n: int) -> int | None:
+def asked(repo, campaign_id: str, law: str, n: int) -> int | None:
+    import json
+    from graph_scale_dynamics.scheduling import memory
+    row = repo.conn.execute(
+        "SELECT spec_json FROM jobs WHERE campaign_id=? AND candidate_id=? AND kind='simulate' ORDER BY n DESC "
+        "LIMIT 1", (str(campaign_id), str(law))).fetchone()
+    spec = (json.loads(row["spec_json"]) if row is not None and row["spec_json"]
+            else (repo.campaign(str(campaign_id)) or {}).get("spec") or {})
+    return int(memory.predicted_claim_peak_bytes(repo.conn, kind="simulation", campaign_id=str(campaign_id),
+                                                 candidate_id=str(law), n=int(n), spec=spec))
+
+
+def typical_peaks(found: dict[int, dict]) -> dict[int, int]:
+    return {m: int(r["typical_bytes"]) for m, r in found.items() if r.get("typical_bytes")}
+
+
+def price(repo, campaign_id: str, law: str, found: dict[int, dict], n: int, reach_bytes: int, *,
+          typical: dict[int, int] | None = None) -> dict:
     from graph_scale_dynamics.operations import depth_reach
-    peaks = {m: int(r["peak_bytes"]) for m, r in found.items() if r.get("peak_bytes")}
-    priced = depth_reach.price(peaks, int(n))
-    return None if priced is None else int(priced["needs_bytes"])
+    from graph_scale_dynamics.scheduling.memory import SETTLED_RESERVATION_SLACK
+    typical = typical_peaks(found) if typical is None else typical
+    here = found.get(int(n)) or {}
+    grown = depth_reach.price(typical, int(n))
+    grown_bytes = None if grown is None else int(grown["needs_bytes"])
+    own = here.get("typical_bytes")
+    expected = int(own) if own else max(int(grown_bytes / depth_reach.SAFETY) if grown_bytes else 0,
+                                        int(here.get("live_bytes") or 0), int(here.get("cut_bytes") or 0)) or None
+    asks = asked(repo, campaign_id, law, int(n))
+    first = max(int(asks or 0), int(grown_bytes or 0)) or expected
+    hold = (int(own) if own else int(math.ceil(float(expected) * SETTLED_RESERVATION_SLACK))) if expected else first
+    fits = grown_bytes is None or grown_bytes <= int(reach_bytes)
+    if not first:
+        at_once = None
+    elif first > int(reach_bytes):
+        at_once = 1
+    else:
+        at_once = 1 + (int(reach_bytes) - int(first)) // max(1, int(hold or first))
+    return {"n": int(n), "fits": bool(fits), "at_once": at_once, "needs_bytes": first, "asked_bytes": asks,
+            "grown_bytes": grown_bytes, "expected_bytes": expected, "hold_bytes": hold,
+            "waits": bool(first and first > int(reach_bytes))}
+
+
+def _plan_of(priced: dict | None, reach_bytes: int, workers_now: int) -> dict:
+    if priced is not None and priced["at_once"] is None:
+        priced = None
+    return plan(priced, reach_bytes, workers_now)
 
 
 class _Said:
@@ -139,7 +212,9 @@ def step(repo, state: dict) -> dict | None:
     if now.get("law") != first:
         state[NOW] = now = {"law": first, "label": entry.get("label"), "campaign": camp, "since": utc_now()}
     found = rungs(repo, camp, first)
-    ladder = _ladder(repo, camp)
+    whole = _ladder(repo, camp)
+    ceiling = push.ceiling_of(state, first)
+    ladder = [n for n in whole if n <= ceiling]
     top = max(found) if found else None
     if top is None:
         chosen = plan(None, reach(repo), workers(repo))
@@ -151,18 +226,24 @@ def step(repo, state: dict) -> dict | None:
         return _end(state, first, entry, "failed", max((n for n, r in found.items() if r["done"]), default=None),
                     f"every seed of N={top:,} failed")
     following = next((n for n in ladder if n > top), None)
-    need = None if following is None else _price(found, following)
-    chosen = plan(need, reach(repo), workers(repo)) if following is not None else {"fits": False}
+    room = reach(repo)
+    priced = None if following is None else price(repo, camp, first, found, following, room)
+    chosen = _plan_of(priced, room, workers(repo)) if following is not None else {"fits": False}
     if chosen["fits"]:
         _queue(repo, camp, first, following, chosen["seeds"])
-        return {"law": first, "queued": following, "needs_bytes": need, **chosen}
+        return {"law": first, "queued": following, "needs_bytes": (priced or {}).get("needs_bytes"),
+                "asked_bytes": (priced or {}).get("asked_bytes"), **chosen}
     if any(r["queued"] or r["leased"] for r in found.values()):
         return None
     deepest = max((n for n, r in found.items() if r["done"]), default=top)
-    why = (f"the top of its ladder, N={deepest:,}" if following is None else
+    need = int((priced or {}).get("grown_bytes") or 0)
+    capped = following is None and any(n > ceiling for n in whole)
+    why = (f"its ceiling, N={deepest:,}: a law goes higher only when pushed past it" if capped else
+           f"the top of its ladder, N={deepest:,}" if following is None else
            f"not one seed of N={following:,} fits: it needs {need / 1024 ** 3:.1f} GiB, the host admits "
-           f"{reach(repo) / 1024 ** 3:.1f} GiB")
-    return _end(state, first, entry, "memory" if following is not None else "ladder", deepest, why)
+           f"{room / 1024 ** 3:.1f} GiB")
+    rule = "memory" if following is not None else CEILING_RULE if capped else "ladder"
+    return _end(state, first, entry, rule, deepest, why)
 
 
 def _end(state: dict, law: str, entry: dict, rule: str, deepest: int | None, why: str) -> dict:
@@ -175,44 +256,66 @@ def _end(state: dict, law: str, entry: dict, rule: str, deepest: int | None, why
 
 
 def forecast(repo, campaign_id: str, law: str, *, workers_now: int | None = None, reach_bytes: int | None = None,
-             now: float | None = None) -> dict:
+             now: float | None = None, ceiling: int | None = None) -> dict:
     from graph_scale_dynamics.operations import depth_reach, push
     cores = int(workers_now if workers_now is not None else workers(repo))
     room = int(reach_bytes if reach_bytes is not None else reach(repo))
     found = rungs(repo, campaign_id, law)
-    peaks = {n: int(r["peak_bytes"]) for n, r in found.items() if r.get("peak_bytes")}
+    typical = typical_peaks(found)
     times = [{"n": n, "seconds": r["seconds"]} for n, r in sorted(found.items()) if r.get("seconds")]
     clock = time.time() if now is None else float(now)
-    at, rows, limit = clock, [], None
-    for n in _ladder(repo, campaign_id):
+    at, rows, limit, under_way = clock, [], None, None
+    whole = _ladder(repo, campaign_id)
+    for n in whole:
+        if ceiling is not None and n > int(ceiling):
+            break
         r = found.get(n)
         if r and r["done"] and not (r["queued"] or r["leased"]):
             rows.append({"n": n, "state": "done", "seeds": r["seeds"], "done": r["done"], "failed": r["failed"],
-                         "peak_bytes": r.get("peak_bytes"), "seconds": r.get("seconds")})
+                         "peak_bytes": r.get("peak_bytes"), "typical_bytes": r.get("typical_bytes"),
+                         "seconds": r.get("seconds")})
             continue
-        priced = depth_reach.price(peaks, n) if n not in peaks else {"needs_bytes": peaks[n]}
-        need = None if priced is None else int(priced["needs_bytes"])
-        chosen = plan(need, room, cores)
+        priced = price(repo, campaign_id, law, found, n, room, typical=typical)
+        chosen = _plan_of(priced, room, cores)
         if not chosen["fits"]:
-            limit = {"n": n, "needs_bytes": need, "reach_bytes": room}
+            limit = {"n": n, "needs_bytes": priced["grown_bytes"], "asked_bytes": priced["asked_bytes"],
+                     "reach_bytes": room}
             break
         seeds = r["seeds"] if r else chosen["seeds"]
         left = (r["queued"] + r["leased"]) if r else seeds
+        steady = max(1, min(chosen["at_once"], seeds))
+        runs_now = int((r or {}).get("running") or 0)
+        if runs_now:
+            free = int(_headroom(repo) or 0)
+            more = free // max(1, int(priced["needs_bytes"] or 1))
+            at_once = max(1, min(left, runs_now + more))
+            passes_left = 1 + math.ceil(max(0, left - at_once) / steady)
+            under_way = {"n": n, "running": runs_now, "held_bytes": int(r.get("held_bytes") or 0),
+                         "live_bytes": r.get("live_bytes"), "asked_bytes": priced["needs_bytes"],
+                         "headroom_bytes": free, "more": int(min(more, max(0, left - runs_now)))}
+        else:
+            at_once = steady
+            passes_left = math.ceil(left / at_once)
         took = r.get("seconds") if r and r.get("seconds") else (push.run_seconds(times, n) or {}).get("seconds")
-        passes_left = math.ceil(left / max(1, chosen["at_once"]))
         hours = None if took is None else passes_left * float(took) / 3600
         row = {"n": n, "state": "running" if r else "ahead", "seeds": seeds, "left": left,
-               "at_once": min(chosen["at_once"], seeds), "passes": math.ceil(seeds / max(1, chosen["at_once"])),
-               "needs_bytes": need, "seconds": took, "hours": None if hours is None else round(hours, 3),
+               "at_once": at_once, "passes": math.ceil(seeds / at_once),
+               "needs_bytes": priced["needs_bytes"], "asked_bytes": priced["asked_bytes"],
+               "grown_bytes": priced["grown_bytes"], "expected_bytes": priced["expected_bytes"],
+               "hold_bytes": priced["hold_bytes"], "waits": priced["waits"],
+               "seconds": took, "hours": None if hours is None else round(hours, 3),
                "starts_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(at))}
+        if r is not None:
+            row.update(running=runs_now, held_bytes=int(r.get("held_bytes") or 0), live_bytes=r.get("live_bytes"),
+                       cut_bytes=r.get("cut_bytes"))
         if hours is not None:
             at += hours * 3600
             row["ends_utc"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(at))
             if r is None:
                 times.append({"n": n, "seconds": took})
         rows.append(row)
-        if need is not None and n not in peaks:
-            peaks[n] = int(need / depth_reach.SAFETY)
+        if n not in typical and priced["grown_bytes"]:
+            typical[n] = int(priced["grown_bytes"] / depth_reach.SAFETY)
     ahead = [row for row in rows if row["state"] != "done"]
 
     def first(test) -> dict | None:
@@ -226,8 +329,28 @@ def forecast(repo, campaign_id: str, law: str, *, workers_now: int | None = None
     end = None if not ahead or not timed else {"n": ahead[-1]["n"], "ends_utc": ahead[-1].get("ends_utc"),
                                                "hours": round((at - clock) / 3600, 2)}
     return {"contract": CONTRACT, "law": law, "campaign": str(campaign_id), "workers": cores, "reach_bytes": room,
-            "rungs": rows, "limit": limit, "marks": marks, "end": end, "now_utc": time.strftime(
-                "%Y-%m-%dT%H:%M:%SZ", time.gmtime(clock))}
+            "rungs": rows, "limit": limit, "marks": marks, "end": end, "under_way": under_way,
+            "ceiling": _past(repo, campaign_id, law, found, whole, ceiling, room, typical, times),
+            "now_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(clock))}
+
+
+def _past(repo, campaign_id: str, law: str, found: dict, whole: list[int], ceiling: int | None, room: int,
+          typical: dict[int, int], times: list[dict]) -> dict | None:
+    from graph_scale_dynamics.operations import push
+    if ceiling is None:
+        return None
+    following = next((n for n in whole if n > int(ceiling)), None)
+    out = {"n": int(ceiling), "next": following}
+    if following is not None and not (found.get(following) or {}).get("seeds"):
+        priced = price(repo, campaign_id, law, found, following, room, typical=typical)
+        out.update(next_bytes=priced["needs_bytes"], next_fits=priced["fits"], next_at_once=priced["at_once"],
+                   next_seconds=(push.run_seconds(times, following) or {}).get("seconds"))
+    return out
+
+
+def _headroom(repo) -> int | None:
+    from graph_scale_dynamics.scheduling import memory
+    return int(memory.admission_headroom(repo.conn).get("headroom_bytes") or 0)
 
 
 def tick(repo, *, now: float | None = None, force: bool = False) -> dict | None:
@@ -247,5 +370,5 @@ def tick(repo, *, now: float | None = None, force: bool = False) -> dict | None:
     return done
 
 
-__all__ = ["CONTRACT", "EVERY_SECONDS", "LEAST_SEEDS", "NOW", "PUSH", "campaign", "forecast", "is_push", "plan", "reach", "rungs",
-           "step", "tick", "workers"]
+__all__ = ["CEILING_RULE", "CONTRACT", "EVERY_SECONDS", "LEAST_SEEDS", "NOW", "PUSH", "asked", "campaign", "forecast", "is_push", "plan",
+           "price", "reach", "rungs", "running", "step", "tick", "typical_peaks", "workers"]

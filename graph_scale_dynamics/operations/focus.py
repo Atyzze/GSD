@@ -21,7 +21,7 @@ NEIGHBOURHOOD, BOUNDARIES, MAPPED, UNCONFIRMED, INVALIDATED = (
 ENDED = (MAPPED, UNCONFIRMED, INVALIDATED)
 ROBUST, ITS_SEEDS, ITS_DIGITS = "robust", "its seeds", "its exact parameters"
 DOS = ("start", "law", "skip", "back", "stop", "settings", "split", "run_on", "seed", "lean", "order", "push", "unpush",
-       "push_move")
+       "push_move", "push_past")
 QUEUE_LENGTH = 100
 FOCUS_LIST, DEPTH_LIST = "focus", "depth"
 LIST_SHOWN = 10
@@ -1270,6 +1270,9 @@ def act(repo, body: dict, *, tree=None) -> dict:
     elif do == "push_move":
         from graph_scale_dynamics.operations import push
         return {"ok": True, "did": do, **push.move(repo, str(body.get("law") or ""), int(body.get("to") or 0))}
+    elif do == "push_past":
+        from graph_scale_dynamics.operations import push
+        return {"ok": True, "did": do, **push.past(repo, str(body.get("law") or ""), campaign=body.get("campaign") or None)}
     elif do in ("push", "unpush"):
         from graph_scale_dynamics.operations import push
         return {"ok": True, "did": do, **push.toggle(repo, str(body.get("law") or ""),

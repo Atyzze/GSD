@@ -8,6 +8,14 @@ TOP = 100
 GIB = 1024 ** 3
 
 
+CEILING = 1_048_576
+
+
+def ceiling_of(state: dict | None, law: str) -> int:
+    entry = next((e for e in entries(state) if str(e["law"]) == str(law)), None) or {}
+    return max(CEILING, int(entry.get("to") or CEILING))
+
+
 def entries(state: dict | None) -> list[dict]:
     return [dict(e) for e in (state or {}).get(KEY) or [] if e.get("law")]
 
@@ -142,6 +150,28 @@ def toggle(repo, law: str, *, campaign: str | None = None, on: bool = True) -> d
     return {"pushed": laws(state)}
 
 
+def past(repo, law: str, *, campaign: str | None = None) -> dict:
+    from graph_scale_dynamics.operations import focus, modes, push_ladder
+    state = focus._loaded(repo)
+    if not str(law or "").strip():
+        raise ValueError("name the law to push past its ceiling")
+    law, campaign = _found(repo, state, str(law).strip(), campaign)
+    held = state.setdefault(KEY, [])
+    there = next((e for e in held if e.get("law") == law), None)
+    if there is None:
+        name = focus.label(repo, campaign, law)
+        add(state, law, campaign, name)
+        there = next(e for e in held if e.get("law") == law)
+    camp = (state.get("campaigns") or {}).get(push_ladder.PUSH)
+    ladder = sorted(int(n) for n in ((repo.campaign(str(camp)) or {}).get("spec") or {}).get("ladder") or []) if camp else []
+    now = max(CEILING, int(there.get("to") or CEILING))
+    there["to"] = next((n for n in ladder if n > now), now * 4)
+    state["events"].append({"at": utc_now(), "pushed_past": there.get("label"), "to": there["to"]})
+    modes.keep(repo, state)
+    focus.save(repo, state)
+    return {"pushed": laws(state), "to": there["to"]}
+
+
 def deepest(repo, campaigns: list[str]) -> list[dict]:
     if not campaigns:
         return []
@@ -200,6 +230,7 @@ def reading(repo, state: dict | None, *, limit: int = TOP) -> dict:
     by = {r["law"]: r for r in ranked}
     for entry in pushed:
         entry["deepest"] = (by.get(entry["law"]) or {}).get("deepest")
+        entry["ceiling"] = ceiling_of(state, entry["law"])
     marked, running = set(laws(state)), (now or {}).get("law")
     top = []
     for row in ranked[:int(limit)]:
@@ -218,10 +249,24 @@ def reading(repo, state: dict | None, *, limit: int = TOP) -> dict:
         label = (home or {}).get("label") or (focus.label(repo, of, law) if of else law[:12])
         detail = {"law": law, "campaign": of, "label": label, "sizes": found,
                   "pushed": law in marked, "running": law == running, "deepest": (by.get(law) or {}).get("deepest"),
-                  "ladder": push_ladder.forecast(repo, str(camp), law) if camp else None}
+                  "ceiling": ceiling_of(state, law),
+                  "ladder": push_ladder.forecast(repo, str(camp), law, ceiling=ceiling_of(state, law)) if camp else None}
     return {"contract": CONTRACT, "pushed": pushed, "now": now, "top": top, "law": detail,
             "laws_read": len(ranked), "slot": slot(repo, state), "done": list(state.get("pushed_done") or [])[-20:],
             "mode": modes.here(repo)}
+
+
+def for_the_bundle(repo, state: dict | None) -> dict | None:
+    if not state:
+        return None
+    try:
+        found = reading(repo, state)
+    except Exception as exc:  # noqa: BLE001
+        rollback = getattr(getattr(repo, "conn", None), "rollback_if_open", None)
+        if callable(rollback):
+            rollback()
+        return {"contract": CONTRACT, "error": f"{type(exc).__name__}: {str(exc)[:300]}"}
+    return {key: value for key, value in found.items() if key != "top"}
 
 
 def _memory_of(repo, owner: str | None, job_id: str) -> dict:
@@ -261,6 +306,6 @@ def slot(repo, state: dict) -> dict:
             "waiting": [{"law": law, "label": names.get(law), "of": homes.get(law)} for law in on[1:] if law in begun]}
 
 
-__all__ = ["ADOPTED", "CONTRACT", "KEY", "LET_GO", "OWN_LINE", "TOP", "add", "adopt_central", "adopt_now", "ahead",
-           "central", "deepest", "ended", "entries", "front", "laws", "listed", "move", "reading",
+__all__ = ["ADOPTED", "CEILING", "CONTRACT", "KEY", "LET_GO", "OWN_LINE", "TOP", "add", "adopt_central", "adopt_now", "ahead",
+           "ceiling_of", "central", "deepest", "ended", "entries", "for_the_bundle", "front", "laws", "listed", "move", "past", "reading",
            "run_seconds", "sizes", "slot", "toggle", "home_of"]

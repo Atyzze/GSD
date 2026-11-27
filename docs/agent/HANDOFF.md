@@ -1,4 +1,4 @@
-# Handoff: the state of GSD at build 896
+# Handoff: the state of GSD at build 897
 
 What is true now, for a context that has just opened this archive. Each fact has one home; the last section says
 where. **Think from the data, not from this page**: where the data and a document disagree, the data wins and the
@@ -16,7 +16,10 @@ them though the N-push is the natural end-station of the zoned-searched"): the f
 N-push** while the Top page's push list holds a law: the first law runs its whole ladder again from N=64 in a
 campaign of its own (part P, `operations/push_ladder.py`), as many seeds a rung as the worker count, all at once; as
 memory binds, fewer at once and fewer seeds, down to 3, then in passes, on two workers, then on one; when not one
-seed of the next size fits the host's memory the law leaves the list and the next is pushed. **The zone search**
+seed of the next size fits the host's memory, or at N=1,048,576 unless the operator pushed the law past it (897; the
+operator, 2026-11-27 15:47), the law leaves the list and the next is pushed. A seed is priced as the admission holds
+it (897: what it asks to start, 1.5 times its peak once running, whole runs' peaks only) and the Top page says how
+many run now and why. **The zone search**
 while a zone has work: the dex read in checked law by law, then the zone chosen, its laws judged, each parameter
 stepped and halved, the edges read again, its central law pushed (it joins the end of the list); the slots the zone
 leaves free run its lines' next points ahead. **The blind ladder** with its gates only when the list is empty and
@@ -47,6 +50,11 @@ in `docs/HISTORY.md`):
   pages told of every change of the work (`services/api/events.py`, our own stack: the operator, 13:00).
 * 895: the handover. 896: in the N-push the slots split by the push's own runs and probes (893 had read the waiting
   zone's queue); the law page says which sizes are being read (a run done is not a reading until its probes end).
+* 897: a start no longer cancels the N-push's probes as a crash's leftovers (896's start in 178 cancelled seeds 8 to
+  15 of G73's 262,144: the push buys 16 seeds, its copied spec allows 8); the forecast and the push's plan price a
+  seed as the admission holds it, and say for the rung under way how many run and how many more the headroom admits;
+  the push stops at N=1,048,576 unless a law is pushed past it ("past" on the Top page); the bundle's `focus.json`
+  carries the N-push (`push_now`).
 
 **Before that, 871 to 885** (the handover of 886 read them):
 
@@ -74,10 +82,10 @@ and 862 the focus and the Map page; 864 to 869 no law done, study 176 seeded fro
 `import/` folder; 870 a handover. The baseline the paper rests on (174's bundle of 2026-11-24 14:22Z, 175's of 08:35Z,
 the calibration table) and what it shows: `docs/WHERE_WE_ARE.md` and `docs/paper/GSD_PAPER.md`.
 
-**Open threads at 895**, each with its home:
+**Open threads at 897**, each with its home:
 
-* **Pull requests**: 864 to 893 (#11 to #35) merged by the operator, #34 and #35 at 2026-11-27 11:21Z; `main` holds
-  893. Open: 894 (#36), 895 (#37) and 896's, each made on the one before; merged in that order.
+* **Pull requests**: 864 to 896 (#11 to #38) merged by the operator; `main` holds 896. 897's pull request is open on
+  it (its archive went to the operator first, its session having been refused the repository at the time).
 * **Study 178** (`/data/projects/GSD/178/main`, `study_178_design.json`, criterion `study_178_criterion.json`) runs
   on 893 since 2026-11-27 about 11:20Z. 177's dex of 19:33Z was read in at its start (C15) and checked: 192 laws
   confirmed, 1 unmatched, at 07:18Z; the first zone (S178-C15-G2302, 177's S176-C12-G100, G79's family) was chosen at
@@ -85,8 +93,12 @@ the calibration table) and what it shows: `docs/WHERE_WE_ARE.md` and `docs/paper
   (rule `memory_ceiling`). At 12:06Z the fleet was in the N-push on S178-C15-G73 (law 8addbb0c), its ladder again from
   64 in C17 on 16 seeds a rung, 262,144 under way on 16 workers; S178-C15-G133 next on the list. Its forecast then put
   1,048,576 on 6 workers at once from about 13:31Z and 4,194,304 on one worker, three seeds in three passes, from
-  about 22:23Z, the push ending about 171 hours on (around 2026-12-04 15:20Z); **the operator reads the N-push as
-  confirmed once its first worker runs 4,194,304** (13:06).
+  about 22:23Z, the push ending about 171 hours on (around 2026-12-04 15:20Z). **At the bundle of 14:28Z** (897's
+  notes): 896 applied at 14:15Z; G73's 262,144 all 16 runs done and 8 read (the start cancelled the other 8 probes);
+  1,048,576 bought with 8 seeds, 4 running at once at 9.0 to 9.4 GiB each, all resumed, the admission asking 10.1 GiB
+  for a fifth with 6.3 GiB free; the forecast had promised 7 at once from the 6.8 GiB of a run cut short. **The push
+  stops at 1,048,576 since 897** (15:47), so G73 ends there and G133 follows; the operator's check of 13:06 (a first
+  worker on 4,194,304) is met only by a law pushed past it.
 * **Study 177** (`/data/projects/GSD/177/main`) and its dex of 19:33Z (193 laws, 76 term sets, 26,366 chains) are the
   operator's; 178 read that dex in.
 * **Studies 176 and 174** stopped or the operator's; their bundles were read at 881 and 865.
@@ -253,10 +265,13 @@ again after the paper's three studies, on the final probes, with a criterion wri
 
 ## What waits on the operator
 
-* **894's, 895's and 896's pull requests** (#36, #37 and the next): theirs to merge, in that order.
-* **Study 178 on 896**: applied to its folder (`docs/build_notes/BUILD896_NOTES.md`, "For the folders"); its next
-  bundle or dex once the N-push reaches 4,194,304 or a zone is mapped, read by `docs/agent/NEXT_BUILD.md`.
-* **The push list's order** on the Top page: "first", "up", "stop pushing"; any law page's "push to the N limit".
+* **897's pull request**: theirs to merge.
+* **Study 178 on 897**: applied with a restart (`docs/build_notes/BUILD897_NOTES.md`, "For the folders"); its next
+  bundle once G73's 1,048,576 is read, read by `docs/agent/NEXT_BUILD.md`.
+* **The push list's order** on the Top page: "first", "up", "past N=1,048,576", "stop pushing"; any law page's "push
+  to the N limit".
+* **897's two questions** (`docs/ROADMAP.md`, "Questions for the operator", "Open, from 897"): a pushed seed's memory
+  hold, and a bundle that leaves the N-push's seeds running.
 * **Study 176's standing controls**: kept as a tick (recommended; `docs/ROADMAP.md`, "Questions for the operator").
 * **Where the older data's archive goes public** (the consolidation): the review asks for a public archive (Zenodo or a tag) so a
   referee can see nothing was dropped selectively; the operator wants it out of the tree. Both hold if the archive
