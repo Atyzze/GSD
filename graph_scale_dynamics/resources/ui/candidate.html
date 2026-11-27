@@ -36,6 +36,18 @@ function saveJsonPortable(payload,filename){
   const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}), url=URL.createObjectURL(blob), a=el('a',{href:url,download:filename});
   document.body.append(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url),1200);
 }
+function pushButton(law,campaign){
+  const b=el('button',{class:'push-toggle',title:'push this law to the N limit: the depth worker takes it before the zone\u2019s laws, on one worker, one seed after another, each size bought while it fits half the host\u2019s memory (the Top page shows it)'},'push to the N limit');
+  let on=false;
+  const show=v=>{on=!!v;b.textContent=on?'pushed: stop pushing':'push to the N limit';b.classList.toggle('pushed',on)};
+  b.onclick=async()=>{ b.disabled=true;
+    try{ const r=await fetch(apiPath('/api/focus'),{method:'POST',cache:'no-store',headers:Object.assign({'Content-Type':'application/json','X-GSD-Page':'candidate'},ADMIN_TOKEN?{'X-GSD-Admin-Token':ADMIN_TOKEN}:{}),body:JSON.stringify({do:on?'unpush':'push',law,campaign:campaign||undefined})});
+      const body=await r.json().catch(()=>({})); if(!r.ok) throw new Error(body.error||('HTTP '+r.status)); show((body.pushed||[]).includes(law)); }
+    catch(e){ b.title=String(e.message||e); flashButton(b,'refused'); }
+    finally{ b.disabled=false; } };
+  j('/api/focus/top').then(t=>{ if(t&&t.focus===false){ b.disabled=true; b.title='no focus in this folder: nothing pushes a law'; return; } show((t.pushed||[]).some(e=>e.law===law)); }).catch(()=>{ b.disabled=true; });
+  return b;
+}
 function flashButton(button,text){ const before=button.textContent; button.textContent=text; setTimeout(()=>{if(button.textContent===text)button.textContent=before},1600); }
 function fmt(x,d=3){ return (x===null||x===undefined)?'-':(+x).toFixed(d); }
 function fmtDur(x){ x=+(x||0); return x>=5400?`${(x/3600).toFixed(1)}h`:x>=90?`${Math.round(x/60)}m`:`${Math.round(x)}s`; }
@@ -1438,7 +1450,8 @@ async function candidateView(id){
   copyCapsule.onclick=async()=>{ const text=JSON.stringify(capsule,null,2); try{ if(await copyTextPortable(text)) flashButton(copyCapsule,'copied'); else { saveJsonPortable(capsule,`GSD-specimen-${c.candidate_id.slice(0,16)}.json`); flashButton(copyCapsule,'saved JSON'); } } catch(_e){ saveJsonPortable(capsule,`GSD-specimen-${c.candidate_id.slice(0,16)}.json`); flashButton(copyCapsule,'saved JSON'); } };
   const saveCapsule=el('button',{title:'save the complete reproducibility/specimen capsule as JSON'},'save repro JSON');
   saveCapsule.onclick=()=>{saveJsonPortable(capsule,`GSD-specimen-${c.candidate_id.slice(0,16)}.json`); flashButton(saveCapsule,'saved');};
-  heading.append(el('span',{class:'header-controls'},copyCapsule,saveCapsule)); app.append(heading);
+  const pushToggle=pushButton(c.candidate_id,String(d.campaign_id||c.campaign_id||currentCampaign||''));
+  heading.append(el('span',{class:'header-controls'},copyCapsule,saveCapsule,pushToggle)); app.append(heading);
   if(lawIdentity) app.append(lawIdentity);
   const grammar=window.GSD_TERMS;
   if(grammar){ const composition=el('div',{class:'candidate-composition'}); composition.innerHTML=`<div class="candidate-composition-summary">Hamiltonian composition · ${grammar.summary((c.spec||{}).terms||[])} · visual grammar ${grammar.version}</div>${grammar.html((c.spec||{}).terms||[])}<div class="candidate-exact-law">${String(c.law||'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]))}</div>`; app.append(composition); }

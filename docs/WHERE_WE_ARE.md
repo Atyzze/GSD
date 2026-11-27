@@ -1,4 +1,4 @@
-# Where we are, at build 888
+# Where we are, at build 889
 
 The whole project on one page, in plain words; the detail is in `docs/agent/HANDOFF.md`.
 
@@ -56,26 +56,25 @@ are one seed of three at small sizes, on graphs in pieces or trees the next size
 68% to 81% of the way there from empty, worse as N grows. Until a known law grows its geometry from empty, "nothing
 grows from empty" cannot be told from "nothing can get there under these moves".
 
-## What 800 to 888 changed
+## What 800 to 889 changed
 
 The probes locked and your table installed (800 to 805); the evidence judged again on the final code (806 to 843); 844
 study 174; 845 to 853 study 175; 854 the paper's draft; 855 the ledger; 856 study 176; 857 to 870 Home, the focus, the
 Map page, an import folder. 871 to 880: law codes, the depth seeker, the C and assembly engines, phenotypes. 881:
 study 177. 882: the dex. 883 to 885: the zone unblocked, live, one at a time. 886: the zone map. 887: study 178, a dex
-verified first, the first zone chosen. 888: the dex read again to 4,096, law by law, with its progress.
+verified first, the first zone chosen. 888: the dex read again to 4,096, law by law. 889: a law pushed to the N limit.
 
 ## What comes next
 
-889: the first zone's search benchmarked: its laws judged first, its edges found per parameter by stepping and
-halving at 4,096, the points either side at 16,384, its central law pushed (`docs/agent/ZONE_MAP.md`). On 177's dex
-the rule chooses G79's family (29 laws within 0.1 of S176-C12-G100) ahead of G37's (28) by one law.
+890: the first zone's search benchmarked: its laws judged first, its edges found per parameter by stepping and
+halving at 4,096, the points either side at 16,384, a neighbour alike by its locked-in curves (your answer of 01:55),
+its central law pushed. The first zone is the rule's: G79's family (29 laws within 0.1 of S176-C12-G100), then G37's.
 
 ## The decision in front of you
 
-1. **Apply 888 to study 178**, or start it afresh on 888 with the dex in `import/` first. Merge #28, #29 and 888's
-   pull request, in that order.
-2. **What makes a neighbour alike**: recommended, the same forms on every curve both have locked in, within the
-   score's margins (`docs/agent/ZONE_MAP.md`).
+1. **Apply 889 to study 178** (or start it afresh with the dex in `import/` first) and push a law from its page; the
+   Top page shows it climb. Merge #28, #29, #30 and 889's pull request, in that order.
+2. **Which law to push first** on the Top page: any law page's "push to the N limit".
 3. **Whether a known law must grow its geometry from empty first** (recommended, before more compute from empty):
    parallel tempering is the cheapest remedy, an engine change of about a build, its known answers read again after.
 4. **Where the archive of the older data goes public** (the consolidation), so a reader can see nothing was dropped selectively.

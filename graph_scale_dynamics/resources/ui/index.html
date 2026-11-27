@@ -27,6 +27,11 @@
   <section class="panel"><h2>Ended</h2><div id="mapDone"><div class="empty">no law's focus has ended yet</div></div></section>
   <section class="panel"><h2>Held laws run on</h2><div id="mapRunOn"><div class="empty">no run-on list for this folder's study</div></div></section>
 </main>
+<main id="gsdTop" class="gsd-app-page" data-page="top" hidden>
+  <section class="panel"><div class="panel-title-row"><div><h2>Top: laws pushed to the N limit</h2><div class="muted">Laws you mark on their law page ("push to the N limit") are pushed by the depth worker before anything else it holds, one law at a time on one worker, one seed after another, each size priced from the law's own memory and bought only while it fits half the host's memory. Below them, every law of the study by the deepest N it has read.</div></div></div><div id="topPushed"><div class="empty">the pushed laws arrive with the focus</div></div></section>
+  <section class="panel"><h2 title="the law the depth worker runs now, or the first pushed: each size it has read, its memory, and the sizes ahead priced from its own peaks">The law being pushed, and its memory</h2><div id="topLaw"><div class="empty">no law is being pushed</div></div></section>
+  <section class="panel"><h2 title="every law of the study with a finished run, by the deepest size it has read, then its runs">Top 100 by N</h2><div id="topList"><div class="empty">no run has finished yet</div></div></section>
+</main>
 <main id="gsdExplorer" class="gsd-app-page" data-page="explorer" hidden>
   <section class="panel explorer-panel">
     <div class="panel-title-row"><div><h2>Candidate explorer</h2><div class="muted">Exploration map, candidate lineage and Past research are merged into one coherent view of every candidate in this campaign, or in every campaign of the study (Campaigns, below): active, proposed, parked, promoted and rejected. Use the structured filters first; free-text search remains available for exact IDs and unusual details.</div></div><div class="toolbar"><button id="explorerReload" class="gsd-control">refresh data</button><button id="explorerClear" class="gsd-control">clear filters</button></div></div>

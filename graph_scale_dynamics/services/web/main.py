@@ -26,7 +26,7 @@ ADMIN_TOKEN_HEADER = "X-GSD-Admin-Token"
 GENERIC_FAULT = "internal server error"
 
 SPA_SHELL_PATHS = frozenset({
-    "/", "/index.html", "/home", "/map", "/explorer", "/reports", "/calibration", "/campaigns", "/system",
+    "/", "/index.html", "/home", "/map", "/top", "/explorer", "/reports", "/calibration", "/campaigns", "/system",
 })
 
 

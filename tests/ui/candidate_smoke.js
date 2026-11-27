@@ -1181,6 +1181,9 @@ async function pageChecks() {
     throw new Error(`the rungs table is not one row a size: ${rows.map((r) => String(r.children[0].textContent))}`);
   }
   if (nodesWhere(tables[0], (n) => hasClass(n, 'ec-chain')).length) throw new Error('the rungs table still repeats every chain’s reading');
+  const pushes = nodesWhere(root, (n) => n.tagName === 'BUTTON' && hasClass(n, 'push-toggle'));
+  if (pushes.length !== 1 || String(pushes[0].textContent) !== 'push to the N limit') throw new Error('the law page has no push to the N limit toggle (889)');
+  if (!asked.some((u) => u.includes('/api/focus/top'))) throw new Error('the law page does not ask whether its law is pushed');
   const top_n = sizes[sizes.length - 1];
   if (String(tableCell(root, 'mean_degree', 'given', top_n).textContent) !== '5.500 ± 0.010') throw new Error('the given chain’s own mean degree is not in the table');
   if (String(tableCell(root, 'mean_degree', 'empty', top_n).textContent) !== '4.000 ± 0.010') throw new Error('the mean degree of the chain from empty is not in the table');

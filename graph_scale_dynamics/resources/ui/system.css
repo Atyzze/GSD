@@ -452,3 +452,9 @@ body[data-gsd-freshness="stale"] .live-clock,body[data-gsd-freshness="offline"] 
 .map-law-bar { display: inline-flex; width: 140px; height: 9px; border: 1px solid var(--line2); border-radius: 3px; overflow: hidden; vertical-align: middle; }
 .map-law-bar > span { display: block; height: 100%; } .map-law-bar > .done { background: var(--green); } .map-law-bar > .now { background: color-mix(in srgb, var(--green) 40%, transparent); }
 .map-working-each > summary { cursor: pointer; margin-top: 6px; color: var(--muted); }
+
+.top-chart { width: 100%; max-width: 640px; height: auto; display: block; margin: 8px 0; }
+.top-chart .top-line { fill: none; stroke: var(--green); stroke-width: 2; } .top-chart .top-line-ahead { fill: none; stroke: var(--amber); stroke-width: 2; stroke-dasharray: 5 4; }
+.top-chart .top-peak { fill: var(--green); } .top-chart .top-ahead { fill: var(--amber); } .top-chart .top-reach { stroke: var(--red, #e5534b); stroke-width: 1.5; stroke-dasharray: 3 3; }
+.top-chart .top-axis { fill: var(--muted); font-size: 11px; }
+.top-list tr.top-running td { background: color-mix(in srgb, var(--green) 10%, transparent); }

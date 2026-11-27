@@ -820,6 +820,17 @@ folder's dex is written every hour, and between the hours when `dex.news` finds 
 here not in it, a zone mapped since, more of the dex verified here), looked at once a minute and never two within ten
 minutes; the `dex_written` flag keeps why, and the ids of the laws it held.
 
+**A law pushed to the N limit** (889, `operations/push.py`). The focus state's `pushed` is a list the operator keeps
+from a law's page (the focus's `push` and `unpush`). Each pushed law is a contender of the depth worker that
+`focus.contenders` never drops for not scoring, and `focus.depth_line` puts the pushed first, in their order
+(`push.front`), before the law in focus and the depth list; pushing sets the depth campaign's one worker. So the depth
+worker runs a pushed law with or without a law in focus, a law it is running finished first, one seed after another
+on its one worker, each size priced from the law's own peaks (`depth_reach`). The Top page (`/top`, `GSD_TOP` in
+`map.js`) reads `/api/focus/top` (`push.reading`): the pushed laws, the law being pushed with its peak memory, time a
+run and edges per size from its attempts (`push.sizes`) and the sizes ahead priced by `depth_reach.price` up to the
+first past the depth worker's reach (`push.forecast`), and the study's laws by the deepest N any run of theirs has
+finished (`push.deepest`).
+
 **The focus's choices** (882). `focus._chosen` records why it took a law (`chosen_by`: score, bundle, outlier,
 operator), said on the Map page's line. An outlier is taken only once the study has a scoring law and every one is
 mapped, inside a region or skipped; an outlier in focus (or a law of score 0 taken before 882 with no reason

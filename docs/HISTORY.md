@@ -1782,7 +1782,7 @@ made; a time without a Z is the operator's local time.
   own campaign"; "not the most special/unique one but the one most likely to confirm fast"; "benchmarking that and
   well defining the space, long before automating it over multiple zones ... 1 by 1"; 19:59: "laws can obviously
   belong in multiple zones, there will be overlap regions between terms"; "what separates 2 zones from each other?
-  other than sheer term-set and their coupling strength?"): `docs/agent/ZONE_MAP.md` (886); study 178 designed, a dex read in as its own campaign verified first and the first zone chosen to confirm fast (887); the dex read again to N=4,096, law by law, from the start, with its progress (888, on the operator's words of 2026-11-27 01:35); the zone's search benchmarked next (889).
+  other than sheer term-set and their coupling strength?"): `docs/agent/ZONE_MAP.md` (886); study 178 designed, a dex read in as its own campaign verified first and the first zone chosen to confirm fast (887); the dex read again to N=4,096, law by law, from the start, with its progress (888, on the operator's words of 2026-11-27 01:35); a neighbour alike by its locked-in curves and the first zone the rule's (the operator, 01:55: "Yes" to "B, and the rule"); a law pushed to the N limit from its page and a Top page (889, on the operator's words of 02:22); the zone's search benchmarked next (890).
 * **One zone at a time, the blind draw only when no zone has work, no share to set** (2026-11-26 19:06: "only do blind
   draws when there are no seeds/zones to confirm"; 19:07: "we also dont need the allocation slider, the fleet
   naturally swaps between what work is most required"; 19:21: "our system never tries to map multiple zones at the

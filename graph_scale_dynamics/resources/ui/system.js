@@ -47,7 +47,7 @@
           <span class="gsd-build-dot"></span><span title="build ${esc(build)}: a law's full code is this build, its campaign and its graph, B${esc(build)}-C6-G7">B${esc(build)}</span><span class="gsd-build-hash">#${esc(shortFingerprint)}</span>${cfg.devMode?'<span class="gsd-dev-mode" title="GSD_DEV_MODE is set: the science freeze is advisory and policy epochs are mutable. Every decision, report and bundle from this run is stamped development_mode=true.">DEV MODE</span>':''}
         </a>
         <nav class="gsd-main-nav">
-          ${navLink('Home','home','/')}${navLink('Map','map','/map')}${navLink('Campaigns','campaigns','/campaigns')}${navLink('Explorer','explorer','/explorer')}${navLink('Reports','reports','/reports')}${navLink('Calibration','calibration','/calibration')}${navLink('System','system','/system')}
+          ${navLink('Home','home','/')}${navLink('Map','map','/map')}${navLink('Top','top','/top')}${navLink('Campaigns','campaigns','/campaigns')}${navLink('Explorer','explorer','/explorer')}${navLink('Reports','reports','/reports')}${navLink('Calibration','calibration','/calibration')}${navLink('System','system','/system')}
         </nav>
         <div class="gsd-header-actions">
           <span id="gsdAdmin" class="gsd-admin-link" hidden></span>

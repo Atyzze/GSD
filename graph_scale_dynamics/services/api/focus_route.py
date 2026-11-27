@@ -66,12 +66,17 @@ def act(repo, body: dict) -> dict:
     return focus.act(repo, body)
 
 
+def top(repo) -> dict:
+    from graph_scale_dynamics.operations import push
+    return dict(push.reading(repo, focus.load(repo)), focus=focus.load(repo) is not None)
+
+
 def get(handler, db_path: str, parts: list[str]) -> None:
-    if parts != ["api", "focus"]:
-        return handler._json({"error": "use /api/focus"}, 404)
+    if parts not in (["api", "focus"], ["api", "focus", "top"]):
+        return handler._json({"error": "use /api/focus or /api/focus/top"}, 404)
     try:
         with Repo(db_path) as repo:
-            handler._json(answer(repo))
+            handler._json(top(repo) if parts[-1] == "top" else answer(repo))
     except Exception as exc:  # noqa: BLE001
         handler._json({"error": f"{type(exc).__name__}: {exc}"}, 500)
 
