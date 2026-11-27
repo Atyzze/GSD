@@ -604,7 +604,9 @@ workers, then on one; when not one seed of the next size fits the host's memory,
 pushed. Take the first law off, or move another above it, and its runs stop at once, saved. The Top page plots its
 ladder ahead with the break-points marked (fewer at once than workers, two passes, one worker) and when it ends,
 read again with every finished run. A zone whose ring at 0.1 is not two thirds alike stands at ring 0.01 if that one
-is; else the law is a lucky hit, its readings kept.
+is; else the law is a lucky hit, its readings kept. **The pages follow the fleet** (894): each page opens one event
+stream (`/api/events`) and reads again when the work changes; an open law page brings a new reading within seconds of
+its probe ending. A law pushed to the N limit keeps, on every page, the code it was pushed with.
 
 **If `uv run` fails building `gsd-engine-rs`** with `rustc: symbol lookup error: .../librustc_driver-*.so: undefined
 symbol ... version LLVM_...`, the system's `rustc` and its LLVM libraries are from different updates (`which -a

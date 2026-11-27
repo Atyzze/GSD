@@ -65,6 +65,21 @@ _CAMPAIGN_STATS_CACHE: dict[str, tuple[str, float, dict]] = {}
 ALIVE_WITHIN_SECONDS = 2 * heartbeat_interval_seconds() + ticks(1)
 
 
+def _pushed_as(repo, spec: dict, rows: list[dict]) -> None:
+    from graph_scale_dynamics.operations import focus, push, push_ladder
+    if not push_ladder.is_push(spec) or not rows:
+        return
+    try:
+        state = focus.load(repo)
+    except Exception as exc:
+        _note_swallowed("_pushed_as", exc)
+        return
+    for row in rows:
+        home = push.home_of(state, str(row["candidate_id"]))
+        if home:
+            row["pushed_as"] = home
+
+
 def _fleet_mode(repo) -> dict | None:
     from graph_scale_dynamics.operations import modes
     try:
@@ -630,6 +645,7 @@ def build_fast_overview(repo: Repo, campaign_id: str) -> dict:
         else:
             active.append(entry)
 
+    _pushed_as(repo, spec, active)
     live_ids = [e["candidate_id"] for e in active]
     if live_ids:
         placeholders = ",".join("?" for _ in live_ids)
@@ -1125,6 +1141,7 @@ def build_overview(repo: Repo, campaign_id: str, *,
                 past.append(entry)
         else:
             active.append(entry)
+    _pushed_as(repo, campaign.get("spec") or {}, active)
     child_campaigns = _child_campaigns_with_generation(repo, campaign)
     child_generation = {
         row["child_campaign_id"]: row.get("spec_generation") for row in child_campaigns

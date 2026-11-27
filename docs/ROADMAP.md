@@ -123,9 +123,10 @@ central law pushed, benchmarked against the ring method; 891 the zones one after
 with their central laws, a zone read in not searched again, the lucky hits kept to revisit; 892 the push list holding
 the host in the operator's order; 893 the fleet in one of three modes (the N-push, the zone search, the blind ladder),
 the N-push its own ladder again from 64 on every worker with its break-points forecast, the law page reading every
-campaign of its law.
+campaign of its law; 894 a pushed law keeping its code on every page, each size drawn from the campaign with the most
+seeds, the pages told of every change of the work (our own stack, the operator, 13:00); 895 the handover.
 
-**Still open from 884 to 893**, each its own build, the first two waiting on study 178's first zones:
+**Still open from 884 to 894**, each its own build, the first two waiting on study 178's first zones:
 
 1. **The search's hours** (890's benchmark): a line's steps follow one another, each a ladder to 4,096; since 893 the
    free slots run each line's two possible next points ahead (item 6), the one not needed left unread.

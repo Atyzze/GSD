@@ -412,8 +412,35 @@
       setText('gsdFresh','offline'); setText('gsdApiDetail',String(e));
       showFreshness(freshnessOf(null, failedPolls), []);
     }
-    finally { pollTimer = setTimeout(poll, 4000 ); }
+    finally { pollTimer = setTimeout(poll, EVENTS.live ? POLL_LIVE_MS : POLL_MS); }
   }
+  const POLL_MS = 4000, POLL_LIVE_MS = 15000, WORK_GATHER_MS = 800;
+  const EVENTS = {source: null, live: false, last: null, handlers: new Set(), timer: null, said: null};
+  function heardWork(said) {
+    EVENTS.last = Date.now();
+    const was = EVENTS.said || {tables: [], readings: false, runs: false};
+    EVENTS.said = {tables: [...new Set([...(was.tables || []), ...((said && said.tables) || [])])],
+                   readings: !!(was.readings || (said && said.readings)), runs: !!(was.runs || (said && said.runs))};
+    if (EVENTS.timer) return;
+    EVENTS.timer = setTimeout(() => {
+      EVENTS.timer = null; const told = EVENTS.said; EVENTS.said = null;
+      poll();
+      for (const fn of EVENTS.handlers) { try { fn(told); } catch (_) {} }
+      try { window.dispatchEvent(new CustomEvent('gsd:work', {detail: told})); } catch (_) {}
+    }, WORK_GATHER_MS);
+  }
+  function followEvents() {
+    if (EVENTS.source || typeof EventSource === 'undefined') return EVENTS.source;
+    try {
+      const source = new EventSource(route('/api/events'));
+      EVENTS.source = source;
+      source.addEventListener('hello', () => { EVENTS.live = true; });
+      source.addEventListener('work', ev => { let said = {}; try { said = JSON.parse(ev.data); } catch (_) {} heardWork(said); });
+      source.onerror = () => { EVENTS.live = false; };
+    } catch (_) { EVENTS.source = null; }
+    return EVENTS.source;
+  }
+  function onWork(fn) { EVENTS.handlers.add(fn); followEvents(); return () => EVENTS.handlers.delete(fn); }
   function installRouter() {
     document.addEventListener('click', ev => {
       const a=ev.target.closest('a[data-gsd-page]');
@@ -540,5 +567,5 @@
 
   function setPinned(key){ pinnedKey=key||null; }
   function getPinned(){ return pinnedKey; }
-  window.GSD_SYSTEM={freshnessOf,STALE_AFTER_MS,api,getJson,postJson,headers,route,esc,fmt,gib,mbps,measureHeaderHeight,updateHeader,registerLiveRegion,pointerIsOverLiveRegion,deferrableRedraw,setPinned,getPinned,localTime,localTimeHtml,relativeTime,parseUtc,LOCAL_ZONE,switchCampaign,refreshCampaignList,studyOf,lawCode,lawCodeQuery,set campaignRows(v){campaignRows=Array.isArray(v)?v:[];},get campaignRows(){return campaignRows;},get campaign(){return campaign;},get overview(){return overview;}};
+  window.GSD_SYSTEM={onWork,followEvents,heardWork,get eventsLive(){return EVENTS.live},freshnessOf,STALE_AFTER_MS,api,getJson,postJson,headers,route,esc,fmt,gib,mbps,measureHeaderHeight,updateHeader,registerLiveRegion,pointerIsOverLiveRegion,deferrableRedraw,setPinned,getPinned,localTime,localTimeHtml,relativeTime,parseUtc,LOCAL_ZONE,switchCampaign,refreshCampaignList,studyOf,lawCode,lawCodeQuery,set campaignRows(v){campaignRows=Array.isArray(v)?v:[];},get campaignRows(){return campaignRows;},get campaign(){return campaign;},get overview(){return overview;}};
 })();

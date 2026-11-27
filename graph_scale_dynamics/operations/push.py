@@ -12,6 +12,14 @@ def entries(state: dict | None) -> list[dict]:
     return [dict(e) for e in (state or {}).get(KEY) or [] if e.get("law")]
 
 
+def home_of(state: dict | None, law: str) -> dict | None:
+    for entry in entries(state) + [dict(e) for e in (state or {}).get("pushed_done") or [] if e.get("law")]:
+        if str(entry["law"]) == str(law) and entry.get("of"):
+            return {"campaign": str(entry["of"]), "label": entry.get("label") or str(law)[:12]}
+    held = ((state or {}).get("contenders") or {}).get(str(law)) or {}
+    return {"campaign": str(held["of"]), "label": held.get("label") or str(law)[:12]} if held.get("of") else None
+
+
 def laws(state: dict | None) -> list[str]:
     return [str(e["law"]) for e in entries(state)]
 
@@ -186,22 +194,29 @@ def reading(repo, state: dict | None, *, limit: int = TOP) -> dict:
     ranked = deepest(repo, campaigns)
     pushed = entries(state)
     now = state.get("depth_now") or None
+    held = home_of(state, now["law"]) if now and now.get("law") else None
+    if held:
+        now = dict(now, campaign=held["campaign"], label=held["label"], pushed_in=now.get("campaign"))
     by = {r["law"]: r for r in ranked}
     for entry in pushed:
         entry["deepest"] = (by.get(entry["law"]) or {}).get("deepest")
     marked, running = set(laws(state)), (now or {}).get("law")
     top = []
     for row in ranked[:int(limit)]:
-        top.append(dict(row, label=focus.label(repo, row["campaign"], row["law"]), pushed=row["law"] in marked,
-                        running=row["law"] == running))
+        home = home_of(state, row["law"]) if row["law"] in marked or row["law"] == running else None
+        top.append(dict(row, campaign=home["campaign"] if home else row["campaign"],
+                        label=home["label"] if home else focus.label(repo, row["campaign"], row["law"]),
+                        pushed=row["law"] in marked, running=row["law"] == running))
     law = running or (pushed[0]["law"] if pushed else None)
     detail = None
     if law:
         from graph_scale_dynamics.operations import push_ladder
         found = sizes(repo, law)
-        of = (by.get(law) or {}).get("campaign") or next((e["of"] for e in pushed if e["law"] == law), None)
+        home = home_of(state, law)
+        of = (home or {}).get("campaign") or (by.get(law) or {}).get("campaign")
         camp = (state.get("campaigns") or {}).get(push_ladder.PUSH)
-        detail = {"law": law, "campaign": of, "label": focus.label(repo, of, law) if of else law[:12], "sizes": found,
+        label = (home or {}).get("label") or (focus.label(repo, of, law) if of else law[:12])
+        detail = {"law": law, "campaign": of, "label": label, "sizes": found,
                   "pushed": law in marked, "running": law == running, "deepest": (by.get(law) or {}).get("deepest"),
                   "ladder": push_ladder.forecast(repo, str(camp), law) if camp else None}
     return {"contract": CONTRACT, "pushed": pushed, "now": now, "top": top, "law": detail,
@@ -225,9 +240,11 @@ def _memory_of(repo, owner: str | None, job_id: str) -> dict:
 def slot(repo, state: dict) -> dict:
     from graph_scale_dynamics.operations import push_ladder
     campaign = str((state.get("campaigns") or {}).get(push_ladder.PUSH) or "")
-    names = {str(e["law"]): e.get("label") for e in entries(state)} | {
-        law: e.get("label") for law, e in (state.get("contenders") or {}).items()}
-    running = [{"law": str(r["candidate_id"]), "label": names.get(str(r["candidate_id"])), "n": int(r["n"]),
+    names = {law: e.get("label") for law, e in (state.get("contenders") or {}).items()} | {
+        str(e["law"]): e.get("label") for e in entries(state)}
+    homes = {law: (home_of(state, law) or {}).get("campaign") for law in set(names) | set(listed(state))}
+    running = [{"law": str(r["candidate_id"]), "label": names.get(str(r["candidate_id"])),
+                "of": homes.get(str(r["candidate_id"])), "n": int(r["n"]),
                 "seed": int(r["seed"]), "since": r["updated_utc"], "owner": r["lease_owner"],
                 **_memory_of(repo, r["lease_owner"], str(r["job_id"]))}
                for r in repo.conn.execute(
@@ -241,9 +258,9 @@ def slot(repo, state: dict) -> dict:
     on = listed(state)
     return {"campaign": campaign or None, "running": running,
             "order": [{"law": law, "label": names.get(law), "queued": queued.get(law, 0)} for law in on[:1]],
-            "waiting": [{"law": law, "label": names.get(law)} for law in on[1:] if law in begun]}
+            "waiting": [{"law": law, "label": names.get(law), "of": homes.get(law)} for law in on[1:] if law in begun]}
 
 
 __all__ = ["ADOPTED", "CONTRACT", "KEY", "LET_GO", "OWN_LINE", "TOP", "add", "adopt_central", "adopt_now", "ahead",
            "central", "deepest", "ended", "entries", "front", "laws", "listed", "move", "reading",
-           "run_seconds", "sizes", "slot", "toggle"]
+           "run_seconds", "sizes", "slot", "toggle", "home_of"]

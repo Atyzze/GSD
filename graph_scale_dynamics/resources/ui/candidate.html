@@ -1116,7 +1116,7 @@ function renderTwoChains(app,payload,curvesUrl,after){
     el('span',{class:'tc-swatch',style:`border-top:2px ${ch.dash?'dashed':'solid'} ${ch.color}`}),TC_SHORT[ch.key]||ch.key)));
   app.append(key);
   const elsewhere=(payload&&payload.read_elsewhere)||[];
-  if(elsewhere.length) app.append(el('p',{class:'muted tc-elsewhere'},'read in another campaign of this law: '+elsewhere.map(e=>`N=${Number(e.n).toLocaleString('en-US')} in campaign ${e.campaign} (${e.rows} readings)`).join(', ')+'. Its curves are drawn here with the rest; its score on this page reads this campaign\u2019s own sizes.'));
+  if(elsewhere.length) app.append(el('p',{class:'muted tc-elsewhere'},'each size drawn from the campaign of this law with the most seeds there: '+elsewhere.map(e=>`N=${Number(e.n).toLocaleString('en-US')} from campaign ${e.campaign} (${e.rows} seeds${e.here?`, against ${e.here} here`:''})`).join(', ')+'. The score on this page reads this campaign\u2019s own seeds, as every list of the study ranks it.'));
   const explain=el('details',{class:'tc-explain'},el('summary',{},'explanation: how the chains are run, read against each other and stopped'));
   explain.append(el('p',{class:'muted tc-intro'},every?`Every seed runs this law ${every.length===2?'twice':every.length+' times'}, from ${count} starts: the same law, `
     +'the same temperature, every chain alike, and each can earn the law its next size. Where the chains end in the same place the start did not matter; '
@@ -1368,6 +1368,7 @@ function studyOfPage(d){
 }
 function codeOf(study,camp,ordinal){return study?`S${study}-C${camp}-G${ordinal}`:`C${camp}-G${ordinal}`}
 function candidateCode(c,d){
+  if(d&&d.pushed_as&&d.pushed_as.label) return d.pushed_as.label;
   const camp=String((d&&d.campaign_id)||(c&&c.campaign_id)||currentCampaign||'');
   const m=/^G-?(\d+)$/.exec(String((c&&c.ensemble_code)||''));
   return m&&camp?codeOf(studyOfPage(d),camp,m[1]):((c&&c.ensemble_code)||null);
@@ -1379,10 +1380,11 @@ function fillOrigin(host,payload){
   host.append(' ',el('span',{class:'muted law-origin',title:`seeded from ${o.bundle||'a bundle'}: its code and its score in study ${o.study||'?'}${o.standing==='bundle'?'; it stands on that score in this study\u2019s focus until this folder reads it at 16,384':''}`},
     `from ${o.code}, ${o.score} there`));
 }
-function lawIdentityLine(c,idn){
+function lawIdentityLine(c,idn,as){
   if(!idn) return null;
   const line=el('div',{class:'law-identity muted'});
   const link=(cid,camp,label)=>el('a',{href:'?candidate='+encodeURIComponent(cid)+'&campaign='+encodeURIComponent(camp),class:'law'},label);
+  if(as&&as.campaign) line.append(el('span',{title:'the N-push runs a pushed law again in a campaign of its own; the law keeps the code it was pushed with'},'run again by the N-push in campaign '+String(c.campaign_id||'')+'; its home ',link(c.candidate_id,as.campaign,as.label)),' \u00b7 ');
   line.append(el('span',{title:'law hash: the fingerprint of the normalised law, the same in every campaign that holds it'},'law ',el('code',{},String(idn.law_hash||''))));
   if(idn.function_hash) line.append(' \u00b7 ',el('span',{title:'function hash: the energy with exact redundancies folded, with the dynamics that shape a finite run; a law with another law hash and this function hash is this function written another way'},'function ',el('code',{},String(idn.function_hash))));
   const same=idn.same_law_in||[];
@@ -1447,7 +1449,7 @@ async function candidateView(id){
   if(code) heading.append(el('code',{class:'muted hdr-hash',
     title:'candidate_id: the content hash of the Hamiltonian, which is what reproduces and deduplicates it'},
     c.candidate_id.slice(0,16)));
-  const lawIdentity=lawIdentityLine(c,d.identity);
+  const lawIdentity=lawIdentityLine(c,d.identity,d.pushed_as);
   const copyCapsule=el('button',{title:'copy the complete reproducibility/specimen capsule as JSON'},'copy repro JSON');
   copyCapsule.onclick=async()=>{ const text=JSON.stringify(capsule,null,2); try{ if(await copyTextPortable(text)) flashButton(copyCapsule,'copied'); else { saveJsonPortable(capsule,`GSD-specimen-${c.candidate_id.slice(0,16)}.json`); flashButton(copyCapsule,'saved JSON'); } } catch(_e){ saveJsonPortable(capsule,`GSD-specimen-${c.candidate_id.slice(0,16)}.json`); flashButton(copyCapsule,'saved JSON'); } };
   const saveCapsule=el('button',{title:'save the complete reproducibility/specimen capsule as JSON'},'save repro JSON');
@@ -1847,8 +1849,20 @@ async function candidateView(id){
   relabel();
 }
 
+const LAW_LIVE_EVERY_MS=15000;
+function followLaw(id){
+  const S=window.GSD_SYSTEM; if(!S||!S.onWork) return;
+  let at=Date.now(), timer=null, owed=false;
+  const again=async()=>{ timer=null;
+    if(document.hidden||document.querySelector('.tc-tip-pinned')){ owed=true; return; }
+    owed=false; at=Date.now(); const y=window.scrollY;
+    try{ await candidateView(id); window.scrollTo(0,y); }catch(_){ owed=true; } };
+  const soon=()=>{ if(!timer) timer=setTimeout(again,Math.max(0,LAW_LIVE_EVERY_MS-(Date.now()-at))); };
+  S.onWork(said=>{ if(said&&said.readings) soon(); });
+  document.addEventListener('visibilitychange',()=>{ if(!document.hidden&&owed) soon(); });
+}
 (async()=>{ try{
-  if(qs.get('candidate')) await candidateView(qs.get('candidate'));
+  if(qs.get('candidate')){ await candidateView(qs.get('candidate')); followLaw(qs.get('candidate')); }
   else { location.replace(HOME); return; }
 }catch(e){ document.getElementById('app').textContent='error: '+e.message; }})();
 </script></body></html>

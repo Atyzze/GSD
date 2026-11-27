@@ -163,6 +163,44 @@ def upstream_length(response) -> int | None:
     return length if length >= 0 else None
 
 
+EVENTS_TIMEOUT_SECONDS = 60.0
+EVENTS_PATH = "/api/events"
+
+
+def relay_events(handler, connect, headers: dict) -> bool:
+    conn = connect()
+    try:
+        try:
+            conn.request("GET", EVENTS_PATH, headers=headers)
+            response = conn.getresponse()
+        except (OSError, http.client.HTTPException):
+            handler._send(b'{"error":"the event stream is not reachable; the page polls instead"}',
+                          "application/json; charset=utf-8", 503)
+            return False
+        if response.status != 200:
+            handler._send(response.read(ERROR_BODY_BYTES), response.getheader("Content-Type") or "application/json",
+                          response.status)
+            return False
+        handler.send_response(200)
+        handler.send_header("Content-Type", response.getheader("Content-Type") or "text/event-stream")
+        handler.send_header("Cache-Control", "no-store")
+        handler.send_header("Connection", "close")
+        handler.send_header("X-Accel-Buffering", "no")
+        handler.end_headers()
+        handler.close_connection = True
+        try:
+            while True:
+                chunk = response.read1(CHUNK_BYTES)
+                if not chunk:
+                    return True
+                handler.wfile.write(chunk)
+                handler.wfile.flush()
+        except (OSError, http.client.HTTPException):
+            return False
+    finally:
+        conn.close()
+
+
 def relay(handler, large: LargeBodies, response, *, scrub) -> None:
     content_type = response.getheader("Content-Type") or "application/octet-stream"
     if scrub is not None:
