@@ -125,9 +125,10 @@ the host in the operator's order; 893 the fleet in one of three modes (the N-pus
 the N-push its own ladder again from 64 on every worker with its break-points forecast, the law page reading every
 campaign of its law; 894 a pushed law keeping its code on every page, each size drawn from the campaign with the most
 seeds, the pages told of every change of the work (our own stack, the operator, 13:00); 895 the handover, the plans
-before 886 moved to `docs/agent/ROADMAP_BEFORE_886.md`.
+before 886 moved to `docs/agent/ROADMAP_BEFORE_886.md`; 896 the N-push's probes given its slots, the sizes being read
+said on the law page.
 
-**Still open from 884 to 894**, each its own build, the first two waiting on study 178's first zones:
+**Still open from 884 to 896**, each its own build, the first two waiting on study 178's first zones:
 
 1. **The search's hours** (890's benchmark): a line's steps follow one another, each a ladder to 4,096; since 893 the
    free slots run each line's two possible next points ahead (item 6), the one not needed left unread.

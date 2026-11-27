@@ -538,7 +538,7 @@ class AnalysisStore:
             backlog = self.analysis_backlog(analysis_version)
         return backlog > 0
 
-    def simulation_work_counts(self, ordered: bool = False) -> dict[str, int]:
+    def simulation_work_counts(self, ordered: bool = False, campaigns: tuple | None = None) -> dict[str, int]:
         from graph_scale_dynamics.scheduling import work_groups
         counts = {"queued": 0, "leased": 0, "blocked": 0}
         now = utc_now()
@@ -559,7 +559,7 @@ class AnalysisStore:
             "WHERE c.status='active' GROUP BY c.campaign_id,c.workers_target,c.spec_json",
             (now, work_groups.BEHIND, now, *TERMINAL_STATES),
         ).fetchall()
-        rows = [dict(row) for row in rows]
+        rows = [dict(row) for row in rows if campaigns is None or str(row["campaign_id"]) in set(campaigns)]
         for row in rows:
             counts["queued"] += int(row["queued"] or 0)
             counts["leased"] += int(row["leased"] or 0)
@@ -570,8 +570,9 @@ class AnalysisStore:
                                for tier, first in found}
         return counts
 
-    def analysis_backlog_tiers(self, analysis_version: str) -> dict[int, int]:
+    def analysis_backlog_tiers(self, analysis_version: str, campaigns: tuple | None = None) -> dict[int, int]:
         from graph_scale_dynamics.scheduling.work_groups import BEHIND, LEFTOVER_TIER, TIER_SQL
+        within = "" if campaigns is None else f"AND q.campaign_id IN ({','.join('?' for _ in campaigns) or 'NULL'}) "
         rows = self.conn.execute(
             f"SELECT (CASE WHEN q.priority>={int(BEHIND)} THEN {int(LEFTOVER_TIER)} ELSE t.tier END) AS tier,"
             "COUNT(*) AS c FROM analysis_queue q "
@@ -580,21 +581,29 @@ class AnalysisStore:
             "JOIN campaign_candidates cc ON cc.campaign_id=q.campaign_id AND cc.candidate_id=q.candidate_id "
             "WHERE q.analysis_version=? AND q.status IN ('queued','leased') "
             "AND " + analysis_runnable_candidate_sql("cc.state") + " "
-            "AND (q.status='leased' OR q.next_attempt_utc IS NULL OR q.next_attempt_utc<=?) GROUP BY 1",
-            (analysis_version, *TERMINAL_STATES, utc_now()),
+            "AND (q.status='leased' OR q.next_attempt_utc IS NULL OR q.next_attempt_utc<=?) " + within + "GROUP BY 1",
+            (analysis_version, *TERMINAL_STATES, utc_now(), *(campaigns or ())),
         ).fetchall()
         return {int(row["tier"]): int(row["c"]) for row in rows}
+
+    def mode_campaigns(self) -> tuple | None:
+        from graph_scale_dynamics.operations import modes
+        mode = modes.here(self)
+        return None if mode is None else tuple(str(c) for c in mode.get("campaigns") or [])
 
     def refresh_scheduler_state(self, *, analysis_version: str, total_slots: int,
                                 max_analyzers: int, analysis_weight: float = 2.0) -> dict:
         from graph_scale_dynamics.scheduling.allocation import compute_allocation
-        work = self.simulation_work_counts(ordered=True)
+        only = self.mode_campaigns()
+        work = self.simulation_work_counts(ordered=True, campaigns=only)
         whole = backlog = self.analysis_backlog(analysis_version)
+        probes = self.analysis_backlog_tiers(analysis_version, campaigns=only)
+        if only is not None:
+            backlog = sum(probes.values())
         queued = work["queued"]
         if "tiers" in work:
             from graph_scale_dynamics.scheduling.allocation import first_work
-            backlog, queued = first_work(work["tiers"], self.analysis_backlog_tiers(analysis_version),
-                                         backlog, queued)
+            backlog, queued = first_work(work["tiers"], probes, backlog, queued)
         allocation = compute_allocation(
             total_slots=total_slots,
             max_analyzers=max_analyzers,

@@ -71,6 +71,51 @@ def measurements(repo, candidate_id: str, campaign_id: str, rows: list[dict]) ->
     return kept + added, said
 
 
+def being_read(repo, law: str) -> list[dict]:
+    from datetime import datetime, timedelta
+    runs: dict[tuple[str, int], dict] = {}
+    for row in repo.conn.execute(
+            "SELECT campaign_id, n, status, COUNT(*) AS c FROM jobs WHERE candidate_id=? AND kind='simulate' "
+            "GROUP BY campaign_id, n, status", (str(law),)).fetchall():
+        held = runs.setdefault((str(row["campaign_id"]), int(row["n"])), {"runs": 0, "done": 0, "running": 0})
+        key = {"done": "done", "leased": "running"}.get(str(row["status"]))
+        held["runs"] += int(row["c"])
+        if key:
+            held[key] += int(row["c"])
+    probes: dict[tuple[str, int], dict] = {}
+    for row in repo.conn.execute(
+            "SELECT campaign_id, n, status, COUNT(*) AS c, MIN(updated_utc) AS since FROM analysis_queue "
+            "WHERE candidate_id=? AND status IN ('queued','leased') GROUP BY campaign_id, n, status",
+            (str(law),)).fetchall():
+        held = probes.setdefault((str(row["campaign_id"]), int(row["n"])), {"probing": 0, "waiting": 0, "since": None})
+        held["probing" if row["status"] == "leased" else "waiting"] += int(row["c"])
+        if row["status"] == "leased":
+            held["since"] = row["since"]
+    read = {(str(r["campaign_id"]), int(r["n"])): int(r["c"]) for r in repo.conn.execute(
+        "SELECT campaign_id, n, COUNT(*) AS c FROM measurements WHERE candidate_id=? GROUP BY campaign_id, n",
+        (str(law),)).fetchall()}
+    out = []
+    for (campaign, n), held in sorted(runs.items(), key=lambda kv: (kv[0][1], kv[0][0])):
+        probe = probes.get((campaign, n)) or {}
+        if not (probe.get("probing") or probe.get("waiting")):
+            continue
+        took = repo.conn.execute("SELECT AVG(wall_seconds) AS s FROM analysis_queue WHERE n=? AND status='done' "
+                                 "AND wall_seconds IS NOT NULL", (int(n),)).fetchone()
+        seconds = None if took is None or took["s"] is None else round(float(took["s"]), 1)
+        due = None
+        if seconds is not None and probe.get("since"):
+            try:
+                begun = datetime.strptime(str(probe["since"])[:19], "%Y-%m-%dT%H:%M:%S")
+                due = (begun + timedelta(seconds=seconds)).strftime("%Y-%m-%dT%H:%M:%SZ")
+            except ValueError:
+                due = None
+        out.append({"n": n, "campaign": campaign, "runs": held["runs"], "done": held.get("done", 0),
+                    "running": held.get("running", 0), "read": read.get((campaign, n), 0),
+                    "probing": int(probe.get("probing") or 0), "waiting": int(probe.get("waiting") or 0),
+                    "probe_seconds": seconds, "first_due_utc": due})
+    return out
+
+
 def pushed_as(repo, spec: dict | None, law: str) -> dict | None:
     from graph_scale_dynamics.operations import focus, push, push_ladder
     if not push_ladder.is_push(spec or {}):
@@ -78,4 +123,4 @@ def pushed_as(repo, spec: dict | None, law: str) -> dict | None:
     return push.home_of(focus.load(repo), str(law))
 
 
-__all__ = ["CONTRACT", "measurements", "others", "pushed_as", "richer", "rung_rows", "rungs"]
+__all__ = ["CONTRACT", "being_read", "measurements", "others", "pushed_as", "richer", "rung_rows", "rungs"]

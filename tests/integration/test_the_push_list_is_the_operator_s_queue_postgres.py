@@ -183,3 +183,46 @@ def test_the_map_names_the_n_push_s_runs_as_the_law_was_pushed(folder):
     assert run["role"] == zone_live.PUSHED and run["label"] == label and run["home"] == camps["held"]
     assert run["part"] == "the first pushed law, its ladder again from 64"
     assert next(r for r in found["laws"] if r["law"] == laws["held"])["home"] == camps["held"]
+
+
+def _probe(repo, campaign: str, law: str, n: int, seed: int, status: str = "queued") -> None:
+    from graph_scale_dynamics.measurements.version import ANALYSIS_VERSION
+    now = "2026-11-27T13:30:00Z"
+    jobs = [r["job_id"] for r in repo.conn.execute(
+        "SELECT job_id FROM jobs WHERE campaign_id=? AND candidate_id=? ORDER BY job_id", (campaign, law)).fetchall()]
+    job = jobs[seed % len(jobs)]
+    artifact = f"art-{campaign}-{law[:6]}-{n}-{seed}".ljust(64, "0")
+    repo.conn.execute("INSERT INTO artifacts(artifact_hash,size_bytes,media_type,producer_job,meta_json,created_utc) "
+                      "VALUES(?,?,?,?,?,?)", (artifact, 1, "application/json", job, "{}", now))
+    repo.conn.execute(
+        "INSERT INTO analysis_queue(campaign_id,input_artifact,analysis_version,candidate_id,n,seed,producer_job,"
+        "status,lease_owner,lease_expires_utc,created_utc,updated_utc) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)",
+        (campaign, artifact, ANALYSIS_VERSION, law, n, seed, job, status,
+         "executor-9-1" if status == "leased" else None, "2099-01-01T00:00:00Z" if status == "leased" else None,
+         now, now))
+
+
+def test_in_the_n_push_the_slots_are_split_by_the_push_s_own_runs_and_probes_not_the_waiting_zone_s(folder):
+    from graph_scale_dynamics.measurements.version import ANALYSIS_VERSION
+    from graph_scale_dynamics.operations import push_ladder, study_map
+    from graph_scale_dynamics.services.api import focus_route, law_elsewhere
+    repo, _W, focus, camps, laws = folder
+    focus_route.act(repo, {"do": "push", "law": laws["held"], "campaign": camps["held"]})
+    push_ladder.tick(repo, force=True)
+    state = focus.load(repo)
+    pushed, zone = str(state["campaigns"][push_ladder.PUSH]), str(state["campaigns"][focus.NEIGHBOURS])
+    neighbour = study_map._insert(repo, zone, H12 | {"dynamics": dict(H12["dynamics"], beta=0.21)})
+    repo.set_candidate_state(neighbour, "BASE_BLOCK_RUNNING", "test", zone)
+    for seed in range(40):
+        repo.insert_job(job_id=f"zone-{seed}", campaign_id=zone, candidate_id=neighbour, kind="simulate", stage="base",
+                        n=64, seed=seed, spec={}, priority=64)
+    for seed in range(6):
+        _probe(repo, pushed, laws["held"], 64, seed)
+    found = repo.refresh_scheduler_state(analysis_version=ANALYSIS_VERSION, total_slots=4, max_analyzers=4)
+    assert found["analysis_slots"] >= 2, (
+        "896: the push's six probes against its four runs, not the waiting zone's forty runs and no probe")
+    assert repo.mode_campaigns() == (pushed,)
+    _probe(repo, pushed, laws["held"], 64, 6, status="leased")
+    reading = law_elsewhere.being_read(repo, laws["held"])
+    row = next(r for r in reading if r["campaign"] == pushed and r["n"] == 64)
+    assert (row["runs"], row["read"], row["probing"], row["waiting"]) == (4, 0, 1, 6)
