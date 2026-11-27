@@ -158,7 +158,7 @@ def test_study_178_reads_a_dex_in_as_its_own_campaign_verifies_every_law_first_a
         state = focus.load(repo)
         assert state["current"]["law"] == a2 and state["current"]["of"] == made
         assert state["current"]["chosen_by"] == focus.BY_ZONE and state["zone_chosen"]["taken_utc"]
-        assert state["depth_now"]["law"] == a2, "the depth worker takes the zone's centre first"
+        assert state["depth_now"] is None, "the zone's centre is the zone search's; its central law will be pushed"
         assert "the centre of the first zone, chosen to confirm fast: the most verified laws" in focus.reading(repo)[
             "doing"]
         assert dex_check.keep(repo, root, blobs=None, force=True) is None, "a zone chosen is chosen once"

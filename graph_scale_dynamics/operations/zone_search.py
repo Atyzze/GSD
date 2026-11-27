@@ -15,6 +15,7 @@ FIRST_STEP = 0.1
 STEPS_OUT = 5
 HALVINGS = 3
 FARTHEST_DOWN = 0.95
+AHEAD_RUNS = 3
 MEMBERS, STEPPING, CONFIRMING, DONE = "members", "edges", "confirming", "done"
 ALIKE, OTHER = "alike", "other"
 
@@ -113,22 +114,70 @@ def next_at(line: dict) -> float | None:
     return round((float(line["lo"]) + float(line["hi"])) / 2.0, 6)
 
 
-def _step_line(repo, state: dict, current: dict, line: dict, centre: dict, campaign: str) -> int:
+def _judged_steps(line: dict) -> int:
+    return sum(1 for step in line["steps"].values() if step.get("verdict") is not None)
+
+
+def _take(line: dict, at: float, verdict: str) -> None:
+    if line.get("hi") is None:
+        if verdict == ALIKE:
+            line["lo"] = at
+            last = _judged_steps(line) >= STEPS_OUT or (line["sign"] < 0 and at >= FARTHEST_DOWN)
+            if last:
+                line.update(done=True, why=f"alike to {at:g} of its value, the farthest step: no edge this side")
+        else:
+            line["hi"] = at
+        return
+    if verdict == ALIKE:
+        line["lo"] = at
+    else:
+        line["hi"] = at
+    line["halvings"] = int(line["halvings"]) + 1
+    if line["halvings"] >= HALVINGS:
+        line.update(done=True, why=f"its edge between {line['lo']:g} and {line['hi']:g} of its value")
+
+
+def ahead(line: dict) -> list[float]:
+    if line.get("done"):
+        return []
+    at = next_at(line)
+    held = line["steps"].get(_key(at))
+    if held is None or held.get("verdict") is not None:
+        return []
+    out = []
+    for verdict in (ALIKE, OTHER):
+        trial = deepcopy(line)
+        trial["steps"][_key(at)]["verdict"] = verdict
+        _take(trial, at, verdict)
+        following = next_at(trial)
+        if following is not None and _key(following) not in line["steps"] and following not in out:
+            out.append(following)
+    return out
+
+
+def _put(repo, state: dict, current: dict, line: dict, at: float, campaign: str, **extra) -> str | None:
     from graph_scale_dynamics.operations import focus
     from graph_scale_dynamics.research import neighbourhood as N
+    spec = focus._spec_of(repo, current["of"], current["law"])
+    child = stepped(spec, tuple(line["path"]), int(line["sign"]), at)
+    problem = "a share cannot leave 0 to 1" if child is None else N.valid(
+        child, complexity_budget=int(state["complexity_budget"]), whitelist=state["whitelist"])
+    if problem is not None:
+        return problem
+    line["steps"][_key(at)] = {"at": at, "law": focus._insert(repo, campaign, child), "verdict": None, "why": None,
+                               **extra}
+    return None
+
+
+def _step_line(repo, state: dict, current: dict, line: dict, centre: dict, campaign: str) -> int:
     while not line.get("done"):
         at = next_at(line)
         held = line["steps"].get(_key(at))
         if held is None:
-            spec = focus._spec_of(repo, current["of"], current["law"])
-            child = stepped(spec, tuple(line["path"]), int(line["sign"]), at)
-            problem = "a share cannot leave 0 to 1" if child is None else N.valid(
-                child, complexity_budget=int(state["complexity_budget"]), whitelist=state["whitelist"])
+            problem = _put(repo, state, current, line, at, campaign)
             if problem is not None:
                 line.update(done=True, why=f"no law at {at:g}: {problem}")
                 return 0
-            law = focus._insert(repo, campaign, child)
-            line["steps"][_key(at)] = {"at": at, "law": law, "verdict": None, "why": None}
             return 1
         if held.get("verdict") is None:
             found = reading(repo, campaign, held["law"], JUDGE_N)
@@ -136,23 +185,36 @@ def _step_line(repo, state: dict, current: dict, line: dict, centre: dict, campa
             if verdict is None:
                 return 0
             held.update(verdict=verdict, why=why)
-        if line.get("hi") is None:
-            if held["verdict"] == ALIKE:
-                line["lo"] = at
-                last = len(line["steps"]) >= STEPS_OUT or (line["sign"] < 0 and at >= FARTHEST_DOWN)
-                if last:
-                    line.update(done=True, why=f"alike to {at:g} of its value, the farthest step: no edge this side")
-            else:
-                line["hi"] = at
-        else:
-            if held["verdict"] == ALIKE:
-                line["lo"] = at
-            else:
-                line["hi"] = at
-            line["halvings"] = int(line["halvings"]) + 1
-            if line["halvings"] >= HALVINGS:
-                line.update(done=True, why=f"its edge between {line['lo']:g} and {line['hi']:g} of its value")
+        _take(line, at, held["verdict"])
     return 0
+
+
+def free_runs(repo) -> int:
+    from graph_scale_dynamics.operations import modes, push_ladder
+    mode = modes.here(repo) or {}
+    if mode.get("mode") != modes.ZONE:
+        return 0
+    camps = [str(c) for c in mode.get("campaigns") or []]
+    if not camps:
+        return 0
+    busy = repo.conn.execute(
+        "SELECT COUNT(*) AS c FROM jobs WHERE kind='simulate' AND status IN ('queued','leased') "
+        f"AND campaign_id IN ({','.join('?' for _ in camps)})", tuple(camps)).fetchone()
+    return max(0, int(push_ladder.workers(repo)) - int(busy["c"] or 0))
+
+
+def _look_ahead(repo, state: dict, current: dict, search: dict, campaign: str) -> int:
+    room = free_runs(repo) // AHEAD_RUNS
+    lines = sorted((line for line in search["lines"].values() if not line.get("done")),
+                   key=lambda line: (_judged_steps(line), str(line["param"]), -int(line["sign"])))
+    added = 0
+    for line in lines:
+        for at in ahead(line):
+            if added >= room:
+                return added
+            if _put(repo, state, current, line, at, campaign, ahead=True) is None:
+                added += 1
+    return added
 
 
 def _members(repo, search: dict, centre: dict) -> None:
@@ -272,6 +334,10 @@ def advance(repo, state: dict, current: dict) -> int:
         added += _off(repo, state, current, search, centre, campaign)
         for line in search["lines"].values():
             added += _step_line(repo, state, current, line, centre, campaign)
+        ahead_now = _look_ahead(repo, state, current, search, campaign)
+        if ahead_now:
+            search["ahead"] = int(search.get("ahead") or 0) + ahead_now
+            added += ahead_now
         if all(line.get("done") for line in search["lines"].values()) and all(
                 e.get("verdict") is not None for e in search["off"].values()):
             search["stage"] = CONFIRMING
@@ -477,16 +543,16 @@ def summary(current: dict) -> dict | None:
     search = current.get("search")
     if not search:
         return None
-    kept = ("stage", "judge_n", "confirm_n", "radius", "stands", "central", "centre", "edges", "benchmark", "off")
+    kept = ("stage", "judge_n", "confirm_n", "radius", "stands", "central", "centre", "edges", "benchmark", "off", "ahead")
     return {**{key: search.get(key) for key in kept},
             "members": {law: {"near": m["near"], "verdict": m["verdict"]} for law, m in search["members"].items()},
             "lines": {k: {"param": v["param"], "sign": v["sign"], "lo": v["lo"], "hi": v["hi"], "done": v["done"],
                           "why": v.get("why"), "points": len(v["steps"]),
-                          "steps": {at: {"at": x["at"], "verdict": x.get("verdict"), "why": x.get("why")}
-                                    for at, x in v["steps"].items()}}
+                          "steps": {at: {"at": x["at"], "verdict": x.get("verdict"), "why": x.get("why"),
+                                         "ahead": bool(x.get("ahead"))} for at, x in v["steps"].items()}}
                       for k, v in search["lines"].items()}}
 
 
-__all__ = ["ALIKE", "CONTRACT", "EDGES", "JUDGE_N", "OTHER", "ZONE_CONTRACT", "advance", "begin", "benchmark", "box",
-           "central_spec", "edges_campaign", "ended", "judged", "members_specs", "needs", "next_at", "passed_over",
-           "reading", "signature_of", "stepped", "summary", "within", "zone_of", "zones"]
+__all__ = ["AHEAD_RUNS", "ALIKE", "CONTRACT", "EDGES", "JUDGE_N", "OTHER", "ZONE_CONTRACT", "advance", "ahead", "begin",
+           "benchmark", "box", "central_spec", "edges_campaign", "ended", "free_runs", "judged", "members_specs", "needs",
+           "next_at", "passed_over", "reading", "signature_of", "stepped", "summary", "within", "zone_of", "zones"]

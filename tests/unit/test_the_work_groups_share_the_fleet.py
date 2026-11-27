@@ -173,7 +173,7 @@ def test_a_folder_with_a_focus_takes_its_work_in_one_order_the_depth_worker_on_a
         (("11",), {"order": W.BY_LAW, "max_n": W.VERIFY_TO}), (("11",), {"order": W.BY_LAW})], (
         "the Dex laws are taken law by law, every law's sizes to N=4,096 before any law's deeper sizes")
     assert offers(rows)[-1][0] == ("1", "11", "12", "13")
-    assert W.now_on(rows)["queued"] == {"the zone of the law in focus": 10, "the depth worker": 2,
+    assert W.now_on(rows)["queued"] == {"the zone of the law in focus": 10, "the N-push": 2,
                                         "the Dex laws read again": 40, "the blind draw": 900,
                                         "earlier laws' leftovers": 20}
     rows[2]["queued"] = 20

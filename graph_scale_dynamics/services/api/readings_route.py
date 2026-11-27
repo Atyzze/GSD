@@ -36,17 +36,21 @@ def structure(repo, campaign_id: str, candidate_id: str) -> dict | None:
     decisions = repo.engine_decisions(campaign_id, candidate_id) or []
     latest = decisions[-1] if decisions else None
     from graph_scale_dynamics.observability.every_chain_graph import every_chain
+    from graph_scale_dynamics.services.api import law_elsewhere
     given_start = _given_start(repo, campaign_id, candidate_id)
     starts = _starts(repo, campaign_id, candidate_id)
-    chains = two_chains(rows, given_start=given_start, policy=_stopping_policy(repo, campaign_id), starts=starts)
+    policy = _stopping_policy(repo, campaign_id)
+    chains = two_chains(rows, given_start=given_start, policy=policy, starts=starts)
+    every, elsewhere = law_elsewhere.measurements(repo, candidate_id, campaign_id, rows)
+    shown = two_chains(every, given_start=given_start, policy=policy, starts=starts) if elsewhere else chains
     law = repo.candidate(str(candidate_id), str(campaign_id)) or {}
     campaign_spec = (repo.campaign(str(campaign_id)) or {}).get("spec")
     structure = hold_structure(campaign_spec)
     read = starts_reading(chains, starts, structure=structure)
     state = focus.load(repo) if callable(getattr(repo, "get_flag", None)) else None
     return {"campaign_id": campaign_id, "candidate_id": candidate_id, **_named(repo, state, campaign_id, candidate_id),
-            "what_happened": law_story(rows, latest),
-            "every_chain": every_chain(rows, chains, given_start), "given_start": given_start, "chains": chains,
+            "what_happened": law_story(rows, latest), "read_elsewhere": elsewhere,
+            "every_chain": every_chain(every, shown, given_start), "given_start": given_start, "chains": shown,
             "space_score": space_score(chains, law.get("spec") if isinstance(law.get("spec"), dict) else None),
             "starts_reading": read,
             "phenotype": law_status.phenotype(chains, focus.place_of(state, str(candidate_id))),
@@ -110,7 +114,9 @@ def _given_start(repo, campaign_id: str, candidate_id: str) -> str:
 def curves(repo, campaign_id: str, candidate_id: str, n: int, blobs_root=None) -> dict | None:
     from graph_scale_dynamics.artifact_store.blobstore import BlobStore
     from graph_scale_dynamics.observability import every_chain_graph
+    from graph_scale_dynamics.services.api import law_elsewhere
     rows = repo.measurements(candidate_id, _version(repo, campaign_id), campaign_id)
+    rows = law_elsewhere.measurements(repo, candidate_id, campaign_id, rows)[0]
     if not rows:
         return None
     starts = _starts(repo, campaign_id, candidate_id)

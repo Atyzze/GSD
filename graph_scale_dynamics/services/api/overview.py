@@ -65,6 +65,15 @@ _CAMPAIGN_STATS_CACHE: dict[str, tuple[str, float, dict]] = {}
 ALIVE_WITHIN_SECONDS = 2 * heartbeat_interval_seconds() + ticks(1)
 
 
+def _fleet_mode(repo) -> dict | None:
+    from graph_scale_dynamics.operations import modes
+    try:
+        return modes.here(repo)
+    except Exception as exc:
+        _note_swallowed("_fleet_mode", exc)
+        return None
+
+
 def _fleet_workers(repo) -> dict | None:
     from graph_scale_dynamics.scheduling import worker_count
     try:
@@ -868,7 +877,7 @@ def build_fast_overview(repo: Repo, campaign_id: str) -> dict:
         "campaign_provenance": provenance, "benchmark_state": "not_recorded", "benchmark_passed": True,
         "paused": paused, "analysis_backlog": int(aq.get("queued", 0) or 0), "analysis_queue": analysis_queue,
         "services": services, "compute_utilization": compute_utilization,
-        "fleet_workers": _fleet_workers(repo), "workload": _workload(repo),
+        "fleet_workers": _fleet_workers(repo), "workload": _workload(repo), "fleet_mode": _fleet_mode(repo),
         "runtime_counts": runtime_counts.get(str(campaign_id), {"graph_jobs_created": 0, "graphs_finished_last_hour": 0,
                               "highest_graph_ordinal": 0, "burned_graph_ordinals": 0,
                               "simulation_leases": 0, "analysis_leases": 0,
@@ -1211,7 +1220,7 @@ def build_overview(repo: Repo, campaign_id: str, *,
             "system_resources": host_snapshot(),
             "paused": paused, "compute_allocation": allocation,
             "compute_utilization": compute_utilization,
-            "fleet_workers": _fleet_workers(repo), "workload": _workload(repo),
+            "fleet_workers": _fleet_workers(repo), "workload": _workload(repo), "fleet_mode": _fleet_mode(repo),
             "analysis_backlog": allocation["analysis_backlog"],
             "analysis_queue": analysis_queue,
             "operational_alerts": [public_row(row, "detail_json") for row in

@@ -79,7 +79,7 @@
     const s=f.settings||{}, next=f.next_settings;
     const camps=f.campaigns||{};
     const work=(d&&d.work)||{};
-    const workText=[['N','zone worker, neighbours'],['S','zone worker, more seeds'],['D','depth worker']].map(([k,name])=>{const r=work[k]||{};return `${name} (C${esc(r.campaign||camps[k]||'?')}): running ${esc(num(r.running||0))}, queued ${esc(num(r.queued||0))}, ${esc(num(r.done||0))} done${r.deepest?`, deepest N=${esc(num(r.deepest))}`:''}`}).join(' · ');
+    const workText=[['N','zone worker, neighbours'],['S','zone worker, more seeds'],['P','the N-push']].map(([k,name])=>{const r=work[k]||{};return `${name} (C${esc(r.campaign||camps[k]||'?')}): running ${esc(num(r.running||0))}, queued ${esc(num(r.queued||0))}, ${esc(num(r.done||0))} done${r.deepest?`, deepest N=${esc(num(r.deepest))}`:''}`}).join(' · ');
     return `<div class="map-doing${f.failing?' warn':''}" id=mapDoing title="what the focus does now and why, read every 4 s"><b>${esc(f.doing||'the focus waits for its first step')}</b></div>
       <div class=muted>study <b>${esc(f.study)}</b> · ${f.stopped?'<b class=warn>the focus is off</b>':'the focus runs'}</div>
       ${orderLine(d)}
@@ -88,7 +88,7 @@
       <ul class="muted map-settings-words">
         <li><b>rings</b>: how far from the law its neighbours are drawn, and how many on each ring: <code>0.1:8</code> is 8 laws whose couplings differ by up to 10%.</li>
         <li><b>confirm at 0.1 by</b>: the share of the 0.1 ring that must read the law’s own kind before its kind counts as confirmed.</li>
-        <li><b>deep laws</b>: how many of the best laws the depth seeker takes to larger sizes.</li>
+        <li><b>deep laws</b>: how many of the best laws the focus keeps in its depth list: a law goes deeper only on the Top page's push list.</li>
         <li><b>widest ring</b>: the farthest the rings go out when a zone is mapped outward.</li>
         <li><b>inside a zone below</b>: a law closer than this share of a mapped zone’s reach to it counts as inside it, and is not focused on again.</li>
         <li><b>a type known after</b>: how many laws of a type must be mapped before the focus prefers types it knows less.</li></ul>
@@ -101,10 +101,10 @@
         <button type=button class=gsd-control data-admin-write data-map-do=settings>apply from the next law</button></div>
       ${next?`<div class=muted>the next law takes: rings ${esc(ringsText(next.radii))}, confirmed by ${esc(next.confirm_share)}, ${esc(next.contenders)} deep laws, rings to ${esc(next.outward_most)}</div>`:''}</details>${said}`}
   function orderLine(d){
-    const o=(d&&d.zone_now&&d.zone_now.order)||{}, names=o.names||['the zone of the law in focus','the depth worker','the Dex laws read again','the blind draw',"earlier laws' leftovers"];
+    const o=(d&&d.zone_now&&d.zone_now.order)||{}, names=o.names||['the zone of the law in focus','the N-push','the Dex laws read again','the blind draw',"earlier laws' leftovers"];
     const queued=o.queued||{};
     const steps=names.map((n,i)=>`${i+1} ${i===o.tier?`<b>${esc(n)}</b>`:esc(n)}${queued[n]!=null?` <span class=muted>(${esc(num(queued[n]))} queued)</span>`:''}`).join(' \u2192 ');
-    return `<div class="map-order" title="the fleet takes its work in this order, runs and probes alike: each step takes a worker only when the steps before it have nothing queued, and a run under way is never stopped for one before it; there is no share to set">the fleet\u2019s order: ${steps}${o.name?` \u00b7 now on: <b>${esc(o.name)}</b>`:''}</div>`}
+    return `<div class="map-order" title="within the mode it is in, the fleet takes its work in this order, runs and probes alike: each step takes a worker only when the steps before it have nothing queued, and a run under way is never stopped for one before it; work of another mode waits for its mode">the fleet\u2019s order within its mode: ${steps}${o.name?` \u00b7 now on: <b>${esc(o.name)}</b>`:''}</div>`}
   function listTable(d,which){
     const rows=((d&&d.focus&&d.focus.lists)||{})[which]||[];
     if(!rows.length)return `<div class=empty>${which==='focus'?'no scoring law waits for the focus':'no law to take deeper yet'}</div>`;
@@ -138,12 +138,12 @@
     if(!s)return '';
     const m=Object.values(s.members||{}), alike=m.filter(x=>x.verdict==='alike').length, near=m.filter(x=>x.near);
     const fmtAt=v=>v==null?'-':`${(100*Number(v)).toFixed(Number(v)<0.1?1:0)}%`;
-    const rows=Object.entries(s.lines||{}).map(([k,l])=>{const steps=Object.values(l.steps||{}).sort((a,b)=>a.at-b.at).map(x=>`<span class=${x.verdict==='alike'?'good':x.verdict==='other'?'warn':'muted'} title="${esc(x.why||'not read yet')}">${esc(fmtAt(x.at))}</span>`).join(' ');const e=(s.edges||{})[k];
+    const rows=Object.entries(s.lines||{}).map(([k,l])=>{const steps=Object.values(l.steps||{}).sort((a,b)=>a.at-b.at).map(x=>`<span class=${x.verdict==='alike'?'good':x.verdict==='other'?'warn':'muted'} title="${esc(x.why||(x.ahead?'run ahead on a free slot, not read yet: one of the two points the line may need next':'not read yet'))}">${esc(fmtAt(x.at))}${x.ahead?'<sup>+</sup>':''}</span>`).join(' ');const e=(s.edges||{})[k];
       return `<tr><td>${esc(l.param)}</td><td>${l.sign>0?'up':'down'}</td><td>${steps||'<span class=muted>-</span>'}</td><td>${l.hi!=null?`between ${esc(fmtAt(l.lo))} and ${esc(fmtAt(l.hi))}`:l.done?`<span class=muted>${esc(l.why||'none')}</span>`:'<span class=muted>stepping out</span>'}</td><td>${e?(e.held==null?'<span class=muted>reading</span>':e.held?'<span class=good>held</span>':`<b class=warn>moved</b>`):''}</td></tr>`}).join('');
     const b=s.benchmark, off=Object.entries(s.off||{}).map(([t,e])=>`${esc(t)}: ${esc(e.verdict||'waiting')}`).join(' · ');
-    return `<div class=map-search><b>the zone's search</b> <span class=muted>(${esc(s.stage)}; judged at N=${esc(num(s.judge_n))}, its edges read again at N=${esc(num(s.confirm_n))})</span>
+    return `<div class=map-search><b>the zone's search</b> <span class=muted>(${esc(s.stage)}; judged at N=${esc(num(s.judge_n))}, its edges read again at N=${esc(num(s.confirm_n))}${s.ahead?`; ${esc(num(s.ahead))} points run ahead on free slots`:''})</span>
       <div class=muted>its laws: ${esc(num(alike))} of ${esc(num(m.length))} alike, ${esc(num(near.filter(x=>x.verdict==='alike').length))} of the ${esc(num(near.length))} within ${esc(s.radius)}${s.centre?` · its curves locked in at ${esc(num(s.judge_n))}: ${esc((s.centre.curves||[]).join(', ')||'none')}`:''}${off?` · each term off: ${off}`:''}</div>
-      <table class=map-search-lines><thead><tr><th>parameter</th><th>way</th><th title="each step from its value, green alike, amber another kind; hover for why">steps</th><th>its edge</th><th title="the two points either side, read again at the larger size">at ${esc(num(s.confirm_n))}</th></tr></thead><tbody>${rows}</tbody></table>
+      <table class=map-search-lines><thead><tr><th>parameter</th><th>way</th><th title="each step from its value, green alike, amber another kind, + run ahead on a free slot; hover for why">steps</th><th>its edge</th><th title="the two points either side, read again at the larger size">at ${esc(num(s.confirm_n))}</th></tr></thead><tbody>${rows}</tbody></table>
       ${s.central?`<div>its central law: ${lawLink(s.central.law,s.central.of,s.central.label)}, pushed to the N limit</div>`:''}
       ${b?`<div class=muted>the search cost ${esc(num(b.total.runs))} runs, ${esc(b.total.core_hours)} core-hours${b.total.hours!=null?` over ${esc(b.total.hours)} h`:''}; ${esc(b.ring_method.words)}; ${esc(num(b.calls.held))} of ${esc(num(b.calls.edges))} edges held at the larger size</div>`:''}</div>`}
   function needsLine(c,z){
@@ -300,42 +300,82 @@
   const link=(law,camp,label)=>`<a class="candidate-link map-law" href="${esc(MAP.lawHref(law,camp))}" title="the law page of ${esc(law||'')}: its curves over N">${esc(label||String(law||'').slice(0,10))}</a>`;
   const button=(what,law,camp,text,title,to)=>`<button type=button class=gsd-control data-admin-write data-top-do=${what} data-top-law="${esc(law)}" data-top-campaign="${esc(camp||'')}"${to!=null?` data-top-to="${esc(to)}"`:''} title="${esc(title)}">${esc(text)}</button>`;
   function put(id,html){const el=document.getElementById(id);if(el)el.innerHTML=html}
+  const MODE_WORDS={push:'the N-push',zone:'the zone search',blind:'the blind ladder'};
+  const hm=t=>esc(String(t||'').slice(11,16));
+  const hours=h=>h==null?'-':h<1/60?'under a minute':MAP.longText(+h*3600);
+  function modeLine(m){
+    if(!m)return '<div class=muted>the fleet has no mode yet: it takes one at the controller’s next pass</div>';
+    return `<div class="toolbar top-mode"><span>the fleet is in <b>${esc(MODE_WORDS[m.mode]||m.mode)}</b>${m.why?`: ${esc(m.why)}`:''}${m.since?` <span class=muted>(since ${hm(m.since)} UTC)</span>`:''}</span><span class=muted>one mode at a time: the N-push while the push list holds a law, else the zone search while a zone has work, else the blind ladder</span></div>`}
+  function runsTable(running,camp){
+    if(!running.length)return '';
+    return `<table class=top-runs><thead><tr><th>N</th><th>seed</th><th>law</th><th>running for</th><th title="the resident memory of its run now, and the most it has held">memory now</th><th>at most</th></tr></thead><tbody>${running.map(r=>`<tr><td>${esc(num(r.n))}</td><td>${esc(r.seed)}</td><td>${link(r.law,camp,r.label)}</td><td>${r.elapsed!=null?esc(MAP.forText(r.elapsed)):`since ${hm(r.since)} UTC`}</td><td>${r.memory_now!=null?esc(gib(r.memory_now)):'<span class=muted>no reading yet</span>'}</td><td>${r.memory_peak!=null?esc(gib(r.memory_peak)):'-'}</td></tr>`).join('')}</tbody></table>`}
   function pushed(d){
     const rows=d.pushed||[], now=d.now, slot=d.slot||{}, running=slot.running||[], waiting=slot.waiting||[], done=d.done||[];
-    const at=t=>esc(String(t||'').replace('T',' ').slice(11,16));
-    const run=running[0];
-    const priced=run&&d.law&&d.law.law===run.law?(((d.law.forecast||{}).ahead||[]).find(a=>a.n===run.n)||{}).needs_bytes:null;
-    const memory=run&&run.memory_now!=null?`; using ${esc(gib(run.memory_now))} now, ${esc(gib(run.memory_peak))} at most so far${priced?`, of the ${esc(gib(priced))} priced for this size`:''}`:'';
-    const line=run?`<div class=toolbar><span>the depth slot runs ${link(run.law,slot.campaign,run.label)} at N=${esc(num(run.n))}, seed ${esc(run.seed)}, since ${at(run.since)} UTC${run.elapsed!=null?` (${esc(MAP.forText(run.elapsed))})`:''}${memory}</span></div>`
-      :now?`<div class=toolbar><span>the depth slot holds ${link(now.law,now.campaign,now.label)}${now.since?` since ${at(now.since)} UTC`:''}: between runs, its last probed or its next size being bought</span></div>`
-      :'<div class=toolbar><span class=muted>the depth slot has no law: push one and it starts at once</span></div>';
-    const order=(e,i)=>`${i?button('push_move',e.law,e.of,'first','put it first: the run under way stops, saved, and the depth slot takes this law at once',0):''}${i>1?button('push_move',e.law,e.of,'up','one place up',i-1):''}`;
-    const list=rows.length?`<table class=top-pushed><thead><tr><th></th><th>law</th><th title="who put it on the list">by</th><th title="the deepest size any of its runs has finished">deepest N</th><th>pushed since</th><th>order</th><th></th></tr></thead><tbody>${rows.map((e,i)=>`<tr><td class=muted>${i+1}</td><td>${link(e.law,e.of,e.label)}${now&&now.law===e.law?' <b>being pushed now</b>':''}</td><td class=muted>${esc(e.by||'you')}</td><td>${e.deepest!=null?esc(num(e.deepest)):'<span class=muted>none yet</span>'}</td><td class=muted>${esc(String(e.since||'').replace('T',' ').slice(0,16))}</td><td>${order(e,i)}</td><td>${button('unpush',e.law,e.of,'stop pushing','take it off the push list: if it is first, its run under way stops at once and the next law starts')}</td></tr>`).join('')}</tbody></table>`:'<div class=empty>no law is pushed: mark one on its law page, or below</div>';
+    const held=running.reduce((a,r)=>a+(+r.memory_now||0),0);
+    const line=running.length?`<div class=toolbar><span>the N-push runs ${esc(num(running.length))} seed${running.length===1?'':'s'} of ${link(running[0].law,slot.campaign,running[0].label)} now${held?`, holding ${esc(gib(held))} between them`:''}</span></div>${runsTable(running,slot.campaign)}`
+      :now?`<div class=toolbar><span>the N-push holds ${link(now.law,now.campaign,now.label)}${now.since?` since ${hm(now.since)} UTC`:''}: between rungs, its last being probed or its next being bought</span></div>`
+      :'<div class=toolbar><span class=muted>no law is being pushed: push one and the whole fleet takes it at once</span></div>';
+    const order=(e,i)=>`${i?button('push_move',e.law,e.of,'first','put it first: its runs under way stop, saved, and the N-push takes this law at once',0):''}${i>1?button('push_move',e.law,e.of,'up','one place up',i-1):''}`;
+    const list=rows.length?`<table class=top-pushed><thead><tr><th></th><th>law</th><th title="who put it on the list">by</th><th title="the deepest size any of its runs has finished">deepest N</th><th>pushed since</th><th>order</th><th></th></tr></thead><tbody>${rows.map((e,i)=>`<tr><td class=muted>${i+1}</td><td>${link(e.law,e.of,e.label)}${now&&now.law===e.law?' <b>being pushed now</b>':''}</td><td class=muted>${esc(e.by||'you')}</td><td>${e.deepest!=null?esc(num(e.deepest)):'<span class=muted>none yet</span>'}</td><td class=muted>${esc(String(e.since||'').replace('T',' ').slice(0,16))}</td><td>${order(e,i)}</td><td>${button('unpush',e.law,e.of,'stop pushing','take it off the push list: if it is first, its runs under way stop at once and the next law starts')}</td></tr>`).join('')}</tbody></table>`:'<div class=empty>no law is pushed: mark one on its law page, or below</div>';
     const wait=waiting.length?`<div class=muted>waiting, their runs kept, to go on once the list ahead of them is done: ${waiting.map(w=>link(w.law,slot.campaign,w.label)).join(', ')}</div>`:'';
     const ended=done.length?`<div class=muted>pushed to their limit: ${done.slice().reverse().map(e=>`${link(e.law,e.of,e.label)}${e.at_n?` to N=${esc(num(e.at_n))}`:''}${e.rule?` (${esc(e.rule)})`:''}`).join(', ')}</div>`:'';
-    return `${note?`<div class=warn>${esc(note)}</div>`:''}${line}${list}${wait}${ended}<div class=muted>While this list holds a law, the whole host is its: every slot runs the first law's seeds, as many at once as memory admits, every other run is stopped with its seed saved and nothing else starts, until the law reaches its memory limit; then the next. Take the first law off, or move another above it, and its run under way stops at once, its seed saved: a law moved down goes on where it was when it is first again; a law taken off is not taken again until it is pushed again. A law you push, and a zone's central law when its zone is mapped, joins the end of this list. With the list empty, the depth worker pushes its own pick (the law in focus) on one worker of its own, above the worker count.</div>`}
-  function chart(sizes,f){
-    const pts=sizes.filter(s=>s.peak_bytes).map(s=>[s.n,s.peak_bytes]), ahead=(f.ahead||[]).map(a=>[a.n,a.needs_bytes]);
+    return `${note?`<div class=warn>${esc(note)}</div>`:''}${modeLine(d.mode)}${line}${list}${wait}${ended}<div class=muted>While this list holds a law the fleet is in the N-push: the first law runs its whole ladder again from N=64, in a campaign of its own, as many seeds a rung as there are workers, all at once; the zone search and the blind ladder wait, their runs stopped with their seeds saved. When memory binds, a rung runs fewer at once and takes fewer seeds, down to 3, then in passes, on two workers, then on one; when not one seed of the next size fits, the law is done and leaves the list. Take the first law off, or move another above it, and its runs stop at once, saved: a law moved down goes on where it was when it is first again. A law you push, and a zone’s central law once its zone is mapped, joins the end of this list.</div>`}
+  function phase(r,workers){return r.at_once<=1?'one':r.at_once<workers?'fewer':'all'}
+  function timeline(f){
+    const rows=(f.rungs||[]).filter(r=>r.state!=='done'&&r.ends_utc);
+    if(!rows.length)return '';
+    const t=u=>Date.parse(String(u||'')), t0=t(f.now_utc), t1=Math.max(...rows.map(r=>t(r.ends_utc)));
+    if(!isFinite(t0)||!isFinite(t1)||t1<=t0)return '';
+    const W=640,L=74,R=14,top=34,row=20,H=top+rows.length*row+26,X=v=>L+(v-t0)/(t1-t0)*(W-L-R);
+    const label={all:`all ${f.workers} workers at once`,fewer:'fewer at once than workers',one:'one worker'};
+    const bars=rows.map((r,i)=>{const p=phase(r,f.workers),x0=X(Math.max(t0,t(r.starts_utc))),x1=Math.max(x0+3,X(t(r.ends_utc))),y=top+i*row;
+      return `<text x="${L-6}" y="${y+13}" text-anchor=end class=top-axis>${esc(num(r.n))}</text><rect class="top-rung top-rung-${p}${r.state==='running'?' top-rung-now':''}" x="${x0.toFixed(1)}" y="${y+3}" width="${(x1-x0).toFixed(1)}" height="${row-6}" rx=3><title>N=${num(r.n)}: ${r.seeds} seeds, ${r.at_once} at once, ${r.passes} pass${r.passes===1?'':'es'}${r.seconds?`, a run about ${MAP.forText(r.seconds)}`:''}; ${r.state==='running'?'under way':'ahead'}, ${clock(r.starts_utc)} to ${clock(r.ends_utc)}</title></rect>`}).join('');
+    const marks=[['fewer','fewer than workers'],['two_passes','two passes'],['one_worker','one worker']].map(([k,w])=>[(f.marks||{})[k],w]).filter(([m])=>m&&isFinite(t(m.at_utc)));
+    const seen=new Set();
+    const lines=marks.map(([m,w],i)=>{const x=X(Math.max(t0,t(m.at_utc)));const key=Math.round(x);const dy=seen.has(key)?12:0;seen.add(key);
+      return `<line class=top-mark x1="${x.toFixed(1)}" x2="${x.toFixed(1)}" y1="${top-4}" y2="${H-22}"></line><text x="${x.toFixed(1)}" y="${top-8-dy-i%2*11}" text-anchor=middle class=top-axis>${esc(w)} · N=${esc(num(m.n))}</text>`}).join('');
+    const end=f.end?`<line class=top-mark-end x1="${X(t1).toFixed(1)}" x2="${X(t1).toFixed(1)}" y1="${top-4}" y2="${H-22}"></line>`:'';
+    const ticks=[0,.25,.5,.75,1].map(q=>{const v=t0+q*(t1-t0);return `<text x="${X(v).toFixed(1)}" y="${H-8}" text-anchor=${q===0?'start':q===1?'end':'middle'} class=top-axis>${q===0?'now':new Date(v).toISOString().slice(11,16)}</text>`}).join('');
+    const legend=['all','fewer','one'].filter(p=>rows.some(r=>phase(r,f.workers)===p)).map(p=>`<span class=top-key><span class="top-swatch top-rung-${p}"></span>${esc(label[p])}</span>`).join('');
+    return `<svg class="top-chart top-timeline" viewBox="0 0 ${W} ${H}" role=img aria-label="the rungs ahead over time, with the points where memory binds">${lines}${end}${bars}${ticks}</svg><div class=top-legend>${legend}</div>`}
+  const clock=u=>u?`${String(u).slice(11,16)} UTC`:'-';
+  function breaks(f){
+    const m=f.marks||{}, t=u=>Date.parse(String(u||''));
+    const said=[];
+    if(m.fewer)said.push(`fewer than the ${esc(f.workers)} workers at once from N=${esc(num(m.fewer.n))} (${esc(m.fewer.at_once)} at once, ${esc(m.fewer.seeds)} seeds), from about ${esc(clock(m.fewer.at_utc))}`);
+    if(m.two_passes)said.push(`two passes from N=${esc(num(m.two_passes.n))} (${esc(m.two_passes.seeds)} seeds, ${esc(m.two_passes.at_once)} at once), from about ${esc(clock(m.two_passes.at_utc))}`);
+    if(m.one_worker)said.push(`one worker from N=${esc(num(m.one_worker.n))}, from about ${esc(clock(m.one_worker.at_utc))}${m.two_passes&&m.two_passes.n!==m.one_worker.n?`, ${esc(hours((t(m.one_worker.at_utc)-t(m.two_passes.at_utc))/3600000))} after the first two-pass rung`:''}`);
+    return said.length?`<div>memory binds: ${said.join('; ')}.</div>`:'<div class=muted>memory does not bind on the rungs ahead: every one runs on every worker at once</div>'}
+  function endLine(f){
+    const lim=f.limit, e=f.end;
+    const stop=lim?`N=${esc(num(lim.n))} would need ${esc(gib(lim.needs_bytes))} for one seed, more than the ${esc(gib(lim.reach_bytes))} the host admits: the push ends below it`:'every size of its ladder fits';
+    const when=e?`; its last rung N=${esc(num(e.n))} ends near ${esc(clock(e.ends_utc))}, about ${esc(hours(e.hours))} from now`:'; the time ahead is read once a rung has finished a run';
+    return `<div class=${lim?'warn':'muted'}>${stop}${when}</div>`}
+  function chart(f){
+    const rungs=f.rungs||[], pts=rungs.filter(r=>r.peak_bytes).map(r=>[r.n,r.peak_bytes]), ahead=rungs.filter(r=>!r.peak_bytes&&r.needs_bytes).map(r=>[r.n,r.needs_bytes]).concat(f.limit&&f.limit.needs_bytes?[[f.limit.n,f.limit.needs_bytes]]:[]);
     if(!pts.length)return '';
     const all=pts.concat(ahead).concat(f.reach_bytes?[[pts[0][0],f.reach_bytes]]:[]), W=560,H=200,P=46;
     const xs=all.map(p=>Math.log2(p[0])), ys=all.map(p=>Math.log2(p[1]));
     const x0=Math.min(...xs),x1=Math.max(...xs)+0.5,y0=Math.min(...ys)-0.5,y1=Math.max(...ys)+0.5;
     const X=v=>P+(Math.log2(v)-x0)/((x1-x0)||1)*(W-P-10), Y=v=>H-24-(Math.log2(v)-y0)/((y1-y0)||1)*(H-34);
     const path=p=>p.map((q,i)=>`${i?'L':'M'}${X(q[0]).toFixed(1)},${Y(q[1]).toFixed(1)}`).join('');
-    const reach=f.reach_bytes?`<line class=top-reach x1="${P}" x2="${W-10}" y1="${Y(f.reach_bytes).toFixed(1)}" y2="${Y(f.reach_bytes).toFixed(1)}"></line><text x="${W-12}" y="${(Y(f.reach_bytes)-4).toFixed(1)}" text-anchor=end class=top-axis>the depth worker's reach, ${esc(gib(f.reach_bytes))}</text>`:'';
-    const dots=pts.map(q=>`<circle cx="${X(q[0]).toFixed(1)}" cy="${Y(q[1]).toFixed(1)}" r=3.5 class=top-peak><title>N=${num(q[0])}: ${gib(q[1])}</title></circle>`).join('')+ahead.map(q=>`<circle cx="${X(q[0]).toFixed(1)}" cy="${Y(q[1]).toFixed(1)}" r=3.5 class=top-ahead><title>N=${num(q[0])}: ${gib(q[1])}, priced</title></circle>`).join('');
+    const reach=f.reach_bytes?`<line class=top-reach x1="${P}" x2="${W-10}" y1="${Y(f.reach_bytes).toFixed(1)}" y2="${Y(f.reach_bytes).toFixed(1)}"></line><text x="${W-12}" y="${(Y(f.reach_bytes)-4).toFixed(1)}" text-anchor=end class=top-axis>the host's reach, ${esc(gib(f.reach_bytes))}</text>`:'';
+    const dots=pts.map(q=>`<circle cx="${X(q[0]).toFixed(1)}" cy="${Y(q[1]).toFixed(1)}" r=4 class=top-peak><title>N=${num(q[0])}: ${gib(q[1])} at most, measured</title></circle>`).join('')+ahead.map(q=>`<circle cx="${X(q[0]).toFixed(1)}" cy="${Y(q[1]).toFixed(1)}" r=4 class=top-ahead><title>N=${num(q[0])}: ${gib(q[1])} a seed, priced</title></circle>`).join('');
     const ticks=[...new Set(all.map(p=>p[0]))].map(n=>`<text x="${X(n).toFixed(1)}" y="${H-8}" text-anchor=middle class=top-axis>${n>=1048576?`${n/1048576}M`:n>=1024?`${n/1024}k`:n}</text>`).join('');
-    return `<svg class=top-chart viewBox="0 0 ${W} ${H}" role=img aria-label="peak memory over N"><text x=4 y=12 class=top-axis>peak memory, log scale</text>${reach}<path class=top-line d="${path(pts)}"></path>${ahead.length?`<path class=top-line-ahead d="${path([pts[pts.length-1]].concat(ahead))}"></path>`:''}${dots}${ticks}</svg>`}
+    return `<svg class=top-chart viewBox="0 0 ${W} ${H}" role=img aria-label="peak memory of one seed over N"><text x=4 y=12 class=top-axis>peak memory of one seed, log scale</text>${reach}<path class=top-line d="${path(pts)}"></path>${ahead.length?`<path class=top-line-ahead d="${path([pts[pts.length-1]].concat(ahead))}"></path>`:''}${dots}${ticks}</svg>`}
+  function rungTable(f){
+    const state={done:'done',running:'<b>under way</b>',ahead:'<span class=muted>ahead</span>'};
+    const rows=(f.rungs||[]).map(r=>`<tr${r.state==='running'?' class=top-running':''}><td>${esc(num(r.n))}</td><td>${state[r.state]||esc(r.state)}</td><td>${r.state==='done'?`${esc(r.done)} of ${esc(r.seeds)}${r.failed?` <span class=warn>${esc(r.failed)} failed</span>`:''}`:`${esc(r.seeds)}${r.state==='running'?`, ${esc(r.left)} left`:''}`}</td><td>${r.at_once!=null?esc(r.at_once):'-'}</td><td>${r.passes!=null?esc(r.passes):'-'}</td><td>${r.peak_bytes?esc(gib(r.peak_bytes)):r.needs_bytes?`<span class=muted>${esc(gib(r.needs_bytes))} priced</span>`:'-'}</td><td>${r.seconds!=null?esc(MAP.forText(r.seconds)):'-'}</td><td>${r.hours!=null?esc(hours(r.hours)):'-'}</td><td class=muted>${r.state==='done'?'':`${esc(clock(r.starts_utc))} to ${esc(clock(r.ends_utc))}`}</td></tr>`).join('');
+    return `<table class=top-sizes><thead><tr><th>N</th><th>rung</th><th>seeds</th><th title="how many of its seeds run at the same time, one a worker, as memory admits">at once</th><th>passes</th><th title="the largest peak of its runs, or the memory priced for one seed from the sizes below">memory a seed</th><th title="the mean time of a run, or the time priced from the sizes below">a run takes</th><th title="the passes left times a run's time">the rung takes</th><th>from, to</th></tr></thead><tbody>${rows||'<tr><td colspan=9 class=muted>no rung yet</td></tr>'}</tbody></table>`}
   function law(d){
-    const l=d.law;if(!l)return '<div class=empty>no law is being pushed: push one and the depth worker takes it next</div>';
-    const f=l.forecast||{};
-    const rows=(l.sizes||[]).map(s=>`<tr><td>${esc(num(s.n))}</td><td>${esc(num(s.runs))}</td><td>${esc(gib(s.peak_bytes))}</td><td>${s.seconds!=null?esc(MAP.forText(s.seconds)):'-'}</td><td>${s.edges!=null?esc(num(s.edges)):'-'}</td></tr>`).join('')+(f.ahead||[]).map(a=>`<tr class=muted><td>${esc(num(a.n))}</td><td>priced${a.at_once?`, ${esc(a.at_once)} of ${esc(f.seeds||3)} seeds at once`:''}</td><td>${esc(gib(a.needs_bytes))}${a.fits?'':' <b class=warn>past its reach</b>'}</td><td>${a.seconds!=null?esc(MAP.forText(a.seconds)):'-'}</td><td>${a.hours!=null?`${esc(a.hours)} h for the size; `:''}memory from its own peaks, growing as N^${esc(a.growth)}</td></tr>`).join('');
-    return `<div class=toolbar><b>${link(l.law,l.campaign,l.label)}</b><span class=muted>${l.running?'being pushed now':'waiting for the depth worker'}${l.deepest!=null?` · deepest N=${esc(num(l.deepest))}`:''} · open its law page for every curve over N</span></div>
-      <div class=${f.limit?'warn':'muted'}>${esc(f.words||'')}</div><div class=muted>${f.host?'the push list holds the host: every slot runs this law, every other run is stopped and saved, and its reach is all the memory the host admits':'its reach is the depth worker\u2019s share of the host while the fleet runs beside it'}</div>${chart(l.sizes||[],f)}
-      <table class=top-sizes><thead><tr><th>N</th><th>runs</th><th title="the largest peak resident memory of its runs at this size">peak memory</th><th>a run takes</th><th>edges at most</th></tr></thead><tbody>${rows||'<tr><td colspan=5 class=muted>no run has finished yet</td></tr>'}</tbody></table>`}
+    const l=d.law;if(!l)return '<div class=empty>no law is being pushed: push one and the fleet takes it next</div>';
+    const f=l.ladder;
+    const head=`<div class=toolbar><b>${link(l.law,l.campaign,l.label)}</b><span class=muted>${l.running?'being pushed now':'waiting for the N-push'}${l.deepest!=null?` · deepest N=${esc(num(l.deepest))} in any campaign`:''} · open its law page for every curve over N</span></div>`;
+    if(!f)return `${head}<div class=muted>its ladder begins at the next pass of the controller</div>`;
+    return `${head}<div class=muted>its ladder again from N=${esc(num(((f.rungs||[])[0]||{}).n||64))}, ${esc(f.workers)} worker${f.workers===1?'':'s'}, the host admitting ${esc(gib(f.reach_bytes))}; read again with every finished run</div>${endLine(f)}${breaks(f)}${timeline(f)}${rungTable(f)}${chart(f)}`}
   function list(d){
     const rows=d.top||[];if(!rows.length)return '<div class=empty>no run has finished yet</div>';
-    return `<div class=muted>${esc(num(d.laws_read||rows.length))} laws have read at least one size; the deepest ${esc(num(rows.length))}:</div><table class=top-list><thead><tr><th></th><th>law</th><th>deepest N</th><th>runs</th><th></th></tr></thead><tbody>${rows.map((r,i)=>`<tr${r.running?' class=top-running':''}><td class=muted>${i+1}</td><td>${link(r.law,r.campaign,r.label)}${r.running?' <b>being pushed now</b>':r.pushed?' <span class=muted>pushed</span>':''}</td><td>${esc(num(r.deepest))}</td><td>${esc(num(r.runs))}</td><td>${r.pushed?button('unpush',r.law,r.campaign,'stop pushing','take it off the push list'):button('push',r.law,r.campaign,'push to the N limit','put it at the end of the push list: the depth slot takes the list in order')}</td></tr>`).join('')}</tbody></table>`}
+    return `<div class=muted>${esc(num(d.laws_read||rows.length))} laws have read at least one size; the deepest ${esc(num(rows.length))}:</div><table class=top-list><thead><tr><th></th><th>law</th><th>deepest N</th><th>runs</th><th></th></tr></thead><tbody>${rows.map((r,i)=>`<tr${r.running?' class=top-running':''}><td class=muted>${i+1}</td><td>${link(r.law,r.campaign,r.label)}${r.running?' <b>being pushed now</b>':r.pushed?' <span class=muted>pushed</span>':''}</td><td>${esc(num(r.deepest))}</td><td>${esc(num(r.runs))}</td><td>${r.pushed?button('unpush',r.law,r.campaign,'stop pushing','take it off the push list'):button('push',r.law,r.campaign,'push to the N limit','put it at the end of the push list: the N-push takes the list in order')}</td></tr>`).join('')}</tbody></table>`}
   function render(d){
     data=d||data;const x=data||{};
     if(x.error||x.focus===false){put('topPushed',`<div class=empty>${esc(x.error||'no focus in this folder: start the study first')}</div>`);put('topLaw','');put('topList','');return}

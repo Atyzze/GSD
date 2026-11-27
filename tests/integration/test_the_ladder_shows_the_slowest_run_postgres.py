@@ -237,3 +237,20 @@ def test_every_batch_shown_keeps_the_fastest_and_the_slowest_and_whose_run_that_
     assert (merged["min_seconds"], merged["max_seconds"], merged["max_unfinished"]) == (1.0, 900.0, True)
     assert (merged["peak_bytes_min"], merged["peak_bytes_max"]) == (10, 50)
     assert merge_ladder([[dict(one, max_seconds=1000.0)], [two]])[0]["max_unfinished"] is False
+
+
+def test_a_seed_still_running_shows_its_graphs_and_the_memory_its_worker_holds_now(a_slow_law):
+    from graph_scale_dynamics.db.repo import Repo
+    dsn, campaign_id = a_slow_law
+    with Repo(dsn) as repo:
+        repo.conn.execute("UPDATE jobs SET lease_owner='executor-3-1' WHERE job_id='running'")
+        repo.heartbeat("executor-3-1", {"job": "running", "pss_now": 700 * MIB, "pss": 900 * MIB, "elapsed": 90.0},
+                       paced=True)
+        repo.heartbeat("executor-4-1", {"job": "another", "pss_now": 5000 * MIB}, paced=True)
+    rung = _ladder(dsn, campaign_id)[16384]
+    assert rung["running_peak_bytes"] == 900 * MIB and rung["running_memory_bytes"] == 700 * MIB
+    assert rung["running_graphs"] == rung["chains_per_seed"], "its graphs, one a start, being grown now"
+    assert rung["peak_bytes_median"] is None, "no average yet, the live values beside it"
+    from graph_scale_dynamics.services.api.study_scope import merge_ladder
+    both = {int(r["n"]): r for r in merge_ladder([[rung], [dict(rung, running_peak_bytes=100 * MIB)]])}[16384]
+    assert both["running_peak_bytes"] == 900 * MIB and both["running_memory_bytes"] == 1400 * MIB

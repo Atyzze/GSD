@@ -87,10 +87,9 @@ def test_every_other_depth_campaign_of_the_focus_rests_and_one_seeker_runs_one_l
         assert {str(c["campaign_id"]): c.get("workers_target") for c in repo.all_campaigns()}[kept] == 1
         held = {r["candidate_id"] for r in repo.conn.execute(
             "SELECT candidate_id FROM campaign_candidates WHERE campaign_id=?", (kept,)).fetchall()}
-        assert held == {holder}, "the law in focus is the depth seeker's first"
+        assert held == set(), "since 893 the depth campaign takes no law of its own: the N-push is the push list"
         reading = focus.reading(repo)
-        assert reading["depth_now"]["law"] == holder
-        assert "the depth seeker on S176-C" in reading["doing"]
+        assert reading["depth_now"] is None and "the N-push on" not in reading["doing"]
         spec = repo.campaign(kept)["spec"]
         assert spec["study_design"]["focus"]["memory_share"] == 0.5
         assert spec["default_seeds"] == 3, "three seeds a size, the fewest a campaign may measure on, one at a time"

@@ -21,6 +21,7 @@ MAY_NAME = {
     "research/report_pipeline.py": "the collector names the columns it parses (checked below)",
     "reporting/study_tables.py": "the study's tables read rung summaries from the database a page at a time",
     "operations/outliers.py": "the outliers' queue reads rung summaries from the database",
+    "services/api/law_elsewhere.py": "the law page reads the rung summaries of the law's other campaigns from the database",
 }
 
 

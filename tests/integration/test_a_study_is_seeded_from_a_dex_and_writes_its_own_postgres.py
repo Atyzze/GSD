@@ -73,7 +73,7 @@ def test_a_dex_in_the_import_folder_seeds_the_study_and_its_own_dex_carries_it_o
         state = focus.load(repo)
         assert state["current"]["law"] == best and state["current"]["chosen_by"] == focus.BY_BUNDLE, (
             "the focus takes the dex's best law at its first step, on its score in the dex")
-        assert state["depth_now"]["law"] == best
+        assert state["depth_now"] is None, "the depth worker pushes only the push list"
         assert "(score 38 in dex_176_" in focus.reading(repo)["doing"]
 
         written = D.write_folder(repo, root, blobs=None, build=882)
@@ -117,7 +117,7 @@ def test_no_outlier_before_a_law_scores_and_an_early_one_yields_to_a_scoring_law
         focus.depth_next(repo, state, [])
         focus.save(repo, state)
         old_depth = state["campaigns"][focus.DEPTH]
-        assert state["depth_now"]["law"] == flicker, "as 881 took it: score 0, no word of why"
+        assert state["depth_now"] is None, "893: no law of its own for the depth worker, a score 0 one least"
 
         real = study_map._insert(repo, blind[1], dict(H12, dynamics=dict(H12["dynamics"], beta=0.3)))
         scored.append({"candidate_id": real, "campaign": blind[1], "score": 1, "graph": 2, "label": "S177C2G2"})
@@ -125,13 +125,10 @@ def test_no_outlier_before_a_law_scores_and_an_early_one_yields_to_a_scoring_law
         state = focus.load(repo)
         assert flicker in state["set_aside"] and state["current"]["law"] == real
         assert state["current"]["chosen_by"] == focus.BY_SCORE
-        assert state["campaigns"][focus.DEPTH] == old_depth, "the depth worker leaves the law set aside, its campaign kept"
-        from graph_scale_dynamics.operations import campaign_control as control
-        from graph_scale_dynamics.operations import push
-        assert not control.is_paused(repo, old_depth)
-        assert _held(repo, old_depth) == {flicker, real} and state["depth_now"]["law"] == real
-        assert push.order_here(repo)["laws"] == [real], "the law set aside is out of the depth order: its runs stop"
-        assert focus.load(repo)["depth_done"][flicker]["left"] == "no longer a contender"
+        assert state["campaigns"][focus.DEPTH] == old_depth and _held(repo, old_depth) == set()
+        from graph_scale_dynamics.operations import modes
+        assert modes.here(repo)["mode"] == modes.ZONE and state["depth_now"] is None, (
+            "the law in focus is the zone search's; the depth worker pushes nothing of its own")
 
 
 def test_the_dex_reads_the_chains_of_its_own_laws_alone(isolated_postgres_schema, tmp_path):
@@ -188,7 +185,7 @@ def test_a_law_skipped_on_881_but_left_to_the_depth_worker_is_dropped_for_the_la
         flicker = study_map._insert(repo, blind[3], H12)
         state = focus.begin(repo, "177", law=flicker[:12], tree=ROOT)
         old_depth = state["campaigns"][focus.DEPTH]
-        assert state["depth_now"]["law"] == flicker
+        assert state.get("depth_now") is None
         focus.skip(repo, flicker[:12])
         assert flicker in focus.load(repo)["contenders"], "as 881 left it: skipped, still the depth worker's law"
         seeded = study_map._insert(repo, blind[1], dict(H12, dynamics=dict(H12["dynamics"], beta=0.3)))
@@ -197,7 +194,7 @@ def test_a_law_skipped_on_881_but_left_to_the_depth_worker_is_dropped_for_the_la
         focus.step(repo, force=True)
         state = focus.load(repo)
         assert flicker not in state["contenders"] and state["current"]["law"] == seeded
-        assert state["campaigns"][focus.DEPTH] == old_depth and state["depth_now"]["law"] == seeded
+        assert state["campaigns"][focus.DEPTH] == old_depth and state["depth_now"] is None
         assert any(e.get("depth_dropped") == flicker[:12] for e in state["events"])
         needs = {n["what"]: n for n in focus.reading(repo)["current"]["needs"]}
         assert set(needs) == {"its kind", "ring 0.1", "its depth", "its seeds", "every ring", "each term switched off"}

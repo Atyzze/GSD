@@ -727,10 +727,11 @@ def run_analysis_job(repo: Repo, blobs: BlobStore, log: Log, owner: str,
 
 
 def claim_analysis_for_owner(repo: Repo, owner: str) -> dict | None:
-    from graph_scale_dynamics.operations import push
-    held = push.holds_host(repo)
-    if held is not None:
-        return claim_analysis_in(str(held["campaign"]))(repo, owner)
+    from graph_scale_dynamics.operations import modes
+    mode = modes.here(repo)
+    if mode is not None:
+        return repo.claim_analysis_job(owner, ANALYSIS_VERSION, lease_seconds=ANALYSIS_LEASE_SECONDS,
+                                       campaigns=tuple(str(c) for c in mode["campaigns"]), order="oldest")
     job = repo.claim_analysis_job(owner, ANALYSIS_VERSION, lease_seconds=ANALYSIS_LEASE_SECONDS,
                                   tier_at_most=work_groups.DEPTH_TIER, order="oldest")
     if job is not None:
@@ -746,17 +747,9 @@ def claim_analysis_for_owner(repo: Repo, owner: str) -> dict | None:
     return None
 
 
-def claim_analysis_in(campaign_id: str) -> Callable[[Repo, str], dict | None]:
-    def claim(repo: Repo, owner: str) -> dict | None:
-        return repo.claim_analysis_job(owner, ANALYSIS_VERSION, lease_seconds=ANALYSIS_LEASE_SECONDS,
-                                       campaign_id=str(campaign_id), order="oldest")
-    return claim
-
-
 def process_new(repo: Repo, blobs: BlobStore, log: Log, owner: str,
                 *, max_jobs: int = 1,
-                stop_requested: Callable[[], bool] | None = None,
-                claim: Callable[[Repo, str], dict | None] | None = None) -> int:
+                stop_requested: Callable[[], bool] | None = None) -> int:
     if ((stop_requested is not None and stop_requested())
             or repo.get_flag("paused") == "1"):
         return 0
@@ -765,7 +758,7 @@ def process_new(repo: Repo, blobs: BlobStore, log: Log, owner: str,
         if ((stop_requested is not None and stop_requested())
                 or repo.get_flag("paused") == "1"):
             break
-        job = (claim or claim_analysis_for_owner)(repo, owner)
+        job = claim_analysis_for_owner(repo, owner)
         if job is not None:
             retention = (repo.artifact_retention(job["result_artifact"])
                          if hasattr(repo, "artifact_retention") else None)

@@ -40,7 +40,8 @@ from graph_scale_dynamics.research.report_catalog import REPORT_BY_CODE, REPORT_
 from graph_scale_dynamics.scheduling.memory import admission_headroom, recorded_lease_reservations
 from graph_scale_dynamics.scheduling.runtime import observed_analysis_profile, observed_profile, predict_wall
 from graph_scale_dynamics.services.api import (
-    admin_link, admin_view, campaign_manager, dashboard_limit, freshness, landscape_inputs, readings_route, study_scope,
+    admin_link, admin_view, campaign_manager, dashboard_limit, freshness, landscape_inputs, law_elsewhere, readings_route,
+    study_scope,
 )
 from graph_scale_dynamics.services.api.law_dynamics import law_dynamics_of
 from graph_scale_dynamics.services.api.dashboard_workers import DashboardWorkers
@@ -1047,6 +1048,7 @@ def build_handler(db_path: str, blobs_path: str, admin_token: str, port: int,
                                         "failed_seconds": 0.0, "max_attempt_seconds": None,
                                         "cumulative_core_seconds": 0.0})}
                                     for row in rung_rows]
+                    rung_payload += law_elsewhere.rungs(repo, candidate_id, campaign_id, {row["n"] for row in rung_rows})
                     ladder = campaign_row["spec"].get("ladder") or []
                     lineage = None
                     depth = campaign_row["spec"].get("depth_continuation") or {}

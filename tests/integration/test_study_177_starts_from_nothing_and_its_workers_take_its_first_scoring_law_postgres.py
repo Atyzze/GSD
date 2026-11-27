@@ -57,18 +57,18 @@ def test_study_177_starts_from_nothing_and_the_zone_and_depth_workers_take_its_f
         assert _held(repo, made[focus.SEEDS]) == {first}, "the zone worker runs the law on more seeds"
         assert len(_held(repo, made[focus.NEIGHBOURS])) == len(state["current"]["points"]) > 40, (
             "and its neighbours and its terms switched off")
-        assert _held(repo, made[focus.DEPTH]) == {first}, "the depth worker takes the law in focus first"
-        assert state["depth_now"]["law"] == first
+        assert _held(repo, made[focus.DEPTH]) == set() and state["depth_now"] is None, (
+            "since 893 the depth worker pushes only the push list, the law in focus is the zone search's")
         assert [c["campaign_id"] for c in focus.depth_campaigns(repo, "177")] == [made[focus.DEPTH]]
         spec = repo.campaign(made[focus.DEPTH])["spec"]
         assert spec["study_design"]["focus"]["memory_share"] == 0.5 and spec["ladder"][-1] == 4194304
         assert {str(c["campaign_id"]): c.get("workers_target") for c in repo.all_campaigns()}[made[focus.DEPTH]] == 1
         doing = focus.reading(repo)["doing"]
-        assert doing.startswith("in focus: ") and "the depth seeker on " in doing and "has failed" not in doing
+        assert doing.startswith("in focus: ") and "has failed" not in doing
 
         second = study_map._insert(repo, blind[1], dict(H12, dynamics=dict(H12["dynamics"], beta=0.3)))
         scored.insert(0, {"candidate_id": second, "campaign": blind[1], "score": 5, "graph": 2, "label": "S177C2G2"})
         focus.step(repo, force=True)
         state = focus.load(repo)
-        assert second in state["contenders"] and _held(repo, made[focus.DEPTH]) == {first}, (
-            "a better law waits its turn: the depth worker ends one law before it begins the next")
+        assert second in state["contenders"] and _held(repo, made[focus.DEPTH]) == set(), (
+            "a better law joins the depth list; the depth worker pushes only the push list (893)")

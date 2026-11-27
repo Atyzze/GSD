@@ -53,7 +53,7 @@ def test_a_focus_takes_one_law_of_study_174_into_its_neighbours_its_seeds_and_it
         laws = {name: {r["candidate_id"] for r in repo.conn.execute(
             "SELECT candidate_id FROM campaign_candidates WHERE campaign_id=?", (cid,)).fetchall()}
             for name, cid in made.items()}
-        assert laws["S"] == laws["D"] == {holder}
+        assert laws["S"] == {holder} and laws["D"] == set(), "the law in focus runs on more seeds; no depth of its own"
         current = state["current"]
         radii = {}
         for point in current["points"].values():
@@ -81,9 +81,9 @@ def test_a_focus_takes_one_law_of_study_174_into_its_neighbours_its_seeds_and_it
         assert [(d["law"], d["stage"]) for d in again["done"]] == [(holder, focus.UNCONFIRMED)]
         assert again["current"]["law"] == other
         assert {r["candidate_id"] for r in repo.conn.execute(
-            "SELECT candidate_id FROM campaign_candidates WHERE campaign_id=?", (made["D"],)).fetchall()} == {holder}, (
-            "one law at a time: the next waits until the decider ends the first")
-        assert again["depth_now"]["law"] == holder
+            "SELECT candidate_id FROM campaign_candidates WHERE campaign_id=?", (made["D"],)).fetchall()} == set(), (
+            "the depth campaign takes no law of its own since 893")
+        assert again.get("depth_now") is None
         code, text = focus.command(repo, "174", None, True)
         assert code == 0 and f"campaign {made['N']}" in text and "sensitive to: not read yet" in text
         with pytest.raises(ValueError, match="study 174"):

@@ -71,8 +71,8 @@ def share_of(repo, campaign_id: str) -> float | None:
 
 
 def room_for(repo, campaign_id: str) -> dict:
-    from graph_scale_dynamics.operations import push
-    held = push.holds_host(repo)
+    from graph_scale_dynamics.operations import modes
+    held = modes.pushing(repo)
     share = share_of(repo, campaign_id)
     if share is None or (held is not None and str(held["campaign"]) == str(campaign_id)):
         return dict(room_now(repo), host=held is not None)

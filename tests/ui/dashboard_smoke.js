@@ -2016,6 +2016,25 @@ check('a click on a box’s title folds it, the fold survives a poll and a reloa
   if (sections.length < 20 || untitled.length) throw new Error(`every box on the pages has a title to fold it by: ${untitled.length} without`);
 });
 
+check('a rung whose runs are all under way shows their live values: the graphs being grown and the memory held so far, marked + (893, 10:42)', () => {
+  const G = 2 ** 30;
+  sandbox.GSD_APP.overviewPayload = { active: [], rung_distribution: [
+    { n: 65536, running: 0, queued: 0, graphs: 3, chains: 24, chains_per_seed: 8, completed: 3, peak_bytes_min: 1.0 * G,
+      peak_bytes_median: 1.0 * G, peak_bytes_p95: 1.1 * G, peak_bytes_max: 1.1 * G, median_seconds: 1500, max_seconds: 1800,
+      simulation_seconds_total: 4500, rung_seconds_total: 4500 },
+    { n: 262144, running: 3, running_laws: 1, queued: 0, graphs: 0, chains_per_seed: 8, running_graphs: 24,
+      running_peak_bytes: 3.4 * G, running_memory_bytes: 9.9 * G, max_seconds: 4800, max_unfinished: true,
+      longest_unfinished_seconds: 4800, running_seconds: 14400, simulation_seconds_total: 0, rung_seconds_total: 0 }] };
+  sandbox.GSD_APP.rungLadderRow();
+  const html = getElementById('rungLadder').innerHTML;
+  const row = (html.split('N=262144</code>')[1] || '').split('</tr>')[0];
+  for (const want of ['>24+<', '>–/–/–/3.4 G+<', '>–/–/–/1h20m+<']) {
+    if (!row.includes(want)) throw new Error(`the rung under way lacks "${want}": ${row}`);
+  }
+  const done = (html.split('N=65536</code>')[1] || '').split('</tr>')[0];
+  if (!done.includes('>24<') || !done.includes('>1.0/1.0/1.1/1.1 G<')) throw new Error(`a finished rung reads as before: ${done}`);
+});
+
 check('the ladder panel answers how many graphs are in each bracket', () => {
   sandbox.GSD_APP.overviewPayload = { active: [], rung_distribution: [
     { n: 64, running: 0, queued: 0, measured: 7600, attempts: 22761,
@@ -2196,9 +2215,9 @@ check('the ladder panel answers how many graphs are in each bracket', () => {
     throw new Error('each phase does not end on its own sum');
   }
   if (columnAt['graphs'] + 1 !== columnAt['evolve:running']) {
-    throw new Error('the evolving work follows the graphs (872)');
+    throw new Error('with no selection read, the evolving work follows the graphs (872)');
   }
-  if (!/<th class="g-total" colspan=1>totals<\/th>/.test(html) || !/<th class="g-cand" colspan=2>work<\/th>/.test(html)) {
+  if (!/<th class="g-total" colspan=1>totals<\/th>/.test(html) || !/<th class="g-cand" colspan=5>candidates<\/th>/.test(html)) {
     throw new Error(`the group headers do not span their columns: ${html}`);
   }
   const firstBodyRow = (bodyOnlyRows.match(/<tr>[\s\S]*?<\/tr>/) || [''])[0];
@@ -2262,7 +2281,7 @@ check('the ladder closes: stopped total, done on the laws number, the budget and
     .map(row => row.match(/<td[^>]*>.*?<\/td>/g) || []);
   const foot = (html.match(/<tr class=ladder-total>[\s\S]*?<\/tr>/) || [''])[0].match(/<td[^>]*>.*?<\/td>/g) || [];
   const last = bodyRows[1];
-  if (at['stop:total'] !== undefined || at['cand:laws'] !== undefined) throw new Error('the laws and their stops are the selection\u2019s ladder now (872)');
+  if (at['stop:total'] !== undefined || at['cand:laws'] === undefined) throw new Error('893: the candidates read the selection, its stops only once it is read');
   if (at['evolve:budget'] !== at['evolve:time per seed'] + 1) throw new Error('the budget does not stand beside the per-seed band');
   const first = bodyRows[0][at['evolve:budget']], top = last[at['evolve:budget']];
   if (!/>7\.5 T<\/td>/.test(first) || !/>90 T<\/td>/.test(top) || /title=|units|\u2248/.test(first + top)) {
@@ -3531,7 +3550,7 @@ check('the study now is one bar: the laws drawn blind against the laws the map c
   if (!html.includes('known answers: pass') || html.includes('999')) throw new Error('the controls are not a tick, or an archived batch counts');
   if (!/class="study-split current"/.test(html)) throw new Error('the bar is not marked while the panels read every batch');
   sandbox.GSD_APP.paintCampaignScope();
-  if (getElementById('landScope').textContent !== 'all batches') throw new Error('the landscape does not say it reads every batch');
+  if (getElementById('landScope').textContent !== '') throw new Error('893: no box title says "all batches"');
   sandbox.GSD_APP.renderStudyNow({ campaigns: [row('11', { name: 'campaign-standing-controls', work_queued: 8,
     work_left: { core_hours_left: 0, graphs_queued: 8, unpriced_rungs: [256] } })] });
   const alone = getElementById('studyNow').innerHTML;
@@ -3871,7 +3890,7 @@ const FOCUS_PAGE = {
   workload: { shares: { A: 0.5, N: 0.25, D: 0.25 }, split: 'A=2,D=1,N=1' },
   focus: {
     study: '174', stopped: false, campaigns: { N: '12', S: '13', D: '14' },
-    doing: 'in focus: S174C1G6940, halving its boundaries; the depth seeker on 1 law, deepest N=262,144',
+    doing: 'in focus: S174C1G6940, halving its boundaries; the N-push on S174C1G100',
     settings: { radii: [[1e-9, 4], [0.001, 4], [0.1, 8], [0.2, 8]], confirm_radius: 0.1, confirm_share: 0.667,
                 contenders: 5, outward_most: 0.8, inside_share: 0.5 },
     next_settings: null,
@@ -3901,7 +3920,7 @@ const FOCUS_PAGE = {
              depth: [{ law: 'b4'.repeat(32), label: 'C1-G6940', score: 19, type: 'grown ring', in_depth: true }] },
   },
   work: { N: { campaign: '12', running: 2, queued: 9, done: 40, deepest: 1024 }, S: { campaign: '13', running: 0, queued: 3, done: 6, deepest: 256 },
-          D: { campaign: '14', running: 1, queued: 0, done: 12, deepest: 65536 } },
+          P: { campaign: '14', running: 1, queued: 0, done: 12, deepest: 65536 } },
 };
 
 check('the Map page shows the law in focus, its rings, seeds, depth, regions, queue and ended laws', () => {
@@ -3909,8 +3928,8 @@ check('the Map page shows the law in focus, its rings, seeds, depth, regions, qu
   map.render(FOCUS_PAGE);
   const html = (id) => getElementById(id).innerHTML;
   for (const [id, wants] of [
-    ['mapControls', ['in focus: S174C1G6940, halving its boundaries', 'the depth seeker on 1 law', 'study <b>174</b>', 'the fleet\u2019s order: 1 the zone of the law in focus',
-                     'zone worker, neighbours (C12): running 2, queued 9, 40 done, deepest N=1,024', 'depth worker (C14): running 1',
+    ['mapControls', ['in focus: S174C1G6940, halving its boundaries', 'the N-push on S174C1G100', 'study <b>174</b>', 'the fleet\u2019s order within its mode: 1 the zone of the law in focus',
+                     'zone worker, neighbours (C12): running 2, queued 9, 40 done, deepest N=1,024', 'the N-push (C14): running 1',
                      'value="1e-9:4, 0.001:4, 0.1:8, 0.2:8"']],
     ['mapFocusList', ['C6-G1015', 'grown ring', 'N=64', 'C8-G2983', 'placed by hand', 'data-map-move=up', 'the suggested order',
                       'S176C15G3</a>', 'from S174C2G3187, 38 there', "38 <span class=muted", "in study 174's bundle", 'candidate=' + '56'.repeat(32) + '&amp;campaign=15']],
@@ -4043,7 +4062,7 @@ check('the Map page lists the import folder\u2019s bundles to tick, and folds th
   if (/seeded so far/.test(seedHtml)) throw new Error('a bundle is one row, not a row and a line of what was seeded');
   const controls = getElementById('mapControls').innerHTML;
   if (!/<details class=map-settings/.test(controls) || / open>/.test(controls.split('<summary>')[0])) throw new Error('the focus\u2019s settings are not folded away');
-  for (const want of ['how far from the law its neighbours are drawn', 'the depth seeker takes', 'counts as inside it']) {
+  for (const want of ['how far from the law its neighbours are drawn', 'a law goes deeper only on the Top page', 'counts as inside it']) {
     if (!controls.includes(want)) throw new Error(`the settings do not say "${want}"`);
   }
   const open = { getAttribute: (k) => ({ 'data-map-do': 'open_import' })[k] || null };
@@ -4062,36 +4081,51 @@ check('a running law says whether the blind draw or the focus drew it (15:18)', 
   const rows = [{ campaign_id: '3', design_kind: 'blind', group: 'A', study_batch: true }, { campaign_id: '12', design_kind: 'focus', group: 'N', focus_part: 'N' },
                 { campaign_id: '13', design_kind: 'focus', group: 'N', focus_part: 'S' }, { campaign_id: '14', design_kind: 'focus', group: 'D', focus_part: 'D' },
                 { campaign_id: '15', design_kind: 'seed', group: 'N' }, { campaign_id: '11', name: 'campaign-standing-controls' },
-                { campaign_id: '16', design_kind: 'focus', group: 'N', focus_part: 'E' }];
-  const got = ['3', '12', '13', '14', '15', '16', '11', '99'].map((cid) => app.lawGroupOf(rows, cid)[1]).join(',');
-  if (got !== 'blind,zone,zone seeds,pushed,seeded,zone edges,control,other') throw new Error(`the groups read ${got}`);
-  app.paintLiveGroups({ A: 6, N: 3, D: 1 });
+                { campaign_id: '16', design_kind: 'focus', group: 'N', focus_part: 'E' }, { campaign_id: '17', design_kind: 'focus', group: 'D', focus_part: 'P' }];
+  const got = ['3', '12', '13', '14', '15', '16', '17', '11', '99'].map((cid) => app.lawGroupOf(rows, cid)[1]).join(',');
+  if (got !== 'blind,zone,zone seeds,depth,seeded,zone edges,pushed,control,other') throw new Error(`the groups read ${got}`);
+  app.paintLiveMode({ mode: 'push', why: 'S178-C15-G2302 is first on the push list' });
+  if (!getElementById('liveMode').innerHTML.includes('<b>the N-push</b>')) throw new Error('Now researching does not say the mode (893)');
+  app.paintLiveGroups({ A: 6, N: 3, P: 1 });
   const said = getElementById('liveGroups').innerHTML;
   if (!/blind<\/span> 6/.test(said) || !/zone<\/span> 3/.test(said) || !/pushed<\/span> 1/.test(said)) throw new Error(`the heading counts ${said}`);
 });
 
-check('the Top page lists the pushed laws, the law being pushed with its memory ahead, and the laws by N', () => {
+check('the Top page lists the pushed laws, the law being pushed with its ladder ahead, and the laws by N (893)', () => {
   const top = sandbox.GSD_TOP;
   if (!top) throw new Error('no GSD_TOP');
   const law = 'c8'.repeat(32), other = 'a1'.repeat(32);
+  const G = 1073741824;
   top.render({ contract: 'gsd-push-1', focus: true, laws_read: 412,
+    mode: { mode: 'push', why: 'S178-C15-G133 is first on the push list', since: '2026-11-27T10:00:00Z', campaigns: ['17'], laws: [law] },
     pushed: [{ law, of: '15', label: 'S178-C15-G133', since: '2026-11-27T01:30:00Z', deepest: 65536 }],
-    now: { law, label: 'S178-C15-G133', campaign: '13', since: '2026-11-27T01:31:00Z' },
+    now: { law, label: 'S178-C15-G133', campaign: '17', since: '2026-11-27T10:00:00Z' },
     top: [{ law, campaign: '15', label: 'S178-C15-G133', deepest: 65536, runs: 21, pushed: true, running: true },
           { law: other, campaign: '4', label: 'S178-C4-G7', deepest: 4096, runs: 12, pushed: false, running: false }],
     law: { law, campaign: '15', label: 'S178-C15-G133', running: true, pushed: true, deepest: 65536,
-           sizes: [{ n: 16384, runs: 3, peak_bytes: 2147483648, seconds: 600, edges: 60000 }, { n: 65536, runs: 3, peak_bytes: 8589934592, seconds: 2400, edges: 240000 }],
-           forecast: { reach_bytes: 49392123904, seeds: 3, host: true,
-                       ahead: [{ n: 262144, needs_bytes: 37795712204, growth: 1.0, fits: true, at_once: 1, seconds: 9600, hours: 8 }, { n: 1048576, needs_bytes: 166301133619, growth: 1.0, fits: false }],
-                       limit: { n: 1048576, needs_bytes: 166301133619, short_bytes: 116909009715 },
-                       words: 'N=1,048,576 would need 154.9 GiB, 108.9 GiB more than the 46.0 GiB the depth worker may use: it stops below it' } } });
+           ladder: { contract: 'gsd-push-ladder-1', workers: 16, reach_bytes: 46 * G, now_utc: '2026-11-27T10:30:00Z',
+             rungs: [{ n: 64, state: 'done', seeds: 16, done: 16, failed: 0, peak_bytes: 0.05 * G, seconds: 2 },
+                     { n: 16384, state: 'running', seeds: 16, left: 9, at_once: 16, passes: 1, needs_bytes: 0.6 * G, seconds: 600, hours: 0.17, starts_utc: '2026-11-27T10:30:00Z', ends_utc: '2026-11-27T10:40:00Z' },
+                     { n: 65536, state: 'ahead', seeds: 16, left: 16, at_once: 16, passes: 1, needs_bytes: 2.4 * G, seconds: 2400, hours: 0.67, starts_utc: '2026-11-27T10:40:00Z', ends_utc: '2026-11-27T11:20:00Z' },
+                     { n: 262144, state: 'ahead', seeds: 4, left: 4, at_once: 4, passes: 1, needs_bytes: 9.6 * G, seconds: 9600, hours: 2.67, starts_utc: '2026-11-27T11:20:00Z', ends_utc: '2026-11-27T14:00:00Z' },
+                     { n: 1048576, state: 'ahead', seeds: 3, left: 3, at_once: 1, passes: 3, needs_bytes: 38.4 * G, seconds: 38400, hours: 32, starts_utc: '2026-11-27T14:00:00Z', ends_utc: '2026-11-28T22:00:00Z' }],
+             limit: { n: 4194304, needs_bytes: 153.6 * G, reach_bytes: 46 * G },
+             marks: { fewer: { n: 262144, at_utc: '2026-11-27T11:20:00Z', at_once: 4, seeds: 4 },
+                      two_passes: { n: 1048576, at_utc: '2026-11-27T14:00:00Z', at_once: 1, seeds: 3 },
+                      one_worker: { n: 1048576, at_utc: '2026-11-27T14:00:00Z', at_once: 1, seeds: 3 } },
+             end: { n: 1048576, ends_utc: '2026-11-28T22:00:00Z', hours: 35.5 } } },
+    slot: { campaign: '17', running: Array.from({ length: 7 }, (_, i) => ({ law, label: 'S178-C15-G133', n: 16384, seed: i + 9, since: '2026-11-27T10:28:00Z', memory_now: 0.5 * G, memory_peak: 0.55 * G, elapsed: 120 })),
+            order: [{ law, label: 'S178-C15-G133', queued: 2 }], waiting: [] } });
   const pushed = getElementById('topPushed').innerHTML, one = getElementById('topLaw').innerHTML, list = getElementById('topList').innerHTML;
-  for (const want of ['the depth slot holds', 'S178-C15-G133', 'being pushed now', '65,536', 'data-top-do=unpush', 'stop pushing']) {
-    if (!pushed.includes(want)) throw new Error(`the push list lacks "${want}": ${pushed.slice(0, 500)}`);
+  for (const want of ['the fleet is in <b>the N-push</b>', 'S178-C15-G133 is first on the push list', 'the N-push runs 7 seeds of', 'holding 3.5 GiB between them',
+                      'top-runs', '0.50 GiB', 'being pushed now', '65,536', 'data-top-do=unpush', 'stop pushing', 'from N=64, in a campaign of its own']) {
+    if (!pushed.includes(want)) throw new Error(`the push list lacks "${want}": ${pushed.slice(0, 700)}`);
   }
-  for (const want of ['154.9 GiB, 108.9 GiB more', 'top-chart', 'top-reach', '8.0 GiB', '35.2 GiB', 'past its reach', 'growing as N^1', '40:00',
-                      'priced, 1 of 3 seeds at once', '2 h 40 min', '8 h for the size', 'the push list holds the host: every slot runs this law']) {
-    if (!one.includes(want)) throw new Error(`the pushed law lacks "${want}": ${one.slice(0, 600)}`);
+  for (const want of ['its ladder again from N=64, 16 workers', '46.0 GiB', 'N=4,194,304 would need 153.6 GiB', 'ends near 22:00 UTC', '35 h 30 min from now',
+                      'fewer than the 16 workers at once from N=262,144 (4 at once, 4 seeds)', 'two passes from N=1,048,576', 'one worker from N=1,048,576',
+                      'top-timeline', 'top-rung-all', 'top-rung-fewer', 'top-rung-one', 'top-rung-now', 'top-mark', 'all 16 workers at once', 'one worker</span>',
+                      '<b>under way</b>', '16 of 16', '16, 9 left', '9.6 GiB priced', '10:30 UTC to 10:40 UTC', 'top-chart', 'top-reach', "the host's reach"]) {
+    if (!one.includes(want)) throw new Error(`the pushed law lacks "${want}": ${one.slice(0, 900)}`);
   }
   for (const want of ['412 laws have read at least one size', 'S178-C4-G7', '4,096', 'data-top-do=push', 'push to the N limit', 'top-running']) {
     if (!list.includes(want)) throw new Error(`Top 100 by N lacks "${want}": ${list.slice(0, 500)}`);
@@ -4100,29 +4134,29 @@ check('the Top page lists the pushed laws, the law being pushed with its memory 
   if (!getElementById('topPushed').innerHTML.includes('no focus in this folder')) throw new Error('a folder with no focus is not said');
 });
 
-check('the Top page shows the depth slot at work, the push list in its order with who put each law there, the laws waiting and those done (892)', () => {
+check('the Top page shows the push list in its order with who put each law there, the laws waiting and those done, and the mode when nothing is pushed', () => {
   const top = sandbox.GSD_TOP;
   const a = 'b1'.repeat(32), b = 'b2'.repeat(32), c = 'b3'.repeat(32), w = 'b4'.repeat(32), d = 'b5'.repeat(32);
   top.render({ contract: 'gsd-push-1', focus: true, laws_read: 3, top: [], law: null,
+    mode: { mode: 'push', why: 'S178-C15-G73 is first on the push list' },
     pushed: [{ law: a, of: '15', label: 'S178-C15-G73', since: '2026-11-27T07:32:00Z', deepest: 65536 },
              { law: b, of: '15', label: 'S178-C15-G133', since: '2026-11-27T07:33:00Z', deepest: 65536 },
              { law: c, of: '11', label: 'S178-C11-G900', since: '2026-11-27T09:00:00Z', deepest: null, by: 'zone S178-C15-G2302' }],
-    now: { law: a, label: 'S178-C15-G73', campaign: '13', since: '2026-11-27T07:35:00Z' },
-    slot: { campaign: '13', running: [{ law: a, label: 'S178-C15-G73', n: 262144, seed: 1, since: '2026-11-27T08:01:00Z',
-                                        memory_now: 3221225472, memory_peak: 3650722201, elapsed: 754 }],
-            order: [{ law: a, label: 'S178-C15-G73', queued: 2 }, { law: w, label: 'S178-C15-G2302', queued: 4 }],
-            waiting: [{ law: w, label: 'S178-C15-G2302' }] },
+    now: { law: a, label: 'S178-C15-G73', campaign: '17', since: '2026-11-27T07:35:00Z' },
+    slot: { campaign: '17', running: [], order: [{ law: a, label: 'S178-C15-G73', queued: 2 }], waiting: [{ law: w, label: 'S178-C15-G2302' }] },
     done: [{ law: d, of: '15', label: 'S178-C15-G5', at_n: 1048576, rule: 'memory' }] });
   const pushed = getElementById('topPushed').innerHTML;
-  for (const want of ['the depth slot runs', 'at N=262,144, seed 1, since 08:01 UTC', 'using 3.0 GiB now, 3.4 GiB at most so far', '>you</td>', 'zone S178-C15-G2302',
-                      'data-top-do=push_move', 'data-top-to="0"', 'data-top-to="1"', '>first</button>', '>up</button>',
-                      'waiting, their runs kept', 'S178-C15-G2302', 'pushed to their limit', 'to N=1,048,576 (memory)',
-                      'one worker of its own, above the worker count', "joins the end of this list",
-                      'its run under way stops at once, its seed saved']) {
+  for (const want of ['the N-push holds', 'between rungs', '>you</td>', 'zone S178-C15-G2302', 'data-top-do=push_move', 'data-top-to="0"', 'data-top-to="1"',
+                      '>first</button>', '>up</button>', 'waiting, their runs kept', 'S178-C15-G2302', 'pushed to their limit', 'to N=1,048,576 (memory)',
+                      'joins the end of this list', 'its runs stop at once, saved']) {
     if (!pushed.includes(want)) throw new Error(`the push list lacks "${want}": ${pushed.slice(0, 1200)}`);
   }
   const firstRow = pushed.split('<tr>')[2] || '';
   if (firstRow.includes('data-top-do=push_move')) throw new Error('the first law offers to move up');
+  top.render({ contract: 'gsd-push-1', focus: true, laws_read: 0, top: [], law: null, pushed: [], slot: { running: [] },
+    mode: { mode: 'zone', why: 'S178-C15-G2302 is in focus' } });
+  const zone = getElementById('topPushed').innerHTML;
+  if (!zone.includes('the fleet is in <b>the zone search</b>') || !zone.includes('S178-C15-G2302 is in focus')) throw new Error(`the mode is not said: ${zone.slice(0, 400)}`);
 });
 
 check('the Map page shows the work law by law, each with its progress, and why a dex was written', () => {
@@ -4324,21 +4358,22 @@ check('with a filter on, the selection\u2019s ladder counts the laws the filters
     ['1', id('d'), [64], 'settled', 'empty', 64, null, 0, null]] };
   app.clearFilters();
   app.renderSelection();
-  let html = getElementById('selectionLadder').innerHTML;
-  for (const want of ['>settled: starts_alike<', '>settled: empty<', '>waiting to be extended<', '>running or queued<', '>scoring<', 'N=65,536']) {
-    if (!html.includes(want)) throw new Error(`the selection\u2019s ladder lacks ${want}: ${html.slice(0, 500)}`);
+  let html = getElementById('rungLadder').innerHTML;
+  for (const want of ['>alike<', '>empty<', '>waiting<', '>scoring<', '>laws stopped by rule<', '>candidates<', 'N=65536', 'N=4096']) {
+    if (!html.includes(want)) throw new Error(`the fleet ladder lacks ${want}: ${html.slice(0, 900)}`);
   }
-  const reached = (h, n) => (h.match(new RegExp(`N=${n}</code></td><td class=num>(?:<b>)?(\\d+)`)) || [])[1];
-  if (reached(html, '64') !== '4' || reached(html, '16,384') !== '3') throw new Error(`every law reached 64 and three 16,384: ${html}`);
+  const reached = (h, n) => (h.match(new RegExp(`N=${n}</code></td><td class="num g-cand">(?:<b>)?(\\d+)`)) || [])[1];
+  if (reached(html, '64') !== '4' || reached(html, '16384') !== '3') throw new Error(`every law reached 64 and three 16,384: ${html}`);
+  if (!/N=4096<\/code>[\s\S]*?>939</.test(html)) throw new Error(`the fleet\u2019s graphs at 4,096 are not in the box: ${html.slice(0, 900)}`);
   app.chooseFilter({ target: { id: 'filterKind', value: 'made', dataset: {} } });
   app.renderSelection();
-  html = getElementById('selectionLadder').innerHTML;
-  if (reached(html, '64') !== '2' || /settled: starts_alike/.test(html)) throw new Error(`the made laws alone: ${html}`);
-  if (!/ladder-table/.test(getElementById('rungLadder').innerHTML)) throw new Error('the fleet\u2019s work left its panel');
+  html = getElementById('rungLadder').innerHTML;
+  if (reached(html, '64') !== '2' || />alike</.test(html)) throw new Error(`the made laws alone: ${html}`);
+  if (!/ladder-table/.test(html) || !/N=4096/.test(html)) throw new Error('the fleet\u2019s work left the box');
   app.chooseFilter({ target: { id: 'filterScoring', checked: true, dataset: {} } });
   app.chooseFilter({ target: { id: 'filterDeepest', value: '65536', dataset: {} } });
   app.renderSelection();
-  html = getElementById('selectionLadder').innerHTML;
+  html = getElementById('rungLadder').innerHTML;
   if (reached(html, '64') !== '1') throw new Error(`scoring, made and read to 65,536: one law: ${html}`);
   app.clearFilters();
   app.landscape = null;

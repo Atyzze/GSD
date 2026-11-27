@@ -92,7 +92,8 @@ boundary itself lies, and what grows there, is a later question (the operator, 1
    its laws judged at 4,096, the level 888 reads a dex to): judge the laws already there first, with no new run; then, per parameter, step out both ways, doubling until the behaviour changes, and halve the gap three
    times; each point judged at 4,096, and only the two points either side of an edge run to 16,384. N by the central
    law, made from the middle of the points read alike, run, and pushed to half the host's memory (since 892 it joins
-   the end of the Top page's push list, which the operator orders).
+   the end of the Top page's push list, which the operator orders; since 893 the N-push redoes its ladder from 64 on
+   every worker until not one seed of the next size fits the host).
 5. **Benchmarked, before anything is automated over several zones**: for every edge, its runs, core-hours and hours;
    how often the call at 4,096 matched 16,384; the zone's ranges and its N. Each zone may behave differently; they are
    learned one by one (19:49). The ring method's run on the same law is in 177's dex: the 44 laws of G79's term set

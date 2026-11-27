@@ -1,4 +1,4 @@
-# Handoff: the state of GSD at build 892
+# Handoff: the state of GSD at build 893
 
 What is true now, for a context that has just opened this archive. Each fact has one home; the last section says
 where. **Think from the data, not from this page**: where the data and a document disagree, the data wins and the
@@ -37,7 +37,14 @@ waiting for free slots; now while the Top page's push list holds a law the host 
 other run stopped and saved, its sizes priced against the host's memory until not one seed fits, in the operator's
 order (taking the first off stops its run at once), a zone's central law joining the end; the forecast says the last
 size and about when; Home names its runs "pushed"; while a dex is checked its laws run only to their level (the zone
-had waited six hours on 31 core-hours of the dex's deeper runs) (`docs/build_notes/BUILD892_NOTES.md`).
+had waited six hours on 31 core-hours of the dex's deeper runs) (`docs/build_notes/BUILD892_NOTES.md`). 893, on the
+operator's words of 10:32 to 10:42: the fleet is always in one of three modes, the N-push, the zone search or the
+blind ladder, never mixed (`operations/modes.py`); the N-push runs the first pushed law's whole ladder again from 64
+in a campaign of its own (part P), as many seeds a rung as workers, fewer and in passes as memory binds, down to 3 and
+one worker, until not one seed fits (`operations/push_ladder.py`), its break-points and end forecast and plotted on
+the Top page; the law page reads every campaign of its law; Home's fleet ladder is one box with the selection, its
+rungs under way showing their live graphs and memory; the zone search's free slots run its lines' next points ahead
+(`docs/build_notes/BUILD893_NOTES.md`).
 
 **The builds since the last handover, 871 to 885** (each build's notes in `docs/build_notes/`; the operator's words in
 `docs/HISTORY.md`):
@@ -69,7 +76,7 @@ the calibration table) and what it shows: `docs/WHERE_WE_ARE.md` and `docs/paper
 **Open threads at 886**, each with its home:
 
 * **Pull requests**: 864 to 891 (#11 to #33) merged by the operator, #30 to #33 (888 to 891) at 2026-11-27 07:31Z;
-  `main` holds 891. Open: 892's, on `main`.
+  `main` holds 891. Open: 892's (#34) and 893's, on 892.
 * **Study 177** runs since 2026-11-26 12:24Z (`/data/projects/GSD/177/main`), on 885 since about 19:40 local, seeded
   on 882 from the dex of 176's laws and 174's bundle. Its focus on S177-C11-G37 (from S174-C8-463fc3bf, 27 there).
   Its dex of 19:33Z (`dex_177_2026-11-26T19-33-48Z`, sent with 887): 193 laws in 76 term sets, 26,366 chains, no zone
@@ -240,10 +247,10 @@ again after the paper's three studies, on the final probes, with a criterion wri
 
 ## What waits on the operator
 
-* **892's pull request**: theirs to merge.
-* **Study 178 on 892**: 892 applied to its folder, or 178 started afresh on 892 with the dex in `import/` before the
-  start (`docs/build_notes/BUILD888_NOTES.md`, "For the folders").
-* **The push list's order** on the Top page (892: the law the depth worker holds first; "first", "up", "stop pushing").
+* **892's and 893's pull requests**: theirs to merge, 892's first (893 is made on it).
+* **Study 178 on 893**: 893 applied to its folder (`docs/build_notes/BUILD893_NOTES.md`, "For the folders"), or 178
+  started afresh on 893 with the dex in `import/` before the start (`docs/build_notes/BUILD888_NOTES.md`).
+* **The push list's order** on the Top page (892: the law the depth worker held first; "first", "up", "stop pushing").
 * **Study 176's standing controls**: kept as a tick (recommended; `docs/ROADMAP.md`, "Questions for the operator").
 * **Where the older data's archive goes public** (the consolidation): the review asks for a public archive (Zenodo or a tag) so a
   referee can see nothing was dropped selectively; the operator wants it out of the tree. Both hold if the archive

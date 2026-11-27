@@ -45,14 +45,14 @@ def paused_reason(repo, campaign_id: str | None) -> str | None:
 
 def pause_attempt_class(stop_reason: str | None) -> str | None:
     from graph_scale_dynamics.db.repo import ATTEMPT_CLASS_FLEET_PAUSED
-    from graph_scale_dynamics.domain.model import (ATTEMPT_CLASS_DEPTH_YIELD, ATTEMPT_CLASS_LANE_YIELD,
-                                                   DEPTH_YIELD_REASON, LANE_YIELD_REASON)
+    from graph_scale_dynamics.domain.model import (ATTEMPT_CLASS_LANE_YIELD, ATTEMPT_CLASS_MODE_YIELD,
+                                                   LANE_YIELD_REASON, MODE_YIELD_REASON)
     if stop_reason is None:
         return None
     if stop_reason == LANE_YIELD_REASON:
         return ATTEMPT_CLASS_LANE_YIELD
-    if stop_reason == DEPTH_YIELD_REASON:
-        return ATTEMPT_CLASS_DEPTH_YIELD
+    if stop_reason == MODE_YIELD_REASON:
+        return ATTEMPT_CLASS_MODE_YIELD
     return (ATTEMPT_CLASS_FLEET_PAUSED if stop_reason == "fleet stopped"
             else ATTEMPT_CLASS_CAMPAIGN_PAUSED)
 
