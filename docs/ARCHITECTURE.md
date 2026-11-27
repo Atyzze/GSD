@@ -870,10 +870,15 @@ its top) and the next law is pushed. **A seed is priced as the admission will ho
 the peaks are those of whole runs only (exit 0; a run cut short by a restart or a bundle says nothing of a whole run's
 peak), a size grown from the sizes below by their typical (median) whole-run peak (`depth_reach.price`, which still
 decides whether a size is tried at all); a seed is priced at the larger of that and what the admission asks to start
-it (`push_ladder.asked`, the worker's own `memory.predicted_claim_peak_bytes` on the law's last job spec) and, running,
-is held at
-`SETTLED_RESERVATION_SLACK` (1.5) times its peak (its own typical peak where it has whole runs, else the largest of
-the grown price, its runs under way and its runs cut short), so as many fit at once as `1 + (reach - price) // held`.
+it (`push_ladder.asked`) and, running, is held at `push_ladder.PUSHED_SLACK` (1.1) times its peak (its own typical
+peak where it has whole runs, else the largest of the grown price, its runs under way and its runs cut short), so as
+many fit at once as `1 + (reach - price) // held`. **The admission prices a pushed seed itself** (899, the operator,
+2026-11-27 18:26): for a job of a push campaign (`push_ladder.pushed`) the worker asks `push_ladder.claim_bytes`, 1.1
+times the law's own typical whole-run peak at that size or, before one, grown from the sizes below, never below what
+that job reached before a stop (a resumed seed) nor below a runaway seen there (`memory.runaway_seen_bytes`); its
+reservation settles at 1.1 times its peak (`worker.restate_reservation`, `slack`). Every other law keeps
+`memory.predicted_claim_peak_bytes` (1.35) and `SETTLED_RESERVATION_SLACK` (1.5); the host's floor and the hard stop
+at 60% of the host hold for all. `push_ladder.asked` reads the same price, so the forecast and the admission are one.
 **The push stops a law at N=1,048,576** (897, `push.CEILING`): its ladder still reaches 4,194,304 in the campaign's
 spec, but a law goes past 1,048,576 only when pushed past it (`push.past`, the Top page's "past" button, `push_past`:
 the entry's `to` set one size of the ladder higher, the law put back at the end of the list if it had left it); at
@@ -1217,7 +1222,10 @@ reads a bundle the same way every time (`tools/read_bundle.py --against` sets tw
 into it. A bundle holds only the cycles
 finished in its own request, checks each part before it writes (`report_bundle.check_coherence`), names every campaign
 it lacks (`study.json`'s `absent`), stamps what it read after the fleet resumed (`read_utc`), and writes the next
-study's ledgers only once its archive is written. While a quiet report holds the fleet a resume, reopen or allocation
+study's ledgers only once its archive is written. **A quiet bundle leaves the N-push running** (899, the operator,
+2026-11-27 18:26): it pauses every running campaign but a push campaign (`quiet_report.beside_the_push`, the record's
+`beside`), waits for nothing of it (`work_in_flight(beside=...)`, its work under `beside`), and the bundle's
+`focus.json` (`push_now`) lists the seeds that ran beside the report. While a quiet report holds the fleet a resume, reopen or allocation
 is refused (409, `campaign_manager.HELD_BY_A_QUIET_REPORT`); the admin's `cancel` (the panel's button, action `cancel`)
 stops it while it holds the fleet (the report runner's group ended), resumes what it paused and makes no bundle. A
 runner step that fails is printed to the API's log and kept on the record (`runner_error`); fifteen in a row resume the

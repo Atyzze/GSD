@@ -150,9 +150,9 @@ def test_a_pushed_law_climbs_its_own_ladder_on_every_worker_until_not_one_seed_f
         if top == 16384:
             seen = push_ladder.forecast(repo, pushed, laws["pushed"], now=0.0)
         _finish(repo, pushed, laws["pushed"], top)
-    assert seeds == {64: 16, 256: 16, 1024: 16, 4096: 16, 16384: 16, 65536: 5, 262144: 3}, (
-        "every worker while memory holds them; then as many as fit, never fewer than three; 897: as many as fit "
-        "with each running seed held at one and a half times its peak, as the admission holds it")
+    assert seeds == {64: 16, 256: 16, 1024: 16, 4096: 16, 16384: 16, 65536: 6, 262144: 3}, (
+        "every worker while memory holds them; then as many as fit, never fewer than three, each running seed held "
+        "as the admission holds a pushed one, at 1.1 times its peak (899)")
     done = focus.load(repo)["pushed_done"][-1]
     assert done["law"] == laws["pushed"] and done["at_n"] == 262144 and done["rule"] == "memory"
     assert push.laws(focus.load(repo)) == [] and modes.here(repo)["mode"] != modes.PUSH, (

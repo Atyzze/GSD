@@ -1,4 +1,4 @@
-# Handoff: the state of GSD at build 898
+# Handoff: the state of GSD at build 899
 
 What is true now, for a context that has just opened this archive. Each fact has one home; the last section says
 where. **Think from the data, not from this page**: where the data and a document disagree, the data wins and the
@@ -58,6 +58,9 @@ in `docs/HISTORY.md`):
 * 898: the fleet ladder's graphs are those grown, "of" those bought (1,048,576 read 64, its 8 seeds bought, none
   finished); a seed's rough time on Now researching is its law's time at the size below over the seeds that ran there
   (it divided by 3 where the N-push ran 16: 34 h 44 min for about 6.5 h). Pages only: a restart of the dashboard.
+* 899: a pushed seed is asked 1.1 times its law's own typical whole-run peak grown to its size (a resumed one its own
+  peak) and held at 1.1 times its peak, every other law as before; a quiet bundle leaves the N-push running (the
+  operator's answers of 18:26). A restart of the fleet.
 
 **Before that, 871 to 885** (the handover of 886 read them):
 
@@ -85,9 +88,10 @@ and 862 the focus and the Map page; 864 to 869 no law done, study 176 seeded fro
 `import/` folder; 870 a handover. The baseline the paper rests on (174's bundle of 2026-11-24 14:22Z, 175's of 08:35Z,
 the calibration table) and what it shows: `docs/WHERE_WE_ARE.md` and `docs/paper/GSD_PAPER.md`.
 
-**Open threads at 898**, each with its home:
+**Open threads at 899**, each with its home:
 
-* **Pull requests**: 864 to 897 (#11 to #39) merged by the operator; `main` holds 897. Open: 898's.
+* **Pull requests**: 864 to 897 (#11 to #39) merged by the operator; `main` holds 897. Open: 898 (#40) and 899's,
+  899 made on 898; merged in that order.
 * **Study 178** (`/data/projects/GSD/178/main`, `study_178_design.json`, criterion `study_178_criterion.json`) runs
   on 893 since 2026-11-27 about 11:20Z. 177's dex of 19:33Z was read in at its start (C15) and checked: 192 laws
   confirmed, 1 unmatched, at 07:18Z; the first zone (S178-C15-G2302, 177's S176-C12-G100, G79's family) was chosen at
@@ -267,12 +271,14 @@ again after the paper's three studies, on the final probes, with a criterion wri
 
 ## What waits on the operator
 
-* **898's pull request**: theirs to merge.
+* **898's and 899's pull requests** (#40 and the next): theirs to merge, in that order; 899 applied with a
+  restart of the fleet.
+* **G133 off the push list until zone 1 is benchmarked?** (`docs/ROADMAP.md`, "Questions for the operator"): recommended.
 * **Study 178 on 897**, G73's 1,048,576 under way (3 seeds at about 17:26Z, none finished); 898
   applies with a restart of the dashboard alone; its next bundle once G73's 1,048,576 is read.
 * **The push list's order** on the Top page: "first", "up", "past N=1,048,576", "stop pushing"; any law page's "push
   to the N limit".
-* **897's two questions answered** (18:26, "agree with both recommendations"): built in 899.
+* **897's two questions answered** (18:26, "agree with both recommendations"): made in 899.
 * **Study 176's standing controls**: kept as a tick (recommended; `docs/ROADMAP.md`, "Questions for the operator").
 * **Where the older data's archive goes public** (the consolidation): the review asks for a public archive (Zenodo or a tag) so a
   referee can see nothing was dropped selectively; the operator wants it out of the tree. Both hold if the archive

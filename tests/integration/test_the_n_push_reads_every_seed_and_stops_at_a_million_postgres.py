@@ -192,9 +192,9 @@ def test_the_forecast_prices_a_seed_as_the_admission_asks_and_says_how_many_run_
     monkeypatch.setattr(push_ladder, "reach", lambda repo: 54 * GIB)
     monkeypatch.setattr(push_ladder, "asked", lambda repo, campaign_id, law, n: asks.get(int(n)))
     bought = push_ladder.step(repo, focus.load(repo))
-    assert bought["queued"] == MILLION and bought["asked_bytes"] == asks[MILLION] and bought["seeds"] == 5, (
-        "one seed asks 10.06 GiB to start and each running one is held at 1.5 times its peak: five fit in 54 GiB, "
-        "where a price grown from the sizes below alone (6.6 GiB) promised eight")
+    assert bought["queued"] == MILLION and bought["asked_bytes"] == asks[MILLION] and bought["seeds"] == 7, (
+        "one seed asks 10.06 GiB to start and each running one is held at 1.1 times its peak (899; 1.5 in 897, "
+        "five): seven fit in 54 GiB, where a price grown from the sizes below alone (6.6 GiB) promised eight")
 
     jobs = _jobs(repo, pushed, laws["pushed"], MILLION)
     for i, job in enumerate(jobs[:4]):
@@ -210,12 +210,12 @@ def test_the_forecast_prices_a_seed_as_the_admission_asks_and_says_how_many_run_
     assert row["state"] == "running" and row["needs_bytes"] == asks[MILLION], (
         "priced as the admission asks, not by the 6.8 GiB of a run cut short")
     assert row["cut_bytes"] == int(6.8 * GIB) and row["live_bytes"] == int(9.4 * GIB) and row["at_once"] == 4
-    assert row["hold_bytes"] == pytest.approx(1.5 * 9.4 * GIB, rel=1e-6), "a running seed is held at 1.5 times its peak"
+    assert row["hold_bytes"] == pytest.approx(1.1 * 9.4 * GIB, rel=1e-6), "a running pushed seed is held at 1.1 times its peak"
     assert seen["under_way"] == {"n": MILLION, "running": 4, "held_bytes": 4 * int(11.77 * GIB),
                                  "live_bytes": int(9.4 * GIB), "asked_bytes": asks[MILLION],
                                  "headroom_bytes": int(6.29 * GIB), "more": 0}
     assert row["passes"] == 2 and row["hours"] == pytest.approx(2 * row["seconds"] / 3600, abs=1e-3), (
-        "the four running, then the one left")
+        "the four running, then the three left")
     assert seen["marks"]["fewer"]["n"] == MILLION and seen["marks"]["fewer"]["at_once"] == 4
     done = next(r for r in seen["rungs"] if r["n"] == 262144)
     assert done["typical_bytes"] == per_node * 262144 and done["state"] == "done"
@@ -223,3 +223,49 @@ def test_the_forecast_prices_a_seed_as_the_admission_asks_and_says_how_many_run_
     assert "top" not in carried and carried["law"]["ladder"]["under_way"]["running"] == 4, (
         "the bundle carries the N-push's forecast as the Top page shows it")
     assert carried["law"]["ceiling"] == MILLION and carried["pushed"][0]["ceiling"] == MILLION
+
+
+class _Said:
+    def __init__(self):
+        self.lines = []
+
+    def write(self, event, **fields):
+        self.lines.append((event, fields))
+
+
+def test_a_pushed_seed_is_asked_and_held_at_a_tenth_over_its_own_peak(folder, monkeypatch):
+    from graph_scale_dynamics.operations import push_ladder
+    from graph_scale_dynamics.scheduling import worker_count
+    from graph_scale_dynamics.services.api import focus_route
+    from graph_scale_dynamics.services.worker import main as W
+    repo, focus, camps, laws = folder
+    repo.set_flag(worker_count.FLAG, "4")
+    per_node = int(1.49 * GIB / 262144)
+    focus_route.act(repo, {"do": "push", "law": laws["pushed"], "campaign": camps["pushed"]})
+    pushed = str(focus.load(repo)["campaigns"][push_ladder.PUSH])
+    _climb(repo, focus, pushed, laws["pushed"], per_node=per_node, until=262144)
+    _finish(repo, pushed, laws["pushed"], 262144, per_node=per_node)
+    push_ladder.tick(repo, force=True)
+    fresh, resumed = _jobs(repo, pushed, laws["pushed"], MILLION)[:2]
+    _attempt(repo, resumed, code=-9, peak=int(9.8 * GIB), wall=600.0)
+    job = lambda job_id: {"job_id": job_id, "campaign_id": pushed, "candidate_id": laws["pushed"], "n": MILLION}
+    grown = 1.49 * GIB * 4 * 1.1
+    assert push_ladder.claim_bytes(repo, job(fresh)) == pytest.approx(grown, rel=1e-3), (
+        "a fresh seed is asked 1.1 times the typical peak of its law's own whole runs below, grown to its size: "
+        "about 6.6 GiB at 1,048,576 in 178, where the admission asked 10.1")
+    assert push_ladder.claim_bytes(repo, job(resumed)) == pytest.approx(1.1 * 9.8 * GIB, rel=1e-3), (
+        "a seed stopped and resumed is asked 1.1 times what it reached before its stop")
+    blind = {"job_id": "x", "campaign_id": camps["blind"], "candidate_id": laws["blind"], "n": MILLION}
+    assert push_ladder.claim_bytes(repo, blind) is None, "every other law keeps the admission's own price"
+
+    leased = repo.claim_job("executor-9-1", ("simulate",), campaigns=(pushed,), min_n=MILLION)
+    said = _Said()
+    held = W.restate_reservation(repo, said, leased, "executor-9-1", int(leased["lease_generation"]),
+                                 {"pss_bytes": int(9.8 * GIB), "uss_bytes": 0, "rss_bytes": 0}, int(9.8 * GIB),
+                                 int(14.7 * GIB), early=False)
+    assert held == pytest.approx(1.1 * 9.8 * GIB, rel=1e-3) and said.lines[0][0] == "memory_reservation_settled", (
+        "a running pushed seed is held at 1.1 times its peak, not 1.5: in 178 three seeds of 1,048,576 at 9.8 GiB "
+        "were held at 14.7 each")
+    priced = push_ladder.price(repo, pushed, laws["pushed"], push_ladder.rungs(repo, pushed, laws["pushed"]), MILLION,
+                               54 * GIB)
+    assert priced["hold_bytes"] == pytest.approx(1.1 * 9.8 * GIB, rel=1e-3), "the forecast holds it as the admission"
