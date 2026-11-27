@@ -6,12 +6,13 @@ CONTRACT = "gsd-law-code-1"
 _PARSE = re.compile(r"^(?:s(?P<study>[a-z0-9._]+?)-?)?c(?P<campaign>\d+)-?"
                     r"(?:g-?(?P<graph>\d+)|(?P<law>[0-9a-f]{6,64}))$")
 _LABEL = re.compile(r"^C(?P<campaign>\d+)-(?:G(?P<graph>\d+)|(?P<law>[0-9a-f]{6,64}))$")
+_WHOLE = re.compile(r"^S(?P<study>[A-Za-z0-9._]+?)-?C(?P<campaign>\d+)-?(?:G(?P<graph>\d+)|(?P<law>[0-9a-f]{6,64}))$")
 
 
 def code(study, campaign, graph=None, law=None) -> str:
-    head = f"S{study}" if study not in (None, "") else ""
+    head = f"S{study}-" if study not in (None, "") else ""
     if graph is not None:
-        return f"{head}C{campaign}G{int(graph)}" if head else f"C{campaign}-G{int(graph)}"
+        return f"{head}C{campaign}-G{int(graph)}"
     return f"{head}C{campaign}-{str(law or '')[:8]}"
 
 
@@ -35,12 +36,15 @@ def same(text, other) -> bool:
 
 
 def upgraded(label, study) -> str | None:
-    if label is None or study in (None, ""):
+    if label is None:
         return label
     found = _LABEL.match(str(label))
-    if found is None:
+    if found is not None:
+        return label if study in (None, "") else code(study, found["campaign"], found["graph"], found["law"])
+    whole = _WHOLE.match(str(label))
+    if whole is None:
         return label
-    return code(study, found["campaign"], found["graph"], found["law"])
+    return code(whole["study"], whole["campaign"], whole["graph"], whole["law"])
 
 
 def study_of(repo, campaign_id, known: dict | None = None):

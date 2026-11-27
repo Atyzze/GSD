@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 import time
+from pathlib import Path
 
 from graph_scale_dynamics.db.connection import DatabaseOperationalError
 from graph_scale_dynamics.db.repo import Repo, retryable_db_error
@@ -53,7 +54,28 @@ def _completion(repo: Repo, log: Log, campaign: dict) -> None:
     log.write("campaign_complete", campaign=campaign_id[:17])
 
 
-def finish_pass(repo: Repo, log: Log, active: list[dict]) -> dict | None:
+def dex_pass(repo: Repo, log: Log, root: Path | None, blobs: Path | None) -> None:
+    from graph_scale_dynamics.domain.version import BUILD_NUMBER
+    from graph_scale_dynamics.operations import dex, imports
+    if root is None:
+        return
+    try:
+        for found in dex.absorb(repo, root / imports.FOLDER):
+            log.write("dex_read_in", bundle=str(found.get("bundle"))[:80], laws=found.get("laws_added"),
+                      standing=found.get("laws_standing"), refused=found.get("refused"))
+        written = dex.keep(repo, root, blobs=blobs, build=BUILD_NUMBER)
+        if written is not None:
+            log.write("dex_written", path=str(written))
+    except Exception as exc:  # noqa: BLE001
+        try:
+            repo.conn.rollback_if_open()
+        except Exception:  # noqa: BLE001
+            pass
+        log.write("dex_failed", error=f"{type(exc).__name__}: {exc}"[:400])
+
+
+def finish_pass(repo: Repo, log: Log, active: list[dict], *, root: Path | None = None,
+                blobs: Path | None = None) -> dict | None:
     for campaign in active:
         if is_engine_campaign(campaign["spec"]):
             _completion(repo, log, campaign)
@@ -71,6 +93,7 @@ def finish_pass(repo: Repo, log: Log, active: list[dict]) -> dict | None:
         focused = None
     if focused and focused["added"]:
         log.write("study_focus", law=focused["label"], stage=focused["stage"], added=focused["added"])
+    dex_pass(repo, log, root, blobs)
     return extended
 
 
@@ -128,7 +151,8 @@ def main(argv=None) -> int:
                                          "rest_seconds": rest, "wakes": dict(wakes),
                                          "passes_total": passes_total, "passes_idle": passes_idle,
                                          "last_working_pass": last_work})
-                finish_pass(repo, log, active)
+                finish_pass(repo, log, active, root=Path(args.var).resolve().parent,
+                            blobs=Path(args.blobs) if args.blobs else None)
                 if not repo.fleet_has_work(ANALYSIS_VERSION):
                     log.write("exit", reason="no active campaigns, analysis backlog, or control events remain")
                     return 0

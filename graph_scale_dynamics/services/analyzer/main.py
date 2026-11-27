@@ -727,6 +727,10 @@ def run_analysis_job(repo: Repo, blobs: BlobStore, log: Log, owner: str,
 
 
 def claim_analysis_for_owner(repo: Repo, owner: str) -> dict | None:
+    job = repo.claim_analysis_job(owner, ANALYSIS_VERSION, lease_seconds=ANALYSIS_LEASE_SECONDS,
+                                  tier_at_most=work_groups.DEPTH_TIER, order="oldest")
+    if job is not None:
+        return job
     extension = {"min_n": fleet_halves.EXTENSION_FROM_N, "order": "oldest"}
     base = {"max_n": fleet_halves.EXTENSION_FROM_N - 1}
     owed_extension = fleet_halves.extension_first(

@@ -1352,7 +1352,7 @@ function studyOfPage(d){
   const s=((((d||{}).reproduction||{}).campaign||{}).spec||{}).study_design||{};
   return s.study==null||s.study===''?null:String(s.study);
 }
-function codeOf(study,camp,ordinal){return study?`S${study}C${camp}G${ordinal}`:`C${camp}-G${ordinal}`}
+function codeOf(study,camp,ordinal){return study?`S${study}-C${camp}-G${ordinal}`:`C${camp}-G${ordinal}`}
 function candidateCode(c,d){
   const camp=String((d&&d.campaign_id)||(c&&c.campaign_id)||currentCampaign||'');
   const m=/^G-?(\d+)$/.exec(String((c&&c.ensemble_code)||''));

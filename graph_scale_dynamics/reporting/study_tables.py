@@ -211,10 +211,14 @@ def chain_work(chain: dict, weights: dict | None) -> dict:
             "work_units": units_of(counted, weights) if weights else None, "work_parts": counted}
 
 
-def chain_rows(repo, campaign_ids, store):
+def chain_rows(repo, campaign_ids, store, laws=None):
     from graph_scale_dynamics.artifact_store.retention import COMPACT_SCHEMAS
     from graph_scale_dynamics.domain.model import INTERRUPTED_ATTEMPT_CLASSES
     interrupted = ",".join(f"'{name}'" for name in INTERRUPTED_ATTEMPT_CLASSES)
+    only = sorted(str(law) for law in laws) if laws is not None else None
+    if only is not None and not only:
+        return
+    among = f"AND j.candidate_id IN ({','.join('?' for _ in only)}) " if only else ""
     for cid in campaign_ids:
         cid, after = str(cid), ""
         weights = work_weights_of(repo, cid)
@@ -226,8 +230,8 @@ def chain_rows(repo, campaign_ids, store):
                 f"WHERE a.job_id=j.job_id AND a.wall_seconds IS NOT NULL AND (a.error_class IS NULL OR a.error_class "
                 f"NOT IN ({interrupted})) ORDER BY a.finished_utc DESC LIMIT 1) AS memory "
                 "FROM jobs j LEFT JOIN artifact_retention ar ON ar.artifact_hash=j.result_artifact "
-                "WHERE j.campaign_id=? AND j.kind='simulate' AND j.status='done' AND j.job_id>? "
-                "ORDER BY j.job_id LIMIT ?", (cid, after, PAGE)).fetchall()
+                "WHERE j.campaign_id=? AND j.kind='simulate' AND j.status='done' AND j.job_id>? " + among +
+                "ORDER BY j.job_id LIMIT ?", (cid, after, *(only or ()), PAGE)).fetchall()
             if not rows:
                 break
             for row in rows:
@@ -290,7 +294,7 @@ def tables(repo, campaign_ids, blobs=None) -> dict:
                                                       "rows (the landscape's point: each probe's reading at the "
                                                       "largest rung that has one); regime from candidate_specs "
                                                       "(dsl.dynamics_regime: zero_temperature or equilibrium); the "
-                                                      "law's code (`code`, SnCnGn: the study, the campaign and its "
+                                                      "law's code (`code`, Sn-Cn-Gn: the study, the campaign and its "
                                                       "first graph's number, `graph`; the study and the campaign and "
                                                       "the start of its id where no graph has run); the "
                                                       "law itself (`spec`, as candidate_specs holds it: its terms, "

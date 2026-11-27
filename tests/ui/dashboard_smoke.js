@@ -2357,14 +2357,14 @@ check('the explorer caps rendered rows and debounces the search box', () => {
   }
 });
 
-check('a law of every batch together is never named Cstudy (674), and a law of a study is named SnCnGn (871)', () => {
+check('a law of every batch together is never named Cstudy (674), and a law of a study is named Sn-Cn-Gn (871, dashed at 882)', () => {
   const app = sandbox.GSD_APP, sys = sandbox.GSD_SYSTEM, rows = sys.campaignRows;
   try {
     sys.campaignRows = [{ campaign_id: '3', study: '176' }, { campaign_id: '4' }];
     if (app.lawCode({ ensemble_code: 'G-33430' }, 'study') !== 'G-33430') throw new Error('the study scope named a law\'s campaign');
-    if (app.lawCode({ ensemble_code: 'G-33430', campaign_id: '3' }) !== 'S176C3G33430') throw new Error(app.lawCode({ ensemble_code: 'G-33430', campaign_id: '3' }));
+    if (app.lawCode({ ensemble_code: 'G-33430', campaign_id: '3' }) !== 'S176-C3-G33430') throw new Error(app.lawCode({ ensemble_code: 'G-33430', campaign_id: '3' }));
     if (app.lawCode({ ensemble_code: 'G-79', campaign_id: '4' }) !== 'C4-G79') throw new Error('a campaign of no study lost its code');
-    if (sys.lawCode('3', null, 'ab12cd34ef') !== 'S176C3-ab12cd34') throw new Error(sys.lawCode('3', null, 'ab12cd34ef'));
+    if (sys.lawCode('3', null, 'ab12cd34ef') !== 'S176-C3-ab12cd34') throw new Error(sys.lawCode('3', null, 'ab12cd34ef'));
     const read = (q) => JSON.stringify(app.lawCodeQuery(q));
     for (const [q, want] of [['S176C11G79', { study: '176', campaign: '11', ordinal: 79 }], ['s176-c11-g79', { study: '176', campaign: '11', ordinal: 79 }],
                              ['C11-G79', { study: null, campaign: '11', ordinal: 79 }], ['g79', { study: null, campaign: null, ordinal: 79 }]]) {
@@ -3544,6 +3544,19 @@ check('the study now is one bar: the laws drawn blind against the laws the map c
   }
 });
 
+check('the study now is drawn the first time even under the pointer, and a failed ask says so and asks again soon', () => {
+  const root = getElementById('studyNow');
+  root.innerHTML = '<div class="empty">every campaign of the study, loading…</div>';
+  root.dataset.hovering = '1';
+  sandbox.GSD_APP.renderStudyNow({ campaigns: [{ campaign_id: '1', design_kind: 'blind', group: 'A', study_batch: true,
+    state: 'active', laws_total: 3, graphs_total: 3, graphs_created: 3, slots_held: 0, work_queued: 0 }] });
+  delete root.dataset.hovering;
+  if (!root.innerHTML.includes('data-campaign="study"')) throw new Error(`the first drawing waited for the pointer to move: ${root.innerHTML}`);
+  if (typeof sandbox.GSD_APP.studyNowRetryMs !== 'number' || sandbox.GSD_APP.studyNowRetryMs > 5000) {
+    throw new Error('a study now not yet read is not asked for again within a few seconds');
+  }
+});
+
 check('the candidate column sorts by G-code, smallest first', () => {
   sandbox.GSD_APP.campaign = '1';
   sandbox.GSD_APP.landscape = null;
@@ -3865,7 +3878,10 @@ const FOCUS_PAGE = {
     current: { law: 'b4d17dcdb3'.padEnd(64, '0'), label: 'C1-G6940', score: 19, kind: 'ring', stage: 'boundaries',
                radii: { '1e-09': { laws: 4, alike: 1, other: 3, waiting: 0 }, '0.1': { laws: 8, alike: 7, other: 1, waiting: 0 },
                         '0.2': { laws: 8, alike: 5, other: 2, waiting: 1 } },
-               seeds: { own: { 0: 'ring', 1: 'ring', 2: 'ring' }, more: { 3: 'ring', 4: 'ring', 5: 'ring' }, reproduced: true, other: [], of: 6 },
+               seeds: { own: { 0: 'ring', 1: 'ring', 2: 'ring' }, more: { 3: 'ring', 4: 'ring', 5: 'ring' }, reproduced: true, other: [], of: 6,
+                        compared_at: { 0: 16384, 1: 16384, 2: 4096 } },
+               needs: [{ what: 'its kind', done: true, said: 'ring at N=16,384, read in its seeds\u2019 campaign' },
+                       { what: 'its depth', done: false, said: 'the depth worker has read it to N=4,096; it must reach N=16,384' }],
                sensitivity: { on: 'its exact parameters', words: 'its 6 seeds, each read alone, agree, and 3 of 4 moves of 0.001 or less read another kind' },
                alike_to: 0.1, depth: { deepest: 65536, holds_to: 65536, invalidated_at: null },
                boundaries: { ['ab'.repeat(32)]: { between: [0.25, 0.3125], kinds: ['ring', 'full'], why: null } } },
@@ -3893,8 +3909,8 @@ check('the Map page shows the law in focus, its rings, seeds, depth, regions, qu
   map.render(FOCUS_PAGE);
   const html = (id) => getElementById(id).innerHTML;
   for (const [id, wants] of [
-    ['mapControls', ['in focus: S174C1G6940, halving its boundaries', 'the depth seeker on 1 law', 'study <b>174</b>', 'type=range', 'value="33"', '67% random \u00b7 33% focus</b>',
-                     'neighbours (C12): running 2, queued 9, 40 done, deepest N=1,024', 'depth (C14): running 1', 'A 50%',
+    ['mapControls', ['in focus: S174C1G6940, halving its boundaries', 'the depth seeker on 1 law', 'study <b>174</b>', 'the fleet\u2019s order: 1 the zone of the law in focus',
+                     'zone worker, neighbours (C12): running 2, queued 9, 40 done, deepest N=1,024', 'depth worker (C14): running 1',
                      'value="1e-9:4, 0.001:4, 0.1:8, 0.2:8"']],
     ['mapFocusList', ['C6-G1015', 'grown ring', 'N=64', 'C8-G2983', 'placed by hand', 'data-map-move=up', 'the suggested order',
                       'S176C15G3</a>', 'from S174C2G3187, 38 there', "38 <span class=muted", "in study 174's bundle", 'candidate=' + '56'.repeat(32) + '&amp;campaign=15']],
@@ -3909,16 +3925,87 @@ check('the Map page shows the law in focus, its rings, seeds, depth, regions, qu
       if (!html(id).includes(text)) throw new Error(`${id} lacks "${text}": ${html(id).slice(0, 400)}`);
     }
   }
-  if (/focus now|stop the focus|mapSplit/.test(html('mapQueue') + html('mapControls'))) throw new Error('the slider and the lists replace focus now, stop and the split');
+  if (/focus now|stop the focus|mapSplit|type=range|mapLean/.test(html('mapQueue') + html('mapControls'))) throw new Error('the fleet\u2019s order replaces the slider, focus now, stop and the split');
   if (/depth 1 worker/.test(html('mapControls'))) throw new Error('the depth seeker is always one worker: the slider does not say so');
   for (const id of ['mapCurrent', 'mapDepth', 'mapQueue', 'mapDone', 'mapFocusList', 'mapDepthList']) {
     if (!/<a class="candidate-link map-law" href="[^"]*candidate=/.test(html(id))) throw new Error(`${id}'s laws do not link to their law page: ${html(id).slice(0, 300)}`);
   }
   if (!/disabled/.test(html('mapFocusList').split('data-map-move=up')[1] || '')) throw new Error('the first law of a list cannot move up');
+  for (const want of ['to map it, 1 of 2 still to come:', 'its kind: ring at N=16,384', 'its depth: the depth worker has read it to N=4,096',
+                      'its own seeds reproduced at N=16,384', '<th title="neighbours with a reading at 16,384">read</th>']) {
+    if (!html('mapCurrent').includes(want)) throw new Error(`the law in focus does not say what it waits for: "${want}"`);
+  }
   map.render({ studies: [{ study: '174', campaigns: 11 }], workload: {}, focus: null });
   if (!/start the focus/.test(html('mapControls')) || !/no focus in this folder/.test(html('mapCurrent'))) {
     throw new Error(`a folder with no focus offers no start: ${html('mapControls')}`);
   }
+});
+
+const ZONE_NOW = {
+  contract: 'gsd-zone-now-1', at: '2026-11-26T16:30:00Z',
+  running: [{ role: 'zone', part: 'ring 0.1', campaign: '12', law: '9a'.repeat(32), label: 'S174-C12-G40', n: 4096, seed: 1,
+              started_utc: '2026-11-26T16:28:55Z', seconds: 65, typical: 16 },
+            { role: 'depth', part: "the depth worker's law", campaign: '14', law: 'b4'.repeat(32), label: 'S174-C14-G1', n: 16384, seed: 0,
+              started_utc: '2026-11-26T16:29:00Z', seconds: 60, typical: 87 },
+            { role: 'Dex laws', part: 'a Dex law, read again here', campaign: '15', law: '56'.repeat(32), label: 'S174-C15-G3', n: 64, seed: 2,
+              started_utc: '2026-11-26T16:29:58Z', seconds: 2, typical: null }],
+  workers: { zone: 9, 'zone seeds': 0, depth: 1, 'Dex laws': 5, blind: 1, other: 0 }, analyses: { running: 3, queued: 12 },
+  order: { ordered: true, tier: 0, name: 'the zone of the law in focus', names: ['the zone of the law in focus', 'the depth worker', 'the Dex laws read again', 'the blind draw', "earlier laws' leftovers"],
+           queued: { 'the zone of the law in focus': 6, 'the blind draw': 1091 } },
+  typical: { hours: 6 }, zone_first: { N: { waiting: 37 }, S: { waiting: 0 } },
+  zone: { campaign: '12', seeds: 3, ladder: [64, 256, 1024, 4096, 16384], left_seconds: 13680, left_unknown: false, eta_seconds: 1520,
+          judged: 'a neighbour is alike when it reads the law\u2019s own kind at N=16,384', needs_at: { 'its kind': '2026-11-26T16:02:00Z' },
+          pace: { on_it_seconds: 1680, began_utc: '2026-11-26T16:02:00Z', read: 2, of: 44, read_last_hour: 2, last_read_seconds: 240 },
+          rings: { '0.1': { laws: 8, read: 1, running: 3, queued: 2, 'being read': 1, 'waiting for the decider': 0, 'its next size due': 0,
+                            held: 1, failed: 0, decided: 0, 'not started': 0, alike_so_far: 4, other_so_far: 1 } },
+          points: [{ law: '9a'.repeat(32), label: 'S174-C12-G40', part: 'neighbour', radius: 0.1, reached: 1024, verdict: null, alike: null,
+                     where: { stage: 'running', n: 4096, done: 1, running: 1, queued: 1, seeds: 3, since: '2026-11-26T16:28:55Z', seconds: 65 },
+                     so_far: { n: 1024, kind: 'moved', law_reads: 'moved', alike: true } },
+                   { law: '9b'.repeat(32), label: 'S174-C12-G41', part: 'neighbour', radius: 0.1, reached: 64, verdict: null, alike: null,
+                     where: { stage: 'held', n: 64, rule: 'budget_hold', since: '2026-11-26T16:27:00Z', seconds: 180 } },
+                   { law: '9c'.repeat(32), label: 'S174-C12-G42', part: 'term off', term: 'square_count', reached: 16384, verdict: 'stopped: starts_alike at 4,096',
+                     alike: false, where: { stage: 'read', n: 16384, since: '2026-11-26T16:26:00Z', seconds: 240 } }] },
+};
+
+check('the Map page says how the zone is going: its workers, every law where it stands, and timers (2026-11-26 17:22)', () => {
+  const map = sandbox.GSD_MAP;
+  map.render(Object.assign({}, FOCUS_PAGE, { zone_now: ZONE_NOW }));
+  const current = getElementById('mapCurrent').innerHTML, working = getElementById('mapWorking').innerHTML;
+  for (const want of ['on it for <b><span class=map-since data-map-since="2026-11-26T16:02:00Z">28:00</span></b>', '(since 16:02 UTC)',
+                      '<b>2 of 44</b> of its laws read', 'about <b>25 min</b> of work left at its 9 zone workers now',
+                      'zone <b>9</b>', 'Dex laws <b>5</b>', "earlier laws' zones: 0 running, 37 queued behind this law's", 'probes 3 running, 12 queued',
+                      'its kind: ring at N=16,384', '(since 16:02 UTC)', 'alike when it reads', '<summary>every law of the zone, where it stands now (3)</summary>',
+                      'running at N=4,096: 1 of 3 seeds done, 1 running, 1 queued', '<b class=warn>held at N=64</b> (budget_hold)', 'square_count off',
+                      '1,024: moved', 'stopped: starts_alike at 4,096 <b class=warn>other</b>', '4 of 5']) {
+    if (!current.includes(want)) throw new Error(`the law in focus lacks "${want}": ${current.slice(0, 600)}`);
+  }
+  const controls = getElementById('mapControls').innerHTML;
+  for (const want of ['1 <b>the zone of the law in focus</b> <span class=muted>(6 queued)</span>', '4 the blind draw <span class=muted>(1,091 queued)</span>',
+                      'now on: <b>the zone of the law in focus</b>']) {
+    if (!controls.includes(want)) throw new Error(`the fleet\u2019s order lacks "${want}": ${controls.slice(0, 600)}`);
+  }
+  for (const want of ['<td>zone</td>', 'S174-C12-G40', 'ring 0.1', '4,096', '1:05', '<td>16 s</td>', 'map-run-bar', 'not timed yet', '<td>depth</td>']) {
+    if (!working.includes(want)) throw new Error(`Working now lacks "${want}": ${working.slice(0, 600)}`);
+  }
+  if (map.forText(3725) !== '1 h 02 min' || map.longText(5400) !== '1 h 30 min' || map.longText(1520) !== '25 min') throw new Error('the clock words');
+  const done = JSON.parse(JSON.stringify(ZONE_NOW));
+  done.zone.eta_seconds = null; done.zone.left_seconds = 0; done.zone.probes_waiting = 93;
+  map.render(Object.assign({}, FOCUS_PAGE, { zone_now: done }));
+  if (!getElementById('mapCurrent').innerHTML.includes('its runs are done: <b>93</b> probe readings to come')) throw new Error('a zone waiting on its probes does not say so');
+  const smaller = JSON.parse(JSON.stringify(FOCUS_PAGE));
+  smaller.focus.current.confirmed_at = 0.01; smaller.focus.current.alike_to = null;
+  map.render(smaller);
+  if (!getElementById('mapCurrent').innerHTML.includes('its zone stands at ring 0.01')) throw new Error('a smaller zone is not said');
+  const lucky = JSON.parse(JSON.stringify(FOCUS_PAGE));
+  lucky.focus.done = [{ law: 'ab'.repeat(32), label: 'S177-C11-G37', stage: 'unconfirmed', why: '2 of 8 neighbours at radius 0.1 read its kind' }];
+  lucky.focus.queue = [{ law: 'ab'.repeat(32), label: 'S177-C11-G37', score: 27, status: 'unconfirmed' }];
+  map.render(lucky);
+  if (!getElementById('mapDone').innerHTML.includes('a lucky hit: no zone found around it') || !getElementById('mapQueue').innerHTML.includes('a lucky hit')) {
+    throw new Error('a law with no zone around it is not called a lucky hit');
+  }
+  map.render(Object.assign({}, FOCUS_PAGE, { zone_now: { contract: 'gsd-zone-now-1', error: 'OperationalError: gone' } }));
+  if (!getElementById('mapWorking').innerHTML.includes('the live reading failed: OperationalError: gone')) throw new Error('a failed live reading is not said');
+  map.render(FOCUS_PAGE);
 });
 
 check('the Map page lists the import folder\u2019s bundles to tick, and folds the focus\u2019s settings away (15:11, 15:13)', () => {
@@ -3939,14 +4026,17 @@ check('the Map page lists the import folder\u2019s bundles to tick, and folds th
   const seedHtml = getElementById('mapSeed').innerHTML;
   for (const want of ['/data/projects/GSD/176/main/import', 'data-map-do=open_import', 'open the folder', 'copy the path',
                       'study_174_2026-11-25T13-04-19Z.tar.zst', 'build 865', '172 MiB', '69 scoring laws of 10,058', 'data-map-do=synchronize',
-                      'another science: refused', 'not readable yet', 'still being copied?', 'in the map since 2026-11-25 14:14', '72 laws, regions GG#3',
+                      'another science: laws only', 'not readable yet', 'still being copied?', 'in the map since 2026-11-25 14:14', '72 laws, zones GG#3',
                       'identical to study_174_2026-11-25T13-04-19Z: refused', 'let go 2026-11-25 16:40; its readings kept', '(not in the folder)',
-                      'A merged set is a new bundle, made on Reports.']) {
+                      "merged with this folder's own laws into the dex it writes every hour", 'write the dex now',
+                      'no dex written yet']) {
     if (!seedHtml.includes(want)) throw new Error(`the Seeds panel lacks "${want}": ${seedHtml.slice(0, 300)}`);
   }
   if (/mapBundle|path\/to\//.test(seedHtml)) throw new Error('the Seeds panel still asks for a path');
   const ticks = seedHtml.split('map-import-tick').length - 1;
-  if (ticks !== 4 || !/data-import-name="study_170_old" disabled/.test(seedHtml)) throw new Error('a bundle of another science can be ticked');
+  if (ticks !== 4 || /data-import-name="study_170_old" disabled/.test(seedHtml)) throw new Error('a bundle of another science cannot be ticked for its laws alone');
+  const dexButton = { getAttribute: (k) => ({ 'data-map-do': 'dex' })[k] || null };
+  if (JSON.stringify(map.bodyFor(dexButton)) !== JSON.stringify({ do: 'dex' })) throw new Error('the dex button sends nothing');
   if (!/data-import-name="study_174_2026-11-25T13-04-19Z" checked/.test(seedHtml)) throw new Error('a bundle in the map is not ticked');
   if (!/data-import-name="study_174_copy" disabled/.test(seedHtml)) throw new Error('a bundle identical to one in the map can be ticked');
   if (/data-import-name="study_175_b" checked/.test(seedHtml) || /data-import-name="study_175_b" disabled/.test(seedHtml)) throw new Error('a bundle let go is not offered again');
@@ -3973,10 +4063,10 @@ check('a running law says whether the blind draw or the focus drew it (15:18)', 
                 { campaign_id: '13', design_kind: 'focus', group: 'N', focus_part: 'S' }, { campaign_id: '14', design_kind: 'focus', group: 'D', focus_part: 'D' },
                 { campaign_id: '15', design_kind: 'seed', group: 'N' }, { campaign_id: '11', name: 'campaign-standing-controls' }];
   const got = ['3', '12', '13', '14', '15', '11', '99'].map((cid) => app.lawGroupOf(rows, cid)[1]).join(',');
-  if (got !== 'blind,neighbour,seeds,depth,seeded,control,other') throw new Error(`the groups read ${got}`);
+  if (got !== 'blind,zone,zone seeds,depth,seeded,control,other') throw new Error(`the groups read ${got}`);
   app.paintLiveGroups({ A: 6, N: 3, D: 1 });
   const said = getElementById('liveGroups').innerHTML;
-  if (!/blind<\/span> 6/.test(said) || !/neighbour<\/span> 3/.test(said) || !/depth<\/span> 1/.test(said)) throw new Error(`the heading counts ${said}`);
+  if (!/blind<\/span> 6/.test(said) || !/zone<\/span> 3/.test(said) || !/depth<\/span> 1/.test(said)) throw new Error(`the heading counts ${said}`);
 });
 
 check('the Map page reads its rings and settings and refuses what is not radius:laws', () => {

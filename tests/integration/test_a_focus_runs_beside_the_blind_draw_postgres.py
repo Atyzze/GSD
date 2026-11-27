@@ -81,7 +81,9 @@ def test_a_focus_takes_one_law_of_study_174_into_its_neighbours_its_seeds_and_it
         assert [(d["law"], d["stage"]) for d in again["done"]] == [(holder, focus.UNCONFIRMED)]
         assert again["current"]["law"] == other
         assert {r["candidate_id"] for r in repo.conn.execute(
-            "SELECT candidate_id FROM campaign_candidates WHERE campaign_id=?", (made["D"],)).fetchall()} == {holder, other}
+            "SELECT candidate_id FROM campaign_candidates WHERE campaign_id=?", (made["D"],)).fetchall()} == {holder}, (
+            "one law at a time: the next waits until the decider ends the first")
+        assert again["depth_now"]["law"] == holder
         code, text = focus.command(repo, "174", None, True)
         assert code == 0 and f"campaign {made['N']}" in text and "sensitive to: not read yet" in text
         with pytest.raises(ValueError, match="study 174"):

@@ -26,6 +26,7 @@ Held under about 30,000 tokens by `tests/unit/test_the_read_first_set_is_small.p
 
     docs/WHERE_WE_ARE.md         the whole project on one page, in plain words (the operator's page)
     docs/agent/HANDOFF.md        what is true right now, and where everything else lives
+    docs/agent/ZONE_MAP.md       where the project is heading: zones, their behaviour, how one is mapped
     docs/agent/NEXT_BUILD.md     the next build: what it is, what blocks it, how to make and release it
     docs/agent/WORKING_WITH_THE_OPERATOR.md   how the operator sends, decides and wants answers
     docs/agent/ENVIRONMENT.md    section 10 only: the cold start in order

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from graph_scale_dynamics.domain.model import utc_now
 
-PREFIX = "GG#"
+PREFIX = "Z"
 
 
 def term_name(term: dict) -> str:
@@ -68,7 +68,8 @@ def place(state: dict, entry: dict, specs: list[dict]) -> dict:
     state["region_count"] = number
     region = {"number": number, "name": f"{PREFIX}{number}", "kind": entry.get("kind"), "laws": [entry["law"]],
               "labels": [entry.get("label")], "members": len(specs), "ranges": found,
-              "alike_to": entry.get("alike_to"), "boundaries": list((entry.get("boundaries") or {}).values()),
+              "alike_to": entry.get("alike_to"), "confirmed_at": entry.get("confirmed_at"),
+              "boundaries": list((entry.get("boundaries") or {}).values()),
               "joined": [], "mapped_utc": utc_now()}
     regions.append(region)
     places[entry["law"]] = number

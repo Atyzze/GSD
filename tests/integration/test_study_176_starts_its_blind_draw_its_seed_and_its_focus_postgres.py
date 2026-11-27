@@ -96,16 +96,14 @@ def test_a_bundle_seeds_its_scoring_laws_and_its_regions_a_second_appends_only_w
                   "mapped_utc": "2026-11-25T11:00:00Z"}
         first = _bundle(tmp_path, "study_174_a", [(holder, holder_spec, 19), (other, other_spec, 5),
                                                   (quiet, quiet_spec, 0)], [region])
-        with pytest.raises(ValueError, match="another science"):
-            study_seed.seed(repo, first, science={"sha256": "b" * 64})
         record = study_seed.seed(repo, first, science=SCIENCE)
         seeded = study_seed.seeded_campaign(repo, "176")
         laws = {row["candidate_id"] for row in repo.conn.execute(
             "SELECT candidate_id FROM campaign_candidates WHERE campaign_id=?", (seeded,)).fetchall()}
         assert laws == {holder, other}, "every law the bundle scores, and none it does not"
-        assert record["laws_added"] == 2 and record["regions"] == ["GG#3"] and record["scoring"] == 2
+        assert record["laws_added"] == 2 and record["regions"] == ["Z3"] and record["scoring"] == 2
         state = focus.load(repo)
-        assert [r["name"] for r in state["regions"]] == ["GG#3"] and state["regions"][0]["seeded_from"]["bundle"] == (
+        assert [r["name"] for r in state["regions"]] == ["Z3"] and state["regions"][0]["seeded_from"]["bundle"] == (
             "study_174_a")
         assert state["region_of"] == {holder: 3} and state["region_count"] == 3
         done = {d["law"]: d for d in state["done"]}
@@ -118,14 +116,14 @@ def test_a_bundle_seeds_its_scoring_laws_and_its_regions_a_second_appends_only_w
         second = _bundle(tmp_path, "study_174_b", [(holder, holder_spec, 19), (other, other_spec, 5)],
                          [grew, newer])
         again = study_seed.seed(repo, second, science=SCIENCE)
-        assert again["laws_added"] == 0 and again["regions"] == ["GG#1"] and again["regions_grown"] == ["GG#3"]
+        assert again["laws_added"] == 0 and again["regions"] == ["Z1"] and again["regions_grown"] == ["Z3"]
         known = {r["name"]: r for r in focus.load(repo)["regions"]}
-        assert sorted(known) == ["GG#1", "GG#3"] and known["GG#3"]["ranges"]["beta"] == [0.15, 0.2], (
+        assert sorted(known) == ["Z1", "Z3"] and known["Z3"]["ranges"]["beta"] == [0.15, 0.2], (
             "a newer bundle of the same study widens the region it already gave")
         with pytest.raises(ValueError, match="study_174_b was read already"):
             study_seed.seed(repo, second, science=SCIENCE)
         elsewhere = _bundle(tmp_path, "study_175_a", [(holder, holder_spec, 19)], [region], study="175")
-        assert study_seed.seed(repo, elsewhere, science=SCIENCE)["regions"] == ["GG#4"], (
+        assert study_seed.seed(repo, elsewhere, science=SCIENCE)["regions"] == ["Z4"], (
             "another study's region keeps its number unless it is taken")
         if shutil.which("zstd"):
             archive = tmp_path / "study_174_c.tar.zst"
@@ -145,10 +143,40 @@ def test_the_map_page_seeds_and_refuses_what_is_not_a_bundle(isolated_postgres_s
     repo = Repo(isolated_postgres_schema.dsn)
     try:
         _start(repo)
-        with pytest.raises(ValueError, match="no bundle at"):
+        with pytest.raises(ValueError, match="nothing at"):
             focus.act(repo, {"do": "seed", "bundle": str(tmp_path / "nothing")})
         (tmp_path / "empty").mkdir()
-        with pytest.raises(ValueError, match="holds 0 study bundles"):
+        with pytest.raises(ValueError, match="holds 0 dexes or study bundles"):
             focus.act(repo, {"do": "seed", "bundle": str(tmp_path / "empty")})
+    finally:
+        repo.close()
+
+
+def test_a_bundle_of_another_science_brings_its_laws_alone_each_run_here_from_nothing(isolated_postgres_schema,
+                                                                                      tmp_path):
+    from graph_scale_dynamics.db.repo import Repo, init_db
+    from graph_scale_dynamics.operations import focus, study_seed
+    init_db(isolated_postgres_schema.dsn)
+    repo = Repo(isolated_postgres_schema.dsn)
+    try:
+        _start(repo)
+        holder, holder_spec = _law(0.188203)
+        other, other_spec = _law(0.5)
+        region = {"number": 3, "name": "GG#3", "kind": "ring", "laws": [holder], "labels": ["C3-G17"], "members": 9,
+                  "ranges": {"beta": [0.17, 0.2]}, "alike_to": 0.2, "boundaries": []}
+        old = _bundle(tmp_path, "study_170_old", [(holder, holder_spec, 19), (other, other_spec, 5)], [region],
+                      science={"contract": "gsd-science-contract-2", "sha256": "b" * 64, "engine": "0.700.0"})
+        record = study_seed.seed(repo, old, science=SCIENCE)
+        seeded = study_seed.seeded_campaign(repo, "176")
+        laws = {row["candidate_id"] for row in repo.conn.execute(
+            "SELECT candidate_id FROM campaign_candidates WHERE campaign_id=?", (seeded,)).fetchall()}
+        assert laws == {holder, other}, "its laws are in the seeded campaign, run here from nothing"
+        assert record["carried"] is False and record["laws_only"] == 2 and record["laws_standing"] == 0
+        assert record["regions"] == [] and "engine" in record["science_differ"], "no score and no region carried"
+        state = focus.load(repo)
+        assert study_seed.standing(state) == {}, "no law stands on a score another science read"
+        assert set(study_seed.records(state)[0]["laws_only"]) == {holder, other}
+        study_seed.release(repo, "study_170_old")
+        assert study_seed.let_go(focus.load(repo)) == {holder, other}, "unticked, its laws are let go like any seed's"
     finally:
         repo.close()

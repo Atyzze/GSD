@@ -1,33 +1,41 @@
-# The next build is 881
+# The next build is 887
 
 This file names the next build and says how to make it. `tests/unit/test_next_build_is_named.py` parses its first line,
 which must read exactly `# The next build is <N>`, one above `BUILD_NUMBER`.
 
-## Where to begin: 881 is a finished chain's edges packed, or a bundle read
+## Where to begin: 887 starts study 178 on the zone map
 
 **Starting from nothing but the repository** (the operator, 2026-11-24 23:00): clone `main` and bring it up by
-`docs/agent/ENVIRONMENT.md`, section 10, "From the repository". Then `docs/WHERE_WE_ARE.md`, `docs/agent/HANDOFF.md`
-and this page, in that order, and `CLAUDE.md`'s rules for a shared repository. 871 to 880 are made
-(`docs/build_notes/BUILD871_NOTES.md` to `BUILD880_NOTES.md`); if their pull requests are not on `main` yet, branch from
-the newest.
+`docs/agent/ENVIRONMENT.md`, section 10, "From the repository". Then `docs/WHERE_WE_ARE.md`, `docs/agent/HANDOFF.md`,
+**`docs/agent/ZONE_MAP.md`** and this page, in that order, and `CLAUDE.md`'s rules for a shared repository. 871 to 886
+are made (`docs/build_notes/BUILD871_NOTES.md` to `BUILD886_NOTES.md`); if their pull requests are not on `main` yet,
+branch from the newest. 886 is a handover: pages only.
 
-**Where the roadmap stands** ("From 870"): the engines (875 to 877), the lexicon (878), the phenotype (879) and the
-outliers' queue (880) are made. What is left waits on the operator: the neighbours at the earliest identification on
-a reading of 866's early call in a bundle and their rule on it; the null map complete on every term's load read in a
-study's bundle, then the new terms (the Ricci curvature in its two forms); study 177 on 174's and 176's ledgers and
-176's last bundle; the shared effort once one node has proven the zone mapping. **When a bundle comes, read it first**
-("Reading a study's bundle" below, and 878's and 879's `tools/lexicon_reading.py` and `tools/phenotype_reading.py`).
+**What comes first, when the operator sends 177's dex or bundle**: read the zone. `tools/dex.py show` on a dex; on a
+bundle, `focus.json`'s `zone_now` (`order`, who ran, every law of the zone where it stood), `current.read_at`,
+`confirmed_at`, `needs_at` and the `events`: whether G37's zone was mapped (at ring 0.1 or 0.01) or ended a lucky hit,
+how long each part took, what held it. Then group the dex's laws by term set and distance as 886 did
+(`docs/agent/ZONE_MAP.md`, "Law space") to see which zone would confirm fastest.
 
-**What 881 makes, until then** (875's notes, "What it does not do"): a finished chain's edges held packed in memory
-(eight bytes an edge, as the save has been since 873) instead of as a list of pairs, the most of what a seed holds
-since 875; every reader of a chain's edges reads the packed form or a view of it, every chain the same to the bit.
+**What 887 makes** (`docs/ROADMAP.md`, "From 886", items 1 to 3), one step at a time and in the operator's order:
 
-**Acceptance**: `tools/engine_diet.py` before and after on the three laws of 875, the same digests, the peak memory
-lower; the parity lane and `outputs_of_a_law --against` unchanged; the full lane green.
+1. **Study 178's design**: the blind draw as the base load (one campaign, or the ten batches if the design keeps
+   them; say which and why), no seeded campaign made in advance, the focus begun with no law; the fleet's order of 885.
+2. **A dex read in becomes its own campaign, verified first**: every law run again on its own seeds, its chains
+   checked like for like (`dex.verify`), each law confirmed or denied and listed as it reads; the operator's tick
+   still lets a dex go.
+3. **The first zone chosen to confirm fast**: the verified group with the most laws of one term set nearest one centre
+   (no control), shown on the Map page with why it was chosen.
 
-**Waiting on the operator** (`docs/ROADMAP.md`, "Questions for the operator"): 871's to 880's pull requests (the
-session that made them could not push); 176's standing controls (keep, as a tick, recommended); the split (90% focus
-recommended); the rule for the earliest identification, on a bundle's reading.
+Then 888, the zone's search benchmarked on that one zone (item 4): its laws judged first, its edges by stepping and
+halving per parameter at 4,096 with the two points either side confirmed at 16,384, its central law made and pushed;
+every edge's cost recorded beside the ring method's on the same law. Only then several zones (item 5).
+
+**Acceptance**: a dex read into a fresh study in a test, its laws verified in their own campaign and listed, the first
+zone chosen by the rule with its reason; `outputs_of_a_law --against` 880's record unchanged; the full lane green.
+
+**Waiting on the operator**: 871's to 886's pull requests; 177's dex written before it stops; what makes a neighbour
+alike (`docs/agent/ZONE_MAP.md`, the proposal).
 
 ## Reading a study's bundle
 
@@ -70,17 +78,12 @@ saying why; the lock holds: no file of the table's key changes without the opera
 (`docs/agent/HANDOFF.md`, "The instrument on known answers"). The fleet ladder carries a mouse-over on its headers only,
 one fixed line each (787); a new number goes into a cell or a header's line.
 
-## The road from there to study A
+## The road from here
 
-Study 173, the gated pilot, its run on 843 holding 32 workers and the build that reads it, with the next study's gates;
-a control that grows from random, the 2019 model to 4,096 with every study; a run's scaling with N at two scalings;
-the readers of report 28 measured at a batch of 10,000; pilots until the gates behave, the same trial twice and once on
-a fresh seed; a small test of perturbing the best laws before 100,000 are drawn (the operator, 2026-11-21 18:08);
-stable; study A's trial (5 x 1,000) and its full
-run (10 x 10,000, 100,000 laws, a month on the host at the most) on eight starts without the curvature term, then
-replicated; the gates closed and carried; the
-curvature term as a study of its own after a small study of the exact curvature beside the formula; after those three,
-the 2019 model run again (`docs/ROADMAP.md`, "Planned builds, in order").
+The zone map (`docs/agent/ZONE_MAP.md`): study 178 on its design, one zone mapped and benchmarked, then the next, the
+dex a list of zones; the paper's study A (100,000 laws drawn blind) waits behind the zones, the blind draw now the base
+load that runs when no zone has work (the operator, 2026-11-26 19:21). The older plan's steps are in
+`docs/ROADMAP.md`, "Planned builds, in order".
 
 * **What went wrong, so it is not repeated** (`docs/LESSONS.md`). Twice a thing was said of the code before the code
   was read. A turn was ended on a request to go on. Print a key's or a diff's size before its value; grep code files
@@ -91,7 +94,11 @@ the 2019 model run again (`docs/ROADMAP.md`, "Planned builds, in order").
   `strict=` (821 and 828 each failed their release lane on one). Make each build's changes on the
   tree it delivers. 806: a clock hides in more places than the engine: grep for every reader of time, and for every
   rule that reads what is in flight. 807: a confirmation must do work. 809: the fast lane runs in one process; when it
-  touches most of the tree the full lane is faster on two cores.
+  touches most of the tree the full lane is faster on two cores. 884: `tools/package_release.py` leaves out a file git
+  does not track (its log says "left out"): `git add` a new file before the release. The PostgreSQL lane runs only as
+  `claude` (`runuser -u claude -- bash -c 'source /home/claude/prefix.sh && ...'`); as root it is skipped. The operator
+  is "they" in every tracked text (`tests/contract/test_the_operator_is_they.py`), and no code or test line carries a
+  rule with its author and date.
 * **Before an engine is touched**: `tools/outputs_of_a_law.py --write` on the untouched tree, and the Boltzmann known
   answer read again after (`docs/ARCHITECTURE.md`, "The engines"); it takes 25 minutes of two cores, and nothing else
   may install an engine into the venv while it runs. The sandbox's clock stops between calls: a detached run moves

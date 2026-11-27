@@ -4,9 +4,6 @@ import gzip
 import hashlib
 import io
 import json
-import shutil
-import subprocess
-import tarfile
 from pathlib import Path
 
 from graph_scale_dynamics.domain.model import utc_now
@@ -16,49 +13,9 @@ from graph_scale_dynamics.operations import law_code as LC
 CONTRACT = "gsd-study-seed-2"
 KIND = "seed"
 STUDY, LAWS, FOCUS = "study.json", "tables/laws.ndjson.gz", "focus.json"
-WANTED = (STUDY, LAWS, FOCUS)
 MAPPED = "mapped"
 LET_GO_REGIONS = "regions_let_go"
 LET_GO_WHY = "set aside: let go with its bundle"
-
-
-def _from_folder(path: Path) -> dict[str, bytes]:
-    roots = [path] if (path / STUDY).is_file() else sorted(p.parent for p in path.glob(f"*/{STUDY}"))
-    if len(roots) != 1:
-        raise ValueError(f"{path} holds {len(roots)} study bundles: name one")
-    return {name: (roots[0] / name).read_bytes() for name in WANTED if (roots[0] / name).is_file()}
-
-
-def _from_archive(path: Path) -> dict[str, bytes]:
-    zstd = shutil.which("zstd")
-    if not zstd:
-        raise ValueError("reading a .tar.zst needs the zstd executable; give the bundle's unpacked folder instead")
-    found: dict[str, bytes] = {}
-    with subprocess.Popen([zstd, "-dc", str(path)], stdout=subprocess.PIPE, stderr=subprocess.DEVNULL) as unzip:
-        with tarfile.open(fileobj=unzip.stdout, mode="r|") as archive:
-            for member in archive:
-                if not member.isfile():
-                    continue
-                parts = member.name.split("/", 1)
-                name = parts[1] if len(parts) == 2 else parts[0]
-                if name in WANTED and name not in found:
-                    handle = archive.extractfile(member)
-                    found[name] = handle.read() if handle is not None else b""
-                if len(found) == len(WANTED):
-                    break
-        unzip.stdout.close()
-        unzip.kill()
-    return found
-
-
-def members(path) -> dict[str, bytes]:
-    path = Path(str(path or "").strip()).expanduser()
-    if not str(path) or not path.exists():
-        raise ValueError(f"no bundle at {path}: give the path of a study bundle on this host, its .tar.zst or folder")
-    found = _from_folder(path) if path.is_dir() else _from_archive(path)
-    if STUDY not in found or LAWS not in found:
-        raise ValueError(f"{path} is not a study bundle with its laws table (study.json and {LAWS})")
-    return found
 
 
 def _dict(value) -> dict:
@@ -76,7 +33,12 @@ def name_of(path) -> str:
 
 
 def read(path) -> dict:
-    found = members(path)
+    from graph_scale_dynamics.operations import dex
+    found = dex.files(path, dex.SEEDING_FILES)
+    if dex.is_dex(found):
+        return dex.seeding(dex.part_of_dex(found, name_of(path)))
+    if STUDY not in found or LAWS not in found:
+        raise ValueError(f"{path} is not a study bundle with its laws table (study.json and {LAWS}) nor a dex")
     meta = json.loads(found[STUDY])
     study = str(meta.get("study_id") or meta.get("study") or "")
     specs, scoring, codes = {}, [], {}
@@ -101,9 +63,10 @@ def read(path) -> dict:
                                 labels=[LC.upgraded(label, study) for label in region.get("labels") or []]))
     scoring.sort(key=lambda e: (-e["score"], int(e["campaign"]) if e["campaign"].isdigit() else 0,
                                 e["number"] or 0, e["law"]))
-    return {"name": name_of(path), "built_utc": meta.get("built_utc"), "build": meta.get("build_number"),
-            "study": study, "science": _dict(meta.get("science")), "specs": specs, "scoring": scoring,
-            "regions": regions, "codes": codes, "sha256": hashlib.sha256(found[LAWS]).hexdigest()}
+    return {"name": name_of(path), "kind": "study bundle", "built_utc": meta.get("built_utc"),
+            "build": meta.get("build_number"), "study": study, "science": _dict(meta.get("science")), "specs": specs,
+            "scoring": scoring, "laws_only": [], "regions": regions, "codes": codes,
+            "sha256": hashlib.sha256(found[LAWS]).hexdigest()}
 
 
 def seeded_campaign(repo, study: str) -> str:
@@ -156,14 +119,16 @@ def standing(state: dict | None) -> dict[str, dict]:
         if not selected(record):
             continue
         for law, entry in (record.get("laws") or {}).items():
-            out[str(law)] = dict(entry, bundle=record["bundle"], study=record.get("study"))
+            out[str(law)] = dict(entry, bundle=record["bundle"], study=record.get("study"),
+                                 code=LC.upgraded(entry.get("code"), record.get("study")))
     return out
 
 
 def let_go(state: dict | None) -> set[str]:
     held, gone = set(), set()
     for record in records(state):
-        laws = set((record.get("laws") or {}).keys()) | set(record.get("laws_let_go") or [])
+        laws = (set((record.get("laws") or {}).keys()) | set(record.get("laws_let_go") or [])
+                | set((record.get("laws_only") or {}).keys()))
         (held if selected(record) else gone).update(laws)
     return gone - held
 
@@ -173,7 +138,8 @@ def origin_of(state: dict | None, law: str) -> dict | None:
     for record in records(state):
         entry = (record.get("laws") or {}).get(str(law))
         if entry is not None and (found is None or selected(record) or not found["selected"]):
-            found = dict(entry, bundle=record["bundle"], study=record.get("study"), selected=selected(record))
+            found = dict(entry, bundle=record["bundle"], study=record.get("study"), selected=selected(record),
+                         code=LC.upgraded(entry.get("code"), record.get("study")))
     return found
 
 
@@ -203,7 +169,7 @@ def _place(state: dict, region: dict) -> None:
         places[law] = region["number"]
 
 
-def _planned(state: dict, bundle: dict, known: set[str], campaign: str) -> dict:
+def _planned(state: dict, bundle: dict, known: set[str], campaign: str, *, carried: bool = True) -> dict:
     from graph_scale_dynamics.dsl import dsl
     viable, mismatched, specs = set(known), set(), {}
 
@@ -222,6 +188,12 @@ def _planned(state: dict, bundle: dict, known: set[str], campaign: str) -> dict:
 
     for entry in bundle["scoring"]:
         ok(entry["law"])
+    for law in bundle.get("laws_only") or []:
+        ok(law)
+    if not carried:
+        return {"insert": specs, "mismatched": len(mismatched), "joined": [], "grown": [], "scoring": [],
+                "laws_only": [law for law in [e["law"] for e in bundle["scoring"]] + list(bundle.get("laws_only") or [])
+                              if law in viable]}
     already = {(str((r.get("seeded_from") or {}).get("study")), int((r.get("seeded_from") or {}).get("number", -1))): r
                for r in state.get("regions") or [] if r.get("seeded_from")}
     joined, grown = [], []
@@ -229,7 +201,7 @@ def _planned(state: dict, bundle: dict, known: set[str], campaign: str) -> dict:
         holders = [law for law in region["holders"] if ok(law)]
         if not holders:
             continue
-        source = (bundle["study"], int(region.get("number") or 0))
+        source = (str(region.get("study") or bundle["study"]), int(region.get("number") or 0))
         if source in already:
             known_region = already[source]
             wider = R.joined(known_region["ranges"], dict(region.get("ranges") or {}))
@@ -239,7 +211,8 @@ def _planned(state: dict, bundle: dict, known: set[str], campaign: str) -> dict:
             continue
         joined.append((region, holders))
     return {"insert": specs, "mismatched": len(mismatched), "joined": joined, "grown": grown,
-            "scoring": [e for e in bundle["scoring"] if e["law"] in viable]}
+            "scoring": [e for e in bundle["scoring"] if e["law"] in viable],
+            "laws_only": [law for law in bundle.get("laws_only") or [] if law in viable]}
 
 
 def _record_of(state: dict, name: str) -> dict | None:
@@ -272,9 +245,7 @@ def seed(repo, path, *, science: dict | None = None) -> dict:
     bundle = read(path)
     ours = _science_of_this_folder() if science is None else science
     compared = science_contract.same(bundle["science"], ours)
-    if not compared["same"]:
-        raise ValueError(f"bundle {bundle['name']} was read by another science than this folder's "
-                         f"({', '.join(compared['differ']) or 'no science hash in it'}): its readings do not carry here")
+    carried = bool(compared["same"])
     refused = refusal(state, bundle)
     if refused:
         raise ValueError(refused)
@@ -282,9 +253,10 @@ def seed(repo, path, *, science: dict | None = None) -> dict:
     if earlier is not None and earlier.get("laws") is not None and not selected(earlier):
         return choose(repo, bundle["name"])
     campaign = seeded_campaign(repo, state["study"])
-    plan = _planned(state, bundle, _in(repo, campaign), campaign)
+    plan = _planned(state, bundle, _in(repo, campaign), campaign, carried=carried)
     laws = {e["law"]: {"score": e["score"], "code": e["code"]} for e in plan["scoring"]}
-    if earlier is None and not plan["insert"] and not plan["joined"] and not plan["grown"]:
+    laws_only = {law: bundle["codes"].get(law) for law in plan["laws_only"]}
+    if earlier is None and not plan["insert"] and not plan["joined"] and not plan["grown"] and not laws_only:
         raise ValueError(f"bundle {bundle['name']} adds nothing: its {len(bundle['scoring'])} scoring laws are in "
                          f"this study's map already and its regions add none"
                          + (f" ({plan['mismatched']} laws whose spec is not their id left out)"
@@ -308,7 +280,8 @@ def seed(repo, path, *, science: dict | None = None) -> dict:
                 "ranges": dict(region.get("ranges") or {}), "alike_to": region.get("alike_to"),
                 "boundaries": list(region.get("boundaries") or []), "joined": [], "mapped_utc": region.get("mapped_utc"),
                 "sources": [bundle["name"]],
-                "seeded_from": {"study": bundle["study"], "bundle": bundle["name"], "number": int(region.get("number") or 0),
+                "seeded_from": {"study": str(region.get("study") or bundle["study"]), "bundle": bundle["name"],
+                                "number": int(region.get("number") or 0),
                                 "name": region.get("name"), "at": utc_now()}}
         regions.append(made)
         _place(state, made)
@@ -325,7 +298,9 @@ def seed(repo, path, *, science: dict | None = None) -> dict:
                   laws_added=int((earlier or {}).get("laws_added") or 0) + len(plan["insert"]),
                   regions=list((earlier or {}).get("regions") or []) + names,
                   regions_grown=list((earlier or {}).get("regions_grown") or []) + grown,
-                  mismatched=plan["mismatched"], campaign=campaign, selected=True, laws=laws)
+                  mismatched=plan["mismatched"], campaign=campaign, selected=True, laws=laws,
+                  laws_only=laws_only, kind=bundle.get("kind"), carried=carried,
+                  **({} if carried else {"science_differ": compared["differ"]}))
     record.setdefault("at", utc_now())
     if earlier is not None:
         record["read_again"] = utc_now()
@@ -333,8 +308,9 @@ def seed(repo, path, *, science: dict | None = None) -> dict:
     state["events"].append({"at": utc_now(), "seeded": bundle["name"], "laws": len(plan["insert"]),
                             "regions": len(names), **({"read_again": True} if earlier is not None else {})})
     focus.save(repo, state)
-    return dict({k: v for k, v in record.items() if k != "laws"}, laws_added=len(plan["insert"]), regions=names,
-                regions_grown=grown, laws_standing=len(laws), read_again=earlier is not None)
+    return dict({k: v for k, v in record.items() if k not in ("laws", "laws_only")}, laws_added=len(plan["insert"]),
+                regions=names, regions_grown=grown, laws_standing=len(laws), laws_only=len(laws_only),
+                read_again=earlier is not None)
 
 
 def _let_go_of(state: dict, name: str) -> list[str]:
@@ -420,5 +396,5 @@ def choose(repo, name: str) -> dict:
     return dict({k: v for k, v in record.items() if k != "laws"}, regions_back=back, laws_standing=len(record["laws"]))
 
 
-__all__ = ["CONTRACT", "KIND", "bundles_let_go", "campaign_of", "choose", "let_go", "members", "name_of", "origin_of",
+__all__ = ["CONTRACT", "KIND", "bundles_let_go", "campaign_of", "choose", "let_go", "name_of", "origin_of",
            "read", "records", "refusal", "release", "seed", "seeded_campaign", "selected", "standing"]

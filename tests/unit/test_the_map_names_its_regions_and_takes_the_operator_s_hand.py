@@ -45,11 +45,11 @@ def test_mapped_laws_are_numbered_in_order_and_one_of_the_same_kind_that_overlap
     second = R.place(state, {"law": "b", "label": "C2-G2", "kind": "full", "alike_to": 0.1}, [_law(1.1), _law(1.15)])
     joined = R.place(state, {"law": "c", "label": "C3-G3", "kind": "ring", "alike_to": 0.2}, [_law(1.15), _law(1.4)])
     apart = R.place(state, {"law": "d", "label": "C4-G4", "kind": "ring", "alike_to": 0.2}, [_law(-2.0), _law(-1.8)])
-    assert (first["name"], second["name"], joined["name"], apart["name"]) == ("GG#1", "GG#2", "GG#1", "GG#3")
+    assert (first["name"], second["name"], joined["name"], apart["name"]) == ("Z1", "Z2", "Z1", "Z3")
     assert first["ranges"]["coupling degree_cube_sum"] == [1.0, 1.4] and first["labels"] == ["C1-G1", "C3-G3"]
     assert first["members"] == 4 and [j["label"] for j in first["joined"]] == ["C3-G3"]
-    assert R.name_of(state, "c") == "GG#1" and R.name_of(state, "zz") is None
-    assert R.touching(state["regions"]) == [{"regions": ["GG#1", "GG#2"], "kinds": ["ring", "full"]}]
+    assert R.name_of(state, "c") == "Z1" and R.name_of(state, "zz") is None
+    assert R.touching(state["regions"]) == [{"regions": ["Z1", "Z2"], "kinds": ["ring", "full"]}]
 
 
 def _state() -> dict:
@@ -146,7 +146,7 @@ def test_a_mapped_law_gets_its_region_from_the_laws_that_read_its_kind(monkeypat
                            "n3": {"how": "neighbour", "radius": 0.2}})
     state["current"] = current
     focus._finish(None, state, current)
-    assert state["done"][-1]["region"] == "GG#1" and state["current"] is None
+    assert state["done"][-1]["region"] == "Z1" and state["current"] is None
     assert state["regions"][0]["ranges"]["coupling degree_cube_sum"] == [1.0, 1.3]
     assert state["regions"][0]["members"] == 3, "the law and the two of its kind, not the one of another"
 
@@ -157,7 +157,7 @@ def test_the_command_says_the_regions_and_a_stopped_focus():
     R.place(state, {"law": "d" * 64, "label": "C2-G64", "kind": "ring"}, [_law(1.0), _law(1.2)])
     text = focus.words(focus.reading_of(state))
     assert "stopped: its three campaigns are paused" in text
-    assert "GG#1 (ring): from C2-G64, 2 laws read its kind; coupling degree_cube_sum 1 to 1.2" in text
+    assert "Z1 (ring): from C2-G64, 2 laws read its kind; coupling degree_cube_sum 1 to 1.2" in text
 
 
 def test_the_study_s_best_laws_are_ordered_by_score_then_campaign_and_graph_number(monkeypatch):
@@ -174,11 +174,11 @@ def test_the_study_s_best_laws_are_ordered_by_score_then_campaign_and_graph_numb
 
 def test_a_law_s_place_on_the_map_is_said_for_its_page():
     from graph_scale_dynamics.operations import focus
-    state = {"current": {"law": "now"}, "region_of": {"held": 2}, "inside": {"near": {"region": "GG#2"}},
+    state = {"current": {"law": "now"}, "region_of": {"held": 2}, "inside": {"near": {"region": "Z2"}},
              "done": [{"law": "gone", "stage": "unconfirmed"}]}
     assert focus.place_of(state, "now") == {"region": None, "how": "in focus now"}
-    assert focus.place_of(state, "held") == {"region": "GG#2", "how": "mapped"}
-    assert focus.place_of(state, "near") == {"region": "GG#2", "how": "inside, passed over"}
+    assert focus.place_of(state, "held") == {"region": "Z2", "how": "mapped"}
+    assert focus.place_of(state, "near") == {"region": "Z2", "how": "inside, passed over"}
     assert focus.place_of(state, "gone") == {"region": None, "how": "unconfirmed"}
     assert focus.place_of(state, "else") is None and focus.place_of(None, "now") is None
 

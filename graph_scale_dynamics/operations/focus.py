@@ -32,6 +32,12 @@ KNOCKOUT = "term off"
 MAPPED_PER_TYPE = 3
 KNOWN_FROM_THE_TABLE = 1
 INTERVAL_SECONDS = 60.0
+FAILED_FLAG = "study_focus_failed"
+TYPICAL_EVERY_SECONDS = 300.0
+BEHIND = 10_000_000_000
+BY_SCORE, BY_BUNDLE, BY_OUTLIER, BY_OPERATOR = "score", "bundle", "outlier", "operator"
+OWN_CAMPAIGN, SEEDS_CAMPAIGN = "its own campaign", "its seeds' campaign"
+SET_ASIDE_WHY = "an outlier set aside: a scoring law waits, and outliers come only once every scoring law is mapped"
 _LAST: dict[str, float] = {}
 
 
@@ -56,7 +62,8 @@ def coded(state: dict) -> dict:
             entry["label"] = LC.upgraded(entry["label"], study)
 
     put(state.get("current"))
-    for name in ("contenders", "depths", "inside", "skipped"):
+    put(state.get("depth_now"))
+    for name in ("contenders", "depths", "inside", "skipped", "depth_done", "set_aside"):
         for entry in (state.get(name) or {}).values():
             put(entry)
     for entry in list(state.get("done") or []) + list(state.get("queue") or []):
@@ -85,6 +92,20 @@ def graph_number(repo, campaign_id: str, law: str) -> int | None:
 
 def label(repo, campaign_id: str, law: str, known: dict | None = None) -> str:
     return LC.code(LC.study_of(repo, campaign_id, known), campaign_id, graph_number(repo, campaign_id, law), law)
+
+
+HOME_ORDER = {"blind": 0, "seed": 1, "map": 2, "perturb": 2, NEIGHBOURS: 3, SEEDS: 4, DEPTH: 5}
+
+
+def home_campaign(repo, campaigns) -> str | None:
+    def rank(campaign_id: str):
+        spec = (repo.campaign(str(campaign_id)) or {}).get("spec") or {}
+        design = spec.get("study_design") or {}
+        part = (design.get("focus") or {}).get("part") if design.get("kind") == KIND else design.get("kind")
+        controls = str(spec.get("name") or "") == "campaign-standing-controls"
+        return (9 if controls else HOME_ORDER.get(part, 6), _number(campaign_id), str(campaign_id))
+    found = sorted((str(c) for c in campaigns or []), key=rank)
+    return found[0] if found else None
 
 
 def own_campaigns(repo, study: str) -> list[str]:
@@ -161,19 +182,32 @@ def kinds(repo, campaign_id: str, law: str, *, whole: int | None = None) -> dict
     return _kinds_of(rows, starts)
 
 
+def kinds_so_far(repo, campaign_id: str, law: str, seeds: int) -> dict[str, str]:
+    return {str(n): k for n, k in sorted(kinds(repo, campaign_id, law, whole=int(seeds)).items())}
+
+
 def seed_kinds(repo, campaign_id: str, law: str) -> dict[int, dict[int, str]]:
     rows, starts = _rows(repo, campaign_id, law)
     return {seed: _kinds_of([r for r in rows if int(r["seed"]) == seed], starts)
             for seed in sorted({int(row["seed"]) for row in rows})}
 
 
+def decided_past(repo, campaign_id: str, law: str, read_n: int) -> bool:
+    row = repo.conn.execute("SELECT at_n FROM engine_decisions_latest WHERE campaign_id=? AND candidate_id=?",
+                            (str(campaign_id), str(law))).fetchone()
+    return row is not None and row["at_n"] is not None and int(row["at_n"]) >= int(read_n)
+
+
 def verdict(repo, campaign_id: str, law: str, read_n: int) -> str | None:
     from graph_scale_dynamics.operations import study_map
-    if not study_map.decided(repo, campaign_id, law):
+    finished = study_map.decided(repo, campaign_id, law)
+    if not finished and not decided_past(repo, campaign_id, law, read_n):
         return None
     found = kinds(repo, campaign_id, law)
     if int(read_n) in found:
         return found[int(read_n)]
+    if not finished:
+        return None
     row = repo.conn.execute("SELECT rule,at_n FROM engine_decisions_latest WHERE campaign_id=? AND candidate_id=?",
                             (str(campaign_id), str(law))).fetchone()
     return f"stopped: {row['rule']} at {int(row['at_n']):,}" if row is not None else "stopped"
@@ -212,17 +246,21 @@ def campaign_specs(repo, study: str, holder_campaign: str, found_plan: dict, tre
     read_n = int(found_plan["neighbourhood"]["read_n"])
     seeds = int(design["ladder"]["seeds"])
     upto = [int(n) for n in design["ladder"]["deep"] if int(n) <= read_n]
+    wanted = depth_wanted(found_plan)
     shapes = {NEIGHBOURS: (upto, seeds, "its best laws' neighbourhoods"),
               SEEDS: (upto, seeds * int(found_plan["seeds"]["times"]), "its best laws on more seeds"),
               DEPTH: ([int(n) for n in design["ladder"]["deep"]] + [int(n) for n in found_plan["depth"]["beyond"]],
-                      seeds, "its best laws' depth")}
+                      wanted["seeds"] or seeds, "its best laws' depth")}
     out = {}
     for name, (deep, count, words) in shapes.items():
         spec = deepcopy(around)
         spec["proposer"] = {"pool_min": 1}
         spec["search_policy"] = {"contract": "gsd-hand-1", "kind": "hand"}
+        part = {"contract": CONTRACT, "plan": PLAN, "part": name}
+        if name == DEPTH and wanted["memory_share"]:
+            part["memory_share"] = wanted["memory_share"]
         spec["study_design"] = dict(spec["study_design"], kind=KIND, group=GROUP_OF[name], campaign=None,
-                                    focus={"contract": CONTRACT, "plan": PLAN, "part": name})
+                                    focus=part)
         spec["name"] = f"study {study}: {words} (group {GROUP_OF[name]})"
         spec["description"] = f"{spec['name']}; {found_plan['asked']}"
         out[name] = _laddered(spec, design, deep, count)
@@ -298,7 +336,8 @@ def terms_read(current: dict, verdicts: dict) -> dict[str, dict]:
             continue
         seen = verdicts.get(law)
         out[point["term"]] = {"law": law, "kind": seen,
-                              "load_bearing": None if seen is None else seen != current["kind"]}
+                              "load_bearing": None if seen is None or current.get("kind") is None
+                              else seen != current["kind"]}
     return out
 
 
@@ -321,21 +360,37 @@ def contenders(repo, state: dict, ranked: list | None = None) -> list[str]:
     gone, seeded_in = study_seed.let_go(state), study_seed.campaign_of(state)
     for law in [law for law, e in state["contenders"].items() if law in gone and str(e.get("of")) == str(seeded_in)]:
         state["contenders"].pop(law)
-    wanted = depth_order(state, ranked)[:int(state["plan"]["depth"]["contenders"])]
     current = state.get("current") or {}
+    scoring = {e["candidate_id"] for e in ranked}
+    for law in [law for law in state["contenders"] if law not in scoring and law != current.get("law")]:
+        state["contenders"].pop(law)
+        state["events"].append({"at": utc_now(), "depth_dropped": law[:12], "why": "it no longer scores and is not in focus"})
+    wanted = depth_order(state, ranked)[:int(state["plan"]["depth"]["contenders"])]
     if current.get("law") and all(e["candidate_id"] != current["law"] for e in wanted):
         wanted.append({"candidate_id": current["law"], "campaign": current["of"], "score": current.get("score")})
     added = []
     for entry in wanted:
         if entry["candidate_id"] in state["contenders"]:
             continue
-        _insert(repo, state["campaigns"][DEPTH], _spec_of(repo, entry["campaign"], entry["candidate_id"]))
         state["contenders"][entry["candidate_id"]] = {"of": entry["campaign"], "score": entry.get("score"),
                                                       "label": label(repo, entry["campaign"], entry["candidate_id"]),
                                                       "joined_utc": utc_now(),
                                                       **({"origin": entry["origin"]} if entry.get("origin") else {})}
         added.append(entry["candidate_id"])
     return added
+
+
+def confirmed_at(found_plan: dict, rows: dict | None):
+    p = found_plan["neighbourhood"]
+    least, most = float(p["lines_from_radius"]), float(p["confirm_radius"])
+    for radius, row in sorted((rows or {}).items(), key=lambda kv: -float(kv[0])):
+        if not least - 1e-15 <= float(radius) < most - 1e-15:
+            continue
+        if row["waiting"]:
+            return None
+        if row["alike"] / max(1, row["laws"]) >= float(p["confirm_share"]):
+            return float(radius)
+    return False
 
 
 def alike_to(found_plan: dict, rows: dict | None) -> float | None:
@@ -357,7 +412,8 @@ def inside(repo, state: dict, entry: dict) -> dict | None:
     from graph_scale_dynamics.operations import study_seed
     kind, spec, off = None, None, study_seed.bundles_let_go(state)
     for done in state["done"]:
-        if done.get("stage") != MAPPED or not done.get("alike_to") or done.get("seeded") in off:
+        reach = done.get("alike_to") or done.get("confirmed_at")
+        if done.get("stage") != MAPPED or not reach or done.get("seeded") in off:
             continue
         if spec is None:
             spec = _spec_of(repo, entry["campaign"], entry["candidate_id"])
@@ -365,9 +421,9 @@ def inside(repo, state: dict, entry: dict) -> dict | None:
         if kind != done.get("kind"):
             continue
         far = N.distance(_spec_of(repo, done["of"], done["law"]), spec)
-        if far is not None and far <= share * float(done["alike_to"]):
+        if far is not None and far <= share * float(reach):
             return {"region_of": done.get("label"), "region": R.name_of(state, done["law"]),
-                    "distance": round(far, 6), "alike_to": done["alike_to"]}
+                    "distance": round(far, 6), "alike_to": reach}
     return None
 
 
@@ -528,18 +584,23 @@ def _chosen(repo, state: dict, law: str | None, ranked: list | None = None) -> d
             state["inside"][entry["candidate_id"]] = dict(found, label=label(repo, entry["campaign"],
                                                                                 entry["candidate_id"]))
         if not free:
+            if not ranked:
+                return None
             from graph_scale_dynamics.operations import outliers as OUT
-            return OUT.next_outlier(repo, state, rows_of=_rows, inside=inside, label=label)
-        return suggested(repo, state, free)[0]
+            found = OUT.next_outlier(repo, state, rows_of=_rows, inside=inside, label=label)
+            return None if found is None else dict(found, chosen_by=BY_OUTLIER)
+        picked = suggested(repo, state, free)[0]
+        return dict(picked, chosen_by=BY_BUNDLE if picked.get("standing") == "bundle" else BY_SCORE)
     found = next((e for e in ranked if e["candidate_id"].startswith(str(law)) or e.get("label") == str(law)
                   or LC.same(e.get("label"), law)), None)
     if found is not None:
-        return found
+        return dict(found, chosen_by=BY_OPERATOR)
     for campaign_id in own_campaigns(repo, state["study"]):
         row = repo.conn.execute("SELECT candidate_id FROM campaign_candidates WHERE campaign_id=? AND candidate_id LIKE ?",
                                 (campaign_id, f"{law}%")).fetchone()
         if row is not None:
-            return {"candidate_id": str(row["candidate_id"]), "campaign": campaign_id, "score": 0}
+            return {"candidate_id": str(row["candidate_id"]), "campaign": campaign_id, "score": 0,
+                    "chosen_by": BY_OPERATOR}
     raise ValueError(f"study {state['study']} has no law {law!r}")
 
 
@@ -555,11 +616,14 @@ def start_next(repo, state: dict, law: str | None = None, chosen: dict | None = 
     spec = _spec_of(repo, campaign_id, holder)
     read_n = int(state["plan"]["neighbourhood"]["read_n"])
     radii = [[float(r), int(c)] for r, c in state["plan"]["neighbourhood"]["radii"]]
+    known, known_from = kind_here(repo, state, {"law": holder, "of": campaign_id}, read_n)
     current = {"law": holder, "of": campaign_id, "label": label(repo, campaign_id, holder),
-               "score": chosen.get("score"), "kind": verdict(repo, campaign_id, holder, read_n),
+               "score": chosen.get("score"), "kind": known, "kind_from": known_from,
                "stage": NEIGHBOURHOOD, "began_utc": utc_now(), "points": {}, "lines": {}, "radii": radii,
                **({"origin": chosen["origin"]} if chosen.get("origin") else {}),
-               **({"standing": chosen["standing"]} if chosen.get("standing") else {})}
+               **({"standing": chosen["standing"]} if chosen.get("standing") else {}),
+               **({"chosen_by": chosen["chosen_by"]} if chosen.get("chosen_by") else {}),
+               **({"outlier": chosen["outlier"]} if chosen.get("outlier") else {})}
     state["current"] = current
     type_of(repo, state, campaign_id, holder)
     current["identified_from"] = (state.get("identified") or {}).get(holder)
@@ -620,6 +684,8 @@ def begin(repo, study: str, *, law: str | None = None, tree=None) -> dict:
         if chosen is not None:
             (state.get("skipped") or {}).pop(chosen["candidate_id"], None)
             start_next(repo, state, chosen=chosen)
+    if state.get("current") and not state.get("depth_now"):
+        depth_next(repo, state, best(repo, state["study"], state))
     save(repo, state)
     return state
 
@@ -661,25 +727,38 @@ def seeds_of(repo, state: dict, current: dict) -> dict | None:
     from graph_scale_dynamics.operations import study_map
     read_n = int(state["plan"]["neighbourhood"]["read_n"])
     campaign = state["campaigns"][SEEDS]
-    if not study_map.decided(repo, campaign, current["law"]):
+    if current.get("kind") is None or not study_map.decided(repo, campaign, current["law"]):
         return None
-    own = {s: law_kind.at(k, read_n) for s, k in seed_kinds(repo, current["of"], current["law"]).items()}
-    more = {s: law_kind.at(k, read_n) for s, k in seed_kinds(repo, campaign, current["law"]).items()}
-    every = dict(own, **{s: k for s, k in more.items() if s not in own})
+    own_all = seed_kinds(repo, current["of"], current["law"])
+    more_all = seed_kinds(repo, campaign, current["law"])
+    own = {s: law_kind.at(k, read_n) for s, k in own_all.items()}
+    more = {s: law_kind.at(k, read_n) for s, k in more_all.items()}
+    compared, agreed = {}, {}
+    for seed, kinds_here in own_all.items():
+        both = [n for n in kinds_here if n in (more_all.get(seed) or {}) and n <= read_n]
+        if both:
+            at = max(both)
+            compared[seed] = at
+            agreed[seed] = kinds_here[at] == more_all[seed][at]
+    every = {**own, **more}
     return {"own": {str(s): k for s, k in sorted(own.items())}, "more": {str(s): k for s, k in sorted(more.items())},
-            "reproduced": all(more.get(s) == k for s, k in own.items()),
+            "compared_at": {str(s): n for s, n in sorted(compared.items())},
+            "reproduced": bool(agreed) and all(agreed.values()),
             "other": sorted(s for s, k in every.items() if k != current["kind"]), "of": len(every)}
 
 
 def tally(current: dict, verdicts: dict) -> dict[str, dict]:
     out: dict[str, dict] = {}
+    known = current.get("kind")
     for law, point in current["points"].items():
         if point["how"] != "neighbour":
             continue
-        row = out.setdefault(f"{float(point['radius']):g}", {"laws": 0, "alike": 0, "other": 0, "waiting": 0})
+        row = out.setdefault(f"{float(point['radius']):g}",
+                             {"laws": 0, "alike": 0, "other": 0, "waiting": 0, "read": 0})
         row["laws"] += 1
         seen = verdicts.get(law)
-        row["waiting" if seen is None else "alike" if seen == current["kind"] else "other"] += 1
+        row["read"] += 0 if seen is None else 1
+        row["waiting" if seen is None or known is None else "alike" if seen == known else "other"] += 1
     return out
 
 
@@ -747,12 +826,14 @@ def _summary(current: dict) -> dict:
     return {"law": current["law"], "of": current["of"], "label": current.get("label"), "score": current.get("score"),
             "stage": current["stage"], "kind": current.get("kind"), "why": current.get("why"),
             "radii": current.get("tally"), "seeds": current.get("seeds"), "sensitivity": current.get("sensitivity"),
-            "alike_to": current.get("alike_to"),
+            "alike_to": current.get("alike_to"), "confirmed_at": current.get("confirmed_at"),
             "depth": current.get("depth"), "refused": current.get("refused"),
             "boundaries": {p: {"between": [line["lo"], line["hi"]], "kinds": [line["lo_kind"], line["hi_kind"]],
                                "why": line.get("why")} for p, line in (current.get("lines") or {}).items()},
             "began_utc": current.get("began_utc"), "ended_utc": current.get("ended_utc"),
             "terms": current.get("terms"), "core": current.get("core"), "terms_kept": current.get("terms_kept"),
+            "needs": current.get("needs"), "kind_from": current.get("kind_from"),
+            "chosen_by": current.get("chosen_by"),
             "identified_from": current.get("identified_from"), "early_call": current.get("early_call"),
             "origin": current.get("origin"), "standing": current.get("standing")}
 
@@ -777,27 +858,94 @@ def _outward(repo, state: dict, current: dict) -> int:
     return _add(repo, state, current, found)
 
 
+def kind_here(repo, state: dict, current: dict, read_n: int) -> tuple[str | None, str | None]:
+    own = verdict(repo, current["of"], current["law"], read_n)
+    if own is not None:
+        return own, OWN_CAMPAIGN
+    more = verdict(repo, state["campaigns"][SEEDS], current["law"], read_n)
+    if more is not None and not str(more).startswith("stopped"):
+        return more, SEEDS_CAMPAIGN
+    return None, None
+
+
+def _need(what: str, done: bool, said: str) -> dict:
+    return {"what": what, "done": bool(done), "said": said}
+
+
+def needs(state: dict, current: dict) -> list[dict]:
+    p = state["plan"]["neighbourhood"]
+    read_n, radius = int(p["read_n"]), f"{float(p['confirm_radius']):g}"
+    kind, rows = current.get("kind"), current.get("tally") or {}
+    out = [_need("its kind", kind is not None,
+                 f"{kind} at N={read_n:,}, read in {current.get('kind_from') or 'its own campaign'}" if kind is not None
+                 else f"not read at N={read_n:,} yet in its own campaign or its seeds' campaign")]
+    first = rows.get(radius) or {}
+    share = float(p["confirm_share"])
+    if kind is None:
+        out.append(_need(f"ring {radius}", False, f"{first.get('read', 0)} of {first.get('laws', 0)} neighbours read; "
+                                                  "judged once its own kind is read"))
+    else:
+        holds = bool(first) and not first.get("waiting") and first["alike"] / max(1, first["laws"]) >= share
+        smaller = current.get("confirmed_at")
+        said = (f"{first.get('alike', 0)} of {first.get('laws', 0)} alike, {first.get('waiting', 0)} waiting; "
+                f"{share:.0%} must be alike")
+        if not holds and smaller is not None and float(smaller) < float(radius):
+            said += f"; its zone stands at ring {float(smaller):g} instead"
+        elif not holds and first and not first.get("waiting"):
+            said += f"; else a ring from {float(p['lines_from_radius']):g} up"
+        out.append(_need(f"ring {radius}", holds or (smaller is not None and float(smaller) < float(radius)), said))
+    depth = current.get("depth") or {}
+    out.append(_need("its depth", depth.get("holds_to") is not None,
+                     f"holds its kind to N={int(depth['holds_to']):,}" if depth.get("holds_to") is not None
+                     else f"the depth worker has read it to N={int(depth['deepest']):,}; it must reach N={read_n:,}"
+                     if depth.get("deepest") else f"the depth worker must read it to N={read_n:,}"))
+    seeds = current.get("seeds")
+    out.append(_need("its seeds", seeds is not None,
+                     ("reproduced" if seeds.get("reproduced") else "not reproduced at the sizes both read")
+                     + f"; {len(seeds.get('other') or [])} of {seeds.get('of')} seeds read another kind" if seeds
+                     else "its seeds' campaign and its own kind first"))
+    waiting = sum(int(row.get("waiting") or 0) for row in rows.values())
+    total = sum(int(row.get("laws") or 0) for row in rows.values())
+    out.append(_need("every ring", total > 0 and waiting == 0, f"{total - waiting} of {total} neighbours judged"))
+    terms = current.get("terms") or {}
+    open_terms = [t for t, row in terms.items() if row.get("load_bearing") is None]
+    knocked = sum(1 for point in (current.get("points") or {}).values() if point.get("how") == KNOCKOUT)
+    out.append(_need("each term switched off", not open_terms and len(terms) >= knocked,
+                     f"{len(terms) - len(open_terms)} of {max(len(terms), knocked)} judged"))
+    return out
+
+
 def advance(repo, state: dict) -> int:
     current = state["current"]
     p = state["plan"]["neighbourhood"]
     read_n = int(p["read_n"])
     if current.get("kind") is None:
-        current["kind"] = verdict(repo, current["of"], current["law"], read_n)
+        current["kind"], current["kind_from"] = kind_here(repo, state, current, read_n)
     verdicts = current.setdefault("read", {})
+    stamps, so_far = current.setdefault("read_at", {}), current.setdefault("so_far", {})
     for law in current["points"]:
         if law not in verdicts:
             seen = verdict(repo, state["campaigns"][NEIGHBOURS], law, read_n)
             if seen is not None:
                 verdicts[law] = seen
+                stamps.setdefault(law, utc_now())
+                so_far.pop(law, None)
+                continue
+            found = kinds_so_far(repo, state["campaigns"][NEIGHBOURS], law, int(state.get("seeds") or 3))
+            if found:
+                so_far[law] = found
     current["tally"] = tally(current, verdicts)
     current["early_call"] = early_call(repo, state, current, verdicts)
     current["terms"] = terms_read(current, verdicts)
     current["core"] = core_of(current["terms"])
     current["depth"] = depth_of(repo, state, current["law"], current["of"])
-    if current.get("seeds") is None:
-        current["seeds"] = seeds_of(repo, state, current)
+    current["seeds"] = seeds_of(repo, state, current)
+    more = int(state.get("seeds") or 3) * int(state["plan"]["seeds"]["times"])
+    current["law_kinds"] = dict((current["depth"] or {}).get("own") or {},
+                                **kinds_so_far(repo, state["campaigns"][SEEDS], current["law"], more))
     current["sensitivity"] = sensitivity(state["plan"], current["tally"], current["seeds"])
-    current["alike_to"] = alike_to(state["plan"], current["tally"])
+    current["alike_to"] = alike_to(state["plan"], current["tally"]) if current.get("kind") is not None else None
+    current["needs"] = needs(state, current)
     if current["kind"] is None:
         return 0
     if current["depth"]["invalidated_at"] is not None:
@@ -811,9 +959,21 @@ def advance(repo, state: dict) -> int:
         if not first or first["waiting"]:
             return 0
         if first["alike"] / max(1, first["laws"]) < float(p["confirm_share"]):
-            _end(state, current, UNCONFIRMED, f"{first['alike']} of {first['laws']} neighbours at radius "
-                 f"{float(p['confirm_radius']):g} read its kind at {read_n:,}")
-            return 0
+            found = confirmed_at(state["plan"], current["tally"])
+            if found is None:
+                return 0
+            if found is False:
+                _end(state, current, UNCONFIRMED, f"{first['alike']} of {first['laws']} neighbours at radius "
+                     f"{float(p['confirm_radius']):g} read its kind at {read_n:,}, and no smaller ring from "
+                     f"{float(p['lines_from_radius']):g} does by {float(p['confirm_share']):.0%}")
+                return 0
+            if current.get("confirmed_at") != found:
+                current["confirmed_at"] = found
+                state["events"].append({"at": utc_now(), "law": current["label"], "confirmed_at": found,
+                                        "why": f"{first['alike']} of {first['laws']} alike at "
+                                               f"{float(p['confirm_radius']):g}: its zone is smaller"})
+        else:
+            current["confirmed_at"] = float(p["confirm_radius"])
         if current["depth"]["holds_to"] is None or current["seeds"] is None \
                 or any(row["waiting"] for row in current["tally"].values()) \
                 or any(row["load_bearing"] is None for row in current["terms"].values()):
@@ -1000,7 +1160,7 @@ def settled(found_plan: dict, given: dict) -> dict:
     if "outward_most" in given:
         out["outward"]["most"] = _bounded(given["outward_most"], 0.1, 0.95, "the widest ring")
     if "inside_share" in given:
-        out["next"]["inside_share"] = _bounded(given["inside_share"], 0.0, 1.0, "the share of a region's reach")
+        out["next"]["inside_share"] = _bounded(given["inside_share"], 0.0, 1.0, "the share of a zone's reach")
     if "mapped_per_type" in given:
         out["next"]["mapped_per_type"] = int(_bounded(given["mapped_per_type"], 1, 50, "the laws a type is mapped by"))
     unknown = sorted(set(given) - {"radii", "confirm_share", "contenders", "outward_most", "inside_share",
@@ -1093,14 +1253,42 @@ def step(repo, *, now: float | None = None, force: bool = False) -> dict | None:
     if not force and clock - _LAST.get(state["study"], -1e18) < INTERVAL_SECONDS:
         return None
     _LAST[state["study"]] = clock
+    try:
+        done = _step(repo, state)
+    except Exception as exc:
+        failed(repo, exc)
+        raise
+    passed(repo)
+    return done
+
+
+def taken_as_outlier(current: dict | None) -> bool:
+    if not current or current.get("stage") in ENDED:
+        return False
+    if current.get("chosen_by"):
+        return current["chosen_by"] == BY_OUTLIER
+    return not current.get("score") and not current.get("origin")
+
+
+def set_aside(repo, state: dict, ranked: list[dict]) -> str | None:
+    current = state.get("current")
+    if not taken_as_outlier(current) or not free_laws(repo, state, ranked):
+        return None
+    law = current["law"]
+    state.setdefault("set_aside", {})[law] = {"at": utc_now(), "label": current.get("label"), "why": SET_ASIDE_WHY,
+                                              "outlier": current.get("outlier")}
+    state["contenders"].pop(law, None)
+    state["current"] = None
+    state["events"].append({"at": utc_now(), "set_aside": current.get("label"), "why": SET_ASIDE_WHY})
+    return law
+
+
+def _step(repo, state: dict) -> dict:
     renew_depth(repo, state)
+    tidy_depth(repo, state)
     ranked = best(repo, state["study"])
+    set_aside(repo, state, ranked)
     added = len(contenders(repo, state, ranked))
-    state["depths"] = {law: dict(depth_of(repo, state, law, entry["of"]), label=entry["label"])
-                       for law, entry in state["contenders"].items()}
-    for law, entry in depth_ceilings(repo, state).items():
-        if law in state["depths"]:
-            state["depths"][law]["ceiling"] = entry
     current = state.get("current")
     if current is not None and current["stage"] not in ENDED:
         added += advance(repo, state)
@@ -1111,22 +1299,136 @@ def step(repo, *, now: float | None = None, force: bool = False) -> dict | None:
     elif current is None:
         current = start_next(repo, state, ranked=ranked)
         added += len(current["points"]) if current else 0
+    added += 1 if depth_next(repo, state, ranked) else 0
+    state["zone_first"] = zone_first(repo, state)
+    state["depths"] = {law: dict(depth_of(repo, state, law, entry["of"]), label=entry["label"], of=entry["of"])
+                       for law, entry in state["contenders"].items()}
+    for law, entry in depth_ceilings(repo, state).items():
+        if law in state["depths"]:
+            state["depths"][law]["ceiling"] = entry
     state["queue"] = queue_of(state, ranked)
     state["lists"] = lists_of(repo, state, ranked)
     state["events"] = state["events"][-200:]
+    if state.get("current") and state["current"].get("stage") not in ENDED:
+        state["current"]["depth"] = state["current"].get("depth") or (state["depths"].get(state["current"]["law"]) or {})
+        state["current"]["needs"] = needs(state, state["current"])
+        stamped = state["current"].setdefault("needs_at", {})
+        for need in state["current"]["needs"]:
+            if need["done"]:
+                stamped.setdefault(need["what"], utc_now())
+            else:
+                stamped.pop(need["what"], None)
+    state["typical"] = typical_of(repo, state)
     save(repo, state)
     return {"stage": (current or {}).get("stage"), "added": added, "label": (current or {}).get("label")}
+
+
+def _behind(repo, campaign_id: str, keep: list[str]) -> dict:
+    keep = sorted(set(keep))
+    marks = ",".join("?" for _ in keep)
+    clause = f" AND candidate_id NOT IN ({marks})" if keep else ""
+    back = repo.conn.execute(
+        "UPDATE jobs SET priority=priority+? WHERE campaign_id=? AND kind='simulate' AND status='queued' "
+        f"AND priority<?{clause}", (BEHIND, str(campaign_id), BEHIND, *keep)).rowcount
+    forward = repo.conn.execute(
+        "UPDATE jobs SET priority=priority-? WHERE campaign_id=? AND kind='simulate' AND status='queued' "
+        f"AND priority>=? AND candidate_id IN ({marks})", (BEHIND, str(campaign_id), BEHIND, *keep)).rowcount if keep else 0
+    waiting = repo.conn.execute(
+        "SELECT COUNT(*) AS c FROM jobs WHERE campaign_id=? AND kind='simulate' AND status='queued' AND priority>=?",
+        (str(campaign_id), BEHIND)).fetchone()["c"]
+    return {"back": int(back or 0), "forward": int(forward or 0), "waiting": int(waiting or 0)}
+
+
+def _released(repo, campaign_id: str) -> dict:
+    forward = repo.conn.execute(
+        "UPDATE jobs SET priority=priority-? WHERE campaign_id=? AND kind='simulate' AND status='queued' "
+        "AND priority>=?", (BEHIND, str(campaign_id), BEHIND)).rowcount
+    return {"back": 0, "forward": int(forward or 0), "waiting": 0}
+
+
+def zone_first(repo, state: dict) -> dict:
+    current = state.get("current")
+    live = current is not None and current.get("stage") not in ENDED
+    campaigns = state.get("campaigns") or {}
+    out = {"at": utc_now(), "law": current.get("law") if live else None}
+    for name, keep in ((NEIGHBOURS, list(current.get("points") or {}) if live else None),
+                       (SEEDS, [current["law"]] if live else None)):
+        if campaigns.get(name):
+            out[name] = _released(repo, campaigns[name]) if keep is None else _behind(repo, campaigns[name], keep)
+    return out
+
+
+def typical_of(repo, state: dict) -> dict:
+    from graph_scale_dynamics.operations import zone_live
+    found = state.get("typical") or {}
+    age = zone_live.seconds_since(found.get("at"), zone_live.when(utc_now()))
+    if found.get("at") and age is not None and age < TYPICAL_EVERY_SECONDS:
+        return found
+    return zone_live.typical(repo, list((state.get("campaigns") or {}).values()))
+
+
+def failing(repo) -> dict | None:
+    try:
+        found = json.loads(repo.get_flag(FAILED_FLAG, "") or "null")
+    except (TypeError, ValueError):
+        return None
+    return found if isinstance(found, dict) and found.get("error") else None
+
+
+def failed(repo, exc: BaseException) -> dict:
+    seen = failing(repo) or {}
+    error = f"{type(exc).__name__}: {exc}"[:400]
+    found = {"since": seen.get("since") or utc_now(), "last": utc_now(), "times": int(seen.get("times") or 0) + 1,
+             "error": error}
+    try:
+        repo.conn.rollback_if_open()
+    except Exception:  # noqa: BLE001
+        pass
+    repo.set_flag(FAILED_FLAG, json.dumps(found, sort_keys=True))
+    return found
+
+
+def passed(repo) -> None:
+    if failing(repo) is not None:
+        repo.set_flag(FAILED_FLAG, "")
 
 
 def depth_ladder(repo, campaign_id: str) -> list[int]:
     return [int(n) for n in (((repo.campaign(str(campaign_id)) or {}).get("spec") or {}).get("ladder") or [])]
 
 
+def depth_wanted(found_plan: dict) -> dict:
+    depth = found_plan["depth"]
+    return {"top": max(int(n) for n in depth["beyond"]),
+            "seeds": int(depth["seeds"]) if depth.get("seeds") else None,
+            "memory_share": float(depth["memory_share"]) if depth.get("memory_share") else None}
+
+
+def depth_fits(repo, campaign_id: str, wanted: dict) -> bool:
+    spec = (repo.campaign(str(campaign_id)) or {}).get("spec") or {}
+    if max((int(n) for n in spec.get("ladder") or []), default=0) < int(wanted["top"]):
+        return False
+    if wanted["seeds"] is not None and int(spec.get("default_seeds") or 0) != int(wanted["seeds"]):
+        return False
+    share = ((spec.get("study_design") or {}).get("focus") or {}).get("memory_share")
+    return wanted["memory_share"] is None or (share is not None and float(share) == float(wanted["memory_share"]))
+
+
+def depth_campaigns(repo, study: str) -> list[dict]:
+    out = []
+    for campaign in repo.all_campaigns():
+        design = (campaign.get("spec") or {}).get("study_design") or {}
+        if (str(design.get("study")) == str(study) and design.get("kind") == KIND
+                and (design.get("focus") or {}).get("part") == DEPTH):
+            out.append(campaign)
+    return sorted(out, key=lambda c: _number(c["campaign_id"]))
+
+
 def depth_ceilings(repo, state: dict) -> dict[str, dict]:
     from graph_scale_dynamics.operations import depth_reach
     campaign_id = state["campaigns"][DEPTH]
     try:
-        depth_reach.keep(repo, campaign_id, sorted(state.get("contenders") or {}), depth_ladder(repo, campaign_id))
+        depth_reach.refresh(repo, campaign_id)
     except Exception as exc:  # noqa: BLE001
         state["events"].append({"at": utc_now(), "depth_reach_unread": f"{type(exc).__name__}: {exc}"[:200]})
     return depth_reach.ceilings(repo, campaign_id)
@@ -1136,25 +1438,129 @@ def renew_depth(repo, state: dict, tree=None) -> str | None:
     from graph_scale_dynamics import PROJECT_ROOT
     from graph_scale_dynamics.operations import campaign_control as control
     tree = Path(tree) if tree is not None else Path(PROJECT_ROOT)
-    wanted = max(int(n) for n in plan(tree)["depth"]["beyond"])
-    old = state["campaigns"][DEPTH]
-    if max(depth_ladder(repo, old), default=0) >= wanted:
+    found_plan = plan(tree)
+    wanted = depth_wanted(found_plan)
+    old = str(state["campaigns"][DEPTH])
+    if depth_fits(repo, old, wanted):
         return None
+    made = next((str(c["campaign_id"]) for c in depth_campaigns(repo, state["study"])
+                 if str(c["campaign_id"]) != old and c.get("status") == "active"
+                 and not control.is_paused(repo, str(c["campaign_id"]))
+                 and depth_fits(repo, str(c["campaign_id"]), wanted)), None)
+    adopted = made is not None
+    if made is None:
+        anchor = next(iter(own_campaigns(repo, state["study"])), None)
+        if anchor is None:
+            return None
+        spec = campaign_specs(repo, state["study"], anchor, found_plan, tree)[DEPTH]
+        made = str(control.create_campaign(
+            repo, spec, search_seed=_seed(state["study"], DEPTH, wanted["top"], wanted["seeds"]),
+            reason=f"study {state['study']}'s focus: the depth seeker, one law at a time on "
+                   f"{wanted['seeds'] or spec.get('default_seeds')} seed, its ladder open to N={wanted['top']:,}"
+        )["campaign_id"])
+    control.pause(repo, old, reason=f"the depth seeker moved to campaign {made}")
+    control.set_workers(repo, made, DEPTH_WORKERS, reason="the depth seeker holds one worker")
+    state["campaigns"][DEPTH] = made
+    state["seeds"] = int(((repo.campaign(made) or {}).get("spec") or {}).get("default_seeds") or state["seeds"])
+    state.setdefault("depth_before", []).append({"campaign": old, "until": utc_now()})
+    state["depth_now"], state["depth_done"] = None, {}
+    state["events"].append({"at": utc_now(), "depth_renewed": made, "from": old, "to_n": wanted["top"],
+                            "seeds": state["seeds"], "adopted": adopted})
+    save(repo, state)
+    return made
+
+
+def tidy_depth(repo, state: dict) -> list[str]:
+    from graph_scale_dynamics.operations import campaign_control as control
+    keep = str(state["campaigns"][DEPTH])
+    paused = []
+    for campaign in depth_campaigns(repo, state["study"]):
+        campaign_id = str(campaign["campaign_id"])
+        if campaign_id == keep or campaign.get("status") != "active" or control.is_paused(repo, campaign_id):
+            continue
+        control.pause(repo, campaign_id, reason=f"one depth seeker: campaign {keep} is the focus's depth campaign; "
+                                                "this one rests, everything it measured kept")
+        paused.append(campaign_id)
+    if paused:
+        state["events"].append({"at": utc_now(), "depth_paused": paused, "kept": keep})
+        save(repo, state)
+    return paused
+
+
+def depth_line(state: dict, ranked: list[dict]) -> list[str]:
+    held = state.get("contenders") or {}
+    line = [e["candidate_id"] for e in depth_order(state, ranked) if e["candidate_id"] in held]
+    line += [law for law, _e in sorted(held.items(), key=lambda kv: str(kv[1].get("joined_utc") or ""))
+             if law not in line]
+    current = (state.get("current") or {}).get("law")
+    if current in held and current not in ((state.get("order") or {}).get(DEPTH_LIST) or []):
+        line = [current] + [law for law in line if law != current]
+    return line
+
+
+def _ended(repo, campaign_id: str, law: str) -> dict:
+    row = repo.conn.execute("SELECT action,rule,at_n FROM engine_decisions_latest WHERE campaign_id=? AND "
+                            "candidate_id=?", (str(campaign_id), str(law))).fetchone()
+    found = dict(row) if row is not None else {}
+    return {"campaign": str(campaign_id), "action": found.get("action"), "rule": found.get("rule"),
+            "at_n": None if found.get("at_n") is None else int(found["at_n"]), "ended_utc": utc_now()}
+
+
+def depth_restart(repo, state: dict, why: str, tree=None) -> str | None:
+    from graph_scale_dynamics import PROJECT_ROOT
+    from graph_scale_dynamics.operations import campaign_control as control
+    tree = Path(tree) if tree is not None else Path(PROJECT_ROOT)
     anchor = next(iter(own_campaigns(repo, state["study"])), None)
     if anchor is None:
         return None
-    spec = campaign_specs(repo, state["study"], anchor, plan(tree), tree)[DEPTH]
-    made = str(control.create_campaign(repo, spec, search_seed=_seed(state["study"], DEPTH, wanted),
-                                       reason=f"study {state['study']}'s focus: the depth seeker's ladder open to "
-                                              f"N={wanted:,}")["campaign_id"])
-    control.pause(repo, old, reason=f"the depth seeker moved to campaign {made}, its ladder open to N={wanted:,}")
+    found_plan = plan(tree)
+    wanted = depth_wanted(found_plan)
+    old = str(state["campaigns"][DEPTH])
+    spec = campaign_specs(repo, state["study"], anchor, found_plan, tree)[DEPTH]
+    made = str(control.create_campaign(
+        repo, spec, search_seed=_seed(state["study"], DEPTH, wanted["top"], len(depth_campaigns(repo, state["study"]))),
+        reason=f"study {state['study']}'s focus: the depth seeker begins again, {why}")["campaign_id"])
+    control.pause(repo, old, reason=f"the depth seeker moved to campaign {made}: {why}")
     control.set_workers(repo, made, DEPTH_WORKERS, reason="the depth seeker holds one worker")
     state["campaigns"][DEPTH] = made
-    state.setdefault("depth_before", []).append({"campaign": old, "until": utc_now()})
-    for law, entry in sorted((state.get("contenders") or {}).items()):
-        _insert(repo, made, _spec_of(repo, entry["of"], law))
-    state["events"].append({"at": utc_now(), "depth_renewed": made, "from": old, "to_n": wanted})
+    state.setdefault("depth_before", []).append({"campaign": old, "until": utc_now(), "why": why})
+    state["depth_now"] = None
+    state["events"].append({"at": utc_now(), "depth_restarted": made, "from": old, "why": why})
+    save(repo, state)
     return made
+
+
+def depth_next(repo, state: dict, ranked: list[dict]) -> str | None:
+    from graph_scale_dynamics.operations import study_map
+    campaign_id = str(state["campaigns"][DEPTH])
+    done = state.setdefault("depth_done", {})
+    now = state.get("depth_now")
+    if now and str(now.get("campaign")) == campaign_id and now["law"] not in (state.get("contenders") or {}):
+        done[now["law"]] = dict(_ended(repo, campaign_id, now["law"]), label=now.get("label"), since=now.get("since"),
+                                left="no longer a contender")
+        campaign_id = str(depth_restart(repo, state, f"{now.get('label')} is no longer a contender") or campaign_id)
+        now = None
+    if now and str(now.get("campaign")) == campaign_id:
+        if not study_map.decided(repo, campaign_id, now["law"]):
+            return None
+        done[now["law"]] = dict(_ended(repo, campaign_id, now["law"]), label=now.get("label"), since=now.get("since"))
+        state["events"].append({"at": utc_now(), "depth_ended": now.get("label"), "rule": done[now["law"]]["rule"],
+                                "at_n": done[now["law"]]["at_n"]})
+    state["depth_now"] = None
+    held = {str(r["candidate_id"]) for r in repo.conn.execute(
+        "SELECT candidate_id FROM campaign_candidates WHERE campaign_id=?", (campaign_id,)).fetchall()}
+    for law in depth_line(state, ranked):
+        if law in done:
+            continue
+        entry = state["contenders"][law]
+        if law in held and study_map.decided(repo, campaign_id, law):
+            done[law] = dict(_ended(repo, campaign_id, law), label=entry.get("label"), since=None)
+            continue
+        _insert(repo, campaign_id, _spec_of(repo, entry["of"], law))
+        state["depth_now"] = {"law": law, "label": entry.get("label"), "campaign": campaign_id, "since": utc_now()}
+        state["events"].append({"at": utc_now(), "depth_began": entry.get("label"), "campaign": campaign_id})
+        return law
+    return None
 
 
 def work_of(repo, state: dict | None) -> dict[str, dict]:
@@ -1177,7 +1583,12 @@ def work_of(repo, state: dict | None) -> dict[str, dict]:
 
 def reading(repo) -> dict | None:
     state = load(repo)
-    return None if state is None else reading_of(state)
+    if state is None:
+        return None
+    found = failing(repo)
+    if found:
+        state["failing"] = found
+    return reading_of(state)
 
 
 STAGE_WORDS = {NEIGHBOURHOOD: "reading its neighbourhood", BOUNDARIES: "halving its boundaries"}
@@ -1189,16 +1600,60 @@ def origin_words(origin: dict | None) -> str | None:
     return f"{origin.get('score')} in study {origin.get('study')}'s bundle"
 
 
-def doing_of(state: dict) -> str:
-    current, read_n = state.get("current"), int(state["plan"]["neighbourhood"]["read_n"])
+def depth_words(state: dict) -> str:
+    now = state.get("depth_now")
+    done = state.get("depth_done") or {}
+    if now:
+        deep = ((state.get("depths") or {}).get(now["law"]) or {}).get("deepest")
+        said = (f"; the depth seeker on {now.get('label')}, one seed, "
+                + (f"read to N={int(deep):,}" if deep else "from its first size"))
+        return said + (f", {len(done)} law{'' if len(done) == 1 else 's'} pushed before it" if done else "")
     deep = state.get("depths") or state.get("contenders") or {}
+    if not deep:
+        return ""
+    if "depth_done" in state:
+        return f"; the depth seeker idle, {len(done)} law{'' if len(done) == 1 else 's'} pushed to their ceiling"
     deepest = max((int(e["deepest"]) for e in deep.values() if e.get("deepest")), default=None)
-    depth = (f"; the depth seeker on {len(deep)} law{'' if len(deep) == 1 else 's'}"
-             + (f", deepest N={deepest:,}" if deepest else ", none past its first size yet")) if deep else ""
+    return (f"; the depth seeker on {len(deep)} law{'' if len(deep) == 1 else 's'}"
+            + (f", deepest N={deepest:,}" if deepest else ", none past its first size yet"))
+
+
+def failing_words(found: dict | None) -> str | None:
+    if not found:
+        return None
+    return (f"the focus's step has failed {int(found.get('times') or 1):,} time{'' if found.get('times') == 1 else 's'} "
+            f"since {found.get('since')} ({found.get('error')}); nothing it reads is saved until it passes")
+
+
+def chosen_words(current: dict) -> str:
+    by = current.get("chosen_by")
+    if by == BY_OUTLIER:
+        found = current.get("outlier") or {}
+        reading = (f", {found.get('probe')} {found.get('value')} at N={int(found['n']):,} on {len(found.get('seeds_over') or [])} "
+                   f"of {found.get('seeds')} seeds" if found.get("probe") and found.get("n") else "")
+        return f" (an outlier, every scoring law mapped{reading})"
+    if by == BY_BUNDLE:
+        return f" (score {current.get('score')} in {(current.get('origin') or {}).get('bundle') or 'its bundle'})"
+    if by == BY_OPERATOR:
+        return " (the operator's choice)"
+    if by == BY_SCORE:
+        return f" (the best free scoring law, score {current.get('score')})"
+    return ""
+
+
+def doing_of(state: dict) -> str:
+    said = _doing(state)
+    failed_now = failing_words(state.get("failing"))
+    return f"{failed_now}. {said}" if failed_now else said
+
+
+def _doing(state: dict) -> str:
+    current, read_n = state.get("current"), int(state["plan"]["neighbourhood"]["read_n"])
+    depth = depth_words(state)
     if state.get("stopped"):
         return "off: the focus's campaigns are paused and the blind draw has every worker"
     if current and current.get("stage") not in ENDED:
-        said = f"in focus: {current.get('label')}, {STAGE_WORDS.get(current.get('stage'), current.get('stage'))}"
+        said = f"in focus: {current.get('label')}{chosen_words(current)}, {STAGE_WORDS.get(current.get('stage'), current.get('stage'))}"
         if current.get("standing") == "bundle":
             said += (f", on its bundle's score ({origin_words(current.get('origin'))}) until this folder reads it at "
                      f"N={read_n:,}")
@@ -1210,7 +1665,7 @@ def doing_of(state: dict) -> str:
         return (f"idle: no law scores in this folder yet and no seeded law stands on a bundle's score; a law joins the "
                 f"focus once it scores here at N={read_n:,} or a bundle is seeded" + depth)
     if not any(entry.get("status") == "waiting" for entry in queue):
-        return "idle: every scoring law is mapped, inside a mapped region or skipped" + depth
+        return "idle: every scoring law is mapped, inside a mapped zone or skipped" + depth
     return "waiting for the focus's next step (once a minute)" + depth
 
 
@@ -1230,6 +1685,8 @@ def reading_of(state: dict) -> dict:
                        for r in study_seed.records(state)],
             "lists": state.get("lists") or {}, "lean": state.get("lean"),
             "order": state.get("order") or {}, "identified": state.get("identified") or {},
+            "failing": state.get("failing"), "depth_now": state.get("depth_now"),
+            "depth_done": state.get("depth_done") or {},
             "settings": settings_of(state["plan"]),
             "next_settings": settings_of(state["next_plan"]) if state.get("next_plan") else None,
             "events": (state.get("events") or [])[-30:]}

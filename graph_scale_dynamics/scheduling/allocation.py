@@ -39,3 +39,12 @@ def compute_allocation(*, total_slots: int, max_analyzers: int,
     return {"total_slots": total, "simulation_slots": total - analysis_slots,
             "analysis_slots": analysis_slots, "analysis_backlog": backlog,
             "paused": False}
+
+
+def first_work(runs: dict[int, int], probes: dict[int, int], backlog: int, queued: int) -> tuple[int, int]:
+    tiers = sorted({tier for tier, count in runs.items() if count} | {tier for tier, count in probes.items() if count})
+    if not tiers:
+        return backlog, queued
+    first = tiers[0]
+    return (sum(count for tier, count in probes.items() if tier <= first),
+            sum(count for tier, count in runs.items() if tier <= first))

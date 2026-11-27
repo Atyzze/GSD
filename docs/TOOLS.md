@@ -646,6 +646,20 @@ categories those make, counted over the laws; and the calibration geometry whose
 
     python3 tools/phenotype_reading.py <bundle> [--table <calibration table>] [--json <file>]
 
+## tools/dex.py
+
+The dex outside a folder (882, `operations/dex.py`). `make` reads any number of dexes and study bundles, old or new,
+and merges them into one new dex: every law that scores in any of them by its spec, every code and every reading of
+its score with the source and science that read it, its chains (what a run again must reproduce) and rungs, the
+regions; its score stands only where a part of the dex's science read it (this tree's science unless `--science-of`
+names a part). `show` prints a dex's or a bundle's laws best first, with their checks.
+
+    python3 tools/dex.py make <dex or bundle>... --out <folder> [--label 174_176]   # writes dex_<label>_<utc>.tar.zst
+    python3 tools/dex.py show <dex or bundle> [--top 25] [--json <file>]
+
+A folder writes its own dex every hour into `export/` and on the Map page's "write the dex now"; this tool is for
+bundles that sit on a disk with no folder running.
+
 ## tools/outputs_of_a_law.py
 
 What this tree puts out for one law: the sparse anchor law grown from five of the eight starts on both engines (64

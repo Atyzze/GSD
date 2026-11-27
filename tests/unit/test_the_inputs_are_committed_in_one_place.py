@@ -37,9 +37,9 @@ def test_the_design_is_the_bytes_the_campaigns_were_made_with(tmp_path):
     assert design["sha256"] == hashlib.sha256(raw).hexdigest()
     assert design["path"] == "graph_scale_dynamics/resources/readings/study_261_design.json"
     assert SD.designed_studies(tree) == ["261"]
-    assert SD.designed_studies(ROOT) == ["169", "170", "171", "172", "173", "174", "175", "176"], (
+    assert SD.designed_studies(ROOT) == ["169", "170", "171", "172", "173", "174", "175", "176", "177"], (
         "the designs in the tree: 169's, written on 813, 170's on 820, 171's on 827, 172's on 835, 173's on 841, "
-        "174's on 844, 175's on 847 and 176's on 856")
+        "174's on 844, 175's on 847, 176's on 856 and 177's on 881")
 
 
 def test_the_readings_folder_is_small_and_names_no_archive():

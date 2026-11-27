@@ -8,6 +8,18 @@ SHARES_FLAG = "work_groups"
 SYSTEM_FLAG = "system_cores"
 BLIND, MAP = "A", "B"
 NEIGHBOURS, DEPTH = "N", "D"
+LAWS_IN_KINDS = ("seed",)
+FOCUS_KIND = "focus"
+ZONE_PARTS = ("N", "S")
+BEHIND = 10_000_000_000
+ZONE_TIER, DEPTH_TIER, DEX_TIER, BLIND_TIER, LEFTOVER_TIER = range(5)
+TIER_NAMES = ("the zone of the law in focus", "the depth worker", "the Dex laws read again", "the blind draw",
+              "earlier laws' leftovers")
+TIER_SQL = ("CASE WHEN (c.spec_json::jsonb #>> '{study_design,kind}')='focus' "
+            "AND (c.spec_json::jsonb #>> '{study_design,focus,part}') IN ('N','S') THEN 0 "
+            "WHEN (c.spec_json::jsonb #>> '{study_design,kind}')='focus' "
+            "AND (c.spec_json::jsonb #>> '{study_design,focus,part}')='D' THEN 1 "
+            "WHEN (c.spec_json::jsonb #>> '{study_design,kind}')='seed' THEN 2 ELSE 3 END")
 GROUP_NAMES = {BLIND: "the blind draw", MAP: "the map of the best", NEIGHBOURS: "the focus law's neighbourhood",
                DEPTH: "the focus law's depth"}
 
@@ -179,12 +191,72 @@ def siblings(cpus: set[int], sysfs: str = "/sys/devices/system/cpu") -> dict[int
     return out
 
 
+def group_of(row: dict) -> str:
+    if row.get("design_kind") in LAWS_IN_KINDS:
+        return BLIND
+    return row.get("work_group") or BLIND
+
+
+def tier_of(row: dict) -> int:
+    kind, part = row.get("design_kind"), row.get("focus_part")
+    if kind == FOCUS_KIND:
+        return ZONE_TIER if part in ZONE_PARTS else DEPTH_TIER if part == DEPTH else BLIND_TIER
+    if kind in LAWS_IN_KINDS:
+        return DEX_TIER
+    return BLIND_TIER
+
+
+def _open(row: dict) -> bool:
+    target = row.get("workers_target")
+    return target != 0 and (target is None or int(row.get("leased") or 0) < int(target))
+
+
+def _first(row: dict) -> int:
+    return int(row.get("queued") or 0) - int(row.get("behind") or 0)
+
+
+def ordered(allocation: list[dict]) -> list[tuple[int, list[dict]]] | None:
+    if not any(row.get("design_kind") == FOCUS_KIND for row in allocation):
+        return None
+    tiers: dict[int, list[dict]] = {}
+    for row in allocation:
+        if not _open(row):
+            continue
+        if _first(row) > 0:
+            tiers.setdefault(tier_of(row), []).append(row)
+        if int(row.get("behind") or 0) > 0:
+            tiers.setdefault(LEFTOVER_TIER, []).append(row)
+    out = [(tier, tiers[tier]) for tier in sorted(tiers)]
+    held = [row for row in allocation if row.get("workers_target") not in (None, 0) and _open(row) and _first(row) > 0]
+    if out:
+        first, rows = out[0]
+        out[0] = (first, rows + [row for row in held if row not in rows])
+    return out
+
+
+def now_on(allocation: list[dict]) -> dict:
+    found = ordered(allocation)
+    if found is None:
+        return {"ordered": False, "tier": None, "name": None}
+    if not found:
+        return {"ordered": True, "tier": None, "name": "nothing queued"}
+    tier = found[0][0]
+    queued: dict[str, int] = {}
+    for row in allocation:
+        if row.get("workers_target") == 0:
+            continue
+        for at, count in ((tier_of(row), _first(row)), (LEFTOVER_TIER, int(row.get("behind") or 0))):
+            if count > 0:
+                queued[TIER_NAMES[at]] = queued.get(TIER_NAMES[at], 0) + count
+    return {"ordered": True, "tier": tier, "name": TIER_NAMES[tier], "queued": queued}
+
+
 def in_shares(allocation: list[dict], given: dict[str, float]) -> list[dict] | None:
     if not given:
         return None
     groups: dict[str | None, list[dict]] = {}
     for row in allocation:
-        group = row.get("work_group") or BLIND
+        group = group_of(row)
         groups.setdefault(group if group in given else None, []).append(row)
 
     def working(rows: list[dict]) -> bool:
@@ -211,10 +283,13 @@ def reading(repo) -> dict:
             "work_cpus": sorted(work_cpus(system, every)), "cpus": len(every),
             "split": ",".join(f"{group}={share:g}" for group, share in sorted(given.items())),
             "shares_a_core": {str(cpu): mates for cpu, mates in shared.items()},
-            "words": ("each group with work is given slots toward its share of the simulations running; a group with "
-                      "nothing queued leaves its slots to the others until it has work again; every simulation and "
-                      "analysis runs only on the work CPUs, never on the system's, a running one moved off them within "
-                      "five seconds of a change")}
+            "order": list(TIER_NAMES),
+            "words": ("in a folder with a focus the fleet takes its work in one order, runs and probes alike: the zone "
+                      "of the law in focus, the depth worker, the Dex laws read again, the blind draw, earlier laws' "
+                      "leftovers; each takes a worker only when the ones before it have nothing queued, and a run "
+                      "under way is never stopped for one before it. Elsewhere each group with work is given slots "
+                      "toward its share. Every simulation and analysis runs only on the work CPUs, never on the "
+                      "system's, a running one moved off them within five seconds of a change")}
 
 
 def command(repo, split: str | None, system: str | None) -> tuple[int, str]:
