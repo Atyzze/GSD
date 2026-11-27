@@ -83,8 +83,9 @@ def test_a_seed_s_save_packs_its_edges_and_reads_back_the_same_and_fits_1_048_57
     assert given["edge_list"][R.PACKED] == "pairs" and given["edge_list"]["type"] == "i"
     assert given["wide"]["type"] == "q" and isinstance(given["not"], list) and isinstance(given["flags"], list)
     back, why = R.load_resume_state(path, execution_spec_hash="h")
-    assert why == "resumed" and back["checkpoint"] == json.loads(json.dumps(state["checkpoint"])), (
-        "read back exactly as the plain JSON was, every pair a list")
+    assert why == "resumed" and back["checkpoint"] == state["checkpoint"], (
+        "read back as it was written, every packed pair a tuple as the engine keeps it (901)")
+    assert type(back["checkpoint"]["chains"]["given"]["edge_list"][0]) is tuple
     old = tmp_path / "old.json.gz"
     with gzip.open(old, "wt", encoding="utf-8") as handle:
         json.dump(dict(state, execution_spec_hash="h"), handle)

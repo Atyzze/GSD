@@ -41,6 +41,7 @@ def resume_path(blob_root: str | Path | None, job_id: str) -> Path | None:
 
 PACKED = "__gsd_packed__"
 PACK_FROM = 4096
+HELD_STATES = ("checkpoint", "whole", "whole_envelope")
 
 
 def _flat(items) -> array | None:
@@ -79,21 +80,39 @@ def packed(value):
     return value
 
 
-def unpacked(value):
+def unpacked_list(value: dict, shared: dict) -> list:
+    data = array(str(value["type"]))
+    data.frombytes(base64.b64decode(value["data"]))
+    if value.get("order") != sys.byteorder:
+        data.byteswap()
+    items = [shared.setdefault(item, item) for item in data.tolist()]
+    if value[PACKED] == "ints":
+        return items
+    pairs = iter(items)
+    return [(a, b) for a, b in zip(pairs, pairs, strict=True)]
+
+
+def unpacking(shared: dict):
+    def unpack(found: dict):
+        return unpacked_list(found, shared) if PACKED in found and "data" in found else found
+    return unpack
+
+
+def unpacked(value, shared: dict | None = None):
+    shared = {} if shared is None else shared
     if isinstance(value, dict):
         if PACKED in value and "data" in value:
-            data = array(str(value["type"]))
-            data.frombytes(base64.b64decode(value["data"]))
-            if value.get("order") != sys.byteorder:
-                data.byteswap()
-            if value[PACKED] == "ints":
-                return data.tolist()
-            pairs = iter(data.tolist())
-            return [[a, b] for a, b in zip(pairs, pairs, strict=True)]
-        return {key: unpacked(item) for key, item in value.items()}
+            return unpacked_list(value, shared)
+        return {key: unpacked(item, shared) for key, item in value.items()}
     if isinstance(value, list):
-        return [unpacked(item) for item in value]
+        return [unpacked(item, shared) for item in value]
     return value
+
+
+def let_go_of_its_states(state: dict | None) -> None:
+    if state is not None:
+        for key in HELD_STATES:
+            state.pop(key, None)
 
 
 def save_resume_state(path: Path, state: dict, *, execution_spec_hash: str) -> None:
@@ -133,7 +152,7 @@ def load_resume_state(path: Path, *, execution_spec_hash: str) -> tuple[dict | N
         return None, "no saved state"
     try:
         with gzip.open(path, "rt", encoding="utf-8") as handle:
-            state = unpacked(json.load(handle))
+            state = json.load(handle, object_hook=unpacking({}))
     except (OSError, ValueError, EOFError) as exc:
         return None, f"unreadable ({type(exc).__name__})"
     if not isinstance(state, dict) or state.get("contract") != RESUME_CONTRACT:

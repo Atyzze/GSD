@@ -144,24 +144,17 @@ pushed past it (the operator, 2026-11-27 15:47), the bundle carrying the N-push 
 fleet ladder's graphs those grown, of those bought (1,048,576 read 64 with none finished), and a seed's rough time over
 the seeds its law ran at the size below (it read 34 h 44 min for about 6.5 h); 899 a pushed seed asked and held at
 1.1 times its own peak, and a bundle that leaves the N-push running (the operator's answers of 18:26); 900 the push at
-3 seeds a rung (the operator, 19:52), a rung holding more keeping 3, and its rungs done saying how they ran.
+3 seeds a rung (the operator, 19:52), a rung holding more keeping 3, and its rungs done saying how they ran; 901 a
+resumed seed in a fresh seed's memory (at 16,384: 181 MiB where it held 304, a fresh one 170, the chains the same).
 
 **Next, in order** (laid out for the operator with 897, reordered with 898; each its own build):
 
-1. **901: a resumed seed in a fresh seed's memory.** In 178 the two seeds of G73's 262,144 that were stopped and
-   resumed peaked at 3.05 and 3.19 GiB, the 14 that ran through at 1.47 to 1.53; the 4 seeds running at 1,048,576 were
-   all resumed (1 to 3 stops each, the restart for 896 and the bundle of 14:27Z) and sit at 9.0 to 9.4 GiB, where a
-   fresh one should be near 6 (about 190 bytes an edge at 65,536 and 262,144). The child keeps the saved state it
-   resumed from (`artifact_store/resume_state.py`, `scaleflow/one_shot.run_one_shot`'s `resume`) beside the engine's
-   graph. Measured first in the sandbox (a seed of 65,536 run through, and stopped and resumed: both peaks, the chains
-   identical to the bit), then the state let go once the engine holds it. The admission's ask falls with it (it grows
-   from the doubled peak). Since 900 the push runs 3 seeds a rung, so 1,048,576's three fit at once either way; the
-   gain is at a size where three resumed seeds would not, and the host's room for everything beside them.
-   It touches `scaleflow/`, named why; no engine change; `tools/outputs_of_a_law.py --against` unchanged. Then the
-   unscheduled "Is the Rust engine as lean as it can be" profile, the bytes an edge against a plain adjacency list.
-2. **A consolidation**: 43 builds since 858's; no behaviour changes; after the N-push's fixes, never in the middle of
-   one.
-3. **The zone map's road**, once the push list empties (G73 ends at 1,048,576, then G133): "Still open from 884 to
+1. **902: a consolidation**: 44 builds since 858's; no behaviour changes. What the contexts of 886 to 901 learned
+   folded into the pages (`docs/LESSONS.md`), questions answered or gone closed, the archive of the older data's
+   question put to the operator once. Then the unscheduled "Is the Rust engine as lean as it can be" profile, the bytes
+   an edge against a plain adjacency list (a fresh seed of 16,384 holds two checkpoints of its eight chains between
+   saves, each edge a tuple of about 56 bytes beside the engine's own: `docs/build_notes/BUILD901_NOTES.md`).
+2. **The zone map's road**, once the push list empties (G73 ends at 1,048,576, then G133): "Still open from 884 to
    896" below, the zone search's hours and idle slots read from 178's first mapped zone first.
 
 **Still open from 884 to 896**, each its own build, the first two waiting on study 178's first zones:
